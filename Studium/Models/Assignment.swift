@@ -14,5 +14,6 @@ class Assignment: Object{
     @objc dynamic var complete: Bool = false
     //@objc dynamic var dateCreated = Date()
     
-    var parentCategory = LinkingObjects(fromType: Course.self, property: "assignments")
+    var parentCourse = LinkingObjects(fromType: Course.self, property: "assignments")
+    
 }

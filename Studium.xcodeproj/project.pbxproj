@@ -21,6 +21,7 @@
 		1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E751247A487C003D4702 /* SwipeTableViewController.swift */; };
 		1693E755247A4B64003D4702 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E754247A4B64003D4702 /* K.swift */; };
 		1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */; };
+		1693E759247A59B2003D4702 /* AllAssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E758247A59B2003D4702 /* AllAssignmentsViewController.swift */; };
 		B7810C2AA5191938B2C9F9FF /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		1693E751247A487C003D4702 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		1693E754247A4B64003D4702 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsViewController.swift; sourceTree = "<group>"; };
+		1693E758247A59B2003D4702 /* AllAssignmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAssignmentsViewController.swift; sourceTree = "<group>"; };
 		590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
 		8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Studium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.release.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.release.xcconfig"; sourceTree = "<group>"; };
@@ -94,9 +96,9 @@
 		1693E744247A413B003D4702 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1693E753247A4885003D4702 /* Main Controllers */,
-				1693E751247A487C003D4702 /* SwipeTableViewController.swift */,
-				1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */,
+				1693E75B247A67CF003D4702 /* Framework Superclasses */,
+				1693E75A247A67AC003D4702 /* Courses */,
+				1693E753247A4885003D4702 /* Incomplete */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -119,15 +121,32 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		1693E753247A4885003D4702 /* Main Controllers */ = {
+		1693E753247A4885003D4702 /* Incomplete */ = {
 			isa = PBXGroup;
 			children = (
 				1693E734247A3DC4003D4702 /* CalendarViewController.swift */,
-				1693E745247A4152003D4702 /* CoursesViewController.swift */,
 				1693E747247A417B003D4702 /* HabitsViewController.swift */,
 				1693E749247A41A5003D4702 /* DayScheduleViewController.swift */,
 			);
-			path = "Main Controllers";
+			path = Incomplete;
+			sourceTree = "<group>";
+		};
+		1693E75A247A67AC003D4702 /* Courses */ = {
+			isa = PBXGroup;
+			children = (
+				1693E745247A4152003D4702 /* CoursesViewController.swift */,
+				1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */,
+				1693E758247A59B2003D4702 /* AllAssignmentsViewController.swift */,
+			);
+			path = Courses;
+			sourceTree = "<group>";
+		};
+		1693E75B247A67CF003D4702 /* Framework Superclasses */ = {
+			isa = PBXGroup;
+			children = (
+				1693E751247A487C003D4702 /* SwipeTableViewController.swift */,
+			);
+			path = "Framework Superclasses";
 			sourceTree = "<group>";
 		};
 		8E6006EE7CC6D255D05E9EBF /* Frameworks */ = {
@@ -271,6 +290,7 @@
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
+				1693E759247A59B2003D4702 /* AllAssignmentsViewController.swift in Sources */,
 				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,
 				1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */,
 			);

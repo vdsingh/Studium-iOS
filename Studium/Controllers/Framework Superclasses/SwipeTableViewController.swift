@@ -17,9 +17,15 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     
     //MARK: - TableView Data Source Methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:  "Cell", for: indexPath) as! SwipeTableViewCell
+        if let cell = tableView.dequeueReusableCell(withIdentifier:  "Cell", for: indexPath) as? SwipeTableViewCell{
         cell.delegate = self
+            return cell
+        }else{
+            print("error in SwipeTableViewController in cellForRowAt.")
+        }
+        let cell = tableView.dequeueReusableCell(withIdentifier:  "Cell", for: indexPath)
         return cell
+            
     }
     //MARK: - Swipe Cell Delegate
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {

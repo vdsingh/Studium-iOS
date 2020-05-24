@@ -47,7 +47,6 @@ class CoursesViewController: SwipeTableViewController {
         //build the cells
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let course = courses?[indexPath.row]{
-            print(course.name)
             cell.textLabel?.text = courses?[indexPath.row].name ?? ""
             
             
@@ -63,6 +62,7 @@ class CoursesViewController: SwipeTableViewController {
         return 1
     }
     
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return courses?.count ?? 1
     }
@@ -73,11 +73,12 @@ class CoursesViewController: SwipeTableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! AssignmentsViewController
-        
-        if let indexPath = tableView.indexPathForSelectedRow{
-            destinationVC.selectedCourse = courses?[indexPath.row]
+        if let destinationVC = segue.destination as? AssignmentsViewController {
+            if let indexPath = tableView.indexPathForSelectedRow{
+                destinationVC.selectedCourse = courses?[indexPath.row]
+            }
         }
+        
     }
     
     //MARK: - CRUD Methods
@@ -129,5 +130,9 @@ class CoursesViewController: SwipeTableViewController {
         }
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func allButtonPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: K.coursesToAllSegue, sender: self)
     }
 }

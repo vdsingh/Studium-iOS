@@ -11,7 +11,7 @@ import RealmSwift
 
 class Course: Object{
     @objc dynamic var name: String = ""
-    @objc dynamic var color: String = ""
-    
+    @objc dynamic var color: String = "eb4034"
+
     let assignments = List<Assignment>()
 }

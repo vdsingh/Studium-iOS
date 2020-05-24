@@ -35,19 +35,19 @@
             </objects>
             <point key="canvasLocation" x="138" y="-753"/>
         </scene>
-        <!--Table View Controller-->
+        <!--All Assignments-->
         <scene sceneID="LeD-ea-6NL">
             <objects>
-                <tableViewController id="R0z-hi-CKK" sceneMemberID="viewController">
+                <tableViewController id="R0z-hi-CKK" customClass="AllAssignmentsViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="yLz-Gg-S9H">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="wie-pR-hQu">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="wie-pR-hQu" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wie-pR-hQu" id="qvE-fe-a1X">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wie-pR-hQu" id="qvE-fe-a1X" customClass="SwipeActionButton" customModule="SwipeCellKit">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
@@ -58,7 +58,7 @@
                             <outlet property="delegate" destination="R0z-hi-CKK" id="TRG-7a-QCS"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ass-58-jkJ"/>
+                    <navigationItem key="navigationItem" title="All Assignments" id="ass-58-jkJ"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G0D-Hv-bXL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -88,7 +88,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Courses" id="dkl-h0-sPZ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="redo" id="UJA-Ob-cd3">
+                        <barButtonItem key="leftBarButtonItem" title="All" id="87O-4U-Nwu">
+                            <connections>
+                                <action selector="allButtonPressed:" destination="Ict-Kx-JgS" id="ecp-J6-LTt"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="UJA-Ob-cd3">
                             <connections>
                                 <action selector="addButtonPressed:" destination="Ict-Kx-JgS" id="ipQ-P1-FOw"/>
                             </connections>
@@ -96,7 +101,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="0Vi-ec-NIi" kind="show" identifier="coursesToAssignments" id="bsw-Cx-eUz"/>
-                        <segue destination="R0z-hi-CKK" kind="show" id="QFk-Lw-p77"/>
+                        <segue destination="R0z-hi-CKK" kind="show" identifier="coursesToAll" id="QFk-Lw-p77"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJK-uF-g8o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -132,7 +137,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Assignments" id="8b6-i1-ZUq">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="0P6-3j-AHt">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="0P6-3j-AHt">
                             <connections>
                                 <action selector="addButtonPressed:" destination="0Vi-ec-NIi" id="9r5-pt-XrK"/>
                             </connections>

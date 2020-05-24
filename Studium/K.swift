@@ -8,6 +8,9 @@
 
 import Foundation
 struct K {
+    //SEGUES
     static let coursesToAssignmentsSegue = "coursesToAssignments"
+    static let coursesToAllSegue = "coursesToAll"
+    
     static let sortAssignmentsBy = "title"
 }

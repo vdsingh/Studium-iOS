@@ -53,6 +53,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate{
                     do{
                         try self.realm.write{
                             let newAssignment = Assignment()
+
                             newAssignment.title = textField.text!
                             currentCourse.assignments.append(newAssignment)
                         }
@@ -60,6 +61,9 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate{
                         print(error)
                     }
                     
+                }else{
+                    print("selected course has not been set yet.")
+                    print("error in AssignmentsViewController in add button pressed.")
                 }
                 self.tableView.reloadData()
             }
