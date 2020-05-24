@@ -3,27 +3,47 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E730247A3DC4003D4702 /* AppDelegate.swift */; };
 		1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E732247A3DC4003D4702 /* SceneDelegate.swift */; };
-		1693E735247A3DC4003D4702 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E734247A3DC4003D4702 /* ViewController.swift */; };
+		1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E734247A3DC4003D4702 /* CalendarViewController.swift */; };
 		1693E738247A3DC4003D4702 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1693E736247A3DC4003D4702 /* Main.storyboard */; };
 		1693E73A247A3DC6003D4702 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1693E739247A3DC6003D4702 /* Assets.xcassets */; };
 		1693E73D247A3DC6003D4702 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1693E73B247A3DC6003D4702 /* LaunchScreen.storyboard */; };
+		1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E745247A4152003D4702 /* CoursesViewController.swift */; };
+		1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E747247A417B003D4702 /* HabitsViewController.swift */; };
+		1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E749247A41A5003D4702 /* DayScheduleViewController.swift */; };
+		1693E74E247A464F003D4702 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E74D247A464F003D4702 /* Course.swift */; };
+		1693E750247A4660003D4702 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E74F247A4660003D4702 /* Assignment.swift */; };
+		1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E751247A487C003D4702 /* SwipeTableViewController.swift */; };
+		1693E755247A4B64003D4702 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E754247A4B64003D4702 /* K.swift */; };
+		1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */; };
+		B7810C2AA5191938B2C9F9FF /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1693E72D247A3DC4003D4702 /* Studium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1693E730247A3DC4003D4702 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1693E732247A3DC4003D4702 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1693E734247A3DC4003D4702 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1693E734247A3DC4003D4702 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		1693E737247A3DC4003D4702 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1693E739247A3DC6003D4702 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1693E73C247A3DC6003D4702 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1693E73E247A3DC6003D4702 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1693E745247A4152003D4702 /* CoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesViewController.swift; sourceTree = "<group>"; };
+		1693E747247A417B003D4702 /* HabitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsViewController.swift; sourceTree = "<group>"; };
+		1693E749247A41A5003D4702 /* DayScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleViewController.swift; sourceTree = "<group>"; };
+		1693E74D247A464F003D4702 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
+		1693E74F247A4660003D4702 /* Assignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
+		1693E751247A487C003D4702 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
+		1693E754247A4B64003D4702 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsViewController.swift; sourceTree = "<group>"; };
+		590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
+		8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Studium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.release.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7810C2AA5191938B2C9F9FF /* Pods_Studium.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +63,8 @@
 			children = (
 				1693E72F247A3DC4003D4702 /* Studium */,
 				1693E72E247A3DC4003D4702 /* Products */,
+				93B0DD225789CBCF8381CAD6 /* Pods */,
+				8E6006EE7CC6D255D05E9EBF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +79,72 @@
 		1693E72F247A3DC4003D4702 /* Studium */ = {
 			isa = PBXGroup;
 			children = (
+				1693E74C247A463D003D4702 /* Models */,
 				1693E730247A3DC4003D4702 /* AppDelegate.swift */,
 				1693E732247A3DC4003D4702 /* SceneDelegate.swift */,
-				1693E734247A3DC4003D4702 /* ViewController.swift */,
-				1693E736247A3DC4003D4702 /* Main.storyboard */,
+				1693E744247A413B003D4702 /* Controllers */,
+				1693E74B247A4634003D4702 /* Views */,
 				1693E739247A3DC6003D4702 /* Assets.xcassets */,
-				1693E73B247A3DC6003D4702 /* LaunchScreen.storyboard */,
 				1693E73E247A3DC6003D4702 /* Info.plist */,
+				1693E754247A4B64003D4702 /* K.swift */,
 			);
 			path = Studium;
+			sourceTree = "<group>";
+		};
+		1693E744247A413B003D4702 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1693E753247A4885003D4702 /* Main Controllers */,
+				1693E751247A487C003D4702 /* SwipeTableViewController.swift */,
+				1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		1693E74B247A4634003D4702 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1693E736247A3DC4003D4702 /* Main.storyboard */,
+				1693E73B247A3DC6003D4702 /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1693E74C247A463D003D4702 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1693E74D247A464F003D4702 /* Course.swift */,
+				1693E74F247A4660003D4702 /* Assignment.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1693E753247A4885003D4702 /* Main Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1693E734247A3DC4003D4702 /* CalendarViewController.swift */,
+				1693E745247A4152003D4702 /* CoursesViewController.swift */,
+				1693E747247A417B003D4702 /* HabitsViewController.swift */,
+				1693E749247A41A5003D4702 /* DayScheduleViewController.swift */,
+			);
+			path = "Main Controllers";
+			sourceTree = "<group>";
+		};
+		8E6006EE7CC6D255D05E9EBF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		93B0DD225789CBCF8381CAD6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */,
+				AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +154,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1693E741247A3DC6003D4702 /* Build configuration list for PBXNativeTarget "Studium" */;
 			buildPhases = (
+				593DA2CDEC0FA2488589DF52 /* [CP] Check Pods Manifest.lock */,
 				1693E729247A3DC4003D4702 /* Sources */,
 				1693E72A247A3DC4003D4702 /* Frameworks */,
 				1693E72B247A3DC4003D4702 /* Resources */,
+				FE67BCE7A45700F01C1E38E5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,13 +215,63 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		593DA2CDEC0FA2488589DF52 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Studium-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE67BCE7A45700F01C1E38E5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Studium/Pods-Studium-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Studium/Pods-Studium-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Studium/Pods-Studium-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1693E729247A3DC4003D4702 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1693E735247A3DC4003D4702 /* ViewController.swift in Sources */,
+				1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */,
+				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
+				1693E755247A4B64003D4702 /* K.swift in Sources */,
+				1693E74E247A464F003D4702 /* Course.swift in Sources */,
+				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
+				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
+				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
+				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
+				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,
 				1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,6 +414,7 @@
 		};
 		1693E742247A3DC6003D4702 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +433,7 @@
 		};
 		1693E743247A3DC6003D4702 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
