@@ -6,15 +6,16 @@
 //  Copyright © 2020 Vikram Singh. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import RealmSwift
+import Colorful
 
-protocol CourseRefreshProtocol {
+protocol CourseRefreshProtocol { //Used to refresh the course list after we have added a course.
     func loadCourses()
 }
+
 class AddCourseViewController: UIViewController{
-    var delegate: CourseRefreshProtocol?
+    var delegate: CourseRefreshProtocol? //reference to the course list.
     
     let realm = try! Realm() //Link to the realm where we are storing information
     
@@ -23,6 +24,9 @@ class AddCourseViewController: UIViewController{
     @IBOutlet weak var errorsLabel: UILabel!
     
     var errors: [String] = []
+    
+    @IBOutlet var colors: Array<UIButton>?
+    var selectedColor: UIColor?
     
     var selectedDays = ["Sun": false,"Mon": false,"Tue": false,"Wed":false,"Thu": false,"Fri": false,"sat": false]
     
@@ -37,25 +41,50 @@ class AddCourseViewController: UIViewController{
     }
     
     
-    @IBAction func addButtonPressed(_ sender: UIButton) {
-        let newCourse = Course()
-        newCourse.name = courseNameText.text!
-        for (day, dayBool) in selectedDays{
-            if dayBool == true {
-                newCourse.days.append(day)
-                print("\(day) is added")
+    @IBAction func colorButtonPressed(_ sender: UIButton) {
+        selectedColor = sender.tintColor
+        if let colorArray = colors{
+            for color in colorArray{
+                color.setImage(UIImage(systemName: "square"), for: .normal)
             }
         }
-        save(course: newCourse)
-        dismiss(animated: true) {
-            if let del = self.delegate{
-                del.loadCourses()
-            }else{
-                print("delegate was not defined.")
+        sender.setImage(UIImage(systemName: "square.fill"), for: .normal)
+    }
+    @IBAction func addButtonPressed(_ sender: UIButton) {
+        errors.removeAll()
+        errorsLabel.text = ""
+        if(courseNameText.text == ""){
+            errors.append("Enter a course name")
+        }
+        
+        if(selectedColor == nil){
+            errors.append("Please specify a color")
+        }
+        updateErrorText()
+        if(errors.count == 0){
+            let newCourse = Course()
+            newCourse.name = courseNameText.text! //specify course name
+            newCourse.color = selectedColor!.hexValue() //specify course color
+            for (day, dayBool) in selectedDays{ //specify course days
+                if dayBool == true {
+                    newCourse.days.append(day)
+                    print("\(day) is added")
+                }
+            }
+            save(course: newCourse) //save course and attributes to database.
+            dismiss(animated: true) {
+                if let del = self.delegate{
+                    del.loadCourses()
+                }else{
+                    print("delegate was not defined.")
+                }
             }
         }
     }
-    
+    //        let colorPicker = ColorPicker(frame: ...)
+    //        colorPicker.addTarget(self, action: #selector(...), for: .valueChanged)
+    //        colorPicker.set(color: .red, colorSpace: .extendedSRGB)
+    //        view.add(subview: colorPicker)
     
     
     func save(course: Course){
@@ -65,6 +94,19 @@ class AddCourseViewController: UIViewController{
             }
         }catch{
             print(error)
+        }
+    }
+    
+    func updateErrorText(){
+        var count = 0
+        for error in errors{
+            if count == 0{
+                errorsLabel.text?.append("\(error)")
+
+            }else{
+             errorsLabel.text?.append(", \(error)")
+            }
+            count += 1
         }
     }
 }
