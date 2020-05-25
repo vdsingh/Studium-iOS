@@ -17,6 +17,8 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
         loadCourses()
         
         

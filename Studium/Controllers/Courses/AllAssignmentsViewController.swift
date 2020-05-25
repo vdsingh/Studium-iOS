@@ -17,9 +17,7 @@ class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("all assignments view did load.")
         loadAssignments()
-        print("assignments \(assignments!)")
     }
     
     func loadAssignments(){
