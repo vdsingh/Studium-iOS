@@ -321,6 +321,9 @@
                         <viewLayoutGuide key="safeArea" id="KRd-9j-Tgn"/>
                     </view>
                     <connections>
+                        <outlet property="addACourseText" destination="eOd-PO-MLF" id="Gzt-zf-F11"/>
+                        <outlet property="addButton" destination="RHf-lu-OfH" id="qFk-vd-KcR"/>
+                        <outlet property="additionalDetailsText" destination="cIZ-5U-xs8" id="uq3-FA-I9o"/>
                         <outlet property="courseNameText" destination="iSZ-kV-BOb" id="PwV-8M-90S"/>
                         <outlet property="errorsLabel" destination="Y8z-6K-4Ij" id="MgO-ES-6Vx"/>
                         <outlet property="locationText" destination="Eme-dg-2w0" id="0Q9-CE-xcs"/>
@@ -330,6 +333,13 @@
                         <outletCollection property="colors" destination="6RP-Ku-2KF" collectionClass="NSMutableArray" id="BQf-7O-pvn"/>
                         <outletCollection property="colors" destination="Apg-dP-zL3" collectionClass="NSMutableArray" id="bpA-6w-I7q"/>
                         <outletCollection property="colors" destination="96O-hK-ieh" collectionClass="NSMutableArray" id="igl-2r-oU5"/>
+                        <outletCollection property="days" destination="fpF-9y-Kcm" collectionClass="NSMutableArray" id="XNd-s3-EEe"/>
+                        <outletCollection property="days" destination="t4R-wC-kuc" collectionClass="NSMutableArray" id="hVF-aX-OyR"/>
+                        <outletCollection property="days" destination="XAt-2Y-LAE" collectionClass="NSMutableArray" id="2uS-zX-75z"/>
+                        <outletCollection property="days" destination="yLs-sT-S07" collectionClass="NSMutableArray" id="pck-4m-34p"/>
+                        <outletCollection property="days" destination="h52-ie-NAo" collectionClass="NSMutableArray" id="i5R-PC-55U"/>
+                        <outletCollection property="days" destination="RGM-GV-P7N" collectionClass="NSMutableArray" id="6jz-kp-n0f"/>
+                        <outletCollection property="days" destination="9Ht-iW-hOx" collectionClass="NSMutableArray" id="4dL-FB-H22"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dQ3-QO-mjo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

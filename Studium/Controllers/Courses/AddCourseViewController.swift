@@ -16,18 +16,22 @@ protocol CourseRefreshProtocol { //Used to refresh the course list after we have
 
 class AddCourseViewController: UIViewController{
     var delegate: CourseRefreshProtocol? //reference to the course list.
-    
     let realm = try! Realm() //Link to the realm where we are storing information
     
+    //MARK: - IBOutlets
+    @IBOutlet weak var addACourseText: UILabel!
     @IBOutlet weak var courseNameText: UITextField!
     @IBOutlet weak var locationText: UITextField!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var additionalDetailsText: UITextField!
     @IBOutlet weak var errorsLabel: UILabel!
     
-    var errors: [String] = []
-    
     @IBOutlet var colors: Array<UIButton>?
-    var selectedColor: UIColor?
+    @IBOutlet var days: Array<UIButton>?
+
     
+    var errors: [String] = []
+    var selectedColor: UIColor?
     var selectedDays = ["Sun": false,"Mon": false,"Tue": false,"Wed":false,"Thu": false,"Fri": false,"sat": false]
     
     @IBAction func DayButtonPressed(_ sender: UIButton) {
@@ -48,6 +52,7 @@ class AddCourseViewController: UIViewController{
                 color.setImage(UIImage(systemName: "square"), for: .normal)
             }
         }
+        changeBaseColor(with: sender.tintColor)
         sender.setImage(UIImage(systemName: "square.fill"), for: .normal)
     }
     @IBAction func addButtonPressed(_ sender: UIButton) {
@@ -102,11 +107,40 @@ class AddCourseViewController: UIViewController{
         for error in errors{
             if count == 0{
                 errorsLabel.text?.append("\(error)")
-
+                
             }else{
-             errorsLabel.text?.append(", \(error)")
+                errorsLabel.text?.append(", \(error)")
             }
             count += 1
         }
     }
+    
+    func changeBaseColor(with color: UIColor){
+        let newColor = color.darken(byPercentage: 0.3)
+        if let daysArr = days{
+            for day in daysArr{
+                day.tintColor = newColor
+            }
+        }
+        setColorOfPlaceholderText(textField: courseNameText, color: newColor!)
+        setColorOfPlaceholderText(textField: locationText, color: newColor!)
+        setColorOfPlaceholderText(textField: additionalDetailsText, color: newColor!)
+        addACourseText.textColor = newColor
+        addButton.tintColor = newColor
+
+    }
+    
+    func setColorOfPlaceholderText(textField: UITextField, color: UIColor){
+        let alphaColor = color.withAlphaComponent(0.5)
+        let darkenedColor = color.darken(byPercentage: 0.1)
+        if let placeholderText = textField.placeholder{
+            textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: alphaColor])
+        }
+        
+        textField.textColor = darkenedColor
+        textField.layer.masksToBounds = true
+        textField.layer.borderColor = alphaColor.cgColor
+        textField.layer.borderWidth = 1.0
+    }
 }
+
