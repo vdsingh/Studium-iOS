@@ -44,7 +44,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="wie-pR-hQu" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" id="wie-pR-hQu" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wie-pR-hQu" id="qvE-fe-a1X" customClass="SwipeActionButton" customModule="SwipeCellKit">
@@ -107,6 +107,134 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJK-uF-g8o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4228.985507246377" y="103.79464285714285"/>
+        </scene>
+        <!--Add Course View Controller-->
+        <scene sceneID="1d8-9K-Onw">
+            <objects>
+                <viewController storyboardIdentifier="AddCourseViewController" id="pyR-77-vQF" customClass="AddCourseViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DLo-NC-gz7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="zQ6-H9-gnt">
+                                <rect key="frame" x="20" y="74" width="374" height="838"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a Course" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOd-PO-MLF">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Course Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iSZ-kV-BOb">
+                                        <rect key="frame" x="0.0" y="121.5" width="374" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Building and Room #" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eme-dg-2w0">
+                                        <rect key="frame" x="0.0" y="256.5" width="374" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zDa-pd-o52">
+                                        <rect key="frame" x="0.0" y="391" width="374" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ht-iW-hOx">
+                                                <rect key="frame" x="0.0" y="0.0" width="46.5" height="30"/>
+                                                <state key="normal" title="Sun"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="PtX-BU-ydg"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RGM-GV-P7N">
+                                                <rect key="frame" x="51.5" y="0.0" width="48" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Mon"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="z0L-Dg-Epu"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="h52-ie-NAo">
+                                                <rect key="frame" x="104.5" y="0.0" width="46" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Tue"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="qt0-5i-6SC"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yLs-sT-S07">
+                                                <rect key="frame" x="155.5" y="0.0" width="48" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Wed"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="q4Z-Gm-2r5"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XAt-2Y-LAE">
+                                                <rect key="frame" x="208.5" y="0.0" width="46.5" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Thu"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="nEs-h6-P3i"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fpF-9y-Kcm">
+                                                <rect key="frame" x="260" y="0.0" width="46.5" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Fri"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="oVW-hP-jJL"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t4R-wC-kuc">
+                                                <rect key="frame" x="311.5" y="0.0" width="62.5" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Sat"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="j0b-Gc-heS"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Additional Info" textAlignment="natural" minimumFontSize="17" id="cIZ-5U-xs8">
+                                        <rect key="frame" x="0.0" y="522" width="374" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RHf-lu-OfH">
+                                        <rect key="frame" x="0.0" y="657" width="374" height="30"/>
+                                        <state key="normal" title="Add"/>
+                                        <connections>
+                                            <action selector="addButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="8fs-62-Rca"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8z-6K-4Ij">
+                                        <rect key="frame" x="0.0" y="788" width="374" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="zQ6-H9-gnt" firstAttribute="centerX" secondItem="DLo-NC-gz7" secondAttribute="centerX" id="2Sf-o6-qNb"/>
+                            <constraint firstItem="zQ6-H9-gnt" firstAttribute="leading" secondItem="KRd-9j-Tgn" secondAttribute="leading" constant="20" id="FqL-ZZ-yJ2"/>
+                            <constraint firstItem="KRd-9j-Tgn" firstAttribute="trailing" secondItem="zQ6-H9-gnt" secondAttribute="trailing" constant="20" id="LMR-Wu-hLm"/>
+                            <constraint firstItem="zQ6-H9-gnt" firstAttribute="top" secondItem="KRd-9j-Tgn" secondAttribute="top" constant="30" id="Pcm-m1-GGR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KRd-9j-Tgn"/>
+                    </view>
+                    <connections>
+                        <outlet property="courseNameText" destination="iSZ-kV-BOb" id="PwV-8M-90S"/>
+                        <outlet property="errorsLabel" destination="Y8z-6K-4Ij" id="MgO-ES-6Vx"/>
+                        <outlet property="locationText" destination="Eme-dg-2w0" id="0Q9-CE-xcs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dQ3-QO-mjo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4228.985507246377" y="783.48214285714278"/>
         </scene>
         <!--Assignments-->
         <scene sceneID="MFE-o1-oJn">
@@ -248,11 +376,13 @@
             </objects>
             <point key="canvasLocation" x="-606" y="130"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="ACa-Z5-LiT">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xDD-sh-HPi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="U47-XU-HEI"/>
+                    <tabBarItem key="tabBarItem" title="" image="pencil.circle" catalog="system" selectedImage="pencil.circle.fill" id="U47-XU-HEI">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="r7b-Ge-P1f">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -268,4 +398,8 @@
             <point key="canvasLocation" x="3318.840579710145" y="103.79464285714285"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="pencil.circle" catalog="system" width="128" height="121"/>
+        <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
+    </resources>
 </document>

@@ -41,10 +41,26 @@ class AllAssignmentsViewController: SwipeTableViewController{
         }
         return cell
     }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return assignments!.count
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let assignment = assignments?[indexPath.row]{
+            do{
+                try realm.write{
+                    assignment.complete = !assignment.complete
+                }
+            }catch{
+                print(error)
+            }
+        }
+        tableView.reloadData()
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

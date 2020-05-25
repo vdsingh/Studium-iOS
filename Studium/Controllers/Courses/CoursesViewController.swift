@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import ChameleonFramework
 
-class CoursesViewController: SwipeTableViewController {
+class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     
     let realm = try! Realm() //Link to the realm where we are storing information
     var courses: Results<Course>? //Auto updating array linked to the realm
@@ -28,17 +28,18 @@ class CoursesViewController: SwipeTableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("called view will appear")
+        loadCourses()
         //        guard let navBar = navigationController?.navigationBar else {fatalError("nav controller doesnt exist")}
         //        navBar.backgroundColor = UIColor(hexString: "1D9BF6")
         
         //searchBar.barTintColor = UIColor(hexString: colorHex)
         
-        guard let navBar = navigationController?.navigationBar else {fatalError("nav controller doesnt exist")}
-        
-        
-        
-        navBar.barTintColor = UIColor.gray
-        
+//        guard let navBar = navigationController?.navigationBar else {fatalError("nav controller doesnt exist")}
+//        navBar.barTintColor = UIColor.gray
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        loadCourses()
     }
     
     
@@ -59,9 +60,9 @@ class CoursesViewController: SwipeTableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
+        //loadCourses()
         return 1
     }
-    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return courses?.count ?? 1
@@ -87,16 +88,7 @@ class CoursesViewController: SwipeTableViewController {
         tableView.reloadData()
     }
     
-    func save(course: Course){
-        do{
-            try realm.write{
-                realm.add(course)
-            }
-        }catch{
-            print(error)
-        }
-        tableView.reloadData()
-    }
+    
     
     override func updateModel(at indexPath: IndexPath) {
         if let courseForDeletion = courses?[indexPath.row]{
@@ -112,24 +104,9 @@ class CoursesViewController: SwipeTableViewController {
     
     //MARK: - UI Actions
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        var textField = UITextField()
-        let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Add Category", style: .default){(action) in
-            if textField.text != ""{
-                
-                let newCourse = Course()
-                newCourse.name = textField.text!
-                newCourse.color = UIColor.randomFlat().hexValue()
-                self.save(course: newCourse)
-                self.tableView.reloadData()
-            }
-        }
-        alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Create new category"
-            textField = alertTextField
-        }
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
+        let addCourseViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
+        addCourseViewController.delegate = self
+        self.present(addCourseViewController, animated: true, completion: nil)
     }
     
     @IBAction func allButtonPressed(_ sender: UIBarButtonItem) {

@@ -22,6 +22,7 @@
 		1693E755247A4B64003D4702 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E754247A4B64003D4702 /* K.swift */; };
 		1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */; };
 		1693E759247A59B2003D4702 /* AllAssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E758247A59B2003D4702 /* AllAssignmentsViewController.swift */; };
+		1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E75C247B56E8003D4702 /* AddCourseViewController.swift */; };
 		B7810C2AA5191938B2C9F9FF /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		1693E754247A4B64003D4702 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsViewController.swift; sourceTree = "<group>"; };
 		1693E758247A59B2003D4702 /* AllAssignmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAssignmentsViewController.swift; sourceTree = "<group>"; };
+		1693E75C247B56E8003D4702 /* AddCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
 		590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
 		8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Studium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.release.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.release.xcconfig"; sourceTree = "<group>"; };
@@ -81,9 +83,9 @@
 		1693E72F247A3DC4003D4702 /* Studium */ = {
 			isa = PBXGroup;
 			children = (
-				1693E74C247A463D003D4702 /* Models */,
 				1693E730247A3DC4003D4702 /* AppDelegate.swift */,
 				1693E732247A3DC4003D4702 /* SceneDelegate.swift */,
+				1693E74C247A463D003D4702 /* Models */,
 				1693E744247A413B003D4702 /* Controllers */,
 				1693E74B247A4634003D4702 /* Views */,
 				1693E739247A3DC6003D4702 /* Assets.xcassets */,
@@ -137,6 +139,7 @@
 				1693E745247A4152003D4702 /* CoursesViewController.swift */,
 				1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */,
 				1693E758247A59B2003D4702 /* AllAssignmentsViewController.swift */,
+				1693E75C247B56E8003D4702 /* AddCourseViewController.swift */,
 			);
 			path = Courses;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
+				1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */,
 				1693E759247A59B2003D4702 /* AllAssignmentsViewController.swift in Sources */,
 				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,
 				1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */,
