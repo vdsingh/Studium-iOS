@@ -7,3 +7,16 @@
 //
 
 import Foundation
+import RealmSwift
+
+protocol AssignmentRefreshProtocol { //Used to refresh the course list after we have added a course.
+    func loadAssignments()
+}
+
+class AddAssignmentViewController: UIViewController{
+    var delegate: AssignmentRefreshProtocol? //reference to the course list.
+    let realm = try! Realm() //Link to the realm where we are storing information
+    
+    
+}
+

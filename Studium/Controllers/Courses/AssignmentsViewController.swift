@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import ChameleonFramework
 
-class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate{
+class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, AssignmentRefreshProtocol{
     
     let realm = try! Realm()
     var assignments: Results<Assignment>?
@@ -45,36 +45,10 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate{
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        var textField = UITextField()
-        let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Add Item", style: .default){(action) in
-            if textField.text != ""{
-                if let currentCourse = self.selectedCourse{
-                    do{
-                        try self.realm.write{
-                            let newAssignment = Assignment()
-
-                            newAssignment.title = textField.text!
-                            currentCourse.assignments.append(newAssignment)
-                        }
-                    }catch{
-                        print(error)
-                    }
-                    
-                }else{
-                    print("selected course has not been set yet.")
-                    print("error in AssignmentsViewController in add button pressed.")
-                }
-                self.tableView.reloadData()
-            }
-        }
-        alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Create new item"
-            textField = alertTextField
-        }
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-        }
+        let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
+        addAssignmentViewController.delegate = self
+        self.present(addAssignmentViewController, animated: true, completion: nil)
+    }
     
     //MARK: - Data Source Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -153,5 +127,4 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate{
         tableView.reloadData()
     }
 }
-
 

@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import ChameleonFramework
 
-class AllAssignmentsViewController: SwipeTableViewController{
+class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshProtocol{
     
     let realm = try! Realm() //Link to the realm where we are storing information
     var assignments: Results<Assignment>? //Auto updating array linked to the realm
@@ -18,11 +18,11 @@ class AllAssignmentsViewController: SwipeTableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         print("all assignments view did load.")
-        loadAllAssignments()
+        loadAssignments()
         print("assignments \(assignments!)")
     }
     
-    func loadAllAssignments(){
+    func loadAssignments(){
         assignments = realm.objects(Assignment.self) //fetching all objects of type Course and updating array with it.
         tableView.reloadData()
     }
