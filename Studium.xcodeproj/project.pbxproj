@@ -109,6 +109,7 @@
 		1693E744247A413B003D4702 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				16B51920247CB08A005ED8E4 /* Day Schedule Controllers */,
 				16B5191F247CA064005ED8E4 /* Firebase Controllers */,
 				1693E75B247A67CF003D4702 /* Framework Superclasses */,
 				1693E75A247A67AC003D4702 /* Courses */,
@@ -141,7 +142,6 @@
 			children = (
 				1693E734247A3DC4003D4702 /* CalendarViewController.swift */,
 				1693E747247A417B003D4702 /* HabitsViewController.swift */,
-				1693E749247A41A5003D4702 /* DayScheduleViewController.swift */,
 			);
 			path = Incomplete;
 			sourceTree = "<group>";
@@ -173,6 +173,14 @@
 				16B5191B247BE2DE005ED8E4 /* LoginViewController.swift */,
 			);
 			path = "Firebase Controllers";
+			sourceTree = "<group>";
+		};
+		16B51920247CB08A005ED8E4 /* Day Schedule Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1693E749247A41A5003D4702 /* DayScheduleViewController.swift */,
+			);
+			path = "Day Schedule Controllers";
 			sourceTree = "<group>";
 		};
 		8E6006EE7CC6D255D05E9EBF /* Frameworks */ = {

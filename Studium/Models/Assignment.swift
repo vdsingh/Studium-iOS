@@ -11,7 +11,7 @@ import RealmSwift
 
 class Assignment: Object{
     @objc dynamic var title: String = "math homework"
-    @objc dynamic var location: String = "in the goonies"
+    @objc dynamic var additionalDetails: String = "in the goonies"
     @objc dynamic var complete: Bool = false
     @objc dynamic var startDate: Date = Date()
     @objc dynamic var endDate: Date = Date(timeInterval: 3600, since: Date())

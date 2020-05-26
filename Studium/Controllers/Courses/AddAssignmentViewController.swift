@@ -17,7 +17,7 @@ class AddAssignmentViewController: UIViewController{
     
     @IBOutlet weak var coursePicker: UIPickerView!
     @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var locationTextField: UITextField!
+    @IBOutlet weak var additionalDetailsTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     
     var delegates: [AssignmentRefreshProtocol] = [] //reference to the assignment list.
@@ -30,13 +30,11 @@ class AddAssignmentViewController: UIViewController{
         super.viewDidLoad()
         loadCourses()
         
-        if let coursesArr = courses{
-            selectedCourse = coursesArr[0]
-        }else{
-            print("courses is nil. AddAssignment, viewDidLoad")
-        }
+        
         coursePicker.dataSource = self
         coursePicker.delegate = self
+        setDefaultRow()
+
     }
     
     func loadCourses(){
@@ -59,9 +57,9 @@ class AddAssignmentViewController: UIViewController{
     @IBAction func addButtonPressed(_ sender: UIButton) {
         let newAssignment = Assignment()
         newAssignment.title = titleTextField.text ?? "" //setting assignment properties.
-        newAssignment.location = locationTextField.text ?? ""
-        newAssignment.startDate = datePicker.date - (2.5*60*60)
-        newAssignment.endDate = datePicker.date
+        newAssignment.additionalDetails = additionalDetailsTextField.text ?? ""
+        newAssignment.startDate = datePicker.date - (60*60)
+        newAssignment.endDate = datePicker.date + (60*60)
         save(assignment: newAssignment)
         
         
@@ -70,6 +68,23 @@ class AddAssignmentViewController: UIViewController{
                 delegate.loadAssignments()
                 
             }
+        }
+    }
+    
+    func setDefaultRow(){
+        var row = 0
+        if let coursesArr = courses{
+            for course in coursesArr{
+                print("\(course.name) , \(selectedCourse!.name)")
+                if course.name == selectedCourse!.name{
+                    print("course picker selected course: \(course.name). row: \(row)")
+                    coursePicker.selectRow(row, inComponent: 0, animated: true)
+                    break
+                }
+                row += 1
+            }
+        }else{
+            print("error. courses in AddAssignment is nil")
         }
     }
     

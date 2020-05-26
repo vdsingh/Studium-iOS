@@ -18,23 +18,19 @@ class DayScheduleViewController: DayViewController, AssignmentRefreshProtocol {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("day schedule view will appear was called.")
         loadAssignments()
     }
     
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
         var models: [CalendarEvent] = []// Get events (models) from the storage / API
         if let assignmentsArray = allAssignments{
-            print(assignmentsArray)
             for assignment in assignmentsArray{
-                print("assignment \(assignment)")
-                let newAssignmentEvent = CalendarEvent(startDate: assignment.startDate, endDate: assignment.endDate, title: assignment.title, location: assignment.location)
+                let newAssignmentEvent = CalendarEvent(startDate: assignment.startDate, endDate: assignment.endDate, title: assignment.title, location: "")
                 models.append(newAssignmentEvent)
             }
         }else{
-            print("error. allAssignments is nil.")
+           // print("error. allAssignments is nil.")
         }
-        print(models)
         var events = [Event]()
         
         for model in models {

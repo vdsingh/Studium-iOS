@@ -46,6 +46,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
+        addAssignmentViewController.selectedCourse = selectedCourse
         addAssignmentViewController.delegates.append(self)
         self.present(addAssignmentViewController, animated: true, completion: nil)
     }

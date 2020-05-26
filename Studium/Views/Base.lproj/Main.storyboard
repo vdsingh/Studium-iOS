@@ -368,13 +368,13 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UYE-2r-2B4">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Additional Details" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UYE-2r-2B4">
                                         <rect key="frame" x="0.0" y="94.5" width="320" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cwN-yX-yL4">
-                                        <rect key="frame" x="0.0" y="149" width="320" height="216"/>
+                                        <rect key="frame" x="0.0" y="148.5" width="320" height="216"/>
                                     </pickerView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date/Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBC-JG-lyo">
                                         <rect key="frame" x="0.0" y="384.5" width="320" height="20.5"/>
@@ -403,9 +403,9 @@
                         <viewLayoutGuide key="safeArea" id="B0H-Wk-8dh"/>
                     </view>
                     <connections>
+                        <outlet property="additionalDetailsTextField" destination="UYE-2r-2B4" id="88Q-L0-Z13"/>
                         <outlet property="coursePicker" destination="cwN-yX-yL4" id="ZGg-Fs-UFh"/>
                         <outlet property="datePicker" destination="kZL-jP-n0P" id="g2U-87-LvE"/>
-                        <outlet property="locationTextField" destination="UYE-2r-2B4" id="6Mz-h0-nNb"/>
                         <outlet property="titleTextField" destination="5Jo-EC-U3Z" id="Gcg-fQ-wgj"/>
                     </connections>
                 </viewController>

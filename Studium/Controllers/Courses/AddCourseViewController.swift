@@ -62,6 +62,14 @@ class AddCourseViewController: UIViewController{
             errors.append("Enter a course name")
         }
         
+        let courses = realm.objects(Course.self)
+        for course in courses{
+            if course.name == courseNameText.text {
+                errors.append("You already have a course with that name.");
+                break
+            }
+        }
+        
         if(selectedColor == nil){
             errors.append("Please specify a color")
         }
@@ -73,7 +81,6 @@ class AddCourseViewController: UIViewController{
             for (day, dayBool) in selectedDays{ //specify course days
                 if dayBool == true {
                     newCourse.days.append(day)
-                    print("\(day) is added")
                 }
             }
             save(course: newCourse) //save course and attributes to database.
@@ -86,11 +93,6 @@ class AddCourseViewController: UIViewController{
             }
         }
     }
-    //        let colorPicker = ColorPicker(frame: ...)
-    //        colorPicker.addTarget(self, action: #selector(...), for: .valueChanged)
-    //        colorPicker.set(color: .red, colorSpace: .extendedSRGB)
-    //        view.add(subview: colorPicker)
-    
     
     func save(course: Course){
         do{
