@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429CFD247D20F90052E47C /* StudiumEvent.swift */; };
 		1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E730247A3DC4003D4702 /* AppDelegate.swift */; };
 		1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E732247A3DC4003D4702 /* SceneDelegate.swift */; };
 		1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E734247A3DC4003D4702 /* CalendarViewController.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16429CFD247D20F90052E47C /* StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEvent.swift; sourceTree = "<group>"; };
 		1693E72D247A3DC4003D4702 /* Studium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1693E730247A3DC4003D4702 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1693E732247A3DC4003D4702 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +74,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		16429CFC247D200E0052E47C /* Calendar Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1693E734247A3DC4003D4702 /* CalendarViewController.swift */,
+			);
+			path = "Calendar Controllers";
+			sourceTree = "<group>";
+		};
 		1693E724247A3DC4003D4702 = {
 			isa = PBXGroup;
 			children = (
@@ -109,7 +119,8 @@
 		1693E744247A413B003D4702 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				16B51920247CB08A005ED8E4 /* Day Schedule Controllers */,
+				16429CFC247D200E0052E47C /* Calendar Controllers */,
+				16B51920247CB08A005ED8E4 /* Day Controllers */,
 				16B5191F247CA064005ED8E4 /* Firebase Controllers */,
 				1693E75B247A67CF003D4702 /* Framework Superclasses */,
 				1693E75A247A67AC003D4702 /* Courses */,
@@ -133,6 +144,7 @@
 				1693E74D247A464F003D4702 /* Course.swift */,
 				1693E74F247A4660003D4702 /* Assignment.swift */,
 				16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */,
+				16429CFD247D20F90052E47C /* StudiumEvent.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -140,7 +152,6 @@
 		1693E753247A4885003D4702 /* Incomplete */ = {
 			isa = PBXGroup;
 			children = (
-				1693E734247A3DC4003D4702 /* CalendarViewController.swift */,
 				1693E747247A417B003D4702 /* HabitsViewController.swift */,
 			);
 			path = Incomplete;
@@ -175,12 +186,12 @@
 			path = "Firebase Controllers";
 			sourceTree = "<group>";
 		};
-		16B51920247CB08A005ED8E4 /* Day Schedule Controllers */ = {
+		16B51920247CB08A005ED8E4 /* Day Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				1693E749247A41A5003D4702 /* DayScheduleViewController.swift */,
 			);
-			path = "Day Schedule Controllers";
+			path = "Day Controllers";
 			sourceTree = "<group>";
 		};
 		8E6006EE7CC6D255D05E9EBF /* Frameworks */ = {
@@ -326,6 +337,7 @@
 				16B5191A247BDA34005ED8E4 /* RegisterViewController.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
+				16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
 				1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */,

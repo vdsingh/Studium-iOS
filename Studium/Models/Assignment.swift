@@ -9,8 +9,8 @@
 import Foundation
 import RealmSwift
 
-class Assignment: Object{
-    @objc dynamic var title: String = "math homework"
+class Assignment: Object, StudiumEvent{
+    @objc dynamic var name: String = "math homework"
     @objc dynamic var additionalDetails: String = "in the goonies"
     @objc dynamic var complete: Bool = false
     @objc dynamic var startDate: Date = Date()

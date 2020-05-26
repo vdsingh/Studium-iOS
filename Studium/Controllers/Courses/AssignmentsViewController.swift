@@ -60,7 +60,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let assignment = assignments?[indexPath.row]{
-            cell.textLabel?.text = assignment.title
+            cell.textLabel?.text = assignment.name
             if let color = UIColor(hexString: selectedCourse!.color)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(assignments!.count)){
                 cell.backgroundColor = color
                 cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)

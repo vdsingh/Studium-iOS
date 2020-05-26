@@ -28,7 +28,7 @@ class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshP
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let assignment = assignments?[indexPath.row]{
-            cell.textLabel?.text = assignment.title
+            cell.textLabel?.text = assignment.name
             let parentColor = assignment.parentCourse[0].color
             cell.backgroundColor = UIColor(hexString: parentColor)
             cell.textLabel?.textColor = ContrastColorOf(UIColor(hexString: parentColor)!, returnFlat: true)

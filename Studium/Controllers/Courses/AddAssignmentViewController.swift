@@ -56,7 +56,7 @@ class AddAssignmentViewController: UIViewController{
     }
     @IBAction func addButtonPressed(_ sender: UIButton) {
         let newAssignment = Assignment()
-        newAssignment.title = titleTextField.text ?? "" //setting assignment properties.
+        newAssignment.name = titleTextField.text ?? "" //setting assignment properties.
         newAssignment.additionalDetails = additionalDetailsTextField.text ?? ""
         newAssignment.startDate = datePicker.date - (60*60)
         newAssignment.endDate = datePicker.date + (60*60)
@@ -75,9 +75,7 @@ class AddAssignmentViewController: UIViewController{
         var row = 0
         if let coursesArr = courses{
             for course in coursesArr{
-                print("\(course.name) , \(selectedCourse!.name)")
                 if course.name == selectedCourse!.name{
-                    print("course picker selected course: \(course.name). row: \(row)")
                     coursePicker.selectRow(row, inComponent: 0, animated: true)
                     break
                 }
