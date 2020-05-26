@@ -25,8 +25,11 @@ class AddCourseViewController: UIViewController{
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var additionalDetailsText: UITextField!
     @IBOutlet weak var errorsLabel: UILabel!
+    @IBOutlet weak var startDayPicker: UIDatePicker!
+    @IBOutlet weak var endDayPicker: UIDatePicker!
     
     @IBOutlet var colors: Array<UIButton>?
+    @IBOutlet var dayLabels: Array<UILabel>?
     @IBOutlet var days: Array<UIButton>?
 
     
@@ -78,6 +81,18 @@ class AddCourseViewController: UIViewController{
             let newCourse = Course()
             newCourse.name = courseNameText.text! //specify course name
             newCourse.color = selectedColor!.hexValue() //specify course color
+            
+            
+            var components = Calendar.current.dateComponents([.hour, .minute], from: startDayPicker.date)
+            newCourse.startTimeHour = components.hour!
+            newCourse.startTimeMinute = components.minute!
+            
+            components = Calendar.current.dateComponents([.hour, .minute], from: endDayPicker.date)
+            newCourse.endTimeHour = components.hour!
+            newCourse.endTimeMinute = components.minute!
+            
+            
+            
             for (day, dayBool) in selectedDays{ //specify course days
                 if dayBool == true {
                     newCourse.days.append(day)
@@ -124,11 +139,19 @@ class AddCourseViewController: UIViewController{
                 day.tintColor = newColor
             }
         }
+        if let dayLabelArr = dayLabels{
+            for dayLabel in dayLabelArr{
+                dayLabel.tintColor = newColor
+            }
+        }
         setColorOfPlaceholderText(textField: courseNameText, color: newColor!)
         setColorOfPlaceholderText(textField: locationText, color: newColor!)
         setColorOfPlaceholderText(textField: additionalDetailsText, color: newColor!)
         addACourseText.textColor = newColor
         addButton.tintColor = newColor
+        startDayPicker.setValue(newColor, forKey: "textColor")
+        endDayPicker.setValue(newColor, forKey: "textColor")
+
 
     }
     
