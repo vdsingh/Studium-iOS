@@ -10,8 +10,12 @@ import Foundation
 import RealmSwift
 
 class Assignment: Object{
-    @objc dynamic var title: String = ""
+    @objc dynamic var title: String = "math homework"
+    @objc dynamic var location: String = "in the goonies"
     @objc dynamic var complete: Bool = false
+    @objc dynamic var startDate: Date = Date()
+    @objc dynamic var endDate: Date = Date(timeInterval: 3600, since: Date())
+    
     //@objc dynamic var dateCreated = Date()
     
     var parentCourse = LinkingObjects(fromType: Course.self, property: "assignments")
