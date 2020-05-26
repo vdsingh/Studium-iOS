@@ -14,7 +14,7 @@ protocol CourseRefreshProtocol { //Used to refresh the course list after we have
     func loadCourses()
 }
 
-class AddCourseViewController: UIViewController{
+class AddCourseViewController: UIViewController, UITextFieldDelegate{
     var delegate: CourseRefreshProtocol? //reference to the course list.
     let realm = try! Realm() //Link to the realm where we are storing information
     
@@ -36,6 +36,7 @@ class AddCourseViewController: UIViewController{
     var errors: [String] = []
     var selectedColor: UIColor?
     var selectedDays = ["Sun": false,"Mon": false,"Tue": false,"Wed":false,"Thu": false,"Fri": false,"sat": false]
+    
     
     @IBAction func DayButtonPressed(_ sender: UIButton) {
         if(!sender.isSelected){ //user selected this day.
@@ -166,6 +167,18 @@ class AddCourseViewController: UIViewController{
         textField.layer.masksToBounds = true
         textField.layer.borderColor = alphaColor.cgColor
         textField.layer.borderWidth = 1.0
+    }
+}
+
+extension AddCourseViewController: UITextViewDelegate {
+    override func viewDidLoad() {
+        courseNameText.delegate = self
+        locationText.delegate = self
+        additionalDetailsText.delegate = self
+    }
+    func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
 }
 
