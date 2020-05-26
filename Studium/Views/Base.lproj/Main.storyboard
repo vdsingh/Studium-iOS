@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Day-->
         <scene sceneID="qp6-ef-PCF">
             <objects>
                 <viewController id="fig-EF-Ixi" customClass="DayScheduleViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
@@ -26,14 +26,40 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="jxD-Hm-tFX"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="KEv-1u-KFe"/>
-                    <connections>
-                        <segue destination="TsL-CX-b7i" kind="show" id="fvW-Pt-LX8"/>
-                    </connections>
+                    <tabBarItem key="tabBarItem" title="Day" image="rosette" catalog="system" id="KEv-1u-KFe"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Smx-9i-OC6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="138" y="-753"/>
+        </scene>
+        <!--Calendar-->
+        <scene sceneID="cho-Rz-5ed">
+            <objects>
+                <viewController id="okE-Gd-bqh" customClass="CalendarViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pQ0-qA-v5r">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uwi-Wp-5Zq" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="44" width="414" height="414"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="okE-Gd-bqh" id="h2N-LW-gGP"/>
+                                    <outlet property="delegate" destination="okE-Gd-bqh" id="VaJ-Lg-g4k"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="xv3-MG-4bm"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Calendar" image="calendar" catalog="system" id="RjS-XH-PjN"/>
+                    <navigationItem key="navigationItem" id="i5o-aq-RvD"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kCe-FU-sTt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2872.4637681159425" y="-790.17857142857144"/>
         </scene>
         <!--All Assignments-->
         <scene sceneID="LeD-ea-6NL">
@@ -62,7 +88,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G0D-Hv-bXL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4229" y="-583"/>
+            <point key="canvasLocation" x="5139.130434782609" y="-583.25892857142856"/>
         </scene>
         <!--Courses-->
         <scene sceneID="Vjp-gW-8rz">
@@ -503,32 +529,6 @@
             </objects>
             <point key="canvasLocation" x="5353.6231884057979" y="103.79464285714285"/>
         </scene>
-        <!--Item-->
-        <scene sceneID="VeG-Di-boa">
-            <objects>
-                <viewController id="TsL-CX-b7i" customClass="CalendarViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="N9j-sf-o5v">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CALENDAR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HzT-H9-bG2">
-                                <rect key="frame" x="81" y="319" width="252" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="Be7-ev-HGi"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="81i-eq-XJa"/>
-                    <navigationItem key="navigationItem" id="w12-BB-UkF"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="L2h-QM-cCk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-867" y="-753"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="4av-ai-6D8">
             <objects>
@@ -544,6 +544,7 @@
                     <connections>
                         <segue destination="fig-EF-Ixi" kind="relationship" relationship="viewControllers" id="WVC-bI-toq"/>
                         <segue destination="ak0-as-E5L" kind="relationship" relationship="viewControllers" id="OvJ-2x-Gyo"/>
+                        <segue destination="okE-Gd-bqh" kind="relationship" relationship="viewControllers" id="f5V-AN-QFt"/>
                         <segue destination="xDD-sh-HPi" kind="relationship" relationship="viewControllers" id="YN5-Wz-ffg"/>
                     </connections>
                 </tabBarController>
@@ -697,11 +698,11 @@
             </objects>
             <point key="canvasLocation" x="-606" y="130"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Courses-->
         <scene sceneID="ACa-Z5-LiT">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xDD-sh-HPi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="pencil.circle" catalog="system" selectedImage="pencil.circle.fill" id="U47-XU-HEI">
+                    <tabBarItem key="tabBarItem" title="Courses" image="pencil.circle" catalog="system" selectedImage="pencil.circle.fill" id="U47-XU-HEI">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -821,8 +822,10 @@
         <segue reference="2FG-6G-kqO"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="rosette" catalog="system" width="100" height="128"/>
         <image name="square" catalog="system" width="128" height="114"/>
     </resources>
 </document>

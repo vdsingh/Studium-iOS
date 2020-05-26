@@ -26,23 +26,9 @@ class DayScheduleViewController: DayViewController {
     
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
         var models: [CalendarEvent] = []// Get events (models) from the storage / API
-        models = models + addBasedOnDay(onDate: date)
-        if let assignmentsArray = allAssignments{
-            for assignment in assignmentsArray{
-                let newAssignmentEvent = CalendarEvent(startDate: assignment.startDate, endDate: assignment.endDate, title: assignment.title, location: "")
-                models.append(newAssignmentEvent)
-            }
-        }else{
-           print("error. allAssignments is nil.")
-        }
-//        if let coursesArray = allCourses{
-//            for course in coursesArray{
-//                let newCourseEvent = CalendarEvent(startDate: assignment.startDate, endDate: assignment.endDate, title: assignment.title, location: "")
-//                models.append(newCourseEvent)
-//            }
-//        }else{
-//           // print("error. allAssignments is nil.")
-//        }
+        models = models + addCoursesBasedOnDay(onDate: date)
+        models = models + addAssignments()
+
         var events = [Event]()
         
         for model in models {
@@ -67,7 +53,18 @@ class DayScheduleViewController: DayViewController {
         reloadData()
     }
     
-    
+    func addAssignments() -> [CalendarEvent]{
+        var newArr: [CalendarEvent] = []
+        if let assignmentsArray = allAssignments{
+            for assignment in assignmentsArray{
+                let newAssignmentEvent = CalendarEvent(startDate: assignment.startDate, endDate: assignment.endDate, title: assignment.title, location: "")
+                newArr.append(newAssignmentEvent)
+            }
+        }else{
+           print("error. allAssignments is nil.")
+        }
+        return newArr
+    }
     
     func separateCoursesHelper(dayStringIdentifier: String) -> [Course]{
         var daysArray:[Course] = []
@@ -81,7 +78,7 @@ class DayScheduleViewController: DayViewController {
         return daysArray
     }
     
-    func addBasedOnDay(onDate date: Date) -> [CalendarEvent]{
+    func addCoursesBasedOnDay(onDate date: Date) -> [CalendarEvent]{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
         let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
@@ -103,49 +100,9 @@ class DayScheduleViewController: DayViewController {
 
         return events
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    func separateCourses() -> [[Course]]{
-        var sunCourses: [Course] = []
-        var monCourses: [Course] = []
-        var tueCourses: [Course] = []
-        var wedCourses: [Course] = []
-        var thuCourses: [Course] = []
-        var friCourses: [Course] = []
-        var satCourses: [Course] = []
-                
-        sunCourses = separateCoursesHelper(dayStringIdentifier: "Sun")
-        monCourses = separateCoursesHelper(dayStringIdentifier: "Mon")
-        tueCourses = separateCoursesHelper(dayStringIdentifier: "Tue")
-        wedCourses = separateCoursesHelper(dayStringIdentifier: "Wed")
-        thuCourses = separateCoursesHelper(dayStringIdentifier: "Thu")
-        friCourses = separateCoursesHelper(dayStringIdentifier: "Fri")
-        satCourses = separateCoursesHelper(dayStringIdentifier: "Sat")
-
-        
-        print("monday Courses: \(monCourses)")
-        print(tueCourses)
-        print(wedCourses)
-        
-        return [sunCourses, monCourses, tueCourses, wedCourses, thuCourses, friCourses, satCourses]
-    }
 }
 
-extension String {
+extension String { //string extension for subscript access.
 
     var length: Int {
         return count
