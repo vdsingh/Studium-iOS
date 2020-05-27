@@ -28,7 +28,7 @@ class DayScheduleViewController: DayViewController {
         var models: [CalendarEvent] = []// Get events (models) from the storage / API
         models = models + addCoursesBasedOnDay(onDate: date)
         models = models + addAssignments()
-
+        
         var events = [Event]()
         
         for model in models {
@@ -61,7 +61,7 @@ class DayScheduleViewController: DayViewController {
                 newArr.append(newAssignmentEvent)
             }
         }else{
-           print("error. allAssignments is nil.")
+            print("error. allAssignments is nil.")
         }
         return newArr
     }
@@ -70,7 +70,8 @@ class DayScheduleViewController: DayViewController {
         var daysArray:[Course] = []
         if let coursesArr = allCourses{
             for course in coursesArr{
-                if course.days.firstIndex(of: dayStringIdentifier) != -1{ //course occurs on this day.
+
+                if course.days.contains(dayStringIdentifier){ //course occurs on this day.
                     daysArray.append(course)
                 }
             }
@@ -84,42 +85,43 @@ class DayScheduleViewController: DayViewController {
         let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
         
         let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
-        
-
         let allCoursesOnDay = separateCoursesHelper(dayStringIdentifier: usableString) //get all courses that occur on this day.
-        
         var events: [CalendarEvent] = []
         for course in allCoursesOnDay{
+            var components = Calendar.current.dateComponents([.hour, .minute], from: course.startTime)
+            let startDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute ?? 0, second: 0, of: date)!
             
-            let startDate = Calendar.current.date(bySettingHour: course.startTimeHour, minute: course.startTimeMinute, second: 0, of: date)!
-            let endDate = Calendar.current.date(bySettingHour: course.endTimeHour, minute: course.endTimeMinute, second: 0, of: date)!
-
+            components = Calendar.current.dateComponents([.hour, .minute], from: course.endTime)
+            
+            
+            let endDate = Calendar.current.date(bySettingHour: components.hour ?? 0, minute: components.minute ?? 0, second: 0, of: date)!
+            
             let newEvent = CalendarEvent(startDate: startDate, endDate: endDate, title: "\(course.name) Lecture", location: course.location)
             events.append(newEvent)
         }
-
+        
         return events
     }
 }
 
 extension String { //string extension for subscript access.
-
+    
     var length: Int {
         return count
     }
-
+    
     subscript (i: Int) -> String {
         return self[i ..< i + 1]
     }
-
+    
     func substring(fromIndex: Int) -> String {
         return self[min(fromIndex, length) ..< length]
     }
-
+    
     func substring(toIndex: Int) -> String {
         return self[0 ..< max(0, toIndex)]
     }
-
+    
     subscript (r: Range<Int>) -> String {
         let range = Range(uncheckedBounds: (lower: max(0, min(length, r.lowerBound)),
                                             upper: min(length, max(0, r.upperBound))))
@@ -129,7 +131,7 @@ extension String { //string extension for subscript access.
     }
 }
 
-    
+
 
 
 

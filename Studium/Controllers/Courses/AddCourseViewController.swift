@@ -84,14 +84,16 @@ class AddCourseViewController: UIViewController, UITextFieldDelegate{
             newCourse.color = selectedColor!.hexValue() //specify course color
             
             
-            var components = Calendar.current.dateComponents([.hour, .minute], from: startDayPicker.date)
-            newCourse.startTimeHour = components.hour!
-            newCourse.startTimeMinute = components.minute!
-            
-            components = Calendar.current.dateComponents([.hour, .minute], from: endDayPicker.date)
-            newCourse.endTimeHour = components.hour!
-            newCourse.endTimeMinute = components.minute!
-            
+            newCourse.startTime = startDayPicker.date
+            newCourse.endTime = endDayPicker.date
+//            var components = Calendar.current.dateComponents([.hour, .minute], from: startDayPicker.date)
+//            newCourse.startTimeHour = components.hour!
+//            newCourse.startTimeMinute = components.minute!
+//
+//            components = Calendar.current.dateComponents([.hour, .minute], from: endDayPicker.date)
+//            newCourse.endTimeHour = components.hour!
+//            newCourse.endTimeMinute = components.minute!
+//
             
             
             for (day, dayBool) in selectedDays{ //specify course days
