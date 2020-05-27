@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ane-Mh-m3H">
-    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Day-->
+        <!--Day Schedule View Controller-->
         <scene sceneID="qp6-ef-PCF">
             <objects>
-                <viewController id="fig-EF-Ixi" customClass="DayScheduleViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="fig-EF-Ixi" customClass="DayScheduleViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tHq-qj-nrK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DAY SCHEDULE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y3h-ko-qtv">
@@ -26,11 +26,28 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="jxD-Hm-tFX"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Day" image="rosette" catalog="system" id="KEv-1u-KFe"/>
+                    <navigationItem key="navigationItem" id="Qm6-Xz-fwH">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2M4-RX-uO0">
+                            <rect key="frame" x="107" y="5.5" width="200" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Day"/>
+                                <segment title="Month"/>
+                            </segments>
+                            <connections>
+                                <action selector="timeControlChanged:" destination="fig-EF-Ixi" eventType="valueChanged" id="fDd-rz-W8i"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <segue destination="okE-Gd-bqh" kind="show" identifier="toCalendar" animates="NO" id="co3-c8-srN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Smx-9i-OC6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="-753"/>
+            <point key="canvasLocation" x="-881.15942028985512" y="-753.34821428571422"/>
         </scene>
         <!--Calendar-->
         <scene sceneID="cho-Rz-5ed">
@@ -40,17 +57,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uwi-Wp-5Zq" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="44" width="414" height="330"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="okE-Gd-bqh" id="h2N-LW-gGP"/>
-                                    <outlet property="delegate" destination="okE-Gd-bqh" id="VaJ-Lg-g4k"/>
-                                </connections>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="h1K-Ld-nWw">
-                                <rect key="frame" x="20" y="382" width="374" height="431"/>
+                                <rect key="frame" x="20" y="438" width="374" height="375"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
@@ -64,21 +72,44 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uwi-Wp-5Zq" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="92" width="414" height="338"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="okE-Gd-bqh" id="h2N-LW-gGP"/>
+                                    <outlet property="delegate" destination="okE-Gd-bqh" id="VaJ-Lg-g4k"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="xv3-MG-4bm"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Calendar" image="calendar" catalog="system" id="RjS-XH-PjN"/>
-                    <navigationItem key="navigationItem" id="i5o-aq-RvD"/>
+                    <navigationItem key="navigationItem" id="i5o-aq-RvD">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" id="GSW-ST-ZM3">
+                            <rect key="frame" x="107" y="5.5" width="200" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Day"/>
+                                <segment title="Month"/>
+                            </segments>
+                            <connections>
+                                <action selector="timeControlChanged:" destination="okE-Gd-bqh" eventType="valueChanged" id="bti-lj-IRY"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="calendar" destination="Uwi-Wp-5Zq" id="TCh-R8-67r"/>
                         <outlet property="tableView" destination="h1K-Ld-nWw" id="Umb-WH-Uch"/>
+                        <segue destination="fig-EF-Ixi" kind="show" identifier="toDay" animates="NO" id="FXc-vJ-RkE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kCe-FU-sTt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2872.4637681159425" y="-790.17857142857144"/>
+            <point key="canvasLocation" x="-1771.0144927536232" y="-753.34821428571422"/>
         </scene>
         <!--All Assignments-->
         <scene sceneID="LeD-ea-6NL">
@@ -107,7 +138,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G0D-Hv-bXL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5139.130434782609" y="-583.25892857142856"/>
+            <point key="canvasLocation" x="6049.275362318841" y="-583.25892857142856"/>
         </scene>
         <!--Courses-->
         <scene sceneID="Vjp-gW-8rz">
@@ -552,6 +583,35 @@
             </objects>
             <point key="canvasLocation" x="5353.6231884057979" y="103.79464285714285"/>
         </scene>
+        <!--All Events-->
+        <scene sceneID="0ca-yn-nsi">
+            <objects>
+                <tableViewController id="b3b-28-02j" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="W7B-U1-UZ6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="8de-IK-kGO">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8de-IK-kGO" id="cC4-dV-Xyq">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="b3b-28-02j" id="6Q5-N4-c27"/>
+                            <outlet property="delegate" destination="b3b-28-02j" id="opc-ID-xo8"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="All Events" id="pLp-sT-YM7"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uiJ-ch-coc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1992" y="-594"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="4av-ai-6D8">
             <objects>
@@ -565,10 +625,10 @@
                         <color key="selectedImageTintColor" cocoaTouchSystemColor="darkTextColor"/>
                     </tabBar>
                     <connections>
-                        <segue destination="fig-EF-Ixi" kind="relationship" relationship="viewControllers" id="WVC-bI-toq"/>
+                        <segue destination="jiq-Ql-6zj" kind="relationship" relationship="viewControllers" id="WVC-bI-toq"/>
                         <segue destination="ak0-as-E5L" kind="relationship" relationship="viewControllers" id="OvJ-2x-Gyo"/>
-                        <segue destination="okE-Gd-bqh" kind="relationship" relationship="viewControllers" id="f5V-AN-QFt"/>
                         <segue destination="xDD-sh-HPi" kind="relationship" relationship="viewControllers" id="YN5-Wz-ffg"/>
+                        <segue destination="b3b-28-02j" kind="relationship" relationship="viewControllers" id="8L9-uc-zvY"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fgb-DV-c3i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -840,15 +900,34 @@
             </objects>
             <point key="canvasLocation" x="2397" y="996"/>
         </scene>
+        <!--Day-->
+        <scene sceneID="hKZ-F3-kS6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jiq-Ql-6zj" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Day" image="calendar" catalog="system" id="KEv-1u-KFe"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7lo-9C-rbC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fig-EF-Ixi" kind="relationship" relationship="rootViewController" id="H6A-yO-UlG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lII-RA-5Nm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="-753.34821428571422"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="2FG-6G-kqO"/>
+        <segue reference="FXc-vJ-RkE"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="rosette" catalog="system" width="100" height="128"/>
         <image name="square" catalog="system" width="128" height="114"/>
     </resources>
 </document>

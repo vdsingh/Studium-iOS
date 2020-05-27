@@ -16,6 +16,7 @@ struct K {
     static let toMainSegue = "toMain"
     static let toLoginSegue = "toLogin"
     static let toRegisterSegue = "toRegister"
+    static let toCalendarSegue = "toCalendar"
     
     static let sortAssignmentsBy = "name"
 }

@@ -23,6 +23,12 @@ class DayScheduleViewController: DayViewController {
         loadAssignments()
         loadCourses()
     }
+    @IBAction func calendarButtonPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: K.toCalendarSegue, sender: self)
+    }
+    @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
+        performSegue(withIdentifier: "toCalendar", sender: self)
+    }
     
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
         var models: [CalendarEvent] = []// Get events (models) from the storage / API

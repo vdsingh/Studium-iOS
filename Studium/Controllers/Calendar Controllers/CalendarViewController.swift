@@ -22,16 +22,22 @@ class CalendarViewController: UIViewController{
         print("calendar viewdidload was called.")
         super.viewDidLoad()
         
+
         tableView.delegate = self
         tableView.dataSource = self
-                
+        
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         updateInfo()
+        calendar.appearance.titleDefaultColor = UIColor.white
+        
     }
     
+    @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
+        performSegue(withIdentifier: "toDay", sender: self)
+    }
     func addAssignments(){
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.none
@@ -99,10 +105,10 @@ extension CalendarViewController: UITableViewDataSource{
 }
 
 extension CalendarViewController: FSCalendarDataSource{
-    //    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-    //        let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position)
-    //        return cell
-    //    }
+//        func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+//            let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position)
+//            return cell
+//        }
     //
     //    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
     //        self.configure(cell: cell, for: date, at: position)
