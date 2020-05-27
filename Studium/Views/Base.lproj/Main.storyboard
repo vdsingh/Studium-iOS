@@ -635,6 +635,21 @@
             </objects>
             <point key="canvasLocation" x="1957.9710144927537" y="129.91071428571428"/>
         </scene>
+        <!--Add Habit View Controller-->
+        <scene sceneID="Tzc-X3-1CU">
+            <objects>
+                <viewController storyboardIdentifier="AddHabitViewController" id="4Bg-SR-BV3" customClass="AddHabitViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CgB-nd-fJn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="gVV-1a-I2P"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="99V-CL-bdU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1075" y="1558"/>
+        </scene>
         <!--Register View Controller-->
         <scene sceneID="VRF-c6-Zaa">
             <objects>
@@ -734,7 +749,7 @@
         <!--Habits-->
         <scene sceneID="oxt-Lb-e6L">
             <objects>
-                <tableViewController id="zhP-oF-OCd" customClass="HabitsViewController" sceneMemberID="viewController">
+                <tableViewController id="zhP-oF-OCd" customClass="HabitsViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="57m-7X-YXG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -755,12 +770,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Habits" id="AUz-T0-hXe">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ttl-Ag-RAI"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="U0L-GT-yHU">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="zhP-oF-OCd" id="B17-dl-4rK"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sri-kM-eEa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="238" y="130"/>
+            <point key="canvasLocation" x="-1075" y="858"/>
         </scene>
         <!--Item-->
         <scene sceneID="Ww9-nZ-htr">
@@ -922,7 +941,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="2FG-6G-kqO"/>
-        <segue reference="FXc-vJ-RkE"/>
+        <segue reference="H6A-yO-UlG"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
