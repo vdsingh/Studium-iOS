@@ -35,7 +35,7 @@ class AddCourseViewController: UIViewController, UITextFieldDelegate{
     
     var errors: [String] = []
     var selectedColor: UIColor?
-    var selectedDays = ["Sun": false,"Mon": false,"Tue": false,"Wed":false,"Thu": false,"Fri": false,"sat": false]
+    var selectedDays = ["Sun": false,"Mon": false,"Tue": false,"Wed":false,"Thu": false,"Fri": false,"Sat": false]
     
     
     @IBAction func DayButtonPressed(_ sender: UIButton) {

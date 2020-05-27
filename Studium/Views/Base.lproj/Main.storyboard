@@ -639,7 +639,7 @@
         <scene sceneID="Tzc-X3-1CU">
             <objects>
                 <viewController storyboardIdentifier="AddHabitViewController" id="4Bg-SR-BV3" customClass="AddHabitViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="CgB-nd-fJn">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="CgB-nd-fJn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -934,16 +934,16 @@
             </objects>
             <point key="canvasLocation" x="1123" y="1038"/>
         </scene>
-        <!--View Controller-->
+        <!--Wake Up Intro Controller-->
         <scene sceneID="b6p-2b-7Oz">
             <objects>
-                <viewController id="13W-JO-cIR" sceneMemberID="viewController">
+                <viewController id="13W-JO-cIR" customClass="WakeUpIntroController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jrO-jm-cGb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="W6V-nj-3lM">
-                                <rect key="frame" x="20" y="84" width="374" height="90.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="W6V-nj-3lM">
+                                <rect key="frame" x="20" y="84" width="374" height="757"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When do you wake up?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwb-l7-dZL">
                                         <rect key="frame" x="98.5" y="0.0" width="177" height="20.5"/>
@@ -951,63 +951,227 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yOK-kj-lpp">
+                                        <rect key="frame" x="39.5" y="40.5" width="295" height="32"/>
+                                        <segments>
+                                            <segment title="Different Times"/>
+                                            <segment title="Same Time Everyday"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="habitChanged:" destination="13W-JO-cIR" eventType="valueChanged" id="DSW-mP-Odr"/>
+                                        </connections>
+                                    </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="lvA-nu-ynG">
-                                        <rect key="frame" x="21" y="60.5" width="332" height="30"/>
+                                        <rect key="frame" x="21" y="91.5" width="332" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TZa-Wx-7FK">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Sun"/>
+                                                <connections>
+                                                    <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="cJc-cA-OCb"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7P-7Y-z1l">
                                                 <rect key="frame" x="50" y="0.0" width="31" height="30"/>
                                                 <state key="normal" title="Mon"/>
+                                                <connections>
+                                                    <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="xnj-iP-frN"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aYj-Ep-44S">
                                                 <rect key="frame" x="101" y="0.0" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Tue"/>
+                                                <connections>
+                                                    <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="tEa-Iz-xBR"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1nv-lV-dXL">
                                                 <rect key="frame" x="151" y="0.0" width="31" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Wed"/>
+                                                <connections>
+                                                    <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="5RJ-Ac-9pT"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wbw-Jv-AwL">
                                                 <rect key="frame" x="202" y="0.0" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Thu"/>
+                                                <connections>
+                                                    <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="wCg-vb-att"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="q9I-As-Q7g">
                                                 <rect key="frame" x="252" y="0.0" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Fri"/>
+                                                <connections>
+                                                    <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="ZSW-8v-FlA"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ceD-z6-mLH">
                                                 <rect key="frame" x="302" y="0.0" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Sat"/>
+                                                <connections>
+                                                    <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="E51-aI-0aq"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="crf-yd-qCZ"/>
                                         </constraints>
                                     </stackView>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gT5-b6-OX2">
+                                        <rect key="frame" x="27" y="141.5" width="320" height="216"/>
+                                        <connections>
+                                            <action selector="timePickerChanged:" destination="13W-JO-cIR" eventType="valueChanged" id="fW1-HO-0ey"/>
+                                        </connections>
+                                    </datePicker>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="wR4-sE-vpc">
+                                        <rect key="frame" x="72" y="377.5" width="230" height="379.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" id="gVI-71-EoW">
+                                                <rect key="frame" x="0.0" y="58" width="90" height="263.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L9s-UE-Bxo">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="20.5"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TSN-ZT-N1b">
+                                                        <rect key="frame" x="0.0" y="40.5" width="90" height="20.5"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tuesday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EUn-cs-yaf">
+                                                        <rect key="frame" x="0.0" y="81" width="90" height="20.5"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JXM-XB-1o3">
+                                                        <rect key="frame" x="0.0" y="121.5" width="90" height="20.5"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thursday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pFF-RQ-nbg">
+                                                        <rect key="frame" x="0.0" y="162" width="90" height="20.5"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Gqf-hj-knO">
+                                                        <rect key="frame" x="0.0" y="202.5" width="90" height="20.5"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saturday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xTg-8n-p3h">
+                                                        <rect key="frame" x="0.0" y="243" width="90" height="20.5"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <viewLayoutGuide key="safeArea" id="Htg-bq-w3L"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="F3Z-cF-IGp">
+                                                <rect key="frame" x="140" y="55" width="90" height="270"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:30 AM" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8e-qc-t7o">
+                                                        <rect key="frame" x="0.0" y="0.0" width="57.5" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:30 AM" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ofJ-Ok-flK">
+                                                        <rect key="frame" x="0.0" y="42" width="57.5" height="18"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:30 AM" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GHj-Dv-Kqe">
+                                                        <rect key="frame" x="0.0" y="84" width="57.5" height="18"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:30 AM" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mgn-OS-X0z">
+                                                        <rect key="frame" x="0.0" y="126" width="57.5" height="18"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:30 AM" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6eG-a9-kN7">
+                                                        <rect key="frame" x="0.0" y="168" width="57.5" height="18"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:30 AM" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Uv-cR-AZO">
+                                                        <rect key="frame" x="0.0" y="210" width="57.5" height="18"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:30 AM" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="byh-pb-3U5">
+                                                        <rect key="frame" x="0.0" y="252" width="57.5" height="18"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gT5-b6-OX2">
-                                <rect key="frame" x="0.0" y="192" width="414" height="216"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="M0J-tZ-cxH" firstAttribute="trailing" secondItem="W6V-nj-3lM" secondAttribute="trailing" constant="20" id="9Da-nd-V5F"/>
-                            <constraint firstItem="W6V-nj-3lM" firstAttribute="top" secondItem="M0J-tZ-cxH" secondAttribute="top" constant="40" id="dRf-Zh-39H"/>
+                            <constraint firstItem="W6V-nj-3lM" firstAttribute="top" secondItem="M0J-tZ-cxH" secondAttribute="top" constant="40" id="YSn-h6-xSc"/>
                             <constraint firstItem="W6V-nj-3lM" firstAttribute="leading" secondItem="jrO-jm-cGb" secondAttribute="leading" constant="20" id="qNG-MZ-vVv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="M0J-tZ-cxH"/>
                     </view>
+                    <connections>
+                        <outlet property="friLabel" destination="3Uv-cR-AZO" id="9Oy-r4-65A"/>
+                        <outlet property="monLabel" destination="ofJ-Ok-flK" id="KLb-yC-txe"/>
+                        <outlet property="satLabel" destination="byh-pb-3U5" id="Te4-Dw-H0B"/>
+                        <outlet property="sunLabel" destination="J8e-qc-t7o" id="euX-KY-Ijz"/>
+                        <outlet property="thuLabel" destination="6eG-a9-kN7" id="lbl-2v-XxT"/>
+                        <outlet property="timePicker" destination="gT5-b6-OX2" id="BAt-zv-Gd5"/>
+                        <outlet property="tueLabel" destination="GHj-Dv-Kqe" id="U1j-Ae-fe1"/>
+                        <outlet property="wedLabel" destination="Mgn-OS-X0z" id="fGG-Cc-0pb"/>
+                        <outletCollection property="days" destination="ceD-z6-mLH" collectionClass="NSMutableArray" id="75T-6d-bse"/>
+                        <outletCollection property="days" destination="q9I-As-Q7g" collectionClass="NSMutableArray" id="xdg-rm-Uiv"/>
+                        <outletCollection property="days" destination="wbw-Jv-AwL" collectionClass="NSMutableArray" id="hMG-zm-uhV"/>
+                        <outletCollection property="days" destination="1nv-lV-dXL" collectionClass="NSMutableArray" id="HdW-UR-y2W"/>
+                        <outletCollection property="days" destination="aYj-Ep-44S" collectionClass="NSMutableArray" id="Z5J-yz-NBL"/>
+                        <outletCollection property="days" destination="V7P-7Y-z1l" collectionClass="NSMutableArray" id="eZZ-xs-32k"/>
+                        <outletCollection property="days" destination="TZa-Wx-7FK" collectionClass="NSMutableArray" id="LPZ-Wz-3wM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqr-GU-qGd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
