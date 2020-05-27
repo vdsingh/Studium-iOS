@@ -11,6 +11,7 @@
 		16429D02247E3CC60052E47C /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D01247E3CC60052E47C /* AddHabitViewController.swift */; };
 		16429D04247E43720052E47C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D03247E43720052E47C /* Habit.swift */; };
 		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
+		1686DB59247E979900FA99DB /* SleepIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB58247E979900FA99DB /* SleepIntroController.swift */; };
 		1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E730247A3DC4003D4702 /* AppDelegate.swift */; };
 		1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E732247A3DC4003D4702 /* SceneDelegate.swift */; };
 		1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E734247A3DC4003D4702 /* CalendarViewController.swift */; };
@@ -40,6 +41,7 @@
 		16429D01247E3CC60052E47C /* AddHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
 		16429D03247E43720052E47C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
+		1686DB58247E979900FA99DB /* SleepIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepIntroController.swift; sourceTree = "<group>"; };
 		1693E72D247A3DC4003D4702 /* Studium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1693E730247A3DC4003D4702 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1693E732247A3DC4003D4702 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				16429D06247E81630052E47C /* WakeUpIntroController.swift */,
+				1686DB58247E979900FA99DB /* SleepIntroController.swift */,
 			);
 			path = "Intro Controllers";
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				16429D02247E3CC60052E47C /* AddHabitViewController.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
+				1686DB59247E979900FA99DB /* SleepIntroController.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
 				16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  WakeUpIntroController.swift
+//  SleepIntroController.swift
 //  Studium
 //
 //  Created by Vikram Singh on 5/27/20.
@@ -9,7 +9,8 @@
 import Foundation
 import UIKit
 
-class WakeUpIntroController: UIViewController{
+class SleepIntroController: UIViewController{
+    
     @IBOutlet var days: Array<UIButton>?
     
     @IBOutlet weak var sunLabel: UILabel!
@@ -29,11 +30,11 @@ class WakeUpIntroController: UIViewController{
     override func viewDidLoad() {
         selectSunday()
         
-        let date = Calendar.current.date(bySettingHour: 7, minute: 30, second: 0, of: Date())!
+        let date = Calendar.current.date(bySettingHour: 22, minute: 0, second: 0, of: Date())!
         timePicker.setDate(date, animated: true)
         
         times = ["Sun": date, "Mon": date, "Tue": date, "Wed": date, "Thu": date, "Fri": date, "Sat": date]
-
+        
         labels = ["Sun": sunLabel, "Mon": monLabel, "Tue": tueLabel, "Wed": wedLabel, "Thu": thuLabel, "Fri": friLabel, "Sat": satLabel]
         
     }
@@ -64,13 +65,13 @@ class WakeUpIntroController: UIViewController{
             }
         }
     }
+
     @IBAction func dayButtonPressed(_ sender: UIButton) {
         selectedDay = sender
         for day in days!{
             day.isSelected = false
         }
         sender.isSelected = true
-        
     }
     @IBAction func timePickerChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
@@ -104,6 +105,7 @@ class WakeUpIntroController: UIViewController{
         }
     }
     @IBAction func nextPressed(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "toNextIntro", sender: self)
+        performSegue(withIdentifier: "toMain", sender: self)
     }
 }
+

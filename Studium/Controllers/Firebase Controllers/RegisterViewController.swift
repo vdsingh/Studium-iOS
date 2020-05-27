@@ -18,7 +18,7 @@ class RegisterViewController: UIViewController{
         if let email = emailTextField.text, let password = passwordTextField.text{
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                 if error == nil{
-                    self.performSegue(withIdentifier: "toMain", sender: self)
+                    self.performSegue(withIdentifier: "toWakeUp", sender: self)
                 }else{
                     self.errorLabel.text = error?.localizedDescription
                     print("error label text updated. error: \(error?.localizedDescription)")
