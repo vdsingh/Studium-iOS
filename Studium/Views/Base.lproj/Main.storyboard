@@ -639,16 +639,204 @@
         <scene sceneID="Tzc-X3-1CU">
             <objects>
                 <viewController storyboardIdentifier="AddHabitViewController" id="4Bg-SR-BV3" customClass="AddHabitViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="CgB-nd-fJn">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="CgB-nd-fJn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mfi-wF-avP">
+                                <rect key="frame" x="20" y="40" width="413" height="800"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a Habit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iO0-iS-vZh">
+                                        <rect key="frame" x="0.0" y="0.0" width="413" height="23"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Habit Name (e.g. Gym, Math Club)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vR3-gh-efR">
+                                        <rect key="frame" x="0.0" y="31" width="413" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="q9v-Ks-sje"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tXM-my-dyB">
+                                        <rect key="frame" x="0.0" y="89" width="413" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="xre-9p-NbP"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Additional Details" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VzO-DH-Nck">
+                                        <rect key="frame" x="0.0" y="147" width="413" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="VBw-Yv-4ee"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                    </textField>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="NqI-MU-dQV" userLabel="Days Stack">
+                                        <rect key="frame" x="0.0" y="205" width="413" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fS1-0G-awL">
+                                                <rect key="frame" x="0.0" y="0.0" width="59" height="50"/>
+                                                <state key="normal" title="Sun"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="4VZ-Cf-BlN"/>
+                                                    <action selector="dateButtonSelected:" destination="4Bg-SR-BV3" eventType="touchUpInside" id="5VN-Sy-NiT"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gYr-bo-LBu">
+                                                <rect key="frame" x="59" y="0.0" width="59" height="46"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Mon"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="btC-nx-Lyj"/>
+                                                    <action selector="dateButtonSelected:" destination="4Bg-SR-BV3" eventType="touchUpInside" id="rJQ-g7-o8D"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="G0K-r4-G9S">
+                                                <rect key="frame" x="118" y="0.0" width="59" height="46"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Tue"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="NcM-SB-9DY"/>
+                                                    <action selector="dateButtonSelected:" destination="4Bg-SR-BV3" eventType="touchUpInside" id="s16-cG-VTk"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6ZS-K9-3is">
+                                                <rect key="frame" x="177" y="0.0" width="59" height="46"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Wed"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="hDm-BZ-C2Q"/>
+                                                    <action selector="dateButtonSelected:" destination="4Bg-SR-BV3" eventType="touchUpInside" id="f52-5u-xmV"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5ch-fH-GdV">
+                                                <rect key="frame" x="236" y="0.0" width="59" height="46"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Thu"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="Qbv-pk-vmE"/>
+                                                    <action selector="dateButtonSelected:" destination="4Bg-SR-BV3" eventType="touchUpInside" id="6Q2-xS-Emc"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jCK-xt-Cim">
+                                                <rect key="frame" x="295" y="0.0" width="59" height="46"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Fri"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="YRI-iN-2cb"/>
+                                                    <action selector="dateButtonSelected:" destination="4Bg-SR-BV3" eventType="touchUpInside" id="eaU-Jr-5tp"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="je6-U5-vQb">
+                                                <rect key="frame" x="354" y="0.0" width="59" height="46"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Sat"/>
+                                                <connections>
+                                                    <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="zMT-Ki-xkL"/>
+                                                    <action selector="dateButtonSelected:" destination="4Bg-SR-BV3" eventType="touchUpInside" id="2Yj-EV-PoJ"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="nqj-gc-d7B"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qzi-Ml-xus">
+                                        <rect key="frame" x="0.0" y="263" width="413" height="75"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schedule During Free Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yjG-Ov-fuq">
+                                                <rect key="frame" x="0.0" y="27" width="356" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2qi-4d-rLl">
+                                                <rect key="frame" x="364" y="22" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="autoScheduleChanged:" destination="4Bg-SR-BV3" eventType="valueChanged" id="Rju-oW-aeF"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="ZvC-0j-hxE"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="30" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K3l-wt-TzD" userLabel="Days Label">
+                                        <rect key="frame" x="0.0" y="346" width="413" height="22.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2o-Ny-6Ej">
+                                                <rect key="frame" x="0.0" y="1" width="186.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1D-Ex-XxZ">
+                                                <rect key="frame" x="216.5" y="1" width="196.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="lNx-Nd-9PC" userLabel="Date Picker Stack">
+                                        <rect key="frame" x="0.0" y="376.5" width="413" height="240"/>
+                                        <subviews>
+                                            <datePicker contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="lvq-2i-pPH">
+                                                <rect key="frame" x="0.0" y="0.0" width="206.5" height="240"/>
+                                            </datePicker>
+                                            <datePicker contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="v38-J7-tnc">
+                                                <rect key="frame" x="206.5" y="0.0" width="206.5" height="240"/>
+                                            </datePicker>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihN-Xw-y90">
+                                        <rect key="frame" x="0.0" y="624.5" width="413" height="33"/>
+                                        <state key="normal" title="Add"/>
+                                        <connections>
+                                            <action selector="addButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="TNH-Nw-Ugu"/>
+                                            <action selector="addButtonPressed:" destination="4Bg-SR-BV3" eventType="touchUpInside" id="wCt-MN-Atk"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bhw-Fj-XXs">
+                                        <rect key="frame" x="0.0" y="665.5" width="413" height="134.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="800" id="0Zk-43-DX8"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="mfi-wF-avP" firstAttribute="centerX" secondItem="CgB-nd-fJn" secondAttribute="centerX" id="0z2-Wr-c6k"/>
+                            <constraint firstItem="gVV-1a-I2P" firstAttribute="trailing" secondItem="mfi-wF-avP" secondAttribute="trailing" constant="20" id="58p-TA-Tr4"/>
+                            <constraint firstItem="mfi-wF-avP" firstAttribute="centerY" secondItem="CgB-nd-fJn" secondAttribute="centerY" id="F22-eh-OKh"/>
+                            <constraint firstItem="mfi-wF-avP" firstAttribute="leading" secondItem="gVV-1a-I2P" secondAttribute="leading" constant="20" id="UEz-mr-982"/>
+                            <constraint firstItem="mfi-wF-avP" firstAttribute="top" secondItem="CgB-nd-fJn" secondAttribute="top" constant="40" id="n9C-Rj-mAG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="gVV-1a-I2P"/>
                     </view>
+                    <connections>
+                        <outlet property="additionalDetailsTextField" destination="VzO-DH-Nck" id="jgU-eN-OUY"/>
+                        <outlet property="fromLabel" destination="c2o-Ny-6Ej" id="00W-hF-uaA"/>
+                        <outlet property="fromTimePicker" destination="lvq-2i-pPH" id="cuA-yR-BHO"/>
+                        <outlet property="habitNameTextField" destination="vR3-gh-efR" id="cyd-8M-7qE"/>
+                        <outlet property="locationTextField" destination="tXM-my-dyB" id="A5v-G9-Wty"/>
+                        <outlet property="toLabel" destination="n1D-Ex-XxZ" id="4Q9-km-D1a"/>
+                        <outlet property="toTimePicker" destination="v38-J7-tnc" id="Ij2-gj-HVb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="99V-CL-bdU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1075" y="1558"/>
+            <point key="canvasLocation" x="-1075.3623188405797" y="1557.5892857142856"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="VRF-c6-Zaa">
@@ -755,7 +943,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="CWx-e7-Wce">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="CWx-e7-Wce" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CWx-e7-Wce" id="5lF-vS-fut">
@@ -779,7 +967,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sri-kM-eEa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1075" y="858"/>
+            <point key="canvasLocation" x="-1075.3623188405797" y="857.8125"/>
         </scene>
         <!--Item-->
         <scene sceneID="Ww9-nZ-htr">

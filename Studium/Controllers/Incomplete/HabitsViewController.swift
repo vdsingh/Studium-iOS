@@ -7,28 +7,38 @@
 //
 
 import Foundation
+import RealmSwift
 import UIKit
 
-class HabitsViewController: UITableViewController, HabitRefreshProtocol {
-    
-    
+class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
+    let realm = try! Realm()
+    var habits: Results<Habit>?
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        print("add button pressed was called.")
-        if let board = self.storyboard{
-            let addHabitViewController = board.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
-            addHabitViewController.delegate = self
-            self.present(addHabitViewController, animated: true, completion: nil)
-        }else{
-            print("story board is nil")
-        }
+        let addHabitViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
+        addHabitViewController.delegate = self
+        self.present(addHabitViewController, animated: true, completion: nil)
+        
     }
     
     func loadHabits(){
-        
+        habits = realm.objects(Habit.self)
+        tableView.reloadData()
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return habits?.count ?? 1
+    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        cell.textLabel?.text = habits?[indexPath.row].name
+        return cell
     }
 }
