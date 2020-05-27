@@ -10,6 +10,7 @@
 		16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429CFD247D20F90052E47C /* StudiumEvent.swift */; };
 		16429D02247E3CC60052E47C /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D01247E3CC60052E47C /* AddHabitViewController.swift */; };
 		16429D04247E43720052E47C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D03247E43720052E47C /* Habit.swift */; };
+		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
 		1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E730247A3DC4003D4702 /* AppDelegate.swift */; };
 		1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E732247A3DC4003D4702 /* SceneDelegate.swift */; };
 		1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E734247A3DC4003D4702 /* CalendarViewController.swift */; };
@@ -38,6 +39,7 @@
 		16429CFD247D20F90052E47C /* StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEvent.swift; sourceTree = "<group>"; };
 		16429D01247E3CC60052E47C /* AddHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
 		16429D03247E43720052E47C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
 		1693E72D247A3DC4003D4702 /* Studium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1693E730247A3DC4003D4702 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1693E732247A3DC4003D4702 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,8 +84,17 @@
 			isa = PBXGroup;
 			children = (
 				1693E734247A3DC4003D4702 /* CalendarViewController.swift */,
+				1693E749247A41A5003D4702 /* DayScheduleViewController.swift */,
 			);
 			path = "Calendar Controllers";
+			sourceTree = "<group>";
+		};
+		16429D05247E81500052E47C /* Intro Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				16429D06247E81630052E47C /* WakeUpIntroController.swift */,
+			);
+			path = "Intro Controllers";
 			sourceTree = "<group>";
 		};
 		1693E724247A3DC4003D4702 = {
@@ -123,8 +134,8 @@
 		1693E744247A413B003D4702 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				16429D05247E81500052E47C /* Intro Controllers */,
 				16429CFC247D200E0052E47C /* Calendar Controllers */,
-				16B51920247CB08A005ED8E4 /* Day Controllers */,
 				16B5191F247CA064005ED8E4 /* Firebase Controllers */,
 				1693E75B247A67CF003D4702 /* Framework Superclasses */,
 				1693E75A247A67AC003D4702 /* Courses */,
@@ -190,14 +201,6 @@
 				16B5191B247BE2DE005ED8E4 /* LoginViewController.swift */,
 			);
 			path = "Firebase Controllers";
-			sourceTree = "<group>";
-		};
-		16B51920247CB08A005ED8E4 /* Day Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				1693E749247A41A5003D4702 /* DayScheduleViewController.swift */,
-			);
-			path = "Day Controllers";
 			sourceTree = "<group>";
 		};
 		8E6006EE7CC6D255D05E9EBF /* Frameworks */ = {
@@ -338,6 +341,7 @@
 				1693E755247A4B64003D4702 /* K.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				16429D02247E3CC60052E47C /* AddHabitViewController.swift in Sources */,
+				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
 				16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */,

@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Habit: Object{
+class Habit: Object, StudiumEvent{
     @objc dynamic var name: String = ""
     @objc dynamic var location: String = ""
     @objc dynamic var additionalDetails: String = ""

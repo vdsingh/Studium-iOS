@@ -12,8 +12,10 @@ import RealmSwift
 
 class DayScheduleViewController: DayViewController {
     let realm = try! Realm()
+    
     var allAssignments: Results<Assignment>?
     var allCourses: Results<Course>?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
