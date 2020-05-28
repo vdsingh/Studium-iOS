@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class WakeUpIntroController: UIViewController{
+    let defaults = UserDefaults.standard
     @IBOutlet var days: Array<UIButton>?
     
     @IBOutlet weak var sunLabel: UILabel!
@@ -104,6 +105,18 @@ class WakeUpIntroController: UIViewController{
         }
     }
     @IBAction func nextPressed(_ sender: UIBarButtonItem) {
+        storeData()
         performSegue(withIdentifier: "toNextIntro", sender: self)
+    }
+    
+    func storeData(){
+        print("wake up data stored.")
+        defaults.set([times["Sun"]], forKey: "sunWakeUp")
+        defaults.set([times["Mon"]], forKey: "monWakeUp")
+        defaults.set([times["Tue"]], forKey: "tueWakeUp")
+        defaults.set([times["Wed"]], forKey: "wedWakeUp")
+        defaults.set([times["Thu"]], forKey: "thuWakeUp")
+        defaults.set([times["Fri"]], forKey: "friWakeUp")
+        defaults.set([times["Sat"]], forKey: "satWakeUp")
     }
 }

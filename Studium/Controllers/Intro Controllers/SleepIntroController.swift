@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class SleepIntroController: UIViewController{
+    let defaults = UserDefaults.standard
     
     @IBOutlet var days: Array<UIButton>?
     
@@ -105,7 +106,18 @@ class SleepIntroController: UIViewController{
         }
     }
     @IBAction func nextPressed(_ sender: UIBarButtonItem) {
+        storeData()
         performSegue(withIdentifier: "toMain", sender: self)
+    }
+    
+    func storeData(){
+        defaults.set([times["Sun"]], forKey: "sunSleep")
+        defaults.set([times["Mon"]], forKey: "monSleep")
+        defaults.set([times["Tue"]], forKey: "tueSleep")
+        defaults.set([times["Wed"]], forKey: "wedSleep")
+        defaults.set([times["Thu"]], forKey: "thuSleep")
+        defaults.set([times["Fri"]], forKey: "friSleep")
+        defaults.set([times["Sat"]], forKey: "satSleep")
     }
 }
 

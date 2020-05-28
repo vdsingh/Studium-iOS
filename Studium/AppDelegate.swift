@@ -13,14 +13,19 @@ import RealmSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    let realm = try! Realm()
+    let defaults = UserDefaults.standard
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        let realm = try! Realm()
-        print(realm.configuration.fileURL)
+        //print(realm.configuration.fileURL)
+        print("UserDefaults Path: ")
+        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
+
 
         FirebaseApp.configure()
+        
+        
+   
         return true
     }
 
