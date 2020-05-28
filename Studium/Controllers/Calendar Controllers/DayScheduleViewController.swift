@@ -26,9 +26,7 @@ class DayScheduleViewController: DayViewController {
         loadAssignments()
         loadCourses()
     }
-    @IBAction func calendarButtonPressed(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: K.toCalendarSegue, sender: self)
-    }
+
     @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
         performSegue(withIdentifier: "toCalendar", sender: self)
     }

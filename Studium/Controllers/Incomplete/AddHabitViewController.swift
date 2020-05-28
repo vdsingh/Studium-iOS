@@ -19,6 +19,7 @@ class AddHabitViewController: UIViewController{
     var delegate: HabitRefreshProtocol?
     var selectedDays = ["Sun": false,"Mon": false,"Tue": false,"Wed":false,"Thu": false,"Fri": false,"sat": false]
     var errors: [String] = []
+    var earlier: Bool = true
     
     @IBOutlet weak var habitNameTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
@@ -31,8 +32,8 @@ class AddHabitViewController: UIViewController{
     @IBOutlet weak var toTimePicker: UIDatePicker!
     
     @IBOutlet weak var earlierLaterLabel: UISegmentedControl!
-    
     @IBOutlet weak var errorLabel: UILabel!
+    
     @IBAction func dateButtonSelected(_ sender: UIButton) {
         if(!sender.isSelected){ //user selected this day.
             selectedDays[(sender.titleLabel?.text)!] = true
@@ -40,6 +41,13 @@ class AddHabitViewController: UIViewController{
         }else{
             selectedDays[(sender.titleLabel?.text)!] = false
             sender.isSelected = false
+        }
+    }
+    @IBAction func earlierLaterChanged(_ sender: UISegmentedControl) {
+        if(sender.selectedSegmentIndex == 0){//earlier
+            earlier = true
+        }else{
+            earlier = false
         }
     }
     @IBAction func autoScheduleChanged(_ sender: UISwitch) {
@@ -56,7 +64,7 @@ class AddHabitViewController: UIViewController{
     
     @IBAction func addButtonPressed(_ sender: UIButton) {
         errors = []
-        errorLabel.text = ""
+        errorLabel.text = " "
         if habitNameTextField.text == ""{
             errors.append("Please specify a name")
         }
@@ -78,6 +86,7 @@ class AddHabitViewController: UIViewController{
             newHabit.name = habitNameTextField.text!
             newHabit.location = locationTextField.text!
             newHabit.additionalDetails = additionalDetailsTextField.text!
+            newHabit.startEarlier = earlier
             for (day, dayBool) in selectedDays{ //specify course days
                 if dayBool == true {
                     newHabit.days.append(day)

@@ -21,7 +21,7 @@ class RegisterViewController: UIViewController{
                     self.performSegue(withIdentifier: "toWakeUp", sender: self)
                 }else{
                     self.errorLabel.text = error?.localizedDescription
-                    print("error label text updated. error: \(error?.localizedDescription)")
+                    //print("error label text updated. error: \(error?.localizedDescription)")
                 }
             }
         }else{
