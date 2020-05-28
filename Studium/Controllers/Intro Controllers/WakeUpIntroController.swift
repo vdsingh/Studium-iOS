@@ -106,7 +106,7 @@ class WakeUpIntroController: UIViewController{
     }
     @IBAction func nextPressed(_ sender: UIBarButtonItem) {
         storeData()
-        performSegue(withIdentifier: "toNextIntro", sender: self)
+        performSegue(withIdentifier: "toMain", sender: self)
     }
     
     func storeData(){

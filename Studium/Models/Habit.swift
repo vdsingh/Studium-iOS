@@ -14,10 +14,11 @@ class Habit: Object, StudiumEvent{
     @objc dynamic var location: String = ""
     @objc dynamic var additionalDetails: String = ""
     
-    @objc dynamic var startTime: Date = Date()
+    @objc dynamic var startTime: Date = Date() //if autoschedule, this is first bound
     @objc dynamic var endTime: Date = Date()
     
     @objc dynamic var autoSchedule: Bool = false //will this habit be scheduled automatically
+    @objc dynamic var startEarlier: Bool = true
     
     let days = List<String>()
     

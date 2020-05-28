@@ -38,7 +38,6 @@ class DayScheduleViewController: DayViewController {
         models = models + addCoursesBasedOnDay(onDate: date)
         models = models + addAssignments()
         models = models + addWakeTimes(onDate: date)
-        models = models + addSleepTimes(onDate: date)
         
         var events = [Event]()
         
@@ -112,32 +111,6 @@ class DayScheduleViewController: DayViewController {
         }
         
         return events
-    }
-    
-    func addSleepTimes(onDate date: Date) -> [CalendarEvent]{
-        var allEvents: [CalendarEvent] = []
-        let sleepTimeDictionary = ["Sun": defaults.array(forKey: "sunSleep")![0] as! Date, "Mon": defaults.array(forKey: "monSleep")![0] as! Date, "Tue": defaults.array(forKey: "tueSleep")![0] as! Date, "Wed": defaults.array(forKey: "wedSleep")![0] as! Date, "Thu": defaults.array(forKey: "thuSleep")![0] as! Date, "Fri": defaults.array(forKey: "friSleep")![0] as! Date, "Sat": defaults.array(forKey: "satSleep")![0] as! Date]
-
-        
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
-        let usableString = weekDay.substring(toIndex: 3)
-        let timeToSleep = sleepTimeDictionary[usableString]!
-        
-        let hour = calendar.component(.hour, from: timeToSleep) //get the sleep time from the stored info
-        let minutes = calendar.component(.minute, from: timeToSleep)
-        let usableDate = Calendar.current.date(bySettingHour: hour, minute: minutes, second: 0, of: date)!
-
-        dateFormatter.dateFormat = "h:mm a"
-        let formattedTime = dateFormatter.string(from: timeToSleep)
-        
-        let anHourLater = usableDate + (60*60)
-        let newEvent = CalendarEvent(startDate: usableDate, endDate: anHourLater, title: "Sleep: \(formattedTime)", location: "")
-
-        allEvents.append(newEvent)
-        return allEvents
     }
     
     func addWakeTimes(onDate date: Date) -> [CalendarEvent]{

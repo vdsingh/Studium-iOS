@@ -39,10 +39,13 @@ class AddHabitViewController: UIViewController{
         }
     }
     @IBAction func autoScheduleChanged(_ sender: UISwitch) {
-        fromTimePicker.isHidden = sender.isOn
-        fromLabel.isHidden = sender.isOn
-        toTimePicker.isHidden = sender.isOn
-        toLabel.isHidden = sender.isOn
+        if sender.isOn{ //schedule during free time
+            fromLabel.text = "Try to fit between: "
+            toLabel.text = "and: "
+        }else{
+            fromLabel.text = "From: "
+            toLabel.text = "To: "
+        }
     }
 
     @IBAction func addButtonPressed(_ sender: UIButton) {
