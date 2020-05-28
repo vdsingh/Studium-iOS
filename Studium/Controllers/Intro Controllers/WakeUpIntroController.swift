@@ -22,6 +22,7 @@ class WakeUpIntroController: UIViewController{
     @IBOutlet weak var satLabel: UILabel!
     
     @IBOutlet weak var timePicker: UIDatePicker!
+    @IBOutlet weak var errorsLabel: UILabel!
     var selectedDay: UIButton?
     var times: [String: Date] = [:]
     var labels: [String: UILabel] = [:]
@@ -104,8 +105,8 @@ class WakeUpIntroController: UIViewController{
             }
         }
     }
-    @IBAction func nextPressed(_ sender: UIBarButtonItem) {
-        storeData()
+
+    @IBAction func nextPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "toMain", sender: self)
     }
     

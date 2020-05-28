@@ -17,7 +17,7 @@ class DayScheduleViewController: DayViewController {
     var allAssignments: Results<Assignment>?
     var allCourses: Results<Course>?
     
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -34,10 +34,12 @@ class DayScheduleViewController: DayViewController {
     }
     
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
-        var models: [CalendarEvent] = []// Get events (models) from the storage / API
+        var models: [CalendarEvent] = []
         models = models + addCoursesBasedOnDay(onDate: date)
         models = models + addAssignments()
         models = models + addWakeTimes(onDate: date)
+        
+        models = models + addHabits(onDate: date, withEvents: models)
         
         var events = [Event]()
         
@@ -138,6 +140,12 @@ class DayScheduleViewController: DayViewController {
 
         allEvents.append(newEvent)
         return allEvents
+    }
+    
+    func addHabits(onDate: Date, withEvents: [CalendarEvent]) -> [CalendarEvent]{//algorithm to find right time based on pre-existing events.
+        var habits: [CalendarEvent] = []
+        
+        return habits
     }
 }
 

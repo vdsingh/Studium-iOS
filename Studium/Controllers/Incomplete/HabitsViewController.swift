@@ -17,6 +17,9 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    override func viewWillAppear(_ animated: Bool) {
+        loadHabits()
+    }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addHabitViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
@@ -34,7 +37,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         return 1
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return habits?.count ?? 1
+        return habits?.count ?? 0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)

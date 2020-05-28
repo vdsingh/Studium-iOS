@@ -34,6 +34,6 @@ class RegisterViewController: UIViewController{
     }
     @IBAction func continueAsGuestPressed(_ sender: UIButton) {
         
-        self.performSegue(withIdentifier: "toMain", sender: self)
+        self.performSegue(withIdentifier: "toWakeUp", sender: self)
     }
 }
