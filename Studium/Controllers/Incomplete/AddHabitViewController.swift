@@ -20,6 +20,7 @@ class AddHabitViewController: UIViewController{
     var selectedDays = ["Sun": false,"Mon": false,"Tue": false,"Wed":false,"Thu": false,"Fri": false,"sat": false]
     var errors: [String] = []
     var earlier: Bool = true
+    var autoSchedule: Bool = false
     
     @IBOutlet weak var habitNameTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
@@ -28,10 +29,14 @@ class AddHabitViewController: UIViewController{
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var toLabel: UILabel!
     
-    @IBOutlet weak var fromTimePicker: UIDatePicker!
-    @IBOutlet weak var toTimePicker: UIDatePicker!
+    
+    @IBOutlet weak var timePickerStack: UIStackView!
+    @IBOutlet weak var startFinishButton: UIButton!
+    @IBOutlet weak var startTimePicker: UIDatePicker!
+    @IBOutlet weak var finishTimePicker: UIDatePicker!
     
     @IBOutlet weak var earlierLaterLabel: UISegmentedControl!
+    @IBOutlet weak var totalTimeForHabitButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
     @IBAction func dateButtonSelected(_ sender: UIButton) {
@@ -52,13 +57,11 @@ class AddHabitViewController: UIViewController{
     }
     @IBAction func autoScheduleChanged(_ sender: UISwitch) {
         if sender.isOn{ //schedule during free time
-            fromLabel.text = "Try to fit between: "
-            toLabel.text = "and: "
-            earlierLaterLabel.isHidden = false
+            setAutoScheduleUI()
+            autoSchedule = true
         }else{
-            fromLabel.text = "From: "
-            toLabel.text = "To: "
-            earlierLaterLabel.isHidden = true
+            setManualUI()
+            autoSchedule = false
         }
     }
     
@@ -86,7 +89,13 @@ class AddHabitViewController: UIViewController{
             newHabit.name = habitNameTextField.text!
             newHabit.location = locationTextField.text!
             newHabit.additionalDetails = additionalDetailsTextField.text!
+            
+            newHabit.autoSchedule = autoSchedule
             newHabit.startEarlier = earlier
+            
+            newHabit.startTime = startTimePicker.date
+            newHabit.endTime = finishTimePicker.date
+            
             for (day, dayBool) in selectedDays{ //specify course days
                 if dayBool == true {
                     newHabit.days.append(day)
@@ -114,6 +123,13 @@ class AddHabitViewController: UIViewController{
         }
     }
     
+    @IBAction func setStartAndFinishPressed(_ sender: UIButton) {
+        if timePickerStack.isHidden == true{
+            timePickerStack.isHidden = false
+        }else{
+            timePickerStack.isHidden = true
+        }
+    }
     func save(habit: Habit){
         do{
             try realm.write{
@@ -122,5 +138,21 @@ class AddHabitViewController: UIViewController{
         }catch{
             print(error)
         }
+    }
+    
+    func setAutoScheduleUI(){
+        startFinishButton.titleLabel?.text = "Set Bounds for When to Schedule"
+        totalTimeForHabitButton.isHidden = false
+        fromLabel.text = "Try to fit between:"
+        toLabel.text = "and:"
+        earlierLaterLabel.isHidden = false
+    }
+    
+    func setManualUI(){
+        startFinishButton.titleLabel?.text = "Set Start and Finish Time"
+        totalTimeForHabitButton.isHidden = true
+        fromLabel.text = "Start:"
+        toLabel.text = "Finish:"
+        earlierLaterLabel.isHidden = true
     }
 }
