@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Day-->
         <scene sceneID="qp6-ef-PCF">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="fig-EF-Ixi" customClass="DayScheduleViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
@@ -29,7 +29,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jxD-Hm-tFX"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="p9Z-Jx-73L"/>
+                    <tabBarItem key="tabBarItem" title="Day" id="p9Z-Jx-73L"/>
                     <navigationItem key="navigationItem" id="Qm6-Xz-fwH">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2M4-RX-uO0">
@@ -191,12 +191,12 @@
         <!--Add Course View Controller-->
         <scene sceneID="1d8-9K-Onw">
             <objects>
-                <viewController storyboardIdentifier="AddCourseViewController" id="pyR-77-vQF" customClass="AddCourseViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="DLo-NC-gz7">
+                <viewController storyboardIdentifier="AddCourseViewController" modalPresentationStyle="formSheet" id="pyR-77-vQF" customClass="AddCourseViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="DLo-NC-gz7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="9Bs-8U-st8">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="9Bs-8U-st8">
                                 <rect key="frame" x="20" y="40" width="413" height="782"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a Course" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOd-PO-MLF">
@@ -243,7 +243,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RGM-GV-P7N">
-                                                <rect key="frame" x="59" y="0.0" width="59" height="36"/>
+                                                <rect key="frame" x="59" y="0.0" width="59" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Mon"/>
                                                 <connections>
@@ -251,7 +251,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="h52-ie-NAo">
-                                                <rect key="frame" x="118" y="0.0" width="59" height="36"/>
+                                                <rect key="frame" x="118" y="0.0" width="59" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Tue"/>
                                                 <connections>
@@ -259,7 +259,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yLs-sT-S07">
-                                                <rect key="frame" x="177" y="0.0" width="59" height="36"/>
+                                                <rect key="frame" x="177" y="0.0" width="59" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Wed"/>
                                                 <connections>
@@ -267,7 +267,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XAt-2Y-LAE">
-                                                <rect key="frame" x="236" y="0.0" width="59" height="36"/>
+                                                <rect key="frame" x="236" y="0.0" width="59" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Thu"/>
                                                 <connections>
@@ -275,7 +275,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fpF-9y-Kcm">
-                                                <rect key="frame" x="295" y="0.0" width="59" height="36"/>
+                                                <rect key="frame" x="295" y="0.0" width="59" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Fri"/>
                                                 <connections>
@@ -283,7 +283,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t4R-wC-kuc">
-                                                <rect key="frame" x="354" y="0.0" width="59" height="36"/>
+                                                <rect key="frame" x="354" y="0.0" width="59" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Sat"/>
                                                 <connections>
@@ -326,17 +326,14 @@
                                             </datePicker>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="OPm-bk-3f5">
                                                 <rect key="frame" x="206.5" y="0.0" width="206.5" height="150"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="C8A-dR-7zp"/>
-                                                </constraints>
                                             </datePicker>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dKC-bf-JeG" userLabel="Color Stack">
-                                        <rect key="frame" x="0.0" y="555" width="413" height="64.5"/>
+                                        <rect key="frame" x="0.0" y="555" width="413" height="53.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="96O-hK-ieh">
-                                                <rect key="frame" x="0.0" y="0.0" width="69" height="64.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="69" height="53.5"/>
                                                 <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="square" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
@@ -348,7 +345,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Apg-dP-zL3">
-                                                <rect key="frame" x="69" y="0.0" width="68.5" height="64.5"/>
+                                                <rect key="frame" x="69" y="0.0" width="68.5" height="53.5"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                                 <color key="tintColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -362,7 +359,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6RP-Ku-2KF">
-                                                <rect key="frame" x="137.5" y="0.0" width="69" height="64.5"/>
+                                                <rect key="frame" x="137.5" y="0.0" width="69" height="53.5"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="square" catalog="system">
@@ -375,7 +372,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BNN-xi-vhI">
-                                                <rect key="frame" x="206.5" y="0.0" width="69" height="64.5"/>
+                                                <rect key="frame" x="206.5" y="0.0" width="69" height="53.5"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="square" catalog="system">
@@ -388,7 +385,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2j3-8V-oXG">
-                                                <rect key="frame" x="275.5" y="0.0" width="68.5" height="64.5"/>
+                                                <rect key="frame" x="275.5" y="0.0" width="68.5" height="53.5"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="square" catalog="system">
@@ -401,7 +398,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="a6M-iS-Caa">
-                                                <rect key="frame" x="344" y="0.0" width="69" height="64.5"/>
+                                                <rect key="frame" x="344" y="0.0" width="69" height="53.5"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="square" catalog="system">
@@ -416,7 +413,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RHf-lu-OfH">
-                                        <rect key="frame" x="0.0" y="639.5" width="413" height="50"/>
+                                        <rect key="frame" x="0.0" y="628.5" width="413" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="SEq-0u-zLS"/>
                                         </constraints>
@@ -426,7 +423,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8z-6K-4Ij">
-                                        <rect key="frame" x="0.0" y="709.5" width="413" height="72.5"/>
+                                        <rect key="frame" x="0.0" y="698.5" width="413" height="83.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -434,6 +431,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="9Bs-8U-st8" secondAttribute="trailing" constant="20" id="9f0-Kg-EJm"/>
                             <constraint firstItem="9Bs-8U-st8" firstAttribute="top" secondItem="DLo-NC-gz7" secondAttribute="top" constant="40" id="GOc-J9-o1S"/>
@@ -475,7 +473,7 @@
         <!--Add Assignment View Controller-->
         <scene sceneID="Ggq-1r-Rdu">
             <objects>
-                <viewController storyboardIdentifier="AddAssignmentViewController" id="JuD-c3-P0E" customClass="AddAssignmentViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddAssignmentViewController" modalPresentationStyle="formSheet" id="JuD-c3-P0E" customClass="AddAssignmentViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f3q-7D-3y7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -527,6 +525,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="PZT-d2-3Cu" firstAttribute="centerX" secondItem="f3q-7D-3y7" secondAttribute="centerX" id="CvO-t8-HUH"/>
                             <constraint firstItem="PZT-d2-3Cu" firstAttribute="top" secondItem="B0H-Wk-8dh" secondAttribute="top" constant="20" id="tKO-hv-wRb"/>
@@ -629,10 +628,10 @@
                         <color key="selectedImageTintColor" cocoaTouchSystemColor="darkTextColor"/>
                     </tabBar>
                     <connections>
+                        <segue destination="fig-EF-Ixi" kind="relationship" relationship="viewControllers" id="7JW-3C-03K"/>
                         <segue destination="ak0-as-E5L" kind="relationship" relationship="viewControllers" id="OvJ-2x-Gyo"/>
                         <segue destination="xDD-sh-HPi" kind="relationship" relationship="viewControllers" id="YN5-Wz-ffg"/>
                         <segue destination="b3b-28-02j" kind="relationship" relationship="viewControllers" id="8L9-uc-zvY"/>
-                        <segue destination="fig-EF-Ixi" kind="relationship" relationship="viewControllers" id="7JW-3C-03K"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fgb-DV-c3i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -643,48 +642,48 @@
         <scene sceneID="Tzc-X3-1CU">
             <objects>
                 <viewController storyboardIdentifier="AddHabitViewController" modalPresentationStyle="formSheet" id="4Bg-SR-BV3" customClass="AddHabitViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="CgB-nd-fJn">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="CgB-nd-fJn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mfi-wF-avP">
-                                <rect key="frame" x="20" y="48" width="409.5" height="800"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="mfi-wF-avP">
+                                <rect key="frame" x="20" y="40" width="409.5" height="698.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a Habit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iO0-iS-vZh">
-                                        <rect key="frame" x="0.0" y="0.0" width="409.5" height="30.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="409.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Habit Name (e.g. Gym, Math Club)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vR3-gh-efR">
-                                        <rect key="frame" x="0.0" y="38.5" width="409.5" height="50"/>
+                                        <rect key="frame" x="0.0" y="40.5" width="409.5" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="q9v-Ks-sje"/>
+                                            <constraint firstAttribute="height" constant="50" id="ck8-28-82A"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tXM-my-dyB">
-                                        <rect key="frame" x="0.0" y="96.5" width="409.5" height="50"/>
+                                        <rect key="frame" x="0.0" y="110.5" width="409.5" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="xre-9p-NbP"/>
+                                            <constraint firstAttribute="height" constant="50" id="HCr-h8-bUf"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Additional Details" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VzO-DH-Nck">
-                                        <rect key="frame" x="0.0" y="154.5" width="409.5" height="50"/>
+                                        <rect key="frame" x="0.0" y="180.5" width="409.5" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="VBw-Yv-4ee"/>
+                                            <constraint firstAttribute="height" constant="50" id="mxt-oJ-dYR"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="NqI-MU-dQV" userLabel="Days Stack">
-                                        <rect key="frame" x="0.0" y="212.5" width="409.5" height="50"/>
+                                        <rect key="frame" x="0.0" y="250.5" width="409.5" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fS1-0G-awL">
-                                                <rect key="frame" x="0.0" y="0.0" width="58.5" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="58.5" height="30"/>
                                                 <state key="normal" title="Sun"/>
                                                 <connections>
                                                     <action selector="DayButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="4VZ-Cf-BlN"/>
@@ -692,7 +691,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gYr-bo-LBu">
-                                                <rect key="frame" x="58.5" y="0.0" width="58.5" height="44.5"/>
+                                                <rect key="frame" x="58.5" y="0.0" width="58.5" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Mon"/>
                                                 <connections>
@@ -701,7 +700,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="G0K-r4-G9S">
-                                                <rect key="frame" x="117" y="0.0" width="58.5" height="44.5"/>
+                                                <rect key="frame" x="117" y="0.0" width="58.5" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Tue"/>
                                                 <connections>
@@ -710,7 +709,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6ZS-K9-3is">
-                                                <rect key="frame" x="175.5" y="0.0" width="58.5" height="44.5"/>
+                                                <rect key="frame" x="175.5" y="0.0" width="58.5" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Wed"/>
                                                 <connections>
@@ -719,7 +718,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5ch-fH-GdV">
-                                                <rect key="frame" x="234" y="0.0" width="58.5" height="44.5"/>
+                                                <rect key="frame" x="234" y="0.0" width="58.5" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Thu"/>
                                                 <connections>
@@ -728,7 +727,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jCK-xt-Cim">
-                                                <rect key="frame" x="292.5" y="0.0" width="58.5" height="44.5"/>
+                                                <rect key="frame" x="292.5" y="0.0" width="58.5" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Fri"/>
                                                 <connections>
@@ -737,7 +736,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="je6-U5-vQb">
-                                                <rect key="frame" x="351" y="0.0" width="58.5" height="44.5"/>
+                                                <rect key="frame" x="351" y="0.0" width="58.5" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Sat"/>
                                                 <connections>
@@ -746,41 +745,35 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="nqj-gc-d7B"/>
-                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qzi-Ml-xus">
-                                        <rect key="frame" x="0.0" y="270.5" width="409.5" height="75"/>
+                                        <rect key="frame" x="0.0" y="300.5" width="409.5" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schedule During Free Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yjG-Ov-fuq">
-                                                <rect key="frame" x="0.0" y="27" width="352.5" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="5.5" width="352.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2qi-4d-rLl">
-                                                <rect key="frame" x="360.5" y="22" width="51" height="31"/>
+                                                <rect key="frame" x="360.5" y="0.0" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="autoScheduleChanged:" destination="4Bg-SR-BV3" eventType="valueChanged" id="Rju-oW-aeF"/>
                                                 </connections>
                                             </switch>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="75" id="ZvC-0j-hxE"/>
-                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="30" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K3l-wt-TzD" userLabel="Days Label">
-                                        <rect key="frame" x="0.0" y="353.5" width="409.5" height="30"/>
+                                        <rect key="frame" x="0.0" y="351.5" width="409.5" height="20.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2o-Ny-6Ej">
-                                                <rect key="frame" x="0.0" y="5" width="185" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="185" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1D-Ex-XxZ">
-                                                <rect key="frame" x="215" y="5" width="194.5" height="20.5"/>
+                                                <rect key="frame" x="215" y="0.0" width="194.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -788,21 +781,18 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="lNx-Nd-9PC" userLabel="Date Picker Stack">
-                                        <rect key="frame" x="0.0" y="391.5" width="409.5" height="150"/>
+                                        <rect key="frame" x="0.0" y="392" width="409.5" height="216"/>
                                         <subviews>
                                             <datePicker contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="lvq-2i-pPH">
-                                                <rect key="frame" x="0.0" y="0.0" width="205" height="150"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="205" height="216"/>
                                             </datePicker>
                                             <datePicker contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="v38-J7-tnc">
-                                                <rect key="frame" x="205" y="0.0" width="204.5" height="150"/>
+                                                <rect key="frame" x="205" y="0.0" width="204.5" height="216"/>
                                             </datePicker>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="hie-Bg-0d7"/>
-                                        </constraints>
                                     </stackView>
                                     <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iDx-EY-mGv">
-                                        <rect key="frame" x="0.0" y="545.5" width="409.5" height="1"/>
+                                        <rect key="frame" x="0.0" y="618" width="409.5" height="1"/>
                                         <segments>
                                             <segment title="Earlier"/>
                                             <segment title="Later"/>
@@ -812,7 +802,7 @@
                                         </connections>
                                     </segmentedControl>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihN-Xw-y90">
-                                        <rect key="frame" x="0.0" y="549.5" width="409.5" height="44.5"/>
+                                        <rect key="frame" x="0.0" y="628" width="409.5" height="30"/>
                                         <state key="normal" title="Add"/>
                                         <connections>
                                             <action selector="addButtonPressed:" destination="pyR-77-vQF" eventType="touchUpInside" id="TNH-Nw-Ugu"/>
@@ -820,23 +810,19 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dxl-FO-ZSo">
-                                        <rect key="frame" x="0.0" y="602" width="409.5" height="198"/>
+                                        <rect key="frame" x="0.0" y="678" width="409.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="800" id="0Zk-43-DX8"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="mfi-wF-avP" firstAttribute="centerX" secondItem="CgB-nd-fJn" secondAttribute="centerX" id="0z2-Wr-c6k"/>
-                            <constraint firstItem="gVV-1a-I2P" firstAttribute="trailing" secondItem="mfi-wF-avP" secondAttribute="trailing" constant="20" id="818-0R-WkE"/>
-                            <constraint firstItem="mfi-wF-avP" firstAttribute="centerY" secondItem="CgB-nd-fJn" secondAttribute="centerY" id="F22-eh-OKh"/>
-                            <constraint firstItem="mfi-wF-avP" firstAttribute="leading" secondItem="gVV-1a-I2P" secondAttribute="leading" constant="20" id="xmf-xR-JWe"/>
+                            <constraint firstItem="mfi-wF-avP" firstAttribute="top" secondItem="CgB-nd-fJn" secondAttribute="top" constant="40" id="Meb-kb-ylH"/>
+                            <constraint firstItem="gVV-1a-I2P" firstAttribute="trailing" secondItem="mfi-wF-avP" secondAttribute="trailing" constant="20" id="PSG-qe-wRV"/>
+                            <constraint firstItem="mfi-wF-avP" firstAttribute="leading" secondItem="gVV-1a-I2P" secondAttribute="leading" constant="20" id="mcz-7H-mti"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gVV-1a-I2P"/>
                     </view>
@@ -1389,8 +1375,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Wnu-Ip-7gX"/>
-        <segue reference="7JW-3C-03K"/>
+        <segue reference="vWz-Xa-cqV"/>
+        <segue reference="FXc-vJ-RkE"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

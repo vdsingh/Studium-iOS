@@ -111,7 +111,6 @@ class WakeUpIntroController: UIViewController{
     }
     
     func storeData(){
-        print("wake up data stored.")
         defaults.set([times["Sun"]], forKey: "sunWakeUp")
         defaults.set([times["Mon"]], forKey: "monWakeUp")
         defaults.set([times["Tue"]], forKey: "tueWakeUp")

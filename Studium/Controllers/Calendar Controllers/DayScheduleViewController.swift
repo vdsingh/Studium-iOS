@@ -115,7 +115,6 @@ class DayScheduleViewController: DayViewController {
     
     func addWakeTimes(onDate date: Date) -> [CalendarEvent]{
         var allEvents: [CalendarEvent] = []
-        print("wake up time for sunday: \(defaults.array(forKey: "sunWakeUp")![0])")
         let wakeTimeDictionary = ["Sun": defaults.array(forKey: "sunWakeUp")![0] as! Date, "Mon": defaults.array(forKey: "monWakeUp")![0] as! Date, "Tue": defaults.array(forKey: "tueWakeUp")![0] as! Date, "Wed": defaults.array(forKey: "wedWakeUp")![0] as! Date, "Thu": defaults.array(forKey: "thuWakeUp")![0] as! Date, "Fri": defaults.array(forKey: "friWakeUp")![0] as! Date, "Sat": defaults.array(forKey: "satWakeUp")![0] as! Date]
 
         
