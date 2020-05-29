@@ -24,7 +24,8 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addHabitViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
         addHabitViewController.delegate = self
-        self.present(addHabitViewController, animated: true, completion: nil)
+        performSegue(withIdentifier: "toAddHabit", sender: self)
+        //self.present(addHabitViewController, animated: true, completion: nil)
         
     }
     
