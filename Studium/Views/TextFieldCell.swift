@@ -7,10 +7,14 @@
 //
 
 import UIKit
-
+protocol UITextFieldDelegate {
+    func textEdited(sender: UITextField)
+}
 class TextFieldCell: UITableViewCell {
 
     @IBOutlet weak var textField: UITextField!
+    var delegate: UITextFieldDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,5 +25,11 @@ class TextFieldCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    @IBAction func finishedEditingText(_ sender: UITextField) {
+        
+    }
     
+    @IBAction func textEdited(_ sender: UITextField) {
+        delegate!.textEdited(sender: sender)
+    }
 }

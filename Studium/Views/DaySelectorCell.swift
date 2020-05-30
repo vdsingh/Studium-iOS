@@ -1,16 +1,19 @@
 //
-//  LabelCell.swift
+//  DaySelectorCell.swift
 //  Studium
 //
-//  Created by Vikram Singh on 5/29/20.
+//  Created by Vikram Singh on 5/30/20.
 //  Copyright © 2020 Vikram Singh. All rights reserved.
 //
 
 import UIKit
 
-class LabelCell: UITableViewCell {
+protocol DaySelectorDelegate{
+    func dayButtonPressed(sender: UIButton)
+}
+class DaySelectorCell: UITableViewCell {
 
-    @IBOutlet weak var label: UILabel!
+    var delegate: DaySelectorDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,6 +23,9 @@ class LabelCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    @IBAction func dayButtonPressed(_ sender: UIButton) {
+        delegate!.dayButtonPressed(sender: sender)
     }
     
 }

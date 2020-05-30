@@ -23,6 +23,10 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <action selector="finishedEditingText:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="a8p-6z-1eW"/>
+                            <action selector="textEdited:" destination="KGk-i7-Jjw" eventType="editingChanged" id="aV4-jj-Fg3"/>
+                        </connections>
                     </textField>
                 </subviews>
                 <constraints>

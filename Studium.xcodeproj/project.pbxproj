@@ -24,6 +24,8 @@
 		1686DB7724826FAB00FA99DB /* PickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB7524826FAB00FA99DB /* PickerCell.xib */; };
 		1686DB7E24827B8900FA99DB /* TimePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB7C24827B8900FA99DB /* TimePickerCell.swift */; };
 		1686DB7F24827B8900FA99DB /* TimePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB7D24827B8900FA99DB /* TimePickerCell.xib */; };
+		1686DB822482A0A500FA99DB /* DaySelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB802482A0A400FA99DB /* DaySelectorCell.swift */; };
+		1686DB832482A0A500FA99DB /* DaySelectorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB812482A0A400FA99DB /* DaySelectorCell.xib */; };
 		1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E730247A3DC4003D4702 /* AppDelegate.swift */; };
 		1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E732247A3DC4003D4702 /* SceneDelegate.swift */; };
 		1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E734247A3DC4003D4702 /* CalendarViewController.swift */; };
@@ -66,6 +68,8 @@
 		1686DB7524826FAB00FA99DB /* PickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerCell.xib; sourceTree = "<group>"; };
 		1686DB7C24827B8900FA99DB /* TimePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerCell.swift; sourceTree = "<group>"; };
 		1686DB7D24827B8900FA99DB /* TimePickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimePickerCell.xib; sourceTree = "<group>"; };
+		1686DB802482A0A400FA99DB /* DaySelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectorCell.swift; sourceTree = "<group>"; };
+		1686DB812482A0A400FA99DB /* DaySelectorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DaySelectorCell.xib; sourceTree = "<group>"; };
 		1693E72D247A3DC4003D4702 /* Studium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1693E730247A3DC4003D4702 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1693E732247A3DC4003D4702 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -187,6 +191,8 @@
 				1686DB7524826FAB00FA99DB /* PickerCell.xib */,
 				1686DB7C24827B8900FA99DB /* TimePickerCell.swift */,
 				1686DB7D24827B8900FA99DB /* TimePickerCell.xib */,
+				1686DB802482A0A400FA99DB /* DaySelectorCell.swift */,
+				1686DB812482A0A400FA99DB /* DaySelectorCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -329,6 +335,7 @@
 				1686DB6524812CE000FA99DB /* LabelCell.xib in Resources */,
 				1686DB7F24827B8900FA99DB /* TimePickerCell.xib in Resources */,
 				1686DB6124812C4000FA99DB /* SwitchCell.xib in Resources */,
+				1686DB832482A0A500FA99DB /* DaySelectorCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +413,7 @@
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
 				1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */,
 				16B5191C247BE2DE005ED8E4 /* LoginViewController.swift in Sources */,
+				1686DB822482A0A500FA99DB /* DaySelectorCell.swift in Sources */,
 				1693E759247A59B2003D4702 /* AllAssignmentsViewController.swift in Sources */,
 				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,
 				1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */,

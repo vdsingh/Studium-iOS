@@ -14,7 +14,8 @@ protocol CourseRefreshProtocol { //Used to refresh the course list after we have
     func loadCourses()
 }
 
-class AddCourseViewController: UIViewController, UITextFieldDelegate{
+class AddCourseViewController: UIViewController{
+    
     var delegate: CourseRefreshProtocol? //reference to the course list.
     let realm = try! Realm() //Link to the realm where we are storing information
     
@@ -163,15 +164,15 @@ class AddCourseViewController: UIViewController, UITextFieldDelegate{
     }
 }
 
-extension AddCourseViewController: UITextViewDelegate {
-    override func viewDidLoad() {
-        courseNameText.delegate = self
-        locationText.delegate = self
-        additionalDetailsText.delegate = self
-    }
-    func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return true
-    }
-}
+//extension AddCourseViewController: UITextViewDelegate {
+//    override func viewDidLoad() {
+//        courseNameText.delegate = self
+//        locationText.delegate = self
+//        additionalDetailsText.delegate = self
+//    }
+//    func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
+//        self.view.endEditing(true)
+//        return true
+//    }
+//}
 

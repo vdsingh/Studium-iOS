@@ -1095,7 +1095,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Add a Habit" id="Cbb-a9-EMR">
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="70c-8U-u15"/>
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="70c-8U-u15">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="XMv-UY-9Fa" id="4Ju-O5-Ot6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3MT-12-mIV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1266,7 +1270,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="9WV-HZ-IaR"/>
         <segue reference="vWz-Xa-cqV"/>
         <segue reference="FXc-vJ-RkE"/>
     </inferredMetricsTieBreakers>
