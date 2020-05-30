@@ -25,13 +25,13 @@ class AddHabitViewController: UITableViewController, CanHandleSwitch{
     var activePicker: String?
     
     //var pickerActive = false
-    var cellTextNoAuto: [String] = ["Name", "Location", "Additional Details", "Autoschedule", "Start Time", "Finish Time", ]
-    var cellTypeNoAuto: [String] = ["TextFieldCell", "TextFieldCell", "TextFieldCell", "SwitchCell", "TimeCell", "TimeCell"]
-    var cellTextAuto: [String] = ["Name", "Location", "Additional Details", "Autoschedule", "Between", "And", "Length of Habit"]
-    var cellTypeAuto: [String] = ["TextFieldCell", "TextFieldCell", "TextFieldCell", "SwitchCell", "TimeCell", "TimeCell", "TimeCell"]
+    var cellTextNoAuto: [[String]] = [["Name", "Location"], ["Autoschedule", "Start Time", "Finish Time"], ["Additional Details"]]
+    var cellTypeNoAuto: [[String]] = [["TextFieldCell", "TextFieldCell"],  ["SwitchCell", "TimeCell", "TimeCell"], ["TextFieldCell"]]
+    var cellTextAuto: [[String]] = [["Name", "Location"], ["Autoschedule", "Between", "And", "Length of Habit"],["Additional Details"]]
+    var cellTypeAuto: [[String]] = [["TextFieldCell", "TextFieldCell"],  ["SwitchCell", "TimeCell", "TimeCell", "TimeCell"],["TextFieldCell"]]
     
-    var cellText: [String] = []
-    var cellType: [String] = []
+    var cellText: [[String]] = [[]]
+    var cellType: [[String]] = [[]]
     
     
     var startTime: Date = Date()
@@ -85,11 +85,13 @@ class AddHabitViewController: UITableViewController, CanHandleSwitch{
 //MARK: - TableView DataSource
 extension AddHabitViewController{
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        print("num sections: \(cellType.count)")
+        return cellType.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellText.count
+        print("num rows in section \(section): \(cellText[section].count)")
+        return cellText[section].count
     }
     
 }
@@ -97,33 +99,33 @@ extension AddHabitViewController{
 //MARK: - TableView Delegate
 extension AddHabitViewController{
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if cellType[indexPath.row] == "TextFieldCell"{
+        if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
-            cell.textField.placeholder = cellText[indexPath.row]
+            cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
             return cell
-        }else if cellType[indexPath.row] == "SwitchCell"{
+        }else if cellType[indexPath.section][indexPath.row] == "SwitchCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
             cell.delegate = self
-            cell.label.text = cellText[indexPath.row]
+            cell.label.text = cellText[indexPath.section][indexPath.row]
             return cell
-        }else if cellType[indexPath.row] == "TimeCell"{
+        }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
-            if cellText[indexPath.row] == "Length of Habit"{
+            if cellText[indexPath.section][indexPath.row] == "Length of Habit"{
                 cell.timeLabel.text = "\(totalLengthHours) hours \(totalLengthMinutes) mins"
-                cell.label.text = cellText[indexPath.row]
+                cell.label.text = cellText[indexPath.section][indexPath.row]
             }else{
                 cell.timeLabel.text = times[timeCounter].format(with: "h:mm a")
-                cell.label.text = cellText[indexPath.row]
+                cell.label.text = cellText[indexPath.section][indexPath.row]
                 timeCounter+=1
             }
             return cell
             
-        }else if cellType[indexPath.row] == "PickerCell"{
+        }else if cellType[indexPath.section][indexPath.row] == "PickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PickerCell", for: indexPath) as! PickerCell
             cell.picker.delegate = self
             cell.picker.dataSource = self
             return cell
-        }else if cellType[indexPath.row] == "TimePickerCell"{
+        }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
             cell.delegate = self
             return cell
@@ -132,19 +134,26 @@ extension AddHabitViewController{
         }
     }
     
+//    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        CGFloat.leastNormalMagnitude
+//    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+
+        return 30
+    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedRowText = cellText[indexPath.row]
-        if cellType[indexPath.row] == "TimeCell"{
-            var pickerIndex = cellType.firstIndex(of: "TimePickerCell")
+        let selectedRowText = cellText[indexPath.section][indexPath.row]
+        if cellType[indexPath.section][indexPath.row] == "TimeCell"{
+            var pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")
             if pickerIndex == nil{
-                pickerIndex = cellType.firstIndex(of: "PickerCell")
+                pickerIndex = cellType[indexPath.section].firstIndex(of: "PickerCell")
             }
             tableView.beginUpdates()
 
             if let index = pickerIndex{
-                cellText.remove(at: index)
-                cellType.remove(at: index)
-                tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .right)
+                cellText[indexPath.section].remove(at: index)
+                cellType[indexPath.section].remove(at: index)
+                tableView.deleteRows(at: [IndexPath(row: index, section: indexPath.section)], with: .right)
                 if index == indexPath.row + 1{
                     print("picked the active picker")
                     //print(cellText[indexPath.row - 1])
@@ -153,18 +162,18 @@ extension AddHabitViewController{
                 }
             }
 
-            let newIndex = cellText.firstIndex(of: selectedRowText)! + 1
+            let newIndex = cellText[indexPath.section].firstIndex(of: selectedRowText)! + 1
 
-            tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .left)
-            activePicker = cellText[newIndex - 1]
+            tableView.insertRows(at: [IndexPath(row: newIndex, section: indexPath.section)], with: .left)
+            activePicker = cellText[indexPath.section][newIndex - 1]
             if selectedRowText == "Length of Habit"{
-                cellText.insert("", at: newIndex)
-                cellType.insert("PickerCell", at: newIndex)
+                cellText[indexPath.section].insert("", at: newIndex)
+                cellType[indexPath.section].insert("PickerCell", at: newIndex)
             }else{
 //                cellText.append("")
 //                cellType.append("")
-                cellText.insert("", at: newIndex)
-                cellType.insert("TimePickerCell", at: newIndex)
+                cellText[indexPath.section].insert("", at: newIndex)
+                cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
             }
             tableView.endUpdates()
         }
@@ -204,7 +213,7 @@ extension AddHabitViewController: UIPickerViewDelegate{
         reloadData()
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if cellType[indexPath.row] == "PickerCell" || cellType[indexPath.row] == "TimePickerCell"{
+        if cellType[indexPath.section][indexPath.row] == "PickerCell" || cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
             return 150
         }
         return 50
