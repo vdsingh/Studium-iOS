@@ -45,4 +45,5 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         cell.textLabel?.text = habits?[indexPath.row].name
         return cell
     }
+    
 }

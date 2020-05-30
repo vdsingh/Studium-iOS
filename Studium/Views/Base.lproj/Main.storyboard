@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ane-Mh-m3H">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XMv-UY-9Fa">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -993,6 +993,36 @@
             </objects>
             <point key="canvasLocation" x="3479.7101449275365" y="1947.9910714285713"/>
         </scene>
+        <!--Picker Test-->
+        <scene sceneID="0aA-KB-VZT">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0EU-lJ-s2Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController id="NKe-OR-GoV" customClass="PickerTest" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BYn-Ai-tQI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nYc-nD-q0o">
+                                <rect key="frame" x="47" y="367" width="320" height="162"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="162" id="WH1-Vz-bKD"/>
+                                </constraints>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="nYc-nD-q0o" firstAttribute="centerX" secondItem="BYn-Ai-tQI" secondAttribute="centerX" id="4IQ-NU-rmX"/>
+                            <constraint firstItem="nYc-nD-q0o" firstAttribute="centerY" secondItem="BYn-Ai-tQI" secondAttribute="centerY" id="6BZ-9D-Tsn"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="oSB-8l-AyA"/>
+                    </view>
+                    <connections>
+                        <outlet property="pickerView" destination="nYc-nD-q0o" id="XRq-6Z-5rM"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="5267" y="1956"/>
+        </scene>
         <!--Habits-->
         <scene sceneID="oxt-Lb-e6L">
             <objects>
@@ -1234,6 +1264,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="eE0-SX-jFh"/>
         <segue reference="vWz-Xa-cqV"/>
         <segue reference="FXc-vJ-RkE"/>
     </inferredMetricsTieBreakers>
