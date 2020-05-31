@@ -179,20 +179,7 @@
 			children = (
 				1693E736247A3DC4003D4702 /* Main.storyboard */,
 				1693E73B247A3DC6003D4702 /* LaunchScreen.storyboard */,
-				1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */,
-				1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */,
-				1686DB5E24812C4000FA99DB /* SwitchCell.swift */,
-				1686DB5F24812C4000FA99DB /* SwitchCell.xib */,
-				1686DB6224812CE000FA99DB /* LabelCell.swift */,
-				1686DB6324812CE000FA99DB /* LabelCell.xib */,
-				1686DB662482622800FA99DB /* TimeCell.swift */,
-				1686DB672482622800FA99DB /* TimeCell.xib */,
-				1686DB7424826FAB00FA99DB /* PickerCell.swift */,
-				1686DB7524826FAB00FA99DB /* PickerCell.xib */,
-				1686DB7C24827B8900FA99DB /* TimePickerCell.swift */,
-				1686DB7D24827B8900FA99DB /* TimePickerCell.xib */,
-				1686DB802482A0A400FA99DB /* DaySelectorCell.swift */,
-				1686DB812482A0A400FA99DB /* DaySelectorCell.xib */,
+				16E2514524838676000494DE /* Custom Cells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -246,6 +233,27 @@
 				16B5191B247BE2DE005ED8E4 /* LoginViewController.swift */,
 			);
 			path = "Firebase Controllers";
+			sourceTree = "<group>";
+		};
+		16E2514524838676000494DE /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */,
+				1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */,
+				1686DB5E24812C4000FA99DB /* SwitchCell.swift */,
+				1686DB5F24812C4000FA99DB /* SwitchCell.xib */,
+				1686DB6224812CE000FA99DB /* LabelCell.swift */,
+				1686DB6324812CE000FA99DB /* LabelCell.xib */,
+				1686DB662482622800FA99DB /* TimeCell.swift */,
+				1686DB672482622800FA99DB /* TimeCell.xib */,
+				1686DB7424826FAB00FA99DB /* PickerCell.swift */,
+				1686DB7524826FAB00FA99DB /* PickerCell.xib */,
+				1686DB7C24827B8900FA99DB /* TimePickerCell.swift */,
+				1686DB7D24827B8900FA99DB /* TimePickerCell.xib */,
+				1686DB802482A0A400FA99DB /* DaySelectorCell.swift */,
+				1686DB812482A0A400FA99DB /* DaySelectorCell.xib */,
+			);
+			path = "Custom Cells";
 			sourceTree = "<group>";
 		};
 		8E6006EE7CC6D255D05E9EBF /* Frameworks */ = {

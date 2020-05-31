@@ -19,7 +19,7 @@ class CalendarViewController: UIViewController{
     var allEventsInDay: [StudiumEvent] = []
     var selectedDay: Date = Date()
     override func viewDidLoad() {
-        print("calendar viewdidload was called.")
+        //print("calendar viewdidload was called.")
         super.viewDidLoad()
         
 
@@ -81,11 +81,9 @@ class CalendarViewController: UIViewController{
 
 extension CalendarViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("cellForRowAt ran!")
         let cell = tableView.dequeueReusableCell(withIdentifier:  "Cell", for: indexPath)
         let correspondingEvent = allEventsInDay[indexPath.row]
         cell.textLabel?.text = correspondingEvent.name
-        print(correspondingEvent.name)
         return cell
     }
 }

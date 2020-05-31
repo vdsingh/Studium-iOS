@@ -37,13 +37,27 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return habits?.count ?? 0
+        return habits?.count ?? 1
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = habits?[indexPath.row].name
         return cell
+    }
+    
+    override func updateModel(at indexPath: IndexPath) {
+        if let habitForDeletion = self.habits?[indexPath.row]{
+            do{
+                try self.realm.write{
+                    self.realm.delete(habitForDeletion)
+                }
+            }catch{
+                print("error deleting habit \(error)")
+            }
+        }
     }
     
 }

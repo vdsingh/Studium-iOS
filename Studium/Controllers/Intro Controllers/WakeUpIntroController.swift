@@ -78,7 +78,7 @@ class WakeUpIntroController: UIViewController{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         let formattedDate = dateFormatter.string(from: timePicker.date)
-        
+        print(timePicker.date)
         if differentTimes {
             if let day = selectedDay{
                 times[day.titleLabel!.text!] = timePicker.date

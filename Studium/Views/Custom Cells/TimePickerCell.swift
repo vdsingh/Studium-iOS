@@ -15,8 +15,14 @@ class TimePickerCell: UITableViewCell {
     var delegate: UITimePickerDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
+        print("time picker awake from nib")
+        picker.timeZone = NSTimeZone.local
+        //print(picker.timeZone)
+
         // Initialization code
     }
+    
+    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

@@ -28,8 +28,8 @@ class AddHabitViewController: UITableViewController, CanHandleSwitch{
     
     var cellTextNoAuto: [[String]] = [["Name", "Location"], ["Autoschedule", "Start Time", "Finish Time"], ["Additional Details", "Days", ""]]
     var cellTypeNoAuto: [[String]] = [["TextFieldCell", "TextFieldCell"],  ["SwitchCell", "TimeCell", "TimeCell"], ["TextFieldCell", "DaySelectorCell", "LabelCell"]]
-    var cellTextAuto: [[String]] = [["Name", "Location"], ["Autoschedule", "Between", "And", "Length of Habit"],["Additional Details", "Days"]]
-    var cellTypeAuto: [[String]] = [["TextFieldCell", "TextFieldCell"],  ["SwitchCell", "TimeCell", "TimeCell", "TimeCell"],["TextFieldCell", "DaySelectorCell"]]
+    var cellTextAuto: [[String]] = [["Name", "Location"], ["Autoschedule", "Between", "And", "Length of Habit"],["Additional Details", "Days", ""]]
+    var cellTypeAuto: [[String]] = [["TextFieldCell", "TextFieldCell"],  ["SwitchCell", "TimeCell", "TimeCell", "TimeCell"],["TextFieldCell", "DaySelectorCell", "LabelCell"]]
     
     var cellText: [[String]] = [[]]
     var cellType: [[String]] = [[]]
@@ -109,8 +109,14 @@ class AddHabitViewController: UITableViewController, CanHandleSwitch{
             newHabit.additionalDetails = additionalDetails
             newHabit.autoSchedule = autoschedule
             newHabit.startEarlier = earlier
+            print(startTime)
             newHabit.startTime = startTime
             newHabit.endTime = endTime
+            
+            if newHabit.autoSchedule{
+                newHabit.totalHourTime = totalLengthHours
+                newHabit.totalMinuteTime = totalLengthMinutes
+            }
             
             for day in daysSelected{
                 newHabit.days.append(day)
@@ -133,7 +139,7 @@ class AddHabitViewController: UITableViewController, CanHandleSwitch{
             for error in errors{
                 errorStr.append(contentsOf: error)
             }
-            cellText[2][cellText.firstIndex(of: cellText.last!)!].append(errorStr)
+            cellText[2][cellText.count - 1].append(errorStr)
             reloadData()
             print(cellType)
             errorLabel!.label.textColor = .red
@@ -314,17 +320,18 @@ extension AddHabitViewController: UIPickerViewDelegate{
 //MARK: - Date/TimePicker Delegate
 extension AddHabitViewController: UITimePickerDelegate{
     func pickerValueChanged(sender: UIDatePicker) {
-        print("picker value changed. The active picker is: \(activePicker)")
         if activePicker == "Start Time" || activePicker == "Between"{
             startTime = sender.date
         }
         
         if activePicker == "Finish Time" || activePicker == "And"{
+            
             endTime = sender.date
         }
         reloadData()
         
     }
+    
 }
 
 //MARK: - TextField Delegate
@@ -359,6 +366,13 @@ extension AddHabitViewController: DaySelectorDelegate{
     }
     
     
+}
+
+extension Date {
+    var localizedDescription: String {
+        return description(with: .current)
+            //return description(with: .current)
+    }
 }
 //
 //protocol HabitRefreshProtocol{

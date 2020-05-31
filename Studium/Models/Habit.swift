@@ -20,6 +20,9 @@ class Habit: Object, StudiumEvent{
     @objc dynamic var autoSchedule: Bool = false //will this habit be scheduled automatically
     @objc dynamic var startEarlier: Bool = true
     
+    @objc dynamic var totalHourTime: Int = 0
+    @objc dynamic var totalMinuteTime: Int = 0
+
     let days = List<String>()
     
 }

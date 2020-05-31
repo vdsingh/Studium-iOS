@@ -44,7 +44,6 @@ class DayScheduleViewController: DayViewController {
         
         models = models + addHabits(onDate: date, withEvents: models)
         
-        print(models)
         var events = [Event]()
         
         for model in models {
@@ -150,53 +149,41 @@ class DayScheduleViewController: DayViewController {
 
         //loadHabits()
         var habitEvents: [CalendarEvent] = []
-        print("all habits: \(allHabits)")
         if let habitsArr = allHabits{
             for habit in habitsArr{
                 if habit.autoSchedule{ // auto schedule habit
-//                    let startComponents = Calendar.current.dateComponents([.hour, .minute], from: habit.startTime)
-//                    let endComponents = Calendar.current.dateComponents([.hour, .minute], from: habit.endTime)
-//
-//
-//                    var habitTime = [endComponents.hour! - startComponents.hour!, endComponents.minute! - startComponents.minute!]
-//                    if habitTime[1] < 0{ //handle cases where minutes is negative
-//                        habitTime[0] -= 1
-//                        habitTime[1] = 60 + habitTime[1]
-//                    }
-//                    if habit.startEarlier{ //schedule the habit starting earlier
-//                        let calendar = Calendar.current
-//
-//
-//                        var firstTimeBound = habit.startTime
-//                        var temp = calendar.date(byAdding: .minute, value: habitTime[1], to: firstTimeBound)
-//                        var secondTimeBound = calendar.date(byAdding: .hour, value: habitTime[0], to: temp!)
-//
-//                        print("trying to plan habit: \(habit.name)")
-//                        print("the length of \(habit.name) is \(habitTime[0]) hours and \(habitTime[1]) minutes")
-//                        print("the habit must occur between \(habit.startTime) and \(habit.endTime)")
-//
-//                        while true{
-//                            for event in events{
-//                                if isEventBetween(time1: firstTimeBound, time2: secondTimeBound!, events: events) {
-//                                    firstTimeBound = event.endDate
-//                                    temp = calendar.date(byAdding: .minute, value: habitTime[1], to: firstTimeBound)
-//                                    secondTimeBound = calendar.date(byAdding: .hour, value: habitTime[0], to: temp!)
-//                                }else{
-//                                    let newEvent = CalendarEvent(startDate: firstTimeBound, endDate: secondTimeBound!, title: habit.name, location: habit.location)
-//                                    habitEvents.append(newEvent)
-//                                    break
-//                                }
-//                            }
-//                        }
-//                    }else{//schedule the habit starting later
-//                        //let endTimeBound = habit.endTime
-//                    }
+                    if habit.startEarlier{
+                        
+                        var startBound = Calendar.current.date(bySettingHour: habit.startTime.hour, minute: habit.startTime.minute, second: 0, of: date)!
+                        var endBound = Calendar.current.date(bySettingHour: startBound.hour + habit.totalHourTime, minute: startBound.minute + habit.totalMinuteTime, second: 0, of: date)!
+                        
+                        var counter = 0
+                        while true {
+                            counter+=1
+                            if endBound.hour >= habit.endTime.hour && endBound.minute > habit.endTime.minute{
+                                print("was no time to schedule this event")
+                                break
+                            }
+                            if isEventBetween(time1: startBound, time2: endBound, events: events){
+                                let event = getEventBetween(time1: startBound, time2: endBound, events: events)
+                                print("The event between \(startBound) and \(endBound) was \(event!.title)")
+                                startBound = event!.endDate + 1
+                                print("end of event = \(event!.endDate). new start bound = \(startBound)")
+                                endBound = Calendar.current.date(bySettingHour: startBound.hour + habit.totalHourTime, minute: startBound.minute + habit.totalMinuteTime, second: 0, of: date)!
+                            }else{
+                                let newEvent = CalendarEvent(startDate: startBound, endDate: endBound, title: habit.name, location: habit.location)
+                                
+                                habitEvents.append(newEvent)
+                                break
+                            }
+                        }
+                    }
                 }else{ // schedule the habit as a regular event
 
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "EEEE"
                     let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
-                    print(weekDay)
+                    //print(weekDay)
                     let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
                     if habit.days.contains(usableString){ //habit occurs on this day
                         var components = Calendar.current.dateComponents([.hour, .minute], from: habit.startTime)
@@ -229,6 +216,23 @@ class DayScheduleViewController: DayViewController {
             }
         }
         return false
+    }
+    
+    func getEventBetween(time1: Date, time2: Date, events: [CalendarEvent]) -> CalendarEvent?{
+        for event in events{
+            if event.startDate <= time1 && event.startDate >= time2{ //the event completely overlaps the space
+                return event
+            }
+            
+            if event.startDate >= time1 && event.startDate <= time2{ //the event starts within the space
+                return event
+            }
+            
+            if event.endDate >= time1 && event.endDate <= time2{ //the event ends within the space
+                return event
+            }
+        }
+        return nil
     }
 }
 
