@@ -19,7 +19,6 @@ class AddHabitViewController: UITableViewController, CanHandleSwitch{
     
     var totalLengthHours = 1
     var totalLengthMinutes = 0
-    var autoschedule = false
     
     let realm = try! Realm()
     var delegate: HabitRefreshProtocol?
@@ -45,6 +44,8 @@ class AddHabitViewController: UITableViewController, CanHandleSwitch{
     var errors:[String] = []
     var errorLabel: LabelCell?
     
+    
+    var autoschedule = false
     var habitName: String = ""
     var additionalDetails: String = ""
     var location: String = ""
@@ -106,9 +107,8 @@ class AddHabitViewController: UITableViewController, CanHandleSwitch{
             newHabit.name = habitName
             newHabit.location = location
             newHabit.additionalDetails = additionalDetails
-            newHabit.autoSchedule = true
+            newHabit.autoSchedule = autoschedule
             newHabit.startEarlier = earlier
-            
             newHabit.startTime = startTime
             newHabit.endTime = endTime
             
@@ -116,6 +116,7 @@ class AddHabitViewController: UITableViewController, CanHandleSwitch{
                 newHabit.days.append(day)
             }
             
+            print("\(newHabit.days) \(newHabit.name)")
             save(habit: newHabit)
             delegate?.loadHabits()
             
