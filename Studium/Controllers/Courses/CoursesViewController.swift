@@ -94,8 +94,6 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         
     }
     
-    
-    
     override func updateModel(at indexPath: IndexPath) {
         if let courseForDeletion = courses?[indexPath.row]{
             do{
@@ -113,9 +111,5 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         let addCourseViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
         addCourseViewController.delegate = self
         self.present(addCourseViewController, animated: true, completion: nil)
-    }
-    
-    @IBAction func allButtonPressed(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: K.coursesToAllSegue, sender: self)
     }
 }
