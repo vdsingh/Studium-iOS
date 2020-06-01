@@ -27,12 +27,16 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         
         tableView.rowHeight = 80
         tableView.separatorStyle = .none //gets rid of dividers between cells.
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("view will appear was indeed called.!")
         loadCourses()
-        //        guard let navBar = navigationController?.navigationBar else {fatalError("nav controller doesnt exist")}
-        //        navBar.backgroundColor = UIColor(hexString: "1D9BF6")
+        let navBar = navigationController?.navigationBar
+        navBar!.barTintColor = UIColor.systemBackground
+        //print(UIColor.gray)
         
         //searchBar.barTintColor = UIColor(hexString: colorHex)
         
@@ -87,6 +91,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     func loadCourses(){
         courses = realm.objects(Course.self) //fetching all objects of type Course and updating array with it.
         tableView.reloadData()
+        
     }
     
     

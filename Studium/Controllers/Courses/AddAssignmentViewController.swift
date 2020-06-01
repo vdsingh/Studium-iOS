@@ -56,10 +56,11 @@ class AddAssignmentViewController: UIViewController{
     }
     @IBAction func addButtonPressed(_ sender: UIButton) {
         let newAssignment = Assignment()
-        newAssignment.name = titleTextField.text ?? "" //setting assignment properties.
-        newAssignment.additionalDetails = additionalDetailsTextField.text ?? ""
-        newAssignment.startDate = datePicker.date - (60*60)
-        newAssignment.endDate = datePicker.date + (60*60)
+        newAssignment.initializeData(name: titleTextField.text ?? "", additionalDetails: additionalDetailsTextField.text ?? "", complete: false, startDate: datePicker.date, endDate: datePicker.date + (60*60))
+//        newAssignment.name = titleTextField.text ?? "" //setting assignment properties.
+//        newAssignment.additionalDetails = additionalDetailsTextField.text ?? ""
+//        newAssignment.startDate = datePicker.date
+//        newAssignment.endDate = datePicker.date + (60*60)
         save(assignment: newAssignment)
         
         

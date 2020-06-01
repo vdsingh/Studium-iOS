@@ -47,6 +47,8 @@
 		16B5191A247BDA34005ED8E4 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B51919247BDA34005ED8E4 /* RegisterViewController.swift */; };
 		16B5191C247BE2DE005ED8E4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5191B247BE2DE005ED8E4 /* LoginViewController.swift */; };
 		16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */; };
+		16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E251462485190E000494DE /* SegmentedControlCell.swift */; };
+		16E251492485190F000494DE /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E251472485190E000494DE /* SegmentedControlCell.xib */; };
 		B7810C2AA5191938B2C9F9FF /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +95,8 @@
 		16B51919247BDA34005ED8E4 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		16B5191B247BE2DE005ED8E4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
+		16E251462485190E000494DE /* SegmentedControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlCell.swift; sourceTree = "<group>"; };
+		16E251472485190E000494DE /* SegmentedControlCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
 		590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
 		8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Studium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.release.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.release.xcconfig"; sourceTree = "<group>"; };
@@ -252,6 +256,8 @@
 				1686DB7D24827B8900FA99DB /* TimePickerCell.xib */,
 				1686DB802482A0A400FA99DB /* DaySelectorCell.swift */,
 				1686DB812482A0A400FA99DB /* DaySelectorCell.xib */,
+				16E251462485190E000494DE /* SegmentedControlCell.swift */,
+				16E251472485190E000494DE /* SegmentedControlCell.xib */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -344,6 +350,7 @@
 				1686DB7F24827B8900FA99DB /* TimePickerCell.xib in Resources */,
 				1686DB6124812C4000FA99DB /* SwitchCell.xib in Resources */,
 				1686DB832482A0A500FA99DB /* DaySelectorCell.xib in Resources */,
+				16E251492485190F000494DE /* SegmentedControlCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +422,7 @@
 				1686DB682482622800FA99DB /* TimeCell.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
 				1686DB5C24812BCE00FA99DB /* TextFieldCell.swift in Sources */,
+				16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */,
 				16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */,
 				1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,

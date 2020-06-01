@@ -168,7 +168,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Courses" id="dkl-h0-sPZ">
-                        <barButtonItem key="leftBarButtonItem" title="All" id="87O-4U-Nwu">
+                        <barButtonItem key="leftBarButtonItem" title="All Assignments" id="87O-4U-Nwu">
                             <connections>
                                 <action selector="allButtonPressed:" destination="Ict-Kx-JgS" id="ecp-J6-LTt"/>
                             </connections>
@@ -586,6 +586,23 @@
             </objects>
             <point key="canvasLocation" x="5353.6231884057979" y="103.79464285714285"/>
         </scene>
+        <!--Day-->
+        <scene sceneID="9gg-NV-fIV">
+            <objects>
+                <navigationController id="8ry-8P-woK" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Day" id="sdd-Lb-EYw"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pUJ-1y-edv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="fig-EF-Ixi" kind="relationship" relationship="rootViewController" id="a4a-ku-z1q"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CVl-hY-WQl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-71" y="-767"/>
+        </scene>
         <!--All Events-->
         <scene sceneID="0ca-yn-nsi">
             <objects>
@@ -628,7 +645,7 @@
                         <color key="selectedImageTintColor" cocoaTouchSystemColor="darkTextColor"/>
                     </tabBar>
                     <connections>
-                        <segue destination="fig-EF-Ixi" kind="relationship" relationship="viewControllers" id="7JW-3C-03K"/>
+                        <segue destination="8ry-8P-woK" kind="relationship" relationship="viewControllers" id="ecR-XL-Wcy"/>
                         <segue destination="ak0-as-E5L" kind="relationship" relationship="viewControllers" id="OvJ-2x-Gyo"/>
                         <segue destination="xDD-sh-HPi" kind="relationship" relationship="viewControllers" id="YN5-Wz-ffg"/>
                         <segue destination="b3b-28-02j" kind="relationship" relationship="viewControllers" id="8L9-uc-zvY"/>
@@ -1047,7 +1064,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Habits" id="AUz-T0-hXe">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="U0L-GT-yHU">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="U0L-GT-yHU">
                             <connections>
                                 <action selector="addButtonPressed:" destination="zhP-oF-OCd" id="B17-dl-4rK"/>
                             </connections>
@@ -1087,7 +1104,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Add a Habit" id="Cbb-a9-EMR">
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="70c-8U-u15">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="TUB-dC-aew">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="XMv-UY-9Fa" id="eZP-1B-5FX"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="70c-8U-u15">
                             <connections>
                                 <action selector="addButtonPressed:" destination="XMv-UY-9Fa" id="4Ju-O5-Ot6"/>
                             </connections>
@@ -1263,9 +1285,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="9WV-HZ-IaR"/>
         <segue reference="vWz-Xa-cqV"/>
-        <segue reference="7JW-3C-03K"/>
+        <segue reference="a4a-ku-z1q"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

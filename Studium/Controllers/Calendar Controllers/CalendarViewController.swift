@@ -21,7 +21,7 @@ class CalendarViewController: UIViewController{
     override func viewDidLoad() {
         //print("calendar viewdidload was called.")
         super.viewDidLoad()
-        
+
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -75,6 +75,8 @@ class CalendarViewController: UIViewController{
         allEventsInDay = []
         addAssignments()
         addCourses()
+        allEventsInDay = allEventsInDay.sorted(by: { $0.startTime < $1.startTime })
+
         tableView.reloadData()
     }
 }
@@ -86,6 +88,7 @@ extension CalendarViewController: UITableViewDelegate{
         cell.textLabel?.text = correspondingEvent.name
         return cell
     }
+    
 }
 
 extension CalendarViewController: UITableViewDataSource{

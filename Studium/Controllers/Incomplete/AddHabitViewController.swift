@@ -28,8 +28,9 @@ class AddHabitViewController: UITableViewController, CanHandleSwitch{
     
     var cellTextNoAuto: [[String]] = [["Name", "Location"], ["Autoschedule", "Start Time", "Finish Time"], ["Additional Details", "Days", ""]]
     var cellTypeNoAuto: [[String]] = [["TextFieldCell", "TextFieldCell"],  ["SwitchCell", "TimeCell", "TimeCell"], ["TextFieldCell", "DaySelectorCell", "LabelCell"]]
-    var cellTextAuto: [[String]] = [["Name", "Location"], ["Autoschedule", "Between", "And", "Length of Habit"],["Additional Details", "Days", ""]]
-    var cellTypeAuto: [[String]] = [["TextFieldCell", "TextFieldCell"],  ["SwitchCell", "TimeCell", "TimeCell", "TimeCell"],["TextFieldCell", "DaySelectorCell", "LabelCell"]]
+    
+    var cellTextAuto: [[String]] = [["Name", "Location"], ["Autoschedule", "Between", "And", "Length of Habit", ""],["Additional Details", "Days", ""]]
+    var cellTypeAuto: [[String]] = [["TextFieldCell", "TextFieldCell"],  ["SwitchCell", "TimeCell", "TimeCell", "TimeCell", "SegmentedControlCell"],["TextFieldCell", "DaySelectorCell", "LabelCell"]]
     
     var cellText: [[String]] = [[]]
     var cellType: [[String]] = [[]]
@@ -62,6 +63,7 @@ class AddHabitViewController: UITableViewController, CanHandleSwitch{
         tableView.register(UINib(nibName: "TimePickerCell", bundle: nil), forCellReuseIdentifier: "TimePickerCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
         tableView.register(UINib(nibName: "DaySelectorCell", bundle: nil), forCellReuseIdentifier: "DaySelectorCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
         tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
+        tableView.register(UINib(nibName: "SegmentedControlCell", bundle: nil), forCellReuseIdentifier: "SegmentedControlCell") 
         
         
         times = [startTime, endTime]
@@ -155,6 +157,9 @@ class AddHabitViewController: UITableViewController, CanHandleSwitch{
             }
         }
     }
+    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
     
     func reloadData(){
         times = [startTime, endTime]
@@ -228,6 +233,12 @@ extension AddHabitViewController{
             errorLabel = cell
             //print("added a label cell")
             return cell
+        }else if cellType[indexPath.section][indexPath.row] == "SegmentedControlCell"{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SegmentedControlCell", for: indexPath) as! SegmentedControlCell
+            cell.segmentedControl.setTitle("Earlier", forSegmentAt: 0)
+            cell.segmentedControl.setTitle("Later", forSegmentAt: 1)
+        //print("added a label cell")
+        return cell
         }else{
             return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         }
@@ -368,178 +379,12 @@ extension AddHabitViewController: DaySelectorDelegate{
     
 }
 
-extension Date {
-    var localizedDescription: String {
-        return description(with: .current)
-            //return description(with: .current)
+extension AddHabitViewController: SegmentedControlDelegate{
+    func controlValueChanged(sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0{//earlier
+            earlier = true
+        }else{
+            earlier = false
+        }
     }
 }
-//
-//protocol HabitRefreshProtocol{
-//    func loadHabits()
-//}
-//
-//class AddHabitViewController: UIViewController{
-//    let realm = try! Realm()
-//    var delegate: HabitRefreshProtocol?
-//    var selectedDays = ["Sun": false,"Mon": false,"Tue": false,"Wed":false,"Thu": false,"Fri": false,"sat": false]
-//    var errors: [String] = []
-//    var earlier: Bool = true
-//    var autoSchedule: Bool = false
-//
-//    @IBOutlet weak var habitNameTextField: UITextField!
-//    @IBOutlet weak var locationTextField: UITextField!
-//    @IBOutlet weak var additionalDetailsTextField: UITextField!
-//
-//    @IBOutlet weak var fromLabel: UILabel!
-//    @IBOutlet weak var toLabel: UILabel!
-//
-//
-//    @IBOutlet weak var timePickerStack: UIStackView!
-//    @IBOutlet weak var startFinishButton: UIButton!
-//    @IBOutlet weak var startTimePicker: UIDatePicker!
-//    @IBOutlet weak var finishTimePicker: UIDatePicker!
-//
-//    @IBOutlet weak var earlierLaterLabel: UISegmentedControl!
-//    @IBOutlet weak var totalTimeForHabitButton: UIButton!
-//    @IBOutlet weak var errorLabel: UILabel!
-//
-//    @IBAction func dateButtonSelected(_ sender: UIButton) {
-//        if(!sender.isSelected){ //user selected this day.
-//            selectedDays[(sender.titleLabel?.text)!] = true
-//            sender.isSelected = true
-//        }else{
-//            selectedDays[(sender.titleLabel?.text)!] = false
-//            sender.isSelected = false
-//        }
-//    }
-//    @IBAction func earlierLaterChanged(_ sender: UISegmentedControl) {
-//        if(sender.selectedSegmentIndex == 0){//earlier
-//            earlier = true
-//        }else{
-//            earlier = false
-//        }
-//    }
-//    @IBAction func autoScheduleChanged(_ sender: UISwitch) {
-//        if sender.isOn{ //schedule during free time
-//            setAutoScheduleUI()
-//            autoSchedule = true
-//        }else{
-//            setManualUI()
-//            autoSchedule = false
-//        }
-//    }
-//
-//    @IBAction func addButtonPressed(_ sender: UIButton) {
-//        errors = []
-//        errorLabel.text = " "
-//        if habitNameTextField.text == ""{
-//            errors.append("Please specify a name")
-//        }
-//
-//        var daySelected = false
-//        for (_, dayBool) in selectedDays{
-//            if dayBool == true{
-//                daySelected = true
-//                break
-//            }
-//        }
-//
-//        if daySelected == false{
-//            errors.append("Please specify at least one day")
-//        }
-//
-//        if errors.count == 0{
-//            let newHabit = Habit()
-//            newHabit.name = habitNameTextField.text!
-//            newHabit.location = locationTextField.text!
-//            newHabit.additionalDetails = additionalDetailsTextField.text!
-//
-//            newHabit.autoSchedule = autoSchedule
-//            newHabit.startEarlier = earlier
-//
-//            newHabit.startTime = startTimePicker.date
-//            newHabit.endTime = finishTimePicker.date
-//
-//            for (day, dayBool) in selectedDays{ //specify course days
-//                if dayBool == true {
-//                    newHabit.days.append(day)
-//                }
-//            }
-//            save(habit: newHabit)
-//            delegate?.loadHabits()
-//
-//            dismiss(animated: true) {
-//                if let del = self.delegate{
-//                    del.loadHabits()
-//                }else{
-//                    print("delegate was not defined.")
-//                }
-//            }
-//        }else{
-//            var addedFirstError = false
-//            errorLabel.text?.append(errors[0])
-//            for error in errors{
-//                if addedFirstError{
-//                    errorLabel.text?.append(", \(error)")
-//                }
-//                addedFirstError = true
-//            }
-//        }
-//    }
-//
-//    @IBAction func setStartAndFinishPressed(_ sender: UIButton) {
-//        if timePickerStack.isHidden == true{
-//            timePickerStack.isHidden = false
-//        }else{
-//            timePickerStack.isHidden = true
-//        }
-//    }
-//    func save(habit: Habit){
-//        do{
-//            try realm.write{
-//                realm.add(habit)
-//            }
-//        }catch{
-//            print(error)
-//        }
-//    }
-//
-//    func setAutoScheduleUI(){
-//        startFinishButton.titleLabel?.text = "Set Bounds for When to Schedule"
-//        totalTimeForHabitButton.isHidden = false
-//        fromLabel.text = "Try to fit between:"
-//        toLabel.text = "and:"
-//        earlierLaterLabel.isHidden = false
-//    }
-//
-//    func setManualUI(){
-//        startFinishButton.titleLabel?.text = "Set Start and Finish Time"
-//        totalTimeForHabitButton.isHidden = true
-//        fromLabel.text = "Start:"
-//        toLabel.text = "Finish:"
-//        earlierLaterLabel.isHidden = true
-//    }
-//}
-
-
-//if indexPath.row + 1 < cellType.count{
-//    if cellText[indexPath.row] == "Length of Habit"{
-//        cellType.insert("PickerCell", at: indexPath.row + 1)
-//        cellText.insert("", at: indexPath.row + 1)
-//    }else{
-//        cellType.insert("TimePickerCell", at: indexPath.row + 1)
-//        cellText.insert("", at: indexPath.row + 1)
-//    }
-//}else{
-//    print(indexPath.row)
-//    print(cellText)
-//    if cellText[indexPath.row - 1] == "Length of Habit"{
-//        cellType.append("PickerCell")
-//        cellText.append("")
-//
-//    }else{
-//        cellType.append("TimePickerCell")
-//        cellText.append("")
-//    }
-//}

@@ -11,4 +11,5 @@ import Foundation
 
 protocol StudiumEvent {
     var name: String { get }
+    var startTime: Date { get }
 }
