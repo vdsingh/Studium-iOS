@@ -13,6 +13,7 @@ class Course: Object, StudiumEvent{
     @objc dynamic var name: String = ""
     @objc dynamic var color: String = "eb4034"
     @objc dynamic var location: String = ""
+    @objc dynamic var additionalDetails: String = ""
     
     @objc dynamic var startTime: Date = Date()
     @objc dynamic var endTime: Date = Date()

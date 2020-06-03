@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 import RealmSwift
 
 @UIApplicationMain
@@ -22,8 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
 
 
-        FirebaseApp.configure()
-   
         return true
     }
 

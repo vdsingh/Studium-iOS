@@ -19,4 +19,16 @@ struct K {
     static let toCalendarSegue = "toCalendar"
     
     static let sortAssignmentsBy = "name"
+    
+    static var loggedIn = false
 }
+
+//rules_version = '2';
+//service cloud.firestore {
+//  match /databases/{database}/documents {
+//    match /{document=**} {
+//      allow read, write: if
+//          request.time < timestamp.date(2020, 7, 1);
+//    }
+//  }
+//}

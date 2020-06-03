@@ -108,8 +108,8 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     
     //MARK: - UI Actions
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        let addCourseViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
+        let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
         addCourseViewController.delegate = self
-        self.present(addCourseViewController, animated: true, completion: nil)
-    }
+        let navController = UINavigationController(rootViewController: addCourseViewController)
+        self.present(navController, animated:true, completion: nil)    }
 }
