@@ -13,11 +13,12 @@ import ChameleonFramework
 class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshProtocol{
     
     let realm = try! Realm() //Link to the realm where we are storing information
+    
     var assignments: Results<Assignment>? //Auto updating array linked to the realm
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadAssignments()
+        //loadAssignments()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,12 +32,18 @@ class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshP
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("called cell for row at in AllAssignments")
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let assignment = assignments?[indexPath.row]{
+
             cell.textLabel?.text = assignment.name
+            print("parent course:")
+            print(assignment.parentCourse[0].name)
             let parentColor = assignment.parentCourse[0].color
+            print("made it after parentColor!.")
+
             cell.backgroundColor = UIColor(hexString: parentColor)
-            cell.textLabel?.textColor = ContrastColorOf(UIColor(hexString: parentColor)!, returnFlat: true)
+            cell.textLabel?.textColor = UIColor.white
             cell.accessoryType = assignment.complete ? .checkmark : .none
         }else{
             cell.textLabel?.text = ""

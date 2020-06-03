@@ -32,7 +32,6 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("view will appear was indeed called.!")
         loadCourses()
         let navBar = navigationController?.navigationBar
         navBar!.barTintColor = UIColor.systemBackground

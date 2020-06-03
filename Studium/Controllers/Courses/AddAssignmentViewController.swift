@@ -15,8 +15,8 @@ class AddAssignmentViewController: UITableViewController{
     var activePicker: String?
     var activeTextField: String?
     
-    var cellText: [[String]] = [["Name", "Due Date"], ["Course"], ["Additional Details"]]
-    var cellType: [[String]] = [["TextFieldCell", "TimeCell"], ["PickerCell"], ["TextFieldCell"]]
+    var cellText: [[String]] = [["Name", "Due Date"], ["Course"], ["Additional Details"], [""]]
+    var cellType: [[String]] = [["TextFieldCell", "TimeCell"], ["PickerCell"], ["TextFieldCell"], ["LabelCell"]]
     
     var dueDate = Date()
     
@@ -61,9 +61,11 @@ class AddAssignmentViewController: UITableViewController{
             
             
             save(assignment: newAssignment)
+            delegate?.loadAssignments()
             dismiss(animated: true, completion: nil)
         }else{
-            
+            cellText[3][0] = errors
+            reloadData()
         }
     }
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
@@ -75,12 +77,31 @@ class AddAssignmentViewController: UITableViewController{
     }
     
     func save(assignment: Assignment){
-        do{
+        do{ //adding the assignment to the courses list of assignments
             try realm.write{
-                realm.add(assignment)
+                if let course = selectedCourse{
+                    course.assignments.append(assignment)
+                }else{
+                    print("course is nil.")
+                }
             }
         }catch{
-            print(error)
+            print("error appending assignment")
+        }
+    }
+    
+    func setDefaultRow(picker: UIPickerView){
+        var row = 0
+        if let coursesArr = courses{
+            for course in coursesArr{
+                if course.name == selectedCourse!.name{
+                    picker.selectRow(row, inComponent: 0, animated: true)
+                    break
+                }
+                row += 1
+            }
+        }else{
+            print("error. courses in AddAssignment is nil")
         }
     }
 }
@@ -116,6 +137,7 @@ extension AddAssignmentViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PickerCell", for: indexPath) as! PickerCell
             cell.picker.delegate = self
             cell.picker.dataSource = self
+            setDefaultRow(picker: cell.picker)
             print("added a picker cell.")
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
