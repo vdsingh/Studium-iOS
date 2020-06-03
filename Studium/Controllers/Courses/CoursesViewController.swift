@@ -17,6 +17,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UINib(nibName: "CourseCell", bundle: nil), forCellReuseIdentifier: "CourseCell")
 
 
         loadCourses()
@@ -25,8 +26,8 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         tableView.delegate = self //setting delegate class for the table view to be this
         tableView.dataSource = self //setting data source for the table view to be this
         
-        tableView.rowHeight = 80
-        tableView.separatorStyle = .none //gets rid of dividers between cells.
+        tableView.rowHeight = 100
+        //tableView.separatorStyle = .none //gets rid of dividers between cells.
         
         
     }
@@ -50,15 +51,11 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     //MARK: - Data Source Methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //build the cells
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        //let cell = super.tableView(tableView, cellForRowAt: indexPath) as! CourseCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
+
         if let course = courses?[indexPath.row]{
-            cell.textLabel?.text = courses?[indexPath.row].name ?? ""
-            
-            
-            //This is color stuff
-            guard let courseColor = UIColor(hexString: course.color)else{fatalError()}
-            cell.backgroundColor = UIColor(hexString: courses?[indexPath.row].color ?? "000000")
-            cell.textLabel?.textColor = ContrastColorOf(courseColor, returnFlat: true)
+            cell.reloadCell(courseNameText: course.name, courseStartTime: course.startTime, courseEndTime: course.endTime, courseLocationText: course.location, courseColor: course.color)
         }
         return cell
     }

@@ -199,7 +199,7 @@ class AddCourseViewController: UITableViewController{
     
     var errors: String = ""
     
-    var courseColor: String = "000000"
+    var courseColor: String = "4287f5"
     var courseName: String = ""
     var additionalDetails: String = ""
     var location: String = ""

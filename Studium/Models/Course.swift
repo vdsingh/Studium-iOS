@@ -11,7 +11,7 @@ import RealmSwift
 
 class Course: Object, StudiumEvent{
     @objc dynamic var name: String = ""
-    @objc dynamic var color: String = "eb4034"
+    @objc dynamic var color: String = "4287f5"
     @objc dynamic var location: String = ""
     @objc dynamic var additionalDetails: String = ""
     
