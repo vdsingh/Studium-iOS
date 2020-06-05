@@ -11,8 +11,8 @@
 		16429D02247E3CC60052E47C /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D01247E3CC60052E47C /* AddHabitViewController.swift */; };
 		16429D04247E43720052E47C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D03247E43720052E47C /* Habit.swift */; };
 		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
-		165A6C71248817EB004279B0 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C6F248817EB004279B0 /* CourseCell.swift */; };
-		165A6C72248817EB004279B0 /* CourseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C70248817EB004279B0 /* CourseCell.xib */; };
+		165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C77248A6F5C004279B0 /* CourseCell.swift */; };
+		165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C78248A6F5C004279B0 /* CourseCell.xib */; };
 		1686DB5C24812BCE00FA99DB /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */; };
 		1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */; };
 		1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB5E24812C4000FA99DB /* SwitchCell.swift */; };
@@ -57,8 +57,8 @@
 		16429D01247E3CC60052E47C /* AddHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
 		16429D03247E43720052E47C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
-		165A6C6F248817EB004279B0 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
-		165A6C70248817EB004279B0 /* CourseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell.xib; sourceTree = "<group>"; };
+		165A6C77248A6F5C004279B0 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
+		165A6C78248A6F5C004279B0 /* CourseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell.xib; sourceTree = "<group>"; };
 		1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
 		1686DB5E24812C4000FA99DB /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
@@ -183,8 +183,8 @@
 				1693E736247A3DC4003D4702 /* Main.storyboard */,
 				1693E73B247A3DC6003D4702 /* LaunchScreen.storyboard */,
 				16E2514524838676000494DE /* Basic Cells */,
-				165A6C6F248817EB004279B0 /* CourseCell.swift */,
-				165A6C70248817EB004279B0 /* CourseCell.xib */,
+				165A6C77248A6F5C004279B0 /* CourseCell.swift */,
+				165A6C78248A6F5C004279B0 /* CourseCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -340,7 +340,7 @@
 				1686DB7724826FAB00FA99DB /* PickerCell.xib in Resources */,
 				1686DB6524812CE000FA99DB /* LabelCell.xib in Resources */,
 				1686DB7F24827B8900FA99DB /* TimePickerCell.xib in Resources */,
-				165A6C72248817EB004279B0 /* CourseCell.xib in Resources */,
+				165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */,
 				1686DB6124812C4000FA99DB /* SwitchCell.xib in Resources */,
 				1686DB832482A0A500FA99DB /* DaySelectorCell.xib in Resources */,
 				16E251492485190F000494DE /* SegmentedControlCell.xib in Resources */,
@@ -420,7 +420,7 @@
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
 				1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */,
-				165A6C71248817EB004279B0 /* CourseCell.swift in Sources */,
+				165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */,
 				1686DB822482A0A500FA99DB /* DaySelectorCell.swift in Sources */,
 				1693E759247A59B2003D4702 /* AllAssignmentsViewController.swift in Sources */,
 				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,

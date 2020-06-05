@@ -17,7 +17,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "CourseCell", bundle: nil), forCellReuseIdentifier: "CourseCell")
+        tableView.register(UINib(nibName: "CourseCell", bundle: nil), forCellReuseIdentifier: "Cell")
 
 
         loadCourses()
@@ -51,11 +51,11 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     //MARK: - Data Source Methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //build the cells
-        //let cell = super.tableView(tableView, cellForRowAt: indexPath) as! CourseCell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
-
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! CourseCell
         if let course = courses?[indexPath.row]{
-            cell.reloadCell(courseNameText: course.name, courseStartTime: course.startTime, courseEndTime: course.endTime, courseLocationText: course.location, courseColor: course.color)
+            
+            cell.loadData(courseName: course.name, location: course.location, startTime: course.startTime, endTime: course.endTime, days: course.days, iconHex: course.color)
         }
         return cell
     }
