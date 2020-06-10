@@ -12,8 +12,11 @@ import ChameleonFramework
 
 class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, AssignmentRefreshProtocol{
     
+    
     let realm = try! Realm()
     var assignments: Results<Assignment>?
+    var assignmentsArr: [[Assignment]] = [[],[]]
+    var sectionTitles: [String] = ["Incomplete","Complete"]
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -26,6 +29,8 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     override func viewDidLoad() {
         searchBar.delegate = self
+        tableView.register(UINib(nibName: "AssignmentCell", bundle: nil), forCellReuseIdentifier: "Cell")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,28 +59,30 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     //MARK: - Data Source Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return assignments?.count ?? 1
+        return assignmentsArr[section].count
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        if let assignment = assignments?[indexPath.row]{
-            cell.textLabel?.text = assignment.name
-            if let color = UIColor(hexString: selectedCourse!.color)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(assignments!.count)){
-                cell.backgroundColor = color
-                cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
-            }
-            
-            cell.accessoryType = assignment.complete ? .checkmark : .none
-        }else{
-            cell.textLabel?.text = ""
-        }
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell
+        let assignment = assignmentsArr[indexPath.section][indexPath.row]
+        cell.assignment = assignment
+        cell.loadData(assignmentName: assignment.name, courseName: assignment.parentCourse[0].name, iconColor: assignment.parentCourse[0].color, dueDate: assignment.endDate)
+        
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return 30
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitles[section]
     }
     
     
@@ -83,37 +90,76 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     //MARK: - Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let assignment = assignments?[indexPath.row]{
-            do{
-                try realm.write{
-                    assignment.complete = !assignment.complete
-                }
-            }catch{
-                print(error)
+        let assignment = assignmentsArr[indexPath.section][indexPath.row]
+        do{
+            try realm.write{
+                assignment.complete = !assignment.complete
             }
+        }catch{
+            print(error)
         }
-        tableView.reloadData()
+        
+        loadAssignments()
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
     
     //MARK: - CRUD Methods
     func loadAssignments(){
         assignments = selectedCourse?.assignments.sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
+        assignmentsArr = [[],[]]
+        for assignment in assignments!{
+            if assignment.complete == true{
+                assignmentsArr[1].append(assignment)
+            }else{
+                assignmentsArr[0].append(assignment)
+            }
+        }
+        reloadData()
+    }
+    
+    func reloadData() {
+        assignmentsArr[0].sort(by: {$0.endDate < $1.endDate})
+        assignmentsArr[1].sort(by: {$0.endDate < $1.endDate})
         tableView.reloadData()
     }
     
-    override func updateModel(at indexPath: IndexPath) {
-        if let assignmentForDeletion = self.assignments?[indexPath.row]{
+    override func updateModelDelete(at indexPath: IndexPath) {
+        print(assignmentsArr)
+        
+        let assignmentIndex = assignments?.index(of: assignmentsArr[indexPath.section][indexPath.row])
+        let assignmentForDeletion = assignments?[assignmentIndex!]
             do{
                 try self.realm.write{
-                    self.realm.delete(assignmentForDeletion)
+                    self.realm.delete(assignmentForDeletion!)
                 }
             }catch{
-                print(error)
+                print("ERROR MANE")
             }
-        }
+        assignmentsArr[indexPath.section].remove(at: indexPath.row)
+        print("right before load assignmetns.")
     }
+    
+    override func updateModelEdit(at indexPath: IndexPath){
+        
+        let editAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
+        editAssignmentViewController.delegate = self
+        let navController = UINavigationController(rootViewController: editAssignmentViewController)
+        let assignmentCell = tableView.cellForRow(at: IndexPath(row: indexPath.row, section: indexPath.section)) as! AssignmentCell
+        editAssignmentViewController.selectedCourse = assignmentCell.assignment!.parentCourse[0]
+
+        self.present(navController, animated: true) {
+            editAssignmentViewController.loadData(from: assignmentCell.assignment!)
+        }
+
+
+    }
+    
+
+    
     
     //MARK: - Search Bar
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

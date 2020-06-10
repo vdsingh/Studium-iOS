@@ -20,7 +20,7 @@ struct K {
     
     static let sortAssignmentsBy = "name"
     
-    static var loggedIn = false
+    static var assignmentNum = 0
 }
 
 //rules_version = '2';

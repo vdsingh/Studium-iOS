@@ -15,17 +15,19 @@ class Assignment: Object, StudiumEvent{
     @objc dynamic var complete: Bool = false
     @objc dynamic var startDate: Date = Date()
     @objc dynamic var endDate: Date = Date()
+    @objc dynamic var assignmentID: Int = 0
     
     @objc dynamic var startTime: Date = Date()
     
-    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date) {
+    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, assignmentID: Int) {
 
         self.name = name
         self.additionalDetails = additionalDetails
         self.complete = complete
         self.startDate = startDate
         self.endDate = endDate
-
+        self.assignmentID = assignmentID
+        
         startTime = startDate
     }
     

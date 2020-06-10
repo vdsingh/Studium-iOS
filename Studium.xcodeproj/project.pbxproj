@@ -13,6 +13,10 @@
 		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
 		165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C77248A6F5C004279B0 /* CourseCell.swift */; };
 		165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C78248A6F5C004279B0 /* CourseCell.xib */; };
+		165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C7B248D9AF3004279B0 /* ColorPickerCell.swift */; };
+		165A6C7E248D9AF3004279B0 /* ColorPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C7C248D9AF3004279B0 /* ColorPickerCell.xib */; };
+		165A6C81248F0F54004279B0 /* AssignmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C7F248F0F54004279B0 /* AssignmentCell.swift */; };
+		165A6C82248F0F54004279B0 /* AssignmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C80248F0F54004279B0 /* AssignmentCell.xib */; };
 		1686DB5C24812BCE00FA99DB /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */; };
 		1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */; };
 		1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB5E24812C4000FA99DB /* SwitchCell.swift */; };
@@ -59,6 +63,10 @@
 		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
 		165A6C77248A6F5C004279B0 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		165A6C78248A6F5C004279B0 /* CourseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell.xib; sourceTree = "<group>"; };
+		165A6C7B248D9AF3004279B0 /* ColorPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCell.swift; sourceTree = "<group>"; };
+		165A6C7C248D9AF3004279B0 /* ColorPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerCell.xib; sourceTree = "<group>"; };
+		165A6C7F248F0F54004279B0 /* AssignmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCell.swift; sourceTree = "<group>"; };
+		165A6C80248F0F54004279B0 /* AssignmentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentCell.xib; sourceTree = "<group>"; };
 		1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
 		1686DB5E24812C4000FA99DB /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
@@ -131,6 +139,22 @@
 			path = "Intro Controllers";
 			sourceTree = "<group>";
 		};
+		165A6C8324916BD9004279B0 /* Add Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1693E75C247B56E8003D4702 /* AddCourseViewController.swift */,
+				16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */,
+			);
+			path = "Add Controllers";
+			sourceTree = "<group>";
+		};
+		165A6C8424916BE7004279B0 /* Edit Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Edit Controllers";
+			sourceTree = "<group>";
+		};
 		1693E724247A3DC4003D4702 = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +192,8 @@
 		1693E744247A413B003D4702 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				165A6C8424916BE7004279B0 /* Edit Controllers */,
+				165A6C8324916BD9004279B0 /* Add Controllers */,
 				16429D05247E81500052E47C /* Intro Controllers */,
 				16429CFC247D200E0052E47C /* Calendar Controllers */,
 				1693E75B247A67CF003D4702 /* Framework Superclasses */,
@@ -185,6 +211,8 @@
 				16E2514524838676000494DE /* Basic Cells */,
 				165A6C77248A6F5C004279B0 /* CourseCell.swift */,
 				165A6C78248A6F5C004279B0 /* CourseCell.xib */,
+				165A6C7F248F0F54004279B0 /* AssignmentCell.swift */,
+				165A6C80248F0F54004279B0 /* AssignmentCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -217,8 +245,6 @@
 				1693E745247A4152003D4702 /* CoursesViewController.swift */,
 				1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */,
 				1693E758247A59B2003D4702 /* AllAssignmentsViewController.swift */,
-				1693E75C247B56E8003D4702 /* AddCourseViewController.swift */,
-				16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */,
 			);
 			path = Courses;
 			sourceTree = "<group>";
@@ -250,6 +276,8 @@
 				1686DB812482A0A400FA99DB /* DaySelectorCell.xib */,
 				16E251462485190E000494DE /* SegmentedControlCell.swift */,
 				16E251472485190E000494DE /* SegmentedControlCell.xib */,
+				165A6C7B248D9AF3004279B0 /* ColorPickerCell.swift */,
+				165A6C7C248D9AF3004279B0 /* ColorPickerCell.xib */,
 			);
 			path = "Basic Cells";
 			sourceTree = "<group>";
@@ -333,6 +361,7 @@
 			files = (
 				1693E73D247A3DC6003D4702 /* LaunchScreen.storyboard in Resources */,
 				16B51918247BD8E1005ED8E4 /* GoogleService-Info.plist in Resources */,
+				165A6C82248F0F54004279B0 /* AssignmentCell.xib in Resources */,
 				1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */,
 				1693E73A247A3DC6003D4702 /* Assets.xcassets in Resources */,
 				1686DB692482622800FA99DB /* TimeCell.xib in Resources */,
@@ -342,6 +371,7 @@
 				1686DB7F24827B8900FA99DB /* TimePickerCell.xib in Resources */,
 				165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */,
 				1686DB6124812C4000FA99DB /* SwitchCell.xib in Resources */,
+				165A6C7E248D9AF3004279B0 /* ColorPickerCell.xib in Resources */,
 				1686DB832482A0A500FA99DB /* DaySelectorCell.xib in Resources */,
 				16E251492485190F000494DE /* SegmentedControlCell.xib in Resources */,
 			);
@@ -401,6 +431,7 @@
 				1693E755247A4B64003D4702 /* K.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				16429D02247E3CC60052E47C /* AddHabitViewController.swift in Sources */,
+				165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
@@ -417,6 +448,7 @@
 				16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */,
 				16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */,
 				1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */,
+				165A6C81248F0F54004279B0 /* AssignmentCell.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
 				1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */,

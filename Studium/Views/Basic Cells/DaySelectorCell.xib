@@ -81,6 +81,15 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outletCollection property="dayButtons" destination="LeP-R4-hAr" collectionClass="NSMutableArray" id="N44-rY-Rhf"/>
+                <outletCollection property="dayButtons" destination="waD-zx-bCn" collectionClass="NSMutableArray" id="9pd-wh-e1D"/>
+                <outletCollection property="dayButtons" destination="mpR-C9-yaM" collectionClass="NSMutableArray" id="PyD-Yk-tfH"/>
+                <outletCollection property="dayButtons" destination="QpE-NH-g6a" collectionClass="NSMutableArray" id="Yxv-mi-ey7"/>
+                <outletCollection property="dayButtons" destination="Kkf-60-khC" collectionClass="NSMutableArray" id="wpM-1a-ucj"/>
+                <outletCollection property="dayButtons" destination="5iv-wj-3rz" collectionClass="NSMutableArray" id="IPF-0u-bb4"/>
+                <outletCollection property="dayButtons" destination="UKo-9D-8nF" collectionClass="NSMutableArray" id="jvK-xc-Y8W"/>
+            </connections>
             <point key="canvasLocation" x="105.79710144927537" y="61.272321428571423"/>
         </tableViewCell>
     </objects>

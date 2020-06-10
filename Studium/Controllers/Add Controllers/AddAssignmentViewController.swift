@@ -7,6 +7,9 @@ protocol AssignmentRefreshProtocol{
 }
 
 class AddAssignmentViewController: UITableViewController{
+    var editingAssignment: Bool = false
+    var previousAssignment: Assignment?
+    
     
     let realm = try! Realm()
     var courses: Results<Course>? = nil
@@ -28,10 +31,10 @@ class AddAssignmentViewController: UITableViewController{
     var selectedCourse: Course? = nil
     var assignmentName: String = ""
     var additionalDetails: String = ""
-    var location: String = ""
-    
     
     override func viewDidLoad() {
+        print(selectedCourse!.name)
+
         tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
         tableView.register(UINib(nibName: "TimeCell", bundle: nil), forCellReuseIdentifier: "TimeCell")
         tableView.register(UINib(nibName: "PickerCell", bundle: nil), forCellReuseIdentifier: "PickerCell") //a cell that allows user to pick time (e.g. 2 hours, 4 mins)
@@ -44,10 +47,11 @@ class AddAssignmentViewController: UITableViewController{
         
         tableView.tableFooterView = UIView()
         courses = realm.objects(Course.self)
-
+        
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
         errors = ""
         if assignmentName == ""{
             errors.append(" Please specify a name.")
@@ -55,12 +59,21 @@ class AddAssignmentViewController: UITableViewController{
         
         if errors == "" {
             let newAssignment = Assignment()
-            newAssignment.name = assignmentName
-            newAssignment.additionalDetails = additionalDetails
-            newAssignment.endDate = dueDate
-            
-            
+            newAssignment.initializeData(name: assignmentName, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, assignmentID: K.assignmentNum)
+            K.assignmentNum += 1
+            if editingAssignment{
+                newAssignment.complete = previousAssignment!.complete
+            }
             save(assignment: newAssignment)
+            if editingAssignment{
+                do{
+                    try realm.write{
+                        realm.delete(previousAssignment!)
+                    }
+                }catch{
+                    print("Error deleting previous assignment")
+                }
+            }
             delegate?.loadAssignments()
             dismiss(animated: true, completion: nil)
         }else{
@@ -68,6 +81,9 @@ class AddAssignmentViewController: UITableViewController{
             reloadData()
         }
     }
+    
+    
+    
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
@@ -193,7 +209,7 @@ extension AddAssignmentViewController{
     }
 }
 
-//MARK: - TimerPicker DataSource
+//MARK: - TimerPicker DataSource Methods
 extension AddAssignmentViewController: UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return courses?.count ?? 1
@@ -202,11 +218,9 @@ extension AddAssignmentViewController: UIPickerViewDataSource{
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
-    
 }
 
-//MARK: - TimerPickerDelegate
+//MARK: - TimerPicker Delegate Methods
 extension AddAssignmentViewController: UIPickerViewDelegate{
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return courses![row].name
@@ -225,7 +239,7 @@ extension AddAssignmentViewController: UIPickerViewDelegate{
     }
 }
 
-//MARK: - Date/TimePicker Delegate
+//MARK: - Date/TimePicker Delegate Methods
 extension AddAssignmentViewController: UITimePickerDelegate{
     func pickerValueChanged(sender: UIDatePicker) {
         dueDate = sender.date
@@ -234,17 +248,43 @@ extension AddAssignmentViewController: UITimePickerDelegate{
     }
 }
 
-//MARK: - TextField Delegate
+//MARK: - TextField Delegate Methods
 extension AddAssignmentViewController: UITextFieldDelegate{
     func textEdited(sender: UITextField) {
-        print(sender.placeholder)
         if sender.placeholder == "Name"{
             assignmentName = sender.text!
-        }else if sender.placeholder == "Location"{
-            location = sender.text!
         }else if sender.placeholder == "Additional Details"{
             additionalDetails = sender.text!
         }
+    }
+}
+
+ //MARK: - EditableForm Methods
+extension AddAssignmentViewController: EditableForm{
+    func loadData (from data: StudiumEvent){
+        let assignment = data as! Assignment
+        editingAssignment = true
+        previousAssignment = assignment
+        
+        selectedCourse = assignment.parentCourse[0]
+        assignmentName = assignment.name
+        additionalDetails = assignment.additionalDetails
+        dueDate = assignment.endDate
+        selectedCourse = assignment.parentCourse[0]
+        
+        
+        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
+        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TextFieldCell
+        let dueDateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
+        let courseCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! PickerCell
+        
+        nameCell.textField.text = assignmentName
+        additionalDetailsCell.textField.text = additionalDetails
+        dueDateCell.timeLabel?.text = dueDate.format(with: "MMM d, h:mm a")
+        setDefaultRow(picker: courseCell.picker)
+        
+        self.navigationController?.title = "View Assignment"
+        
     }
 }
 

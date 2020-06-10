@@ -54,7 +54,8 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         //let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! CourseCell
         if let course = courses?[indexPath.row]{
-            
+            cell.course = course
+            cell.deloadData()
             cell.loadData(courseName: course.name, location: course.location, startTime: course.startTime, endTime: course.endTime, days: course.days, iconHex: course.color)
         }
         return cell
@@ -90,7 +91,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         
     }
     
-    override func updateModel(at indexPath: IndexPath) {
+    override func updateModelDelete(at indexPath: IndexPath) {
         if let courseForDeletion = courses?[indexPath.row]{
             do{
                 try realm.write{
@@ -102,10 +103,23 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         }
     }
     
+    override func updateModelEdit(at indexPath: IndexPath) {
+        let editCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
+        editCourseViewController.delegate = self
+        let navController = UINavigationController(rootViewController: editCourseViewController)
+        let courseCell = tableView.cellForRow(at: IndexPath(row: indexPath.row, section: indexPath.section)) as! CourseCell
+
+        self.present(navController, animated: true) {
+            editCourseViewController.loadData(from: courseCell.course!)
+        }
+
+    }
     //MARK: - UI Actions
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
         addCourseViewController.delegate = self
         let navController = UINavigationController(rootViewController: addCourseViewController)
-        self.present(navController, animated:true, completion: nil)    }
+        self.present(navController, animated:true, completion: nil)
+        
+    }
 }

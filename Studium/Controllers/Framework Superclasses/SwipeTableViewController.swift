@@ -9,7 +9,12 @@
 import UIKit
 import SwipeCellKit
 
+protocol EditableForm {
+    func loadData(from data: StudiumEvent)
+}
+
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate{
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,30 +30,46 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
             let cell = tableView.dequeueReusableCell(withIdentifier:  "Cell", for: indexPath)
             return cell
         }
-        
     }
     
     //MARK: - Swipe Cell Delegate
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .right else{return nil}
-        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            self.updateModel(at: indexPath)
-        }
+        //guard orientation == .right else{return nil}
         
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            self.updateModelDelete(at: indexPath)
+        }
         deleteAction.image = UIImage(named: "delete")
-        return [deleteAction]
+        
+        let editAction = SwipeAction(style: .default, title: "View"){ (action, indexPath) in
+            self.updateModelEdit(at: indexPath)
+        }
+        editAction.image = UIImage(named: "edit")
+        if orientation == .right{
+            return [deleteAction]
+        }else{
+            return [editAction]
+        }
     }
     
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
         var options = SwipeTableOptions()
-        options.expansionStyle = .destructive
+        if orientation == .right{
+            options.expansionStyle = .destructive
+        }else{
+            options.expansionStyle = .selection
+        }
         options.transitionStyle = .border
         
         
         return options
     }
     
-    func updateModel(at indexPath: IndexPath){
+    func updateModelDelete(at indexPath: IndexPath){
         
+    }
+    
+    func updateModelEdit(at indexPath: IndexPath){
+        print("Triggered edit.")
     }
 }

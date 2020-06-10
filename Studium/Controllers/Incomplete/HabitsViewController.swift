@@ -48,7 +48,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         return cell
     }
     
-    override func updateModel(at indexPath: IndexPath) {
+    override func updateModelDelete(at indexPath: IndexPath) {
         if let habitForDeletion = self.habits?[indexPath.row]{
             do{
                 try self.realm.write{

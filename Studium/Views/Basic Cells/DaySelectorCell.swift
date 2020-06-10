@@ -14,6 +14,8 @@ protocol DaySelectorDelegate{
 class DaySelectorCell: UITableViewCell {
 
     var delegate: DaySelectorDelegate?
+    
+    @IBOutlet var dayButtons: [UIButton]!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

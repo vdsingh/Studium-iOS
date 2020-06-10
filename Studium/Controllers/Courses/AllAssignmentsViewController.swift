@@ -27,7 +27,6 @@ class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshP
     
     func loadAssignments(){
         assignments = realm.objects(Assignment.self) //fetching all objects of type Course and updating array with it.
-        print(assignments)
         tableView.reloadData()
     }
     
@@ -74,7 +73,7 @@ class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshP
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func updateModel(at indexPath: IndexPath) {
+    override func updateModelDelete(at indexPath: IndexPath) {
         if let assignmentForDeletion = assignments?[indexPath.row]{
             do{
                 try realm.write{

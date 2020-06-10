@@ -11,15 +11,18 @@ import RealmSwift
 import SwipeCellKit
 
 class CourseCell: SwipeTableViewCell{
-    @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet var dayLabels: [UILabel]!
     
+    var course: Course?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        iconImage.transform = iconImage.transform.rotated(by: 3.1415/4)
+
         // Initialization code
     }
 
@@ -27,6 +30,12 @@ class CourseCell: SwipeTableViewCell{
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    func deloadData(){
+        for dayLabel in dayLabels{
+                dayLabel.textColor = .white
+       
+        }
     }
     
     func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<String>, iconHex: String){
