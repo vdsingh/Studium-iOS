@@ -18,6 +18,8 @@ class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshP
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UINib(nibName: "AssignmentCell", bundle: nil), forCellReuseIdentifier: "Cell")
+
         //loadAssignments()
     }
     
@@ -31,28 +33,23 @@ class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshP
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("called cell for row at in AllAssignments")
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let assignment = assignments?[indexPath.row]{
-
-            cell.textLabel?.text = assignment.name
-            print("parent course:")
-            print(assignment.parentCourse[0].name)
-            let parentColor = assignment.parentCourse[0].color
-            print("made it after parentColor!.")
-
-            cell.backgroundColor = UIColor(hexString: parentColor)
-            cell.textLabel?.textColor = UIColor.white
-            cell.accessoryType = assignment.complete ? .checkmark : .none
+            let assignmentCell = cell as! AssignmentCell
+            assignmentCell.loadData(assignment: assignment)
+            return assignmentCell
         }else{
             cell.textLabel?.text = ""
-            print("error in AllAssignmentsViewController in cellForRowAt in the assignment if let.")
         }
         return cell
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

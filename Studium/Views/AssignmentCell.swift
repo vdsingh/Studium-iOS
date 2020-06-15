@@ -30,12 +30,32 @@ class AssignmentCell: SwipeTableViewCell {
         // Configure the view for the selected state
     }
     
-    func loadData(assignmentName: String, courseName: String, iconColor: String, dueDate: Date){
-        assignmentNameLabel.text = assignmentName
-        courseNameLabel.text = courseName
+    func loadData(assignment: Assignment){
+        let attributeString = NSMutableAttributedString(string: assignment.name)
+        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+
+        if assignment.complete{
+            assignmentNameLabel.attributedText = attributeString
+
+        }else{
+            print("ran else")
+
+            attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
+            print("removed attribute.")
+            assignmentNameLabel.attributedText = attributeString
+            
+        }
+        print(assignment.complete)
+        self.assignment = assignment
+        //assignmentNameLabel.text = assignment.name
+        courseNameLabel.text = assignment.parentCourse[0].name
         
-        icon.tintColor = UIColor(hexString: iconColor)
-        dueDateLabel.text = dueDate.format(with: "MMM d, h:mm a")
+        icon.tintColor = UIColor(hexString: assignment.parentCourse[0].color)
+        dueDateLabel.text = assignment.endDate.format(with: "MMM d, h:mm a")
+        
+        
+        
+        
     }
     
     func loadCompleteAttributes(){

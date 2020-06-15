@@ -67,7 +67,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell
         let assignment = assignmentsArr[indexPath.section][indexPath.row]
         cell.assignment = assignment
-        cell.loadData(assignmentName: assignment.name, courseName: assignment.parentCourse[0].name, iconColor: assignment.parentCourse[0].color, dueDate: assignment.endDate)
+        cell.loadData(assignment: assignment)
         
         return cell
     }
