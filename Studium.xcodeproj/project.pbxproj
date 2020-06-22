@@ -48,6 +48,8 @@
 		1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */; };
 		1693E759247A59B2003D4702 /* AllAssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E758247A59B2003D4702 /* AllAssignmentsViewController.swift */; };
 		1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E75C247B56E8003D4702 /* AddCourseViewController.swift */; };
+		16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B7A24A01289003A30D3 /* HabitCell.swift */; };
+		16A63B7D24A01289003A30D3 /* HabitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A63B7B24A01289003A30D3 /* HabitCell.xib */; };
 		16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */; };
 		16B51918247BD8E1005ED8E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16B51917247BD8E1005ED8E4 /* GoogleService-Info.plist */; };
 		16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */; };
@@ -100,6 +102,8 @@
 		1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsViewController.swift; sourceTree = "<group>"; };
 		1693E758247A59B2003D4702 /* AllAssignmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAssignmentsViewController.swift; sourceTree = "<group>"; };
 		1693E75C247B56E8003D4702 /* AddCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
+		16A63B7A24A01289003A30D3 /* HabitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCell.swift; sourceTree = "<group>"; };
+		16A63B7B24A01289003A30D3 /* HabitCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HabitCell.xib; sourceTree = "<group>"; };
 		16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
 		16B51917247BD8E1005ED8E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 		165A6C8324916BD9004279B0 /* Add Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				16429D01247E3CC60052E47C /* AddHabitViewController.swift */,
 				1693E75C247B56E8003D4702 /* AddCourseViewController.swift */,
 				16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */,
 			);
@@ -213,6 +218,8 @@
 				165A6C78248A6F5C004279B0 /* CourseCell.xib */,
 				165A6C7F248F0F54004279B0 /* AssignmentCell.swift */,
 				165A6C80248F0F54004279B0 /* AssignmentCell.xib */,
+				16A63B7A24A01289003A30D3 /* HabitCell.swift */,
+				16A63B7B24A01289003A30D3 /* HabitCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -233,7 +240,6 @@
 			isa = PBXGroup;
 			children = (
 				1693E747247A417B003D4702 /* HabitsViewController.swift */,
-				16429D01247E3CC60052E47C /* AddHabitViewController.swift */,
 				1686DB6A248267EC00FA99DB /* PickerTest.swift */,
 			);
 			path = Incomplete;
@@ -365,6 +371,7 @@
 				1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */,
 				1693E73A247A3DC6003D4702 /* Assets.xcassets in Resources */,
 				1686DB692482622800FA99DB /* TimeCell.xib in Resources */,
+				16A63B7D24A01289003A30D3 /* HabitCell.xib in Resources */,
 				1693E738247A3DC4003D4702 /* Main.storyboard in Resources */,
 				1686DB7724826FAB00FA99DB /* PickerCell.xib in Resources */,
 				1686DB6524812CE000FA99DB /* LabelCell.xib in Resources */,
@@ -444,6 +451,7 @@
 				1686DB7624826FAB00FA99DB /* PickerCell.swift in Sources */,
 				1686DB682482622800FA99DB /* TimeCell.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
+				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
 				1686DB5C24812BCE00FA99DB /* TextFieldCell.swift in Sources */,
 				16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */,
 				16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */,

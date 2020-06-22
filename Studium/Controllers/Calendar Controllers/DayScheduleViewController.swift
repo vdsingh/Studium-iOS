@@ -28,10 +28,13 @@ class DayScheduleViewController: DayViewController {
         loadCourses()
         loadHabits()
         reloadData()
+        navigationItem.hidesBackButton = true
+
     }
     
     @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
         performSegue(withIdentifier: "toCalendar", sender: self)
+        sender.selectedSegmentIndex = 0
     }
     
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {

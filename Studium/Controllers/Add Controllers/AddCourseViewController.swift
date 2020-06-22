@@ -32,7 +32,7 @@ class AddCourseViewController: UITableViewController{
     var errors: String = ""
     
     var courseName: String = ""
-    var colorValue: String = "000000"
+    var colorValue: String = "ffffff"
     var additionalDetails: String = ""
     var location: String = ""
     var daysSelected: [String] = []
@@ -135,6 +135,7 @@ extension AddCourseViewController{
         if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
+            cell.textField.delegate = self
             cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
@@ -261,7 +262,7 @@ extension AddCourseViewController: UITimePickerDelegate{
 }
 
 //MARK: - TextField Delegate
-extension AddCourseViewController: UITextFieldDelegate{
+extension AddCourseViewController: UITextFieldDelegateExt{
     func textEdited(sender: UITextField) {
         //print(sender.placeholder)
         if sender.placeholder == "Name"{
@@ -334,5 +335,12 @@ extension AddCourseViewController: EditableForm{
         colorPickerCell.colorPicker.selectedColor = UIColor(hexString: colorValue)!
         colorPickerCell.colorPreview.backgroundColor = UIColor(hexString: colorValue)
 
+    }
+}
+
+extension UIViewController: UITextFieldDelegate{
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

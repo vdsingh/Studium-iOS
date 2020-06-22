@@ -16,6 +16,8 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        tableView.register(UINib(nibName: "HabitCell", bundle: nil), forCellReuseIdentifier: "Cell")
+        tableView.rowHeight = 100
     }
     override func viewWillAppear(_ animated: Bool) {
         loadHabits()
@@ -42,9 +44,13 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         return habits?.count ?? 1
     }
     
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        cell.textLabel?.text = habits?[indexPath.row].name
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! HabitCell
+        if let habit = habits?[indexPath.row]{
+            cell.loadData(from: habit)
+
+        }
         return cell
     }
     

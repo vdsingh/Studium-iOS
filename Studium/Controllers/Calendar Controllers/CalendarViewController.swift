@@ -32,11 +32,15 @@ class CalendarViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         updateInfo()
         calendar.appearance.titleDefaultColor = UIColor.white
+        navigationItem.hidesBackButton = true
         
     }
     
     @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
-        performSegue(withIdentifier: "toDay", sender: self)
+        
+        self.navigationController?.popViewController(animated: false)
+        print("popping month view.")
+
     }
     func addAssignments(){
         let dateFormatter = DateFormatter()
@@ -96,7 +100,6 @@ extension CalendarViewController: UITableViewDataSource{
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("number of events: \(allEventsInDay.count)")
         return allEventsInDay.count
     }
     

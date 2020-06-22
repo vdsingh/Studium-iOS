@@ -104,6 +104,11 @@ class AddHabitViewController: UITableViewController, CanHandleSwitch{
         if autoschedule && totalLengthHours == 0 && totalLengthMinutes == 0{
             errors.append("Please specify total time. ")
         }
+        
+        if autoschedule && (endTime.hour - startTime.hour) * 60 + (endTime.minute - startTime.minute) < totalLengthHours * 60 + totalLengthMinutes{
+            errors.append("The total time exceeds the time frame. ")
+        }
+        
         if errors.count == 0{
             let newHabit = Habit()
             newHabit.name = habitName
@@ -346,7 +351,7 @@ extension AddHabitViewController: UITimePickerDelegate{
 }
 
 //MARK: - TextField Delegate
-extension AddHabitViewController: UITextFieldDelegate{
+extension AddHabitViewController: UITextFieldDelegateExt{
     func textEdited(sender: UITextField) {
         print(sender.placeholder)
         if sender.placeholder == "Name"{

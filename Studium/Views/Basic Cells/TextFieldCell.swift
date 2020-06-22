@@ -7,16 +7,18 @@
 //
 
 import UIKit
-protocol UITextFieldDelegate {
+protocol UITextFieldDelegateExt {
     func textEdited(sender: UITextField)
 }
 class TextFieldCell: UITableViewCell {
 
     @IBOutlet weak var textField: UITextField!
-    var delegate: UITextFieldDelegate?
+    var delegate: UITextFieldDelegateExt?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        textField.returnKeyType = UIReturnKeyType.done
+
         // Initialization code
     }
 

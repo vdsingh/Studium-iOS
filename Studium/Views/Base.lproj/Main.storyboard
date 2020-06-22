@@ -108,14 +108,13 @@
                     <connections>
                         <outlet property="calendar" destination="Uwi-Wp-5Zq" id="TCh-R8-67r"/>
                         <outlet property="tableView" destination="h1K-Ld-nWw" id="Umb-WH-Uch"/>
-                        <segue destination="fig-EF-Ixi" kind="show" identifier="toDay" animates="NO" id="FXc-vJ-RkE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kCe-FU-sTt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1771.0144927536232" y="-753.34821428571422"/>
         </scene>
-        <!--All Assignments-->
+        <!--Events List-->
         <scene sceneID="LeD-ea-6NL">
             <objects>
                 <tableViewController id="R0z-hi-CKK" customClass="AllAssignmentsViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
@@ -138,7 +137,9 @@
                             <outlet property="delegate" destination="R0z-hi-CKK" id="TRG-7a-QCS"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="All Assignments" id="ass-58-jkJ"/>
+                    <navigationItem key="navigationItem" title="Events List" id="ass-58-jkJ">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="zlh-4x-Vy8"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G0D-Hv-bXL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -305,13 +306,14 @@
             </objects>
             <point key="canvasLocation" x="5353.6231884057979" y="103.79464285714285"/>
         </scene>
-        <!--Day-->
+        <!--Navigation Controller-->
         <scene sceneID="9gg-NV-fIV">
             <objects>
                 <navigationController id="8ry-8P-woK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Day" id="sdd-Lb-EYw"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pUJ-1y-edv">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                    <tabBarItem key="tabBarItem" title="" image="calendar.circle" catalog="system" selectedImage="calendar.circle.fill" id="sdd-Lb-EYw"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="pUJ-1y-edv">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -361,7 +363,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="selectedImageTintColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="selectedImageTintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="8ry-8P-woK" kind="relationship" relationship="viewControllers" id="ecR-XL-Wcy"/>
@@ -712,11 +714,11 @@
             </objects>
             <point key="canvasLocation" x="-626" y="1576"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="Ww9-nZ-htr">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="ak0-as-E5L" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="M3X-2P-z0G"/>
+                    <tabBarItem key="tabBarItem" title="" image="smiley" catalog="system" selectedImage="smiley.fill" id="M3X-2P-z0G"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fAE-Rp-paA">
@@ -732,12 +734,12 @@
             </objects>
             <point key="canvasLocation" x="-606" y="130"/>
         </scene>
-        <!--Courses-->
+        <!--Navigation Controller-->
         <scene sceneID="ACa-Z5-LiT">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xDD-sh-HPi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Courses" image="pencil.circle" catalog="system" selectedImage="pencil.circle.fill" id="U47-XU-HEI">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    <tabBarItem key="tabBarItem" title="" image="person.circle" catalog="system" selectedImage="person.circle.fill" id="U47-XU-HEI">
+                        <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="r7b-Ge-P1f">
@@ -776,11 +778,11 @@
             </objects>
             <point key="canvasLocation" x="-1477" y="1577"/>
         </scene>
-        <!--All Assignments-->
+        <!--Navigation Controller-->
         <scene sceneID="XIp-nw-q2n">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mRS-Kb-yvm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Assignments" id="mnh-vu-1Kj"/>
+                    <tabBarItem key="tabBarItem" title="" image="pencil.circle" catalog="system" selectedImage="pencil.circle.fill" id="mnh-vu-1Kj"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="mo0-VL-Wgp"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fVz-Hk-Aub">
@@ -836,12 +838,15 @@
             <point key="canvasLocation" x="5354" y="816"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="FXc-vJ-RkE"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
+        <image name="calendar.circle" catalog="system" width="128" height="121"/>
+        <image name="calendar.circle.fill" catalog="system" width="128" height="121"/>
         <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="person.circle" catalog="system" width="128" height="121"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="smiley" catalog="system" width="128" height="121"/>
+        <image name="smiley.fill" catalog="system" width="128" height="121"/>
     </resources>
 </document>

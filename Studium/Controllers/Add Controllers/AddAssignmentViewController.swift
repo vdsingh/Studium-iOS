@@ -249,7 +249,7 @@ extension AddAssignmentViewController: UITimePickerDelegate{
 }
 
 //MARK: - TextField Delegate Methods
-extension AddAssignmentViewController: UITextFieldDelegate{
+extension AddAssignmentViewController: UITextFieldDelegateExt{
     func textEdited(sender: UITextField) {
         if sender.placeholder == "Name"{
             assignmentName = sender.text!

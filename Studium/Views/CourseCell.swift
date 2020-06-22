@@ -41,9 +41,8 @@ class CourseCell: SwipeTableViewCell{
     func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<String>, iconHex: String){
 
         iconImage.tintColor = UIColor(hexString: iconHex)
-        locationLabel.text = location
         nameLabel.text = courseName
-        
+        locationLabel.text = location
         var timeText = startTime.format(with: "h:mm a")
         timeText.append(" - \(endTime.format(with: "h:mm a"))")
         timeLabel.text = timeText

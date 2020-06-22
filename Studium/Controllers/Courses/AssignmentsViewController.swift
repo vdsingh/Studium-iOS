@@ -47,6 +47,8 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
                 navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(navBarColor, returnFlat: true)]
             }
         }
+        
+        reloadData()
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
