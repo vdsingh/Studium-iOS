@@ -54,6 +54,7 @@
 		16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8024AA8059003A30D3 /* OtherEvent.swift */; };
 		16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8224AA85A7003A30D3 /* OtherEventCell.swift */; };
 		16A63B8524AA85A7003A30D3 /* OtherEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A63B8324AA85A7003A30D3 /* OtherEventCell.xib */; };
+		16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */; };
 		16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */; };
 		16B51918247BD8E1005ED8E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16B51917247BD8E1005ED8E4 /* GoogleService-Info.plist */; };
 		16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */; };
@@ -112,6 +113,7 @@
 		16A63B8024AA8059003A30D3 /* OtherEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEvent.swift; sourceTree = "<group>"; };
 		16A63B8224AA85A7003A30D3 /* OtherEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventCell.swift; sourceTree = "<group>"; };
 		16A63B8324AA85A7003A30D3 /* OtherEventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherEventCell.xib; sourceTree = "<group>"; };
+		16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletableEventCell.swift; sourceTree = "<group>"; };
 		16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
 		16B51917247BD8E1005ED8E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				16A63B7B24A01289003A30D3 /* HabitCell.xib */,
 				16A63B8224AA85A7003A30D3 /* OtherEventCell.swift */,
 				16A63B8324AA85A7003A30D3 /* OtherEventCell.xib */,
+				16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */,
 				1686DB7E24827B8900FA99DB /* TimePickerCell.swift in Sources */,
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
+				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
 				1686DB7624826FAB00FA99DB /* PickerCell.swift in Sources */,
 				1686DB682482622800FA99DB /* TimeCell.swift in Sources */,

@@ -7,9 +7,9 @@
 //
 
 import Foundation
+import RealmSwift
 
-
-protocol StudiumEvent {
+protocol StudiumEvent: Object {
     var name: String { get }
     var startTime: Date { get }
 }

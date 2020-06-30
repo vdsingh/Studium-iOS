@@ -56,7 +56,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         if let course = courses?[indexPath.row]{
             cell.course = course
             cell.deloadData()
-            cell.loadData(courseName: course.name, location: course.location, startTime: course.startTime, endTime: course.endTime, days: course.days, iconHex: course.color)
+            cell.loadData(courseName: course.name, location: course.location, startTime: course.startTime, endTime: course.endTime, days: course.days, iconHex: course.color, course: course)
         }
         return cell
     }

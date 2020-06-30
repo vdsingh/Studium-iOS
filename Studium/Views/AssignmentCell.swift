@@ -8,7 +8,7 @@
 
 import UIKit
 import SwipeCellKit
-class AssignmentCell: SwipeTableViewCell {
+class AssignmentCell: DeletableEventCell {
 
     @IBOutlet weak var assignmentNameLabel: UILabel!
     @IBOutlet weak var courseNameLabel: UILabel!
@@ -31,6 +31,7 @@ class AssignmentCell: SwipeTableViewCell {
     }
     
     func loadData(assignment: Assignment){
+        event = assignment //this is what's referenced when needs to be deleted.
         let attributeString = NSMutableAttributedString(string: assignment.name)
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
 

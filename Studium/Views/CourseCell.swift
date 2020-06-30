@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 
-class CourseCell: SwipeTableViewCell{
+class CourseCell: DeletableEventCell{
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
@@ -22,24 +22,25 @@ class CourseCell: SwipeTableViewCell{
     override func awakeFromNib() {
         super.awakeFromNib()
         iconImage.transform = iconImage.transform.rotated(by: 3.1415/4)
-
+        
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     func deloadData(){
         for dayLabel in dayLabels{
-                dayLabel.textColor = .white
-       
+            dayLabel.textColor = .white
+            
         }
     }
     
-    func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<String>, iconHex: String){
-
+    func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<String>, iconHex: String, course: Course){
+        self.course = course
+        event = course
         iconImage.tintColor = UIColor(hexString: iconHex)
         nameLabel.text = courseName
         locationLabel.text = location

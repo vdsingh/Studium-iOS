@@ -108,14 +108,17 @@ class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshP
     }
     
     override func updateModelDelete(at indexPath: IndexPath) {
-        if let assignmentForDeletion = assignments?[indexPath.row]{
+        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        if let eventForDeletion = deletableEventCell.event{
             do{
                 try realm.write{
-                    realm.delete(assignmentForDeletion)
+                    realm.delete(eventForDeletion)
                 }
             }catch{
                 print(error)
             }
+        }else{
+            print("event for deletion is nil")
         }
     }
 }

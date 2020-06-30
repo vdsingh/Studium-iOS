@@ -9,7 +9,7 @@
 import UIKit
 import SwipeCellKit
 
-class HabitCell: SwipeTableViewCell {
+class HabitCell: DeletableEventCell {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
@@ -28,6 +28,7 @@ class HabitCell: SwipeTableViewCell {
     }
     
     func loadData(from habit: Habit){
+        event = habit
         nameLabel.text = habit.name
         locationLabel.text = habit.location
         

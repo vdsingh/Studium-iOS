@@ -9,7 +9,7 @@
 import UIKit
 import SwipeCellKit
 
-class OtherEventCell: SwipeTableViewCell {
+class OtherEventCell: DeletableEventCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var startTimeLabel: UILabel!
@@ -29,6 +29,7 @@ class OtherEventCell: SwipeTableViewCell {
     }
     
     func loadData(from otherEvent: OtherEvent){
+        event = otherEvent
         self.otherEvent = otherEvent
         nameLabel.text = otherEvent.name
         locationLabel.text = otherEvent.location
