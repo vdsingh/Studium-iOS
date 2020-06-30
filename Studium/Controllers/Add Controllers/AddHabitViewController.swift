@@ -335,7 +335,7 @@ extension AddHabitViewController: UIPickerViewDelegate{
 
 //MARK: - Date/TimePicker Delegate
 extension AddHabitViewController: UITimePickerDelegate{
-    func pickerValueChanged(sender: UIDatePicker) {
+    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
         if activePicker == "Start Time" || activePicker == "Between"{
             startTime = sender.date
         }

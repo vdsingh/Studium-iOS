@@ -13,7 +13,7 @@ class TimeCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
-    
+    var date: Date = Date()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

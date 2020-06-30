@@ -76,7 +76,7 @@ class DayScheduleViewController: DayViewController {
         var newArr: [CalendarEvent] = []
         if let assignmentsArray = allAssignments{
             for assignment in assignmentsArray{
-                let newAssignmentEvent = CalendarEvent(startDate: assignment.startDate, endDate: assignment.endDate, title: assignment.name, location: "")
+                let newAssignmentEvent = CalendarEvent(startDate: assignment.startDate, endDate: assignment.endDate, title: assignment.name, location: "Due at: \(assignment.endDate.format(with: "h:mm a"))")
                 newArr.append(newAssignmentEvent)
             }
         }else{

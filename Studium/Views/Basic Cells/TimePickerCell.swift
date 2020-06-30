@@ -8,11 +8,13 @@
 
 import UIKit
 protocol UITimePickerDelegate {
-    func pickerValueChanged(sender: UIDatePicker)
+    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath)
 }
 class TimePickerCell: UITableViewCell {
     @IBOutlet weak var picker: UIDatePicker!
     var delegate: UITimePickerDelegate?
+    var indexPath : IndexPath?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         print("time picker awake from nib")
@@ -30,7 +32,7 @@ class TimePickerCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func pickerValueChanged(_ sender: UIDatePicker) {
-        delegate?.pickerValueChanged(sender: sender)
+        delegate?.pickerValueChanged(sender: sender, indexPath: indexPath!)
     }
     
 }

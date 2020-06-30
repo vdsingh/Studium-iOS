@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Sg7-WK-lQo">
-                        <rect key="frame" x="53" y="27" width="320" height="150"/>
+                        <rect key="frame" x="52.5" y="26.5" width="320" height="150"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="150" id="etF-GZ-7lO"/>
                         </constraints>

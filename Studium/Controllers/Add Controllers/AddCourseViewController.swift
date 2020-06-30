@@ -249,7 +249,7 @@ extension AddCourseViewController: UIPickerViewDelegate{
 
 //MARK: - Date/TimePicker Delegate
 extension AddCourseViewController: UITimePickerDelegate{
-    func pickerValueChanged(sender: UIDatePicker) {
+    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
         if activePicker == "Starts"{
             startTime = sender.date
         }else if activePicker == "Ends"{

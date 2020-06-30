@@ -42,10 +42,15 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
             
             
             if let navBarColor = UIColor(hexString: colorHex){
-                navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+                //navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
                 navBar.barTintColor = navBarColor
-                navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(navBarColor, returnFlat: true)]
+                print("changed bar tint color")
+                //navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(navBarColor, returnFlat: true)]
+            }else{
+                print("fart")
             }
+        }else{
+            print("ughhh")
         }
         
         reloadData()

@@ -241,7 +241,7 @@ extension AddAssignmentViewController: UIPickerViewDelegate{
 
 //MARK: - Date/TimePicker Delegate Methods
 extension AddAssignmentViewController: UITimePickerDelegate{
-    func pickerValueChanged(sender: UIDatePicker) {
+    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
         dueDate = sender.date
         reloadData()
         
