@@ -11,7 +11,7 @@ import RealmSwift
 import UIKit
 
 class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
-    let realm = try! Realm()
+    //let realm = try! Realm()
     var habits: Results<Habit>?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,18 +52,6 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
 
         }
         return cell
-    }
-    
-    override func updateModelDelete(at indexPath: IndexPath) {
-        if let habitForDeletion = self.habits?[indexPath.row]{
-            do{
-                try self.realm.write{
-                    self.realm.delete(habitForDeletion)
-                }
-            }catch{
-                print("error deleting habit \(error)")
-            }
-        }
     }
     
 }

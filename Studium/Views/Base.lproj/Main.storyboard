@@ -32,7 +32,7 @@
                     <tabBarItem key="tabBarItem" title="Day" id="p9Z-Jx-73L"/>
                     <navigationItem key="navigationItem" id="Qm6-Xz-fwH">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2M4-RX-uO0">
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="2M4-RX-uO0">
                             <rect key="frame" x="107" y="5.5" width="200" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
@@ -379,9 +379,10 @@
                 <navigationController id="8ry-8P-woK" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="calendar.circle" catalog="system" selectedImage="calendar.circle.fill" id="sdd-Lb-EYw"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="pUJ-1y-edv">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="pUJ-1y-edv">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="fig-EF-Ixi" kind="relationship" relationship="rootViewController" id="a4a-ku-z1q"/>

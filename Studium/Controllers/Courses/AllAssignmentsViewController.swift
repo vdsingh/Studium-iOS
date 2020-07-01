@@ -12,7 +12,7 @@ import ChameleonFramework
 
 class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshProtocol{
     
-    let realm = try! Realm() //Link to the realm where we are storing information
+    //let realm = try! Realm() //Link to the realm where we are storing information
     
     var assignments: Results<Assignment>? //Auto updating array linked to the realm
     var otherEvents: Results<OtherEvent>?
@@ -107,18 +107,18 @@ class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshP
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func updateModelDelete(at indexPath: IndexPath) {
-        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        if let eventForDeletion = deletableEventCell.event{
-            do{
-                try realm.write{
-                    realm.delete(eventForDeletion)
-                }
-            }catch{
-                print(error)
-            }
-        }else{
-            print("event for deletion is nil")
-        }
-    }
+//    override func updateModelDelete(at indexPath: IndexPath) {
+//        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+//        if let eventForDeletion = deletableEventCell.event{
+//            do{
+//                try realm.write{
+//                    realm.delete(eventForDeletion)
+//                }
+//            }catch{
+//                print(error)
+//            }
+//        }else{
+//            print("event for deletion is nil")
+//        }
+//    }
 }

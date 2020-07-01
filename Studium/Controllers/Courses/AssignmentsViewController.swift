@@ -13,7 +13,7 @@ import ChameleonFramework
 class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, AssignmentRefreshProtocol{
     
     
-    let realm = try! Realm()
+    //let realm = try! Realm()
     var assignments: Results<Assignment>?
     var assignmentsArr: [[Assignment]] = [[],[]]
     var sectionTitles: [String] = ["Incomplete","Complete"]
@@ -134,21 +134,21 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         tableView.reloadData()
     }
     
-    override func updateModelDelete(at indexPath: IndexPath) {
-        print(assignmentsArr)
-        
-        let assignmentIndex = assignments?.index(of: assignmentsArr[indexPath.section][indexPath.row])
-        let assignmentForDeletion = assignments?[assignmentIndex!]
-            do{
-                try self.realm.write{
-                    self.realm.delete(assignmentForDeletion!)
-                }
-            }catch{
-                print("ERROR MANE")
-            }
-        assignmentsArr[indexPath.section].remove(at: indexPath.row)
-        print("right before load assignmetns.")
-    }
+//    override func updateModelDelete(at indexPath: IndexPath) {
+//        print(assignmentsArr)
+//
+//        let assignmentIndex = assignments?.index(of: assignmentsArr[indexPath.section][indexPath.row])
+//        let assignmentForDeletion = assignments?[assignmentIndex!]
+//            do{
+//                try self.realm.write{
+//                    self.realm.delete(assignmentForDeletion!)
+//                }
+//            }catch{
+//                print("ERROR MANE")
+//            }
+//        assignmentsArr[indexPath.section].remove(at: indexPath.row)
+//        print("right before load assignmetns.")
+//    }
     
     override func updateModelEdit(at indexPath: IndexPath){
         

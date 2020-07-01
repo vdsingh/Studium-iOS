@@ -17,19 +17,36 @@ class DayScheduleViewController: DayViewController {
     var allAssignments: Results<Assignment>?
     var allCourses: Results<Course>?
     var allHabits: Results<Habit>?
+    var allOtherEvents: Results<OtherEvent>?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         loadAssignments()
         loadCourses()
         loadHabits()
+        loadOtherEvents()
         reloadData()
         navigationItem.hidesBackButton = true
+        
+        print("viewWIllAppear called.")
+        let navigationBar = navigationController!.navigationBar
 
+        navigationBar.barTintColor = UIColor(red: 0.65882, green: 0.08627, blue: 0.08627, alpha: 1)
+//        navigationBar.isTranslucent = false
+//        navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        navigationBar.shadowImage = UIImage()
+        
+        let navBarColor = navigationBar.barTintColor
+        var style = CalendarStyle()
+        style.header.backgroundColor = navBarColor!
+        dayView.updateStyle(style)
     }
     
     @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
@@ -45,6 +62,7 @@ class DayScheduleViewController: DayViewController {
         models = models + addAssignments()
         models = models + addWakeTimes(onDate: date)
         
+        models = models + addOtherEvents()
         models = models + addHabits(onDate: date, withEvents: models)
         
         var events = [Event]()
@@ -61,9 +79,6 @@ class DayScheduleViewController: DayViewController {
         return events
     }
     
-    func loadAssignments(){
-        allAssignments = realm.objects(Assignment.self)
-    }
     
     func loadCourses(){
         allCourses = realm.objects(Course.self)
@@ -71,13 +86,31 @@ class DayScheduleViewController: DayViewController {
     func loadHabits(){
         allHabits = realm.objects(Habit.self)
     }
-    
+    func loadAssignments(){
+        allAssignments = realm.objects(Assignment.self)
+    }
+    func loadOtherEvents(){
+        allOtherEvents = realm.objects(OtherEvent.self)
+    }
     func addAssignments() -> [CalendarEvent]{
         var newArr: [CalendarEvent] = []
         if let assignmentsArray = allAssignments{
             for assignment in assignmentsArray{
                 let newAssignmentEvent = CalendarEvent(startDate: assignment.startDate, endDate: assignment.endDate, title: assignment.name, location: "Due at: \(assignment.endDate.format(with: "h:mm a"))")
                 newArr.append(newAssignmentEvent)
+            }
+        }else{
+            print("error. allAssignments is nil.")
+        }
+        return newArr
+    }
+    
+    func addOtherEvents() -> [CalendarEvent]{
+        var newArr: [CalendarEvent] = []
+        if let otherEventArray = allOtherEvents{
+            for otherEvent in otherEventArray{
+                let newOtherEvent = CalendarEvent(startDate: otherEvent.startTime, endDate: otherEvent.endTime, title: otherEvent.name, location: "\(otherEvent.endTime.format(with: "h:mm a"))")
+                newArr.append(newOtherEvent)
             }
         }else{
             print("error. allAssignments is nil.")

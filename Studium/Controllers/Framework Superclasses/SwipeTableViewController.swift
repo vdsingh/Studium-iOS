@@ -8,13 +8,14 @@
 
 import UIKit
 import SwipeCellKit
+import RealmSwift
 
 protocol EditableForm {
     func loadData(from data: StudiumEvent)
 }
 
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate{
-
+    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +67,18 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     }
     
     func updateModelDelete(at indexPath: IndexPath){
-        
+        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        if let eventForDeletion = deletableEventCell.event{
+            do{
+                try realm.write{
+                    realm.delete(eventForDeletion)
+                }
+            }catch{
+                print(error)
+            }
+        }else{
+            print("event for deletion is nil")
+        }
     }
     
     func updateModelEdit(at indexPath: IndexPath){

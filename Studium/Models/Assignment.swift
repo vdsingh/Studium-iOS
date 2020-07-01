@@ -15,9 +15,11 @@ class Assignment: Object, StudiumEvent{
     @objc dynamic var complete: Bool = false
     @objc dynamic var startDate: Date = Date()
     @objc dynamic var endDate: Date = Date()
-    @objc dynamic var assignmentID: Int = 0
     
     @objc dynamic var startTime: Date = Date()
+    
+    var parentCourse = LinkingObjects(fromType: Course.self, property: "assignments")
+
     
     func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, assignmentID: Int) {
 
@@ -26,14 +28,7 @@ class Assignment: Object, StudiumEvent{
         self.complete = complete
         self.startDate = startDate
         self.endDate = endDate
-        self.assignmentID = assignmentID
         
         startTime = startDate
     }
-    
-    
-    //@objc dynamic var dateCreated = Date()
-    
-    var parentCourse = LinkingObjects(fromType: Course.self, property: "assignments")
-    
 }

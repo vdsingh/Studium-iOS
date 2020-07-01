@@ -12,7 +12,7 @@ import ChameleonFramework
 
 class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     
-    let realm = try! Realm() //Link to the realm where we are storing information
+    //let realm = try! Realm() //Link to the realm where we are storing information
     var courses: Results<Course>? //Auto updating array linked to the realm
     
     override func viewDidLoad() {
@@ -28,7 +28,6 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         
         tableView.rowHeight = 100
         //tableView.separatorStyle = .none //gets rid of dividers between cells.
-        
         
     }
     
@@ -91,17 +90,17 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         
     }
     
-    override func updateModelDelete(at indexPath: IndexPath) {
-        if let courseForDeletion = courses?[indexPath.row]{
-            do{
-                try realm.write{
-                    realm.delete(courseForDeletion)
-                }
-            }catch{
-                print(error)
-            }
-        }
-    }
+//    override func updateModelDelete(at indexPath: IndexPath) {
+//        if let courseForDeletion = courses?[indexPath.row]{
+//            do{
+//                try realm.write{
+//                    realm.delete(courseForDeletion)
+//                }
+//            }catch{
+//                print(error)
+//            }
+//        }
+//    }
     
     override func updateModelEdit(at indexPath: IndexPath) {
         let editCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
