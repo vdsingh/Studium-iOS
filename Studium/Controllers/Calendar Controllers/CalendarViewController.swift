@@ -83,7 +83,7 @@ class CalendarViewController: UIViewController{
         allEventsInDay = []
         addAssignments()
         addCourses()
-        allEventsInDay = allEventsInDay.sorted(by: { $0.startTime < $1.startTime })
+        allEventsInDay = allEventsInDay.sorted(by: { $0.startDate < $1.startDate })
 
         tableView.reloadData()
     }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CalendarEvent { //contains charactersitics of all events.
+struct CalendarEvent { //contains charactersitics of all CalendarEvents.
     let startDate: Date
     let endDate: Date
     let title: String

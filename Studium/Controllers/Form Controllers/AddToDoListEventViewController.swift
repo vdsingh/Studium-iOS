@@ -9,16 +9,16 @@
 import UIKit
 import RealmSwift
 
-class AddToDoListEventViewController: UITableViewController, UITextFieldDelegateExt, UITimePickerDelegate {
+class AddToDoListEventViewController: MasterForm, UITextFieldDelegateExt, UITimePickerDelegate {
     
     let realm = try! Realm()
-    var delegate: AllAssignmentsViewController?
+    var delegate: ToDoListViewController?
     
     var name: String = ""
     var location: String = ""
     var additionalDetails: String = ""
-    var startTime: Date = Date()
-    var endTime: Date = Date()
+    var startDate: Date = Date()
+    var endDate: Date = Date()
     
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
         //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
@@ -43,6 +43,9 @@ class AddToDoListEventViewController: UITableViewController, UITextFieldDelegate
         tableView.register(UINib(nibName: "TimeCell", bundle: nil), forCellReuseIdentifier: "TimeCell")
         tableView.register(UINib(nibName: "TimePickerCell", bundle: nil), forCellReuseIdentifier: "TimePickerCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
         
+        
+        //makes it so that the form doesn't have a bunch of empty cells at the bottom
+        tableView.tableFooterView = UIView()
     }
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
@@ -50,7 +53,7 @@ class AddToDoListEventViewController: UITableViewController, UITextFieldDelegate
         
         let newEvent = OtherEvent()
         retrieveDataFromCells()
-        newEvent.initializeData(startTime: startTime, endTime: endTime, name: name, location: location, additionalDetails: additionalDetails)
+        newEvent.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails)
         save(otherEvent: newEvent)
         delegate!.loadOtherEvents()
         dismiss(animated: true, completion: nil)
@@ -74,10 +77,10 @@ class AddToDoListEventViewController: UITableViewController, UITextFieldDelegate
         location = locationCell.textField.text!
         
         let startTimeCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TimeCell
-        startTime = startTimeCell.date
+        startDate = startTimeCell.date
         
         let endTimeCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TimeCell
-        endTime = endTimeCell.date
+        endDate = endTimeCell.date
         
         let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TextFieldCell
         additionalDetails = additionalDetailsCell.textField.text!
@@ -108,7 +111,7 @@ class AddToDoListEventViewController: UITableViewController, UITextFieldDelegate
         if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
-            cell.textField.delegate = self
+            //cell.textField.delegate = self
             cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{

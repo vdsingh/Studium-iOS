@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429CFD247D20F90052E47C /* StudiumEvent.swift */; };
-		16429D02247E3CC60052E47C /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D01247E3CC60052E47C /* AddHabitViewController.swift */; };
 		16429D04247E43720052E47C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D03247E43720052E47C /* Habit.swift */; };
 		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
 		165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C77248A6F5C004279B0 /* CourseCell.swift */; };
@@ -46,7 +45,7 @@
 		1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E751247A487C003D4702 /* SwipeTableViewController.swift */; };
 		1693E755247A4B64003D4702 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E754247A4B64003D4702 /* K.swift */; };
 		1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */; };
-		1693E759247A59B2003D4702 /* AllAssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E758247A59B2003D4702 /* AllAssignmentsViewController.swift */; };
+		1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E758247A59B2003D4702 /* ToDoListViewController.swift */; };
 		1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E75C247B56E8003D4702 /* AddCourseViewController.swift */; };
 		16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B7A24A01289003A30D3 /* HabitCell.swift */; };
 		16A63B7D24A01289003A30D3 /* HabitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A63B7B24A01289003A30D3 /* HabitCell.xib */; };
@@ -55,6 +54,8 @@
 		16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8224AA85A7003A30D3 /* OtherEventCell.swift */; };
 		16A63B8524AA85A7003A30D3 /* OtherEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A63B8324AA85A7003A30D3 /* OtherEventCell.xib */; };
 		16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */; };
+		16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8824AD4161003A30D3 /* MasterForm.swift */; };
+		16A63B8F24AD43DF003A30D3 /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */; };
 		16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */; };
 		16B51918247BD8E1005ED8E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16B51917247BD8E1005ED8E4 /* GoogleService-Info.plist */; };
 		16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */; };
@@ -65,7 +66,6 @@
 
 /* Begin PBXFileReference section */
 		16429CFD247D20F90052E47C /* StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEvent.swift; sourceTree = "<group>"; };
-		16429D01247E3CC60052E47C /* AddHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
 		16429D03247E43720052E47C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
 		165A6C77248A6F5C004279B0 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 		1693E751247A487C003D4702 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		1693E754247A4B64003D4702 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsViewController.swift; sourceTree = "<group>"; };
-		1693E758247A59B2003D4702 /* AllAssignmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAssignmentsViewController.swift; sourceTree = "<group>"; };
+		1693E758247A59B2003D4702 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		1693E75C247B56E8003D4702 /* AddCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
 		16A63B7A24A01289003A30D3 /* HabitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCell.swift; sourceTree = "<group>"; };
 		16A63B7B24A01289003A30D3 /* HabitCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HabitCell.xib; sourceTree = "<group>"; };
@@ -114,6 +114,8 @@
 		16A63B8224AA85A7003A30D3 /* OtherEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventCell.swift; sourceTree = "<group>"; };
 		16A63B8324AA85A7003A30D3 /* OtherEventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherEventCell.xib; sourceTree = "<group>"; };
 		16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletableEventCell.swift; sourceTree = "<group>"; };
+		16A63B8824AD4161003A30D3 /* MasterForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterForm.swift; sourceTree = "<group>"; };
+		16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
 		16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
 		16B51917247BD8E1005ED8E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
@@ -153,15 +155,16 @@
 			path = "Intro Controllers";
 			sourceTree = "<group>";
 		};
-		165A6C8324916BD9004279B0 /* Add Controllers */ = {
+		165A6C8324916BD9004279B0 /* Form Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				16429D01247E3CC60052E47C /* AddHabitViewController.swift */,
 				1693E75C247B56E8003D4702 /* AddCourseViewController.swift */,
 				16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */,
 				16A63B7E24A6D1C4003A30D3 /* AddToDoListEventViewController.swift */,
+				16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */,
+				16A63B8824AD4161003A30D3 /* MasterForm.swift */,
 			);
-			path = "Add Controllers";
+			path = "Form Controllers";
 			sourceTree = "<group>";
 		};
 		165A6C8424916BE7004279B0 /* Edit Controllers */ = {
@@ -209,7 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				165A6C8424916BE7004279B0 /* Edit Controllers */,
-				165A6C8324916BD9004279B0 /* Add Controllers */,
+				165A6C8324916BD9004279B0 /* Form Controllers */,
 				16429D05247E81500052E47C /* Intro Controllers */,
 				16429CFC247D200E0052E47C /* Calendar Controllers */,
 				1693E75B247A67CF003D4702 /* Framework Superclasses */,
@@ -265,7 +268,7 @@
 			children = (
 				1693E745247A4152003D4702 /* CoursesViewController.swift */,
 				1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */,
-				1693E758247A59B2003D4702 /* AllAssignmentsViewController.swift */,
+				1693E758247A59B2003D4702 /* ToDoListViewController.swift */,
 			);
 			path = Courses;
 			sourceTree = "<group>";
@@ -453,9 +456,9 @@
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
 				1693E755247A4B64003D4702 /* K.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
-				16429D02247E3CC60052E47C /* AddHabitViewController.swift in Sources */,
 				165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
+				16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
 				16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */,
@@ -479,10 +482,11 @@
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				16A63B7F24A6D1C4003A30D3 /* AddToDoListEventViewController.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
+				16A63B8F24AD43DF003A30D3 /* AddHabitViewController.swift in Sources */,
 				1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */,
 				165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */,
 				1686DB822482A0A500FA99DB /* DaySelectorCell.swift in Sources */,
-				1693E759247A59B2003D4702 /* AllAssignmentsViewController.swift in Sources */,
+				1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */,
 				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,
 				1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */,
 			);

@@ -9,7 +9,7 @@ protocol CourseRefreshProtocol{
     func loadCourses()
 }
 
-class AddCourseViewController: UITableViewController{
+class AddCourseViewController: MasterForm{
     
     var previousCourse: Course?
     var editingCourse: Bool = false
@@ -23,8 +23,8 @@ class AddCourseViewController: UITableViewController{
     var cellText: [[String]] = [["Name", "Location", "Days"], ["Starts", "Ends"], ["Color Picker", "Additional Details"], ["Errors"]]
     var cellType: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell"],  ["TimeCell", "TimeCell"], ["ColorPickerCell", "TextFieldCell"], ["LabelCell"]]
     
-    var startTime: Date = Date()
-    var endTime: Date = Date() + (60*60)
+    var startDate: Date = Date()
+    var endDate: Date = Date() + (60*60)
     
     var times: [Date] = []
     var timeCounter = 0
@@ -49,7 +49,7 @@ class AddCourseViewController: UITableViewController{
         tableView.register(UINib(nibName: "SegmentedControlCell", bundle: nil), forCellReuseIdentifier: "SegmentedControlCell")
         tableView.register(UINib(nibName: "ColorPickerCell", bundle: nil), forCellReuseIdentifier: "ColorPickerCell")
         
-        times = [startTime, endTime]
+        times = [startDate, endDate]
         
         tableView.tableFooterView = UIView()
     }
@@ -64,14 +64,14 @@ class AddCourseViewController: UITableViewController{
             errors.append(" Please specify at least one day.")
         }
         
-        if endTime < startTime{
+        if endDate < startDate{
             errors.append(" End time cannot occur before start time.")
         }
         
         if errors.count == 0{
             let newCourse = Course()
-            newCourse.startTime = startTime
-            newCourse.endTime = endTime
+            newCourse.startDate = startDate
+            newCourse.endDate = endDate
             newCourse.color = colorValue
             newCourse.name = courseName
             newCourse.location = location
@@ -101,7 +101,7 @@ class AddCourseViewController: UITableViewController{
     }
     
     func reloadData(){
-        times = [startTime, endTime]
+        times = [startDate, endDate]
         timeCounter = 0
         tableView.reloadData()
     }
@@ -251,9 +251,9 @@ extension AddCourseViewController: UIPickerViewDelegate{
 extension AddCourseViewController: UITimePickerDelegate{
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
         if activePicker == "Starts"{
-            startTime = sender.date
+            startDate = sender.date
         }else if activePicker == "Ends"{
-            endTime = sender.date
+            endDate = sender.date
         }
         reloadData()
         
@@ -317,8 +317,8 @@ extension AddCourseViewController: EditableForm{
         for day in course.days{
             daysSelected.append(day)
         }
-        startTime = course.startTime
-        endTime = course.endTime
+        startDate = course.startDate
+        endDate = course.endDate
         colorValue = course.color
         additionalDetails = course.additionalDetails
         
@@ -330,8 +330,8 @@ extension AddCourseViewController: EditableForm{
             }
         }
         
-        startCell.timeLabel.text = startTime.format(with: "h:mm a")
-        endCell.timeLabel.text = startTime.format(with: "h:mm a")
+        startCell.timeLabel.text = startDate.format(with: "h:mm a")
+        endCell.timeLabel.text = startDate.format(with: "h:mm a")
         colorPickerCell.colorPicker.selectedColor = UIColor(hexString: colorValue)!
         colorPickerCell.colorPreview.backgroundColor = UIColor(hexString: colorValue)
 
@@ -341,6 +341,6 @@ extension AddCourseViewController: EditableForm{
 extension UIViewController: UITextFieldDelegate{
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        return true
+        return true;
     }
 }

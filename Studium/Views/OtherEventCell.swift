@@ -33,8 +33,8 @@ class OtherEventCell: DeletableEventCell {
         self.otherEvent = otherEvent
         nameLabel.text = otherEvent.name
         locationLabel.text = otherEvent.location
-        startTimeLabel.text = otherEvent.startTime.format(with: "h:mm a")
-        endTimeLabel.text = otherEvent.endTime.format(with: "h:mm a")
+        startTimeLabel.text = otherEvent.startDate.format(with: "h:mm a")
+        endTimeLabel.text = otherEvent.endDate.format(with: "h:mm a")
     }
     
 }

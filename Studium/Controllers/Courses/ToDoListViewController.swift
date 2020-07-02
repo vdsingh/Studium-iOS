@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import ChameleonFramework
 
-class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshProtocol{
+class ToDoListViewController: SwipeTableViewController, AssignmentRefreshProtocol{
     
     //let realm = try! Realm() //Link to the realm where we are storing information
     
@@ -106,19 +106,4 @@ class AllAssignmentsViewController: SwipeTableViewController, AssignmentRefreshP
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-//    override func updateModelDelete(at indexPath: IndexPath) {
-//        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-//        if let eventForDeletion = deletableEventCell.event{
-//            do{
-//                try realm.write{
-//                    realm.delete(eventForDeletion)
-//                }
-//            }catch{
-//                print(error)
-//            }
-//        }else{
-//            print("event for deletion is nil")
-//        }
-//    }
 }

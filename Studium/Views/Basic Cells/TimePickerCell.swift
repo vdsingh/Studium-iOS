@@ -17,11 +17,7 @@ class TimePickerCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        print("time picker awake from nib")
         picker.timeZone = NSTimeZone.local
-        //print(picker.timeZone)
-
-        // Initialization code
     }
     
     
@@ -32,7 +28,7 @@ class TimePickerCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func pickerValueChanged(_ sender: UIDatePicker) {
-        delegate?.pickerValueChanged(sender: sender, indexPath: indexPath!)
+       delegate?.pickerValueChanged(sender: sender, indexPath: indexPath!)
     }
     
 }

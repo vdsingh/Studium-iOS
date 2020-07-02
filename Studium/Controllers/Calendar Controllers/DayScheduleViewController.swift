@@ -22,9 +22,6 @@ class DayScheduleViewController: DayViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,7 +106,7 @@ class DayScheduleViewController: DayViewController {
         var newArr: [CalendarEvent] = []
         if let otherEventArray = allOtherEvents{
             for otherEvent in otherEventArray{
-                let newOtherEvent = CalendarEvent(startDate: otherEvent.startTime, endDate: otherEvent.endTime, title: otherEvent.name, location: "\(otherEvent.endTime.format(with: "h:mm a"))")
+                let newOtherEvent = CalendarEvent(startDate: otherEvent.startDate, endDate: otherEvent.endDate, title: otherEvent.name, location: "\(otherEvent.endDate.format(with: "h:mm a"))")
                 newArr.append(newOtherEvent)
             }
         }else{
@@ -140,10 +137,10 @@ class DayScheduleViewController: DayViewController {
         let allCoursesOnDay = separateCoursesHelper(dayStringIdentifier: usableString) //get all courses that occur on this day.
         var events: [CalendarEvent] = []
         for course in allCoursesOnDay{
-            var components = Calendar.current.dateComponents([.hour, .minute], from: course.startTime)
+            var components = Calendar.current.dateComponents([.hour, .minute], from: course.startDate)
             let startDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute ?? 0, second: 0, of: date)!
             
-            components = Calendar.current.dateComponents([.hour, .minute], from: course.endTime)
+            components = Calendar.current.dateComponents([.hour, .minute], from: course.endDate)
             
             
             let endDate = Calendar.current.date(bySettingHour: components.hour ?? 0, minute: components.minute ?? 0, second: 0, of: date)!
@@ -190,13 +187,13 @@ class DayScheduleViewController: DayViewController {
                 if habit.autoSchedule{ // auto schedule habit
                     if habit.startEarlier{
                         
-                        var startBound = Calendar.current.date(bySettingHour: habit.startTime.hour, minute: habit.startTime.minute, second: 0, of: date)!
+                        var startBound = Calendar.current.date(bySettingHour: habit.startDate.hour, minute: habit.startDate.minute, second: 0, of: date)!
                         var endBound = Calendar.current.date(bySettingHour: startBound.hour + habit.totalHourTime, minute: startBound.minute + habit.totalMinuteTime, second: 0, of: date)!
                         
                         var counter = 0
                         while true {
                             counter+=1
-                            if endBound.hour >= habit.endTime.hour && endBound.minute > habit.endTime.minute{
+                            if endBound.hour >= habit.endDate.hour && endBound.minute > habit.endDate.minute{
                                 print("was no time to schedule this event")
                                 break
                             }
@@ -222,10 +219,10 @@ class DayScheduleViewController: DayViewController {
                     //print(weekDay)
                     let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
                     if habit.days.contains(usableString){ //habit occurs on this day
-                        var components = Calendar.current.dateComponents([.hour, .minute], from: habit.startTime)
+                        var components = Calendar.current.dateComponents([.hour, .minute], from: habit.startDate)
                         let usableStartDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
 
-                        components = Calendar.current.dateComponents([.hour, .minute], from: habit.endTime)
+                        components = Calendar.current.dateComponents([.hour, .minute], from: habit.endDate)
                         let usableEndDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
                         let newEvent = CalendarEvent(startDate: usableStartDate, endDate: usableEndDate, title: habit.name, location: habit.location)
                         habitEvents.append(newEvent)

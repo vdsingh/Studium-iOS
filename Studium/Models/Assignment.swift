@@ -10,17 +10,22 @@ import Foundation
 import RealmSwift
 
 class Assignment: Object, StudiumEvent{
+    
+    //Basic String elements for an Assignment object
     @objc dynamic var name: String = ""
     @objc dynamic var additionalDetails: String = ""
-    @objc dynamic var complete: Bool = false
+    
+    //Basic Date elements for an Assignment object. The endDate is when it is due, and the startDate is just so that the element appears on the DayView
     @objc dynamic var startDate: Date = Date()
     @objc dynamic var endDate: Date = Date()
     
-    @objc dynamic var startTime: Date = Date()
-    
+    //Specifies whether or not the Assignment object is marked as complete or not. This determines where it lies in a tableView and whether or not it's crossed out.
+    @objc dynamic var complete: Bool = false
+
+    //This is a link to the Course that the Assignment object is categorized under.
     var parentCourse = LinkingObjects(fromType: Course.self, property: "assignments")
 
-    
+    //Basically an init that must be called manually because Realm doesn't allow init for some reason.
     func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, assignmentID: Int) {
 
         self.name = name
@@ -28,7 +33,5 @@ class Assignment: Object, StudiumEvent{
         self.complete = complete
         self.startDate = startDate
         self.endDate = endDate
-        
-        startTime = startDate
     }
 }

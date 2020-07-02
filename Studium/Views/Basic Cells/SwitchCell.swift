@@ -16,6 +16,8 @@ class SwitchCell: UITableViewCell {
     @IBOutlet weak var tableSwitch: UISwitch!
     @IBOutlet weak var label: UILabel!
     
+    var on: Bool = false
+    
     var delegate: CanHandleSwitch?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,6 +31,7 @@ class SwitchCell: UITableViewCell {
     }
     
     @IBAction func switchValueChanged(_ sender: UISwitch) {
+        on = sender.isOn
         if let del = delegate{
             del.switchValueChanged(sender: sender)
         }

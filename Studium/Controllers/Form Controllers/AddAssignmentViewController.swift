@@ -6,7 +6,7 @@ protocol AssignmentRefreshProtocol{
     func loadAssignments()
 }
 
-class AddAssignmentViewController: UITableViewController{
+class AddAssignmentViewController: MasterForm{
     var editingAssignment: Bool = false
     var previousAssignment: Assignment?
     
@@ -141,6 +141,7 @@ extension AddAssignmentViewController{
         if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
+            cell.textField.delegate = self
             cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
@@ -191,7 +192,6 @@ extension AddAssignmentViewController{
                 cellType[indexPath.section].remove(at: index)
                 tableView.deleteRows(at: [IndexPath(row: index, section: indexPath.section)], with: .right)
                 if index == indexPath.row + 1{
-                    print("picked the active picker")
                     //print(cellText[indexPath.row - 1])
                     tableView.endUpdates()
                     return

@@ -10,19 +10,42 @@ import Foundation
 import RealmSwift
 
 class Habit: Object, StudiumEvent{
+    //Basic String elements for a Habit object
     @objc dynamic var name: String = ""
     @objc dynamic var location: String = ""
     @objc dynamic var additionalDetails: String = ""
     
-    @objc dynamic var startTime: Date = Date() //if autoschedule, this is first bound
-    @objc dynamic var endTime: Date = Date()
+    //Basic Date elements for a Habit object
+    @objc dynamic var startDate: Date = Date() //if autoschedule, this is first bound
+    @objc dynamic var endDate: Date = Date() //if autoschedule, this is last bound
     
+    //Autoschedule elements for a Habit object
     @objc dynamic var autoSchedule: Bool = false //will this habit be scheduled automatically
-    @objc dynamic var startEarlier: Bool = true
+    @objc dynamic var startEarlier: Bool = true //will this habit be scheduled earlier or later.
     
+    //Time elements for a Habit object. 
     @objc dynamic var totalHourTime: Int = 0
     @objc dynamic var totalMinuteTime: Int = 0
 
+    //List of days that this habit occurs on.
     let days = List<String>()
     
+    //Basically an init that must be called manually because Realm doesn't allow init for some reason.
+    func initializeData(name: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, autoSchedule: Bool, startEarlier: Bool, totalHourTime: Int, totalMinuteTime: Int, daysSelected: [String]) {
+
+        self.name = name
+        self.location = location
+        self.additionalDetails = additionalDetails
+        self.startDate = startDate
+        self.endDate = endDate
+        self.autoSchedule = autoSchedule
+        self.startEarlier = startEarlier
+        self.totalHourTime = totalHourTime
+        self.totalMinuteTime = totalMinuteTime
+        
+        //handles days
+        for day in daysSelected{
+            self.days.append(day)
+        }
+    }
 }
