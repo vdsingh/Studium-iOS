@@ -264,9 +264,15 @@ extension AddHabitViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
-            if let cellBefore = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as? TimeCell{
-                cell.picker.date = cellBefore.date
-            }
+//            if let cellBefore = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as? TimeCell{
+//                cell.picker.date = cellBefore.date
+//            }
+            let dateString = cellText[indexPath.section][indexPath.row]
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "h:mm a"
+            let date = dateFormatter.date(from: dateString)!
+
+            cell.picker.date = date
             cell.delegate = self
             cell.indexPath = indexPath
             return cell
@@ -313,7 +319,7 @@ extension AddHabitViewController{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedRowText = cellText[indexPath.section][indexPath.row]
         if cellType[indexPath.section][indexPath.row] == "TimeCell"{
-            
+            let timeCell = tableView.cellForRow(at: indexPath) as! TimeCell
             //this section handles the event when a TimePicker or Picker is already active and must be removed before continuing.
             var pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")
             if pickerIndex == nil{
@@ -338,7 +344,7 @@ extension AddHabitViewController{
                 cellText[indexPath.section].insert("", at: newIndex)
                 cellType[indexPath.section].insert("PickerCell", at: newIndex)
             }else{
-                cellText[indexPath.section].insert("", at: newIndex)
+                cellText[indexPath.section].insert("\(timeCell.date.format(with: "h:mm a"))", at: newIndex)
                 cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
             }
             tableView.endUpdates()

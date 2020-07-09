@@ -177,9 +177,8 @@ extension AddCourseViewController{
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "h:mm a"
             let date = dateFormatter.date(from: dateString)!
-            
+
             cell.picker.date = date
-            
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "DaySelectorCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "DaySelectorCell", for: indexPath) as! DaySelectorCell
