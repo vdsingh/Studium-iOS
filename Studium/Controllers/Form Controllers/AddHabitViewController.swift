@@ -22,14 +22,8 @@ class AddHabitViewController: MasterForm{
     var totalLengthHours = 1
     var totalLengthMinutes = 0
     
-    //reference to realm database.
-    let realm = try! Realm()
-    
     //reference to the Habits list, so that once complete, it can update and show the new Habit
     var delegate: HabitRefreshProtocol?
-    
-    var activePicker: String?
-    var activeTextField: String?
     
     //Since this form is dynamic, there are different cells for whether or not the user chooses to schedule this Habit automatically. If the Habit is not automatic, this is how the form cells are laid out.
     var cellTextNoAuto: [[String]] = [["Name", "Location"], ["Autoschedule", "Start Time", "Finish Time"], ["Additional Details", "Days", ""]]
@@ -76,6 +70,7 @@ class AddHabitViewController: MasterForm{
         tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
         tableView.register(UINib(nibName: "SegmentedControlCell", bundle: nil), forCellReuseIdentifier: "SegmentedControlCell")
         
+        //used to decipher which TimeCell should have which dates
         times = [startDate, endDate]
         
         //by default, the form type is Habit isn't automatically scheduled
@@ -99,7 +94,6 @@ class AddHabitViewController: MasterForm{
             errors.append("Please specify a name. ")
         }
         
-        //var daySelected = false
         if daysSelected == []{
             errors.append("Please select at least one day. ")
         }
@@ -174,14 +168,11 @@ class AddHabitViewController: MasterForm{
         
         //since there are 3 TimeCells if autoscheduling, and the end date is in the middle of them, we create a copy of section 1 and remove the startDateCell. Now the endDateCell is always the first TimeCell in the temporary array.
         var tempArray = cellType[1].map { $0 }
-        print(tempArray)
-        print(indexOfStartCell!)
         tempArray.remove(at: indexOfStartCell!)
-        let indexOfEndCell = cellType[1].firstIndex(of: "TimeCell")! + 1
+        let indexOfEndCell = tempArray.firstIndex(of: "TimeCell")! + 1
         let endDateCell = tableView.cellForRow(at: IndexPath(row: indexOfEndCell, section: 1)) as! TimeCell
         endDate = endDateCell.date
-        print("(end: \(endDate)")
-        print(startDate)
+
         if autoschedule{
             
             //here we are getting the total length of the habit, which is only needed if the habit is to be autoscheduled
@@ -267,6 +258,8 @@ extension AddHabitViewController{
         }else if cellType[indexPath.section][indexPath.row] == "PickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PickerCell", for: indexPath) as! PickerCell
             cell.picker.delegate = self
+            //cell.delegate = self
+            cell.indexPath = indexPath
             cell.picker.dataSource = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
@@ -340,7 +333,7 @@ extension AddHabitViewController{
             //this section handles creating the new Picker or TimePicker, altering the arrays, and putting the cell in the correct position.
             let newIndex = cellText[indexPath.section].firstIndex(of: selectedRowText)! + 1
             tableView.insertRows(at: [IndexPath(row: newIndex, section: indexPath.section)], with: .left)
-            activePicker = cellText[indexPath.section][newIndex - 1]
+            //activePicker = cellText[indexPath.section][newIndex - 1]
             if selectedRowText == "Length of Habit"{
                 cellText[indexPath.section].insert("", at: newIndex)
                 cellType[indexPath.section].insert("PickerCell", at: newIndex)
@@ -380,19 +373,25 @@ extension AddHabitViewController: UIPickerViewDelegate{
             return "\(row) hours"
         }
         return "\(row) min"
-        
-    }
-    
-    //handles what happens when the user changes the row
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if component == 0{
-            totalLengthHours = row
-        }else{
-            totalLengthMinutes = row
-        }
-        reloadData()
     }
 }
+
+//extension AddHabitViewController: UIPickerDelegate{
+//    //handles what happens when the user changes the row
+//    func pickerValueChanged(sender: UIPickerView, indexPath: IndexPath){
+////        if component == 0{
+////            totalLengthHours = row
+////        }else{
+////            totalLengthMinutes = row
+////        }
+////        reloadData()
+//        //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
+//        print("picker changed")
+//
+//        let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
+//        correspondingTimeCell.timeLabel.text = "\(sender.selectedRow(inComponent: 0)) hours \(sender.selectedRow(inComponent: 1)) minutes"
+//    }
+//}
 
 //MARK: - TimePicker Delegate
 extension AddHabitViewController: UITimePickerDelegate{
@@ -403,7 +402,6 @@ extension AddHabitViewController: UITimePickerDelegate{
         let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
         correspondingTimeCell.date = sender.date
         correspondingTimeCell.timeLabel.text = correspondingTimeCell.date.format(with: "h:mm a")
-        print("time picker value has changed.")
     }
 }
 

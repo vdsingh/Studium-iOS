@@ -7,10 +7,18 @@
 //
 
 import UIKit
-
-class PickerCell: UITableViewCell {
+//protocol UIPickerDelegate {
+//    func pickerValueChanged(sender: UIPickerView, indexPath: IndexPath)
+//}
+protocol UselessProtocol{
+    
+}
+class PickerCell: UITableViewCell{
 
     @IBOutlet weak var picker: UIPickerView!
+    
+    //var delegate: UIPickerDelegate?
+    var indexPath: IndexPath?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,5 +29,8 @@ class PickerCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+    @IBAction func pickerValueChanged(sender: AnyObject){
+        print("A picker was changed.")
+        //delegate!.pickerValueChanged(sender: sender, indexPath: indexPath!)
+    }
 }

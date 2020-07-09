@@ -27,7 +27,7 @@ class Course: Object, StudiumEvent{
     let assignments = List<Assignment>()
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, colorHex: String, location: String, additionalDetails: String, startDate: Date, endDate: Date) {
+    func initializeData(name: String, colorHex: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, days: [String]) {
 
         self.name = name
         self.color = colorHex
@@ -35,5 +35,9 @@ class Course: Object, StudiumEvent{
         self.additionalDetails = additionalDetails
         self.startDate = startDate
         self.endDate = endDate
+        
+        for day in days{
+            self.days.append(day)
+        }
     }
 }

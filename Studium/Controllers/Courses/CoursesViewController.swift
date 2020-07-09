@@ -103,14 +103,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
 //    }
     
     override func updateModelEdit(at indexPath: IndexPath) {
-        let editCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
-        editCourseViewController.delegate = self
-        let navController = UINavigationController(rootViewController: editCourseViewController)
-        let courseCell = tableView.cellForRow(at: IndexPath(row: indexPath.row, section: indexPath.section)) as! CourseCell
 
-        self.present(navController, animated: true) {
-            editCourseViewController.loadData(from: courseCell.course!)
-        }
 
     }
     //MARK: - UI Actions

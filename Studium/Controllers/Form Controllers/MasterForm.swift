@@ -8,8 +8,10 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 class MasterForm: UITableViewController{
-    
+    //reference to the realm database.
+    let realm = try! Realm()
 }
 
 

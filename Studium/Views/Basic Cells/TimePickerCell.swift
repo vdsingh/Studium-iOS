@@ -12,8 +12,10 @@ protocol UITimePickerDelegate {
 }
 class TimePickerCell: UITableViewCell {
     @IBOutlet weak var picker: UIDatePicker!
+    
     var delegate: UITimePickerDelegate?
     var indexPath : IndexPath?
+    var pickerID: Int?
     
     override func awakeFromNib() {
         super.awakeFromNib()

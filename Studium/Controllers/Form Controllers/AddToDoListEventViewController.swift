@@ -11,7 +11,6 @@ import RealmSwift
 
 class AddToDoListEventViewController: MasterForm, UITextFieldDelegateExt, UITimePickerDelegate {
     
-    let realm = try! Realm()
     var delegate: ToDoListViewController?
     
     var name: String = ""
@@ -48,8 +47,6 @@ class AddToDoListEventViewController: MasterForm, UITextFieldDelegateExt, UITime
         tableView.tableFooterView = UIView()
     }
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        
-        
         
         let newEvent = OtherEvent()
         retrieveDataFromCells()

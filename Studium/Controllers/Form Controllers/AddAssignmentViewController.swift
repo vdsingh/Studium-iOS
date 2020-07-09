@@ -11,7 +11,6 @@ class AddAssignmentViewController: MasterForm{
     var previousAssignment: Assignment?
     
     
-    let realm = try! Realm()
     var courses: Results<Course>? = nil
     var delegate: AssignmentRefreshProtocol?
     

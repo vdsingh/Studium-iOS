@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1641822924AD9D0800960F86 /* PickerCell.swift */; };
+		1641822C24AD9D0800960F86 /* PickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1641822A24AD9D0800960F86 /* PickerCell.xib */; };
 		16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429CFD247D20F90052E47C /* StudiumEvent.swift */; };
 		16429D04247E43720052E47C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D03247E43720052E47C /* Habit.swift */; };
 		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
@@ -25,8 +27,6 @@
 		1686DB682482622800FA99DB /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB662482622800FA99DB /* TimeCell.swift */; };
 		1686DB692482622800FA99DB /* TimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB672482622800FA99DB /* TimeCell.xib */; };
 		1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB6A248267EC00FA99DB /* PickerTest.swift */; };
-		1686DB7624826FAB00FA99DB /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB7424826FAB00FA99DB /* PickerCell.swift */; };
-		1686DB7724826FAB00FA99DB /* PickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB7524826FAB00FA99DB /* PickerCell.xib */; };
 		1686DB7E24827B8900FA99DB /* TimePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB7C24827B8900FA99DB /* TimePickerCell.swift */; };
 		1686DB7F24827B8900FA99DB /* TimePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB7D24827B8900FA99DB /* TimePickerCell.xib */; };
 		1686DB822482A0A500FA99DB /* DaySelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB802482A0A400FA99DB /* DaySelectorCell.swift */; };
@@ -65,6 +65,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1641822924AD9D0800960F86 /* PickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
+		1641822A24AD9D0800960F86 /* PickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerCell.xib; sourceTree = "<group>"; };
 		16429CFD247D20F90052E47C /* StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEvent.swift; sourceTree = "<group>"; };
 		16429D03247E43720052E47C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
@@ -83,8 +85,6 @@
 		1686DB662482622800FA99DB /* TimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
 		1686DB672482622800FA99DB /* TimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeCell.xib; sourceTree = "<group>"; };
 		1686DB6A248267EC00FA99DB /* PickerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTest.swift; sourceTree = "<group>"; };
-		1686DB7424826FAB00FA99DB /* PickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
-		1686DB7524826FAB00FA99DB /* PickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerCell.xib; sourceTree = "<group>"; };
 		1686DB7C24827B8900FA99DB /* TimePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerCell.swift; sourceTree = "<group>"; };
 		1686DB7D24827B8900FA99DB /* TimePickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimePickerCell.xib; sourceTree = "<group>"; };
 		1686DB802482A0A400FA99DB /* DaySelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectorCell.swift; sourceTree = "<group>"; };
@@ -292,8 +292,6 @@
 				1686DB6324812CE000FA99DB /* LabelCell.xib */,
 				1686DB662482622800FA99DB /* TimeCell.swift */,
 				1686DB672482622800FA99DB /* TimeCell.xib */,
-				1686DB7424826FAB00FA99DB /* PickerCell.swift */,
-				1686DB7524826FAB00FA99DB /* PickerCell.xib */,
 				1686DB7C24827B8900FA99DB /* TimePickerCell.swift */,
 				1686DB7D24827B8900FA99DB /* TimePickerCell.xib */,
 				1686DB802482A0A400FA99DB /* DaySelectorCell.swift */,
@@ -302,6 +300,8 @@
 				16E251472485190E000494DE /* SegmentedControlCell.xib */,
 				165A6C7B248D9AF3004279B0 /* ColorPickerCell.swift */,
 				165A6C7C248D9AF3004279B0 /* ColorPickerCell.xib */,
+				1641822924AD9D0800960F86 /* PickerCell.swift */,
+				1641822A24AD9D0800960F86 /* PickerCell.xib */,
 			);
 			path = "Basic Cells";
 			sourceTree = "<group>";
@@ -388,10 +388,10 @@
 				165A6C82248F0F54004279B0 /* AssignmentCell.xib in Resources */,
 				1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */,
 				1693E73A247A3DC6003D4702 /* Assets.xcassets in Resources */,
+				1641822C24AD9D0800960F86 /* PickerCell.xib in Resources */,
 				1686DB692482622800FA99DB /* TimeCell.xib in Resources */,
 				16A63B7D24A01289003A30D3 /* HabitCell.xib in Resources */,
 				1693E738247A3DC4003D4702 /* Main.storyboard in Resources */,
-				1686DB7724826FAB00FA99DB /* PickerCell.xib in Resources */,
 				1686DB6524812CE000FA99DB /* LabelCell.xib in Resources */,
 				1686DB7F24827B8900FA99DB /* TimePickerCell.xib in Resources */,
 				165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */,
@@ -469,11 +469,11 @@
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
-				1686DB7624826FAB00FA99DB /* PickerCell.swift in Sources */,
 				1686DB682482622800FA99DB /* TimeCell.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
 				1686DB5C24812BCE00FA99DB /* TextFieldCell.swift in Sources */,
+				1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */,
 				16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */,
 				16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */,
 				1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */,
