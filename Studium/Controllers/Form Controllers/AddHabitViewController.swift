@@ -18,6 +18,9 @@ protocol HabitRefreshProtocol{
 //Class used to manage the form for adding a Habit. The form is a tableView form, similar to adding an event in
 class AddHabitViewController: MasterForm{
     
+    //variable that helps run things once that only need to run at the beginning
+    var resetAll: Bool = true
+    
     //variables that hold the total length of the habit.
     var totalLengthHours = 1
     var totalLengthMinutes = 0
@@ -87,9 +90,13 @@ class AddHabitViewController: MasterForm{
     
     //final step that occurs when the user finishes the form and adds the habit
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        resetAll = false
         errors = []
         cellText[2][cellText[2].count - 1] = ""
         retrieveData()
+        reloadData()
+        
+
         if name == ""{
             errors.append("Please specify a name. ")
         }
@@ -99,9 +106,9 @@ class AddHabitViewController: MasterForm{
         }
         if autoschedule && totalLengthHours == 0 && totalLengthMinutes == 0{
             errors.append("Please specify total time. ")
-        }
-        
-        if autoschedule && (endDate.hour - startDate.hour) * 60 + (endDate.minute - startDate.minute) < totalLengthHours * 60 + totalLengthMinutes{
+        }else if endDate < startDate{
+            errors.append("The first time bound must be before the second time bound")
+        }else if autoschedule && (endDate.hour - startDate.hour) * 60 + (endDate.minute - startDate.minute) < totalLengthHours * 60 + totalLengthMinutes{
             errors.append("The total time exceeds the time frame. ")
         }
         
@@ -111,7 +118,7 @@ class AddHabitViewController: MasterForm{
             
             save(habit: newHabit)
             
-            print(newHabit)
+            //print(newHabit)
             delegate?.loadHabits()
             
             dismiss(animated: true) {
@@ -258,21 +265,25 @@ extension AddHabitViewController{
         }else if cellType[indexPath.section][indexPath.row] == "PickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PickerCell", for: indexPath) as! PickerCell
             cell.picker.delegate = self
+            cell.picker.dataSource = self
+            if resetAll{
+                cell.picker.selectRow(1, inComponent: 0, animated: true)
+            }
+
             //cell.delegate = self
             cell.indexPath = indexPath
-            cell.picker.dataSource = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
-//            if let cellBefore = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as? TimeCell{
-//                cell.picker.date = cellBefore.date
-//            }
-            let dateString = cellText[indexPath.section][indexPath.row]
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm a"
-            let date = dateFormatter.date(from: dateString)!
+            
+            if resetAll{
+                let dateString = cellText[indexPath.section][indexPath.row]
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "h:mm a"
+                let date = dateFormatter.date(from: dateString)!
+                cell.picker.date = date
 
-            cell.picker.date = date
+            }
             cell.delegate = self
             cell.indexPath = indexPath
             return cell
@@ -368,6 +379,7 @@ extension AddHabitViewController: UIPickerViewDataSource{
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
     }
+
 }
 
 //MARK: - Picker Delegate
@@ -379,6 +391,13 @@ extension AddHabitViewController: UIPickerViewDelegate{
             return "\(row) hours"
         }
         return "\(row) min"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let lengthIndex = cellText[1].lastIndex(of: "Length of Habit")
+        let timeCell = tableView.cellForRow(at: IndexPath(row: lengthIndex!, section: 1)) as! TimeCell
+        
+        timeCell.timeLabel.text = "\(row) hours \(component) mins"
     }
 }
 

@@ -29,7 +29,6 @@ class ColorPickerCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func colorValueChanged(_ sender: RadialPaletteControl) {
-        delegate!.colorPickerValueChanged(sender: sender)
         colorPreview.backgroundColor = sender.selectedColor
     }
     

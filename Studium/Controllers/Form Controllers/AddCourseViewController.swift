@@ -113,7 +113,6 @@ class AddCourseViewController: MasterForm{
     
     
     //MARK: - Retrieving Data
-    
     func retrieveData(){
         let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
         name = nameCell.textField.text!
@@ -154,7 +153,7 @@ extension AddCourseViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
             cell.textField.delegate = self
-            cell.delegate = self
+            //cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
@@ -182,7 +181,7 @@ extension AddCourseViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "DaySelectorCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "DaySelectorCell", for: indexPath) as! DaySelectorCell
-            cell.delegate = self
+            //cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
@@ -192,7 +191,7 @@ extension AddCourseViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ColorPickerCell", for: indexPath) as! ColorPickerCell
-            cell.delegate = self
+            //cell.delegate = self
             return cell
         }else{
             return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
@@ -278,14 +277,6 @@ extension AddCourseViewController: UIPickerViewDelegate{
     }
 }
 
-//extension AddCourseViewController: UIPickerDelegate{
-//    func pickerValueChanged(sender: UIPickerView, indexPath: IndexPath) {
-//        
-//    }
-//    
-//
-//}
-
 //MARK: - TimePicker Delegate
 extension AddCourseViewController: UITimePickerDelegate{
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
@@ -296,44 +287,7 @@ extension AddCourseViewController: UITimePickerDelegate{
     }
 }
 
-//MARK: - TextField Delegate
-extension AddCourseViewController: UITextFieldDelegateExt{
-    func textEdited(sender: UITextField) {
-        //print(sender.placeholder)
-        if sender.placeholder == "Name"{
-            name = sender.text!
-        }else if sender.placeholder == "Location"{
-            location = sender.text!
-        }else if sender.placeholder == "Additional Details"{
-            additionalDetails = sender.text!
-        }
-    }
-}
-
-extension AddCourseViewController: DaySelectorDelegate{
-    func dayButtonPressed(sender: UIButton) {
-        print("day button pressed.")
-        let dayTitle = sender.titleLabel!.text
-        if sender.isSelected{
-            sender.isSelected = false
-            for day in daysSelected{
-                if day == dayTitle{
-                    daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
-                }
-            }
-        }else{
-            sender.isSelected = true
-            daysSelected.append(dayTitle!)
-        }
-    }
-}
-
-extension AddCourseViewController: ColorDelegate{
-    func colorPickerValueChanged(sender: RadialPaletteControl) {
-        colorValue = sender.selectedColor.hexValue()
-    }
-}
-
+//makes the keyboard dismiss when user clicks done
 extension UIViewController: UITextFieldDelegate{
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

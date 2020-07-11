@@ -10,9 +10,7 @@ import UIKit
 //protocol UIPickerDelegate {
 //    func pickerValueChanged(sender: UIPickerView, indexPath: IndexPath)
 //}
-protocol UselessProtocol{
-    
-}
+
 class PickerCell: UITableViewCell{
 
     @IBOutlet weak var picker: UIPickerView!
@@ -21,6 +19,7 @@ class PickerCell: UITableViewCell{
     var indexPath: IndexPath?
     override func awakeFromNib() {
         super.awakeFromNib()
+    
         // Initialization code
     }
 
@@ -28,9 +27,5 @@ class PickerCell: UITableViewCell{
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-    @IBAction func pickerValueChanged(sender: AnyObject){
-        print("A picker was changed.")
-        //delegate!.pickerValueChanged(sender: sender, indexPath: indexPath!)
     }
 }
