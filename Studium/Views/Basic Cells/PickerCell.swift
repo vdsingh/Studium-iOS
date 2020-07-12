@@ -7,9 +7,6 @@
 //
 
 import UIKit
-//protocol UIPickerDelegate {
-//    func pickerValueChanged(sender: UIPickerView, indexPath: IndexPath)
-//}
 
 class PickerCell: UITableViewCell{
 

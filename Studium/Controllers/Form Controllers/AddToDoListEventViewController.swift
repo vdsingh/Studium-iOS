@@ -9,9 +9,13 @@
 import UIKit
 import RealmSwift
 
+protocol ToDoListRefreshProtocol{
+    func refreshData()
+}
+
 class AddToDoListEventViewController: MasterForm, UITextFieldDelegateExt, UITimePickerDelegate {
     
-    var delegate: ToDoListViewController?
+    var delegate: ToDoListRefreshProtocol?
     
     var name: String = ""
     var location: String = ""
@@ -52,7 +56,7 @@ class AddToDoListEventViewController: MasterForm, UITextFieldDelegateExt, UITime
         retrieveDataFromCells()
         newEvent.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails)
         save(otherEvent: newEvent)
-        delegate!.loadOtherEvents()
+        delegate!.refreshData()
         dismiss(animated: true, completion: nil)
     }
     

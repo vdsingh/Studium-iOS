@@ -20,7 +20,6 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    
     var selectedCourse: Course? {
         didSet{
             loadAssignments()
@@ -44,7 +43,6 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
             if let navBarColor = UIColor(hexString: colorHex){
                 //navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
                 navBar.barTintColor = navBarColor
-                print("changed bar tint color")
                 //navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(navBarColor, returnFlat: true)]
             }else{
                 print("fart")
@@ -150,20 +148,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
 //        print("right before load assignmetns.")
 //    }
     
-    override func updateModelEdit(at indexPath: IndexPath){
-        
-        let editAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
-        editAssignmentViewController.delegate = self
-        let navController = UINavigationController(rootViewController: editAssignmentViewController)
-        let assignmentCell = tableView.cellForRow(at: IndexPath(row: indexPath.row, section: indexPath.section)) as! AssignmentCell
-        editAssignmentViewController.selectedCourse = assignmentCell.assignment!.parentCourse[0]
 
-        self.present(navController, animated: true) {
-            editAssignmentViewController.loadData(from: assignmentCell.assignment!)
-        }
-
-
-    }
     
 
     

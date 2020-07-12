@@ -10,34 +10,47 @@ import Foundation
 import RealmSwift
 import ChameleonFramework
 
-class ToDoListViewController: SwipeTableViewController, AssignmentRefreshProtocol{
-    
-    //let realm = try! Realm() //Link to the realm where we are storing information
-    
+class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
+        
     var assignments: Results<Assignment>? //Auto updating array linked to the realm
     var otherEvents: Results<OtherEvent>?
     
+    var allEvents: [StudiumEvent] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "AssignmentCell", bundle: nil), forCellReuseIdentifier: "Cell")
-        tableView.register(UINib(nibName: "OtherEventCell", bundle: nil), forCellReuseIdentifier: "Cell")
+        tableView.register(UINib(nibName: "AssignmentCell", bundle: nil), forCellReuseIdentifier: "AssignmentCell")
+        tableView.register(UINib(nibName: "OtherEventCell", bundle: nil), forCellReuseIdentifier: "OtherEventCell")
 
         //loadAssignments()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadAssignments()
-        loadOtherEvents()
+        refreshData()
     }
     
-    func loadAssignments(){
+    func refreshData(){
+        allEvents = []
+        let assignments = getAssignments()
+        let otherEvents = getOtherEvents()
+        
+        for assignment in assignments{
+            allEvents.append(assignment)
+        }
+        for otherEvent in otherEvents{
+            allEvents.append(otherEvent)
+        }
+        tableView.reloadData()
+    }
+
+    func getAssignments() -> Results<Assignment>{
         assignments = realm.objects(Assignment.self) //fetching all objects of type Course and updating array with it.
-        tableView.reloadData()
+        return assignments!
     }
     
-    func loadOtherEvents(){
+    func getOtherEvents() -> Results<OtherEvent>{
         otherEvents = realm.objects(OtherEvent.self)
-        tableView.reloadData()
+        return otherEvents!
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -47,21 +60,38 @@ class ToDoListViewController: SwipeTableViewController, AssignmentRefreshProtoco
         self.present(navController, animated:true, completion: nil)
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        if indexPath.row < assignments!.count{
-            if let assignment = assignments?[indexPath.row]{
-                let assignmentCell = cell as! AssignmentCell
-                assignmentCell.loadData(assignment: assignment)
-                return assignmentCell
-            }
+        print("all events: \(allEvents)")
+        print("\(allEvents[indexPath.row] is Assignment)")
+        if allEvents[indexPath.row] is Assignment {
+            super.idString = "AssignmentCell"
+            let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell
+            let assignment = allEvents[indexPath.row] as! Assignment
+            cell.loadData(assignment: assignment)
+            return cell
+        }else if allEvents[indexPath.row] is OtherEvent{
+            super.idString = "OtherEventCell"
+            let cell = super.tableView(tableView, cellForRowAt: indexPath) as! OtherEventCell
+            let otherEvent = allEvents[indexPath.row] as! OtherEvent
+            cell.loadData(from: otherEvent)
+            return cell
         }else{
-            if let otherEvent = otherEvents?[indexPath.row]{
-                let otherEventCell = cell as! OtherEventCell
-                otherEventCell.loadData(from: otherEvent)
-                return otherEventCell
-            }
+            let cell = super.tableView(tableView, cellForRowAt: indexPath)
+            return cell
         }
-        return cell
+//        if indexPath.row < assignments!.count{
+//            if let assignment = assignments?[indexPath.row]{
+//                let assignmentCell = cell as! AssignmentCell
+//                assignmentCell.loadData(assignment: assignment)
+//                return assignmentCell
+//            }
+//        }else{
+//            if let otherEvent = otherEvents?[indexPath.row]{
+//                let otherEventCell = cell as! OtherEventCell
+//                otherEventCell.loadData(from: otherEvent)
+//                return otherEventCell
+//            }
+//        }
+        //return cell
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -9,8 +9,9 @@
 import Foundation
 import RealmSwift
 
-//Protocol that is implemented by basically all classes that can be scheduled in DaySchedule and CalendarView
-protocol StudiumEvent: Object {
-    var name: String { get }
-    var startDate: Date { get }
+//protocol that is implemented by basically all classes that can be scheduled in DaySchedule and CalendarView
+
+protocol StudiumEvent: Object{
+    var name: String {get set}
+    var startDate: Date {get set}
 }

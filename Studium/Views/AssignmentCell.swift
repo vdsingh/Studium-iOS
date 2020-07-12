@@ -39,16 +39,11 @@ class AssignmentCell: DeletableEventCell {
             assignmentNameLabel.attributedText = attributeString
 
         }else{
-            print("ran else")
-
             attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
-            print("removed attribute.")
             assignmentNameLabel.attributedText = attributeString
             
         }
-        print(assignment.complete)
         self.assignment = assignment
-        //assignmentNameLabel.text = assignment.name
         courseNameLabel.text = assignment.parentCourse[0].name
         
         icon.tintColor = UIColor(hexString: assignment.parentCourse[0].color)

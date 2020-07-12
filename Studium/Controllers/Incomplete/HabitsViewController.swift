@@ -49,7 +49,6 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! HabitCell
         if let habit = habits?[indexPath.row]{
             cell.loadData(from: habit)
-
         }
         return cell
     }

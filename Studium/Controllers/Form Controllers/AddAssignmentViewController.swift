@@ -7,90 +7,66 @@ protocol AssignmentRefreshProtocol{
 }
 
 class AddAssignmentViewController: MasterForm{
-    var editingAssignment: Bool = false
-    var previousAssignment: Assignment?
     
-    
+    //a list of courses so that the user can pick which course the assignment is attached to
     var courses: Results<Course>? = nil
+    
+    //link to the main list of assignments, so it can refresh when we add a new one
     var delegate: AssignmentRefreshProtocol?
     
-    var activePicker: String?
-    var activeTextField: String?
-    
+    //array variables that lay our form out into sections and rows
     var cellText: [[String]] = [["Name", "Due Date"], ["Course"], ["Additional Details"], [""]]
     var cellType: [[String]] = [["TextFieldCell", "TimeCell"], ["PickerCell"], ["TextFieldCell"], ["LabelCell"]]
     
-    var dueDate = Date()
-    
-    var times: [Date] = []
-    var timeCounter = 0
-    
     var errors: String = ""
     
+    //basic assignment variables
+    var dueDate = Date()
     var selectedCourse: Course? = nil
-    var assignmentName: String = ""
+    var name: String = ""
     var additionalDetails: String = ""
     
     override func viewDidLoad() {
-        print(selectedCourse!.name)
-
+        //registering the necessary cells for the form.
         tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
         tableView.register(UINib(nibName: "TimeCell", bundle: nil), forCellReuseIdentifier: "TimeCell")
-        tableView.register(UINib(nibName: "PickerCell", bundle: nil), forCellReuseIdentifier: "PickerCell") //a cell that allows user to pick time (e.g. 2 hours, 4 mins)
-        
-        tableView.register(UINib(nibName: "TimePickerCell", bundle: nil), forCellReuseIdentifier: "TimePickerCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
-        tableView.register(UINib(nibName: "DaySelectorCell", bundle: nil), forCellReuseIdentifier: "DaySelectorCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
-        tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
-        tableView.register(UINib(nibName: "SegmentedControlCell", bundle: nil), forCellReuseIdentifier: "SegmentedControlCell")
-        
-        
+        tableView.register(UINib(nibName: "PickerCell", bundle: nil), forCellReuseIdentifier: "PickerCell")
+        tableView.register(UINib(nibName: "TimePickerCell", bundle: nil), forCellReuseIdentifier: "TimePickerCell")
+        tableView.register(UINib(nibName: "DaySelectorCell", bundle: nil), forCellReuseIdentifier: "DaySelectorCell")
+        tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
         tableView.tableFooterView = UIView()
-        courses = realm.objects(Course.self)
         
+        //getting all courses from realm to populate the course picker.
+        courses = realm.objects(Course.self)
     }
     
+    //method that is triggered when the user wants to finalize the form
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        
         errors = ""
-        if assignmentName == ""{
+        retrieveData()
+        if name == ""{
             errors.append(" Please specify a name.")
         }
         
         if errors == "" {
             let newAssignment = Assignment()
-            newAssignment.initializeData(name: assignmentName, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, assignmentID: K.assignmentNum)
-            K.assignmentNum += 1
-            if editingAssignment{
-                newAssignment.complete = previousAssignment!.complete
-            }
+            newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!)
+            
             save(assignment: newAssignment)
-            if editingAssignment{
-                do{
-                    try realm.write{
-                        realm.delete(previousAssignment!)
-                    }
-                }catch{
-                    print("Error deleting previous assignment")
-                }
-            }
             delegate?.loadAssignments()
             dismiss(animated: true, completion: nil)
         }else{
             cellText[3][0] = errors
-            reloadData()
+            tableView.reloadData()
         }
     }
     
-    
-    
+    //method called when user wants to cancel
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
     
-    func reloadData(){
-        tableView.reloadData()
-    }
-    
+    //saves the new assignment to the realm
     func save(assignment: Assignment){
         do{ //adding the assignment to the courses list of assignments
             try realm.write{
@@ -105,8 +81,29 @@ class AddAssignmentViewController: MasterForm{
         }
     }
     
+    //method that retrieves data from cells, instead of data updating whenever something is edited (this is more efficient)
+    func retrieveData(){
+        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
+        name = nameCell.textField.text!
+        
+        let dueDateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
+        dueDate = dueDateCell.date
+        
+        let courseCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! PickerCell
+        let selectedRow = courseCell.picker.selectedRow(inComponent: 0)
+        selectedCourse = courses![selectedRow]
+        
+        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TextFieldCell
+        additionalDetails = additionalDetailsCell.textField.text!
+    }
+    
+    //set the course picker to whatever course was originally selected, if any
     func setDefaultRow(picker: UIPickerView){
         var row = 0
+        if selectedCourse == nil{
+            print("selectedCourse is nil. User probably initiated this form from the general add event form")
+            return
+        }
         if let coursesArr = courses{
             for course in coursesArr{
                 if course.name == selectedCourse!.name{
@@ -122,6 +119,8 @@ class AddAssignmentViewController: MasterForm{
 }
 
 //MARK: - TableView DataSource
+
+//sets the amount of sections and rows of the form
 extension AddAssignmentViewController{
     override func numberOfSections(in tableView: UITableView) -> Int {
         return cellType.count
@@ -131,30 +130,21 @@ extension AddAssignmentViewController{
         return cellText[section].count
     }
     
-}
-
-//MARK: - TableView Delegate
-extension AddAssignmentViewController{
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("cell for row at was called.")
         if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
-            cell.textField.delegate = self
-            cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
             cell.timeLabel.text = dueDate.format(with: "MMM d, h:mm a")
             cell.label.text = cellText[indexPath.section][indexPath.row]
-            timeCounter+=1
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "PickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PickerCell", for: indexPath) as! PickerCell
             cell.picker.delegate = self
             cell.picker.dataSource = self
             setDefaultRow(picker: cell.picker)
-            print("added a picker cell.")
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
@@ -165,18 +155,23 @@ extension AddAssignmentViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
             cell.label.text = cellText[indexPath.section][indexPath.row]
             cell.label.textColor = UIColor.red
-            //print("added a label cell")
             return cell
         }else{
             return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         }
     }
-    
+}
+
+//MARK: - TableView Delegate
+
+//determines other important featuers of the form
+extension AddAssignmentViewController{
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return 30
     }
     
+    //handles adding and removing Pickers when necessary
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedRowText = cellText[indexPath.section][indexPath.row]
         if cellType[indexPath.section][indexPath.row] == "TimeCell"{
@@ -202,7 +197,6 @@ extension AddAssignmentViewController{
             tableView.insertRows(at: [IndexPath(row: newIndex, section: indexPath.section)], with: .left)
             cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
             cellText[indexPath.section].insert("", at: newIndex)
-            activePicker = cellText[indexPath.section][newIndex - 1]
             tableView.endUpdates()
         }
     }
@@ -221,13 +215,9 @@ extension AddAssignmentViewController: UIPickerViewDataSource{
 
 //MARK: - TimerPicker Delegate Methods
 extension AddAssignmentViewController: UIPickerViewDelegate{
+    //helps set up information in the UIPickerView
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return courses![row].name
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedCourse = courses![row]
-        reloadData()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -240,50 +230,12 @@ extension AddAssignmentViewController: UIPickerViewDelegate{
 
 //MARK: - Date/TimePicker Delegate Methods
 extension AddAssignmentViewController: UITimePickerDelegate{
+    
+    //method that auto updates a corresponding TimeCell when a TimePicker is changed.
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
-        dueDate = sender.date
-        reloadData()
-        
-    }
-}
-
-//MARK: - TextField Delegate Methods
-extension AddAssignmentViewController: UITextFieldDelegateExt{
-    func textEdited(sender: UITextField) {
-        if sender.placeholder == "Name"{
-            assignmentName = sender.text!
-        }else if sender.placeholder == "Additional Details"{
-            additionalDetails = sender.text!
-        }
-    }
-}
-
- //MARK: - EditableForm Methods
-extension AddAssignmentViewController: EditableForm{
-    func loadData (from data: StudiumEvent){
-        let assignment = data as! Assignment
-        editingAssignment = true
-        previousAssignment = assignment
-        
-        selectedCourse = assignment.parentCourse[0]
-        assignmentName = assignment.name
-        additionalDetails = assignment.additionalDetails
-        dueDate = assignment.endDate
-        selectedCourse = assignment.parentCourse[0]
-        
-        
-        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TextFieldCell
-        let dueDateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
-        let courseCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! PickerCell
-        
-        nameCell.textField.text = assignmentName
-        additionalDetailsCell.textField.text = additionalDetails
-        dueDateCell.timeLabel?.text = dueDate.format(with: "MMM d, h:mm a")
-        setDefaultRow(picker: courseCell.picker)
-        
-        self.navigationController?.title = "View Assignment"
-        
+        let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
+        correspondingTimeCell.date = sender.date
+        correspondingTimeCell.timeLabel.text = sender.date.format(with: "MMM d, h:mm a")
     }
 }
 

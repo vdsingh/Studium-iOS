@@ -16,7 +16,7 @@ class Habit: Object, StudiumEvent{
     @objc dynamic var additionalDetails: String = ""
     
     //Basic Date elements for a Habit object
-    @objc dynamic var startDate: Date = Date() //if autoschedule, this is first bound
+    @objc dynamic var startDate: Date = Date()
     @objc dynamic var endDate: Date = Date() //if autoschedule, this is last bound
     
     //Autoschedule elements for a Habit object

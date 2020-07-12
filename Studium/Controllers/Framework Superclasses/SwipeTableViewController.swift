@@ -10,20 +10,18 @@ import UIKit
 import SwipeCellKit
 import RealmSwift
 
-protocol EditableForm {
-    func loadData(from data: StudiumEvent)
-}
 
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate{
     let realm = try! Realm()
     
+    var idString: String = "Cell"
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     //MARK: - TableView Data Source Methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier:  "Cell", for: indexPath) as? SwipeTableViewCell{
+        if let cell = tableView.dequeueReusableCell(withIdentifier:  idString, for: indexPath) as? SwipeTableViewCell{
             cell.delegate = self
             return cell
         }else{

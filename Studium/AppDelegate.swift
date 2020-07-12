@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("UserDefaults Path: ")
         print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
 
-
         return true
     }
 

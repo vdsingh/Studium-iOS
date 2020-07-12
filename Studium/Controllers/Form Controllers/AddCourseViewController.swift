@@ -111,8 +111,9 @@ class AddCourseViewController: MasterForm{
         }
     }
     
-    
     //MARK: - Retrieving Data
+    
+    //method that retrieves data from cells, instead of data updating whenever something is edited (this is more efficient)
     func retrieveData(){
         let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
         name = nameCell.textField.text!
@@ -152,8 +153,6 @@ extension AddCourseViewController{
         if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
-            cell.textField.delegate = self
-            //cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
@@ -161,11 +160,6 @@ extension AddCourseViewController{
             cell.label.text = cellText[indexPath.section][indexPath.row]
             cell.date = times[timeCounter]
             timeCounter+=1
-            return cell
-        }else if cellType[indexPath.section][indexPath.row] == "PickerCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PickerCell", for: indexPath) as! PickerCell
-            cell.picker.delegate = self
-            cell.picker.dataSource = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
@@ -197,7 +191,6 @@ extension AddCourseViewController{
             return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         }
     }
-    
 }
 
 //MARK: - TableView Delegate
@@ -205,6 +198,13 @@ extension AddCourseViewController{
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if cellType[indexPath.section][indexPath.row] == "PickerCell" || cellType[indexPath.section][indexPath.row] == "TimePickerCell" || cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
+            return 150
+        }
+        return 50
     }
     
     //mostly handles what occurs when the user selects a TimeCell, and pickers must be removed/added
@@ -235,45 +235,7 @@ extension AddCourseViewController{
             cellText[indexPath.section].insert("\(timeCell.date.format(with: "h:mm a"))", at: newIndex)
             
             tableView.endUpdates()
-            
         }
-    }
-    
-    
-}
-
-//MARK: - TimerPicker DataSource
-extension AddCourseViewController: UIPickerViewDataSource{
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0{
-            return 24
-        }
-        return 60
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
-    }
-}
-
-//MARK: - PickerDelegate
-extension AddCourseViewController: UIPickerViewDelegate{
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if component == 0{
-            return "\(row) hours"
-        }
-        return "\(row) min"
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        reloadData()
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if cellType[indexPath.section][indexPath.row] == "PickerCell" || cellType[indexPath.section][indexPath.row] == "TimePickerCell" || cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
-            return 150
-        }
-        return 50
     }
 }
 

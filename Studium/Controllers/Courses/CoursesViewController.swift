@@ -102,10 +102,6 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
 //        }
 //    }
     
-    override func updateModelEdit(at indexPath: IndexPath) {
-
-
-    }
     //MARK: - UI Actions
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController

@@ -24,14 +24,15 @@ class Assignment: Object, StudiumEvent{
 
     //This is a link to the Course that the Assignment object is categorized under.
     var parentCourse = LinkingObjects(fromType: Course.self, property: "assignments")
-
+    
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, assignmentID: Int) {
+    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, course: Course) {
 
         self.name = name
         self.additionalDetails = additionalDetails
         self.complete = complete
         self.startDate = startDate
         self.endDate = endDate
+        
     }
 }
