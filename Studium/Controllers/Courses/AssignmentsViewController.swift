@@ -13,7 +13,6 @@ import ChameleonFramework
 class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, AssignmentRefreshProtocol{
     
     
-    //let realm = try! Realm()
     var assignments: Results<Assignment>?
     var assignmentsArr: [[Assignment]] = [[],[]]
     var sectionTitles: [String] = ["Incomplete","Complete"]
@@ -28,7 +27,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     override func viewDidLoad() {
         searchBar.delegate = self
-        tableView.register(UINib(nibName: "AssignmentCell", bundle: nil), forCellReuseIdentifier: "Cell")
+        tableView.register(UINib(nibName: "AssignmentCell", bundle: nil), forCellReuseIdentifier: "AssignmentCell")
         
     }
     
@@ -50,8 +49,8 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         }else{
             print("ughhh")
         }
-        
-        reloadData()
+        loadAssignments()
+        //reloadData()
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -69,6 +68,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        super.idString = "AssignmentCell"
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell
         let assignment = assignmentsArr[indexPath.section][indexPath.row]
         cell.assignment = assignment
@@ -147,11 +147,17 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
 //        assignmentsArr[indexPath.section].remove(at: indexPath.row)
 //        print("right before load assignmetns.")
 //    }
-    
-
-    
-
-    
+    override func updateModelDelete(at indexPath: IndexPath) {
+           let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+               do{
+                   try self.realm.write{
+                       self.realm.delete(cell.event!)
+                   }
+               }catch{
+                   print("ERROR MANE")
+               }
+           assignmentsArr[indexPath.section].remove(at: indexPath.row)
+       }
     
     //MARK: - Search Bar
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

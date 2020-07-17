@@ -32,7 +32,6 @@ class DayScheduleViewController: DayViewController {
         reloadData()
         navigationItem.hidesBackButton = true
         
-        print("viewWIllAppear called.")
         let navigationBar = navigationController!.navigationBar
 
         navigationBar.barTintColor = UIColor(red: 0.65882, green: 0.08627, blue: 0.08627, alpha: 1)

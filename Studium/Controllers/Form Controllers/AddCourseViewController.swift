@@ -38,7 +38,7 @@ class AddCourseViewController: MasterForm{
     var location: String = ""
     var daysSelected: [String] = []
     
-    
+    //called when the view loads
     override func viewDidLoad() {
         
         //register custom cells for form

@@ -39,5 +39,17 @@ class HabitCell: DeletableEventCell {
         }else{
             timeLabel.text = timeText
         }
+        
+        for label in dayLabels{
+            print("label in dayLabels")
+            print(label.text)
+            let labelText = label.text!
+
+            if habit.days.contains(labelText){
+                print("habit occurs on \(labelText)")
+                label.backgroundColor = tintColor
+                label.textColor = .white
+            }
+        }
     }
 }

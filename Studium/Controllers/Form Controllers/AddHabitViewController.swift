@@ -118,9 +118,8 @@ class AddHabitViewController: MasterForm{
             
             save(habit: newHabit)
             
-            //print(newHabit)
             delegate?.loadHabits()
-            
+            print(newHabit.days)
             dismiss(animated: true) {
                 if let del = self.delegate{
                     del.loadHabits()
@@ -186,7 +185,6 @@ class AddHabitViewController: MasterForm{
             
             //since there can be pickers active, we use lastIndex because it is always the correct TimeCell.
             let indexOfLengthCell = cellType[1].lastIndex(of: "TimeCell")
-            print(indexOfLengthCell!)
             let lengthOfHabitCell = tableView.cellForRow(at: IndexPath(row: indexOfLengthCell!, section: 1)) as! TimeCell
             
             //in order to get the numbers we want from the TimeCell, we split the string from the label in 2. we then pick out the numbers from that string.

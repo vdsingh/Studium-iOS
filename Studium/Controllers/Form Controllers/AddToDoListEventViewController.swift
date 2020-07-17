@@ -13,7 +13,7 @@ protocol ToDoListRefreshProtocol{
     func refreshData()
 }
 
-class AddToDoListEventViewController: MasterForm, UITextFieldDelegateExt, UITimePickerDelegate {
+class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
     
     var delegate: ToDoListRefreshProtocol?
     
@@ -22,6 +22,8 @@ class AddToDoListEventViewController: MasterForm, UITextFieldDelegateExt, UITime
     var additionalDetails: String = ""
     var startDate: Date = Date()
     var endDate: Date = Date()
+    
+    var errors: String = ""
     
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
         //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
@@ -37,27 +39,40 @@ class AddToDoListEventViewController: MasterForm, UITextFieldDelegateExt, UITime
     }
     
     
-    var cellText: [[String]] = [["Name", "Location"], ["Start Date", "End Date"], ["Additional Details"]]
-    var cellType: [[String]] = [["TextFieldCell", "TextFieldCell"], ["TimeCell", "TimeCell"], ["TextFieldCell"]]
+    var cellText: [[String]] = [["This Event is a Course Assignment"],["Name", "Location"], ["Start Date", "End Date"], ["Additional Details"], [""]]
+    var cellType: [[String]] = [["LabelCell"],["TextFieldCell", "TextFieldCell"], ["TimeCell", "TimeCell"], ["TextFieldCell"], ["LabelCell"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
         tableView.register(UINib(nibName: "TimeCell", bundle: nil), forCellReuseIdentifier: "TimeCell")
         tableView.register(UINib(nibName: "TimePickerCell", bundle: nil), forCellReuseIdentifier: "TimePickerCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
-        
+        tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
         
         //makes it so that the form doesn't have a bunch of empty cells at the bottom
         tableView.tableFooterView = UIView()
     }
+    
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        
+        errors = ""
         let newEvent = OtherEvent()
         retrieveDataFromCells()
-        newEvent.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails)
-        save(otherEvent: newEvent)
-        delegate!.refreshData()
-        dismiss(animated: true, completion: nil)
+        if name == ""{
+            errors.append("Please specify a name.")
+        }
+        if endDate < startDate{
+            errors.append(" End Date cannot be before Start Date")
+        }
+        
+        if errors == ""{
+            newEvent.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails)
+            save(otherEvent: newEvent)
+            delegate!.refreshData()
+            dismiss(animated: true, completion: nil)
+        }else{
+            cellText[4][0] = errors
+            tableView.reloadData()
+        }
     }
     
     func save(otherEvent: OtherEvent){
@@ -70,20 +85,22 @@ class AddToDoListEventViewController: MasterForm, UITextFieldDelegateExt, UITime
         }
     }
     
+    
+    
     func retrieveDataFromCells(){
-        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
+        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TextFieldCell
         name = nameCell.textField.text!
         
-        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
+        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TextFieldCell
         location = locationCell.textField.text!
         
-        let startTimeCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TimeCell
+        let startTimeCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TimeCell
         startDate = startTimeCell.date
         
-        let endTimeCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TimeCell
+        let endTimeCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! TimeCell
         endDate = endTimeCell.date
         
-        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TextFieldCell
+        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! TextFieldCell
         additionalDetails = additionalDetailsCell.textField.text!
     }
     
@@ -112,8 +129,6 @@ class AddToDoListEventViewController: MasterForm, UITextFieldDelegateExt, UITime
         if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
-            //cell.textField.delegate = self
-            cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
@@ -127,6 +142,15 @@ class AddToDoListEventViewController: MasterForm, UITextFieldDelegateExt, UITime
             cell.delegate = self
             cell.indexPath = indexPath
             return cell
+        }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
+            cell.label.text = cellText[indexPath.section][indexPath.row]
+            cell.label.textAlignment = .center
+            cell.label.textColor = .blue
+            if indexPath.section == 4{
+                cell.label.textColor = .red
+            }
+            return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
@@ -138,7 +162,15 @@ class AddToDoListEventViewController: MasterForm, UITextFieldDelegateExt, UITime
         return 30
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { //handles timeCells trigger timePickerCells.
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0{
+            let del = delegate as! ToDoListViewController
+            self.dismiss(animated: true) {
+                del.openAssignmentForm()
+            }
+        }
+        
+        //handles timeCells trigger timePickerCells.
         let selectedRowText = cellText[indexPath.section][indexPath.row]
         if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             var pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")

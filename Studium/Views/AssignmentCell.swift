@@ -51,7 +51,6 @@ class AssignmentCell: DeletableEventCell {
         
         
         
-        
     }
     
     func loadCompleteAttributes(){

@@ -43,7 +43,6 @@ class CalendarViewController: UIViewController{
     @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
         
         self.navigationController?.popViewController(animated: false)
-        print("popping month view.")
 
     }
     func addAssignments(){

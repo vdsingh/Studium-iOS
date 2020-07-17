@@ -18,6 +18,7 @@ class OtherEvent: Object, StudiumEvent{
     //Basic Date elements for an OtherEvent object
     @objc dynamic var endDate: Date = Date()
     @objc dynamic var startDate: Date = Date()
+    
     //Specifies whether or not the OtherEvent object is marked as complete or not. This determines where it lies in a tableView and whether or not it's crossed out.
     @objc dynamic var complete: Bool = false
     

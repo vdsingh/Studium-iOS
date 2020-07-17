@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S29-19-xtq">
-                        <rect key="frame" x="20" y="0.0" width="48" height="50"/>
+                        <rect key="frame" x="20" y="0.0" width="280" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="cdk-qN-o63"/>
                         </constraints>
@@ -28,6 +28,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="S29-19-xtq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="4ep-yE-cE7"/>
+                    <constraint firstAttribute="trailing" secondItem="S29-19-xtq" secondAttribute="trailing" constant="20" id="C9c-Sp-Rak"/>
                     <constraint firstItem="S29-19-xtq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="dBz-fY-ZCQ"/>
                     <constraint firstAttribute="bottom" secondItem="S29-19-xtq" secondAttribute="bottom" id="fwP-nZ-J3x"/>
                 </constraints>
