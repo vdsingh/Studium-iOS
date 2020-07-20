@@ -97,7 +97,8 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
         let startTimeCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TimeCell
         startDate = startTimeCell.date
         
-        let endTimeCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! TimeCell
+        let endTimeCellIndex = cellType[2].lastIndex(of: "TimeCell")
+        let endTimeCell = tableView.cellForRow(at: IndexPath(row: endTimeCellIndex!, section: 2)) as! TimeCell
         endDate = endTimeCell.date
         
         let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! TextFieldCell

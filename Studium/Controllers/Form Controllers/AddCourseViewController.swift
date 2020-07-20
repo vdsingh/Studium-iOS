@@ -62,7 +62,10 @@ class AddCourseViewController: MasterForm{
     //final step that occurs when the user has filled out the form and wants to add the new course
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         errors = ""
+
+        
         retrieveData()
+        endDate = Calendar.current.date(bySettingHour: endDate.hour, minute: endDate.minute, second: endDate.second, of: startDate)!
         if name == ""{
             errors.append(" Please specify a course name.")
         }
@@ -71,7 +74,8 @@ class AddCourseViewController: MasterForm{
             errors.append(" Please specify at least one day.")
         }
         
-        if endDate < startDate{
+        if endDate.isEarlier(than: startDate){
+            print("start date: \(startDate), end date: \(endDate)")
             errors.append(" End time cannot occur before start time.")
         }
         

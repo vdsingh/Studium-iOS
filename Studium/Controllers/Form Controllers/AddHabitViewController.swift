@@ -94,6 +94,7 @@ class AddHabitViewController: MasterForm{
         errors = []
         cellText[2][cellText[2].count - 1] = ""
         retrieveData()
+        endDate = Calendar.current.date(bySettingHour: endDate.hour, minute: endDate.minute, second: endDate.second, of: startDate)!
         reloadData()
         
 
