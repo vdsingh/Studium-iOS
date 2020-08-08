@@ -93,8 +93,8 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("all events: \(allEvents)")
-        print("\(allEvents[indexPath.section][indexPath.row] is Assignment)")
+//        print("all events: \(allEvents)")
+//        print("\(allEvents[indexPath.section][indexPath.row] is Assignment)")
         if allEvents[indexPath.section][indexPath.row] is Assignment {
             super.idString = "AssignmentCell"
             let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell

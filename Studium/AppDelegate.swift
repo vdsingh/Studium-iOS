@@ -12,22 +12,32 @@ import RealmSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+
     let realm = try! Realm()
     let defaults = UserDefaults.standard
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //print(realm.configuration.fileURL)
-        print("UserDefaults Path: ")
-        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
-        changeTheme(color: K.themeColor)
+//        print("UserDefaults Path: ")
+//        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
+        updateTheme()
         
 
         return true
     }
     
     //updates the theme color of the app.
-    func changeTheme(color: UIColor){
+    func updateTheme(){
         let appearance = UINavigationBarAppearance()
+        let colorHex = defaults.string(forKey: "themeColor")
+        var color = K.themeColor
+        
+        print(colorHex)
+
+        if colorHex != nil{
+            color = UIColor(hexString: colorHex!)!
+        }
+
         appearance.backgroundColor = color
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -38,7 +48,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         
         UITabBar.appearance().barTintColor = color // your color
+        
 //        UITabBarAppearance().backgroundColor = .red
+    }
+    
+    func changeTheme(color: UIColor){
+        defaults.set(color.hexValue(), forKey: "themeColor")
+        updateTheme()
     }
 
     // MARK: UISceneSession Lifecycle

@@ -34,10 +34,7 @@ class CalendarViewController: UIViewController{
         updateInfo()
         calendar.appearance.titleDefaultColor = UIColor.white
         navigationItem.hidesBackButton = true
-        let navigationBar = navigationController?.navigationBar
-        let navigationBarAppearence = UINavigationBarAppearance()
-        navigationBarAppearence.shadowColor = .clear
-        navigationBar?.scrollEdgeAppearance = navigationBarAppearence
+
         
     }
     

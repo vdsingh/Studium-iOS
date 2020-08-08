@@ -75,7 +75,7 @@ class AddCourseViewController: MasterForm{
         }
         
         if endDate.isEarlier(than: startDate){
-            print("start date: \(startDate), end date: \(endDate)")
+//            print("start date: \(startDate), end date: \(endDate)")
             errors.append(" End time cannot occur before start time.")
         }
         

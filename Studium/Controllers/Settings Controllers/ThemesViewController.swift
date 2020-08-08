@@ -29,14 +29,13 @@ extension ThemesViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //setting new theme
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        K.themeColor = colors[indexPath.row]
-        appDelegate.changeTheme(color: K.themeColor)
-        print("theme color clicked.")
+        appDelegate.changeTheme(color: colors[indexPath.row])
+//        print("theme color clicked.")
         //hide and unhide the navbar to basically refresh it
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.isNavigationBarHidden = false
         
-        self.tabBarController!.tabBar.barTintColor = K.themeColor
+        self.tabBarController!.tabBar.barTintColor = colors[indexPath.row]
 
 
 

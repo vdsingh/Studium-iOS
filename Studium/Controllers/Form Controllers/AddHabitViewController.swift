@@ -120,7 +120,7 @@ class AddHabitViewController: MasterForm{
             save(habit: newHabit)
             
             delegate?.loadHabits()
-            print(newHabit.days)
+//            print(newHabit.days)
             dismiss(animated: true) {
                 if let del = self.delegate{
                     del.loadHabits()
