@@ -24,6 +24,7 @@ class CalendarViewController: UIViewController{
 
 
         tableView.delegate = self
+//        calendar.delegate = self
         tableView.dataSource = self
         
         // Do any additional setup after loading the view.
@@ -105,10 +106,6 @@ extension CalendarViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allEventsInDay.count
     }
-    
-    
-    
-    
 }
 
 extension CalendarViewController: FSCalendarDataSource{
@@ -116,10 +113,10 @@ extension CalendarViewController: FSCalendarDataSource{
 //            let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position)
 //            return cell
 //        }
-    //
-    //    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
-    //        self.configure(cell: cell, for: date, at: position)
-    //    }
+    
+//        func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
+//            self.configure(cell: cell, for: date, at: position)
+//        }
 }
 
 extension CalendarViewController: FSCalendarDelegate{

@@ -19,12 +19,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //print(realm.configuration.fileURL)
         print("UserDefaults Path: ")
         print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
+        changeTheme(color: K.themeColor)
+        
 
         return true
     }
+    
+    //updates the theme color of the app.
+    func changeTheme(color: UIColor){
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = color
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+
+        UINavigationBar.appearance().tintColor = .white
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        
+        UITabBar.appearance().barTintColor = color // your color
+//        UITabBarAppearance().backgroundColor = .red
+    }
 
     // MARK: UISceneSession Lifecycle
-
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
@@ -36,7 +53,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
 }
 

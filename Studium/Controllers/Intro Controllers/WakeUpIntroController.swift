@@ -9,8 +9,13 @@
 import Foundation
 import UIKit
 
+//this controls the page that the user sees in the beginning, when they must enter what times they wake up at.
 class WakeUpIntroController: UIViewController{
+    
+    //reference to defaults because that is where we will be storing the time data for when the user wakes up
     let defaults = UserDefaults.standard
+    
+    //reference to certain UIKit elements that we need access to.
     @IBOutlet var days: Array<UIButton>?
     
     @IBOutlet weak var sunLabel: UILabel!
@@ -24,21 +29,33 @@ class WakeUpIntroController: UIViewController{
     @IBOutlet weak var timePicker: UIDatePicker!
     @IBOutlet weak var errorsLabel: UILabel!
     var selectedDay: UIButton?
+    
+    //dictionaries that help keep the data organized
+    
+    //the String is the day (e.g: "Sun") and the Date is the wake up time
     var times: [String: Date] = [:]
+    
+    //the String is the day (e.g: "Sun") and the UILabel is a reference to the label that it corresponds to
     var labels: [String: UILabel] = [:]
     
+    //boolean that tells whether the user wakes up at different times depending on the day.
     var differentTimes: Bool = true
+    
     override func viewDidLoad() {
+        //selects sunday by default
         selectSunday()
         
+        //selects the time 7:30AM by default
         let date = Calendar.current.date(bySettingHour: 7, minute: 30, second: 0, of: Date())!
         timePicker.setDate(date, animated: true)
         
+        //initialize the dictionaries. The only one that will have data that changes (potentially) is the times dictionary
         times = ["Sun": date, "Mon": date, "Tue": date, "Wed": date, "Thu": date, "Fri": date, "Sat": date]
-
         labels = ["Sun": sunLabel, "Mon": monLabel, "Tue": tueLabel, "Wed": wedLabel, "Thu": thuLabel, "Fri": friLabel, "Sat": satLabel]
         
     }
+    
+    //function that is called when the user switches between whether they wake up at different times or at the same time.
     @IBAction func habitChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0{ //different times
             differentTimes = true
@@ -66,6 +83,8 @@ class WakeUpIntroController: UIViewController{
             }
         }
     }
+    
+    //function that is called when the user selects a day button
     @IBAction func dayButtonPressed(_ sender: UIButton) {
         selectedDay = sender
         for day in days!{
@@ -74,6 +93,8 @@ class WakeUpIntroController: UIViewController{
         sender.isSelected = true
         
     }
+    
+    //function that is called when the user edits a timePicker
     @IBAction func timePickerChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
@@ -95,6 +116,7 @@ class WakeUpIntroController: UIViewController{
         
     }
     
+    //selects Sunday
     func selectSunday(){
         for day in days!{ //select sunday at start
             if day.titleLabel?.text == "Sun"{
@@ -104,12 +126,14 @@ class WakeUpIntroController: UIViewController{
             }
         }
     }
-
+    
+    //function called when the user is finished and wants to move on
     @IBAction func nextPressed(_ sender: UIButton) {
         storeData()
         performSegue(withIdentifier: "toMain", sender: self)
     }
     
+    //function that stores the data in UserDefaults
     func storeData(){
         defaults.set([times["Sun"]], forKey: "sunWakeUp")
         defaults.set([times["Mon"]], forKey: "monWakeUp")

@@ -17,6 +17,10 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.barTintColor = .red
+
+
         tableView.register(UINib(nibName: "CourseCell", bundle: nil), forCellReuseIdentifier: "Cell")
 
 
@@ -33,8 +37,8 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         loadCourses()
-        let navBar = navigationController?.navigationBar
-        navBar!.barTintColor = UIColor.systemBackground
+        
+        
         //print(UIColor.gray)
         
         //searchBar.barTintColor = UIColor(hexString: colorHex)

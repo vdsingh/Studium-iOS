@@ -17,6 +17,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     
     var allEvents: [[StudiumEvent]] = [[],[]]
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "AssignmentCell", bundle: nil), forCellReuseIdentifier: "AssignmentCell")
@@ -99,12 +100,14 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
             let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell
             let assignment = allEvents[indexPath.section][indexPath.row] as! Assignment
             cell.loadData(assignment: assignment)
+
             return cell
         }else if allEvents[indexPath.section][indexPath.row] is OtherEvent{
             super.idString = "OtherEventCell"
             let cell = super.tableView(tableView, cellForRowAt: indexPath) as! OtherEventCell
             let otherEvent = allEvents[indexPath.section][indexPath.row] as! OtherEvent
             cell.loadData(from: otherEvent)
+
             return cell
         }else{
             let cell = super.tableView(tableView, cellForRowAt: indexPath)

@@ -400,23 +400,6 @@ extension AddHabitViewController: UIPickerViewDelegate{
     }
 }
 
-//extension AddHabitViewController: UIPickerDelegate{
-//    //handles what happens when the user changes the row
-//    func pickerValueChanged(sender: UIPickerView, indexPath: IndexPath){
-////        if component == 0{
-////            totalLengthHours = row
-////        }else{
-////            totalLengthMinutes = row
-////        }
-////        reloadData()
-//        //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
-//        print("picker changed")
-//
-//        let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
-//        correspondingTimeCell.timeLabel.text = "\(sender.selectedRow(inComponent: 0)) hours \(sender.selectedRow(inComponent: 1)) minutes"
-//    }
-//}
-
 //MARK: - TimePicker Delegate
 extension AddHabitViewController: UITimePickerDelegate{
 

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 struct K {
     //SEGUES
     static let coursesToAssignmentsSegue = "coursesToAssignments"
@@ -21,6 +23,8 @@ struct K {
     static let sortAssignmentsBy = "name"
     
     static var assignmentNum = 0
+    
+    static var themeColor: UIColor = .orange
 }
 
 //rules_version = '2';

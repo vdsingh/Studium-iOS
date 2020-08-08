@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import RealmSwift
+
+//characteristics of all forms.
 class MasterForm: UITableViewController{
     //reference to the realm database.
     let realm = try! Realm()

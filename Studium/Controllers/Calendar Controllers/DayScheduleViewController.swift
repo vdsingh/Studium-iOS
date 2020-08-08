@@ -17,8 +17,11 @@ import DateToolsSwift
 class DayScheduleViewController: DayViewController{
         let realm = try! Realm()
         let defaults = UserDefaults.standard
-//
-//        var allAssignments: Results<Assignment>?
+
+    @IBAction func settingsButtonPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "toSettings", sender: self)
+    }
+    //        var allAssignments: Results<Assignment>?
         //var allCourses: Results<Course>?
 //        var allHabits: Results<Habit>?
 //        var allOtherEvents: Results<OtherEvent>?
@@ -55,10 +58,10 @@ class DayScheduleViewController: DayViewController{
 //            dayView.updateStyle(style)
 //        }
 //
-//        @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
-//            performSegue(withIdentifier: "toCalendar", sender: self)
-//            sender.selectedSegmentIndex = 0
-//        }
+        @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
+            performSegue(withIdentifier: "toCalendar", sender: self)
+            sender.selectedSegmentIndex = 0
+        }
 //
 //        override func eventsForDate(_ date: Date) -> [EventDescriptor] {
 //            //viewWillAppear(true)
@@ -289,43 +292,6 @@ class DayScheduleViewController: DayViewController{
             return nil
         }
     
-    
-    //data that is being used in the day view calendar
-    var data = [["Breakfast at Tiffany's",
-                 "New York, 5th avenue"],
-                
-                ["Workout",
-                 "Tufteparken"],
-                
-                ["Meeting with Alex",
-                 "Home",
-                 "Oslo, Tjuvholmen"],
-                
-                ["Beach Volleyball",
-                 "Ipanema Beach",
-                 "Rio De Janeiro"],
-                
-                ["WWDC",
-                 "Moscone West Convention Center",
-                 "747 Howard St"],
-                
-                ["Google I/O",
-                 "Shoreline Amphitheatre",
-                 "One Amphitheatre Parkway"],
-                
-                ["✈️️ to Svalbard ❄️️❄️️❄️️❤️️",
-                 "Oslo Gardermoen"],
-                
-                ["💻📲 Developing CalendarKit",
-                 "🌍 Worldwide"],
-                
-                ["Software Development Lecture",
-                 "Mikpoli MB310",
-                 "Craig Federighi"],
-                
-    ]
-    
-    
     var generatedEvents = [EventDescriptor]()
     var alreadyGeneratedSet = Set<Date>()
     
@@ -344,7 +310,6 @@ class DayScheduleViewController: DayViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "CalendarKit Demo"
 
         dayView.autoScrollToFirstEvent = true
         reloadData()
@@ -482,39 +447,10 @@ class DayScheduleViewController: DayViewController{
         //print("Did long press timeline at date \(date)")
         // Cancel editing current event and start creating a new one
         endEventEditing()
-        let event = generateEventNearDate(date)
         //print("Creating a new event")
-        create(event: event, animated: true)
-        createdEvent = event
+
     }
     
-    private func generateEventNearDate(_ date: Date) -> EventDescriptor {
-        let duration = Int(arc4random_uniform(160) + 60)
-        let startDate = date.subtract(TimeChunk.dateComponents(minutes: Int(CGFloat(duration) / 2)))
-        let event = Event()
-        let datePeriod = TimePeriod(beginning: startDate,
-                                    chunk: TimeChunk.dateComponents(minutes: duration))
-        event.startDate = datePeriod.beginning!
-        event.endDate = datePeriod.end!
-        
-        var info = data[Int(arc4random_uniform(UInt32(data.count)))]
-        let timezone = dayView.calendar.timeZone
-        info.append(datePeriod.beginning!.format(with: "dd.MM.YYYY", timeZone: timezone))
-        info.append("\(datePeriod.beginning!.format(with: "HH:mm", timeZone: timezone)) - \(datePeriod.end!.format(with: "HH:mm", timeZone: timezone))")
-        event.text = info.reduce("", {$0 + $1 + "\n"})
-        event.color = colors[Int(arc4random_uniform(UInt32(colors.count)))]
-        event.editedEvent = event
-        
-        // Event styles are updated independently from CalendarStyle
-        // hence the need to specify exact colors in case of Dark style
-        if #available(iOS 12.0, *) {
-            if traitCollection.userInterfaceStyle == .dark {
-                event.textColor = textColorForEventInDarkTheme(baseColor: event.color)
-                event.backgroundColor = event.color.withAlphaComponent(0.6)
-            }
-        }
-        return event
-    }
     
     override func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
         //print("did finish editing \(event)")

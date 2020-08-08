@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161A69E424C7B84B00E5A5AE /* SettingsViewController.swift */; };
 		1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1641822924AD9D0800960F86 /* PickerCell.swift */; };
 		1641822C24AD9D0800960F86 /* PickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1641822A24AD9D0800960F86 /* PickerCell.xib */; };
 		16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429CFD247D20F90052E47C /* StudiumEvent.swift */; };
 		16429D04247E43720052E47C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D03247E43720052E47C /* Habit.swift */; };
 		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
+		16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16547B6C24DA4AC000E68E4D /* ThemesViewController.swift */; };
 		165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C77248A6F5C004279B0 /* CourseCell.swift */; };
 		165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C78248A6F5C004279B0 /* CourseCell.xib */; };
 		165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C7B248D9AF3004279B0 /* ColorPickerCell.swift */; };
@@ -65,11 +67,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		161A69E424C7B84B00E5A5AE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1641822924AD9D0800960F86 /* PickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		1641822A24AD9D0800960F86 /* PickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerCell.xib; sourceTree = "<group>"; };
 		16429CFD247D20F90052E47C /* StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEvent.swift; sourceTree = "<group>"; };
 		16429D03247E43720052E47C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
+		16547B6C24DA4AC000E68E4D /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		165A6C77248A6F5C004279B0 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		165A6C78248A6F5C004279B0 /* CourseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell.xib; sourceTree = "<group>"; };
 		165A6C7B248D9AF3004279B0 /* ColorPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCell.swift; sourceTree = "<group>"; };
@@ -155,6 +159,15 @@
 			path = "Intro Controllers";
 			sourceTree = "<group>";
 		};
+		16547B6B24DA4AA900E68E4D /* Settings Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				161A69E424C7B84B00E5A5AE /* SettingsViewController.swift */,
+				16547B6C24DA4AC000E68E4D /* ThemesViewController.swift */,
+			);
+			path = "Settings Controllers";
+			sourceTree = "<group>";
+		};
 		165A6C8324916BD9004279B0 /* Form Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,12 +224,13 @@
 		1693E744247A413B003D4702 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				16547B6B24DA4AA900E68E4D /* Settings Controllers */,
 				165A6C8424916BE7004279B0 /* Edit Controllers */,
 				165A6C8324916BD9004279B0 /* Form Controllers */,
 				16429D05247E81500052E47C /* Intro Controllers */,
 				16429CFC247D200E0052E47C /* Calendar Controllers */,
 				1693E75B247A67CF003D4702 /* Framework Superclasses */,
-				1693E75A247A67AC003D4702 /* Courses */,
+				1693E75A247A67AC003D4702 /* List Controllers */,
 				1693E753247A4885003D4702 /* Incomplete */,
 			);
 			path = Controllers;
@@ -257,20 +271,20 @@
 		1693E753247A4885003D4702 /* Incomplete */ = {
 			isa = PBXGroup;
 			children = (
-				1693E747247A417B003D4702 /* HabitsViewController.swift */,
 				1686DB6A248267EC00FA99DB /* PickerTest.swift */,
 			);
 			path = Incomplete;
 			sourceTree = "<group>";
 		};
-		1693E75A247A67AC003D4702 /* Courses */ = {
+		1693E75A247A67AC003D4702 /* List Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				1693E745247A4152003D4702 /* CoursesViewController.swift */,
 				1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */,
 				1693E758247A59B2003D4702 /* ToDoListViewController.swift */,
+				1693E747247A417B003D4702 /* HabitsViewController.swift */,
 			);
-			path = Courses;
+			path = "List Controllers";
 			sourceTree = "<group>";
 		};
 		1693E75B247A67CF003D4702 /* Framework Superclasses */ = {
@@ -457,6 +471,7 @@
 				1693E755247A4B64003D4702 /* K.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */,
+				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
 				16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
@@ -467,6 +482,7 @@
 				1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */,
 				1686DB7E24827B8900FA99DB /* TimePickerCell.swift in Sources */,
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
+				16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
 				1686DB682482622800FA99DB /* TimeCell.swift in Sources */,

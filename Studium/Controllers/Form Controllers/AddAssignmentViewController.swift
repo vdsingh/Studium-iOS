@@ -18,6 +18,7 @@ class AddAssignmentViewController: MasterForm{
     var cellText: [[String]] = [["Name", "Due Date"], ["Course"], ["Additional Details"], [""]]
     var cellType: [[String]] = [["TextFieldCell", "TimeCell"], ["PickerCell"], ["TextFieldCell"], ["LabelCell"]]
     
+    //errors string that is displayed if there are any issues (e.g: user didnt enter a name)
     var errors: String = ""
     
     //basic assignment variables
@@ -125,11 +126,12 @@ extension AddAssignmentViewController{
     override func numberOfSections(in tableView: UITableView) -> Int {
         return cellType.count
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellText[section].count
     }
     
+    //information on what to do/other important calls when the form is being created
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
