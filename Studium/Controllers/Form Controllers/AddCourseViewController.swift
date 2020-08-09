@@ -62,7 +62,7 @@ class AddCourseViewController: MasterForm{
     //final step that occurs when the user has filled out the form and wants to add the new course
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         errors = ""
-
+        
         
         retrieveData()
         endDate = Calendar.current.date(bySettingHour: endDate.hour, minute: endDate.minute, second: endDate.second, of: startDate)!
@@ -75,14 +75,14 @@ class AddCourseViewController: MasterForm{
         }
         
         if endDate.isEarlier(than: startDate){
-//            print("start date: \(startDate), end date: \(endDate)")
+            //            print("start date: \(startDate), end date: \(endDate)")
             errors.append(" End time cannot occur before start time.")
         }
         
         if errors.count == 0{
             let newCourse = Course()
             newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected)
-            
+            scheduleNotification(at: startDate - (60*60), body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: true)
             save(course: newCourse)
             dismiss(animated: true, completion: delegate?.loadCourses)
         }else{
@@ -174,7 +174,7 @@ extension AddCourseViewController{
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "h:mm a"
             let date = dateFormatter.date(from: dateString)!
-
+            
             cell.picker.date = date
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "DaySelectorCell"{
@@ -252,6 +252,7 @@ extension AddCourseViewController: UITimePickerDelegate{
         correspondingTimeCell.timeLabel.text = correspondingTimeCell.date.format(with: "h:mm a")
     }
 }
+
 
 //makes the keyboard dismiss when user clicks done
 extension UIViewController: UITextFieldDelegate{

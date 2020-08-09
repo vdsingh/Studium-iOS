@@ -52,7 +52,7 @@ class AddAssignmentViewController: MasterForm{
         if errors == "" {
             let newAssignment = Assignment()
             newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!)
-            
+            scheduleNotification(at: dueDate - (15*60), body: "Don't be late!", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false)
             save(assignment: newAssignment)
             delegate?.loadAssignments()
             dismiss(animated: true, completion: nil)
@@ -152,6 +152,7 @@ extension AddAssignmentViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
             cell.picker.datePickerMode = .dateAndTime
             cell.delegate = self
+            cell.indexPath = indexPath
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
