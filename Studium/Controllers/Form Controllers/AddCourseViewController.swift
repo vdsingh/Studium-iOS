@@ -16,8 +16,8 @@ class AddCourseViewController: MasterForm{
     var delegate: CourseRefreshProtocol?
     
     //arrays that structure the form (determine each type of cell and what goes in them for the most part)
-    var cellText: [[String]] = [["Name", "Location", "Days"], ["Starts", "Ends"], ["Color Picker", "Additional Details"], ["Errors"]]
-    var cellType: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell"],  ["TimeCell", "TimeCell"], ["ColorPickerCell", "TextFieldCell"], ["LabelCell"]]
+    var cellText: [[String]] = [["Name", "Location", "Days"], ["Starts", "Ends"], ["Logo", "Color Picker", "Additional Details"], ["Errors"]]
+    var cellType: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell"],  ["TimeCell", "TimeCell"], ["LogoCell", "ColorPickerCell", "TextFieldCell"], ["LabelCell"]]
     
     //start and end time for the course. The date doesn't actually matter because the days are selected elsewhere
     var startDate: Date = Date()
@@ -51,6 +51,8 @@ class AddCourseViewController: MasterForm{
         tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
         tableView.register(UINib(nibName: "SegmentedControlCell", bundle: nil), forCellReuseIdentifier: "SegmentedControlCell")
         tableView.register(UINib(nibName: "ColorPickerCell", bundle: nil), forCellReuseIdentifier: "ColorPickerCell")
+        tableView.register(UINib(nibName: "LogoCell", bundle: nil), forCellReuseIdentifier: "LogoCell")
+        
         
         //used to decipher which TimeCell should have which dates
         times = [startDate, endDate]
@@ -191,6 +193,10 @@ extension AddCourseViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ColorPickerCell", for: indexPath) as! ColorPickerCell
             //cell.delegate = self
             return cell
+        }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LogoCell", for: indexPath) as! LogoCell
+            //cell.delegate = self
+            return cell
         }else{
             return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         }
@@ -207,6 +213,9 @@ extension AddCourseViewController{
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if cellType[indexPath.section][indexPath.row] == "PickerCell" || cellType[indexPath.section][indexPath.row] == "TimePickerCell" || cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
             return 150
+        }
+        if(cellType[indexPath.section][indexPath.row] == "LogoCell"){
+            return 60
         }
         return 50
     }
@@ -239,6 +248,8 @@ extension AddCourseViewController{
             cellText[indexPath.section].insert("\(timeCell.date.format(with: "h:mm a"))", at: newIndex)
             
             tableView.endUpdates()
+        }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
+            performSegue(withIdentifier: "toLogoSelection", sender: self)
         }
     }
 }

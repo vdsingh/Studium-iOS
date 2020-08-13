@@ -14,6 +14,11 @@
 		16429D04247E43720052E47C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D03247E43720052E47C /* Habit.swift */; };
 		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
 		164F62F324DF7BFC00DC8169 /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62F224DF7BFC00DC8169 /* NotificationsController.swift */; };
+		164F62F624E4D1D500DC8169 /* LogoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62F424E4D1D500DC8169 /* LogoCell.swift */; };
+		164F62F724E4D1D500DC8169 /* LogoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164F62F524E4D1D500DC8169 /* LogoCell.xib */; };
+		164F62F924E4D54200DC8169 /* LogoSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62F824E4D54200DC8169 /* LogoSelectorViewController.swift */; };
+		164F62FC24E4DF4800DC8169 /* LogoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62FA24E4DF4800DC8169 /* LogoCollectionViewCell.swift */; };
+		164F62FD24E4DF4800DC8169 /* LogoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164F62FB24E4DF4800DC8169 /* LogoCollectionViewCell.xib */; };
 		16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16547B6C24DA4AC000E68E4D /* ThemesViewController.swift */; };
 		165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C77248A6F5C004279B0 /* CourseCell.swift */; };
 		165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C78248A6F5C004279B0 /* CourseCell.xib */; };
@@ -75,6 +80,11 @@
 		16429D03247E43720052E47C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
 		164F62F224DF7BFC00DC8169 /* NotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
+		164F62F424E4D1D500DC8169 /* LogoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoCell.swift; sourceTree = "<group>"; };
+		164F62F524E4D1D500DC8169 /* LogoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoCell.xib; sourceTree = "<group>"; };
+		164F62F824E4D54200DC8169 /* LogoSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoSelectorViewController.swift; sourceTree = "<group>"; };
+		164F62FA24E4DF4800DC8169 /* LogoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoCollectionViewCell.swift; sourceTree = "<group>"; };
+		164F62FB24E4DF4800DC8169 /* LogoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoCollectionViewCell.xib; sourceTree = "<group>"; };
 		16547B6C24DA4AC000E68E4D /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		165A6C77248A6F5C004279B0 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		165A6C78248A6F5C004279B0 /* CourseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell.xib; sourceTree = "<group>"; };
@@ -179,6 +189,7 @@
 				16A63B7E24A6D1C4003A30D3 /* AddToDoListEventViewController.swift */,
 				16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */,
 				16A63B8824AD4161003A30D3 /* MasterForm.swift */,
+				164F62F824E4D54200DC8169 /* LogoSelectorViewController.swift */,
 			);
 			path = "Form Controllers";
 			sourceTree = "<group>";
@@ -254,6 +265,8 @@
 				16A63B8224AA85A7003A30D3 /* OtherEventCell.swift */,
 				16A63B8324AA85A7003A30D3 /* OtherEventCell.xib */,
 				16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */,
+				164F62F424E4D1D500DC8169 /* LogoCell.swift */,
+				164F62F524E4D1D500DC8169 /* LogoCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -319,6 +332,8 @@
 				165A6C7C248D9AF3004279B0 /* ColorPickerCell.xib */,
 				1641822924AD9D0800960F86 /* PickerCell.swift */,
 				1641822A24AD9D0800960F86 /* PickerCell.xib */,
+				164F62FA24E4DF4800DC8169 /* LogoCollectionViewCell.swift */,
+				164F62FB24E4DF4800DC8169 /* LogoCollectionViewCell.xib */,
 			);
 			path = "Basic Cells";
 			sourceTree = "<group>";
@@ -405,11 +420,13 @@
 				165A6C82248F0F54004279B0 /* AssignmentCell.xib in Resources */,
 				1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */,
 				1693E73A247A3DC6003D4702 /* Assets.xcassets in Resources */,
+				164F62FD24E4DF4800DC8169 /* LogoCollectionViewCell.xib in Resources */,
 				1641822C24AD9D0800960F86 /* PickerCell.xib in Resources */,
 				1686DB692482622800FA99DB /* TimeCell.xib in Resources */,
 				16A63B7D24A01289003A30D3 /* HabitCell.xib in Resources */,
 				1693E738247A3DC4003D4702 /* Main.storyboard in Resources */,
 				1686DB6524812CE000FA99DB /* LabelCell.xib in Resources */,
+				164F62F724E4D1D500DC8169 /* LogoCell.xib in Resources */,
 				1686DB7F24827B8900FA99DB /* TimePickerCell.xib in Resources */,
 				165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */,
 				1686DB6124812C4000FA99DB /* SwitchCell.xib in Resources */,
@@ -479,11 +496,13 @@
 				16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
+				164F62F624E4D1D500DC8169 /* LogoCell.swift in Sources */,
 				16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */,
 				16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */,
 				1686DB6424812CE000FA99DB /* LabelCell.swift in Sources */,
 				1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */,
 				1686DB7E24827B8900FA99DB /* TimePickerCell.swift in Sources */,
+				164F62F924E4D54200DC8169 /* LogoSelectorViewController.swift in Sources */,
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
 				16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
@@ -502,6 +521,7 @@
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				16A63B7F24A6D1C4003A30D3 /* AddToDoListEventViewController.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
+				164F62FC24E4DF4800DC8169 /* LogoCollectionViewCell.swift in Sources */,
 				16A63B8F24AD43DF003A30D3 /* AddHabitViewController.swift in Sources */,
 				1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */,
 				165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */,
