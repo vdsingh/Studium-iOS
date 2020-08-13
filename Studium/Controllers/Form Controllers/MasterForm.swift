@@ -16,6 +16,8 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate{
     //reference to the realm database.
     let realm = try! Realm()
     
+    
+    //method to schedule Local Notifications to the User.
     func scheduleNotification(at date: Date, body: String, titles:String, repeatNotif: Bool) {
         
         let triggerWeekly = Calendar.current.dateComponents([.weekday,.hour,.minute], from: date)

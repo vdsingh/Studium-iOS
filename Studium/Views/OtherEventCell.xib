@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -17,10 +17,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="119" translatesAutoresizingMaskIntoConstraints="NO" id="Ujx-Im-WkL">
-                        <rect key="frame" x="114.5" y="78" width="264.5" height="49"/>
+                        <rect key="frame" x="40" y="78" width="413" height="49"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gXU-Lo-Eo9">
-                                <rect key="frame" x="0.0" y="0.0" width="65.5" height="49"/>
+                                <rect key="frame" x="0.0" y="0.0" width="214" height="49"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kof-sp-mCw">
                                         <rect key="frame" x="0.0" y="0.0" width="45" height="20.5"/>
@@ -37,7 +37,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ywa-sc-JGr">
-                                <rect key="frame" x="184.5" y="0.0" width="80" height="49"/>
+                                <rect key="frame" x="333" y="0.0" width="80" height="49"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2t-O6-XTA">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="20.5"/>
@@ -57,8 +57,10 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Ujx-Im-WkL" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="lYM-5D-4FT"/>
-                    <constraint firstItem="Ujx-Im-WkL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mFp-VB-WS3"/>
+                    <constraint firstItem="Ujx-Im-WkL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="55G-gp-793"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Ujx-Im-WkL" secondAttribute="trailing" constant="20" id="59e-Wk-ijD"/>
+                    <constraint firstItem="Ujx-Im-WkL" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="AF1-1D-f4A"/>
+                    <constraint firstItem="Ujx-Im-WkL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lJ0-x8-bqZ"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
