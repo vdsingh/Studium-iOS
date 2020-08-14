@@ -25,8 +25,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="516-RO-a7p">
-                                <rect key="frame" x="285" y="0.5" width="40" height="39"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="516-RO-a7p">
+                                <rect key="frame" x="285" y="2.5" width="40" height="35.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="0nM-uh-fZH"/>
                                     <constraint firstAttribute="height" constant="40" id="KE0-ZV-g5d"/>
@@ -43,10 +43,13 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="logoImageView" destination="516-RO-a7p" id="nMT-Sy-4IM"/>
+            </connections>
             <point key="canvasLocation" x="170.28985507246378" y="126.5625"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="pencil" catalog="system" width="128" height="113"/>
     </resources>
 </document>

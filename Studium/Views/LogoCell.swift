@@ -10,6 +10,7 @@ import UIKit
 
 class LogoCell: UITableViewCell {
 
+    @IBOutlet weak var logoImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,6 +20,13 @@ class LogoCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func setImage(systemImageName: String){
+        let image = UIImage(systemName: systemImageName)
+//        logoImageView.tintColor = .red
+        logoImageView.image = image
+        print("set image for logo cell.")
     }
     
 }

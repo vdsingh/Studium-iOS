@@ -10,7 +10,11 @@ protocol CourseRefreshProtocol{
     func loadCourses()
 }
 
-class AddCourseViewController: MasterForm{
+class AddCourseViewController: MasterForm, LogoStorer{
+    
+    
+    //system image string that identifies what the logo of the course will be.
+    var systemImageString: String = "pencil"
     
     //link to the list that is to be refreshed when a new course is added.
     var delegate: CourseRefreshProtocol?
@@ -37,6 +41,7 @@ class AddCourseViewController: MasterForm{
     var additionalDetails: String = ""
     var location: String = ""
     var daysSelected: [String] = []
+    var logoString: String = "pencil"
     
     //called when the view loads
     override func viewDidLoad() {
@@ -59,6 +64,14 @@ class AddCourseViewController: MasterForm{
         
         //makes it so that there are no empty cells at the bottom
         tableView.tableFooterView = UIView()
+    }
+    
+    //when we pick a logo, this function is called to update the preview on the logo cell.
+    func refreshLogoCell() {
+        let logoCellRow = cellType[2].firstIndex(of: "LogoCell")!
+        let logoCell = tableView.cellForRow(at: IndexPath(row: logoCellRow, section: 2)) as! LogoCell
+        logoCell.setImage(systemImageName: systemImageString)
+//        tableView.reloadData()
     }
     
     //final step that occurs when the user has filled out the form and wants to add the new course
@@ -136,10 +149,10 @@ class AddCourseViewController: MasterForm{
         let endTimeCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TimeCell
         endDate = endTimeCell.date
         
-        let colorPickerCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! ColorPickerCell
+        let colorPickerCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
         colorValue = colorPickerCell.colorPicker.selectedColor.hexValue()
         
-        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! TextFieldCell
+        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
         additionalDetails = additionalDetailsCell.textField.text!
     }
 }
@@ -196,6 +209,7 @@ extension AddCourseViewController{
         }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LogoCell", for: indexPath) as! LogoCell
             //cell.delegate = self
+            cell.setImage(systemImageName: systemImageString)
             return cell
         }else{
             return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
@@ -252,7 +266,18 @@ extension AddCourseViewController{
             performSegue(withIdentifier: "toLogoSelection", sender: self)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? LogoSelectorViewController {
+            //            if let indexPath = tableView.indexPathorSelectedRow{
+//                destinationVC. = self
+//            }
+            destinationVC.delegate = self
+        }
+    }
 }
+
+
 
 //MARK: - TimePicker Delegate
 extension AddCourseViewController: UITimePickerDelegate{

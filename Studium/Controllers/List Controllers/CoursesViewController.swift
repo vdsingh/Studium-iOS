@@ -84,7 +84,6 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
                 destinationVC.selectedCourse = courses?[indexPath.row]
             }
         }
-        
     }
     
     //MARK: - CRUD Methods
