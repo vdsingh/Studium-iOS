@@ -10,7 +10,7 @@ protocol CourseRefreshProtocol{
     func loadCourses()
 }
 
-class AddCourseViewController: MasterForm, LogoStorer{
+class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     
     //system image string that identifies what the logo of the course will be.
@@ -20,8 +20,8 @@ class AddCourseViewController: MasterForm, LogoStorer{
     var delegate: CourseRefreshProtocol?
     
     //arrays that structure the form (determine each type of cell and what goes in them for the most part)
-    var cellText: [[String]] = [["Name", "Location", "Days"], ["Starts", "Ends"], ["Logo", "Color Picker", "Additional Details"], ["Errors"]]
-    var cellType: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell"],  ["TimeCell", "TimeCell"], ["LogoCell", "ColorPickerCell", "TextFieldCell"], ["LabelCell"]]
+    var cellText: [[String]] = [["Name", "Location", "Days", "Remind Me"], ["Starts", "Ends"], ["Logo", "Color Picker", "Additional Details"], ["Errors"]]
+    var cellType: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell", "LabelCell"],  ["TimeCell", "TimeCell"], ["LogoCell", "ColorPickerCell", "TextFieldCell"], ["LabelCell"]]
     
     //start and end time for the course. The date doesn't actually matter because the days are selected elsewhere
     var startDate: Date = Date()
@@ -42,6 +42,8 @@ class AddCourseViewController: MasterForm, LogoStorer{
     var location: String = ""
     var daysSelected: [String] = []
     var logoString: String = "pencil"
+    
+    var alertTimes: [Int] = []
     
     //called when the view loads
     override func viewDidLoad() {
@@ -199,8 +201,13 @@ extension AddCourseViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
+            if indexPath.section == 0 && indexPath.row == 3{
+                cell.label.textColor = .black
+                cell.accessoryType = .disclosureIndicator
+            }else{
+                cell.label.textColor = UIColor.red
+            }
             cell.label.text = cellText[indexPath.section][indexPath.row]
-            cell.label.textColor = UIColor.red
             //print("added a label cell")
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
@@ -265,17 +272,20 @@ extension AddCourseViewController{
             tableView.endUpdates()
         }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
             performSegue(withIdentifier: "toLogoSelection", sender: self)
+        }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{ //user selected "Remind Me"
+            performSegue(withIdentifier: "toAlertSelection", sender: self)
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? LogoSelectorViewController {
-            //            if let indexPath = tableView.indexPathorSelectedRow{
-//                destinationVC. = self
-//            }
             destinationVC.delegate = self
             let colorCell = tableView.cellForRow(at: IndexPath(row: cellType[2].firstIndex(of: "ColorPickerCell")!, section: 2)) as! ColorPickerCell
             destinationVC.color = colorCell.colorPreview.backgroundColor
+        }else if let destinationVC = segue.destination as? AlertTableViewController{
+            destinationVC.delegate = self
         }
     }
 }

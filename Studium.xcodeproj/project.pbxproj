@@ -19,6 +19,7 @@
 		164F62F924E4D54200DC8169 /* LogoSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62F824E4D54200DC8169 /* LogoSelectorViewController.swift */; };
 		164F62FC24E4DF4800DC8169 /* LogoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62FA24E4DF4800DC8169 /* LogoCollectionViewCell.swift */; };
 		164F62FD24E4DF4800DC8169 /* LogoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164F62FB24E4DF4800DC8169 /* LogoCollectionViewCell.xib */; };
+		164F62FF24E7D41400DC8169 /* AlertTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62FE24E7D41400DC8169 /* AlertTableViewController.swift */; };
 		16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16547B6C24DA4AC000E68E4D /* ThemesViewController.swift */; };
 		165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C77248A6F5C004279B0 /* CourseCell.swift */; };
 		165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C78248A6F5C004279B0 /* CourseCell.xib */; };
@@ -85,6 +86,7 @@
 		164F62F824E4D54200DC8169 /* LogoSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoSelectorViewController.swift; sourceTree = "<group>"; };
 		164F62FA24E4DF4800DC8169 /* LogoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoCollectionViewCell.swift; sourceTree = "<group>"; };
 		164F62FB24E4DF4800DC8169 /* LogoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoCollectionViewCell.xib; sourceTree = "<group>"; };
+		164F62FE24E7D41400DC8169 /* AlertTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewController.swift; sourceTree = "<group>"; };
 		16547B6C24DA4AC000E68E4D /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		165A6C77248A6F5C004279B0 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		165A6C78248A6F5C004279B0 /* CourseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell.xib; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */,
 				16A63B8824AD4161003A30D3 /* MasterForm.swift */,
 				164F62F824E4D54200DC8169 /* LogoSelectorViewController.swift */,
+				164F62FE24E7D41400DC8169 /* AlertTableViewController.swift */,
 			);
 			path = "Form Controllers";
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
 				1693E755247A4B64003D4702 /* K.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
+				164F62FF24E7D41400DC8169 /* AlertTableViewController.swift in Sources */,
 				165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,

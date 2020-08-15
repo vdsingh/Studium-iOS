@@ -393,6 +393,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="wNK-sA-8dN" kind="show" identifier="toLogoSelection" id="T8N-JJ-KKU"/>
+                        <segue destination="hFo-id-GNg" kind="show" identifier="toAlertSelection" id="d6r-wA-WW0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rak-ke-5FK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1146,6 +1147,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="peF-eA-NNn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4229" y="2317"/>
+        </scene>
+        <!--Remind Me-->
+        <scene sceneID="tzx-jq-x83">
+            <objects>
+                <tableViewController id="hFo-id-GNg" customClass="AlertTableViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="0f3-qI-arm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="hUa-Eu-TcF">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hUa-Eu-TcF" id="tuH-zO-oH1">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hFo-id-GNg" id="Qxg-lJ-kln"/>
+                            <outlet property="delegate" destination="hFo-id-GNg" id="5kO-5v-Ige"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Remind Me" id="xcd-1S-0ja"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="17s-bD-2iH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5346" y="2322"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
