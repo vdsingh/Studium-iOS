@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -20,10 +20,13 @@
                         <rect key="frame" x="20" y="25.5" width="213" height="101"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="l4w-Gy-Y6w">
-                                <rect key="frame" x="0.0" y="2.5" width="17.5" height="96.5"/>
+                                <rect key="frame" x="0.0" y="2.5" width="40" height="96.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="VeA-dT-ZHV"/>
+                                </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YNO-QN-7Wn">
-                                <rect key="frame" x="37.5" y="-2" width="407" height="103"/>
+                                <rect key="frame" x="60" y="-2" width="407" height="103"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Habit Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTQ-6l-TKP">
                                         <rect key="frame" x="0.0" y="0.0" width="407" height="39.5"/>
@@ -126,6 +129,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="iconImage" destination="l4w-Gy-Y6w" id="x2c-0f-9Gr"/>
                 <outlet property="locationLabel" destination="iYL-Bf-HUk" id="bAx-2F-Hr1"/>
                 <outlet property="nameLabel" destination="eTQ-6l-TKP" id="JdP-Ta-A2P"/>
                 <outlet property="timeLabel" destination="MDA-tH-1Fo" id="d28-Pg-RJo"/>

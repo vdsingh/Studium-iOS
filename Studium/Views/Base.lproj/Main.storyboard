@@ -973,6 +973,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="wNK-sA-8dN" kind="show" identifier="toLogoSelection" id="sMc-gW-Ufz"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3MT-12-mIV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1142,11 +1145,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="peF-eA-NNn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4228.985507246377" y="2264.7321428571427"/>
+            <point key="canvasLocation" x="4229" y="2317"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IZF-2b-awD"/>
+        <segue reference="T8N-JJ-KKU"/>
+        <segue reference="5zV-Mg-OtU"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

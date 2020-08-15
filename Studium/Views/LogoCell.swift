@@ -26,7 +26,6 @@ class LogoCell: UITableViewCell {
         let image = UIImage(systemName: systemImageName)
 //        logoImageView.tintColor = .red
         logoImageView.image = image
-        print("set image for logo cell.")
     }
     
 }

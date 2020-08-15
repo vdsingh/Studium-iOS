@@ -26,12 +26,18 @@ class Habit: Object, StudiumEvent{
     //Time elements for a Habit object. 
     @objc dynamic var totalHourTime: Int = 0
     @objc dynamic var totalMinuteTime: Int = 0
+    
+    //Other elements that determine the looks of the habit 
+    @objc dynamic var color: String = "4287f5"
+    @objc dynamic var systemImageString: String = "pencil"
+
+
 
     //List of days that this habit occurs on.
     let days = List<String>()
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, autoSchedule: Bool, startEarlier: Bool, totalHourTime: Int, totalMinuteTime: Int, daysSelected: [String]) {
+    func initializeData(name: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, autoSchedule: Bool, startEarlier: Bool, totalHourTime: Int, totalMinuteTime: Int, daysSelected: [String], systemImageString: String, colorHex: String) {
 
         self.name = name
         self.location = location
@@ -42,6 +48,8 @@ class Habit: Object, StudiumEvent{
         self.startEarlier = startEarlier
         self.totalHourTime = totalHourTime
         self.totalMinuteTime = totalMinuteTime
+        self.systemImageString = systemImageString
+        self.color = colorHex
         
         //handles days
         for day in daysSelected{

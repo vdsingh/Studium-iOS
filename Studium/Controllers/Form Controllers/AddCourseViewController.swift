@@ -64,6 +64,8 @@ class AddCourseViewController: MasterForm, LogoStorer{
         
         //makes it so that there are no empty cells at the bottom
         tableView.tableFooterView = UIView()
+        
+        self.navigationController?.navigationBar.barTintColor = .blue
     }
     
     //when we pick a logo, this function is called to update the preview on the logo cell.
@@ -71,7 +73,6 @@ class AddCourseViewController: MasterForm, LogoStorer{
         let logoCellRow = cellType[2].firstIndex(of: "LogoCell")!
         let logoCell = tableView.cellForRow(at: IndexPath(row: logoCellRow, section: 2)) as! LogoCell
         logoCell.setImage(systemImageName: systemImageString)
-//        tableView.reloadData()
     }
     
     //final step that occurs when the user has filled out the form and wants to add the new course
@@ -96,7 +97,7 @@ class AddCourseViewController: MasterForm, LogoStorer{
         
         if errors.count == 0{
             let newCourse = Course()
-            newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected)
+            newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString)
             scheduleNotification(at: startDate - (60*60), body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: true)
             save(course: newCourse)
             dismiss(animated: true, completion: delegate?.loadCourses)
@@ -273,6 +274,8 @@ extension AddCourseViewController{
 //                destinationVC. = self
 //            }
             destinationVC.delegate = self
+            let colorCell = tableView.cellForRow(at: IndexPath(row: cellType[2].firstIndex(of: "ColorPickerCell")!, section: 2)) as! ColorPickerCell
+            destinationVC.color = colorCell.colorPreview.backgroundColor
         }
     }
 }

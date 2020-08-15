@@ -16,6 +16,7 @@ class HabitCell: DeletableEventCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet var dayLabels: [UILabel]!
     
+    @IBOutlet weak var iconImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -32,6 +33,9 @@ class HabitCell: DeletableEventCell {
         nameLabel.text = habit.name
         locationLabel.text = habit.location
         
+        iconImage.image = UIImage(systemName: habit.systemImageString)
+        iconImage.tintColor = UIColor(hexString: habit.color)
+        
         var timeText = habit.startDate.format(with: "h:mm a")
         timeText.append(" - \(habit.endDate.format(with: "h:mm a"))")
         if habit.autoSchedule{
@@ -47,8 +51,10 @@ class HabitCell: DeletableEventCell {
 
             if habit.days.contains(labelText){
                 //print("habit occurs on \(labelText)")
-                label.backgroundColor = tintColor
+                label.backgroundColor = UIColor(hexString: habit.color)
                 label.textColor = .white
+            }else{
+                label.textColor = UIColor(hexString: habit.color)
             }
         }
     }

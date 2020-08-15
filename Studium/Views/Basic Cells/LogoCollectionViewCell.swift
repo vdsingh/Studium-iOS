@@ -16,11 +16,10 @@ class LogoCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
-    func setImage(systemImageName: String){
+    func setImage(systemImageName: String, tintColor: UIColor){
         let image = UIImage(systemName: systemImageName)
-        imageView.tintColor = .red
+        imageView.tintColor = tintColor
         imageView.image = image
-        print("set image for collection view cell.")
     }
 
 }

@@ -21,7 +21,7 @@ class CourseCell: DeletableEventCell{
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        iconImage.transform = iconImage.transform.rotated(by: 3.1415/4)
+//        iconImage.transform = iconImage.transform.rotated(by: 3.1415/4)
         
         // Initialization code
     }
@@ -38,10 +38,11 @@ class CourseCell: DeletableEventCell{
         }
     }
     
-    func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<String>, iconHex: String, course: Course){
+    func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<String>, colorHex: String, course: Course, systemImageString: String){
         self.course = course
         event = course
-        iconImage.tintColor = UIColor(hexString: iconHex)
+        iconImage.image = UIImage(systemName: systemImageString)
+        iconImage.tintColor = UIColor(hexString: colorHex)
         nameLabel.text = courseName
         locationLabel.text = location
         var timeText = startTime.format(with: "h:mm a")
@@ -51,9 +52,9 @@ class CourseCell: DeletableEventCell{
         for dayLabel in dayLabels{
             if days.contains(dayLabel.text!){
                 dayLabel.textColor = .white
-                dayLabel.backgroundColor = UIColor(hexString: iconHex)
+                dayLabel.backgroundColor = UIColor(hexString: colorHex)
             }else{
-                dayLabel.textColor = .white
+                dayLabel.textColor = UIColor(hexString: colorHex)
             }
         }
         

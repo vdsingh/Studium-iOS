@@ -13,6 +13,8 @@ class Course: Object, StudiumEvent{
     //Basic String Elements of a Course object.
     @objc dynamic var name: String = ""
     @objc dynamic var color: String = "4287f5"
+    @objc dynamic var systemImageString: String = "pencil"
+
     @objc dynamic var location: String = ""
     @objc dynamic var additionalDetails: String = ""
     
@@ -27,7 +29,7 @@ class Course: Object, StudiumEvent{
     let assignments = List<Assignment>()
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, colorHex: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, days: [String]) {
+    func initializeData(name: String, colorHex: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, days: [String], systemImageString: String) {
 
         self.name = name
         self.color = colorHex
@@ -35,6 +37,7 @@ class Course: Object, StudiumEvent{
         self.additionalDetails = additionalDetails
         self.startDate = startDate
         self.endDate = endDate
+        self.systemImageString = systemImageString
         
         for day in days{
             self.days.append(day)

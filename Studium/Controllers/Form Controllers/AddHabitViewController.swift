@@ -16,7 +16,9 @@ protocol HabitRefreshProtocol{
 }
 
 //Class used to manage the form for adding a Habit. The form is a tableView form, similar to adding an event in
-class AddHabitViewController: MasterForm{
+class AddHabitViewController: MasterForm, LogoStorer{
+    
+    
     
     //variable that helps run things once that only need to run at the beginning
     var resetAll: Bool = true
@@ -29,12 +31,12 @@ class AddHabitViewController: MasterForm{
     var delegate: HabitRefreshProtocol?
     
     //Since this form is dynamic, there are different cells for whether or not the user chooses to schedule this Habit automatically. If the Habit is not automatic, this is how the form cells are laid out.
-    var cellTextNoAuto: [[String]] = [["Name", "Location"], ["Autoschedule", "Start Time", "Finish Time"], ["Additional Details", "Days", ""]]
-    var cellTypeNoAuto: [[String]] = [["TextFieldCell", "TextFieldCell"],  ["SwitchCell", "TimeCell", "TimeCell"], ["TextFieldCell", "DaySelectorCell", "LabelCell"]]
+    var cellTextNoAuto: [[String]] = [["Name", "Location", "Days"], ["Autoschedule", "Start Time", "Finish Time"], ["Logo", "Color Picker", "Additional Details", ""]]
+    var cellTypeNoAuto: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell"],  ["SwitchCell", "TimeCell", "TimeCell"], ["LogoCell", "ColorPickerCell" , "TextFieldCell", "LabelCell"]]
     
     //if the form is automatic, the cells are laid out this way.
-    var cellTextAuto: [[String]] = [["Name", "Location"], ["Autoschedule", "Between", "And", "Length of Habit", ""],["Additional Details", "Days", ""]]
-    var cellTypeAuto: [[String]] = [["TextFieldCell", "TextFieldCell"],  ["SwitchCell", "TimeCell", "TimeCell", "TimeCell", "SegmentedControlCell"],["TextFieldCell", "DaySelectorCell", "LabelCell"]]
+    var cellTextAuto: [[String]] = [["Name", "Location", "Days"], ["Autoschedule", "Between", "And", "Length of Habit", ""],["Logo", "Color Picker", "Additional Details", ""]]
+    var cellTypeAuto: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell"],  ["SwitchCell", "TimeCell", "TimeCell", "TimeCell", "SegmentedControlCell"],["LogoCell","ColorPickerCell", "TextFieldCell", "LabelCell"]]
     
     //These are the holders for the cellText and cellType. Basically these hold the above arrays and are used depending on whether the user chooses to use autoschedule or not.
     var cellText: [[String]] = [[]]
@@ -56,6 +58,8 @@ class AddHabitViewController: MasterForm{
     var autoschedule = false
     var name: String = ""
     var additionalDetails: String = ""
+    var systemImageString: String = "book.fill"
+    var colorValue: String = "000000"
     var location: String = ""
     var earlier = true
     var daysSelected: [String] = []
@@ -72,6 +76,10 @@ class AddHabitViewController: MasterForm{
         tableView.register(UINib(nibName: "DaySelectorCell", bundle: nil), forCellReuseIdentifier: "DaySelectorCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
         tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
         tableView.register(UINib(nibName: "SegmentedControlCell", bundle: nil), forCellReuseIdentifier: "SegmentedControlCell")
+        tableView.register(UINib(nibName: "LogoCell", bundle: nil), forCellReuseIdentifier: "LogoCell")
+        tableView.register(UINib(nibName: "ColorPickerCell", bundle: nil), forCellReuseIdentifier: "ColorPickerCell")
+
+
         
         //used to decipher which TimeCell should have which dates
         times = [startDate, endDate]
@@ -82,6 +90,12 @@ class AddHabitViewController: MasterForm{
         
         //makes it so that the form doesn't have a bunch of empty cells at the bottom
         tableView.tableFooterView = UIView()
+    }
+    
+    func refreshLogoCell() {
+        let logoCellRow = cellType[2].firstIndex(of: "LogoCell")!
+        let logoCell = tableView.cellForRow(at: IndexPath(row: logoCellRow, section: 2)) as! LogoCell
+        logoCell.setImage(systemImageName: systemImageString)
     }
     
     //MARK: - UIElement IBActions
@@ -115,7 +129,7 @@ class AddHabitViewController: MasterForm{
         
         if errors.count == 0{ //if there are no errors.
             let newHabit = Habit()
-            newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoSchedule: autoschedule, startEarlier: earlier, totalHourTime: totalLengthHours, totalMinuteTime: totalLengthMinutes, daysSelected: daysSelected)
+            newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoSchedule: autoschedule, startEarlier: earlier, totalHourTime: totalLengthHours, totalMinuteTime: totalLengthMinutes, daysSelected: daysSelected, systemImageString: systemImageString, colorHex: colorValue)
             
             save(habit: newHabit)
             
@@ -162,12 +176,15 @@ class AddHabitViewController: MasterForm{
         let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
         location = locationCell.textField.text!
         
-        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TextFieldCell
+        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
         additionalDetails = additionalDetailsCell.textField.text!
         
-        let daysCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! DaySelectorCell
+        let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
         daysSelected = daysCell.daysSelected
         
+        let colorPickerCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
+        colorValue = colorPickerCell.colorPicker.selectedColor.hexValue()
+
         //since there may or may not be pickers active, we don't know the exact position of the TimeCells that we want. As a result, we can use the first index of "TimeCell" in section 1, because this will always hold the start date.
         let indexOfStartCell = cellType[1].firstIndex(of: "TimeCell")
         let startDateCell = tableView.cellForRow(at: IndexPath(row: indexOfStartCell!, section: 1)) as! TimeCell
@@ -268,20 +285,16 @@ extension AddHabitViewController{
             if resetAll{
                 cell.picker.selectRow(1, inComponent: 0, animated: true)
             }
-
-            //cell.delegate = self
             cell.indexPath = indexPath
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
-            
             if resetAll{
                 let dateString = cellText[indexPath.section][indexPath.row]
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "h:mm a"
                 let date = dateFormatter.date(from: dateString)!
                 cell.picker.date = date
-
             }
             cell.delegate = self
             cell.indexPath = indexPath
@@ -302,11 +315,18 @@ extension AddHabitViewController{
             cell.segmentedControl.setTitle("Later", forSegmentAt: 1)
             //print("added a label cell")
             return cell
+        }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LogoCell", for: indexPath) as! LogoCell
+            //cell.delegate = self
+            cell.setImage(systemImageName: systemImageString)
+            return cell
+        }else if cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ColorPickerCell", for: indexPath) as! ColorPickerCell
+            return cell
         }else{
             return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         }
     }
-    
 }
 
 //MARK: - tableView Delegate
@@ -319,7 +339,7 @@ extension AddHabitViewController{
     
     //determines the height of each row
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if cellType[indexPath.section][indexPath.row] == "PickerCell" || cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
+        if cellType[indexPath.section][indexPath.row] == "PickerCell" || cellType[indexPath.section][indexPath.row] == "TimePickerCell" || cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
             return 150
         }
         return 50
@@ -358,8 +378,20 @@ extension AddHabitViewController{
                 cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
             }
             tableView.endUpdates()
+        }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
+            performSegue(withIdentifier: "toLogoSelection", sender: self)
         }
     }
+    
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if let destinationVC = segue.destination as? LogoSelectorViewController {
+                destinationVC.delegate = self
+//                let colorCell = tableView.cellForRow(at: IndexPath(row: cellType[2].firstIndex(of: "ColorPickerCell")!, section: 2)) as! ColorPickerCell
+//                destinationVC.color = colorCell.colorPreview.backgroundColor
+                let colorCell = tableView.cellForRow(at: IndexPath(row: cellType[2].firstIndex(of: "ColorPickerCell")!, section: 2)) as! ColorPickerCell
+                destinationVC.color = colorCell.colorPreview.backgroundColor
+            }
+        }
 }
 
 //MARK: - Picker DataSource
