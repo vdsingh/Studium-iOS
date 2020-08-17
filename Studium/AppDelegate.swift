@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
         updateTheme()
         
+        
+        
 
         return true
     }

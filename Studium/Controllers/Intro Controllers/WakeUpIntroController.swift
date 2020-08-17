@@ -130,6 +130,7 @@ class WakeUpIntroController: UIViewController{
     //function called when the user is finished and wants to move on
     @IBAction func nextPressed(_ sender: UIButton) {
         storeData()
+        defaults.set(true, forKey: "didFinishIntro")
         performSegue(withIdentifier: "toMain", sender: self)
     }
     

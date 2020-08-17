@@ -18,24 +18,29 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate{
     
     
     //method to schedule Local Notifications to the User.
-    func scheduleNotification(at date: Date, body: String, titles:String, repeatNotif: Bool) {
+    func scheduleNotification(components: DateComponents, body: String, titles:String, repeatNotif: Bool, identifier: String) {
         
-        let triggerWeekly = Calendar.current.dateComponents([.weekday,.hour,.minute], from: date)
+//        let triggerWeekly = Calendar.current.dateComponents([.weekday,.hour,.minute], from: date)
+        print(components)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: repeatNotif)
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerWeekly, repeats: repeatNotif)
         
         let content = UNMutableNotificationContent()
         content.title = titles
         content.body = body
         content.sound = UNNotificationSound.default
-//        content.categoryIdentifier = "courses"
+//        content.categoryIdentifier = identifier
         
-        let request = UNNotificationRequest(identifier: "textNotification", content: content, trigger: trigger)
         
-        UNUserNotificationCenter.current().delegate = self
+        let uuidString = UUID().uuidString
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+        //identifiers for courses are stored as "courseName alertTime"
+//        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+//        print(request)
+//        UNUserNotificationCenter.curren///t().delegate = self
         //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNUserNotificationCenter.current().add(request) {(error) in
-            if let error = error {
+            if error != nil {
                 print("Uh oh! We had an error: \(error)")
             }
         }

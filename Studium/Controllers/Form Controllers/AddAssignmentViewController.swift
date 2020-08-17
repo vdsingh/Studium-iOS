@@ -52,7 +52,11 @@ class AddAssignmentViewController: MasterForm{
         if errors == "" {
             let newAssignment = Assignment()
             newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!)
-            scheduleNotification(at: dueDate - (15*60), body: "Don't be late!", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false)
+            let alertDate = dueDate - (60*60)
+            var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
+            components.second = 0
+
+            scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: "\(name) \(39)")
             save(assignment: newAssignment)
             delegate?.loadAssignments()
             dismiss(animated: true, completion: nil)

@@ -22,14 +22,20 @@ class Course: Object, StudiumEvent{
     @objc dynamic var startDate: Date = Date()
     @objc dynamic var endDate: Date = Date()
     
+    //Array that stores how minutes before the course that the user wants to be notified about this course
+    
     //List of the days that the course occurs on, which is used to schedule in the calendar and day views
     let days = List<String>()
+    
+    let notificationAlertTimes = List<Int>()
+
     
     //List of the assignments for the course.
     let assignments = List<Assignment>()
     
+    
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, colorHex: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, days: [String], systemImageString: String) {
+    func initializeData(name: String, colorHex: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, days: [String], systemImageString: String, notificationAlertTimes: [Int]) {
 
         self.name = name
         self.color = colorHex
@@ -38,7 +44,10 @@ class Course: Object, StudiumEvent{
         self.startDate = startDate
         self.endDate = endDate
         self.systemImageString = systemImageString
-        
+//        self.notificationAlertTimes = notificationAlertTimes
+        for time in notificationAlertTimes{
+            self.notificationAlertTimes.append(time)
+        }
         for day in days{
             self.days.append(day)
         }

@@ -10,6 +10,11 @@ import UserNotifications
 import Foundation
 
 class NotificationsController: UIViewController{
+    
+
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
     override func viewDidLoad() {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in

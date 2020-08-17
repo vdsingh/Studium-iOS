@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 class SettingsViewController: UITableViewController{
-    let cellData: [[String]] = [["Theme", "Reset Wake Up Times"],["Credits"]]
-    let cellLinks: [[String]] = [["toThemePage", "toWakeUpTimes"],[""]]
+    let cellData: [[String]] = [["Theme", "Reset Wake Up Times", "Clear Notifs"],["Credits"]]
+    let cellLinks: [[String]] = [["toThemePage", "toWakeUpTimes", ""],[""]]
     
     override func viewDidLoad() {
         tableView.tableFooterView = UIView()
@@ -45,6 +45,15 @@ class SettingsViewController: UITableViewController{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if cellLinks[indexPath.section][indexPath.row] != ""{
             performSegue(withIdentifier: cellLinks[indexPath.section][indexPath.row], sender: self)
+        }
+        
+        if cellData[indexPath.section][indexPath.row] == "Clear Notifs"{
+            let center = UNUserNotificationCenter.current()
+            center.removeAllDeliveredNotifications()    // to remove all delivered notifications
+            center.removeAllPendingNotificationRequests()   // to remove all pending notifications
+            UIApplication.shared.applicationIconBadgeNumber = 0 // to clear the icon notification badge
+            print("cleared all notifications")
+            print(UIApplication.shared.scheduledLocalNotifications)
         }
     }
 }

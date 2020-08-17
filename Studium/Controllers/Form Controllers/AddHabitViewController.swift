@@ -90,6 +90,8 @@ class AddHabitViewController: MasterForm, LogoStorer{
         
         //makes it so that the form doesn't have a bunch of empty cells at the bottom
         tableView.tableFooterView = UIView()
+        
+        
     }
     
     func refreshLogoCell() {

@@ -27,7 +27,7 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     var startDate: Date = Date()
     var endDate: Date = Date() + (60*60)
     
-    //variables that help determine what TimeCells display what times.
+    //variables that help determine what TimeCells display what times. times does NOT indicate alert times.
     var times: [Date] = []
     var timeCounter = 0
     var pickerCounter = 0
@@ -99,8 +99,44 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         
         if errors.count == 0{
             let newCourse = Course()
-            newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString)
-            scheduleNotification(at: startDate - (60*60), body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: true)
+            newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes)
+            //scheduling the appropriate notifications
+            for alertTime in alertTimes{
+                for day in daysSelected{
+                    print("startDate = \(startDate)")
+                    
+                    let weekday = Date.convertDayToWeekday(day: day)
+                    let weekdayAsInt = Date.convertDayToInt(day: day)
+                    var alertDate = Date()
+                    
+                    if startDate.weekday != weekdayAsInt{ //the course doesn't occur today
+                        alertDate = Date.today().next(weekday)
+                    }
+
+                    alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
+
+                    alertDate -= (60 * Double(alertTime))
+//                    alertDate = startDate - (60 * Double(alertTime))
+                    //consider how subtracting time from alertDate will affect the weekday component.
+                    let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
+//                    print(courseComponents)
+                    
+                    //adjust title as appropriate
+                    var title = ""
+                    if alertTime < 60{
+                        title = "\(name) starts in \(alertTime) minutes."
+                    }else if alertTime == 60{
+                        title = "\(name) starts in 1 hour"
+                    }else{
+                        title = "\(name) starts in \(alertTime / 60) hours"
+                    }
+//                    let alertTimeDouble: Double = Double(alertTime)
+                    let timeFormat = startDate.format(with: "H:MM a")
+                    scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: "\(name) \(alertTime)")
+                }
+            }
+//            print(UIApplication.shared.scheduledLocalNotifications)
+
             save(course: newCourse)
             dismiss(animated: true, completion: delegate?.loadCourses)
         }else{
@@ -108,6 +144,8 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
             reloadData()
         }
     }
+    
+    
     
     //handles when the user wants to cancel their form
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
@@ -149,7 +187,8 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         let startTimeCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TimeCell
         startDate = startTimeCell.date
         
-        let endTimeCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TimeCell
+        let endTimeCellIndex = cellType[1].lastIndex(of: "TimeCell")
+        let endTimeCell = tableView.cellForRow(at: IndexPath(row: endTimeCellIndex!, section: 1)) as! TimeCell
         endDate = endTimeCell.date
         
         let colorPickerCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
@@ -175,6 +214,7 @@ extension AddCourseViewController{
         if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
+            cell.textField.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
@@ -202,7 +242,7 @@ extension AddCourseViewController{
         }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
             if indexPath.section == 0 && indexPath.row == 3{
-                cell.label.textColor = .black
+//                cell.label.textColor = .black
                 cell.accessoryType = .disclosureIndicator
             }else{
                 cell.label.textColor = UIColor.red
@@ -310,3 +350,124 @@ extension UIViewController: UITextFieldDelegate{
         return true;
     }
 }
+
+//date extension to get the next weekday of the week (i.e. next monday)
+extension Date {
+
+  static func today() -> Date {
+      return Date()
+  }
+
+  func next(_ weekday: Weekday, considerToday: Bool = false) -> Date {
+    return get(.next,
+               weekday,
+               considerToday: considerToday)
+  }
+
+  func previous(_ weekday: Weekday, considerToday: Bool = false) -> Date {
+    return get(.previous,
+               weekday,
+               considerToday: considerToday)
+  }
+
+  func get(_ direction: SearchDirection,
+           _ weekDay: Weekday,
+           considerToday consider: Bool = false) -> Date {
+
+    let dayName = weekDay.rawValue
+
+    let weekdaysName = getWeekDaysInEnglish().map { $0.lowercased() }
+
+    assert(weekdaysName.contains(dayName), "weekday symbol should be in form \(weekdaysName)")
+
+    let searchWeekdayIndex = weekdaysName.firstIndex(of: dayName)! + 1
+
+    let calendar = Calendar(identifier: .gregorian)
+
+    if consider && calendar.component(.weekday, from: self) == searchWeekdayIndex {
+      return self
+    }
+
+    var nextDateComponent = calendar.dateComponents([.hour, .minute, .second], from: self)
+    nextDateComponent.weekday = searchWeekdayIndex
+
+    let date = calendar.nextDate(after: self,
+                                 matching: nextDateComponent,
+                                 matchingPolicy: .nextTime,
+                                 direction: direction.calendarSearchDirection)
+
+    return date!
+  }
+
+}
+
+// MARK: Helper methods
+extension Date {
+  func getWeekDaysInEnglish() -> [String] {
+    var calendar = Calendar(identifier: .gregorian)
+    calendar.locale = Locale(identifier: "en_US_POSIX")
+    return calendar.weekdaySymbols
+  }
+
+  enum Weekday: String {
+    case monday, tuesday, wednesday, thursday, friday, saturday, sunday
+  }
+
+  enum SearchDirection {
+    case next
+    case previous
+
+    var calendarSearchDirection: Calendar.SearchDirection {
+      switch self {
+      case .next:
+        return .forward
+      case .previous:
+        return .backward
+      }
+    }
+  }
+    
+    //own added methods
+    static func convertDayToInt(day: String) -> Int{
+        switch day{
+        case "Mon":
+            return 2
+        case "Tue":
+            return 3
+        case "Wed":
+            return 4
+        case "Thu":
+            return 5
+        case "Fri":
+            return 6
+        case "Sat":
+            return 7
+        case "Sun":
+            return 1
+        default:
+            return -1
+        }
+    }
+    
+    static func convertDayToWeekday(day: String) -> Weekday{
+        switch day{
+        case "Mon":
+            return .monday
+        case "Tue":
+            return .tuesday
+        case "Wed":
+            return .wednesday
+        case "Thu":
+            return .thursday
+        case "Fri":
+            return .friday
+        case "Sat":
+            return .saturday
+        case "Sun":
+            return .sunday
+        default:
+            return .monday
+        }
+    }
+}
+
