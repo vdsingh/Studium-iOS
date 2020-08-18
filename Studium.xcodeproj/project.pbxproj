@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161A69E424C7B84B00E5A5AE /* SettingsViewController.swift */; };
+		1638CB8024EC374100D3D93E /* ThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1638CB7E24EC374100D3D93E /* ThemeCell.swift */; };
+		1638CB8124EC374100D3D93E /* ThemeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1638CB7F24EC374100D3D93E /* ThemeCell.xib */; };
 		1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1641822924AD9D0800960F86 /* PickerCell.swift */; };
 		1641822C24AD9D0800960F86 /* PickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1641822A24AD9D0800960F86 /* PickerCell.xib */; };
 		16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429CFD247D20F90052E47C /* StudiumEvent.swift */; };
@@ -76,6 +78,8 @@
 
 /* Begin PBXFileReference section */
 		161A69E424C7B84B00E5A5AE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		1638CB7E24EC374100D3D93E /* ThemeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCell.swift; sourceTree = "<group>"; };
+		1638CB7F24EC374100D3D93E /* ThemeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemeCell.xib; sourceTree = "<group>"; };
 		1641822924AD9D0800960F86 /* PickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		1641822A24AD9D0800960F86 /* PickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerCell.xib; sourceTree = "<group>"; };
 		16429CFD247D20F90052E47C /* StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEvent.swift; sourceTree = "<group>"; };
@@ -340,6 +344,8 @@
 				1641822A24AD9D0800960F86 /* PickerCell.xib */,
 				164F62FA24E4DF4800DC8169 /* LogoCollectionViewCell.swift */,
 				164F62FB24E4DF4800DC8169 /* LogoCollectionViewCell.xib */,
+				1638CB7E24EC374100D3D93E /* ThemeCell.swift */,
+				1638CB7F24EC374100D3D93E /* ThemeCell.xib */,
 			);
 			path = "Basic Cells";
 			sourceTree = "<group>";
@@ -434,6 +440,7 @@
 				1686DB6524812CE000FA99DB /* LabelCell.xib in Resources */,
 				164F62F724E4D1D500DC8169 /* LogoCell.xib in Resources */,
 				1686DB7F24827B8900FA99DB /* TimePickerCell.xib in Resources */,
+				1638CB8124EC374100D3D93E /* ThemeCell.xib in Resources */,
 				165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */,
 				1686DB6124812C4000FA99DB /* SwitchCell.xib in Resources */,
 				165A6C7E248D9AF3004279B0 /* ColorPickerCell.xib in Resources */,
@@ -495,6 +502,7 @@
 				1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */,
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
 				1693E755247A4B64003D4702 /* K.swift in Sources */,
+				1638CB8024EC374100D3D93E /* ThemeCell.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				164F62FF24E7D41400DC8169 /* AlertTableViewController.swift in Sources */,
 				165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */,

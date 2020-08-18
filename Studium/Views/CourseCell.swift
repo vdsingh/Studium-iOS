@@ -55,6 +55,7 @@ class CourseCell: DeletableEventCell{
                 dayLabel.backgroundColor = UIColor(hexString: colorHex)
             }else{
                 dayLabel.textColor = UIColor(hexString: colorHex)
+                dayLabel.backgroundColor = .none
             }
         }
         

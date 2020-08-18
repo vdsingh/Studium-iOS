@@ -16,7 +16,7 @@ protocol HabitRefreshProtocol{
 }
 
 //Class used to manage the form for adding a Habit. The form is a tableView form, similar to adding an event in
-class AddHabitViewController: MasterForm, LogoStorer{
+class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     
     
@@ -31,12 +31,12 @@ class AddHabitViewController: MasterForm, LogoStorer{
     var delegate: HabitRefreshProtocol?
     
     //Since this form is dynamic, there are different cells for whether or not the user chooses to schedule this Habit automatically. If the Habit is not automatic, this is how the form cells are laid out.
-    var cellTextNoAuto: [[String]] = [["Name", "Location", "Days"], ["Autoschedule", "Start Time", "Finish Time"], ["Logo", "Color Picker", "Additional Details", ""]]
-    var cellTypeNoAuto: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell"],  ["SwitchCell", "TimeCell", "TimeCell"], ["LogoCell", "ColorPickerCell" , "TextFieldCell", "LabelCell"]]
+    var cellTextNoAuto: [[String]] = [["Name", "Location", "Days", "Remind Me"], ["Autoschedule", "Start Time", "Finish Time"], ["Logo", "Color Picker", "Additional Details", ""]]
+    var cellTypeNoAuto: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell", "LabelCell"],  ["SwitchCell", "TimeCell", "TimeCell"], ["LogoCell", "ColorPickerCell" , "TextFieldCell", "LabelCell"]]
     
     //if the form is automatic, the cells are laid out this way.
-    var cellTextAuto: [[String]] = [["Name", "Location", "Days"], ["Autoschedule", "Between", "And", "Length of Habit", ""],["Logo", "Color Picker", "Additional Details", ""]]
-    var cellTypeAuto: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell"],  ["SwitchCell", "TimeCell", "TimeCell", "TimeCell", "SegmentedControlCell"],["LogoCell","ColorPickerCell", "TextFieldCell", "LabelCell"]]
+    var cellTextAuto: [[String]] = [["Name", "Location", "Days", "Remind Me"], ["Autoschedule", "Between", "And", "Length of Habit", ""],["Logo", "Color Picker", "Additional Details", ""]]
+    var cellTypeAuto: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell", "LabelCell"],  ["SwitchCell", "TimeCell", "TimeCell", "TimeCell", "SegmentedControlCell"],["LogoCell","ColorPickerCell", "TextFieldCell", "LabelCell"]]
     
     //These are the holders for the cellText and cellType. Basically these hold the above arrays and are used depending on whether the user chooses to use autoschedule or not.
     var cellText: [[String]] = [[]]
@@ -64,7 +64,9 @@ class AddHabitViewController: MasterForm, LogoStorer{
     var earlier = true
     var daysSelected: [String] = []
     
-    
+    //array that keeps track of when the user should be sent notifications about this habit
+    var alertTimes: [Int] = []
+
     override func viewDidLoad() {
         //register the cells that are to be used in the form.
         tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
@@ -133,6 +135,41 @@ class AddHabitViewController: MasterForm, LogoStorer{
             let newHabit = Habit()
             newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoSchedule: autoschedule, startEarlier: earlier, totalHourTime: totalLengthHours, totalMinuteTime: totalLengthMinutes, daysSelected: daysSelected, systemImageString: systemImageString, colorHex: colorValue)
             
+             for alertTime in alertTimes{
+                            for day in daysSelected{
+                                print("startDate = \(startDate)")
+                                
+                                let weekday = Date.convertDayToWeekday(day: day)
+                                let weekdayAsInt = Date.convertDayToInt(day: day)
+                                var alertDate = Date()
+                                
+                                if startDate.weekday != weekdayAsInt{ //the course doesn't occur today
+                                    alertDate = Date.today().next(weekday)
+                                }
+
+                                alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
+
+                                alertDate -= (60 * Double(alertTime))
+            //                    alertDate = startDate - (60 * Double(alertTime))
+                                //consider how subtracting time from alertDate will affect the weekday component.
+                                let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
+            //                    print(courseComponents)
+                                
+                                //adjust title as appropriate
+                                var title = ""
+                                if alertTime < 60{
+                                    title = "\(name) starts in \(alertTime) minutes."
+                                }else if alertTime == 60{
+                                    title = "\(name) starts in 1 hour"
+                                }else{
+                                    title = "\(name) starts in \(alertTime / 60) hours"
+                                }
+            //                    let alertTimeDouble: Double = Double(alertTime)
+                                let timeFormat = startDate.format(with: "H:MM a")
+                                scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: "\(name) \(alertTime)")
+                            }
+                        }
+            
             save(habit: newHabit)
             
             delegate?.loadHabits()
@@ -178,7 +215,8 @@ class AddHabitViewController: MasterForm, LogoStorer{
         let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
         location = locationCell.textField.text!
         
-        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
+        let additionalDetailsCellIndex = cellText[2].firstIndex(of: "Additional Details")
+        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: additionalDetailsCellIndex!, section: 2)) as! TextFieldCell
         additionalDetails = additionalDetailsCell.textField.text!
         
         let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
@@ -382,7 +420,11 @@ extension AddHabitViewController{
             tableView.endUpdates()
         }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
             performSegue(withIdentifier: "toLogoSelection", sender: self)
+        }else if cellText[indexPath.section][indexPath.row] == "Remind Me"{ //user selected "Remind Me"
+            performSegue(withIdentifier: "toAlertSelection", sender: self)
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -392,6 +434,8 @@ extension AddHabitViewController{
 //                destinationVC.color = colorCell.colorPreview.backgroundColor
                 let colorCell = tableView.cellForRow(at: IndexPath(row: cellType[2].firstIndex(of: "ColorPickerCell")!, section: 2)) as! ColorPickerCell
                 destinationVC.color = colorCell.colorPreview.backgroundColor
+            }else if let destinationVC = segue.destination as? AlertTableViewController{
+                destinationVC.delegate = self
             }
         }
 }
