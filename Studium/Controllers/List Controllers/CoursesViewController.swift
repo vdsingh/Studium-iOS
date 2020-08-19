@@ -15,6 +15,10 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     //let realm = try! Realm() //Link to the realm where we are storing information
     var courses: Results<Course>? //Auto updating array linked to the realm
     
+    
+    //If we want to edit a course, we use this variable. This way we can inform the form about what information to fill out (course name, color, etc.). This is a global variable because it is declared in the updateEdit function and used in the prepare for segue function.
+    var courseToEdit: Course?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -79,6 +83,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("prepare called")
         if let destinationVC = segue.destination as? AssignmentsViewController {
             if let indexPath = tableView.indexPathForSelectedRow{
                 destinationVC.selectedCourse = courses?[indexPath.row]
@@ -90,6 +95,21 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     func loadCourses(){
         courses = realm.objects(Course.self) //fetching all objects of type Course and updating array with it.
         tableView.reloadData()
+        
+    }
+    
+    override func updateModelEdit(at indexPath: IndexPath) {
+        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        
+            let eventForEdit = deletableEventCell.event! as! Course
+//            courseToEdit = eventForEdit
+//            performSegue(withIdentifier: "toAddCourse", sender: self)
+            let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
+            addCourseViewController.delegate = self
+        addCourseViewController.fillForm(with: eventForEdit)
+        addCourseViewController.title = "View/Edit Course"
+            let navController = UINavigationController(rootViewController: addCourseViewController)
+            self.present(navController, animated:true, completion: nil)
         
     }
     
@@ -111,6 +131,8 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         addCourseViewController.delegate = self
         let navController = UINavigationController(rootViewController: addCourseViewController)
         self.present(navController, animated:true, completion: nil)
-        
+
+        //set courseToEdit to nil because we are not editing a course.
+//        courseToEdit = nil
     }
 }

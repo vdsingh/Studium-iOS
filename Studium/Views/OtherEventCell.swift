@@ -9,7 +9,8 @@
 import UIKit
 import SwipeCellKit
 
-class OtherEventCell: DeletableEventCell {
+class OtherEventCell: DeletableEventCell{
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var startTimeLabel: UILabel!

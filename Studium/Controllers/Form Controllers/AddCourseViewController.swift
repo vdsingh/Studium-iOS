@@ -48,6 +48,7 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     //called when the view loads
     override func viewDidLoad() {
         
+        print("viewDidLoad was called.")
         //register custom cells for form
         tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
         tableView.register(UINib(nibName: "TimeCell", bundle: nil), forCellReuseIdentifier: "TimeCell")
@@ -63,6 +64,14 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         
         //used to decipher which TimeCell should have which dates
         times = [startDate, endDate]
+        print("Time Counter: \(timeCounter)")
+//        timeCounter = 0
+        
+        if self.navigationController != nil{
+            print("there is a navigation controller.")
+        }
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+
         
         //makes it so that there are no empty cells at the bottom
         tableView.tableFooterView = UIView()
@@ -218,6 +227,7 @@ extension AddCourseViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
+            print("time counter: \(timeCounter). row: \(indexPath.row). section: \(indexPath.section)")
             cell.timeLabel.text = times[timeCounter].format(with: "h:mm a")
             cell.label.text = cellText[indexPath.section][indexPath.row]
             cell.date = times[timeCounter]
@@ -342,6 +352,18 @@ extension AddCourseViewController: UITimePickerDelegate{
     }
 }
 
+extension AddCourseViewController{
+    func fillForm(with course: Course){
+//        viewDidLoad()
+        print("fillForm was called.")
+        reloadData()
+        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
+        nameCell.textField.text = course.name
+        
+        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
+        locationCell.textField.text = course.location
+    }
+}
 
 //makes the keyboard dismiss when user clicks done
 extension UIViewController: UITextFieldDelegate{

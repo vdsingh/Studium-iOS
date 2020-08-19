@@ -40,7 +40,7 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         }
         deleteAction.image = UIImage(named: "delete")
         
-        let editAction = SwipeAction(style: .default, title: "View"){ (action, indexPath) in
+        let editAction = SwipeAction(style: .default, title: "View/Edit"){ (action, indexPath) in
             self.updateModelEdit(at: indexPath)
         }
         editAction.image = UIImage(named: "edit")
@@ -80,6 +80,6 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     }
     
     func updateModelEdit(at indexPath: IndexPath){
-        print("Triggered edit.")
+        
     }
 }
