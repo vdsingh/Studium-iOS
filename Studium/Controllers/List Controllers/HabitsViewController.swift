@@ -27,6 +27,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         let addHabitViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
         addHabitViewController.delegate = self
         let navController = UINavigationController(rootViewController: addHabitViewController)
+//        ColorPickerCell.color = K.defaultColorPickerColor
         self.present(navController, animated:true, completion: nil)
         
     }
@@ -57,4 +58,18 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    
+    override func updateModelEdit(at indexPath: IndexPath) {
+        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        
+        let eventForEdit = deletableEventCell.event! as! Habit
+        let addHabitViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
+        addHabitViewController.delegate = self
+        addHabitViewController.habit = eventForEdit
+        ColorPickerCell.color = UIColor(hexString: eventForEdit.color)
+        addHabitViewController.title = "View/Edit Habit"
+        let navController = UINavigationController(rootViewController: addHabitViewController)
+        self.present(navController, animated:true, completion: nil)
+        
+    }
 }

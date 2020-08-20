@@ -18,7 +18,7 @@ protocol HabitRefreshProtocol{
 //Class used to manage the form for adding a Habit. The form is a tableView form, similar to adding an event in
 class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
-    
+    var habit: Habit?
     
     //variable that helps run things once that only need to run at the beginning
     var resetAll: Bool = true
@@ -93,7 +93,9 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
         //makes it so that the form doesn't have a bunch of empty cells at the bottom
         tableView.tableFooterView = UIView()
         
-        
+        if habit != nil{
+            fillForm(with: habit!)
+        }
     }
     
     func refreshLogoCell() {
@@ -505,6 +507,52 @@ extension AddHabitViewController: CanHandleSwitch{
             autoschedule = false
         }
         reloadData()
+    }
+}
+
+extension AddCourseViewController{
+    func fillForm(with habit: Habit){
+        reloadData()
+        
+        navButton.image = .none
+        navButton.title = "Done"
+        
+        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
+        nameCell.textField.text = habit.name
+        
+        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
+        locationCell.textField.text = habit.location
+        
+        let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
+        daysCell.selectDays(days: habit.days)
+        
+        alertTimes = []
+        for alert in habit.notificationAlertTimes{
+            alertTimes.append(alert)
+        }
+        
+        let startCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TimeCell
+        startDate = habit.startDate
+        startCell.timeLabel.text = startDate.format(with: "h:mm a")
+        startCell.date = startDate
+        
+        let endCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TimeCell
+        endDate = habit.endDate
+        endCell.timeLabel.text = endDate.format(with: "h:mm a")
+        endCell.date = endDate
+        
+        let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
+        logoCell.logoImageView.image = UIImage(systemName: course.systemImageString)
+        systemImageString = habit.systemImageString
+        
+        let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
+        colorCell.colorPreview.backgroundColor = UIColor(hexString: habit.color)!
+//
+//        colorCell.colorPicker.selectedColor = .purple
+//        colorCell.colorPicker.reloadInputViews()
+        
+        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
+        additionalDetailsCell.textField.text = habit.additionalDetails
     }
 }
 

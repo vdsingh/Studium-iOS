@@ -12,7 +12,6 @@ protocol CourseRefreshProtocol{
 
 class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
-    var courseEditing: Bool = false
     var course: Course?
     
     //system image string that identifies what the logo of the course will be.
@@ -76,7 +75,6 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         tableView.tableFooterView = UIView()
         
         self.navigationController?.navigationBar.barTintColor = .blue
-//        tableView.reloadData()
         if course != nil{
             fillForm(with: course!)
         }
@@ -93,13 +91,12 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         let logoCellRow = cellType[2].firstIndex(of: "LogoCell")!
         let logoCell = tableView.cellForRow(at: IndexPath(row: logoCellRow, section: 2)) as! LogoCell
         logoCell.setImage(systemImageName: systemImageString)
+//        logoCell.systemImageString = systemImageString
     }
     
     //final step that occurs when the user has filled out the form and wants to add the new course
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         errors = ""
-        
-        
         retrieveData()
         endDate = Calendar.current.date(bySettingHour: endDate.hour, minute: endDate.minute, second: endDate.second, of: startDate)!
         if name == ""{
@@ -155,18 +152,16 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
                     }
                 }
                 //            print(UIApplication.shared.scheduledLocalNotifications)
-                
                 save(course: newCourse)
             }else{
                 do{
                     try! realm.write{
+                        print("the system image string: \(systemImageString)")
                         course!.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes)
                     }
                 }catch{
                     print(error)
                 }
-                
-                
             }
             dismiss(animated: true, completion: delegate?.loadCourses)
         }else{
@@ -280,6 +275,7 @@ extension AddCourseViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ColorPickerCell", for: indexPath) as! ColorPickerCell
+            print("colorpicker cfra called")
             //cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
@@ -372,7 +368,6 @@ extension AddCourseViewController: UITimePickerDelegate{
 extension AddCourseViewController{
     func fillForm(with course: Course){
         reloadData()
-        courseEditing = true
         
         navButton.image = .none
         navButton.title = "Done"
@@ -403,13 +398,13 @@ extension AddCourseViewController{
         
         let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
         logoCell.logoImageView.image = UIImage(systemName: course.systemImageString)
+        systemImageString = course.systemImageString
         
         let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
         colorCell.colorPreview.backgroundColor = UIColor(hexString: course.color)!
-//        colorCell.colorPicker.selectedColor = .red
-        
-        colorCell.setColor(color: .red)
-//        colorCell.colorPicker.color
+//
+//        colorCell.colorPicker.selectedColor = .purple
+//        colorCell.colorPicker.reloadInputViews()
         
         let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
         additionalDetailsCell.textField.text = course.additionalDetails

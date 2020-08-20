@@ -24,7 +24,8 @@ struct K {
     
     static var assignmentNum = 0
     
-    static var themeColor: UIColor = .orange
+    static var defaultThemeColor: UIColor = UIColor(hexString: "#F77F49")!
+//    static var defaultColorPickerColor: UIColor = themeColor
     
     
 }

@@ -275,8 +275,6 @@
 				16A63B8224AA85A7003A30D3 /* OtherEventCell.swift */,
 				16A63B8324AA85A7003A30D3 /* OtherEventCell.xib */,
 				16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */,
-				164F62F424E4D1D500DC8169 /* LogoCell.swift */,
-				164F62F524E4D1D500DC8169 /* LogoCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -346,6 +344,8 @@
 				164F62FB24E4DF4800DC8169 /* LogoCollectionViewCell.xib */,
 				1638CB7E24EC374100D3D93E /* ThemeCell.swift */,
 				1638CB7F24EC374100D3D93E /* ThemeCell.xib */,
+				164F62F424E4D1D500DC8169 /* LogoCell.swift */,
+				164F62F524E4D1D500DC8169 /* LogoCell.xib */,
 			);
 			path = "Basic Cells";
 			sourceTree = "<group>";

@@ -13,19 +13,24 @@ import FlexColorPicker
 class ColorPickerCell: UITableViewCell {
     @IBOutlet weak var colorPreview: UIImageView!
     @IBOutlet weak var colorPicker: RadialPaletteControl!
+    
     var delegate: ColorDelegate?
+    static var color: UIColor?
     override func awakeFromNib() {
         super.awakeFromNib()
-        colorPreview.backgroundColor = colorPicker.selectedColor
-        
-//        colorPicker.selectedColor = UIColor(hexString: "#03fc6f")!
-        // Initialization code
-        //colorPreview.color
+        print("awakeFromNib called")
+//        colorPreview.backgroundColor = colorPicker.selectedColor
+//        colorPicker.selectedColor = color
+//        colorPicker.reloadInputViews()
+        if ColorPickerCell.color != nil{
+            colorPicker.selectedColor = ColorPickerCell.color!
+            colorPreview.backgroundColor = ColorPickerCell.color!
+        }
+        print(colorPicker.selectedColor.hexValue())
+//        colorPicker.reload
+
     }
-    
-    func setColor(color: UIColor){
-        colorPicker.selectedColor = .blue
-    }
+
 
 
     override func setSelected(_ selected: Bool, animated: Bool) {

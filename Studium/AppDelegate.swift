@@ -29,11 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func updateTheme(){
         let appearance = UINavigationBarAppearance()
         let colorHex = defaults.string(forKey: "themeColor")
-        var color = K.themeColor
-
+        var color = K.defaultThemeColor
         if colorHex != nil{
             color = UIColor(hexString: colorHex!)!
         }
+
 
         appearance.backgroundColor = color
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]

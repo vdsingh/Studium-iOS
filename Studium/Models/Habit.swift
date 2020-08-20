@@ -31,6 +31,7 @@ class Habit: Object, StudiumEvent{
     @objc dynamic var color: String = "4287f5"
     @objc dynamic var systemImageString: String = "pencil"
 
+    let notificationAlertTimes = List<Int>()
 
 
     //List of days that this habit occurs on.

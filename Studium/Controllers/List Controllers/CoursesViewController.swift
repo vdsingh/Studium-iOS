@@ -16,9 +16,8 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     var courses: Results<Course>? //Auto updating array linked to the realm
     
     
-    //If we want to edit a course, we use this variable. This way we can inform the form about what information to fill out (course name, color, etc.). This is a global variable because it is declared in the updateEdit function and used in the prepare for segue function.
-    var courseToEdit: Results<Course>?
-    
+    let defaults = UserDefaults.standard
+
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCourses()
@@ -69,7 +68,6 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        //loadCourses()
         return 1
     }
     
@@ -101,12 +99,10 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         
         let eventForEdit = deletableEventCell.event! as! Course
-        //            courseToEdit = eventForEdit
-        //            performSegue(withIdentifier: "toAddCourse", sender: self)
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
         addCourseViewController.delegate = self
-//        addCourseViewController.fillForm(with: eventForEdit)
         addCourseViewController.course = eventForEdit
+        ColorPickerCell.color = UIColor(hexString: eventForEdit.color)
         addCourseViewController.title = "View/Edit Course"
         let navController = UINavigationController(rootViewController: addCourseViewController)
         self.present(navController, animated:true, completion: nil)
@@ -118,9 +114,12 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
         addCourseViewController.delegate = self
         let navController = UINavigationController(rootViewController: addCourseViewController)
+        if defaults.string(forKey: "themeColor") != nil{
+            ColorPickerCell.color = UIColor(hexString: defaults.string(forKey: "themeColor")!)
+        }else{
+            ColorPickerCell.color = K.defaultThemeColor
+
+        }
         self.present(navController, animated:true, completion: nil)
-        
-        //set courseToEdit to nil because we are not editing a course.
-        //        courseToEdit = nil
     }
 }
