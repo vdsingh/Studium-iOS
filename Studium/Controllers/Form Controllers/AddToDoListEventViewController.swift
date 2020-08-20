@@ -93,12 +93,12 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
         location = locationCell.textField.text!
         
         let startTimeCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TimeCell
-        startDate = startTimeCell.date
+        startDate = startTimeCell.date!
         
         //finding the index for the endTimeCell is necessary because there could be other PickerCells in the section, meaning we don't know the exact location without looking.
         let endTimeCellIndex = cellType[2].lastIndex(of: "TimeCell")
         let endTimeCell = tableView.cellForRow(at: IndexPath(row: endTimeCellIndex!, section: 2)) as! TimeCell
-        endDate = endTimeCell.date
+        endDate = endTimeCell.date!
         
         let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! TextFieldCell
         additionalDetails = additionalDetailsCell.textField.text!
@@ -183,7 +183,6 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
                 cellType[indexPath.section].remove(at: index)
                 tableView.deleteRows(at: [IndexPath(row: index, section: indexPath.section)], with: .right)
                 if index == indexPath.row + 1{
-                    //print(cellText[indexPath.row - 1])
                     tableView.endUpdates()
                     return
                 }
@@ -202,7 +201,7 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
         //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
         let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
         correspondingTimeCell.date = sender.date
-        correspondingTimeCell.timeLabel.text = correspondingTimeCell.date.format(with: "MMM d, h:mm a")
+        correspondingTimeCell.timeLabel.text = correspondingTimeCell.date!.format(with: "MMM d, h:mm a")
         
     }
 }

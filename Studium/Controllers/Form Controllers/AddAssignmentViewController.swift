@@ -92,7 +92,7 @@ class AddAssignmentViewController: MasterForm{
         name = nameCell.textField.text!
         
         let dueDateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
-        dueDate = dueDateCell.date
+        dueDate = dueDateCell.date!
         
         let courseCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! PickerCell
         let selectedRow = courseCell.picker.selectedRow(inComponent: 0)

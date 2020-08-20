@@ -30,8 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appearance = UINavigationBarAppearance()
         let colorHex = defaults.string(forKey: "themeColor")
         var color = K.themeColor
-        
-        print(colorHex)
 
         if colorHex != nil{
             color = UIColor(hexString: colorHex!)!

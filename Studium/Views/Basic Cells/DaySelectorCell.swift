@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import RealmSwift
 protocol DaySelectorDelegate{
     func dayButtonPressed(sender: UIButton)
 }
@@ -27,6 +27,19 @@ class DaySelectorCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    func selectDays(days: List<String>){
+        daysSelected = []
+        for button in dayButtons{
+            let buttonText = button.titleLabel?.text
+            if days.contains(buttonText!){
+                daysSelected.append(buttonText!)
+                button.isSelected = true
+            }else{
+                button.isSelected = false
+            }
+        }
+    }
+    
     @IBAction func dayButtonPressed(_ sender: UIButton) {
         //delegate!.dayButtonPressed(sender: sender)
         let dayTitle = sender.titleLabel!.text

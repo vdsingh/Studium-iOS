@@ -12,6 +12,8 @@ protocol CourseRefreshProtocol{
 
 class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
+    var courseEditing: Bool = false
+    var course: Course?
     
     //system image string that identifies what the logo of the course will be.
     var systemImageString: String = "pencil"
@@ -45,10 +47,10 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     var alertTimes: [Int] = []
     
+    @IBOutlet weak var navButton: UIBarButtonItem!
     //called when the view loads
     override func viewDidLoad() {
-        
-        print("viewDidLoad was called.")
+        print("viewDidLoad Called.")
         //register custom cells for form
         tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
         tableView.register(UINib(nibName: "TimeCell", bundle: nil), forCellReuseIdentifier: "TimeCell")
@@ -61,22 +63,29 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         tableView.register(UINib(nibName: "ColorPickerCell", bundle: nil), forCellReuseIdentifier: "ColorPickerCell")
         tableView.register(UINib(nibName: "LogoCell", bundle: nil), forCellReuseIdentifier: "LogoCell")
         
+        navButton.image = UIImage(systemName: "plus")
+        
         
         //used to decipher which TimeCell should have which dates
         times = [startDate, endDate]
-        print("Time Counter: \(timeCounter)")
-//        timeCounter = 0
-        
-        if self.navigationController != nil{
-            print("there is a navigation controller.")
-        }
+        //        timeCounter = 0
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-
+        
         
         //makes it so that there are no empty cells at the bottom
         tableView.tableFooterView = UIView()
         
         self.navigationController?.navigationBar.barTintColor = .blue
+//        tableView.reloadData()
+        if course != nil{
+            fillForm(with: course!)
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        
+        print(alertTimes)
     }
     
     //when we pick a logo, this function is called to update the preview on the logo cell.
@@ -107,46 +116,58 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         }
         
         if errors.count == 0{
-            let newCourse = Course()
-            newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes)
-            //scheduling the appropriate notifications
-            for alertTime in alertTimes{
-                for day in daysSelected{
-                    print("startDate = \(startDate)")
-                    
-                    let weekday = Date.convertDayToWeekday(day: day)
-                    let weekdayAsInt = Date.convertDayToInt(day: day)
-                    var alertDate = Date()
-                    
-                    if startDate.weekday != weekdayAsInt{ //the course doesn't occur today
-                        alertDate = Date.today().next(weekday)
+            if course == nil{
+                let newCourse = Course()
+                newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes)
+                //scheduling the appropriate notifications
+                for alertTime in alertTimes{
+                    for day in daysSelected{
+                        print("startDate = \(startDate)")
+                        
+                        let weekday = Date.convertDayToWeekday(day: day)
+                        let weekdayAsInt = Date.convertDayToInt(day: day)
+                        var alertDate = Date()
+                        
+                        if startDate.weekday != weekdayAsInt{ //the course doesn't occur today
+                            alertDate = Date.today().next(weekday)
+                        }
+                        
+                        alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
+                        
+                        alertDate -= (60 * Double(alertTime))
+                        //                    alertDate = startDate - (60 * Double(alertTime))
+                        //consider how subtracting time from alertDate will affect the weekday component.
+                        let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
+                        //                    print(courseComponents)
+                        
+                        //adjust title as appropriate
+                        var title = ""
+                        if alertTime < 60{
+                            title = "\(name) starts in \(alertTime) minutes."
+                        }else if alertTime == 60{
+                            title = "\(name) starts in 1 hour"
+                        }else{
+                            title = "\(name) starts in \(alertTime / 60) hours"
+                        }
+                        //                    let alertTimeDouble: Double = Double(alertTime)
+                        let timeFormat = startDate.format(with: "H:MM a")
+                        scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: "\(name) \(alertTime)")
                     }
-
-                    alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
-
-                    alertDate -= (60 * Double(alertTime))
-//                    alertDate = startDate - (60 * Double(alertTime))
-                    //consider how subtracting time from alertDate will affect the weekday component.
-                    let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
-//                    print(courseComponents)
-                    
-                    //adjust title as appropriate
-                    var title = ""
-                    if alertTime < 60{
-                        title = "\(name) starts in \(alertTime) minutes."
-                    }else if alertTime == 60{
-                        title = "\(name) starts in 1 hour"
-                    }else{
-                        title = "\(name) starts in \(alertTime / 60) hours"
-                    }
-//                    let alertTimeDouble: Double = Double(alertTime)
-                    let timeFormat = startDate.format(with: "H:MM a")
-                    scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: "\(name) \(alertTime)")
                 }
+                //            print(UIApplication.shared.scheduledLocalNotifications)
+                
+                save(course: newCourse)
+            }else{
+                do{
+                    try! realm.write{
+                        course!.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes)
+                    }
+                }catch{
+                    print(error)
+                }
+                
+                
             }
-//            print(UIApplication.shared.scheduledLocalNotifications)
-
-            save(course: newCourse)
             dismiss(animated: true, completion: delegate?.loadCourses)
         }else{
             cellText[3][0] = errors
@@ -194,11 +215,11 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         daysSelected = daySelectorCell.daysSelected
         
         let startTimeCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TimeCell
-        startDate = startTimeCell.date
+        startDate = startTimeCell.date!
         
         let endTimeCellIndex = cellType[1].lastIndex(of: "TimeCell")
         let endTimeCell = tableView.cellForRow(at: IndexPath(row: endTimeCellIndex!, section: 1)) as! TimeCell
-        endDate = endTimeCell.date
+        endDate = endTimeCell.date!
         
         let colorPickerCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
         colorValue = colorPickerCell.colorPicker.selectedColor.hexValue()
@@ -227,7 +248,6 @@ extension AddCourseViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
-            print("time counter: \(timeCounter). row: \(indexPath.row). section: \(indexPath.section)")
             cell.timeLabel.text = times[timeCounter].format(with: "h:mm a")
             cell.label.text = cellText[indexPath.section][indexPath.row]
             cell.date = times[timeCounter]
@@ -237,13 +257,11 @@ extension AddCourseViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
             cell.delegate = self
             cell.indexPath = indexPath
-            
             let dateString = cellText[indexPath.section][indexPath.row]
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "h:mm a"
             let date = dateFormatter.date(from: dateString)!
-            
-            cell.picker.date = date
+            cell.picker.setDate(date, animated: true)
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "DaySelectorCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "DaySelectorCell", for: indexPath) as! DaySelectorCell
@@ -252,7 +270,7 @@ extension AddCourseViewController{
         }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
             if indexPath.section == 0 && indexPath.row == 3{
-//                cell.label.textColor = .black
+                //                cell.label.textColor = .black
                 cell.accessoryType = .disclosureIndicator
             }else{
                 cell.label.textColor = UIColor.red
@@ -297,10 +315,8 @@ extension AddCourseViewController{
         let selectedRowText = cellText[indexPath.section][indexPath.row]
         if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let timeCell = tableView.cellForRow(at: indexPath) as! TimeCell
-            var pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")
-            if pickerIndex == nil{
-                pickerIndex = cellType[indexPath.section].firstIndex(of: "PickerCell")
-            }
+            let pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")
+            
             tableView.beginUpdates()
             
             if let index = pickerIndex{
@@ -317,8 +333,8 @@ extension AddCourseViewController{
             tableView.insertRows(at: [IndexPath(row: newIndex, section: indexPath.section)], with: .left)
             
             cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
-            cellText[indexPath.section].insert("\(timeCell.date.format(with: "h:mm a"))", at: newIndex)
-            
+            cellText[indexPath.section].insert("\(timeCell.date!.format(with: "h:mm a"))", at: newIndex)
+            tableView.deselectRow(at: indexPath, animated: true)
             tableView.endUpdates()
         }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
             performSegue(withIdentifier: "toLogoSelection", sender: self)
@@ -336,6 +352,7 @@ extension AddCourseViewController{
             destinationVC.color = colorCell.colorPreview.backgroundColor
         }else if let destinationVC = segue.destination as? AlertTableViewController{
             destinationVC.delegate = self
+//            destinationVC.alertTimes = alertTimes
         }
     }
 }
@@ -348,20 +365,54 @@ extension AddCourseViewController: UITimePickerDelegate{
         //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
         let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
         correspondingTimeCell.date = sender.date
-        correspondingTimeCell.timeLabel.text = correspondingTimeCell.date.format(with: "h:mm a")
+        correspondingTimeCell.timeLabel.text = correspondingTimeCell.date!.format(with: "h:mm a")
     }
 }
 
 extension AddCourseViewController{
     func fillForm(with course: Course){
-//        viewDidLoad()
-        print("fillForm was called.")
         reloadData()
+        courseEditing = true
+        
+        navButton.image = .none
+        navButton.title = "Done"
+        
         let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
         nameCell.textField.text = course.name
         
         let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
         locationCell.textField.text = course.location
+        
+        let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
+        daysCell.selectDays(days: course.days)
+        
+        alertTimes = []
+        for alert in course.notificationAlertTimes{
+            alertTimes.append(alert)
+        }
+        
+        let startCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TimeCell
+        startDate = course.startDate
+        startCell.timeLabel.text = startDate.format(with: "h:mm a")
+        startCell.date = startDate
+        
+        let endCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TimeCell
+        endDate = course.endDate
+        endCell.timeLabel.text = endDate.format(with: "h:mm a")
+        endCell.date = endDate
+        
+        let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
+        logoCell.logoImageView.image = UIImage(systemName: course.systemImageString)
+        
+        let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
+        colorCell.colorPreview.backgroundColor = UIColor(hexString: course.color)!
+//        colorCell.colorPicker.selectedColor = .red
+        
+        colorCell.setColor(color: .red)
+//        colorCell.colorPicker.color
+        
+        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
+        additionalDetailsCell.textField.text = course.additionalDetails
     }
 }
 
@@ -375,79 +426,79 @@ extension UIViewController: UITextFieldDelegate{
 
 //date extension to get the next weekday of the week (i.e. next monday)
 extension Date {
-
-  static func today() -> Date {
-      return Date()
-  }
-
-  func next(_ weekday: Weekday, considerToday: Bool = false) -> Date {
-    return get(.next,
-               weekday,
-               considerToday: considerToday)
-  }
-
-  func previous(_ weekday: Weekday, considerToday: Bool = false) -> Date {
-    return get(.previous,
-               weekday,
-               considerToday: considerToday)
-  }
-
-  func get(_ direction: SearchDirection,
-           _ weekDay: Weekday,
-           considerToday consider: Bool = false) -> Date {
-
-    let dayName = weekDay.rawValue
-
-    let weekdaysName = getWeekDaysInEnglish().map { $0.lowercased() }
-
-    assert(weekdaysName.contains(dayName), "weekday symbol should be in form \(weekdaysName)")
-
-    let searchWeekdayIndex = weekdaysName.firstIndex(of: dayName)! + 1
-
-    let calendar = Calendar(identifier: .gregorian)
-
-    if consider && calendar.component(.weekday, from: self) == searchWeekdayIndex {
-      return self
+    
+    static func today() -> Date {
+        return Date()
     }
-
-    var nextDateComponent = calendar.dateComponents([.hour, .minute, .second], from: self)
-    nextDateComponent.weekday = searchWeekdayIndex
-
-    let date = calendar.nextDate(after: self,
-                                 matching: nextDateComponent,
-                                 matchingPolicy: .nextTime,
-                                 direction: direction.calendarSearchDirection)
-
-    return date!
-  }
-
+    
+    func next(_ weekday: Weekday, considerToday: Bool = false) -> Date {
+        return get(.next,
+                   weekday,
+                   considerToday: considerToday)
+    }
+    
+    func previous(_ weekday: Weekday, considerToday: Bool = false) -> Date {
+        return get(.previous,
+                   weekday,
+                   considerToday: considerToday)
+    }
+    
+    func get(_ direction: SearchDirection,
+             _ weekDay: Weekday,
+             considerToday consider: Bool = false) -> Date {
+        
+        let dayName = weekDay.rawValue
+        
+        let weekdaysName = getWeekDaysInEnglish().map { $0.lowercased() }
+        
+        assert(weekdaysName.contains(dayName), "weekday symbol should be in form \(weekdaysName)")
+        
+        let searchWeekdayIndex = weekdaysName.firstIndex(of: dayName)! + 1
+        
+        let calendar = Calendar(identifier: .gregorian)
+        
+        if consider && calendar.component(.weekday, from: self) == searchWeekdayIndex {
+            return self
+        }
+        
+        var nextDateComponent = calendar.dateComponents([.hour, .minute, .second], from: self)
+        nextDateComponent.weekday = searchWeekdayIndex
+        
+        let date = calendar.nextDate(after: self,
+                                     matching: nextDateComponent,
+                                     matchingPolicy: .nextTime,
+                                     direction: direction.calendarSearchDirection)
+        
+        return date!
+    }
+    
 }
 
 // MARK: Helper methods
 extension Date {
-  func getWeekDaysInEnglish() -> [String] {
-    var calendar = Calendar(identifier: .gregorian)
-    calendar.locale = Locale(identifier: "en_US_POSIX")
-    return calendar.weekdaySymbols
-  }
-
-  enum Weekday: String {
-    case monday, tuesday, wednesday, thursday, friday, saturday, sunday
-  }
-
-  enum SearchDirection {
-    case next
-    case previous
-
-    var calendarSearchDirection: Calendar.SearchDirection {
-      switch self {
-      case .next:
-        return .forward
-      case .previous:
-        return .backward
-      }
+    func getWeekDaysInEnglish() -> [String] {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = Locale(identifier: "en_US_POSIX")
+        return calendar.weekdaySymbols
     }
-  }
+    
+    enum Weekday: String {
+        case monday, tuesday, wednesday, thursday, friday, saturday, sunday
+    }
+    
+    enum SearchDirection {
+        case next
+        case previous
+        
+        var calendarSearchDirection: Calendar.SearchDirection {
+            switch self {
+            case .next:
+                return .forward
+            case .previous:
+                return .backward
+            }
+        }
+    }
     
     //own added methods
     static func convertDayToInt(day: String) -> Int{

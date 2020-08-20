@@ -17,11 +17,16 @@ class ColorPickerCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         colorPreview.backgroundColor = colorPicker.selectedColor
-
+        
+//        colorPicker.selectedColor = UIColor(hexString: "#03fc6f")!
         // Initialization code
         //colorPreview.color
     }
     
+    func setColor(color: UIColor){
+        colorPicker.selectedColor = .blue
+    }
+
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

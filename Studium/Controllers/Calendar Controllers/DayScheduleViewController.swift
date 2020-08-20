@@ -242,10 +242,10 @@ class DayScheduleViewController: DayViewController{
         events = events + addCourses(for: date)
         events = events + addWakeTimes(for: date)
         events = events + addHabits(for: date, with: events)
-        for event in events{
+//        for event in events{
             //            print(event.text)
             //            print(event.startDate)
-        }
+//        }
         return events
     }
     
@@ -262,9 +262,9 @@ class DayScheduleViewController: DayViewController{
     private var createdEvent: EventDescriptor?
     
     override func dayViewDidSelectEventView(_ eventView: EventView) {
-        guard let descriptor = eventView.descriptor as? Event else {
-            return
-        }
+//        guard let descriptor = eventView.descriptor as? Event else {
+//            return
+//        }
         //print("Event has been selected: \(descriptor) \(String(describing: descriptor.userInfo))")
     }
     

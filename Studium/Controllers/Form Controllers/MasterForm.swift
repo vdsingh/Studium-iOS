@@ -41,7 +41,7 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate{
         //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNUserNotificationCenter.current().add(request) {(error) in
             if error != nil {
-                print("Uh oh! We had an error: \(error)")
+                print(error ?? "")
             }
         }
     }

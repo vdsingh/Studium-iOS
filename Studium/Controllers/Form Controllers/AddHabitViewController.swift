@@ -228,14 +228,14 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
         //since there may or may not be pickers active, we don't know the exact position of the TimeCells that we want. As a result, we can use the first index of "TimeCell" in section 1, because this will always hold the start date.
         let indexOfStartCell = cellType[1].firstIndex(of: "TimeCell")
         let startDateCell = tableView.cellForRow(at: IndexPath(row: indexOfStartCell!, section: 1)) as! TimeCell
-        startDate = startDateCell.date
+        startDate = startDateCell.date!
         
         //since there are 3 TimeCells if autoscheduling, and the end date is in the middle of them, we create a copy of section 1 and remove the startDateCell. Now the endDateCell is always the first TimeCell in the temporary array.
         var tempArray = cellType[1].map { $0 }
         tempArray.remove(at: indexOfStartCell!)
         let indexOfEndCell = tempArray.firstIndex(of: "TimeCell")! + 1
         let endDateCell = tableView.cellForRow(at: IndexPath(row: indexOfEndCell, section: 1)) as! TimeCell
-        endDate = endDateCell.date
+        endDate = endDateCell.date!
 
         if autoschedule{
             
@@ -414,7 +414,7 @@ extension AddHabitViewController{
                 cellText[indexPath.section].insert("", at: newIndex)
                 cellType[indexPath.section].insert("PickerCell", at: newIndex)
             }else{
-                cellText[indexPath.section].insert("\(timeCell.date.format(with: "h:mm a"))", at: newIndex)
+                cellText[indexPath.section].insert("\(timeCell.date!.format(with: "h:mm a"))", at: newIndex)
                 cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
             }
             tableView.endUpdates()
@@ -486,7 +486,7 @@ extension AddHabitViewController: UITimePickerDelegate{
         //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
         let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
         correspondingTimeCell.date = sender.date
-        correspondingTimeCell.timeLabel.text = correspondingTimeCell.date.format(with: "h:mm a")
+        correspondingTimeCell.timeLabel.text = correspondingTimeCell.date!.format(with: "h:mm a")
     }
 }
 

@@ -41,12 +41,15 @@ class AlertTableViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         alertTimes = []
+        print("viewwilldisappear")
         for i in 0..<checked.count {
             if checked[i] == true{
+                print("checked \(i) is true")
                 alertTimes.append(times[i])
             }
         }
-        delegate?.alertTimes = alertTimes
+        print("alertTimes: \(alertTimes)")
+        delegate!.alertTimes = alertTimes
     }
     
     // MARK: - Table view data source
@@ -75,16 +78,17 @@ class AlertTableViewController: UITableViewController {
         let cell = tableView.cellForRow(at: indexPath)
         if cell?.accessoryType == UITableViewCell.AccessoryType.none{
             cell?.accessoryType = .checkmark
-//            delegate?.alertTimes.append(times[indexPath.row])
             checked[indexPath.row] = true
         }else{
             cell?.accessoryType = .none
-//            self.delegate?.alertTimes.remove(at: (self.delegate?.alertTimes.firstIndex(of: self.times[indexPath.row]))!)
             checked[indexPath.row] = false
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
     
     
     

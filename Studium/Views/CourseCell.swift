@@ -31,12 +31,12 @@ class CourseCell: DeletableEventCell{
         
         // Configure the view for the selected state
     }
-    func deloadData(){
-        for dayLabel in dayLabels{
-            dayLabel.textColor = .white
-            
-        }
-    }
+//    func deloadData(){
+//        for dayLabel in dayLabels{
+//            dayLabel.textColor = .white
+//
+//        }
+//    }
     
     func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<String>, colorHex: String, course: Course, systemImageString: String){
         self.course = course

@@ -40,7 +40,6 @@ extension ThemesViewController: UITableViewDelegate{
         let color: UIColor = UIColor(hexString: colors[indexPath.section][indexPath.row])!
         
         appDelegate.changeTheme(color: color)
-        print("theme color clicked.")
         //hide and unhide the navbar to basically refresh it
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.isNavigationBarHidden = false

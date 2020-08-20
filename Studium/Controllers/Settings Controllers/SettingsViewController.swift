@@ -52,8 +52,8 @@ class SettingsViewController: UITableViewController{
             center.removeAllDeliveredNotifications()    // to remove all delivered notifications
             center.removeAllPendingNotificationRequests()   // to remove all pending notifications
             UIApplication.shared.applicationIconBadgeNumber = 0 // to clear the icon notification badge
-            print("cleared all notifications")
-            print(UIApplication.shared.scheduledLocalNotifications)
+//            print("cleared all notifications")
+//            print(UIApplication.shared.scheduledLocalNotifications)
         }
     }
 }
