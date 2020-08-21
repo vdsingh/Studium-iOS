@@ -27,7 +27,10 @@ class Course: Object, StudiumEvent{
     //List of the days that the course occurs on, which is used to schedule in the calendar and day views
     let days = List<String>()
     
-    let notificationAlertTimes = List<Int>()
+    
+    //variables used to track notifications
+    let notificationAlertTimes = List<Int>() 
+    let notificationIdentifiers = List<String>()
     
     
     //List of the assignments for the course.

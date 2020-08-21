@@ -148,14 +148,20 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
                         }
                         //                    let alertTimeDouble: Double = Double(alertTime)
                         let timeFormat = startDate.format(with: "H:MM a")
-                        scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: "\(name) \(alertTime)")
+                        
+                        
+                        let identifier = UUID().uuidString
+                        //keeping track of the identifiers of notifs associated with the course.
+                        newCourse.notificationIdentifiers.append(identifier)
+
+                        scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                     }
                 }
                 //            print(UIApplication.shared.scheduledLocalNotifications)
                 save(course: newCourse)
             }else{
                 do{
-                    try! realm.write{
+                    try realm.write{
                         print("the system image string: \(systemImageString)")
                         course!.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes)
                     }
@@ -200,6 +206,8 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     //method that retrieves data from cells, instead of data updating whenever something is edited (this is more efficient)
     func retrieveData(){
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: false)
+
         let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
         name = nameCell.textField.text!
         
@@ -209,6 +217,7 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         let daySelectorCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
         daysSelected = daySelectorCell.daysSelected
         
+        
         let startTimeCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TimeCell
         startDate = startTimeCell.date!
         
@@ -216,9 +225,11 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         let endTimeCell = tableView.cellForRow(at: IndexPath(row: endTimeCellIndex!, section: 1)) as! TimeCell
         endDate = endTimeCell.date!
         
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .middle, animated: false)
+        
         let colorPickerCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
         colorValue = colorPickerCell.colorPicker.selectedColor.hexValue()
-        
+
         let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
         additionalDetails = additionalDetailsCell.textField.text!
     }

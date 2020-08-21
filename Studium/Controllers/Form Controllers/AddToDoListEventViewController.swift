@@ -151,7 +151,6 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
         return cell
     }
     

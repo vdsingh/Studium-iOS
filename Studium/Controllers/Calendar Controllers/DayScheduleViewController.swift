@@ -18,6 +18,15 @@ class DayScheduleViewController: DayViewController{
     let realm = try! Realm()
     let defaults = UserDefaults.standard
     
+    @IBAction func logNotifs(_ sender: UIBarButtonItem) {
+        print("notifications: ")
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests(completionHandler: { requests in
+            for request in requests {
+                print(request)
+            }
+        })
+    }
     @IBAction func settingsButtonPressed(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "toSettings", sender: self)
     }

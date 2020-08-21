@@ -61,7 +61,6 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     
     override func updateModelEdit(at indexPath: IndexPath) {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        
         let eventForEdit = deletableEventCell.event! as! Habit
         let addHabitViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
         addHabitViewController.delegate = self
@@ -70,6 +69,8 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         addHabitViewController.title = "View/Edit Habit"
         let navController = UINavigationController(rootViewController: addHabitViewController)
         self.present(navController, animated:true, completion: nil)
+        
+        
         
     }
 }

@@ -106,7 +106,21 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         addCourseViewController.title = "View/Edit Course"
         let navController = UINavigationController(rootViewController: addCourseViewController)
         self.present(navController, animated:true, completion: nil)
-        
+    }
+    
+    override func updateModelDelete(at indexPath: IndexPath) {
+        //delete notifications.
+        UNUserNotificationCenter.current().getPendingNotificationRequests { (notificationRequests) in
+            let course = self.courses![indexPath.row]
+            var identifiers: [String] = course.notificationIdentifiers
+
+           for notification:UNNotificationRequest in notificationRequests {
+               if notification.identifier == "identifierCancel" {
+                  identifiers.append(notification.identifier)
+               }
+           }
+           UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+        }
     }
 
     //MARK: - UI Actions
