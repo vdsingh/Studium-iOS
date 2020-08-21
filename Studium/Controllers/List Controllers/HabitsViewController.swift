@@ -13,6 +13,8 @@ import UIKit
 class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     //let realm = try! Realm()
     var habits: Results<Habit>?
+    let defaults = UserDefaults.standard
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -27,7 +29,11 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         let addHabitViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
         addHabitViewController.delegate = self
         let navController = UINavigationController(rootViewController: addHabitViewController)
-//        ColorPickerCell.color = K.defaultColorPickerColor
+        if defaults.string(forKey: "themeColor") != nil{
+            ColorPickerCell.color = UIColor(hexString: defaults.string(forKey: "themeColor")!)
+        }else{
+            ColorPickerCell.color = K.defaultThemeColor
+        }
         self.present(navController, animated:true, completion: nil)
         
     }
@@ -69,8 +75,21 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         addHabitViewController.title = "View/Edit Habit"
         let navController = UINavigationController(rootViewController: addHabitViewController)
         self.present(navController, animated:true, completion: nil)
+    }
+    
+    override func updateModelDelete(at indexPath: IndexPath) {
+        let habit = self.habits![indexPath.row]
+//        print("Course Deleting: \(course.name)")
+        var identifiers: [String] = []
+        
+        for id in habit.notificationIdentifiers{
+            identifiers.append(id)
+            print("id being deleted: \(id)")
+        }
+        
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
         
         
-        
+        super.updateModelDelete(at: indexPath)
     }
 }

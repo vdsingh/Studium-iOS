@@ -17,7 +17,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     
     
     let defaults = UserDefaults.standard
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCourses()
@@ -27,7 +27,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         
         tableView.register(UINib(nibName: "CourseCell", bundle: nil), forCellReuseIdentifier: "Cell")
         
-//        loadCourses()
+        //        loadCourses()
         
         
         tableView.delegate = self //setting delegate class for the table view to be this
@@ -50,7 +50,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         //        navBar.barTintColor = UIColor.gray
     }
     override func viewDidAppear(_ animated: Bool) {
-//        loadCourses()
+        //        loadCourses()
     }
     
     
@@ -61,7 +61,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! CourseCell
         if let course = courses?[indexPath.row]{
             cell.course = course
-//            cell.deloadData()
+            //            cell.deloadData()
             cell.loadData(courseName: course.name, location: course.location, startTime: course.startDate, endTime: course.endDate, days: course.days, colorHex: course.color, course: course, systemImageString: course.systemImageString)
         }
         return cell
@@ -91,7 +91,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     //MARK: - CRUD Methods
     func loadCourses(){
         courses = realm.objects(Course.self) //fetching all objects of type Course and updating array with it.
-//        print(courses)
+        //        print(courses)
         tableView.reloadData()
     }
     
@@ -109,33 +109,22 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     }
     
     override func updateModelDelete(at indexPath: IndexPath) {
-//        delete notifications.
-                let course = self.courses![indexPath.row]
+        //        delete notifications.
+        let course = self.courses![indexPath.row]
         print("Course Deleting: \(course.name)")
-                var identifiers: [String] = []
-                
-                for id in course.notificationIdentifiers{
-                    identifiers.append(id)
-                    print("id being deleted: \(id)")
-                }
-
-               UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
-            
+        var identifiers: [String] = []
         
-        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        if let eventForDeletion = deletableEventCell.event{
-            do{
-                try realm.write{
-                    realm.delete(eventForDeletion)
-                }
-            }catch{
-                print(error)
-            }
-        }else{
-            print("event for deletion is nil")
+        for id in course.notificationIdentifiers{
+            identifiers.append(id)
+            print("id being deleted: \(id)")
         }
+        
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+        
+        
+        super.updateModelDelete(at: indexPath)
     }
-
+    
     //MARK: - UI Actions
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
@@ -145,7 +134,6 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
             ColorPickerCell.color = UIColor(hexString: defaults.string(forKey: "themeColor")!)
         }else{
             ColorPickerCell.color = K.defaultThemeColor
-
         }
         self.present(navController, animated:true, completion: nil)
     }

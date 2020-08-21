@@ -65,18 +65,18 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     }
     
     func updateModelDelete(at indexPath: IndexPath){
-//        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-//        if let eventForDeletion = deletableEventCell.event{
-//            do{
-//                try realm.write{
-//                    realm.delete(eventForDeletion)
-//                }
-//            }catch{
-//                print(error)
-//            }
-//        }else{
-//            print("event for deletion is nil")
-//        }
+        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        if let eventForDeletion = deletableEventCell.event{
+            do{
+                try realm.write{
+                    realm.delete(eventForDeletion)
+                }
+            }catch{
+                print(error)
+            }
+        }else{
+            print("event for deletion is nil")
+        }
     }
     
     func updateModelEdit(at indexPath: IndexPath){

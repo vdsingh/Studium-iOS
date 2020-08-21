@@ -55,6 +55,8 @@ class HabitCell: DeletableEventCell {
                 label.textColor = .white
             }else{
                 label.textColor = UIColor(hexString: habit.color)
+                label.backgroundColor = .none
+
             }
         }
     }

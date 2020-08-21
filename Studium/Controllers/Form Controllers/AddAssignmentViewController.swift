@@ -143,6 +143,7 @@ extension AddAssignmentViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
+            cell.date = dueDate
             cell.timeLabel.text = dueDate.format(with: "MMM d, h:mm a")
             cell.label.text = cellText[indexPath.section][indexPath.row]
             return cell

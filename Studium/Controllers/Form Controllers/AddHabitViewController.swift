@@ -178,7 +178,10 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
                         }
                         //                    let alertTimeDouble: Double = Double(alertTime)
                         let timeFormat = startDate.format(with: "H:MM a")
-                        scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: "\(name) \(alertTime)")
+                        
+                        let identifier = UUID().uuidString
+                        newHabit.notificationIdentifiers.append(identifier)
+                        scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                     }
                 }
                 save(habit: newHabit)
@@ -526,7 +529,7 @@ extension AddHabitViewController: UITimePickerDelegate{
 extension AddHabitViewController: CanHandleSwitch{
     //method triggered when the autoschedule switch is triggered
     func switchValueChanged(sender: UISwitch) {
-        retrieveData()
+//        retrieveData()
         if sender.isOn{//auto schedule
             cellText = cellTextAuto
             cellType = cellTypeAuto

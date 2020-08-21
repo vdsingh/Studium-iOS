@@ -32,7 +32,7 @@ class Habit: Object, StudiumEvent{
     @objc dynamic var systemImageString: String = "pencil"
 
     let notificationAlertTimes = List<Int>()
-
+    let notificationIdentifiers = List<String>()
 
     //List of days that this habit occurs on.
     let days = List<String>()
