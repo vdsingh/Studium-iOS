@@ -109,17 +109,30 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     }
     
     override func updateModelDelete(at indexPath: IndexPath) {
-        //delete notifications.
-        UNUserNotificationCenter.current().getPendingNotificationRequests { (notificationRequests) in
-            let course = self.courses![indexPath.row]
-            var identifiers: [String] = course.notificationIdentifiers
+//        delete notifications.
+                let course = self.courses![indexPath.row]
+        print("Course Deleting: \(course.name)")
+                var identifiers: [String] = []
+                
+                for id in course.notificationIdentifiers{
+                    identifiers.append(id)
+                    print("id being deleted: \(id)")
+                }
 
-           for notification:UNNotificationRequest in notificationRequests {
-               if notification.identifier == "identifierCancel" {
-                  identifiers.append(notification.identifier)
-               }
-           }
-           UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+               UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+            
+        
+        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        if let eventForDeletion = deletableEventCell.event{
+            do{
+                try realm.write{
+                    realm.delete(eventForDeletion)
+                }
+            }catch{
+                print(error)
+            }
+        }else{
+            print("event for deletion is nil")
         }
     }
 

@@ -32,8 +32,7 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate{
 //        content.categoryIdentifier = identifier
         
         
-        let uuidString = UUID().uuidString
-        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         //identifiers for courses are stored as "courseName alertTime"
 //        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
 //        print(request)
