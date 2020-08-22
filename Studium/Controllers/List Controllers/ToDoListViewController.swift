@@ -60,7 +60,6 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     override func updateModelDelete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
             do{
-                
                 try self.realm.write{
                     if let assignment = cell.event as? Assignment{
                         let parentCourse = assignment.parentCourse[0]
@@ -69,7 +68,6 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
                     }
                     self.realm.delete(cell.event!)
                 }
-                
             }catch{
                 print("Error deleting OtherEvent")
             }
@@ -94,10 +92,8 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
             addToDoListEventViewController.title = "View/Edit To-Do Event"
             let navController = UINavigationController(rootViewController: addToDoListEventViewController)
             self.present(navController, animated:true, completion: nil)
-
         }
     }
-    
     
     func getOtherEvents() -> Results<OtherEvent>{
         otherEvents = realm.objects(OtherEvent.self)
@@ -119,8 +115,6 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        print("all events: \(allEvents)")
-//        print("\(allEvents[indexPath.section][indexPath.row] is Assignment)")
         if allEvents[indexPath.section][indexPath.row] is Assignment {
             super.idString = "AssignmentCell"
             let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell
@@ -133,20 +127,22 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
             let cell = super.tableView(tableView, cellForRowAt: indexPath) as! OtherEventCell
             let otherEvent = allEvents[indexPath.section][indexPath.row] as! OtherEvent
             cell.loadData(from: otherEvent)
-
             return cell
         }else{
+            print("created poo cell")
             let cell = super.tableView(tableView, cellForRowAt: indexPath)
             return cell
         }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return allEvents.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        
+//        print("assignmetncell at section \(indexPath.section). row \(indexPath.row)")
+        return 70
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
@@ -177,14 +173,15 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
                 }
             }
         }else if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell{
-                let otherEvent = cell.otherEvent
+            if let otherEvent = cell.otherEvent{
                 do{
                     try realm.write{
-                        otherEvent!.complete = !otherEvent!.complete
+                        otherEvent.complete = !otherEvent.complete
                     }
                 }catch{
                     print(error)
                 }
+            }
         }
         refreshData()
         tableView.deselectRow(at: indexPath, animated: true)

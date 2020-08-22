@@ -31,8 +31,19 @@ class OtherEventCell: DeletableEventCell{
     
     func loadData(from otherEvent: OtherEvent){
         event = otherEvent
+        
+        let attributeString = NSMutableAttributedString(string: otherEvent.name)
+        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+        if otherEvent.complete{
+            nameLabel.attributedText = attributeString
+        }else{
+            print("removed strikethrough.")
+            attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
+            nameLabel.attributedText = attributeString
+        }
+        
         self.otherEvent = otherEvent
-        nameLabel.text = otherEvent.name
+
         locationLabel.text = otherEvent.location
         startTimeLabel.text = otherEvent.startDate.format(with: "MMM d, h:mm a")
         endTimeLabel.text = otherEvent.endDate.format(with: "MMM d, h:mm a")

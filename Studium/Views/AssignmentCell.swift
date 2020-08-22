@@ -40,17 +40,13 @@ class AssignmentCell: DeletableEventCell {
         }else{
             attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
             assignmentNameLabel.attributedText = attributeString
-            
         }
         self.assignment = assignment
+        self.event = assignment
         courseNameLabel.text = assignment.parentCourse[0].name
         
         icon.image = UIImage(systemName: assignment.parentCourse[0].systemImageString)
         icon.tintColor = UIColor(hexString: assignment.parentCourse[0].color)
         dueDateLabel.text = assignment.endDate.format(with: "MMM d, h:mm a")
-    }
-    
-    func loadCompleteAttributes(){
-        
     }
 }
