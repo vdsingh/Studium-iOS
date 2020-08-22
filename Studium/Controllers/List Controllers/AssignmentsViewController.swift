@@ -44,10 +44,10 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
                 navBar.barTintColor = navBarColor
                 //navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(navBarColor, returnFlat: true)]
             }else{
-                print("fart")
+                print("error")
             }
         }else{
-            print("ughhh")
+            print("error")
         }
         loadAssignments()
         //reloadData()

@@ -88,7 +88,6 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
         times = [startDate, endDate]
         
         
-        print("Celltype changed")
         //by default, the form type is Habit isn't automatically scheduled
         cellText = cellTextNoAuto
         cellType = cellTypeNoAuto
@@ -149,7 +148,6 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
                 
                 for alertTime in alertTimes{
                     for day in daysSelected{
-                        print("startDate = \(startDate)")
                         
                         let weekday = Date.convertDayToWeekday(day: day)
                         let weekdayAsInt = Date.convertDayToInt(day: day)
@@ -189,7 +187,6 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
             }else{
                 do{
                     try realm.write{
-                        print("editing course")
                         habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoSchedule: autoschedule, startEarlier: earlier, totalHourTime: totalLengthHours, totalMinuteTime: totalLengthMinutes, daysSelected: daysSelected, systemImageString: systemImageString, colorHex: colorValue)
                     }
                 }catch{

@@ -114,14 +114,22 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         print("Course Deleting: \(course.name)")
         var identifiers: [String] = []
         
-        for id in course.notificationIdentifiers{
-            identifiers.append(id)
-            print("id being deleted: \(id)")
-        }
+        identifiers.append(contentsOf: course.notificationIdentifiers)
+        
+        
+        for assignment in course.assignments{
+            identifiers.append(contentsOf: assignment.notificationIdentifiers)
+                do{
+                    try realm.write{
+                        realm.delete(assignment)
+                    }
+                }catch{
+                    print(error)
+                }
+            }
         
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
-        
-        
+
         super.updateModelDelete(at: indexPath)
     }
     

@@ -18,25 +18,15 @@ class ColorPickerCell: UITableViewCell {
     static var color: UIColor?
     override func awakeFromNib() {
         super.awakeFromNib()
-        print("awakeFromNib called")
-//        colorPreview.backgroundColor = colorPicker.selectedColor
-//        colorPicker.selectedColor = color
-//        colorPicker.reloadInputViews()
         if ColorPickerCell.color != nil{
             colorPicker.selectedColor = ColorPickerCell.color!
             colorPreview.backgroundColor = ColorPickerCell.color!
         }
         print(colorPicker.selectedColor.hexValue())
-//        colorPicker.reload
-
     }
-
-
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     @IBAction func colorValueChanged(_ sender: RadialPaletteControl) {
         colorPreview.backgroundColor = sender.selectedColor

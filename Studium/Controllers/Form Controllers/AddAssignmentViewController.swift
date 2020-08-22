@@ -140,6 +140,7 @@ extension AddAssignmentViewController{
         if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
+            cell.textField.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell

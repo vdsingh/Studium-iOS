@@ -21,6 +21,9 @@ class Assignment: Object, StudiumEvent{
     
     //Specifies whether or not the Assignment object is marked as complete or not. This determines where it lies in a tableView and whether or not it's crossed out.
     @objc dynamic var complete: Bool = false
+    
+    //track the identifiers of all notifications associated with this assignment.
+    let notificationIdentifiers = List<String>()
 
     //This is a link to the Course that the Assignment object is categorized under.
     var parentCourse = LinkingObjects(fromType: Course.self, property: "assignments")

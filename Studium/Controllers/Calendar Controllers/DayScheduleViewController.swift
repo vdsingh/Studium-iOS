@@ -110,7 +110,7 @@ class DayScheduleViewController: DayViewController{
                     while true {
                         counter+=1
                         if endBound.hour >= habit.endDate.hour && endBound.minute > habit.endDate.minute{
-                            //                                    print("was no time to schedule this event")
+                            print("there was no time to schedule this habit.")
                             break
                         }
                         if isEventBetween(time1: startBound, time2: endBound, events: outsideEvents){
@@ -194,6 +194,23 @@ class DayScheduleViewController: DayViewController{
         return nil
     }
     
+    func addAssignments(for date: Date) -> [Event]{
+        var events: [Event] = []
+        let allAssignments = realm.objects(Assignment.self)
+            for assignment in allAssignments{
+                if assignment.endDate.year == date.year && assignment.endDate.day == date.day{
+                    let newEvent = Event()
+                    newEvent.startDate = assignment.startDate
+                    newEvent.endDate = assignment.endDate
+                    newEvent.text = "\(assignment.name) due at \(assignment.endDate.format(with: "h:mm a"))"
+                    
+                    events.append(newEvent)
+                }
+                
+            }
+        return events
+    }
+    
     var generatedEvents = [EventDescriptor]()
     var alreadyGeneratedSet = Set<Date>()
     
@@ -214,43 +231,27 @@ class DayScheduleViewController: DayViewController{
         super.viewDidLoad()
         
         dayView.autoScrollToFirstEvent = true
-        reloadData()
     }
     
-    
-    //returns a date without any time components (strictly the date)
-    func dateOnly(date: Date, calendar: Calendar) -> Date {
-        let yearComponent = calendar.component(.year, from: date)
-        let monthComponent = calendar.component(.month, from: date)
-        let dayComponent = calendar.component(.day, from: date)
-        let zone = calendar.timeZone
-        
-        let newComponents = DateComponents(timeZone: zone,
-                                           year: yearComponent,
-                                           month: monthComponent,
-                                           day: dayComponent)
-        let returnValue = calendar.date(from: newComponents)
-        
-        //    let returnValue = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: date)
-        
-        
-        return returnValue!
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidLoad()
     }
+
+
     
     // MARK: EventDataSource
     
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
-        if !alreadyGeneratedSet.contains(date) {
-            alreadyGeneratedSet.insert(date)
-            generatedEvents.append(contentsOf: generateEventsForDate(date))
-        }
-        return generatedEvents
+        return generateEventsForDate(date)
     }
     private func generateEventsForDate(_ date: Date) -> [EventDescriptor]{
+        print("generate events for date: \(date) called.")
+        
         var events: [Event] = []
         events = events + addCourses(for: date)
         events = events + addWakeTimes(for: date)
         events = events + addHabits(for: date, with: events)
+        events = events + addAssignments(for: date)
 //        for event in events{
             //            print(event.text)
             //            print(event.startDate)

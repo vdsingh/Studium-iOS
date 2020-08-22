@@ -81,9 +81,7 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        
-        print(alertTimes)
+
     }
     
     //when we pick a logo, this function is called to update the preview on the logo cell.
@@ -286,7 +284,6 @@ extension AddCourseViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ColorPickerCell", for: indexPath) as! ColorPickerCell
-            print("colorpicker cfra called")
             //cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
