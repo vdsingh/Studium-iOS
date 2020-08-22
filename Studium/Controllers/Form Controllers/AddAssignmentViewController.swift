@@ -79,7 +79,20 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             }else{
                 do{
                     try realm.write{
-                        assignment?.initializeData(name: name, additionalDetails: additionalDetails, complete: assignment!.complete, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes)
+                        assignment!.deleteNotifications()
+                        for alertTime in alertTimes{
+                            let alertDate = dueDate - (Double(alertTime) * 60)
+                            var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
+                            components.second = 0
+                            
+                            let identifier = UUID().uuidString
+                            assignment!.notificationIdentifiers.append(identifier)
+                            
+
+                            scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+                            
+                        }
+                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: assignment!.complete, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes)
                     }
                 }catch{
                     print(error)

@@ -20,6 +20,8 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate{
     //method to schedule Local Notifications to the User.
     func scheduleNotification(components: DateComponents, body: String, titles:String, repeatNotif: Bool, identifier: String) {
         
+        print("notification scheduled.")
+        
 //        let triggerWeekly = Calendar.current.dateComponents([.weekday,.hour,.minute], from: date)
         print(components)
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: repeatNotif)
@@ -40,7 +42,7 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate{
         //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNUserNotificationCenter.current().add(request) {(error) in
             if error != nil {
-                print(error ?? "")
+                print(error!)
             }
         }
     }

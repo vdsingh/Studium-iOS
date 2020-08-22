@@ -65,7 +65,9 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
                         let parentCourse = assignment.parentCourse[0]
                         let assignmentIndex = parentCourse.assignments.index(of: assignment)
                         parentCourse.assignments.remove(at: assignmentIndex!)
+                        assignment.deleteNotifications()
                     }
+                    cell.event!.deleteNotifications()
                     self.realm.delete(cell.event!)
                 }
             }catch{

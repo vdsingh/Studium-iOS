@@ -211,6 +211,23 @@ class DayScheduleViewController: DayViewController{
         return events
     }
     
+    func addOtherEvents(for date: Date) -> [Event]{
+        var events: [Event] = []
+        let allOtherEvents = realm.objects(OtherEvent.self)
+            for otherEvent in allOtherEvents{
+                if otherEvent.endDate.year == date.year && otherEvent.endDate.day == date.day{
+                    let newEvent = Event()
+                    newEvent.startDate = otherEvent.startDate
+                    newEvent.endDate = otherEvent.endDate
+                    newEvent.text = "\(otherEvent.name) from \(otherEvent.startDate.format(with: "h:mm a")) to \(otherEvent.startDate.format(with: "h:mm a"))"
+                    
+                    events.append(newEvent)
+                }
+                
+            }
+        return events
+    }
+    
     var generatedEvents = [EventDescriptor]()
     var alreadyGeneratedSet = Set<Date>()
     
@@ -250,6 +267,7 @@ class DayScheduleViewController: DayViewController{
         var events: [Event] = []
         events = events + addCourses(for: date)
         events = events + addWakeTimes(for: date)
+        events = events + addOtherEvents(for: date)
         events = events + addHabits(for: date, with: events)
         events = events + addAssignments(for: date)
 //        for event in events{

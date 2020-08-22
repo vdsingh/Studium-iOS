@@ -74,22 +74,39 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
         //there are no errors
         if errors == ""{
             if otherEvent == nil{
-            let newEvent = OtherEvent()
+                let newEvent = OtherEvent()
                 newEvent.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes)
                 for alertTime in alertTimes{
-                   let alertDate = startDate - (Double(alertTime) * 60)
-                   var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
-                   components.second = 0
-
-                   let identifier = UUID().uuidString
-                   newEvent.notificationIdentifiers.append(identifier)
-                   scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+                    let alertDate = startDate - (Double(alertTime) * 60)
+                    var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
+                    components.second = 0
+                    
+                    let identifier = UUID().uuidString
+                    newEvent.notificationIdentifiers.append(identifier)
+                    scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                 }
                 save(otherEvent: newEvent)
             }else{
                 do{
-                    try realm.write{
-                        otherEvent!.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes)
+                    //                        otherEvent!.deleteNotifications()
+                    
+                    for alertTime in alertTimes{
+                        print("for loop iteration")
+                        let alertDate = startDate - (Double(alertTime) * 60)
+                        var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
+                        components.second = 0
+                        
+                        let identifier = UUID().uuidString
+                        try realm.write{
+                            
+                            otherEvent!.notificationIdentifiers.append(identifier)
+                        }
+                        scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+                        
+                        try realm.write{
+                            otherEvent!.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes)
+                        }
+                        
                     }
                 }catch{
                     print(error)
@@ -107,7 +124,7 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
-
+        
     }
     
     //writing to Realm.
@@ -215,49 +232,49 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
                 }
             }else{
                 let alert = UIAlertController(title: "No Courses Available", message: "You haven't added any Courses yet. To add an Assignment, please add a Course first.", preferredStyle: .alert)
-
+                
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-
+                
                 self.present(alert, animated: true)
             }
         }else if cellText[indexPath.section][indexPath.row] == "Remind Me"{
             performSegue(withIdentifier: "toAlertSelection", sender: self)
         }else{
-        
-        //handles timeCells trigger timePickerCells.
-        let selectedRowText = cellText[indexPath.section][indexPath.row]
-        if cellType[indexPath.section][indexPath.row] == "TimeCell"{
-            var pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")
-            if pickerIndex == nil{
-                pickerIndex = cellType[indexPath.section].firstIndex(of: "PickerCell")
-            }
-            tableView.beginUpdates()
             
-            if let index = pickerIndex{
-                cellText[indexPath.section].remove(at: index)
-                cellType[indexPath.section].remove(at: index)
-                tableView.deleteRows(at: [IndexPath(row: index, section: indexPath.section)], with: .right)
-                if index == indexPath.row + 1{
-                    tableView.endUpdates()
-                    return
+            //handles timeCells trigger timePickerCells.
+            let selectedRowText = cellText[indexPath.section][indexPath.row]
+            if cellType[indexPath.section][indexPath.row] == "TimeCell"{
+                var pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")
+                if pickerIndex == nil{
+                    pickerIndex = cellType[indexPath.section].firstIndex(of: "PickerCell")
                 }
-            }
-            
-            let newIndex = cellText[indexPath.section].firstIndex(of: selectedRowText)! + 1
-            
-            tableView.insertRows(at: [IndexPath(row: newIndex, section: indexPath.section)], with: .left)
-            cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
-            cellText[indexPath.section].insert("", at: newIndex)
-            tableView.endUpdates()
+                tableView.beginUpdates()
+                
+                if let index = pickerIndex{
+                    cellText[indexPath.section].remove(at: index)
+                    cellType[indexPath.section].remove(at: index)
+                    tableView.deleteRows(at: [IndexPath(row: index, section: indexPath.section)], with: .right)
+                    if index == indexPath.row + 1{
+                        tableView.endUpdates()
+                        return
+                    }
+                }
+                
+                let newIndex = cellText[indexPath.section].firstIndex(of: selectedRowText)! + 1
+                
+                tableView.insertRows(at: [IndexPath(row: newIndex, section: indexPath.section)], with: .left)
+                cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
+                cellText[indexPath.section].insert("", at: newIndex)
+                tableView.endUpdates()
             }
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if let destinationVC = segue.destination as? AlertTableViewController{
-                destinationVC.delegate = self
-            }
+        if let destinationVC = segue.destination as? AlertTableViewController{
+            destinationVC.delegate = self
         }
+    }
     
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
         //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.

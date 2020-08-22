@@ -14,6 +14,7 @@ import RealmSwift
 protocol StudiumEvent: Object{
     var name: String {get set}
     var startDate: Date {get set}
+    func deleteNotifications()
 }
 
 extension String { //string extension for subscript access.
@@ -41,5 +42,7 @@ extension String { //string extension for subscript access.
         let end = index(start, offsetBy: range.upperBound - range.lowerBound)
         return String(self[start ..< end])
     }
+    
+    
 
 }

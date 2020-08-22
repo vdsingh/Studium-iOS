@@ -80,14 +80,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     override func updateModelDelete(at indexPath: IndexPath) {
         let habit = self.habits![indexPath.row]
 //        print("Course Deleting: \(course.name)")
-        var identifiers: [String] = []
-        
-        for id in habit.notificationIdentifiers{
-            identifiers.append(id)
-            print("id being deleted: \(id)")
-        }
-        
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+        habit.deleteNotifications()
         
         
         super.updateModelDelete(at: indexPath)

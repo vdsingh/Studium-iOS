@@ -58,5 +58,14 @@ class Course: Object, StudiumEvent{
             self.days.append(day)
         }
     }
+    
+    func deleteNotifications(){
+        var identifiers: [String] = []
+        for id in notificationIdentifiers{
+            identifiers.append(id)
+        }
+        notificationIdentifiers.removeAll()
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+    }
 
 }
