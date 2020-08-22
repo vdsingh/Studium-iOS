@@ -55,11 +55,17 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         if errors == "" {
             let newAssignment = Assignment()
             newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!)
-            let alertDate = dueDate - (60*60)
-            var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
-            components.second = 0
+            
+            for alertTime in alertTimes{
+                let alertDate = dueDate - (Double(alertTime) * 60)
+                var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
+                components.second = 0
 
-            scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: "\(name) \(39)")
+                
+                let identifier = UUID().uuidString
+                newAssignment.notificationIdentifiers.append(identifier)
+                scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+            }
             save(assignment: newAssignment)
             delegate?.loadAssignments()
             
