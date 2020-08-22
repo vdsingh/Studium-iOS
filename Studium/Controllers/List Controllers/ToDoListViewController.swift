@@ -11,6 +11,8 @@ import RealmSwift
 import ChameleonFramework
 
 class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
+    
+    
         
     var assignments: Results<Assignment>? //Auto updating array linked to the realm
     var otherEvents: Results<OtherEvent>?
@@ -89,6 +91,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     func openAssignmentForm(){
         let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
         let navController = UINavigationController(rootViewController: addAssignmentViewController)
+        addAssignmentViewController.delegate = self
         self.present(navController, animated:true, completion: nil)
     }
     
@@ -162,5 +165,11 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         }
         refreshData()
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension ToDoListViewController: AssignmentRefreshProtocol{
+    func loadAssignments() {
+        refreshData()
     }
 }

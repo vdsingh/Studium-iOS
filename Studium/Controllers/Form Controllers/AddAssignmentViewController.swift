@@ -6,7 +6,8 @@ protocol AssignmentRefreshProtocol{
     func loadAssignments()
 }
 
-class AddAssignmentViewController: MasterForm{
+class AddAssignmentViewController: MasterForm, AlertInfoStorer{
+    
     
     //a list of courses so that the user can pick which course the assignment is attached to
     var courses: Results<Course>? = nil
@@ -15,8 +16,8 @@ class AddAssignmentViewController: MasterForm{
     var delegate: AssignmentRefreshProtocol?
     
     //array variables that lay our form out into sections and rows
-    var cellText: [[String]] = [["Name", "Due Date"], ["Course"], ["Additional Details"], [""]]
-    var cellType: [[String]] = [["TextFieldCell", "TimeCell"], ["PickerCell"], ["TextFieldCell"], ["LabelCell"]]
+    var cellText: [[String]] = [["Name", "Due Date", "Remind Me"], ["Course"], ["Additional Details", ""]]
+    var cellType: [[String]] = [["TextFieldCell", "TimeCell", "LabelCell"], ["PickerCell"], ["TextFieldCell", "LabelCell"]]
     
     //errors string that is displayed if there are any issues (e.g: user didnt enter a name)
     var errors: String = ""
@@ -27,13 +28,15 @@ class AddAssignmentViewController: MasterForm{
     var name: String = ""
     var additionalDetails: String = ""
     
+    var alertTimes: [Int] = []
+
+    
     override func viewDidLoad() {
         //registering the necessary cells for the form.
         tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
         tableView.register(UINib(nibName: "TimeCell", bundle: nil), forCellReuseIdentifier: "TimeCell")
         tableView.register(UINib(nibName: "PickerCell", bundle: nil), forCellReuseIdentifier: "PickerCell")
         tableView.register(UINib(nibName: "TimePickerCell", bundle: nil), forCellReuseIdentifier: "TimePickerCell")
-        tableView.register(UINib(nibName: "DaySelectorCell", bundle: nil), forCellReuseIdentifier: "DaySelectorCell")
         tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
         tableView.tableFooterView = UIView()
         
@@ -59,6 +62,7 @@ class AddAssignmentViewController: MasterForm{
             scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: "\(name) \(39)")
             save(assignment: newAssignment)
             delegate?.loadAssignments()
+            
             dismiss(animated: true, completion: nil)
         }else{
             cellText[3][0] = errors
@@ -163,7 +167,12 @@ extension AddAssignmentViewController{
         }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
             cell.label.text = cellText[indexPath.section][indexPath.row]
-            cell.label.textColor = UIColor.red
+
+            if indexPath.section == 2{
+                cell.label.textColor = UIColor.red
+            }else{
+                cell.accessoryType = .disclosureIndicator
+            }
             return cell
         }else{
             return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
@@ -182,6 +191,7 @@ extension AddAssignmentViewController{
     
     //handles adding and removing Pickers when necessary
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let selectedRowText = cellText[indexPath.section][indexPath.row]
         if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             var pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")
@@ -207,8 +217,17 @@ extension AddAssignmentViewController{
             cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
             cellText[indexPath.section].insert("", at: newIndex)
             tableView.endUpdates()
+        }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{ //user selected "Remind Me"
+            performSegue(withIdentifier: "toAlertSelection", sender: self)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if let destinationVC = segue.destination as? AlertTableViewController{
+                destinationVC.delegate = self
+    //            destinationVC.alertTimes = alertTimes
+            }
+        }
 }
 
 //MARK: - TimerPicker DataSource Methods
