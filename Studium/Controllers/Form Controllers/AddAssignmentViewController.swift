@@ -7,7 +7,8 @@ protocol AssignmentRefreshProtocol{
 }
 
 class AddAssignmentViewController: MasterForm, AlertInfoStorer{
-    
+    //holds the assignment being edited if an assignment is being edited.
+    var assignment: Assignment?
     
     //a list of courses so that the user can pick which course the assignment is attached to
     var courses: Results<Course>? = nil
@@ -42,6 +43,10 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         
         //getting all courses from realm to populate the course picker.
         courses = realm.objects(Course.self)
+        
+        if assignment != nil{
+            fillForm(with: assignment!)
+        }
     }
     
     //method that is triggered when the user wants to finalize the form
@@ -53,20 +58,30 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         }
         
         if errors == "" {
-            let newAssignment = Assignment()
-            newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!)
-            
-            for alertTime in alertTimes{
-                let alertDate = dueDate - (Double(alertTime) * 60)
-                var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
-                components.second = 0
-
+            if assignment == nil{
+                let newAssignment = Assignment()
+                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes)
                 
-                let identifier = UUID().uuidString
-                newAssignment.notificationIdentifiers.append(identifier)
-                scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+                for alertTime in alertTimes{
+                    let alertDate = dueDate - (Double(alertTime) * 60)
+                    var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
+                    components.second = 0
+
+                    
+                    let identifier = UUID().uuidString
+                    newAssignment.notificationIdentifiers.append(identifier)
+                    scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+                }
+                save(assignment: newAssignment)
+            }else{
+                do{
+                    try realm.write{
+                        assignment?.initializeData(name: name, additionalDetails: additionalDetails, complete: assignment!.complete, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes)
+                    }
+                }catch{
+                    print(error)
+                }
             }
-            save(assignment: newAssignment)
             delegate?.loadAssignments()
             
             dismiss(animated: true, completion: nil)
@@ -270,6 +285,27 @@ extension AddAssignmentViewController: UITimePickerDelegate{
         let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
         correspondingTimeCell.date = sender.date
         correspondingTimeCell.timeLabel.text = sender.date.format(with: "MMM d, h:mm a")
+    }
+}
+
+extension AddAssignmentViewController{
+    func fillForm(with assignment: Assignment){
+        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
+        nameCell.textField.text = assignment.name
+        
+        let dueDateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
+        dueDate = assignment.endDate
+        dueDateCell.timeLabel.text = dueDate.format(with: "h:mm a")
+        dueDateCell.date = dueDate
+        
+        alertTimes = []
+        for alert in assignment.notificationAlertTimes{
+            alertTimes.append(alert)
+        }
+        
+        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TextFieldCell
+        additionalDetailsCell.textField.text = assignment.additionalDetails
+        
     }
 }
 

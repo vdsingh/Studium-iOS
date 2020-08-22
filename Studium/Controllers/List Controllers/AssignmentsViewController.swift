@@ -154,10 +154,22 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
                        self.realm.delete(cell.event!)
                    }
                }catch{
-                   print("ERROR MANE")
+                   print("error with deleting assignment")
                }
            assignmentsArr[indexPath.section].remove(at: indexPath.row)
        }
+    
+    override func updateModelEdit(at indexPath: IndexPath) {
+        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        
+        let eventForEdit = deletableEventCell.event! as! Assignment
+        let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
+        addAssignmentViewController.delegate = self
+        addAssignmentViewController.assignment = eventForEdit
+        addAssignmentViewController.title = "View/Edit Assignment"
+        let navController = UINavigationController(rootViewController: addAssignmentViewController)
+        self.present(navController, animated:true, completion: nil)
+    }
     
     //MARK: - Search Bar
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

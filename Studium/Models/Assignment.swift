@@ -24,18 +24,24 @@ class Assignment: Object, StudiumEvent{
     
     //track the identifiers of all notifications associated with this assignment.
     let notificationIdentifiers = List<String>()
+    let notificationAlertTimes = List<Int>()
 
     //This is a link to the Course that the Assignment object is categorized under.
     var parentCourse = LinkingObjects(fromType: Course.self, property: "assignments")
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, course: Course) {
+    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, course: Course, notificationAlertTimes: [Int]) {
 
         self.name = name
         self.additionalDetails = additionalDetails
         self.complete = complete
         self.startDate = startDate
         self.endDate = endDate
+        
+        self.notificationAlertTimes.removeAll()
+        for alertTime in notificationAlertTimes{
+            self.notificationAlertTimes.append(alertTime)
+        }
         
     }
 }
