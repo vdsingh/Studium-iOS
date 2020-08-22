@@ -115,8 +115,6 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         var identifiers: [String] = []
         
         identifiers.append(contentsOf: course.notificationIdentifiers)
-        
-        
         for assignment in course.assignments{
             identifiers.append(contentsOf: assignment.notificationIdentifiers)
                 do{

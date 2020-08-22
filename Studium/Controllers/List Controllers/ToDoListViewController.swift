@@ -71,10 +71,33 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
                 }
                 
             }catch{
-                print("ERROR")
+                print("Error deleting OtherEvent")
             }
         allEvents[indexPath.section].remove(at: indexPath.row)
     }
+    
+    override func updateModelEdit(at indexPath: IndexPath) {
+        print("edit called")
+        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        if let eventForEdit = deletableEventCell.event! as? Assignment{
+            let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
+            addAssignmentViewController.delegate = self
+            addAssignmentViewController.assignment = eventForEdit
+            addAssignmentViewController.title = "View/Edit Assignment"
+            let navController = UINavigationController(rootViewController: addAssignmentViewController)
+            self.present(navController, animated:true, completion: nil)
+        }else if let eventForEdit = deletableEventCell.event! as? OtherEvent{
+            print("event is otherevent.")
+            let addToDoListEventViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddToDoListEventViewController") as! AddToDoListEventViewController
+            addToDoListEventViewController.delegate = self
+            addToDoListEventViewController.otherEvent = eventForEdit
+            addToDoListEventViewController.title = "View/Edit To-Do Event"
+            let navController = UINavigationController(rootViewController: addToDoListEventViewController)
+            self.present(navController, animated:true, completion: nil)
+
+        }
+    }
+    
     
     func getOtherEvents() -> Results<OtherEvent>{
         otherEvents = realm.objects(OtherEvent.self)

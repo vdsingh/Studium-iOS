@@ -22,12 +22,21 @@ class OtherEvent: Object, StudiumEvent{
     //Specifies whether or not the OtherEvent object is marked as complete or not. This determines where it lies in a tableView and whether or not it's crossed out.
     @objc dynamic var complete: Bool = false
     
+    let notificationAlertTimes = List<Int>()
+    let notificationIdentifiers = List<String>()
+    
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(startDate: Date, endDate: Date, name: String, location: String, additionalDetails: String){
+    func initializeData(startDate: Date, endDate: Date, name: String, location: String, additionalDetails: String, notificationAlertTimes: [Int]){
         self.startDate = startDate
         self.endDate = endDate
         self.name = name
         self.location = location
         self.additionalDetails = additionalDetails
+        
+        self.notificationAlertTimes.removeAll()
+        for time in notificationAlertTimes{
+            self.notificationAlertTimes.append(time)
+        }
+        
     }
 }

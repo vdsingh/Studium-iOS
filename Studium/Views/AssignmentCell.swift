@@ -19,7 +19,6 @@ class AssignmentCell: DeletableEventCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        icon.transform = icon.transform.rotated(by: 3.1415/4)
         
         // Initialization code
     }
@@ -46,11 +45,9 @@ class AssignmentCell: DeletableEventCell {
         self.assignment = assignment
         courseNameLabel.text = assignment.parentCourse[0].name
         
+        icon.image = UIImage(systemName: assignment.parentCourse[0].systemImageString)
         icon.tintColor = UIColor(hexString: assignment.parentCourse[0].color)
         dueDateLabel.text = assignment.endDate.format(with: "MMM d, h:mm a")
-        
-        
-        
     }
     
     func loadCompleteAttributes(){

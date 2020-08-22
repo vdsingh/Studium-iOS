@@ -31,6 +31,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     
     var alertTimes: [Int] = []
 
+    @IBOutlet weak var navButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         //registering the necessary cells for the form.
@@ -46,6 +47,8 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         
         if assignment != nil{
             fillForm(with: assignment!)
+        }else{
+            navButton.image = UIImage(systemName: "plus")
         }
     }
     
@@ -238,7 +241,7 @@ extension AddAssignmentViewController{
             cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
             cellText[indexPath.section].insert("", at: newIndex)
             tableView.endUpdates()
-        }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{ //user selected "Remind Me"
+        }else if cellText[indexPath.section][indexPath.row] == "Remind Me"{ //user selected "Remind Me"
             performSegue(withIdentifier: "toAlertSelection", sender: self)
         }
     }
@@ -290,6 +293,10 @@ extension AddAssignmentViewController: UITimePickerDelegate{
 
 extension AddAssignmentViewController{
     func fillForm(with assignment: Assignment){
+        
+        navButton.image = .none
+        navButton.title = "Done"
+        
         let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
         nameCell.textField.text = assignment.name
         

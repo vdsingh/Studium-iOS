@@ -131,22 +131,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         assignmentsArr[1].sort(by: {$0.endDate < $1.endDate})
         tableView.reloadData()
     }
-    
-//    override func updateModelDelete(at indexPath: IndexPath) {
-//        print(assignmentsArr)
-//
-//        let assignmentIndex = assignments?.index(of: assignmentsArr[indexPath.section][indexPath.row])
-//        let assignmentForDeletion = assignments?[assignmentIndex!]
-//            do{
-//                try self.realm.write{
-//                    self.realm.delete(assignmentForDeletion!)
-//                }
-//            }catch{
-//                print("ERROR MANE")
-//            }
-//        assignmentsArr[indexPath.section].remove(at: indexPath.row)
-//        print("right before load assignmetns.")
-//    }
+
     override func updateModelDelete(at indexPath: IndexPath) {
            let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
                do{

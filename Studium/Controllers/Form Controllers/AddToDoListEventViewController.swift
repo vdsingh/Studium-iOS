@@ -13,7 +13,10 @@ protocol ToDoListRefreshProtocol{
     func refreshData()
 }
 
-class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
+class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInfoStorer {
+    
+    //tracks the event being edited, if one is being edited.
+    var otherEvent: OtherEvent?
     
     //link to the list of OtherEvents, so that when a new ToDo Event is created, the list refreshes.
     var delegate: ToDoListRefreshProtocol?
@@ -25,13 +28,16 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
     var startDate: Date = Date()
     var endDate: Date = Date()
     
+    var alertTimes: [Int] = []
+    
     //Error string that tells the user what is wrong
     var errors: String = ""
     
     //Arrays that help construct the form. Describes which types of cells go where and what their contents are.
-    var cellText: [[String]] = [["This Event is a Course Assignment"],["Name", "Location"], ["Start Date", "End Date"], ["Additional Details"], [""]]
-    var cellType: [[String]] = [["LabelCell"],["TextFieldCell", "TextFieldCell"], ["TimeCell", "TimeCell"], ["TextFieldCell"], ["LabelCell"]]
+    var cellText: [[String]] = [["This Event is a Course Assignment"],["Name", "Location", "Remind Me"], ["Start Date", "End Date"], ["Additional Details", ""]]
+    var cellType: [[String]] = [["LabelCell"],["TextFieldCell", "TextFieldCell", "LabelCell"], ["TimeCell", "TimeCell"], ["TextFieldCell", "LabelCell"]]
     
+    @IBOutlet weak var navButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,12 +49,17 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
         
         //makes it so that the form doesn't have a bunch of empty cells at the bottom
         tableView.tableFooterView = UIView()
+        
+        if otherEvent != nil{
+            fillForm(with: otherEvent!)
+        }else{
+            navButton.image = UIImage(systemName: "plus")
+        }
     }
     
     //function that is called when the user wants to finish editing in the form and create the new object.
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         errors = ""
-        let newEvent = OtherEvent()
         
         //updates the characteristic variables
         retrieveDataFromCells()
@@ -62,15 +73,41 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
         
         //there are no errors
         if errors == ""{
-            newEvent.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails)
-            save(otherEvent: newEvent)
+            if otherEvent == nil{
+            let newEvent = OtherEvent()
+                newEvent.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes)
+                for alertTime in alertTimes{
+                   let alertDate = startDate - (Double(alertTime) * 60)
+                   var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
+                   components.second = 0
+
+                   let identifier = UUID().uuidString
+                   newEvent.notificationIdentifiers.append(identifier)
+                   scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+                }
+                save(otherEvent: newEvent)
+            }else{
+                do{
+                    try realm.write{
+                        otherEvent!.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes)
+                    }
+                }catch{
+                    print(error)
+                }
+            }
             delegate!.refreshData()
             dismiss(animated: true, completion: nil)
         }else{
             //update the errors cell to show all of the errors with the form
-            cellText[4][0] = errors
+            cellText[3][1] = errors
             tableView.reloadData()
         }
+    }
+    
+    
+    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+
     }
     
     //writing to Realm.
@@ -131,7 +168,11 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
-            cell.timeLabel.text = Date().format(with: "h:mm a")
+            if indexPath.row == 0{
+                cell.timeLabel.text = startDate.format(with: "MMM d, h:mm a")
+            }else{
+                cell.timeLabel.text = endDate.format(with: "MMM d, h:mm a")
+            }
             cell.label.text = cellText[indexPath.section][indexPath.row]
             cell.date = Date()
             //timeCounter+=1
@@ -145,9 +186,11 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
         }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
             cell.label.text = cellText[indexPath.section][indexPath.row]
-            cell.label.textAlignment = .center
-            cell.label.textColor = .blue
-            if indexPath.section == 4{
+            if indexPath.section == 0{
+                cell.label.textAlignment = .center
+            }else if indexPath.section == 1{
+                cell.accessoryType = .disclosureIndicator
+            }else if indexPath.section == 3{
                 cell.label.textColor = .red
             }
             return cell
@@ -157,12 +200,12 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
         return 30
     }
     
     //handles opening and closing picker cells as well as if the user selected the assignment option
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0{
             let courses = realm.objects(Course.self)
             if courses.count != 0{
@@ -177,7 +220,9 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
 
                 self.present(alert, animated: true)
             }
-        }
+        }else if cellText[indexPath.section][indexPath.row] == "Remind Me"{
+            performSegue(withIdentifier: "toAlertSelection", sender: self)
+        }else{
         
         //handles timeCells trigger timePickerCells.
         let selectedRowText = cellText[indexPath.section][indexPath.row]
@@ -204,8 +249,15 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
             cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
             cellText[indexPath.section].insert("", at: newIndex)
             tableView.endUpdates()
+            }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if let destinationVC = segue.destination as? AlertTableViewController{
+                destinationVC.delegate = self
+            }
+        }
     
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
         //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
@@ -213,5 +265,34 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
         correspondingTimeCell.date = sender.date
         correspondingTimeCell.timeLabel.text = correspondingTimeCell.date!.format(with: "MMM d, h:mm a")
         
+    }
+}
+
+extension AddToDoListEventViewController{
+    func fillForm(with otherEvent: OtherEvent){
+        print("fillform called")
+        navButton.image = .none
+        navButton.title = "Done"
+        
+        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TextFieldCell
+        nameCell.textField.text = otherEvent.name
+        
+        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TextFieldCell
+        locationCell.textField.text = otherEvent.location
+        
+        alertTimes = []
+        for alert in otherEvent.notificationAlertTimes{
+            alertTimes.append(alert)
+        }
+        
+        let startCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TimeCell
+        startDate = otherEvent.startDate
+        startCell.timeLabel.text = startDate.format(with: "MMM d, h:mm a")
+        startCell.date = startDate
+        
+        let endCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! TimeCell
+        endDate = otherEvent.endDate
+        endCell.timeLabel.text = endDate.format(with: "MMM d, h:mm a")
+        endCell.date = endDate
     }
 }

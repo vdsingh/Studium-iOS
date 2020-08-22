@@ -260,16 +260,25 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Add an Event" id="H1v-DO-62H">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="EN9-J2-NLp">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="sLx-fJ-P5c">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="hpd-53-o9w" id="hbO-q7-udY"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="EN9-J2-NLp">
                             <connections>
                                 <action selector="addButtonPressed:" destination="hpd-53-o9w" id="FCl-7L-gbL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="navButton" destination="EN9-J2-NLp" id="6SH-bS-0UO"/>
+                        <segue destination="hFo-id-GNg" kind="show" identifier="toAlertSelection" id="U26-7i-LD2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fTf-ia-Jir" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5470" y="-1441"/>
+            <point key="canvasLocation" x="5588" y="-1441"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="q4c-E9-rHD">
@@ -380,6 +389,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="navButton" destination="lFI-er-lhR" id="CWh-uQ-XUZ"/>
                         <segue destination="hFo-id-GNg" kind="show" identifier="toAlertSelection" id="h8J-RB-4SC"/>
                     </connections>
                 </tableViewController>
@@ -1085,7 +1095,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="h8J-RB-4SC"/>
+        <segue reference="U26-7i-LD2"/>
         <segue reference="sMc-gW-Ufz"/>
         <segue reference="IZF-2b-awD"/>
     </inferredMetricsTieBreakers>
