@@ -86,7 +86,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             
             dismiss(animated: true, completion: nil)
         }else{
-            cellText[3][0] = errors
+            cellText[2][1] = errors
             tableView.reloadData()
         }
     }

@@ -164,9 +164,18 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate {
     //handles opening and closing picker cells as well as if the user selected the assignment option
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0{
-            let del = delegate as! ToDoListViewController
-            self.dismiss(animated: true) {
-                del.openAssignmentForm()
+            let courses = realm.objects(Course.self)
+            if courses.count != 0{
+                let del = delegate as! ToDoListViewController
+                self.dismiss(animated: true) {
+                    del.openAssignmentForm()
+                }
+            }else{
+                let alert = UIAlertController(title: "No Courses Available", message: "You haven't added any Courses yet. To add an Assignment, please add a Course first.", preferredStyle: .alert)
+
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+
+                self.present(alert, animated: true)
             }
         }
         
