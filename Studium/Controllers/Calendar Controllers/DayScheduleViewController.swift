@@ -125,7 +125,31 @@ class DayScheduleViewController: DayViewController{
                             newEvent.startDate = startBound
                             newEvent.endDate = endBound
                             newEvent.text = habit.name
+                            //schedule notification here.
+                            do{
+                                try realm.write{
                             
+                            habit.deleteNotifications()
+                            for alertTime in habit.notificationAlertTimes{
+                                var title = ""
+                                if alertTime < 60{
+                                    title = "\(habit.name) starts in \(alertTime) minutes."
+                                }else if alertTime == 60{
+                                    title = "\(habit.name) starts in 1 hour"
+                                }else{
+                                    title = "\(habit.name) starts in \(alertTime / 60) hours"
+                                }
+                                
+                                let timeFormat = habit.startDate.format(with: "H:MM a")
+                                let notificationDate = startBound - (60 * Double(alertTime))
+                                let identifier = UUID().uuidString
+                                habit.notificationIdentifiers.append(identifier)
+                                K.scheduleNotification(components: calendar.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate), body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
+                            }
+                                }
+                            }catch{
+                                print("error scheduling autoschedulable habit.")
+                            }
                             events.append(newEvent)
                             break
                         }

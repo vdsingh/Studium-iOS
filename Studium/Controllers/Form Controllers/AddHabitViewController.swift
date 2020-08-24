@@ -183,9 +183,8 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
                         }
                     }
                 }else{
-                    habit!.deleteNotifications()
                     for alertTime in alertTimes{
-                        habit!.notificationAlertTimes.append(alertTime)
+                        newHabit.notificationAlertTimes.append(alertTime)
                     }
                 }
                 save(habit: newHabit)
