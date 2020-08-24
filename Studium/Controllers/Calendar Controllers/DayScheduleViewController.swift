@@ -126,29 +126,31 @@ class DayScheduleViewController: DayViewController{
                             newEvent.endDate = endBound
                             newEvent.text = habit.name
                             //schedule notification here.
-                            do{
-                                try realm.write{
-                            
-                            habit.deleteNotifications()
-                            for alertTime in habit.notificationAlertTimes{
-                                var title = ""
-                                if alertTime < 60{
-                                    title = "\(habit.name) starts in \(alertTime) minutes."
-                                }else if alertTime == 60{
-                                    title = "\(habit.name) starts in 1 hour"
-                                }else{
-                                    title = "\(habit.name) starts in \(alertTime / 60) hours"
+                            if date.year == Date().year && date.month == Date().day && date.day == Date().day{
+                                do{
+                                    try realm.write{
+                                        
+                                        habit.deleteNotifications()
+                                        for alertTime in habit.notificationAlertTimes{
+                                            var title = ""
+                                            if alertTime < 60{
+                                                title = "\(habit.name) starts in \(alertTime) minutes."
+                                            }else if alertTime == 60{
+                                                title = "\(habit.name) starts in 1 hour"
+                                            }else{
+                                                title = "\(habit.name) starts in \(alertTime / 60) hours"
+                                            }
+                                            
+                                            let timeFormat = habit.startDate.format(with: "H:MM a")
+                                            let notificationDate = startBound - (60 * Double(alertTime))
+                                            let identifier = UUID().uuidString
+                                            habit.notificationIdentifiers.append(identifier)
+                                            K.scheduleNotification(components: calendar.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate), body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
+                                        }
+                                    }
+                                }catch{
+                                    print("error scheduling autoschedulable habit.")
                                 }
-                                
-                                let timeFormat = habit.startDate.format(with: "H:MM a")
-                                let notificationDate = startBound - (60 * Double(alertTime))
-                                let identifier = UUID().uuidString
-                                habit.notificationIdentifiers.append(identifier)
-                                K.scheduleNotification(components: calendar.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate), body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
-                            }
-                                }
-                            }catch{
-                                print("error scheduling autoschedulable habit.")
                             }
                             events.append(newEvent)
                             break
@@ -221,34 +223,34 @@ class DayScheduleViewController: DayViewController{
     func addAssignments(for date: Date) -> [Event]{
         var events: [Event] = []
         let allAssignments = realm.objects(Assignment.self)
-            for assignment in allAssignments{
-                if assignment.endDate.year == date.year && assignment.endDate.day == date.day{
-                    let newEvent = Event()
-                    newEvent.startDate = assignment.startDate
-                    newEvent.endDate = assignment.endDate
-                    newEvent.text = "\(assignment.name) due at \(assignment.endDate.format(with: "h:mm a"))"
-                    
-                    events.append(newEvent)
-                }
+        for assignment in allAssignments{
+            if assignment.endDate.year == date.year && assignment.endDate.month == date.month && assignment.endDate.day == date.day{
+                let newEvent = Event()
+                newEvent.startDate = assignment.startDate
+                newEvent.endDate = assignment.endDate
+                newEvent.text = "\(assignment.name) due at \(assignment.endDate.format(with: "h:mm a"))"
                 
+                events.append(newEvent)
             }
+            
+        }
         return events
     }
     
     func addOtherEvents(for date: Date) -> [Event]{
         var events: [Event] = []
         let allOtherEvents = realm.objects(OtherEvent.self)
-            for otherEvent in allOtherEvents{
-                if otherEvent.endDate.year == date.year && otherEvent.endDate.day == date.day{
-                    let newEvent = Event()
-                    newEvent.startDate = otherEvent.startDate
-                    newEvent.endDate = otherEvent.endDate
-                    newEvent.text = "\(otherEvent.name) from \(otherEvent.startDate.format(with: "h:mm a")) to \(otherEvent.endDate.format(with: "h:mm a"))"
-                    
-                    events.append(newEvent)
-                }
+        for otherEvent in allOtherEvents{
+            if otherEvent.endDate.year == date.year && otherEvent.endDate.month == date.month && otherEvent.endDate.day == date.day{
+                let newEvent = Event()
+                newEvent.startDate = otherEvent.startDate
+                newEvent.endDate = otherEvent.endDate
+                newEvent.text = "\(otherEvent.name) from \(otherEvent.startDate.format(with: "h:mm a")) to \(otherEvent.endDate.format(with: "h:mm a"))"
                 
+                events.append(newEvent)
             }
+            
+        }
         return events
     }
     
@@ -277,8 +279,8 @@ class DayScheduleViewController: DayViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidLoad()
     }
-
-
+    
+    
     
     // MARK: EventDataSource
     
@@ -292,14 +294,14 @@ class DayScheduleViewController: DayViewController{
         events = events + addOtherEvents(for: date)
         events = events + addHabits(for: date, with: events)
         events = events + addAssignments(for: date)
-//        for event in events{
-            //            print(event.text)
-            //            print(event.startDate)
-//        }
+        //        for event in events{
+        //            print(event.text)
+        //            print(event.startDate)
+        //        }
         return events
     }
     
-
+    
     
     private func textColorForEventInDarkTheme(baseColor: UIColor) -> UIColor {
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
@@ -312,9 +314,9 @@ class DayScheduleViewController: DayViewController{
     private var createdEvent: EventDescriptor?
     
     override func dayViewDidSelectEventView(_ eventView: EventView) {
-//        guard let descriptor = eventView.descriptor as? Event else {
-//            return
-//        }
+        //        guard let descriptor = eventView.descriptor as? Event else {
+        //            return
+        //        }
         //print("Event has been selected: \(descriptor) \(String(describing: descriptor.userInfo))")
     }
     
