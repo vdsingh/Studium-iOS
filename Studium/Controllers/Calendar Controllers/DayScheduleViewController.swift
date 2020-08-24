@@ -58,7 +58,7 @@ class DayScheduleViewController: DayViewController{
             let courseEvent = Event()
             courseEvent.startDate = Calendar.current.date(bySettingHour: course.startDate.hour, minute: course.startDate.minute, second: 0, of: date)!
             courseEvent.endDate = Calendar.current.date(bySettingHour: course.endDate.hour, minute: course.endDate.minute, second: 0, of: date)!
-            courseEvent.text = course.name
+            courseEvent.text = "\(course.name) at \(course.startDate.format(with: "h:mm a"))"
             events.append(courseEvent)
             
         }
@@ -90,7 +90,7 @@ class DayScheduleViewController: DayViewController{
         let newEvent = Event()
         newEvent.startDate = anHourAgo
         newEvent.endDate = usableDate
-        newEvent.text = "Wake Up"
+        newEvent.text = "Wake Up at \(usableDate.format(with: "h:mm a"))"
         
         events.append(newEvent)
         return events
@@ -100,7 +100,23 @@ class DayScheduleViewController: DayViewController{
         //loadHabits()
         let allHabits = realm.objects(Habit.self)
         var events: [Event] = []
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
+        
+        let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
+        // let allCoursesOnDay = separateCoursesHelper(dayStringIdentifier: usableString) //get all courses that occur on this day.
+        
+        var habitsOnDay: [Habit] = []
         for habit in allHabits{
+            if habit.days.contains(usableString){ //course occurs on this day.
+                habitsOnDay.append(habit)
+                print("habit: \(habit.name) occurs on day: \(usableString)")
+            }
+        }
+        print("habits on day: \(habitsOnDay)")
+        for habit in habitsOnDay{
             if habit.autoSchedule{ // auto schedule habit
                 if habit.startEarlier{
                     var startBound = Calendar.current.date(bySettingHour: habit.startDate.hour, minute: habit.startDate.minute, second: 0, of: date)!
@@ -124,7 +140,7 @@ class DayScheduleViewController: DayViewController{
                             let newEvent = Event()
                             newEvent.startDate = startBound
                             newEvent.endDate = endBound
-                            newEvent.text = habit.name
+                            newEvent.text = "\(habit.name) at \(startBound.format(with: "h:mm a"))"
                             //schedule notification here.
                             if date.year == Date().year && date.month == Date().day && date.day == Date().day{
                                 do{
@@ -177,7 +193,7 @@ class DayScheduleViewController: DayViewController{
                     let newEvent = Event()
                     newEvent.startDate = usableStartDate
                     newEvent.endDate = usableEndDate
-                    newEvent.text = habit.name
+                    newEvent.text = "\(habit.name) at \(habit.startDate)"
                     events.append(newEvent)
                 }
             }

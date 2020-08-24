@@ -123,7 +123,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
         cellText[2][cellText[2].count - 1] = ""
         retrieveData()
         endDate = Calendar.current.date(bySettingHour: endDate.hour, minute: endDate.minute, second: endDate.second, of: startDate)!
-        reloadData()
+//        reloadData()
         
         
         if name == ""{
@@ -287,13 +287,8 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
         let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
         location = locationCell.textField.text!
         
-        
-        
         let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
         daysSelected = daysCell.daysSelected
-        
-        tableView.scrollToRow(at: IndexPath(row: 1, section: 2), at: .bottom, animated: true)
-        
         
         //since there may or may not be pickers active, we don't know the exact position of the TimeCells that we want. As a result, we can use the first index of "TimeCell" in section 1, because this will always hold the start date.
         let indexOfStartCell = cellType[1].firstIndex(of: "TimeCell")
@@ -553,8 +548,9 @@ extension AddHabitViewController: UIPickerViewDelegate{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let lengthIndex = cellText[1].lastIndex(of: "Length of Habit")
         let timeCell = tableView.cellForRow(at: IndexPath(row: lengthIndex!, section: 1)) as! TimeCell
-        
-        timeCell.timeLabel.text = "\(row) hours \(component) mins"
+        let hour = pickerView.selectedRow(inComponent: 0)
+        let min = pickerView.selectedRow(inComponent: 1)
+        timeCell.timeLabel.text = "\(hour) hours \(min) mins"
     }
 }
 
