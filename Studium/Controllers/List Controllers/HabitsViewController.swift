@@ -14,7 +14,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     //let realm = try! Realm()
     var habits: Results<Habit>?
     let defaults = UserDefaults.standard
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -79,8 +79,14 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     
     override func updateModelDelete(at indexPath: IndexPath) {
         let habit = self.habits![indexPath.row]
-//        print("Course Deleting: \(course.name)")
-        habit.deleteNotifications()
+        //        print("Course Deleting: \(course.name)")
+        do{
+            try realm.write{
+                habit.deleteNotifications()
+            }
+        }catch{
+            print("error deleting habit.")
+        }
         
         
         super.updateModelDelete(at: indexPath)

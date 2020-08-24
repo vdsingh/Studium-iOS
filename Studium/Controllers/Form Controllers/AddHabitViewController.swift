@@ -145,57 +145,105 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
             if habit == nil{
                 let newHabit = Habit()
                 newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoSchedule: autoschedule, startEarlier: earlier, totalHourTime: totalLengthHours, totalMinuteTime: totalLengthMinutes, daysSelected: daysSelected, systemImageString: systemImageString, colorHex: colorValue)
-                
-                for alertTime in alertTimes{
-                    for day in daysSelected{
-                        
-                        let weekday = Date.convertDayToWeekday(day: day)
-                        let weekdayAsInt = Date.convertDayToInt(day: day)
-                        var alertDate = Date()
-                        
-                        if startDate.weekday != weekdayAsInt{ //the course doesn't occur today
-                            alertDate = Date.today().next(weekday)
+                if !autoschedule{
+                    for alertTime in alertTimes{
+                        for day in daysSelected{
+                            
+                            let weekday = Date.convertDayToWeekday(day: day)
+                            let weekdayAsInt = Date.convertDayToInt(day: day)
+                            var alertDate = Date()
+                            
+                            if startDate.weekday != weekdayAsInt{ //the course doesn't occur today
+                                alertDate = Date.today().next(weekday)
+                            }
+                            
+                            alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
+                            
+                            alertDate -= (60 * Double(alertTime))
+                            //                    alertDate = startDate - (60 * Double(alertTime))
+                            //consider how subtracting time from alertDate will affect the weekday component.
+                            let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
+                            //                    print(courseComponents)
+                            
+                            //adjust title as appropriate
+                            var title = ""
+                            if alertTime < 60{
+                                title = "\(name) starts in \(alertTime) minutes."
+                            }else if alertTime == 60{
+                                title = "\(name) starts in 1 hour"
+                            }else{
+                                title = "\(name) starts in \(alertTime / 60) hours"
+                            }
+                            let timeFormat = startDate.format(with: "H:MM a")
+                            
+                            let identifier = UUID().uuidString
+                            newHabit.notificationIdentifiers.append(identifier)
+                            newHabit.notificationAlertTimes.append(alertTime)
+                            scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                         }
-                        
-                        alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
-                        
-                        alertDate -= (60 * Double(alertTime))
-                        //                    alertDate = startDate - (60 * Double(alertTime))
-                        //consider how subtracting time from alertDate will affect the weekday component.
-                        let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
-                        //                    print(courseComponents)
-                        
-                        //adjust title as appropriate
-                        var title = ""
-                        if alertTime < 60{
-                            title = "\(name) starts in \(alertTime) minutes."
-                        }else if alertTime == 60{
-                            title = "\(name) starts in 1 hour"
-                        }else{
-                            title = "\(name) starts in \(alertTime / 60) hours"
-                        }
-                        //                    let alertTimeDouble: Double = Double(alertTime)
-                        let timeFormat = startDate.format(with: "H:MM a")
-                        
-                        let identifier = UUID().uuidString
-                        newHabit.notificationIdentifiers.append(identifier)
-                        scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
+                    }
+                }else{
+                    habit!.deleteNotifications()
+                    for alertTime in alertTimes{
+                        habit!.notificationAlertTimes.append(alertTime)
                     }
                 }
                 save(habit: newHabit)
-
+                
             }else{
+                
                 do{
                     try realm.write{
+                        if !autoschedule{
+                            habit!.deleteNotifications()
+                            for alertTime in alertTimes{
+                                for day in daysSelected{
+                                    
+                                    let weekday = Date.convertDayToWeekday(day: day)
+                                    let weekdayAsInt = Date.convertDayToInt(day: day)
+                                    var alertDate = Date()
+                                    
+                                    if startDate.weekday != weekdayAsInt{ //the course doesn't occur today
+                                        alertDate = Date.today().next(weekday)
+                                    }
+                                    
+                                    alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
+                                    
+                                    alertDate -= (60 * Double(alertTime))
+                                    //consider how subtracting time from alertDate will affect the weekday component.
+                                    let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
+                                    //                    print(courseComponents)
+                                    
+                                    //adjust title as appropriate
+                                    var title = ""
+                                    if alertTime < 60{
+                                        title = "\(name) starts in \(alertTime) minutes."
+                                    }else if alertTime == 60{
+                                        title = "\(name) starts in 1 hour"
+                                    }else{
+                                        title = "\(name) starts in \(alertTime / 60) hours"
+                                    }
+                                    let timeFormat = startDate.format(with: "H:MM a")
+                                    
+                                    let identifier = UUID().uuidString
+                                    habit!.notificationIdentifiers.append(identifier)
+                                    habit!.notificationAlertTimes.append(alertTime)
+                                    scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
+                                }
+                            }
+                        }else{
+                            habit!.deleteNotifications()
+                            for alertTime in alertTimes{
+                                habit!.notificationAlertTimes.append(alertTime)
+                            }
+                        }
                         habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoSchedule: autoschedule, startEarlier: earlier, totalHourTime: totalLengthHours, totalMinuteTime: totalLengthMinutes, daysSelected: daysSelected, systemImageString: systemImageString, colorHex: colorValue)
                     }
                 }catch{
                     print(error)
                 }
             }
-            
-            
-            delegate?.loadHabits()
+            //            delegate?.loadHabits()
             //            print(newHabit.days)
             dismiss(animated: true) {
                 if let del = self.delegate{
@@ -233,7 +281,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     func retrieveData(){
         tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .middle, animated: false)
-
+        
         let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
         name = nameCell.textField.text!
         
@@ -246,7 +294,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
         daysSelected = daysCell.daysSelected
         
         tableView.scrollToRow(at: IndexPath(row: 1, section: 2), at: .bottom, animated: true)
-
+        
         
         //since there may or may not be pickers active, we don't know the exact position of the TimeCells that we want. As a result, we can use the first index of "TimeCell" in section 1, because this will always hold the start date.
         let indexOfStartCell = cellType[1].firstIndex(of: "TimeCell")
@@ -419,7 +467,7 @@ extension AddHabitViewController{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         view.endEditing(true)
-
+        
         let selectedRowText = cellText[indexPath.section][indexPath.row]
         if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let timeCell = tableView.cellForRow(at: indexPath) as! TimeCell
@@ -457,7 +505,7 @@ extension AddHabitViewController{
             performSegue(withIdentifier: "toAlertSelection", sender: self)
         }
         
-//        tableView.deselectRow(at: indexPath, animated: true)
+        //        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -527,7 +575,7 @@ extension AddHabitViewController: UITimePickerDelegate{
 extension AddHabitViewController: CanHandleSwitch{
     //method triggered when the autoschedule switch is triggered
     func switchValueChanged(sender: UISwitch) {
-//        retrieveData()
+        //        retrieveData()
         if sender.isOn{//auto schedule
             cellText = cellTextAuto
             cellType = cellTypeAuto
@@ -561,6 +609,7 @@ extension AddHabitViewController{
         alertTimes = []
         for alert in habit.notificationAlertTimes{
             alertTimes.append(alert)
+            print("alert: \(alert) added.")
         }
         
         let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
