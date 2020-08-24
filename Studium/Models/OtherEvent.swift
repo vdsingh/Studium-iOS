@@ -37,7 +37,14 @@ class OtherEvent: Object, StudiumEvent{
         for time in notificationAlertTimes{
             self.notificationAlertTimes.append(time)
         }
-        
+    }
+    
+    func initializeData(startDate: Date, endDate: Date, name: String, location: String, additionalDetails: String){
+        self.startDate = startDate
+        self.endDate = endDate
+        self.name = name
+        self.location = location
+        self.additionalDetails = additionalDetails
     }
     
     func deleteNotifications(){
@@ -47,5 +54,22 @@ class OtherEvent: Object, StudiumEvent{
         }
         notificationIdentifiers.removeAll()
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+
+    }
+    
+    func updateNotifications(with newAlertTimes: [Int]){
+        var identifiersForRemoval: [String] = []
+        for time in notificationAlertTimes{
+            if !newAlertTimes.contains(time){ //remove the old alert time.
+                print("\(time) was removed from notifications.")
+                let index = notificationAlertTimes.firstIndex(of: time)!
+                notificationAlertTimes.remove(at: index)
+                identifiersForRemoval.append(notificationIdentifiers[index])
+                notificationIdentifiers.remove(at: index)
+            }
+        }
+        print("identifiers to be removed: \(identifiersForRemoval)")
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiersForRemoval)
+
     }
 }

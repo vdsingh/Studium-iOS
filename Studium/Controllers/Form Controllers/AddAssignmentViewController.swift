@@ -30,7 +30,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     var additionalDetails: String = ""
     
     var alertTimes: [Int] = []
-
+    
     @IBOutlet weak var navButton: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -62,6 +62,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         
         if errors == "" {
             if assignment == nil{
+                print("adding assignment for the first time")
                 let newAssignment = Assignment()
                 newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes)
                 
@@ -69,7 +70,6 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                     let alertDate = dueDate - (Double(alertTime) * 60)
                     var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
                     components.second = 0
-
                     
                     let identifier = UUID().uuidString
                     newAssignment.notificationIdentifiers.append(identifier)
@@ -79,27 +79,31 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             }else{
                 do{
                     try realm.write{
-                        assignment!.deleteNotifications()
-                        for alertTime in alertTimes{
+                        assignment!.updateNotifications(with: alertTimes)
+                    }
+                    for alertTime in alertTimes{
+                        if !assignment!.notificationAlertTimes.contains(alertTime){
                             let alertDate = dueDate - (Double(alertTime) * 60)
                             var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
                             components.second = 0
-                            
                             let identifier = UUID().uuidString
-                            assignment!.notificationIdentifiers.append(identifier)
-                            
-
-                            scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
-                            
+                            try realm.write{
+                                print("scheduling new notification for alertTime: \(alertTime)")
+                                assignment!.notificationIdentifiers.append(identifier)
+                                assignment!.notificationAlertTimes.append(alertTime)
+                            }
+                            scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                         }
-                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: assignment!.complete, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes)
+                    }
+                    try realm.write{
+                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!)
+                        
                     }
                 }catch{
-                    print(error)
+                    print("there was an error: \(error)")
                 }
             }
             delegate?.loadAssignments()
-            
             dismiss(animated: true, completion: nil)
         }else{
             cellText[2][1] = errors
@@ -171,7 +175,7 @@ extension AddAssignmentViewController{
     override func numberOfSections(in tableView: UITableView) -> Int {
         return cellType.count
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellText[section].count
     }
@@ -204,7 +208,7 @@ extension AddAssignmentViewController{
         }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
             cell.label.text = cellText[indexPath.section][indexPath.row]
-
+            
             if indexPath.section == 2{
                 cell.label.textColor = UIColor.red
             }else{
@@ -229,6 +233,8 @@ extension AddAssignmentViewController{
     //handles adding and removing Pickers when necessary
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        view.endEditing(true)
+        
         let selectedRowText = cellText[indexPath.section][indexPath.row]
         if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             var pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")
@@ -260,11 +266,11 @@ extension AddAssignmentViewController{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if let destinationVC = segue.destination as? AlertTableViewController{
-                destinationVC.delegate = self
-    //            destinationVC.alertTimes = alertTimes
-            }
+        if let destinationVC = segue.destination as? AlertTableViewController{
+            destinationVC.delegate = self
+            //            destinationVC.alertTimes = alertTimes
         }
+    }
 }
 
 //MARK: - TimerPicker DataSource Methods

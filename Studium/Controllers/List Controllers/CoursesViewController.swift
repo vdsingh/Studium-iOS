@@ -117,17 +117,17 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         identifiers.append(contentsOf: course.notificationIdentifiers)
         for assignment in course.assignments{
             identifiers.append(contentsOf: assignment.notificationIdentifiers)
-                do{
-                    try realm.write{
-                        realm.delete(assignment)
-                    }
-                }catch{
-                    print(error)
+            do{
+                try realm.write{
+                    realm.delete(assignment)
                 }
+            }catch{
+                print(error)
             }
+        }
         
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
-
+        
         super.updateModelDelete(at: indexPath)
     }
     

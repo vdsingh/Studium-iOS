@@ -37,7 +37,6 @@ class OtherEventCell: DeletableEventCell{
         if otherEvent.complete{
             nameLabel.attributedText = attributeString
         }else{
-            print("removed strikethrough.")
             attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
             nameLabel.attributedText = attributeString
         }

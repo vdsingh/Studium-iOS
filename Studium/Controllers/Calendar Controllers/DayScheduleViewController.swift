@@ -219,7 +219,7 @@ class DayScheduleViewController: DayViewController{
                     let newEvent = Event()
                     newEvent.startDate = otherEvent.startDate
                     newEvent.endDate = otherEvent.endDate
-                    newEvent.text = "\(otherEvent.name) from \(otherEvent.startDate.format(with: "h:mm a")) to \(otherEvent.startDate.format(with: "h:mm a"))"
+                    newEvent.text = "\(otherEvent.name) from \(otherEvent.startDate.format(with: "h:mm a")) to \(otherEvent.endDate.format(with: "h:mm a"))"
                     
                     events.append(newEvent)
                 }
@@ -261,9 +261,7 @@ class DayScheduleViewController: DayViewController{
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
         return generateEventsForDate(date)
     }
-    private func generateEventsForDate(_ date: Date) -> [EventDescriptor]{
-        print("generate events for date: \(date) called.")
-        
+    private func generateEventsForDate(_ date: Date) -> [EventDescriptor]{        
         var events: [Event] = []
         events = events + addCourses(for: date)
         events = events + addWakeTimes(for: date)

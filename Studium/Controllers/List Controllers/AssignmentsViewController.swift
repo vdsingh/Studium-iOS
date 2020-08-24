@@ -134,14 +134,20 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     override func updateModelDelete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        do{
-            try self.realm.write{
-                self.realm.delete(cell.event!)
+            do{
+                try self.realm.write{
+                    if let assignment = cell.event as? Assignment{
+                        let parentCourse = assignment.parentCourse[0]
+                        let assignmentIndex = parentCourse.assignments.index(of: assignment)
+                        parentCourse.assignments.remove(at: assignmentIndex!)
+                        assignment.deleteNotifications()
+                    }
+                    cell.event!.deleteNotifications()
+                    self.realm.delete(cell.event!)
+                }
+            }catch{
+                print("Error deleting OtherEvent")
             }
-        }catch{
-            print("error with deleting assignment")
-        }
-        cell.event?.deleteNotifications()
         assignmentsArr[indexPath.section].remove(at: indexPath.row)
     }
     

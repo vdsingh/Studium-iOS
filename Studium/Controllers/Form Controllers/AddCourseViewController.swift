@@ -117,12 +117,9 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
                 //scheduling the appropriate notifications
                 for alertTime in alertTimes{
                     for day in daysSelected{
-                        print("startDate = \(startDate)")
-                        
                         let weekday = Date.convertDayToWeekday(day: day)
                         let weekdayAsInt = Date.convertDayToInt(day: day)
                         var alertDate = Date()
-                        
                         if startDate.weekday != weekdayAsInt{ //the course doesn't occur today
                             alertDate = Date.today().next(weekday)
                         }
@@ -161,6 +158,40 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
                 do{
                     try realm.write{
                         print("the system image string: \(systemImageString)")
+                        course!.deleteNotifications()
+                        for alertTime in alertTimes{
+                            for day in daysSelected{
+                                let weekday = Date.convertDayToWeekday(day: day)
+                                let weekdayAsInt = Date.convertDayToInt(day: day)
+                                var alertDate = Date()
+                                if startDate.weekday != weekdayAsInt{ //the course doesn't occur today
+                                    alertDate = Date.today().next(weekday)
+                                }
+                                
+                                alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
+                            
+                                alertDate -= (60 * Double(alertTime))
+                                let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
+                            
+                            //adjust title as appropriate
+                                var title = ""
+                                if alertTime < 60{
+                                    title = "\(name) starts in \(alertTime) minutes."
+                                }else if alertTime == 60{
+                                    title = "\(name) starts in 1 hour"
+                                }else{
+                                    title = "\(name) starts in \(alertTime / 60) hours"
+                                }
+                            //                    let alertTimeDouble: Double = Double(alertTime)
+                            let timeFormat = startDate.format(with: "H:MM a")
+                            
+                            let identifier = UUID().uuidString
+                            //keeping track of the identifiers of notifs associated with the course.
+                            course!.notificationIdentifiers.append(identifier)
+
+                            scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
+                            }
+                        }
                         course!.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes)
                     }
                 }catch{
@@ -316,6 +347,9 @@ extension AddCourseViewController{
     
     //mostly handles what occurs when the user selects a TimeCell, and pickers must be removed/added
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        view.endEditing(true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let selectedRowText = cellText[indexPath.section][indexPath.row]
         if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let timeCell = tableView.cellForRow(at: indexPath) as! TimeCell
@@ -338,7 +372,6 @@ extension AddCourseViewController{
             
             cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
             cellText[indexPath.section].insert("\(timeCell.date!.format(with: "h:mm a"))", at: newIndex)
-            tableView.deselectRow(at: indexPath, animated: true)
             tableView.endUpdates()
         }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
             performSegue(withIdentifier: "toLogoSelection", sender: self)
@@ -346,7 +379,6 @@ extension AddCourseViewController{
             performSegue(withIdentifier: "toAlertSelection", sender: self)
         }
         
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -41,14 +41,11 @@ class AlertTableViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         alertTimes = []
-        print("viewwilldisappear")
         for i in 0..<checked.count {
             if checked[i] == true{
-                print("checked \(i) is true")
                 alertTimes.append(times[i])
             }
         }
-        print("alertTimes: \(alertTimes)")
         delegate!.alertTimes = alertTimes
     }
     

@@ -88,28 +88,30 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
                 save(otherEvent: newEvent)
             }else{
                 do{
-                    //                        otherEvent!.deleteNotifications()
-                    
+                    try realm.write{
+                        otherEvent!.updateNotifications(with: alertTimes)
+                    }
                     for alertTime in alertTimes{
-                        print("for loop iteration")
-                        let alertDate = startDate - (Double(alertTime) * 60)
-                        var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
-                        components.second = 0
-                        
-                        let identifier = UUID().uuidString
-                        try realm.write{
-                            
-                            otherEvent!.notificationIdentifiers.append(identifier)
+                        if !otherEvent!.notificationAlertTimes.contains(alertTime){
+                            let alertDate = startDate - (Double(alertTime) * 60)
+                            var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
+                            components.second = 0
+                            print("alertDate: \(alertDate). Start Date: \(startDate)")
+                            let identifier = UUID().uuidString
+                            try realm.write{
+                                print("scheduling new notification for alertTime: \(alertTime)")
+                                otherEvent!.notificationIdentifiers.append(identifier)
+                                otherEvent!.notificationAlertTimes.append(alertTime)
+                            }
+                            scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                         }
-                        scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
-                        
-                        try realm.write{
-                            otherEvent!.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes)
-                        }
-                        
+
+                    }
+                    try realm.write{
+                        otherEvent!.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails)
                     }
                 }catch{
-                    print(error)
+                    print("there was an error: \(error)")
                 }
             }
             delegate!.refreshData()
@@ -186,13 +188,14 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
             if indexPath.row == 0{
+                cell.date = startDate
                 cell.timeLabel.text = startDate.format(with: "MMM d, h:mm a")
             }else{
+                cell.date = endDate
                 cell.timeLabel.text = endDate.format(with: "MMM d, h:mm a")
             }
             cell.label.text = cellText[indexPath.section][indexPath.row]
-            cell.date = Date()
-            //timeCounter+=1
+//            cell.date = Date()
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
@@ -223,6 +226,8 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
     //handles opening and closing picker cells as well as if the user selected the assignment option
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        view.endEditing(true)
+
         if indexPath.section == 0{
             let courses = realm.objects(Course.self)
             if courses.count != 0{

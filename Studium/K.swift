@@ -25,17 +25,33 @@ struct K {
     static var assignmentNum = 0
     
     static var defaultThemeColor: UIColor = UIColor(hexString: "#F77F49")!
-//    static var defaultColorPickerColor: UIColor = themeColor
     
-    
+    static func scheduleNotification(components: DateComponents, body: String, titles:String, repeatNotif: Bool, identifier: String) {
+            
+            print("notification scheduled.")
+            
+    //        let triggerWeekly = Calendar.current.dateComponents([.weekday,.hour,.minute], from: date)
+            print(components)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: repeatNotif)
+            
+            
+            let content = UNMutableNotificationContent()
+            content.title = titles
+            content.body = body
+            content.sound = UNNotificationSound.default
+    //        content.categoryIdentifier = identifier
+            
+            
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+            //identifiers for courses are stored as "courseName alertTime"
+    //        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+    //        print(request)
+    //        UNUserNotificationCenter.curren///t().delegate = self
+            //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            UNUserNotificationCenter.current().add(request) {(error) in
+                if error != nil {
+                    print(error!)
+                }
+            }
+        }
 }
-
-//rules_version = '2';
-//service cloud.firestore {
-//  match /databases/{database}/documents {
-//    match /{document=**} {
-//      allow read, write: if
-//          request.time < timestamp.date(2020, 7, 1);
-//    }
-//  }
-//}

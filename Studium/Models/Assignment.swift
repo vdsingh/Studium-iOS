@@ -42,7 +42,14 @@ class Assignment: Object, StudiumEvent{
         for alertTime in notificationAlertTimes{
             self.notificationAlertTimes.append(alertTime)
         }
-        
+    }
+    
+    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, course: Course) {
+        self.name = name
+        self.additionalDetails = additionalDetails
+        self.complete = complete
+        self.startDate = startDate
+        self.endDate = endDate
     }
     
     func deleteNotifications(){
@@ -52,5 +59,21 @@ class Assignment: Object, StudiumEvent{
         }
         notificationIdentifiers.removeAll()
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+    }
+    
+    func updateNotifications(with newAlertTimes: [Int]){
+        var identifiersForRemoval: [String] = []
+        for time in notificationAlertTimes{
+            if !newAlertTimes.contains(time){ //remove the old alert time.
+                print("\(time) was removed from notifications.")
+                let index = notificationAlertTimes.firstIndex(of: time)!
+                notificationAlertTimes.remove(at: index)
+                identifiersForRemoval.append(notificationIdentifiers[index])
+                notificationIdentifiers.remove(at: index)
+            }
+        }
+        print("identifiers to be removed: \(identifiersForRemoval)")
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiersForRemoval)
+
     }
 }
