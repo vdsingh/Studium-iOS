@@ -142,7 +142,7 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
                             title = "\(name) starts in \(alertTime / 60) hours"
                         }
                         //                    let alertTimeDouble: Double = Double(alertTime)
-                        let timeFormat = startDate.format(with: "H:MM a")
+                        let timeFormat = startDate.format(with: "h:mm a")
                         
                         
                         let identifier = UUID().uuidString
@@ -183,7 +183,7 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
                                     title = "\(name) starts in \(alertTime / 60) hours"
                                 }
                             //                    let alertTimeDouble: Double = Double(alertTime)
-                            let timeFormat = startDate.format(with: "H:MM a")
+                            let timeFormat = startDate.format(with: "h:mm a")
                             
                             let identifier = UUID().uuidString
                             //keeping track of the identifiers of notifs associated with the course.

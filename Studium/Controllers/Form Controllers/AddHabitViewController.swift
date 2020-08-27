@@ -174,7 +174,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
                             }else{
                                 title = "\(name) starts in \(alertTime / 60) hours"
                             }
-                            let timeFormat = startDate.format(with: "H:MM a")
+                            let timeFormat = startDate.format(with: "h:mm a")
                             
                             let identifier = UUID().uuidString
                             newHabit.notificationIdentifiers.append(identifier)
@@ -222,7 +222,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
                                     }else{
                                         title = "\(name) starts in \(alertTime / 60) hours"
                                     }
-                                    let timeFormat = startDate.format(with: "H:MM a")
+                                    let timeFormat = startDate.format(with: "h:mm a")
                                     
                                     let identifier = UUID().uuidString
                                     habit!.notificationIdentifiers.append(identifier)
