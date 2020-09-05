@@ -57,7 +57,7 @@ class DayScheduleViewController: DayViewController{
                 let courseEvent = Event()
                 courseEvent.startDate = Calendar.current.date(bySettingHour: course.startDate.hour, minute: course.startDate.minute, second: 0, of: date)!
                 courseEvent.endDate = Calendar.current.date(bySettingHour: course.endDate.hour, minute: course.endDate.minute, second: 0, of: date)!
-                courseEvent.text = "\(course.name) at \(course.startDate.format(with: "h:mm a"))"
+                courseEvent.text = "\(course.startDate.format(with: "h:mm a")) - \(course.endDate.format(with: "h:mm a")): \(course.name)"
                 courseEvent.color = UIColor(hexString: course.color)!
                 courseEvent.textColor = .white
                 events.append(courseEvent)
@@ -89,7 +89,7 @@ class DayScheduleViewController: DayViewController{
             let newEvent = Event()
             newEvent.startDate = anHourAgo
             newEvent.endDate = usableDate
-            newEvent.text = "Wake Up at \(usableDate.format(with: "h:mm a"))"
+            newEvent.text = "\(usableDate.format(with: "h:mm a")): Wake Up"
     
             events.append(newEvent)
             return events
@@ -243,7 +243,7 @@ class DayScheduleViewController: DayViewController{
                     let newEvent = Event()
                     newEvent.startDate = assignment.startDate
                     newEvent.endDate = assignment.endDate
-                    newEvent.text = "\(assignment.name) due at \(assignment.endDate.format(with: "h:mm a"))"
+                    newEvent.text = "\(assignment.endDate.format(with: "h:mm a")):  \(assignment.name) due"
                     newEvent.color = UIColor(hexString: assignment.parentCourse[0].color)!
                     newEvent.textColor = .white
     
@@ -262,7 +262,7 @@ class DayScheduleViewController: DayViewController{
                     let newEvent = Event()
                     newEvent.startDate = otherEvent.startDate
                     newEvent.endDate = otherEvent.endDate
-                    newEvent.text = "\(otherEvent.name) from \(otherEvent.startDate.format(with: "h:mm a")) to \(otherEvent.endDate.format(with: "h:mm a"))"
+                    newEvent.text = "\(otherEvent.startDate.format(with: "h:mm a")) - \(otherEvent.endDate.format(with: "h:mm a")) - \(otherEvent.name)"
     
                     events.append(newEvent)
                 }
