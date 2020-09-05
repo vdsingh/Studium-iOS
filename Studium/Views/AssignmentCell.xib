@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -16,47 +16,59 @@
                 <rect key="frame" x="0.0" y="0.0" width="445" height="280"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="jly-QY-17P">
-                        <rect key="frame" x="20" y="120" width="232.5" height="40"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="xUt-1u-DIg">
+                        <rect key="frame" x="20" y="11" width="142" height="20"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paperplane.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4UK-Dp-VJt">
-                                <rect key="frame" x="0.0" y="0.5" width="40" height="39.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="Z39-fN-dFi"/>
-                                    <constraint firstAttribute="height" constant="40" id="fRQ-2a-KIL"/>
-                                </constraints>
-                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="regular"/>
-                            </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ZxO-ee-OLw">
-                                <rect key="frame" x="60" y="0.0" width="172.5" height="40"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="jly-QY-17P">
+                                <rect key="frame" x="0.0" y="0.0" width="142" height="20"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Assignment Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCj-Oo-amz">
-                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="12.5"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Course Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efZ-dg-5bl">
-                                        <rect key="frame" x="0.0" y="27.5" width="172.5" height="12.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paperplane.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4UK-Dp-VJt">
+                                        <rect key="frame" x="0.0" y="0.5" width="40" height="19.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="Z39-fN-dFi"/>
+                                            <constraint firstAttribute="height" constant="40" id="fRQ-2a-KIL"/>
+                                        </constraints>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="regular"/>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ZxO-ee-OLw">
+                                        <rect key="frame" x="60" y="-26" width="82" height="46"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Assignment Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCj-Oo-amz">
+                                                <rect key="frame" x="0.0" y="0.0" width="82" height="23"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gLg-L6-2vY">
+                                                <rect key="frame" x="0.0" y="23" width="82" height="23"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Course Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efZ-dg-5bl">
+                                                        <rect key="frame" x="0.0" y="0.0" width="8" height="23"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="bottomLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="yt5-hu-rdM">
+                                                        <rect key="frame" x="8" y="1" width="74" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="bottomLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="yt5-hu-rdM">
-                        <rect key="frame" x="247" y="92" width="123" height="97"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="jly-QY-17P" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="LIw-PZ-ZBy"/>
-                    <constraint firstItem="jly-QY-17P" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="x2E-u2-f3V"/>
+                    <constraint firstItem="xUt-1u-DIg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="IPf-e5-4Py"/>
+                    <constraint firstItem="xUt-1u-DIg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Vgd-rX-S49"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="xUt-1u-DIg" secondAttribute="bottom" id="XWJ-hx-VyX"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="xUt-1u-DIg" secondAttribute="trailing" id="uHc-Qn-Kyf"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -66,7 +78,7 @@
                 <outlet property="dueDateLabel" destination="yt5-hu-rdM" id="WM3-ZC-Fde"/>
                 <outlet property="icon" destination="4UK-Dp-VJt" id="ZPi-dX-D1E"/>
             </connections>
-            <point key="canvasLocation" x="287.68115942028987" y="-5.3571428571428568"/>
+            <point key="canvasLocation" x="246" y="29"/>
         </tableViewCell>
     </objects>
     <resources>

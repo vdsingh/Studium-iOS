@@ -264,17 +264,7 @@ class DayScheduleViewController: DayViewController{
             }
             return events
         }
-    
-    
-    
-    
-    
-    
-    //    override func loadView() {
-    //        dayView = DayView(calendar: calendar)
-    //        view = dayView
-    //    }
-    //
+
     override func viewDidLoad() {
         super.viewDidLoad()
         dayView.autoScrollToFirstEvent = true
