@@ -193,6 +193,9 @@ extension AddAssignmentViewController{
             cell.timeLabel.text = dueDate.format(with: "MMM d, h:mm a")
             cell.label.text = cellText[indexPath.section][indexPath.row]
             return cell
+            
+            
+            
         }else if cellType[indexPath.section][indexPath.row] == "PickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PickerCell", for: indexPath) as! PickerCell
             cell.picker.delegate = self
@@ -202,6 +205,7 @@ extension AddAssignmentViewController{
         }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
             cell.picker.datePickerMode = .dateAndTime
+            cell.picker.date = dueDate
             cell.delegate = self
             cell.indexPath = indexPath
             return cell
@@ -237,6 +241,7 @@ extension AddAssignmentViewController{
         
         let selectedRowText = cellText[indexPath.section][indexPath.row]
         if cellType[indexPath.section][indexPath.row] == "TimeCell"{
+            let timeCell = tableView.cellForRow(at: indexPath) as! TimeCell
             var pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")
             if pickerIndex == nil{
                 pickerIndex = cellType[indexPath.section].firstIndex(of: "PickerCell")
@@ -258,7 +263,7 @@ extension AddAssignmentViewController{
             
             tableView.insertRows(at: [IndexPath(row: newIndex, section: indexPath.section)], with: .left)
             cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
-            cellText[indexPath.section].insert("", at: newIndex)
+            cellText[indexPath.section].insert("\(timeCell.date!.format(with: "h:mm a"))", at: newIndex)
             tableView.endUpdates()
         }else if cellText[indexPath.section][indexPath.row] == "Remind Me"{ //user selected "Remind Me"
             performSegue(withIdentifier: "toAlertSelection", sender: self)

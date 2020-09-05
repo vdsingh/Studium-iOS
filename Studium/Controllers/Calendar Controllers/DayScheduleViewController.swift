@@ -243,7 +243,7 @@ class DayScheduleViewController: DayViewController{
                     let newEvent = Event()
                     newEvent.startDate = assignment.startDate
                     newEvent.endDate = assignment.endDate
-                    newEvent.text = "\(assignment.endDate.format(with: "h:mm a")):  \(assignment.name) due"
+                    newEvent.text = "\(assignment.endDate.format(with: "h:mm a")): \(assignment.name) due (\(assignment.parentCourse[0].name))"
                     newEvent.color = UIColor(hexString: assignment.parentCourse[0].color)!
                     newEvent.textColor = .white
     
