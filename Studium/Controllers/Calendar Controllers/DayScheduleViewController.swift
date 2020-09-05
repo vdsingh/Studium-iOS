@@ -58,6 +58,8 @@ class DayScheduleViewController: DayViewController{
                 courseEvent.startDate = Calendar.current.date(bySettingHour: course.startDate.hour, minute: course.startDate.minute, second: 0, of: date)!
                 courseEvent.endDate = Calendar.current.date(bySettingHour: course.endDate.hour, minute: course.endDate.minute, second: 0, of: date)!
                 courseEvent.text = "\(course.name) at \(course.startDate.format(with: "h:mm a"))"
+                courseEvent.color = UIColor(hexString: course.color)!
+                courseEvent.textColor = .white
                 events.append(courseEvent)
     
             }
@@ -136,6 +138,8 @@ class DayScheduleViewController: DayViewController{
                                 let newEvent = Event()
                                 newEvent.startDate = startBound
                                 newEvent.endDate = endBound
+                                newEvent.color = UIColor(hexString: habit.color)!
+                                newEvent.textColor = .white
                                 newEvent.text = "\(habit.name) at \(startBound.format(with: "h:mm a"))"
                                 //schedule notification here.
                                 if date.year == Date().year && date.month == Date().day && date.day == Date().day{
@@ -240,6 +244,8 @@ class DayScheduleViewController: DayViewController{
                     newEvent.startDate = assignment.startDate
                     newEvent.endDate = assignment.endDate
                     newEvent.text = "\(assignment.name) due at \(assignment.endDate.format(with: "h:mm a"))"
+                    newEvent.color = UIColor(hexString: assignment.parentCourse[0].color)!
+                    newEvent.textColor = .white
     
                     events.append(newEvent)
                 }
