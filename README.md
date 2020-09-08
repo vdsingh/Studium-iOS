@@ -8,4 +8,7 @@ Why is Studium so great?
 - Easily view a plan of your entire month with the Calendar Viewer. 
 - All of the information that you create is color coded and super easy to understand
 
-Studium is not yet available on the App Store because it's still in development. Keep up to date to know when it goes live!
+Studium is currently available on TestFlight for beta testing. Please contact me at vdsingh@umass.edu if interested in testing!
+
+![testimage](https://user-images.githubusercontent.com/53489317/92432485-4719fe00-f168-11ea-90e7-b13ea93a2969.jpeg)
+
