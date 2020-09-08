@@ -11,7 +11,7 @@ Why is Studium so great?
 Studium is currently available on TestFlight for beta testing. Please contact me at vdsingh@umass.edu if interested in testing!
 
 <div>
-<img src="https://user-images.githubusercontent.com/53489317/92434328-90208100-f16d-11ea-8e11-5fd99788dedf.jpg" alt="alt text" width="373" height="810">
-<img src="https://user-images.githubusercontent.com/53489317/92434349-99115280-f16d-11ea-8374-bb7d985200ed.jpg" alt="alt text" width="373" height="810">
-<img src="https://user-images.githubusercontent.com/53489317/92434352-9adb1600-f16d-11ea-8989-c814ab905213.jpg" alt="alt text" width="373" height="810">
+  <img src="https://user-images.githubusercontent.com/53489317/92434328-90208100-f16d-11ea-8e11-5fd99788dedf.jpg" alt="alt text" width="33%" padding-right="5px">
+  <img src="https://user-images.githubusercontent.com/53489317/92434349-99115280-f16d-11ea-8374-bb7d985200ed.jpg" alt="alt text" width="33%">
+  <img src="https://user-images.githubusercontent.com/53489317/92434352-9adb1600-f16d-11ea-8989-c814ab905213.jpg" alt="alt text" width="33%" padding-left="5px">
 </div>
