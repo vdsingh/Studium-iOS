@@ -10,9 +10,7 @@ Why is Studium so great?
 
 Studium is currently available on TestFlight for beta testing. Please contact me at vdsingh@umass.edu if interested in testing!
 
-![1-5 8 inch - iPhone X-screen__1](https://user-images.githubusercontent.com/53489317/92434328-90208100-f16d-11ea-8e11-5fd99788dedf.jpg){
-  width: 10%;
-}
-![2-5 8 inch - iPhone X-screen__2](https://user-images.githubusercontent.com/53489317/92434349-99115280-f16d-11ea-8374-bb7d985200ed.jpg)
-![3-5 8 inch - iPhone X-screen__3](https://user-images.githubusercontent.com/53489317/92434352-9adb1600-f16d-11ea-8989-c814ab905213.jpg)
+![](https://user-images.githubusercontent.com/53489317/92434328-90208100-f16d-11ea-8e11-5fd99788dedf.jpg | width=100)
+![](https://user-images.githubusercontent.com/53489317/92434349-99115280-f16d-11ea-8374-bb7d985200ed.jpg)
+![](https://user-images.githubusercontent.com/53489317/92434352-9adb1600-f16d-11ea-8989-c814ab905213.jpg)
 
