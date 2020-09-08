@@ -2,7 +2,7 @@
 As a college student, managing time can be a difficult and tedious (and it can be a time intensive task in itself!). Studium is an iOS app that I am developing to help combat this issue by bring order and organization to students' lives. 
 
 ## Studium in a Nutshell
-- Studium has an incredibly user friendly and satisfying design/user interface. Adding information like courses and assignments, for the app to track takes just a couple of seconds
+- Studium has an incredibly user friendly and satisfying design/user interface. Adding information like courses and assignments, for the app to track, takes just a couple of seconds
 - Studium will show you your schedule for every day, with your courses, assignments, and habits already all planned out.
 - Easily view a plan of your entire month with the Calendar Viewer. 
 - Studium will send you notifications before each course, assignment, and habit, so you're never late for anything (the times at which you receive notifications are customizable as well).
