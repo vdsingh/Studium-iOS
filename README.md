@@ -13,7 +13,12 @@ As a college student, managing time can be a difficult and tedious task(and it c
 Studium is currently available on TestFlight for beta testing. Please contact me at vdsingh@umass.edu if interested in testing!
 
 <div>
-  <img src="https://user-images.githubusercontent.com/53489317/92434328-90208100-f16d-11ea-8e11-5fd99788dedf.jpg" alt="alt text" width="33%" padding-right="5px">
-  <img src="https://user-images.githubusercontent.com/53489317/92434349-99115280-f16d-11ea-8374-bb7d985200ed.jpg" alt="alt text" width="33%">
-  <img src="https://user-images.githubusercontent.com/53489317/92434352-9adb1600-f16d-11ea-8989-c814ab905213.jpg" alt="alt text" width="33%" padding-left="5px">
+  <img src="https://user-images.githubusercontent.com/53489317/93010998-719cfa00-f560-11ea-934b-ce5ed1aed607.png" alt="alt text" width="33%">
+  <img src="https://user-images.githubusercontent.com/53489317/93010999-72ce2700-f560-11ea-9deb-ddb5e699c191.png" alt="alt text" width="33%">
+  <img src="https://user-images.githubusercontent.com/53489317/93011000-7366bd80-f560-11ea-9a93-8515bc0a0bb4.png" alt="alt text" width="33%">
+  <div width="16.65%"></div>
+  <img src="https://user-images.githubusercontent.com/53489317/93011001-7366bd80-f560-11ea-846a-43f193c13b16.png" alt="alt text" width="33%">
+  <img src="https://user-images.githubusercontent.com/53489317/93011002-7366bd80-f560-11ea-8814-bf85038708ca.png" alt="alt text" width="33%">
+  <div width="16.65%"></div>
+
 </div>
