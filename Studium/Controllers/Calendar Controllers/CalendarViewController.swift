@@ -37,12 +37,16 @@ class CalendarViewController: UIViewController{
 
         
     }
-    
-    @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
-        
+    @IBAction func dayButtonPressed(_ sender: Any) {
+        print("dayButtonPRessed.")
         self.navigationController?.popViewController(animated: false)
-
     }
+    
+//    @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
+//
+//        self.navigationController?.popViewController(animated: false)
+//
+//    }
     func addAssignments(){
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.none

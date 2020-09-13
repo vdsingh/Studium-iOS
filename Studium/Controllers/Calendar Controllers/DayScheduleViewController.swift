@@ -21,10 +21,13 @@ class DayScheduleViewController: DayViewController{
         performSegue(withIdentifier: "toSettings", sender: self)
     }
     
-    @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
+    @IBAction func monthButtonPressed(_ sender: Any) {
         performSegue(withIdentifier: "toCalendar", sender: self)
-        sender.selectedSegmentIndex = 0
     }
+    //    @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
+//        performSegue(withIdentifier: "toCalendar", sender: self)
+//        sender.selectedSegmentIndex = 0
+//    }
     
     func addCourses(for date: Date) -> [Event]{
         var events: [Event] = []
