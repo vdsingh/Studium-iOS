@@ -39,6 +39,15 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        let gradient = CAGradientLayer()
+        let sizeLength = UIScreen.main.bounds.size.height * 2
+        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: sizeLength, height: 64)
+
+        gradient.frame = defaultNavigationBarFrame
+
+        gradient.colors = [UIColor.white.cgColor, UIColor.black.cgColor]
+
+        UINavigationBar.appearance().setBackgroundImage(self.image(fromLayer: gradient), for: .default)
         loadCourses()
         
         
@@ -48,6 +57,17 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         
         //        guard let navBar = navigationController?.navigationBar else {fatalError("nav controller doesnt exist")}
         //        navBar.barTintColor = UIColor.gray
+    }
+    func image(fromLayer layer: CALayer) -> UIImage {
+        UIGraphicsBeginImageContext(layer.frame.size)
+
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+
+        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
+
+        UIGraphicsEndImageContext()
+
+        return outputImage!
     }
     override func viewDidAppear(_ animated: Bool) {
         //        loadCourses()

@@ -315,6 +315,7 @@ class DayScheduleViewController: DayViewController{
         super.viewDidLoad()
         print("view did load.")
         dayView.autoScrollToFirstEvent = true
+        dayView.backgroundColor = .red
     }
     
     override func viewWillAppear(_ animated: Bool) {
