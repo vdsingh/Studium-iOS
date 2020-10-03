@@ -110,9 +110,18 @@ class DayScheduleViewController: DayViewController{
         for habit in habitsOnDay{
             if habit.autoSchedule{ // auto schedule habit
                 if habit.startEarlier{
+                    var endHour = habit.startDate.hour + habit.totalHourTime;
+                    var endMin = habit.startDate.minute + habit.totalMinuteTime;
+                    print("\(habit.name) end hour before: \(endHour) end min before: \(endMin)")
+                    if endMin >= 60{
+                        endHour += 1
+                        endMin -= 60
+                    }
+                    print("\(habit.name) end hour after: \(endHour) end min after: \(endMin)")
+
+                    print("\(habit.name) start: \(habit.startDate.hour) habit end: \(habit.startDate.minute)")
                     var startBound = Calendar.current.date(bySettingHour: habit.startDate.hour, minute: habit.startDate.minute, second: 0, of: date)!
-                    var endBound = Calendar.current.date(bySettingHour: startBound.hour + habit.totalHourTime, minute: startBound.minute + habit.totalMinuteTime, second: 0, of: date)!
-                    
+                    var endBound = Calendar.current.date(bySettingHour: endHour, minute: endMin, second: 0, of: date)!
                     var counter = 0
                     while true {
                         counter+=1
@@ -125,7 +134,16 @@ class DayScheduleViewController: DayViewController{
                             //                                   print("The event between \(startBound) and \(endBound) was \(event?.text)")
                             startBound = event!.endDate + 1
                             //print("end of event = \(event!.endDate). new start bound = \(startBound)")
-                            endBound = Calendar.current.date(bySettingHour: startBound.hour + habit.totalHourTime, minute: startBound.minute + habit.totalMinuteTime, second: 0, of: date)!
+                            var newHour = startBound.hour + habit.totalHourTime
+                            var newMin = startBound.minute + habit.totalMinuteTime
+                            if(newMin >= 60){
+                                newHour += 1;
+                                newMin -= 60;
+                            }
+                            print("date: \(date)")
+                            print("new hour: \(newHour) new min: \(newMin)")
+                            endBound = Calendar.current.date(bySettingHour: newHour, minute: newMin, second: 0, of: date)!
+                            
                         }else{
                             //let newEvent = CalendarEvent(startDate: startBound, endDate: endBound, title: habit.name, location: habit.location)
                             let newEvent = Event()
@@ -166,7 +184,13 @@ class DayScheduleViewController: DayViewController{
                         }
                     }
                 }else{ //schedule the habit later rather than earlier
-                    var startBound = Calendar.current.date(bySettingHour: habit.endDate.hour - habit.totalHourTime, minute: habit.endDate.minute - habit.totalMinuteTime, second: 0, of: date)!
+                    var startHour = habit.endDate.hour - habit.totalHourTime
+                    var startMin = habit.endDate.minute - habit.totalMinuteTime
+                    if startMin < 0{
+                        startMin += 60
+                        startHour -= 1
+                    }
+                    var startBound = Calendar.current.date(bySettingHour: startHour, minute: startMin, second: 0, of: date)!
                     var endBound = Calendar.current.date(bySettingHour: habit.endDate.hour, minute: startBound.minute, second: 0, of: date)!
                     
                     var counter = 0
@@ -178,12 +202,19 @@ class DayScheduleViewController: DayViewController{
                         }
                         if isEventBetween(time1: startBound, time2: endBound, events: outsideEvents){
                             let event = getEventBetween(time1: startBound, time2: endBound, events: outsideEvents)
-                            //                                   print("The event between \(startBound) and \(endBound) was \(event?.text)")
+
                             endBound = event!.startDate - 1
-                            //print("end of event = \(event!.endDate). new start bound = \(startBound)")
-                            startBound = Calendar.current.date(bySettingHour: endBound.hour - habit.totalHourTime, minute: endBound.minute - habit.totalMinuteTime, second: 0, of: date)!
+                            var startHour = endBound.hour - habit.totalHourTime
+                            var startMin = endBound.minute - habit.totalMinuteTime
+                            if startMin < 0{
+                                startMin += 60
+                                startHour -= 1
+                            }
+                            
+                            startBound = Calendar.current.date(bySettingHour: startHour, minute: startMin, second: 0, of: date)!
+                            
                         }else{
-                            //let newEvent = CalendarEvent(startDate: startBound, endDate: endBound, title: habit.name, location: habit.location)
+
                             let newEvent = Event()
                             newEvent.startDate = startBound
                             newEvent.endDate = endBound
@@ -316,13 +347,11 @@ class DayScheduleViewController: DayViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("view did load.")
         dayView.autoScrollToFirstEvent = true
         dayView.backgroundColor = .red
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("view will appear!")
         reloadData()
 //        viewDidLoad()
         generatedEvents = []

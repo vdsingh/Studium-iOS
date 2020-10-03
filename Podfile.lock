@@ -8,11 +8,11 @@ PODS:
   - DateToolsSwift (5.0.0)
   - FlexColorPicker (1.4.2)
   - FSCalendar (2.8.1)
-  - Realm (5.3.6):
-    - Realm/Headers (= 5.3.6)
-  - Realm/Headers (5.3.6)
-  - RealmSwift (5.3.6):
-    - Realm (= 5.3.6)
+  - Realm (5.4.1):
+    - Realm/Headers (= 5.4.1)
+  - Realm/Headers (5.4.1)
+  - RealmSwift (5.4.1):
+    - Realm (= 5.4.1)
   - SwipeCellKit (2.7.1)
 
 DEPENDENCIES:
@@ -52,8 +52,8 @@ SPEC CHECKSUMS:
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   FlexColorPicker: d7ed5cfd8ceb936f2930e4e30629f9448967a5f8
   FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
-  Realm: cd400dd7e5b5bb5c8ae9842eecd73792369e6ec0
-  RealmSwift: 99a16dbdee5d6dfb3d91d56088a9f8c15c0871d1
+  Realm: 7e887608ef1de2d0c3a33dd9b1449e08fc9d9807
+  RealmSwift: ef998d9b678fd74e047c56ef4d99d9b77e87c1eb
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
 PODFILE CHECKSUM: 60102e1d36d3e0e6984fd291ed2c84ee89aabc13

@@ -49,7 +49,6 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     @IBOutlet weak var navButton: UIBarButtonItem!
     //called when the view loads
     override func viewDidLoad() {
-        print("viewDidLoad Called.")
         //register custom cells for form
         tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
         tableView.register(UINib(nibName: "TimeCell", bundle: nil), forCellReuseIdentifier: "TimeCell")
