@@ -53,7 +53,7 @@ class DayScheduleViewController: DayViewController{
             courseEvent.endDate = Calendar.current.date(bySettingHour: course.endDate.hour, minute: course.endDate.minute, second: 0, of: date)!
             courseEvent.text = "\(course.startDate.format(with: "h:mm a")) - \(course.endDate.format(with: "h:mm a")): \(course.name)"
             courseEvent.color = UIColor(hexString: course.color)!
-            courseEvent.textColor = .white
+//            courseEvent.textColor = .white
             events.append(courseEvent)
             
         }
@@ -82,7 +82,8 @@ class DayScheduleViewController: DayViewController{
         let newEvent = Event()
         newEvent.startDate = anHourAgo
         newEvent.endDate = usableDate
-        newEvent.text = "\(usableDate.format(with: "h:mm a")): Wake Up"
+//        newEvent.text =
+        newEvent.attributedText = NSMutableAttributedString(string: "\(usableDate.format(with: "h:mm a")): Wake Up")
         
         events.append(newEvent)
         return events
@@ -150,7 +151,7 @@ class DayScheduleViewController: DayViewController{
                             newEvent.startDate = startBound
                             newEvent.endDate = endBound
                             newEvent.color = UIColor(hexString: habit.color)!
-                            newEvent.textColor = .white
+//                            newEvent.textColor = .white
                             newEvent.text = "\(habit.name) at \(startBound.format(with: "h:mm a"))"
                             //schedule notification here.
                             if date.year == Date().year && date.month == Date().day && date.day == Date().day{
@@ -219,7 +220,7 @@ class DayScheduleViewController: DayViewController{
                             newEvent.startDate = startBound
                             newEvent.endDate = endBound
                             newEvent.color = UIColor(hexString: habit.color)!
-                            newEvent.textColor = .white
+//                            newEvent.textColor = .white
                             newEvent.text = "\(habit.name) at \(startBound.format(with: "h:mm a"))"
                             //schedule notification here.
                             if date.year == Date().year && date.month == Date().day && date.day == Date().day{
@@ -319,9 +320,17 @@ class DayScheduleViewController: DayViewController{
                 let newEvent = Event()
                 newEvent.startDate = assignment.startDate
                 newEvent.endDate = assignment.endDate
-                newEvent.text = "\(assignment.endDate.format(with: "h:mm a")): \(assignment.name) due (\(assignment.parentCourse[0].name))"
+                let attributedText : NSMutableAttributedString =  NSMutableAttributedString(string: "\(assignment.endDate.format(with: "h:mm a")): \(assignment.name) due (\(assignment.parentCourse[0].name))")
+                if assignment.complete{
+                    print("Assignment \(assignment.name) is complete!");
+                    attributedText.addAttributes([
+                    NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
+                    NSAttributedString.Key.strikethroughColor: UIColor.black,
+                    ], range: NSMakeRange(0, attributedText.length))
+                }
+                newEvent.attributedText = attributedText
                 newEvent.color = UIColor(hexString: assignment.parentCourse[0].color)!
-                newEvent.textColor = .white
+//                newEvent.textColor = .white
                 
                 events.append(newEvent)
             }
@@ -338,7 +347,8 @@ class DayScheduleViewController: DayViewController{
                 let newEvent = Event()
                 newEvent.startDate = otherEvent.startDate
                 newEvent.endDate = otherEvent.endDate
-                newEvent.text = "\(otherEvent.startDate.format(with: "h:mm a")) - \(otherEvent.endDate.format(with: "h:mm a")) - \(otherEvent.name)"
+                newEvent.attributedText = NSMutableAttributedString(string:"\(otherEvent.startDate.format(with: "h:mm a")) - \(otherEvent.endDate.format(with: "h:mm a")) - \(otherEvent.name)")
+//                newEvent.text = "\(otherEvent.startDate.format(with: "h:mm a")) - \(otherEvent.endDate.format(with: "h:mm a")) - \(otherEvent.name)"
                 events.append(newEvent)
             }
         }

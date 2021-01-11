@@ -123,10 +123,9 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
         }
     }
     
-    
+    //cancel the form
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
-        
     }
     
     //writing to Realm.
@@ -228,12 +227,19 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
         tableView.deselectRow(at: indexPath, animated: true)
         view.endEditing(true)
 
+        //user taps "This Event is a Course Assignment"
         if indexPath.section == 0{
             let courses = realm.objects(Course.self)
             if courses.count != 0{
                 let del = delegate as! ToDoListViewController
                 self.dismiss(animated: true) {
-                    del.openAssignmentForm()
+                    
+                    //make sure that the data in our variables is updated before we transfer it to the new form.
+                    self.retrieveDataFromCells()
+                    
+                    //go to the assignment form instead of todo item form. Also provide the assignment form the information from the current form.
+                    del.openAssignmentForm(name: self.name, location: self.location, additionalDetails: self.additionalDetails, alertTimes: self.alertTimes, dueDate: self.endDate);
+                    
                 }
             }else{
                 let alert = UIAlertController(title: "No Courses Available", message: "You haven't added any Courses yet. To add an Assignment, please add a Course first.", preferredStyle: .alert)

@@ -112,10 +112,18 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         self.present(navController, animated:true, completion: nil)
     }
     
-    func openAssignmentForm(){
+    func openAssignmentForm(name: String, location: String, additionalDetails: String, alertTimes: [Int], dueDate: Date){
         let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
         let navController = UINavigationController(rootViewController: addAssignmentViewController)
         addAssignmentViewController.delegate = self
+        addAssignmentViewController.fromTodoForm = true
+        
+        //providing the information from the todo form to the assignment form to be reused.
+        addAssignmentViewController.todoFormData[0] = name
+        addAssignmentViewController.todoFormData[1] = additionalDetails
+        addAssignmentViewController.todoAlertTimes = alertTimes
+        addAssignmentViewController.todoDueDate = dueDate
+        
         self.present(navController, animated:true, completion: nil)
     }
     

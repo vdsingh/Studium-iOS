@@ -10,6 +10,15 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     //holds the assignment being edited if an assignment is being edited.
     var assignment: Assignment?
     
+    //boolean that tells us whether the user came from the TodoEvent form. This is so that we can fill already existing data from that form (can't use edit feature because that requires an existing assignment)
+    var fromTodoForm: Bool = false;
+    //String field data from todo form. [name, data]
+    var todoFormData: [String] = ["", ""]
+    //alert times data from todo form.
+    var todoAlertTimes: [Int] = []
+    var todoDueDate: Date = Date()
+    
+    
     //a list of courses so that the user can pick which course the assignment is attached to
     var courses: Results<Course>? = nil
     
@@ -24,6 +33,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     var errors: String = ""
     
     //basic assignment variables
+    
     var dueDate = Date()
     var selectedCourse: Course? = nil
     var name: String = ""
@@ -45,8 +55,17 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         //getting all courses from realm to populate the course picker.
         courses = realm.objects(Course.self)
         
+        dueDate = Calendar.current.date(bySetting: .hour, value: 23, of: dueDate)!
+        dueDate = Calendar.current.date(bySetting: .minute, value: 59, of: dueDate)!
+        
         if assignment != nil{
-            fillForm(with: assignment!)
+            alertTimes = [];
+            for alert in assignment!.notificationAlertTimes{
+                alertTimes.append(alert)
+            }
+            fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate)
+        }else if fromTodoForm{
+            fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate)
         }else{
             navButton.image = UIImage(systemName: "plus")
         }
@@ -316,27 +335,49 @@ extension AddAssignmentViewController: UITimePickerDelegate{
 }
 
 extension AddAssignmentViewController{
-    func fillForm(with assignment: Assignment){
-        
+//    func fillForm(with assignment: Assignment){
+//        navButton.image = .none
+//        navButton.title = "Done"
+//
+//        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
+//        nameCell.textField.text = assignment.name
+//
+//        let dueDateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
+//        dueDate = assignment.endDate
+//        dueDateCell.timeLabel.text = dueDate.format(with: "h:mm a")
+//        dueDateCell.date = dueDate
+//
+//        alertTimes = []
+//        for alert in assignment.notificationAlertTimes{
+//            alertTimes.append(alert)
+//        }
+//
+//        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TextFieldCell
+//        additionalDetailsCell.textField.text = assignment.additionalDetails
+//    }
+    
+    func fillForm(name: String, additionalDetails: String, alertTimes: [Int], dueDate: Date){
         navButton.image = .none
         navButton.title = "Done"
         
         let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-        nameCell.textField.text = assignment.name
+        nameCell.textField.text = name
         
         let dueDateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
-        dueDate = assignment.endDate
-        dueDateCell.timeLabel.text = dueDate.format(with: "h:mm a")
+        self.dueDate = dueDate
+//        dueDateCell.timeLabel.text = "dueDate.format(with: "h:mm a")"
+        dueDateCell.timeLabel.text = "Hello!"
+
         dueDateCell.date = dueDate
         
-        alertTimes = []
-        for alert in assignment.notificationAlertTimes{
-            alertTimes.append(alert)
-        }
+        self.alertTimes = alertTimes
+//        alertTimes = []
+//        for alert in assignment.notificationAlertTimes{
+//            alertTimes.append(alert)
+//        }
         
         let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TextFieldCell
-        additionalDetailsCell.textField.text = assignment.additionalDetails
-        
+        additionalDetailsCell.textField.text = additionalDetails
     }
 }
 
