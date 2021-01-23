@@ -35,6 +35,7 @@ class HabitCell: DeletableEventCell {
         
         iconImage.image = UIImage(systemName: habit.systemImageString)
         iconImage.tintColor = UIColor(hexString: habit.color)
+//        habit.startDate
         
         var timeText = habit.startDate.format(with: "h:mm a")
         timeText.append(" - \(habit.endDate.format(with: "h:mm a"))")

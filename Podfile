@@ -16,4 +16,6 @@ pod 'ChameleonFramework/Swift', :git => 'https://github.com/wowansm/Chameleon.gi
 pod 'Colorful'
 pod 'FlexColorPicker'
 
+pod 'DateToolsSwift'
+
 end

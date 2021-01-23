@@ -21,7 +21,7 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     var delegate: CourseRefreshProtocol?
     
     //arrays that structure the form (determine each type of cell and what goes in them for the most part)
-    var cellText: [[String]] = [["Name", "Location", "Days", "Remind Me"], ["Starts", "Ends"], ["Logo", "Color Picker", "Additional Details"], ["Errors"]]
+    var cellText: [[String]] = [["Name", "Location", "Days", "Remind Me"], ["Starts", "Ends"], ["Logo", "Color Picker", "Additional Details"], [""]]
     var cellType: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell", "LabelCell"],  ["TimeCell", "TimeCell"], ["LogoCell", "ColorPickerCell", "TextFieldCell"], ["LabelCell"]]
     
     //start and end time for the course. The date doesn't actually matter because the days are selected elsewhere
