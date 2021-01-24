@@ -374,7 +374,7 @@ extension AddCourseViewController{
             tableView.endUpdates()
         }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
             performSegue(withIdentifier: "toLogoSelection", sender: self)
-        }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{ //user selected "Remind Me"
+        }else if cellText[indexPath.section][indexPath.row] == "Remind Me"{ //user selected "Remind Me"
             performSegue(withIdentifier: "toAlertSelection", sender: self)
         }
         

@@ -212,13 +212,6 @@
 			path = "Form Controllers";
 			sourceTree = "<group>";
 		};
-		165A6C8424916BE7004279B0 /* Edit Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Edit Controllers";
-			sourceTree = "<group>";
-		};
 		1665FF1E250EA98300485F3D /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,7 +269,6 @@
 			children = (
 				166F53CE25BC92FA0065963D /* Navigation Controllers */,
 				16547B6B24DA4AA900E68E4D /* Settings Controllers */,
-				165A6C8424916BE7004279B0 /* Edit Controllers */,
 				165A6C8324916BD9004279B0 /* Form Controllers */,
 				16429D05247E81500052E47C /* Intro Controllers */,
 				16429CFC247D200E0052E47C /* Calendar Controllers */,
