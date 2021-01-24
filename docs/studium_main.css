@@ -176,10 +176,17 @@ p {
 
 #flat_illustration {
   /* border: 1px solid green; */
-  float: left;
-  margin-left: 20%;
-  margin-top: 7%;
-  width: 35%;
+  /* float: left; */
+  position: absolute;
+
+  top: 15%;
+  right: 15%;
+
+  /* margin-top: 7%; */
+  width: 20%;
+
+  /* -webkit-transform: scaleX(-1);
+  transform: scaleX(-1); */
 }
 
 #flat_illustration:hover {
