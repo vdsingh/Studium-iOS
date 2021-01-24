@@ -8,13 +8,18 @@
 
 import Foundation
 import UIKit
+import ChameleonFramework
 
 class ThemesViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
-    var themeNames: [[String]] = [["Black"],["Red", "Orange", "Yellow", "Green", "Teal", "Blue", "Purple"]]
-    var colors: [[String]] = [["000000"], ["#F34440","#F77F49","#F7BA63","#ACCF6A","51B2AF", "2d73f5", "aa46be"]]
-    var sectionHeaders: [String] = ["Boring", "Muted Colors"]
+    var themeNames: [[String]] = [["Black"],["Red", "Orange", "Yellow", "Green", "Teal", "Blue", "Purple"], ["Red/Orange", "Blue", "Blue/Green", "Pink/Purple"]]
+    var colors: [[String]] = [["black"], ["flatRed","flatOrange","flatYellow","flatGreen","flatTeal", "flatBlue", "flatPurple"], ["redorangeGradient", "blueGradient", "bluegreenGradient", "purplepinkGradient"]]
+    
+    
+//
+    
+    var sectionHeaders: [String] = ["Boring", "Muted Colors", "Gradients"]
     override func viewDidLoad() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -37,9 +42,9 @@ extension ThemesViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let color: UIColor = UIColor(hexString: colors[indexPath.section][indexPath.row])!
+        let color: UIColor = K.colorsDict[colors[indexPath.section][indexPath.row]] ?? UIColor.black
         
-        appDelegate.changeTheme(color: color)
+        appDelegate.changeTheme(colorKey: colors[indexPath.section][indexPath.row])
         //hide and unhide the navbar to basically refresh it
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.isNavigationBarHidden = false
@@ -72,8 +77,10 @@ extension ThemesViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ThemeCell", for: indexPath) as! ThemeCell
         cell.label.text = themeNames[indexPath.section][indexPath.row]
-        let color: UIColor = UIColor(hexString: colors[indexPath.section][indexPath.row])!
-        cell.colorPreview.tintColor = color
+//        let color: UIColor = UIColor(hexString: colors[indexPath.section][indexPath.row])!
+//        cell.colorPreview.tintColor = K.colorsDict[colors[indexPath.section][indexPath.row]]
+        cell.setColorPreviewColor(colors: K.gradientPreviewDict[colors[indexPath.section][indexPath.row]]!)
+//        cell.colorPreview.backgroundColor = K.colorsDict[colors[indexPath.section][indexPath.row]]
         
         return cell
     }

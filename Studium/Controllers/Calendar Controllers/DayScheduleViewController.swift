@@ -51,8 +51,13 @@ class DayScheduleViewController: DayViewController{
             let courseEvent = Event()
             courseEvent.startDate = Calendar.current.date(bySettingHour: course.startDate.hour, minute: course.startDate.minute, second: 0, of: date)!
             courseEvent.endDate = Calendar.current.date(bySettingHour: course.endDate.hour, minute: course.endDate.minute, second: 0, of: date)!
-            courseEvent.text = "\(course.startDate.format(with: "h:mm a")) - \(course.endDate.format(with: "h:mm a")): \(course.name)"
+//            courseEvent.text = "\(course.startDate.format(with: "h:mm a")) - \(course.endDate.format(with: "h:mm a")): \(course.name)"
             courseEvent.color = UIColor(hexString: course.color)!
+            
+            let string = "\(course.startDate.format(with: "h:mm a")) - \(course.endDate.format(with: "h:mm a")): \(course.name)"
+            let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.white]
+            let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
+            courseEvent.attributedText = attributedString
 //            courseEvent.textColor = .white
             events.append(courseEvent)
             
@@ -82,8 +87,14 @@ class DayScheduleViewController: DayViewController{
         let newEvent = Event()
         newEvent.startDate = anHourAgo
         newEvent.endDate = usableDate
-//        newEvent.text =
-        newEvent.attributedText = NSMutableAttributedString(string: "\(usableDate.format(with: "h:mm a")): Wake Up")
+        newEvent.color = UIColor.yellow
+        
+        
+        let string = "\(usableDate.format(with: "h:mm a")): Wake Up"
+        
+        let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.white]
+        let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
+        newEvent.attributedText = attributedString
         
         events.append(newEvent)
         return events
@@ -320,16 +331,22 @@ class DayScheduleViewController: DayViewController{
                 let newEvent = Event()
                 newEvent.startDate = assignment.startDate
                 newEvent.endDate = assignment.endDate
-                let attributedText : NSMutableAttributedString =  NSMutableAttributedString(string: "\(assignment.endDate.format(with: "h:mm a")): \(assignment.name) due (\(assignment.parentCourse[0].name))")
+                newEvent.color = UIColor(hexString: assignment.parentCourse[0].color)!
+
+//                let attributedText : NSMutableAttributedString =  NSMutableAttributedString(string: )
+//                let textColor = UIColor(contrastingBlackOrWhiteColorOn: newEvent.color, isFlat:true)
+                let string = "\(assignment.endDate.format(with: "h:mm a")): \(assignment.name) due (\(assignment.parentCourse[0].name))"
+                let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.white]
+                let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
                 if assignment.complete{
                     print("Assignment \(assignment.name) is complete!");
-                    attributedText.addAttributes([
+                    attributedString.addAttributes([
                     NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                    NSAttributedString.Key.strikethroughColor: UIColor.black,
-                    ], range: NSMakeRange(0, attributedText.length))
+                        NSAttributedString.Key.strikethroughColor: UIColor.white,
+                    ], range: NSMakeRange(0, attributedString.length))
                 }
-                newEvent.attributedText = attributedText
-                newEvent.color = UIColor(hexString: assignment.parentCourse[0].color)!
+                newEvent.attributedText = attributedString
+//                newEvent.color =
 //                newEvent.textColor = .white
                 
                 events.append(newEvent)
@@ -347,7 +364,13 @@ class DayScheduleViewController: DayViewController{
                 let newEvent = Event()
                 newEvent.startDate = otherEvent.startDate
                 newEvent.endDate = otherEvent.endDate
-                newEvent.attributedText = NSMutableAttributedString(string:"\(otherEvent.startDate.format(with: "h:mm a")) - \(otherEvent.endDate.format(with: "h:mm a")) - \(otherEvent.name)")
+                newEvent.color = .blue
+                let string = "\(otherEvent.startDate.format(with: "h:mm a")) - \(otherEvent.endDate.format(with: "h:mm a")) - \(otherEvent.name)"
+                
+                let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.white]
+                let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
+                newEvent.attributedText = attributedString
+                
 //                newEvent.text = "\(otherEvent.startDate.format(with: "h:mm a")) - \(otherEvent.endDate.format(with: "h:mm a")) - \(otherEvent.name)"
                 events.append(newEvent)
             }

@@ -10,21 +10,16 @@ import UIKit
 
 class TabBarController: UITabBarController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    let layerGradient = CAGradientLayer()
 
-        // Do any additional setup after loading the view.
-    }
-    
+        override func viewDidLoad() {
+            super.viewDidLoad()
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+            layerGradient.colors = [UIColor.red.cgColor, UIColor.yellow.cgColor]
+            layerGradient.startPoint = CGPoint(x: 0, y: 0.5)
+            layerGradient.endPoint = CGPoint(x: 1, y: 0.5)
+            layerGradient.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
+            self.tabBar.layer.addSublayer(layerGradient)
+        }
 
 }

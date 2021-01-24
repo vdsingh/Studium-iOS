@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,22 +21,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //print(realm.configuration.fileURL)
 //        print("UserDefaults Path: ")
 //        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
-        updateTheme()
-        
+        updateTheme(color: K.colorsDict[defaults.string(forKey: "themeColor") ?? "black"] ?? UIColor.black)
+//        updateTheme(color: UIColor.green)
+        print("Did finish launching");
         return true
     }
     
     //updates the theme color of the app.
-    func updateTheme(){
+    func updateTheme(color: UIColor){
         let appearance = UINavigationBarAppearance()
-        let colorHex = defaults.string(forKey: "themeColor")
-        var color = K.defaultThemeColor
-        if colorHex != nil{
-            color = UIColor(hexString: colorHex!)!
-        }
+//        let colorHex = defaults.string(forKey: "themeColor")
+//        var color = K.defaultThemeColor
+//        if colorHex != nil{
+//            color = UIColor(hexString: colorHex!)!
+//        }
 
 
         appearance.backgroundColor = color
+            
+//            UIColor(gradientStyle: UIGradientStyle.leftToRight, withFrame: CGRect(x: 0, y: UIScreen.main.bounds.height, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), andColors: [UIColor.red, UIColor.orange])
+        
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
 
@@ -45,13 +50,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         
         UITabBar.appearance().barTintColor = color // your color
+        UITabBarAppearance().backgroundColor = color
+            
+//            UIColor(gradientStyle: UIGradientStyle.leftToRight, withFrame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), andColors: [UIColor.red, UIColor.orange])
         
 //        UITabBarAppearance().backgroundColor = .red
     }
     
-    func changeTheme(color: UIColor){
-        defaults.set(color.hexValue(), forKey: "themeColor")
-        updateTheme()
+    func changeTheme(colorKey: String){
+//        defaults.setColor(color: color, forKey: "themeColor") // set
+        defaults.setValue(colorKey, forKey: "themeColor")
+         // get
+        updateTheme(color: K.colorsDict[colorKey] ?? UIColor.black)
     }
 
     // MARK: UISceneSession Lifecycle
@@ -67,4 +77,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 }
-
