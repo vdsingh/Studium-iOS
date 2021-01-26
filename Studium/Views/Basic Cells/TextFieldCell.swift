@@ -32,6 +32,6 @@ class TextFieldCell: UITableViewCell {
     }
     
     @IBAction func textEdited(_ sender: UITextField) {
-        //delegate!.textEdited(sender: sender)
+        delegate!.textEdited(sender: sender)
     }
 }

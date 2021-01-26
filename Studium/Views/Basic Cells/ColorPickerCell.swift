@@ -30,6 +30,7 @@ class ColorPickerCell: UITableViewCell {
     }
     @IBAction func colorValueChanged(_ sender: RadialPaletteControl) {
         colorPreview.backgroundColor = sender.selectedColor
+        delegate?.colorPickerValueChanged(sender: sender)
     }
     
 }

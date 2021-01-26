@@ -29,9 +29,9 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     var endDate: Date = Date() + (60*60)
     
     //variables that help determine what TimeCells display what times. times does NOT indicate alert times.
-    var times: [Date] = []
-    var timeCounter = 0
-    var pickerCounter = 0
+//    var times: [Date] = []
+//    var timeCounter = 0
+//    var pickerCounter = 0
     
     //error string that is displayed when there are errors
     var errors: String = ""
@@ -65,7 +65,7 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         
         
         //used to decipher which TimeCell should have which dates
-        times = [startDate, endDate]
+//        times = [startDate, endDate]
         //        timeCounter = 0
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
@@ -94,7 +94,7 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     //final step that occurs when the user has filled out the form and wants to add the new course
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         errors = ""
-        retrieveData()
+//        retrieveData()
         endDate = Calendar.current.date(bySettingHour: endDate.hour, minute: endDate.minute, second: endDate.second, of: startDate)!
         if name == ""{
             errors.append(" Please specify a course name.")
@@ -213,9 +213,9 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     //resets necessary data and reloads the tableView
     func reloadData(){
-        times = [startDate, endDate]
-        timeCounter = 0
-        pickerCounter = 0
+//        times = [startDate, endDate]
+//        timeCounter = 0
+//        pickerCounter = 0
         tableView.reloadData()
     }
     
@@ -233,34 +233,34 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     //MARK: - Retrieving Data
     
     //method that retrieves data from cells, instead of data updating whenever something is edited (this is more efficient)
-    func retrieveData(){
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: false)
-
-        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-        name = nameCell.textField.text!
-        
-        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
-        location = locationCell.textField.text!
-        
-        let daySelectorCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
-        daysSelected = daySelectorCell.daysSelected
-        
-        
-        let startTimeCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TimeCell
-        startDate = startTimeCell.date!
-        
-        let endTimeCellIndex = cellType[1].lastIndex(of: "TimeCell")
-        let endTimeCell = tableView.cellForRow(at: IndexPath(row: endTimeCellIndex!, section: 1)) as! TimeCell
-        endDate = endTimeCell.date!
-        
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .middle, animated: false)
-        
-        let colorPickerCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
-        colorValue = colorPickerCell.colorPicker.selectedColor.hexValue()
-
-        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
-        additionalDetails = additionalDetailsCell.textField.text!
-    }
+//    func retrieveData(){
+//        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: false)
+//
+//        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
+//        name = nameCell.textField.text!
+//
+//        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
+//        location = locationCell.textField.text!
+//
+//        let daySelectorCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
+//        daysSelected = daySelectorCell.daysSelected
+//
+//
+//        let startTimeCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TimeCell
+//        startDate = startTimeCell.date!
+//
+//        let endTimeCellIndex = cellType[1].lastIndex(of: "TimeCell")
+//        let endTimeCell = tableView.cellForRow(at: IndexPath(row: endTimeCellIndex!, section: 1)) as! TimeCell
+//        endDate = endTimeCell.date!
+//
+//        tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .middle, animated: false)
+//
+//        let colorPickerCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
+//        colorValue = colorPickerCell.colorPicker.selectedColor.hexValue()
+//
+//        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
+//        additionalDetails = additionalDetailsCell.textField.text!
+//    }
 }
 
 //MARK: - TableView DataSource
@@ -279,13 +279,26 @@ extension AddCourseViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
             cell.textField.delegate = self
+            cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
-            cell.timeLabel.text = times[timeCounter].format(with: "h:mm a")
+            if cellText[indexPath.section][indexPath.row] == "Starts"{
+                cell.timeLabel.text = startDate.format(with: "h:mm a")
+                cell.date = startDate
+            }else{
+                cell.timeLabel.text = endDate.format(with: "h:mm a")
+                cell.date = endDate
+            }
+            
             cell.label.text = cellText[indexPath.section][indexPath.row]
-            cell.date = times[timeCounter]
-            timeCounter+=1
+//            if cellText[indexPath.section][indexPath.row] == "Starts"{
+//                cell.date = startDate
+//            }else{
+//                cell.date = endDate
+//            }
+//            cell.date = times[timeCounter]
+//            timeCounter+=1
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
@@ -299,7 +312,7 @@ extension AddCourseViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "DaySelectorCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "DaySelectorCell", for: indexPath) as! DaySelectorCell
-            //cell.delegate = self
+            cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
@@ -314,7 +327,7 @@ extension AddCourseViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ColorPickerCell", for: indexPath) as! ColorPickerCell
-            //cell.delegate = self
+            cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LogoCell", for: indexPath) as! LogoCell
@@ -384,7 +397,7 @@ extension AddCourseViewController{
         if let destinationVC = segue.destination as? LogoSelectorViewController {
             destinationVC.delegate = self
             let colorCell = tableView.cellForRow(at: IndexPath(row: cellType[2].firstIndex(of: "ColorPickerCell")!, section: 2)) as! ColorPickerCell
-            destinationVC.color = colorCell.colorPreview.backgroundColor
+            destinationVC.color = colorCell.colorPreview.backgroundColor ?? .white
         }else if let destinationVC = segue.destination as? AlertTableViewController{
             destinationVC.delegate = self
 //            destinationVC.alertTimes = alertTimes
@@ -392,7 +405,46 @@ extension AddCourseViewController{
     }
 }
 
+extension AddCourseViewController: UITextFieldDelegateExt{
+    func textEdited(sender: UITextField) {
+        if sender.placeholder == "Name"{
+            print("name edited")
+            name = sender.text!
+        }else if sender.placeholder == "Location"{
+            print("location edited")
+            location = sender.text!
+        }else if sender.placeholder == "Additional Details"{
+            print("additionalDetails edited")
+            additionalDetails = sender.text!
+        }
+    }
+}
 
+extension AddCourseViewController: DaySelectorDelegate{
+    func dayButtonPressed(sender: UIButton) {
+        print("dayButton pressed")
+        let dayTitle = sender.titleLabel!.text
+        if sender.isSelected{
+            sender.isSelected = false
+            for day in daysSelected{
+                if day == dayTitle{//if day is already selected, and we select it again
+                    daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
+                }
+            }
+        }else{//day was not selected, and we are now selecting it.
+            sender.isSelected = true
+            daysSelected.append(dayTitle!)
+        }
+    }
+}
+
+extension AddCourseViewController: ColorDelegate{
+    func colorPickerValueChanged(sender: RadialPaletteControl) {
+        print("colorValue changed")
+        colorValue = sender.selectedColor.hexValue()
+    }
+    
+}
 
 //MARK: - TimePicker Delegate
 extension AddCourseViewController: UITimePickerDelegate{
@@ -401,6 +453,14 @@ extension AddCourseViewController: UITimePickerDelegate{
         let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
         correspondingTimeCell.date = sender.date
         correspondingTimeCell.timeLabel.text = correspondingTimeCell.date!.format(with: "h:mm a")
+        
+        if cellText[indexPath.section][indexPath.row - 1] == "Starts"{
+            print("startDate changed")
+            startDate = sender.date
+        }else{
+            print("endDate changed")
+            endDate = sender.date
+        }
     }
 }
 
@@ -413,12 +473,17 @@ extension AddCourseViewController{
         
         let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
         nameCell.textField.text = course.name
+        name = course.name
         
         let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
         locationCell.textField.text = course.location
+        location = course.location
         
         let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
         daysCell.selectDays(days: course.days)
+        for day in course.days{
+            daysSelected.append(day)
+        }
         
         alertTimes = []
         for alert in course.notificationAlertTimes{
@@ -441,12 +506,14 @@ extension AddCourseViewController{
         
         let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
         colorCell.colorPreview.backgroundColor = UIColor(hexString: course.color)!
+        colorValue = course.color
 //
 //        colorCell.colorPicker.selectedColor = .purple
 //        colorCell.colorPicker.reloadInputViews()
         
         let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
         additionalDetailsCell.textField.text = course.additionalDetails
+        additionalDetails = course.additionalDetails
     }
 }
 
@@ -457,6 +524,8 @@ extension UIViewController: UITextFieldDelegate{
         return true;
     }
 }
+
+
 
 //date extension to get the next weekday of the week (i.e. next monday)
 extension Date {

@@ -41,19 +41,21 @@ class DaySelectorCell: UITableViewCell {
     }
     
     @IBAction func dayButtonPressed(_ sender: UIButton) {
-        //delegate!.dayButtonPressed(sender: sender)
-        let dayTitle = sender.titleLabel!.text
-        if sender.isSelected{
-            sender.isSelected = false
-            for day in daysSelected{
-                if day == dayTitle{//if day is already selected, and we select it again
-                    daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
-                }
-            }
-        }else{//day was not selected, and we are now selecting it.
-            sender.isSelected = true
-            daysSelected.append(dayTitle!)
-        }
+        delegate!.dayButtonPressed(sender: sender)
+        
+        
+//        let dayTitle = sender.titleLabel!.text
+//        if sender.isSelected{
+//            sender.isSelected = false
+//            for day in daysSelected{
+//                if day == dayTitle{//if day is already selected, and we select it again
+//                    daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
+//                }
+//            }
+//        }else{//day was not selected, and we are now selecting it.
+//            sender.isSelected = true
+//            daysSelected.append(dayTitle!)
+//        }
     }
     
 }

@@ -115,7 +115,6 @@ class DayScheduleViewController: DayViewController{
         for habit in allHabits{
             if habit.days.contains(usableString){ //course occurs on this day.
                 habitsOnDay.append(habit)
-                print("habit: \(habit.name) occurs on day: \(usableString)")
             }
         }
         for habit in habitsOnDay{
@@ -123,14 +122,10 @@ class DayScheduleViewController: DayViewController{
                 if habit.startEarlier{
                     var endHour = habit.startDate.hour + habit.totalHourTime;
                     var endMin = habit.startDate.minute + habit.totalMinuteTime;
-                    print("\(habit.name) end hour before: \(endHour) end min before: \(endMin)")
                     if endMin >= 60{
                         endHour += 1
                         endMin -= 60
                     }
-                    print("\(habit.name) end hour after: \(endHour) end min after: \(endMin)")
-
-                    print("\(habit.name) start: \(habit.startDate.hour) habit end: \(habit.startDate.minute)")
                     var startBound = Calendar.current.date(bySettingHour: habit.startDate.hour, minute: habit.startDate.minute, second: 0, of: date)!
                     var endBound = Calendar.current.date(bySettingHour: endHour, minute: endMin, second: 0, of: date)!
                     var counter = 0
@@ -151,8 +146,6 @@ class DayScheduleViewController: DayViewController{
                                 newHour += 1;
                                 newMin -= 60;
                             }
-                            print("date: \(date)")
-                            print("new hour: \(newHour) new min: \(newMin)")
                             endBound = Calendar.current.date(bySettingHour: newHour, minute: newMin, second: 0, of: date)!
                             
                         }else{

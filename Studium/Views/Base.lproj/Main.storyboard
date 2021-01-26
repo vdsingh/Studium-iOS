@@ -915,7 +915,7 @@
         <scene sceneID="Ww9-nZ-htr">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="ak0-as-E5L" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="smiley" catalog="system" selectedImage="smiley.fill" id="M3X-2P-z0G"/>
+                    <tabBarItem key="tabBarItem" title="" image="smiley" catalog="system" selectedImage="face.smiling.fill" id="M3X-2P-z0G"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="fAE-Rp-paA">
@@ -1105,6 +1105,7 @@
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="calendar.circle" catalog="system" width="128" height="121"/>
         <image name="calendar.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="face.smiling.fill" catalog="system" width="128" height="121"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
@@ -1112,7 +1113,6 @@
         <image name="person.circle.fill" catalog="system" width="128" height="121"/>
         <image name="robotimg" width="2400" height="2400"/>
         <image name="smiley" catalog="system" width="128" height="121"/>
-        <image name="smiley.fill" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

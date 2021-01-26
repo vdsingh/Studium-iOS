@@ -508,7 +508,7 @@ extension AddHabitViewController{
             //                let colorCell = tableView.cellForRow(at: IndexPath(row: cellType[2].firstIndex(of: "ColorPickerCell")!, section: 2)) as! ColorPickerCell
             //                destinationVC.color = colorCell.colorPreview.backgroundColor
             let colorCell = tableView.cellForRow(at: IndexPath(row: cellType[2].firstIndex(of: "ColorPickerCell")!, section: 2)) as! ColorPickerCell
-            destinationVC.color = colorCell.colorPreview.backgroundColor
+            destinationVC.color = colorCell.colorPreview.backgroundColor ?? .white
         }else if let destinationVC = segue.destination as? AlertTableViewController{
             destinationVC.delegate = self
         }
