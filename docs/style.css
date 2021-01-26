@@ -17,7 +17,7 @@ h1 {
   background: -webkit-linear-gradient(60deg, red, orange);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 3.2vh;
+  font-size: 3.1vh;
   /* color: black; */
 
   /* text-shadow: 2px 4px 0px rgba(0,0,0,0.6),
@@ -27,7 +27,7 @@ h1 {
 
 p {
   color: #888;
-  font-size: 2.3vh;
+  font-size: 2.1vh;
 }
 
 .img-second {
