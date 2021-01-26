@@ -8,13 +8,15 @@
 
 import UIKit
 
+
 class PickerCell: UITableViewCell{
 
     @IBOutlet weak var picker: UIPickerView!
     
-    //var delegate: UIPickerDelegate?
+//    var delegate: PickerDelegate?
     var indexPath: IndexPath?
     override func awakeFromNib() {
+//        picker.delegate = self
         super.awakeFromNib()
     
         // Initialization code
@@ -25,4 +27,9 @@ class PickerCell: UITableViewCell{
 
         // Configure the view for the selected state
     }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+    }
+    
 }
