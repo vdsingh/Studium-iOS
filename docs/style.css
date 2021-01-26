@@ -364,7 +364,8 @@ p {
 
     /* -webkit-transform: scaleX(-1);
   transform: scaleX(-1); */
-    margin: 0;
+    /* margin: 0; */
+    height: 70%;
     position: relative;
     top: 40%;
     -ms-transform: translateY(-50%);
