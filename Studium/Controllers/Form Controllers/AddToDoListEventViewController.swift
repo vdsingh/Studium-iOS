@@ -13,7 +13,7 @@ protocol ToDoListRefreshProtocol{
     func refreshData()
 }
 
-class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInfoStorer {
+class AddToDoListEventViewController: MasterForm, AlertInfoStorer {
     
     //tracks the event being edited, if one is being edited.
     var otherEvent: OtherEvent?
@@ -34,7 +34,7 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
     var errors: String = ""
     
     //Arrays that help construct the form. Describes which types of cells go where and what their contents are.
-    var cellText: [[String]] = [["This Event is a Course Assignment"],["Name", "Location", "Remind Me"], ["Start Date", "End Date"], ["Additional Details", ""]]
+    var cellText: [[String]] = [["This Event is a Course Assignment"],["Name", "Location", "Remind Me"], ["Starts", "Ends"], ["Additional Details", ""]]
     var cellType: [[String]] = [["LabelCell"],["TextFieldCell", "TextFieldCell", "LabelCell"], ["TimeCell", "TimeCell"], ["TextFieldCell", "LabelCell"]]
     
     @IBOutlet weak var navButton: UIBarButtonItem!
@@ -62,7 +62,7 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
         errors = ""
         
         //updates the characteristic variables
-        retrieveDataFromCells()
+//        retrieveDataFromCells()
         if name == ""{
             errors.append("Please specify a name.")
         }
@@ -140,24 +140,24 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
     }
     
     //function that retrieves data from specific cells and updates characteristic variables
-    func retrieveDataFromCells(){
-        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TextFieldCell
-        name = nameCell.textField.text!
-        
-        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TextFieldCell
-        location = locationCell.textField.text!
-        
-        let startTimeCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TimeCell
-        startDate = startTimeCell.date!
-        
-        //finding the index for the endTimeCell is necessary because there could be other PickerCells in the section, meaning we don't know the exact location without looking.
-        let endTimeCellIndex = cellType[2].lastIndex(of: "TimeCell")
-        let endTimeCell = tableView.cellForRow(at: IndexPath(row: endTimeCellIndex!, section: 2)) as! TimeCell
-        endDate = endTimeCell.date!
-        
-        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! TextFieldCell
-        additionalDetails = additionalDetailsCell.textField.text!
-    }
+//    func retrieveDataFromCells(){
+//        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TextFieldCell
+//        name = nameCell.textField.text!
+//
+//        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TextFieldCell
+//        location = locationCell.textField.text!
+//
+//        let startTimeCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TimeCell
+//        startDate = startTimeCell.date!
+//
+//        //finding the index for the endTimeCell is necessary because there could be other PickerCells in the section, meaning we don't know the exact location without looking.
+//        let endTimeCellIndex = cellType[2].lastIndex(of: "TimeCell")
+//        let endTimeCell = tableView.cellForRow(at: IndexPath(row: endTimeCellIndex!, section: 2)) as! TimeCell
+//        endDate = endTimeCell.date!
+//
+//        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! TextFieldCell
+//        additionalDetails = additionalDetailsCell.textField.text!
+//    }
     
     // MARK: - Table view data source
     
@@ -183,6 +183,7 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
             cell.textField.delegate = self
+            cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
@@ -235,7 +236,7 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
                 self.dismiss(animated: true) {
                     
                     //make sure that the data in our variables is updated before we transfer it to the new form.
-                    self.retrieveDataFromCells()
+//                    self.retrieveDataFromCells()
                     
                     //go to the assignment form instead of todo item form. Also provide the assignment form the information from the current form.
                     del.openAssignmentForm(name: self.name, location: self.location, additionalDetails: self.additionalDetails, alertTimes: self.alertTimes, dueDate: self.endDate);
@@ -287,12 +288,39 @@ class AddToDoListEventViewController: MasterForm, UITimePickerDelegate, AlertInf
         }
     }
     
+    
+}
+
+extension AddToDoListEventViewController: UITimePickerDelegate{
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
         //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
         let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
         correspondingTimeCell.date = sender.date
         correspondingTimeCell.timeLabel.text = correspondingTimeCell.date!.format(with: "MMM d, h:mm a")
         
+        if cellText[indexPath.section][indexPath.row - 1] == "Starts"{
+            print("startDate changed")
+            startDate = sender.date
+        }else{
+            print("endDate changed")
+            endDate = sender.date
+        }
+        
+    }
+}
+
+extension AddToDoListEventViewController: UITextFieldDelegateExt{
+    func textEdited(sender: UITextField) {
+        if sender.placeholder == "Name"{
+            print("name edited")
+            name = sender.text!
+        }else if sender.placeholder == "Location"{
+            print("location edited")
+            location = sender.text!
+        }else if sender.placeholder == "Additional Details"{
+            print("additionalDetails edited")
+            additionalDetails = sender.text!
+        }
     }
 }
 
@@ -304,9 +332,15 @@ extension AddToDoListEventViewController{
         
         let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TextFieldCell
         nameCell.textField.text = otherEvent.name
+        name = otherEvent.name
         
         let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TextFieldCell
         locationCell.textField.text = otherEvent.location
+        location = otherEvent.location
+        
+        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! TextFieldCell
+        additionalDetailsCell.textField.text = otherEvent.additionalDetails
+        additionalDetails = otherEvent.additionalDetails
         
         alertTimes = []
         for alert in otherEvent.notificationAlertTimes{
