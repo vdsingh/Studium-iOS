@@ -169,7 +169,7 @@ ul {
 
 p {
   font-size: 15px;
-  line-height: 25px;
+  /* line-height: 25px; */
   color: #888;
 }
 
@@ -834,7 +834,7 @@ about
   z-index: 9;
   position: absolute;
   top: 15px;
-  left: 45px;
+  left: 45px;f
   font-size: 100px;
   font-weight: 600;
   color: #fdefe9;
@@ -890,7 +890,7 @@ promotion
 
 #promotion .right-text ul li {
   display: inline-block;
-  margin-bottom: 60px;
+  /* margin-bottom: 60px; */
 }
 
 #promotion .right-text ul li:last-child {

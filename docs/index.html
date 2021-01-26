@@ -3,6 +3,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="css/bootstrap.css" rel="stylesheet" />
     <!-- <link href="Rotating Card/css/rotating-card.css" rel="stylesheet" /> -->
@@ -46,8 +47,8 @@
     <div id="sec1">
       <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
       <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#"><img src="images/logo.png" style="height: 50px; width: 50px; border-radius: 15px;"></img> Studium</a>
-        <button
+        <a class="navbar-brand" href="#"><img src="images/logo.png" style="height: 50px; width: 50px; border-radius: 15px; margin-right: 10px;"></img>Studium</a>
+        <!-- <button
           class="navbar-toggler"
           type="button"
           data-toggle="collapse"
@@ -55,8 +56,8 @@
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
+        > -->
+          <!-- <span class="navbar-toggler-icon"></span> -->
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -73,7 +74,13 @@
           </ul>
         </div>
       </nav>
-      <div id="full_description" class="">
+
+      <img
+        src="images/12portrait-light.png"
+        alt="Flat Illustration"
+        class="img-main"
+      />
+      <div id="full_description">
         <div id="headers">
           <h1>Manage all your student responsibilites in one app</h1>
           <div class="rectangle"></div>
@@ -89,25 +96,20 @@
 
         <!-- <object data="appstore-button-white.svg" type="image/svg+xml"></object> -->
       </div>
-      <img
-        src="images/12portrait-light.png"
-        alt="Flat Illustration"
-        id="flat_illustration"
-      />
+      
     </div>
     <div id="sec2">
-      <section class="vertical-center" id="promotion">
+      <section class="center-vertical" id="promotion">
         <div class="container">
           <div class="row">
             <div
-              class="left-image col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix-big"
+              class="left-image col-lg-5 mobile-bottom-fix-big"
               data-scroll-reveal="enter left move 30px over 0.6s after 0.4s"
             >
               <img
                 src="images/angled.png"
-                class="rounded img-fluid d-block mx-auto"
+                class="rounded img-fluid d-block mx-auto img-second"
                 alt="App"
-                style="transform: scale(1.5)"
               />
             </div>
             <div
@@ -117,8 +119,9 @@
                 <li
                   data-scroll-reveal="enter right move 30px over 0.6s after 0.4s"
                 >
-                  <img src="images/organization-icon.png" alt="" class="feature-icon"/>
-                  <div>
+                  
+                  <div class="feature">
+                    <img src="images/organization-icon.png" alt="" class="feature-icon"/>
                     <h4 class="feature-title">Organization</h4>
                     <p class="feature-text">
                       Stay on top of courses, assignments, habits, and more.
@@ -130,8 +133,8 @@
                 <li
                   data-scroll-reveal="enter right move 30px over 0.6s after 0.5s"
                 >
-                  <img src="images/schedule-icon.png" alt="" class="feature-icon"/>
-                  <div>
+                  <div class="feature">
+                    <img src="images/schedule-icon.png" alt="" class="feature-icon"/>
                     <h4 class="feature-title">Autoscheduling</h4>
                     <p class="feature-text">
                       Skip scheduling time for the gym or for other habits.
@@ -143,8 +146,8 @@
                 <li
                   data-scroll-reveal="enter right move 30px over 0.6s after 0.6s"
                 >
-                  <img src="images/notification-icon.png" alt="" class="feature-icon"/>
-                  <div>
+                  <div class="feature">
+                    <img src="images/notification-icon.png" alt="" class="feature-icon"/>
                     <h4 class="feature-title">Notifications</h4>
                     <p class="feature-text">
                       If requested, Studium will send you notifications about
@@ -158,16 +161,18 @@
         </div>
       </section>
     </div>
-    <div id="sec3" style="text-align: center">
-      <h1 style="padding-top: 100px; margin-bottom: 10px; font-size: 3rem">
+    <div id="sec3">
+      <div class="contact-info center-horizontal center-vertical">
+      <h1>
         Contact Us
       </h1>
-      <h3 style="font-size: 1.5rem">
+      <h3>
         We appreciate your comments, concerns, and suggestions.
       </h3>
-      <h4 style="margin-top: 10%">
+      <h4>
         You can contact the developer of Studium at vik.devmail@gmail.com
       </h4>
+      </div>
     </div>
   </body>
 </html>
