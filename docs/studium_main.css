@@ -81,6 +81,26 @@ p {
   padding: 0;
 }
 
+.feature-icon {
+  border-radius: 15px;
+}
+
+.feature-text {
+  font-size: 0.9rem;
+}
+
+.feature-title {
+  margin-bottom: 5px;
+}
+
+.vertical-center {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 #sec1 {
   background-position: center;
   background-size: cover;
@@ -91,8 +111,8 @@ p {
 }
 
 #sec2 {
-  background-position: center;
-  background-size: cover;
+  /* background-position: center; */
+  /* background-size: cover; */
   /* background-color: ; */
   width: 100%;
   height: 100%;

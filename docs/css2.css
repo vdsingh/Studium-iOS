@@ -159,8 +159,8 @@ h3,
 h4,
 h5,
 h6 {
-  margin-top: 0px;
-  margin-bottom: 0px;
+  /* margin-top: 0px; */
+  /* margin-bottom: 0px; */
 }
 
 ul {
@@ -817,13 +817,13 @@ about
   z-index: 9;
 }
 
-@media (max-width: 992px) {
+/* @media (max-width: 992px) {
   .features-item {
     margin-bottom: 45px;
   }
-}
+} */
 
-.features-item {
+/* .features-item {
   border-radius: 5px;
   padding: 60px 30px;
   text-align: center;
@@ -857,7 +857,7 @@ about
 .features-item .main-button {
   margin-top: 35px;
   display: inline-block;
-}
+} */
 
 /*
 ---------------------------------------------
@@ -903,12 +903,12 @@ promotion
   margin-right: 30px;
 }
 
-#promotion .right-text h4 {
+/* #promotion .right-text h4 {
   font-size: 22px;
   color: #1e1e1e;
   margin-bottom: 15px;
   margin-top: 3px;
-}
+} */
 
 /*
 --------------------------------------------
