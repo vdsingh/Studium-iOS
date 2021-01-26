@@ -15,6 +15,7 @@ h1 {
   background: -webkit-linear-gradient(60deg, red, orange);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-size: 2rem;
   /* color: black; */
 
   /* text-shadow: 2px 4px 0px rgba(0,0,0,0.6),
@@ -145,7 +146,7 @@ p {
 
 #full_description {
   /* font-family: Raleway; */
-  width: 35%;
+  width: 40%;
   margin-left: 3%;
   margin-top: 8%;
   float: left;
@@ -158,7 +159,7 @@ p {
 #headers {
   /*set the font for the headers*/
   /*set the gradient for the headers*/
-  font-size: 2rem;
+  /* font-size: 2rem; */
 }
 
 /* #header1 {
