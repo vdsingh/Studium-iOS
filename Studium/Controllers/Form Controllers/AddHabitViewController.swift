@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import RealmSwift
+import FlexColorPicker
+
 
 //guarantees that the Habit list has a method that allows it to refresh.
 protocol HabitRefreshProtocol{
@@ -31,7 +33,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
     var delegate: HabitRefreshProtocol?
     
     //Since this form is dynamic, there are different cells for whether or not the user chooses to schedule this Habit automatically. If the Habit is not automatic, this is how the form cells are laid out.
-    var cellTextNoAuto: [[String]] = [["Name", "Location", "Days", "Remind Me"], ["Autoschedule", "Start Time", "Finish Time"], ["Logo", "Color Picker", "Additional Details", ""]]
+    var cellTextNoAuto: [[String]] = [["Name", "Location", "Days", "Remind Me"], ["Autoschedule", "Starts", "Ends"], ["Logo", "Color Picker", "Additional Details", ""]]
     var cellTypeNoAuto: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell", "LabelCell"],  ["SwitchCell", "TimeCell", "TimeCell"], ["LogoCell", "ColorPickerCell" , "TextFieldCell", "LabelCell"]]
     
     //if the form is automatic, the cells are laid out this way.
@@ -121,7 +123,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
         resetAll = false
         errors = []
         cellText[2][cellText[2].count - 1] = ""
-        retrieveData()
+//        retrieveData()
         endDate = Calendar.current.date(bySettingHour: endDate.hour, minute: endDate.minute, second: endDate.second, of: startDate)!
 //        reloadData()
         
@@ -278,58 +280,58 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     //MARK: - Retrieving data
     
-    func retrieveData(){
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .middle, animated: false)
-        
-        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-        name = nameCell.textField.text!
-        
-        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
-        location = locationCell.textField.text!
-        
-        let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
-        daysSelected = daysCell.daysSelected
-        
-        //since there may or may not be pickers active, we don't know the exact position of the TimeCells that we want. As a result, we can use the first index of "TimeCell" in section 1, because this will always hold the start date.
-        let indexOfStartCell = cellType[1].firstIndex(of: "TimeCell")
-        let startDateCell = tableView.cellForRow(at: IndexPath(row: indexOfStartCell!, section: 1)) as! TimeCell
-        startDate = startDateCell.date!
-        
-        //since there are 3 TimeCells if autoscheduling, and the end date is in the middle of them, we create a copy of section 1 and remove the startDateCell. Now the endDateCell is always the first TimeCell in the temporary array.
-        var tempArray = cellType[1].map { $0 }
-        tempArray.remove(at: indexOfStartCell!)
-        let indexOfEndCell = tempArray.firstIndex(of: "TimeCell")! + 1
-        let endDateCell = tableView.cellForRow(at: IndexPath(row: indexOfEndCell, section: 1)) as! TimeCell
-        endDate = endDateCell.date!
-        
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 2), at: .middle, animated: false)
-        let colorPickerCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
-        colorValue = colorPickerCell.colorPicker.selectedColor.hexValue()
-        
-        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
-        additionalDetails = additionalDetailsCell.textField.text!
-        
-        if autoschedule{
-            
-            //here we are getting the total length of the habit, which is only needed if the habit is to be autoscheduled
-            
-            //since there can be pickers active, we use lastIndex because it is always the correct TimeCell.
-            let indexOfLengthCell = cellType[1].lastIndex(of: "TimeCell")
-            let lengthOfHabitCell = tableView.cellForRow(at: IndexPath(row: indexOfLengthCell!, section: 1)) as! TimeCell
-            
-            //in order to get the numbers we want from the TimeCell, we split the string from the label in 2. we then pick out the numbers from that string.
-            totalLengthHours = lengthOfHabitCell.timeLabel.text!.substring(toIndex: 3).parseToInt()!
-            totalLengthMinutes = lengthOfHabitCell.timeLabel.text!.substring(fromIndex: 4).parseToInt()!
-            
-            //when the user chooses to autoschedule their Habit, they must choose whether to schedule it earlier or later in the time frame. 
-            let earlierLaterCell = tableView.cellForRow(at: IndexPath(row: cellType[1].count - 1, section: 1)) as! SegmentedControlCell
-            if earlierLaterCell.segmentedControl.selectedSegmentIndex == 0{
-                earlier = true
-            }else{
-                earlier = false
-            }
-        }
-    }
+//    func retrieveData(){
+//        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .middle, animated: false)
+//
+//        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
+//        name = nameCell.textField.text!
+//
+//        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
+//        location = locationCell.textField.text!
+//
+//        let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
+//        daysSelected = daysCell.daysSelected
+//
+//        //since there may or may not be pickers active, we don't know the exact position of the TimeCells that we want. As a result, we can use the first index of "TimeCell" in section 1, because this will always hold the start date.
+//        let indexOfStartCell = cellType[1].firstIndex(of: "TimeCell")
+//        let startDateCell = tableView.cellForRow(at: IndexPath(row: indexOfStartCell!, section: 1)) as! TimeCell
+//        startDate = startDateCell.date!
+//
+//        //since there are 3 TimeCells if autoscheduling, and the end date is in the middle of them, we create a copy of section 1 and remove the startDateCell. Now the endDateCell is always the first TimeCell in the temporary array.
+//        var tempArray = cellType[1].map { $0 }
+//        tempArray.remove(at: indexOfStartCell!)
+//        let indexOfEndCell = tempArray.firstIndex(of: "TimeCell")! + 1
+//        let endDateCell = tableView.cellForRow(at: IndexPath(row: indexOfEndCell, section: 1)) as! TimeCell
+//        endDate = endDateCell.date!
+//
+//        tableView.scrollToRow(at: IndexPath(row: 0, section: 2), at: .middle, animated: false)
+//        let colorPickerCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
+//        colorValue = colorPickerCell.colorPicker.selectedColor.hexValue()
+//
+//        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
+//        additionalDetails = additionalDetailsCell.textField.text!
+//
+//        if autoschedule{
+//
+//            //here we are getting the total length of the habit, which is only needed if the habit is to be autoscheduled
+//
+//            //since there can be pickers active, we use lastIndex because it is always the correct TimeCell.
+//            let indexOfLengthCell = cellType[1].lastIndex(of: "TimeCell")
+//            let lengthOfHabitCell = tableView.cellForRow(at: IndexPath(row: indexOfLengthCell!, section: 1)) as! TimeCell
+//
+//            //in order to get the numbers we want from the TimeCell, we split the string from the label in 2. we then pick out the numbers from that string.
+//            totalLengthHours = lengthOfHabitCell.timeLabel.text!.substring(toIndex: 3).parseToInt()!
+//            totalLengthMinutes = lengthOfHabitCell.timeLabel.text!.substring(fromIndex: 4).parseToInt()!
+//
+//            //when the user chooses to autoschedule their Habit, they must choose whether to schedule it earlier or later in the time frame.
+//            let earlierLaterCell = tableView.cellForRow(at: IndexPath(row: cellType[1].count - 1, section: 1)) as! SegmentedControlCell
+//            if earlierLaterCell.segmentedControl.selectedSegmentIndex == 0{
+//                earlier = true
+//            }else{
+//                earlier = false
+//            }
+//        }
+//    }
     
     //MARK: - Dealing with Realm stuff
     
@@ -372,6 +374,7 @@ extension AddHabitViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
             cell.textField.delegate = self
+            cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "SwitchCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
@@ -413,7 +416,7 @@ extension AddHabitViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "DaySelectorCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "DaySelectorCell", for: indexPath) as! DaySelectorCell
-            //cell.delegate = self
+            cell.delegate = self
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
@@ -434,6 +437,7 @@ extension AddHabitViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ColorPickerCell", for: indexPath) as! ColorPickerCell
+            cell.delegate = self
             return cell
         }else{
             return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
@@ -563,6 +567,55 @@ extension AddHabitViewController: UITimePickerDelegate{
         let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
         correspondingTimeCell.date = sender.date
         correspondingTimeCell.timeLabel.text = correspondingTimeCell.date!.format(with: "h:mm a")
+        
+        if cellText[indexPath.section][indexPath.row - 1] == "Starts"{
+            print("startDate changed")
+            startDate = sender.date
+        }else{
+            print("endDate changed")
+            endDate = sender.date
+        }
+    }
+}
+
+extension AddHabitViewController: DaySelectorDelegate{
+    func dayButtonPressed(sender: UIButton) {
+        print("dayButton pressed")
+        let dayTitle = sender.titleLabel!.text
+        if sender.isSelected{
+            sender.isSelected = false
+            for day in daysSelected{
+                if day == dayTitle{//if day is already selected, and we select it again
+                    daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
+                }
+            }
+        }else{//day was not selected, and we are now selecting it.
+            sender.isSelected = true
+            daysSelected.append(dayTitle!)
+        }
+    }
+}
+
+
+extension AddHabitViewController: UITextFieldDelegateExt{
+    func textEdited(sender: UITextField) {
+        if sender.placeholder == "Name"{
+            print("name edited")
+            name = sender.text!
+        }else if sender.placeholder == "Location"{
+            print("location edited")
+            location = sender.text!
+        }else if sender.placeholder == "Additional Details"{
+            print("additionalDetails edited")
+            additionalDetails = sender.text!
+        }
+    }
+}
+
+extension AddHabitViewController: ColorDelegate{
+    func colorPickerValueChanged(sender: RadialPaletteControl) {
+        colorValue = sender.selectedColor.hexValue()
+        print("Changed color")
     }
 }
 
@@ -594,9 +647,11 @@ extension AddHabitViewController{
         
         let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
         nameCell.textField.text = habit.name
+        name = habit.name
         
         let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
         locationCell.textField.text = habit.location
+        location = habit.location
         
         let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
         daysCell.selectDays(days: habit.days)
@@ -613,9 +668,11 @@ extension AddHabitViewController{
         
         let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
         colorCell.colorPreview.backgroundColor = UIColor(hexString: habit.color)!
+        colorValue = habit.color
         
         let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
         additionalDetailsCell.textField.text = habit.additionalDetails
+        additionalDetails = habit.additionalDetails
         
         let startCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TimeCell
         startDate = habit.startDate
