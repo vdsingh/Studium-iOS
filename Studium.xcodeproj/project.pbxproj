@@ -70,7 +70,6 @@
 		16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8824AD4161003A30D3 /* MasterForm.swift */; };
 		16A63B8F24AD43DF003A30D3 /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */; };
 		16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */; };
-		16B51918247BD8E1005ED8E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16B51917247BD8E1005ED8E4 /* GoogleService-Info.plist */; };
 		16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */; };
 		16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */; };
 		16C607EC250E985000983C3D /* GlacialIndifference-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */; };
@@ -146,7 +145,6 @@
 		16A63B8824AD4161003A30D3 /* MasterForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterForm.swift; sourceTree = "<group>"; };
 		16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
 		16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
-		16B51917247BD8E1005ED8E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Italic.otf"; sourceTree = "<group>"; };
 		16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Regular.otf"; sourceTree = "<group>"; };
@@ -258,7 +256,6 @@
 				1693E74B247A4634003D4702 /* Views */,
 				1693E739247A3DC6003D4702 /* Assets.xcassets */,
 				1693E73E247A3DC6003D4702 /* Info.plist */,
-				16B51917247BD8E1005ED8E4 /* GoogleService-Info.plist */,
 				1693E754247A4B64003D4702 /* K.swift */,
 			);
 			path = Studium;
@@ -448,7 +445,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1693E73D247A3DC6003D4702 /* LaunchScreen.storyboard in Resources */,
-				16B51918247BD8E1005ED8E4 /* GoogleService-Info.plist in Resources */,
 				165A6C82248F0F54004279B0 /* AssignmentCell.xib in Resources */,
 				1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */,
 				1693E73A247A3DC6003D4702 /* Assets.xcassets in Resources */,

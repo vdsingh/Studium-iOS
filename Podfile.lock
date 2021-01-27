@@ -1,5 +1,5 @@
 PODS:
-  - CalendarKit (0.14.6)
+  - CalendarKit (0.14.7)
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
@@ -46,7 +46,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/wowansm/Chameleon.git
 
 SPEC CHECKSUMS:
-  CalendarKit: 0e4522c420e2068fed5a16162ad355b797a88746
+  CalendarKit: 2352322e095c90645a5f22b4f6b1b1e8ca03f665
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Colorful: 9e093edacaa9fb73512ad9da157f0707b82d2542
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
