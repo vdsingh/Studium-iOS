@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let realm = try! Realm()
     let defaults = UserDefaults.standard
 
+
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //print(realm.configuration.fileURL)
 //        print("UserDefaults Path: ")
@@ -24,22 +26,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         updateTheme(color: K.colorsDict[defaults.string(forKey: "themeColor") ?? "black"] ?? UIColor.black)
 //        updateTheme(color: UIColor.green)
         print("Did finish launching");
+
+        
         return true
     }
+    
     
     //updates the theme color of the app.
     func updateTheme(color: UIColor){
         let appearance = UINavigationBarAppearance()
-//        let colorHex = defaults.string(forKey: "themeColor")
-//        var color = K.defaultThemeColor
-//        if colorHex != nil{
-//            color = UIColor(hexString: colorHex!)!
-//        }
-
-
         appearance.backgroundColor = color
-            
-//            UIColor(gradientStyle: UIGradientStyle.leftToRight, withFrame: CGRect(x: 0, y: UIScreen.main.bounds.height, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), andColors: [UIColor.red, UIColor.orange])
         
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -51,10 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UITabBar.appearance().barTintColor = color // your color
         UITabBarAppearance().backgroundColor = color
-            
-//            UIColor(gradientStyle: UIGradientStyle.leftToRight, withFrame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), andColors: [UIColor.red, UIColor.orange])
-        
-//        UITabBarAppearance().backgroundColor = .red
     }
     
     func changeTheme(colorKey: String){

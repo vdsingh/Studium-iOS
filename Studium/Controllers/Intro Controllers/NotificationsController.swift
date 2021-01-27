@@ -27,21 +27,21 @@ class NotificationsController: UIViewController{
           self.navigationController?.isNavigationBarHidden = false
         }
         
-        let content = UNMutableNotificationContent()
-        content.title = "Hey I'm a Notification!"
-        content.body = "Hey I'm the body!"
-        
-        let date = Date().addingTimeInterval(10)
-        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        
-        let idString = UUID().uuidString
-        let request = UNNotificationRequest(identifier: idString, content: content, trigger: trigger)
-        
-        center.add(request) { (error) in
-            
-        }
+//        let content = UNMutableNotificationContent()
+//        content.title = "Hey I'm a Notification!"
+//        content.body = "Hey I'm the body!"
+//
+//        let date = Date().addingTimeInterval(10)
+//        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+//
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+//
+//        let idString = UUID().uuidString
+//        let request = UNNotificationRequest(identifier: idString, content: content, trigger: trigger)
+//
+//        center.add(request) { (error) in
+//
+//        }
     }
     
     

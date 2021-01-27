@@ -43,7 +43,7 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate{
                 print("error with adding notification")
             }else{
                 print("notification scheduled.")
-
+                
             }
         }
     }

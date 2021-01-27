@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "studiumlogoraw.png",
+      "filename" : "logo-transparent-bg.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "logo-transparent-bg-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "logo-transparent-bg-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
