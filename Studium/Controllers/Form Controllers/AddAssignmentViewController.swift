@@ -18,6 +18,12 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     var todoAlertTimes: [Int] = []
     var todoDueDate: Date = Date()
     
+    //variables that hold the total length of the habit.
+    var scheduleWorkTime: Bool = false
+    var workDaysSelected: [String] = []
+    var workTimeHours = 1
+    var workTimeMinutes = 0
+    
     
     //a list of courses so that the user can pick which course the assignment is attached to
     var courses: Results<Course>? = nil
@@ -26,8 +32,8 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     var delegate: AssignmentRefreshProtocol?
     
     //array variables that lay our form out into sections and rows
-    var cellText: [[String]] = [["Name", "Due Date", "Remind Me"], ["Course"], ["Additional Details", ""]]
-    var cellType: [[String]] = [["TextFieldCell", "TimeCell", "LabelCell"], ["PickerCell"], ["TextFieldCell", "LabelCell"]]
+    var cellText: [[String]] = [["Name", "Due Date", "Remind Me"], ["Schedule Time to Work"], ["Course"], ["Additional Details", ""]]
+    var cellType: [[String]] = [["TextFieldCell", "TimeCell", "LabelCell"], ["SwitchCell"], ["PickerCell"], ["TextFieldCell", "LabelCell"]]
     
     //errors string that is displayed if there are any issues (e.g: user didnt enter a name)
     var errors: String = ""
@@ -50,6 +56,8 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         tableView.register(UINib(nibName: "PickerCell", bundle: nil), forCellReuseIdentifier: "PickerCell")
         tableView.register(UINib(nibName: "TimePickerCell", bundle: nil), forCellReuseIdentifier: "TimePickerCell")
         tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
+        tableView.register(UINib(nibName: "SwitchCell", bundle: nil), forCellReuseIdentifier: "SwitchCell")
+        tableView.register(UINib(nibName: "DaySelectorCell", bundle: nil), forCellReuseIdentifier: "DaySelectorCell")
         tableView.tableFooterView = UIView()
         
         //getting all courses from realm to populate the course picker.
@@ -63,9 +71,13 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             for alert in assignment!.notificationAlertTimes{
                 alertTimes.append(alert)
             }
-            fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate)
+            
+            for day in assignment!.workDays{
+                workDaysSelected.append(day)
+            }
+            fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate, selectedCourse: assignment!.parentCourse[0], scheduleWorkTime: assignment!.scheduleWorkTime, workTimeHours: assignment!.workTimeHours, workTimeMinutes: assignment!.workTimeMinutes, workDays: workDaysSelected)
         }else if fromTodoForm{
-            fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate)
+            fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate, selectedCourse: assignment!.parentCourse[0], scheduleWorkTime: false, workTimeHours: 1, workTimeMinutes: 0, workDays: [])
         }else{
             navButton.image = UIImage(systemName: "plus")
         }
@@ -74,7 +86,6 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     //method that is triggered when the user wants to finalize the form
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         errors = ""
-//        retrieveData()
         if name == ""{
             errors.append(" Please specify a name.")
         }
@@ -83,7 +94,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             if assignment == nil{
                 print("adding assignment for the first time")
                 let newAssignment = Assignment()
-                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes)
+                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, scheduleWorkTime: scheduleWorkTime, workTimeHours: workTimeHours, workTimeMinutes: workTimeMinutes, workDays: workDaysSelected)
                 
                 for alertTime in alertTimes{
                     let alertDate = dueDate - (Double(alertTime) * 60)
@@ -94,6 +105,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                     newAssignment.notificationIdentifiers.append(identifier)
                     scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                 }
+                print("Created new Assignment with \(scheduleWorkTime) workTime \(workTimeMinutes) workTimeMinutes and \(workTimeHours) workTimeHours")
                 save(assignment: newAssignment)
             }else{
                 do{
@@ -115,7 +127,8 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                         }
                     }
                     try realm.write{
-                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!)
+                        print("Edited Assignment with \(scheduleWorkTime) scheduleWorkTime")
+                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, scheduleWorkTime: scheduleWorkTime, workTimeHours: workTimeHours, workTimeMinutes: workTimeMinutes, workDays: workDaysSelected)
                         
                     }
                 }catch{
@@ -125,7 +138,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             delegate?.loadAssignments()
             dismiss(animated: true, completion: nil)
         }else{
-            cellText[2][1] = errors
+            cellText[3][1] = errors
             tableView.reloadData()
         }
     }
@@ -150,22 +163,6 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         }
     }
     
-    //method that retrieves data from cells, instead of data updating whenever something is edited (this is more efficient)
-//    func retrieveData(){
-//        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-//        name = nameCell.textField.text!
-//
-//        let dueDateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
-//        dueDate = dueDateCell.date!
-//
-//        let courseCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! PickerCell
-//        let selectedRow = courseCell.picker.selectedRow(inComponent: 0)
-//        selectedCourse = courses![selectedRow]
-//
-//        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TextFieldCell
-//        additionalDetails = additionalDetailsCell.textField.text!
-//    }
-//
     //set the course picker to whatever course was originally selected, if any
     func setDefaultRow(picker: UIPickerView){
         var row = 0
@@ -185,19 +182,52 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             print("error. courses in AddAssignment is nil")
         }
     }
-}
-
-extension AddAssignmentViewController: UITextFieldDelegateExt{
-    func textEdited(sender: UITextField) {
-        if sender.placeholder == "Name"{
-            print("name edited")
-            name = sender.text!
-        }else if sender.placeholder == "Additional Details"{
-            print("additionalDetails edited")
-            additionalDetails = sender.text!
+    
+    func fillForm(name: String, additionalDetails: String, alertTimes: [Int], dueDate: Date, selectedCourse: Course, scheduleWorkTime: Bool, workTimeHours: Int, workTimeMinutes: Int, workDays: [String]){
+        navButton.image = .none
+        navButton.title = "Done"
+        
+        print("attempting to fillForm with \(scheduleWorkTime)")
+        
+        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
+        nameCell.textField.text = name
+        self.name = name
+        
+        let dueDateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
+        self.dueDate = dueDate
+//        dueDateCell.timeLabel.text = "dueDate.format(with: "h:mm a")"
+//        dueDateCell.timeLabel.text = "Hello!"
+        dueDateCell.date = dueDate
+        
+        self.alertTimes = alertTimes
+//        alertTimes = []
+//        for alert in assignment.notificationAlertTimes{
+//            alertTimes.append(alert)
+//        }
+        
+        
+        self.scheduleWorkTime = scheduleWorkTime
+        if scheduleWorkTime == true{
+            self.workTimeMinutes = workTimeMinutes
+            self.workTimeHours = workTimeHours
+            let scheduleWorkCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell
+            scheduleWorkCell.tableSwitch.isOn = true
+            self.switchValueChanged(sender: scheduleWorkCell.tableSwitch)
+            
+            let daysCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! DaySelectorCell
+            daysCell.selectDays(days: workDays)
+            self.workDaysSelected = workDays
         }
+        
+        self.selectedCourse = selectedCourse
+        
+        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! TextFieldCell
+        additionalDetailsCell.textField.text = additionalDetails
+        self.additionalDetails = additionalDetails
     }
 }
+
+
 
 //MARK: - TableView DataSource
 
@@ -229,6 +259,12 @@ extension AddAssignmentViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PickerCell", for: indexPath) as! PickerCell
             cell.picker.delegate = self
             cell.picker.dataSource = self
+            
+            if cellText[indexPath.section][indexPath.row] == "Course"{
+                cell.picker.tag = 0
+            }else if cellText[indexPath.section][indexPath.row] == "Length"{
+                cell.picker.tag = 1
+            }
             setDefaultRow(picker: cell.picker)
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
@@ -242,11 +278,20 @@ extension AddAssignmentViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
             cell.label.text = cellText[indexPath.section][indexPath.row]
             
-            if indexPath.section == 2{
+            if indexPath.section == 3{
                 cell.label.textColor = UIColor.red
             }else{
                 cell.accessoryType = .disclosureIndicator
             }
+            return cell
+        }else if cellType[indexPath.section][indexPath.row] == "SwitchCell"{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+            cell.delegate = self
+            cell.label.text = cellText[indexPath.section][indexPath.row]
+            return cell
+        }else if cellType[indexPath.section][indexPath.row] == "DaySelectorCell"{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DaySelectorCell", for: indexPath) as! DaySelectorCell
+            cell.delegate = self
             return cell
         }else{
             return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
@@ -307,22 +352,56 @@ extension AddAssignmentViewController{
     }
 }
 
-//MARK: - TimerPicker DataSource Methods
-extension AddAssignmentViewController: UIPickerViewDataSource{
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return courses?.count ?? 1
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+ //MARK: - Cell DataSource and Delegates
+extension AddAssignmentViewController: UITextFieldDelegateExt{
+    func textEdited(sender: UITextField) {
+        if sender.placeholder == "Name"{
+            print("name edited")
+            name = sender.text!
+        }else if sender.placeholder == "Additional Details"{
+            print("additionalDetails edited")
+            additionalDetails = sender.text!
+        }
     }
 }
 
-//MARK: - TimerPicker Delegate Methods
+//MARK: - TimerPicker DataSource Methods
+extension AddAssignmentViewController: UIPickerViewDataSource{
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView.tag == 0{
+            return courses?.count ?? 1
+        }else if pickerView.tag == 1{
+            if component == 0{
+                return 24
+            }
+            return 60
+        }
+        return 0
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        if pickerView.tag == 0{
+            return 1
+        }else if pickerView.tag == 1{
+            return 2
+        }
+        return 0
+    }
+}
+
+//MARK: - Picker Delegate Methods
 extension AddAssignmentViewController: UIPickerViewDelegate{
     //helps set up information in the UIPickerView
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return courses![row].name
+        if pickerView.tag == 0{
+            return courses![row].name
+        }else if pickerView.tag == 1{
+            if component == 0{
+                return "\(row) hours"
+            }
+            return "\(row) min"
+        }
+        return "Unknown Picker"
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -332,8 +411,13 @@ extension AddAssignmentViewController: UIPickerViewDelegate{
         return 50
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        let selectedRow = pickerView.selectedRow(inComponent: 0)
-        selectedCourse = courses![selectedRow]
+        if pickerView.tag == 0{ //course selection
+            let selectedRow = pickerView.selectedRow(inComponent: 0)
+            selectedCourse = courses![selectedRow]
+        }else if pickerView.tag == 1{
+            workTimeHours = component
+            workTimeMinutes = row
+        }
     }
 }
 
@@ -350,51 +434,42 @@ extension AddAssignmentViewController: UITimePickerDelegate{
     }
 }
 
-extension AddAssignmentViewController{
-//    func fillForm(with assignment: Assignment){
-//        navButton.image = .none
-//        navButton.title = "Done"
-//
-//        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-//        nameCell.textField.text = assignment.name
-//
-//        let dueDateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
-//        dueDate = assignment.endDate
-//        dueDateCell.timeLabel.text = dueDate.format(with: "h:mm a")
-//        dueDateCell.date = dueDate
-//
-//        alertTimes = []
-//        for alert in assignment.notificationAlertTimes{
-//            alertTimes.append(alert)
-//        }
-//
-//        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TextFieldCell
-//        additionalDetailsCell.textField.text = assignment.additionalDetails
-//    }
-    
-    func fillForm(name: String, additionalDetails: String, alertTimes: [Int], dueDate: Date){
-        navButton.image = .none
-        navButton.title = "Done"
-        
-        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-        nameCell.textField.text = name
-        
-        let dueDateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
-        self.dueDate = dueDate
-//        dueDateCell.timeLabel.text = "dueDate.format(with: "h:mm a")"
-        dueDateCell.timeLabel.text = "Hello!"
-
-        dueDateCell.date = dueDate
-        
-        self.alertTimes = alertTimes
-//        alertTimes = []
-//        for alert in assignment.notificationAlertTimes{
-//            alertTimes.append(alert)
-//        }
-        
-        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TextFieldCell
-        additionalDetailsCell.textField.text = additionalDetails
+extension AddAssignmentViewController: CanHandleSwitch{
+    func switchValueChanged(sender: UISwitch) {
+        print("switch changed")
+        if sender.isOn{
+            scheduleWorkTime = true
+            cellText[1].append("New Cell")
+            cellType[1].append("DaySelectorCell")
+            
+            cellText[1].append("Length")
+            cellType[1].append("PickerCell")
+            tableView.reloadData()
+        }else{
+            scheduleWorkTime = false
+            cellText[1].removeAll()
+            cellType[1].removeAll()
+            cellText[1].append("Schedule Time to Work")
+            cellType[1].append("SwitchCell")
+            tableView.reloadData()
+        }
     }
 }
 
+extension AddAssignmentViewController: DaySelectorDelegate{
+    func dayButtonPressed(sender: UIButton) {
+        let dayTitle = sender.titleLabel!.text
+        if sender.isSelected{
+            sender.isSelected = false
+            for day in workDaysSelected{
+                if day == dayTitle{//if day is already selected, and we select it again
+                    workDaysSelected.remove(at: workDaysSelected.firstIndex(of: day)!)
+                }
+            }
+        }else{//day was not selected, and we are now selecting it.
+            sender.isSelected = true
+            workDaysSelected.append(dayTitle!)
+        }
+    }
+}
 

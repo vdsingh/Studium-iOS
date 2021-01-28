@@ -27,7 +27,21 @@ class DaySelectorCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
     func selectDays(days: List<String>){
+        daysSelected = []
+        for button in dayButtons{
+            let buttonText = button.titleLabel?.text
+            if days.contains(buttonText!){
+                daysSelected.append(buttonText!)
+                button.isSelected = true
+            }else{
+                button.isSelected = false
+            }
+        }
+    }
+    
+    func selectDays(days: [String]){
         daysSelected = []
         for button in dayButtons{
             let buttonText = button.titleLabel?.text

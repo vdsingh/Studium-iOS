@@ -20,6 +20,9 @@ class TimePickerCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         picker.timeZone = NSTimeZone.local
+        if #available(iOS 13.4, *) {
+            picker.preferredDatePickerStyle = UIDatePickerStyle.wheels
+        }
 //        let date = Date(dateString: "5:30 PM", format: "h:mm a")
 //        picker.setDate(date, animated: true)
     }

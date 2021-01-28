@@ -69,6 +69,8 @@
 		16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */; };
 		16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8824AD4161003A30D3 /* MasterForm.swift */; };
 		16A63B8F24AD43DF003A30D3 /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */; };
+		16B2837D25C25BF40039043E /* CourseCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B2837B25C25BF40039043E /* CourseCell2.swift */; };
+		16B2837E25C25BF40039043E /* CourseCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16B2837C25C25BF40039043E /* CourseCell2.xib */; };
 		16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */; };
 		16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */; };
 		16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */; };
@@ -144,6 +146,8 @@
 		16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletableEventCell.swift; sourceTree = "<group>"; };
 		16A63B8824AD4161003A30D3 /* MasterForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterForm.swift; sourceTree = "<group>"; };
 		16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
+		16B2837B25C25BF40039043E /* CourseCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell2.swift; sourceTree = "<group>"; };
+		16B2837C25C25BF40039043E /* CourseCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell2.xib; sourceTree = "<group>"; };
 		16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
 		16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Italic.otf"; sourceTree = "<group>"; };
@@ -279,19 +283,13 @@
 		1693E74B247A4634003D4702 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				16B2837925C25BA50039043E /* Event Cells */,
 				1665FF1E250EA98300485F3D /* Fonts */,
 				1693E736247A3DC4003D4702 /* Main.storyboard */,
 				1693E73B247A3DC6003D4702 /* LaunchScreen.storyboard */,
 				16E2514524838676000494DE /* Basic Cells */,
-				165A6C77248A6F5C004279B0 /* CourseCell.swift */,
-				165A6C78248A6F5C004279B0 /* CourseCell.xib */,
-				165A6C7F248F0F54004279B0 /* AssignmentCell.swift */,
-				165A6C80248F0F54004279B0 /* AssignmentCell.xib */,
-				16A63B7A24A01289003A30D3 /* HabitCell.swift */,
-				16A63B7B24A01289003A30D3 /* HabitCell.xib */,
-				16A63B8224AA85A7003A30D3 /* OtherEventCell.swift */,
-				16A63B8324AA85A7003A30D3 /* OtherEventCell.xib */,
-				16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */,
+				16B2837B25C25BF40039043E /* CourseCell2.swift */,
+				16B2837C25C25BF40039043E /* CourseCell2.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -334,6 +332,22 @@
 				1693E751247A487C003D4702 /* SwipeTableViewController.swift */,
 			);
 			path = "Framework Superclasses";
+			sourceTree = "<group>";
+		};
+		16B2837925C25BA50039043E /* Event Cells */ = {
+			isa = PBXGroup;
+			children = (
+				165A6C80248F0F54004279B0 /* AssignmentCell.xib */,
+				165A6C7F248F0F54004279B0 /* AssignmentCell.swift */,
+				16A63B8324AA85A7003A30D3 /* OtherEventCell.xib */,
+				16A63B7B24A01289003A30D3 /* HabitCell.xib */,
+				16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */,
+				165A6C78248A6F5C004279B0 /* CourseCell.xib */,
+				16A63B8224AA85A7003A30D3 /* OtherEventCell.swift */,
+				16A63B7A24A01289003A30D3 /* HabitCell.swift */,
+				165A6C77248A6F5C004279B0 /* CourseCell.swift */,
+			);
+			path = "Event Cells";
 			sourceTree = "<group>";
 		};
 		16E2514524838676000494DE /* Basic Cells */ = {
@@ -448,6 +462,7 @@
 				165A6C82248F0F54004279B0 /* AssignmentCell.xib in Resources */,
 				1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */,
 				1693E73A247A3DC6003D4702 /* Assets.xcassets in Resources */,
+				16B2837E25C25BF40039043E /* CourseCell2.xib in Resources */,
 				16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */,
 				164F62FD24E4DF4800DC8169 /* LogoCollectionViewCell.xib in Resources */,
 				1641822C24AD9D0800960F86 /* PickerCell.xib in Resources */,
@@ -549,6 +564,7 @@
 				1686DB5C24812BCE00FA99DB /* TextFieldCell.swift in Sources */,
 				1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */,
 				16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */,
+				16B2837D25C25BF40039043E /* CourseCell2.swift in Sources */,
 				16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */,
 				1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,

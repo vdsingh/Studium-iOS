@@ -29,8 +29,15 @@ class Assignment: Object, StudiumEvent{
     //This is a link to the Course that the Assignment object is categorized under.
     var parentCourse = LinkingObjects(fromType: Course.self, property: "assignments")
     
+    //variables that track information about scheduling work time.
+    @objc dynamic var scheduleWorkTime: Bool = false
+    @objc dynamic var workTimeHours: Int = 0
+    @objc dynamic var workTimeMinutes: Int = 0
+    let workDays = List<String>()
+    
+    
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, course: Course, notificationAlertTimes: [Int]) {
+    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, course: Course, notificationAlertTimes: [Int], scheduleWorkTime: Bool, workTimeHours: Int, workTimeMinutes: Int, workDays: [String]) {
 
         self.name = name
         self.additionalDetails = additionalDetails
@@ -38,9 +45,18 @@ class Assignment: Object, StudiumEvent{
         self.startDate = startDate
         self.endDate = endDate
         
+        self.scheduleWorkTime = scheduleWorkTime
+        self.workTimeHours = workTimeHours
+        self.workTimeMinutes = workTimeMinutes
+        
         self.notificationAlertTimes.removeAll()
         for alertTime in notificationAlertTimes{
             self.notificationAlertTimes.append(alertTime)
+        }
+        
+        self.workDays.removeAll()
+        for day in workDays{
+            self.workDays.append(day)
         }
     }
     

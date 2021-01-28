@@ -239,6 +239,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
                             }
                         }
                         habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoSchedule: autoschedule, startEarlier: earlier, totalHourTime: totalLengthHours, totalMinuteTime: totalLengthMinutes, daysSelected: daysSelected, systemImageString: systemImageString, colorHex: colorValue)
+                        print("editing habit with length hour \(totalLengthHours) segmented control: \(earlier)")
                     }
                 }catch{
                     print(error)
@@ -277,61 +278,6 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
-    
-    //MARK: - Retrieving data
-    
-//    func retrieveData(){
-//        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .middle, animated: false)
-//
-//        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-//        name = nameCell.textField.text!
-//
-//        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
-//        location = locationCell.textField.text!
-//
-//        let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
-//        daysSelected = daysCell.daysSelected
-//
-//        //since there may or may not be pickers active, we don't know the exact position of the TimeCells that we want. As a result, we can use the first index of "TimeCell" in section 1, because this will always hold the start date.
-//        let indexOfStartCell = cellType[1].firstIndex(of: "TimeCell")
-//        let startDateCell = tableView.cellForRow(at: IndexPath(row: indexOfStartCell!, section: 1)) as! TimeCell
-//        startDate = startDateCell.date!
-//
-//        //since there are 3 TimeCells if autoscheduling, and the end date is in the middle of them, we create a copy of section 1 and remove the startDateCell. Now the endDateCell is always the first TimeCell in the temporary array.
-//        var tempArray = cellType[1].map { $0 }
-//        tempArray.remove(at: indexOfStartCell!)
-//        let indexOfEndCell = tempArray.firstIndex(of: "TimeCell")! + 1
-//        let endDateCell = tableView.cellForRow(at: IndexPath(row: indexOfEndCell, section: 1)) as! TimeCell
-//        endDate = endDateCell.date!
-//
-//        tableView.scrollToRow(at: IndexPath(row: 0, section: 2), at: .middle, animated: false)
-//        let colorPickerCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
-//        colorValue = colorPickerCell.colorPicker.selectedColor.hexValue()
-//
-//        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
-//        additionalDetails = additionalDetailsCell.textField.text!
-//
-//        if autoschedule{
-//
-//            //here we are getting the total length of the habit, which is only needed if the habit is to be autoscheduled
-//
-//            //since there can be pickers active, we use lastIndex because it is always the correct TimeCell.
-//            let indexOfLengthCell = cellType[1].lastIndex(of: "TimeCell")
-//            let lengthOfHabitCell = tableView.cellForRow(at: IndexPath(row: indexOfLengthCell!, section: 1)) as! TimeCell
-//
-//            //in order to get the numbers we want from the TimeCell, we split the string from the label in 2. we then pick out the numbers from that string.
-//            totalLengthHours = lengthOfHabitCell.timeLabel.text!.substring(toIndex: 3).parseToInt()!
-//            totalLengthMinutes = lengthOfHabitCell.timeLabel.text!.substring(fromIndex: 4).parseToInt()!
-//
-//            //when the user chooses to autoschedule their Habit, they must choose whether to schedule it earlier or later in the time frame.
-//            let earlierLaterCell = tableView.cellForRow(at: IndexPath(row: cellType[1].count - 1, section: 1)) as! SegmentedControlCell
-//            if earlierLaterCell.segmentedControl.selectedSegmentIndex == 0{
-//                earlier = true
-//            }else{
-//                earlier = false
-//            }
-//        }
-//    }
     
     //MARK: - Dealing with Realm stuff
     
@@ -428,6 +374,8 @@ extension AddHabitViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier: "SegmentedControlCell", for: indexPath) as! SegmentedControlCell
             cell.segmentedControl.setTitle("Earlier", forSegmentAt: 0)
             cell.segmentedControl.setTitle("Later", forSegmentAt: 1)
+            
+            cell.delegate = self
             //print("added a label cell")
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
@@ -535,7 +483,6 @@ extension AddHabitViewController: UIPickerViewDataSource{
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
     }
-    
 }
 
 //MARK: - Picker Delegate
@@ -552,9 +499,9 @@ extension AddHabitViewController: UIPickerViewDelegate{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let lengthIndex = cellText[1].lastIndex(of: "Length of Habit")
         let timeCell = tableView.cellForRow(at: IndexPath(row: lengthIndex!, section: 1)) as! TimeCell
-        let hour = pickerView.selectedRow(inComponent: 0)
-        let min = pickerView.selectedRow(inComponent: 1)
-        timeCell.timeLabel.text = "\(hour) hours \(min) mins"
+        totalLengthHours = pickerView.selectedRow(inComponent: 0)
+        totalLengthMinutes = pickerView.selectedRow(inComponent: 1)
+        timeCell.timeLabel.text = "\(totalLengthHours) hours \(totalLengthMinutes) mins"
     }
 }
 
@@ -619,6 +566,18 @@ extension AddHabitViewController: ColorDelegate{
     }
 }
 
+extension AddHabitViewController: SegmentedControlDelegate{
+    func controlValueChanged(sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0{
+            print("Earlier is true")
+            earlier = true
+        }else{
+            print("Earlier is false")
+            earlier = false
+        }
+    }
+}
+
 //MARK: - Switch Delegate
 extension AddHabitViewController: CanHandleSwitch{
     //method triggered when the autoschedule switch is triggered
@@ -639,7 +598,6 @@ extension AddHabitViewController: CanHandleSwitch{
 
 extension AddHabitViewController{
     func fillForm(with habit: Habit){
-        print("fillForm called")
         reloadData()
         
         navButton.image = .none
@@ -655,11 +613,14 @@ extension AddHabitViewController{
         
         let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
         daysCell.selectDays(days: habit.days)
+        daysSelected = []
+        for day in habit.days{
+            daysSelected.append(day)
+        }
         
         alertTimes = []
         for alert in habit.notificationAlertTimes{
             alertTimes.append(alert)
-            print("alert: \(alert) added.")
         }
         
         let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
@@ -687,16 +648,22 @@ extension AddHabitViewController{
         if habit.autoSchedule{
             let autoscheduleCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell
             autoscheduleCell.tableSwitch.isOn = true
+            autoschedule = true
             
             let lengthCell = tableView.cellForRow(at: IndexPath(row: 3, section: 1)) as! TimeCell
             totalLengthHours = habit.totalHourTime
             totalLengthMinutes = habit.totalMinuteTime
+            print("Length of Habit: \(habit.totalHourTime)")
             lengthCell.timeLabel.text = "\(totalLengthHours) hours \(totalLengthMinutes) mins"
-            //            startCell.date = startDate
             
             let earlierLaterCell = tableView.cellForRow(at: IndexPath(row: 4, section: 1)) as! SegmentedControlCell
             earlier = habit.startEarlier
-            earlierLaterCell.setSelected(earlier, animated: true)
+            if earlier{
+                earlierLaterCell.segmentedControl.selectedSegmentIndex = 0
+            }else{
+                earlierLaterCell.segmentedControl.selectedSegmentIndex = 1
+            }
+//            earlierLaterCell.setSelected(earlier, animated: true)
         }
     }
 }
