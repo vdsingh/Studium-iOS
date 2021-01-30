@@ -72,10 +72,10 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                 alertTimes.append(alert)
             }
             
-            for day in assignment!.workDays{
+            for day in assignment!.days{
                 workDaysSelected.append(day)
             }
-            fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate, selectedCourse: assignment!.parentCourse[0], scheduleWorkTime: assignment!.scheduleWorkTime, workTimeHours: assignment!.workTimeHours, workTimeMinutes: assignment!.workTimeMinutes, workDays: workDaysSelected)
+            fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate, selectedCourse: assignment!.parentCourse[0], scheduleWorkTime: assignment!.autoschedule, workTimeHours: assignment!.autoLengthHours, workTimeMinutes: assignment!.autoLengthMinutes, workDays: workDaysSelected)
         }else if fromTodoForm{
             fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate, selectedCourse: assignment!.parentCourse[0], scheduleWorkTime: false, workTimeHours: 1, workTimeMinutes: 0, workDays: [])
         }else{
@@ -94,7 +94,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             if assignment == nil{
                 print("adding assignment for the first time")
                 let newAssignment = Assignment()
-                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, scheduleWorkTime: scheduleWorkTime, workTimeHours: workTimeHours, workTimeMinutes: workTimeMinutes, workDays: workDaysSelected)
+                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthHours: workTimeHours, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected)
                 
                 for alertTime in alertTimes{
                     let alertDate = dueDate - (Double(alertTime) * 60)
@@ -127,8 +127,8 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                         }
                     }
                     try realm.write{
-                        print("Edited Assignment with \(scheduleWorkTime) scheduleWorkTime")
-                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, scheduleWorkTime: scheduleWorkTime, workTimeHours: workTimeHours, workTimeMinutes: workTimeMinutes, workDays: workDaysSelected)
+                        print("Edited Assignment with \(workTimeHours) and \(workTimeMinutes)")
+                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthHours: workTimeHours, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected)
                         
                     }
                 }catch{
@@ -167,7 +167,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     func setDefaultRow(picker: UIPickerView){
         var row = 0
         if selectedCourse == nil{
-            print("selectedCourse is nil. User probably initiated this form from the general add event form")
+//            print("selectedCourse is nil. User probably initiated this form from the general add event form")
             return
         }
         if let coursesArr = courses{
@@ -208,8 +208,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         
         self.scheduleWorkTime = scheduleWorkTime
         if scheduleWorkTime == true{
-            self.workTimeMinutes = workTimeMinutes
-            self.workTimeHours = workTimeHours
+            
             let scheduleWorkCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell
             scheduleWorkCell.tableSwitch.isOn = true
             self.switchValueChanged(sender: scheduleWorkCell.tableSwitch)
@@ -217,6 +216,15 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             let daysCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! DaySelectorCell
             daysCell.selectDays(days: workDays)
             self.workDaysSelected = workDays
+            
+            self.workTimeMinutes = workTimeMinutes
+            self.workTimeHours = workTimeHours
+            let workTimePickerCell = tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! PickerCell
+//            workTimePickerCell.picker.
+            workTimePickerCell.picker.selectRow(workTimeHours, inComponent: 0, animated: true)
+            workTimePickerCell.picker.selectRow(workTimeMinutes, inComponent: 1, animated: true)
+
+
         }
         
         self.selectedCourse = selectedCourse
@@ -261,11 +269,11 @@ extension AddAssignmentViewController{
             cell.picker.dataSource = self
             
             if cellText[indexPath.section][indexPath.row] == "Course"{
-                cell.picker.tag = 0
-            }else if cellText[indexPath.section][indexPath.row] == "Length"{
                 cell.picker.tag = 1
+                setDefaultRow(picker: cell.picker)
+            }else if cellText[indexPath.section][indexPath.row] == "Length"{
+                cell.picker.tag = 0
             }
-            setDefaultRow(picker: cell.picker)
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
@@ -368,9 +376,9 @@ extension AddAssignmentViewController: UITextFieldDelegateExt{
 //MARK: - TimerPicker DataSource Methods
 extension AddAssignmentViewController: UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView.tag == 0{
+        if pickerView.tag == 1{
             return courses?.count ?? 1
-        }else if pickerView.tag == 1{
+        }else if pickerView.tag == 0{
             if component == 0{
                 return 24
             }
@@ -381,9 +389,9 @@ extension AddAssignmentViewController: UIPickerViewDataSource{
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         if pickerView.tag == 0{
-            return 1
-        }else if pickerView.tag == 1{
             return 2
+        }else if pickerView.tag == 1{
+            return 1
         }
         return 0
     }
@@ -393,9 +401,9 @@ extension AddAssignmentViewController: UIPickerViewDataSource{
 extension AddAssignmentViewController: UIPickerViewDelegate{
     //helps set up information in the UIPickerView
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView.tag == 0{
+        if pickerView.tag == 1{
             return courses![row].name
-        }else if pickerView.tag == 1{
+        }else if pickerView.tag == 0{
             if component == 0{
                 return "\(row) hours"
             }
@@ -411,12 +419,16 @@ extension AddAssignmentViewController: UIPickerViewDelegate{
         return 50
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        if pickerView.tag == 0{ //course selection
+        if pickerView.tag == 1{ //course selection
             let selectedRow = pickerView.selectedRow(inComponent: 0)
             selectedCourse = courses![selectedRow]
-        }else if pickerView.tag == 1{
-            workTimeHours = component
-            workTimeMinutes = row
+        }else if pickerView.tag == 0{
+            if component == 0{
+                workTimeHours = row
+            }else{
+                workTimeMinutes = row
+            }
+           
         }
     }
 }

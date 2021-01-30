@@ -9,14 +9,6 @@
 import Foundation
 import RealmSwift
 
-//protocol that is implemented by basically all classes that can be scheduled in DaySchedule and CalendarView
-
-protocol StudiumEvent: Object{
-    var name: String {get set}
-    var startDate: Date {get set}
-    func deleteNotifications()
-}
-
 extension String { //string extension for subscript access.
 
     var length: Int {
@@ -42,7 +34,4 @@ extension String { //string extension for subscript access.
         let end = index(start, offsetBy: range.upperBound - range.lowerBound)
         return String(self[start ..< end])
     }
-    
-    
-
 }

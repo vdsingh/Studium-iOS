@@ -29,11 +29,12 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         let addHabitViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
         addHabitViewController.delegate = self
         let navController = UINavigationController(rootViewController: addHabitViewController)
-        if defaults.string(forKey: "themeColor") != nil{
-            ColorPickerCell.color = UIColor(hexString: defaults.string(forKey: "themeColor")!)
-        }else{
-            ColorPickerCell.color = K.defaultThemeColor
-        }
+//        if defaults.string(forKey: "themeColor") != nil{
+//            ColorPickerCell.color = UIColor(hexString: defaults.string(forKey: "themeColor")!)
+//        }else{
+//            ColorPickerCell.color = K.defaultThemeColor
+//        }
+        ColorPickerCell.color = .white
         self.present(navController, animated:true, completion: nil)
         
     }

@@ -12,7 +12,7 @@
 		1638CB8124EC374100D3D93E /* ThemeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1638CB7F24EC374100D3D93E /* ThemeCell.xib */; };
 		1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1641822924AD9D0800960F86 /* PickerCell.swift */; };
 		1641822C24AD9D0800960F86 /* PickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1641822A24AD9D0800960F86 /* PickerCell.xib */; };
-		16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429CFD247D20F90052E47C /* StudiumEvent.swift */; };
+		16429CFE247D20F90052E47C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429CFD247D20F90052E47C /* Extensions.swift */; };
 		16429D04247E43720052E47C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D03247E43720052E47C /* Habit.swift */; };
 		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
 		164F62F324DF7BFC00DC8169 /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62F224DF7BFC00DC8169 /* NotificationsController.swift */; };
@@ -76,6 +76,7 @@
 		16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */; };
 		16C607EC250E985000983C3D /* GlacialIndifference-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */; };
 		16C607ED250E985000983C3D /* GlacialIndifference-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607EA250E985000983C3D /* GlacialIndifference-Bold.otf */; };
+		16C60FB225C5F7FB006D0FFC /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FB125C5F7FB006D0FFC /* Protocols.swift */; };
 		16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E251462485190E000494DE /* SegmentedControlCell.swift */; };
 		16E251492485190F000494DE /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E251472485190E000494DE /* SegmentedControlCell.xib */; };
 		B7810C2AA5191938B2C9F9FF /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */; };
@@ -87,7 +88,7 @@
 		1638CB7F24EC374100D3D93E /* ThemeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemeCell.xib; sourceTree = "<group>"; };
 		1641822924AD9D0800960F86 /* PickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		1641822A24AD9D0800960F86 /* PickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerCell.xib; sourceTree = "<group>"; };
-		16429CFD247D20F90052E47C /* StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEvent.swift; sourceTree = "<group>"; };
+		16429CFD247D20F90052E47C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		16429D03247E43720052E47C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
 		164F62F224DF7BFC00DC8169 /* NotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
@@ -153,6 +154,7 @@
 		16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Italic.otf"; sourceTree = "<group>"; };
 		16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Regular.otf"; sourceTree = "<group>"; };
 		16C607EA250E985000983C3D /* GlacialIndifference-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Bold.otf"; sourceTree = "<group>"; };
+		16C60FB125C5F7FB006D0FFC /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		16E251462485190E000494DE /* SegmentedControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlCell.swift; sourceTree = "<group>"; };
 		16E251472485190E000494DE /* SegmentedControlCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
 		590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
@@ -300,9 +302,10 @@
 				1693E74D247A464F003D4702 /* Course.swift */,
 				1693E74F247A4660003D4702 /* Assignment.swift */,
 				16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */,
-				16429CFD247D20F90052E47C /* StudiumEvent.swift */,
+				16429CFD247D20F90052E47C /* Extensions.swift */,
 				16429D03247E43720052E47C /* Habit.swift */,
 				16A63B8024AA8059003A30D3 /* OtherEvent.swift */,
+				16C60FB125C5F7FB006D0FFC /* Protocols.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
 				16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
+				16C60FB225C5F7FB006D0FFC /* Protocols.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
 				1686DB682482622800FA99DB /* TimeCell.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
@@ -565,7 +569,7 @@
 				1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */,
 				16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */,
 				16B2837D25C25BF40039043E /* CourseCell2.swift in Sources */,
-				16429CFE247D20F90052E47C /* StudiumEvent.swift in Sources */,
+				16429CFE247D20F90052E47C /* Extensions.swift in Sources */,
 				1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
 				165A6C81248F0F54004279B0 /* AssignmentCell.swift in Sources */,

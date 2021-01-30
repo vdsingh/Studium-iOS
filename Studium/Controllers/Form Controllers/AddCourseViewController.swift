@@ -63,24 +63,15 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         
         navButton.image = UIImage(systemName: "plus")
         
-        
-        //used to decipher which TimeCell should have which dates
-//        times = [startDate, endDate]
-        //        timeCounter = 0
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         
         //makes it so that there are no empty cells at the bottom
         tableView.tableFooterView = UIView()
         
-        self.navigationController?.navigationBar.barTintColor = .blue
         if course != nil{
             fillForm(with: course!)
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-
     }
     
     //when we pick a logo, this function is called to update the preview on the logo cell.
@@ -229,38 +220,6 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
             print(error)
         }
     }
-    
-    //MARK: - Retrieving Data
-    
-    //method that retrieves data from cells, instead of data updating whenever something is edited (this is more efficient)
-//    func retrieveData(){
-//        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: false)
-//
-//        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-//        name = nameCell.textField.text!
-//
-//        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
-//        location = locationCell.textField.text!
-//
-//        let daySelectorCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
-//        daysSelected = daySelectorCell.daysSelected
-//
-//
-//        let startTimeCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TimeCell
-//        startDate = startTimeCell.date!
-//
-//        let endTimeCellIndex = cellType[1].lastIndex(of: "TimeCell")
-//        let endTimeCell = tableView.cellForRow(at: IndexPath(row: endTimeCellIndex!, section: 1)) as! TimeCell
-//        endDate = endTimeCell.date!
-//
-//        tableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .middle, animated: false)
-//
-//        let colorPickerCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
-//        colorValue = colorPickerCell.colorPicker.selectedColor.hexValue()
-//
-//        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
-//        additionalDetails = additionalDetailsCell.textField.text!
-//    }
 }
 
 //MARK: - TableView DataSource
@@ -292,13 +251,6 @@ extension AddCourseViewController{
             }
             
             cell.label.text = cellText[indexPath.section][indexPath.row]
-//            if cellText[indexPath.section][indexPath.row] == "Starts"{
-//                cell.date = startDate
-//            }else{
-//                cell.date = endDate
-//            }
-//            cell.date = times[timeCounter]
-//            timeCounter+=1
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell

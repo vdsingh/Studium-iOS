@@ -39,7 +39,7 @@ class HabitCell: DeletableEventCell {
         
         var timeText = habit.startDate.format(with: "h:mm a")
         timeText.append(" - \(habit.endDate.format(with: "h:mm a"))")
-        if habit.autoSchedule{
+        if habit.autoschedule{
             timeLabel.text = "Auto: \(timeText)"
         }else{
             timeLabel.text = timeText

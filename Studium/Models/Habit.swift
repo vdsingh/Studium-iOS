@@ -9,7 +9,9 @@
 import Foundation
 import RealmSwift
 
-class Habit: Object, StudiumEvent{
+class Habit: Object, Autoscheduleable, Recurring{
+    
+    
     //Basic String elements for a Habit object
     @objc dynamic var name: String = ""
     @objc dynamic var location: String = ""
@@ -20,40 +22,41 @@ class Habit: Object, StudiumEvent{
     @objc dynamic var endDate: Date = Date() //if autoschedule, this is last bound
     
     //Autoschedule elements for a Habit object
-    @objc dynamic var autoSchedule: Bool = false //will this habit be scheduled automatically
+    @objc dynamic var autoschedule: Bool = false //will this habit be scheduled automatically
     @objc dynamic var startEarlier: Bool = true //will this habit be scheduled earlier or later.
     
     //Time elements for a Habit object. 
-    @objc dynamic var totalHourTime: Int = 0
-    @objc dynamic var totalMinuteTime: Int = 0
+    @objc dynamic var autoLengthHours: Int = 1
+    @objc dynamic var autoLengthMinutes: Int = 0
+    var days = List<String>()
     
     //Other elements that determine the looks of the habit 
-    @objc dynamic var color: String = "4287f5"
+    @objc dynamic var color: String = "ffffff"
     @objc dynamic var systemImageString: String = "pencil"
 
-    let notificationAlertTimes = List<Int>()
-    let notificationIdentifiers = List<String>()
+    var notificationAlertTimes = List<Int>()
+    var notificationIdentifiers = List<String>()
 
     //List of days that this habit occurs on.
-    let days = List<String>()
+    
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, autoSchedule: Bool, startEarlier: Bool, totalHourTime: Int, totalMinuteTime: Int, daysSelected: [String], systemImageString: String, colorHex: String) {
+    func initializeData(name: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, autoschedule: Bool, startEarlier: Bool, autoLengthHours: Int, autoLengthMinutes: Int, days: [String], systemImageString: String, colorHex: String) {
 
         self.name = name
         self.location = location
         self.additionalDetails = additionalDetails
         self.startDate = startDate
         self.endDate = endDate
-        self.autoSchedule = autoSchedule
+        self.autoschedule = autoschedule
         self.startEarlier = startEarlier
-        self.totalHourTime = totalHourTime
-        self.totalMinuteTime = totalMinuteTime
+        self.autoLengthHours = autoLengthHours
+        self.autoLengthMinutes = autoLengthMinutes
         self.systemImageString = systemImageString
         self.color = colorHex
         
         //handles days
-        for day in daysSelected{
+        for day in days{
             self.days.append(day)
         }
     }

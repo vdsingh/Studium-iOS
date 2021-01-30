@@ -22,9 +22,7 @@ struct K {
     static let toCalendarSegue = "toCalendar"
     
     static let sortAssignmentsBy = "name"
-    
-    static var assignmentNum = 0
-    
+//    static var assignmentNum = 0
     static var defaultThemeColor: UIColor = UIColor(hexString: "#F77F49")!
     
     //The current theme is stored as a string key in UserDefaults (ex: "black"). We then retrieve the UIColor based on that key from here, to use as the theme.
@@ -57,6 +55,8 @@ struct K {
         "bluegreenGradient": [UIColor(hexString: "087EE1")!.cgColor, UIColor(hexString: "05E8BA")!.cgColor],
         "purplepinkGradient": [UIColor(hexString: "CB218E")!.cgColor, UIColor(hexString: "6617CB")!.cgColor]
     ]
+    
+    static var wakeUpKeyDict: [Int: String] = [0: "sunWakeUp", 1: "monWakeUp", 2: "tueWakeUp", 3: "wedWakeUp", 4: "thuWakeUp", 5: "friWakeUp", 6: "satWakeUp"]
 
     
     static func scheduleNotification(components: DateComponents, body: String, titles:String, repeatNotif: Bool, identifier: String) {

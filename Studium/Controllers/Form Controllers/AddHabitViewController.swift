@@ -61,7 +61,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
     var name: String = ""
     var additionalDetails: String = ""
     var systemImageString: String = "book.fill"
-    var colorValue: String = "000000"
+    var colorValue: String = "ffffff"
     var location: String = ""
     var earlier = true
     var daysSelected: [String] = []
@@ -99,7 +99,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
         
         navButton.image = UIImage(systemName: "plus")
         if habit != nil{
-            if habit!.autoSchedule{
+            if habit!.autoschedule{
                 cellText = cellTextAuto
                 cellType = cellTypeAuto
                 tableView.reloadData()
@@ -146,7 +146,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
         if errors.count == 0{ //if there are no errors.
             if habit == nil{
                 let newHabit = Habit()
-                newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoSchedule: autoschedule, startEarlier: earlier, totalHourTime: totalLengthHours, totalMinuteTime: totalLengthMinutes, daysSelected: daysSelected, systemImageString: systemImageString, colorHex: colorValue)
+                newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthHours: totalLengthHours, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue)
                 if !autoschedule{
                     for alertTime in alertTimes{
                         for day in daysSelected{
@@ -238,7 +238,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
                                 habit!.notificationAlertTimes.append(alertTime)
                             }
                         }
-                        habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoSchedule: autoschedule, startEarlier: earlier, totalHourTime: totalLengthHours, totalMinuteTime: totalLengthMinutes, daysSelected: daysSelected, systemImageString: systemImageString, colorHex: colorValue)
+                        habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthHours: totalLengthHours, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue)
                         print("editing habit with length hour \(totalLengthHours) segmented control: \(earlier)")
                     }
                 }catch{
@@ -645,15 +645,15 @@ extension AddHabitViewController{
         endCell.timeLabel.text = endDate.format(with: "h:mm a")
         endCell.date = endDate
         
-        if habit.autoSchedule{
+        if habit.autoschedule{
             let autoscheduleCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell
             autoscheduleCell.tableSwitch.isOn = true
             autoschedule = true
             
             let lengthCell = tableView.cellForRow(at: IndexPath(row: 3, section: 1)) as! TimeCell
-            totalLengthHours = habit.totalHourTime
-            totalLengthMinutes = habit.totalMinuteTime
-            print("Length of Habit: \(habit.totalHourTime)")
+            totalLengthHours = habit.autoLengthHours
+            totalLengthMinutes = habit.autoLengthHours
+            print("Length of Habit: \(habit.autoLengthHours)")
             lengthCell.timeLabel.text = "\(totalLengthHours) hours \(totalLengthMinutes) mins"
             
             let earlierLaterCell = tableView.cellForRow(at: IndexPath(row: 4, section: 1)) as! SegmentedControlCell
@@ -663,7 +663,6 @@ extension AddHabitViewController{
             }else{
                 earlierLaterCell.segmentedControl.selectedSegmentIndex = 1
             }
-//            earlierLaterCell.setSelected(earlier, animated: true)
         }
     }
 }

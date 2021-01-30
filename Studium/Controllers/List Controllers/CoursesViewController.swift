@@ -156,11 +156,12 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
         addCourseViewController.delegate = self
         let navController = UINavigationController(rootViewController: addCourseViewController)
-        if defaults.string(forKey: "themeColor") != nil{
-            ColorPickerCell.color = UIColor(hexString: defaults.string(forKey: "themeColor")!)
-        }else{
-            ColorPickerCell.color = K.defaultThemeColor
-        }
+//        if defaults.string(forKey: "themeColor") != nil{
+//            ColorPickerCell.color = UIColor(hexString: defaults.string(forKey: "themeColor")!)
+//        }else{
+//            ColorPickerCell.color = K.defaultThemeColor
+//        }
+        ColorPickerCell.color = .white
         self.present(navController, animated:true, completion: nil)
     }
 }
