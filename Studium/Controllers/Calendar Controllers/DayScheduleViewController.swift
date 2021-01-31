@@ -277,7 +277,12 @@ class DayScheduleViewController: DayViewController{
                     newEvent.startDate = startBound
                     newEvent.endDate = endBound
                     newEvent.color = UIColor(hexString: autoEvent.color)!
-                    newEvent.text = "\(autoEvent.name) at \(startBound.format(with: "h:mm a"))"
+                    
+                    let string = "\(autoEvent.name) at \(startBound.format(with: "h:mm a"))"
+                    let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.label]
+                    let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
+                    newEvent.attributedText = attributedString
+                    
                     //schedule notification here.
                     if date.year == Date().year && date.month == Date().day && date.day == Date().day{
                         do{
@@ -346,7 +351,12 @@ class DayScheduleViewController: DayViewController{
                     newEvent.startDate = startBound
                     newEvent.endDate = endBound
                     newEvent.color = UIColor(hexString: autoEvent.color)!
-                    newEvent.text = "\(autoEvent.name) at \(startBound.format(with: "h:mm a"))"
+                    
+                    let string = "\(autoEvent.name) at \(startBound.format(with: "h:mm a"))"
+                    let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.label]
+                    let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
+                    newEvent.attributedText = attributedString
+                    
                     //schedule notification here.
                     if date.year == Date().year && date.month == Date().day && date.day == Date().day{
                         do{

@@ -17,7 +17,7 @@ class AlertTableViewController: UITableViewController {
     var tags: [String] = ["At time of event","5 minutes before","10 minutes before","15 minutes before","30 minutes before", "1 hour before", "2 hours before", "4 hours before", "8 hours before", "1 day before"]
     
     //the corresponding number of minutes
-    var times: [Int] = [0,5,10,15,30,60,120,240,480,1440]
+    var times: [Int] = [0, 5, 10, 15, 30, 60, 120, 240, 480, 1440]
     
     
     var checked: [Bool] = [false,false,false,false,false,false,false,false,false,false]
