@@ -42,6 +42,13 @@ class WakeUpIntroController: UIViewController{
     var differentTimes: Bool = true
     
     override func viewDidLoad() {
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            if error != nil{
+                print(error!)
+            }
+        }
+
         //selects sunday by default
         selectSunday()
         

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import RealmSwift
 import ChameleonFramework
 
@@ -26,7 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         updateTheme(color: K.colorsDict[defaults.string(forKey: "themeColor") ?? "black"] ?? UIColor.black)
 //        updateTheme(color: UIColor.green)
         print("Did finish launching");
-
+        
+              
+        FirebaseApp.configure()
+        
+        if Auth.auth().currentUser != nil {
+          print("User is signed in")
+          // ...
+        } else {
+          print("User is not signed in")
+          // ...
+        }
         
         return true
     }

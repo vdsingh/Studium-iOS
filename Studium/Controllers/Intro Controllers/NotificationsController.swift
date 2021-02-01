@@ -16,16 +16,7 @@ class NotificationsController: UIViewController{
         
     }
     override func viewDidLoad() {
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "toWakeUpTimes", sender: self)
-
-            }
-        }
-        DispatchQueue.main.async {
-          self.navigationController?.isNavigationBarHidden = false
-        }
+        
         
 //        let content = UNMutableNotificationContent()
 //        content.title = "Hey I'm a Notification!"

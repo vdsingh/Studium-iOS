@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -21,15 +22,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         //change initial view controller depending on whether user has decided notifications
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if defaults.bool(forKey: "didFinishIntro") == true{
-           window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
+//
+        if Auth.auth().currentUser == nil{
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "LoginController")
+        }else if defaults.bool(forKey: "didFinishIntro") == false{
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "WakeUpController")
+           
         }else{
-            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "NotificationsScreen")
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
         }
-           window?.makeKeyAndVisible()
+//           window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
