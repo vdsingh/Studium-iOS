@@ -547,13 +547,10 @@ extension AddHabitViewController: DaySelectorDelegate{
 extension AddHabitViewController: UITextFieldDelegateExt{
     func textEdited(sender: UITextField) {
         if sender.placeholder == "Name"{
-            print("name edited")
             name = sender.text!
         }else if sender.placeholder == "Location"{
-            print("location edited")
             location = sender.text!
         }else if sender.placeholder == "Additional Details"{
-            print("additionalDetails edited")
             additionalDetails = sender.text!
         }
     }

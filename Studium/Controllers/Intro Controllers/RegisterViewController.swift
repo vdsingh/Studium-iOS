@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class RegisterViewController: UIViewController {
-
+    let firestoreDB = Firestore.firestore()
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -34,7 +34,12 @@ class RegisterViewController: UIViewController {
     @IBAction func registerButtonPressed(_ sender: UIButton) {
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { authResult, error in
             if error == nil{
-                self.performSegue(withIdentifier: "toWakeUp", sender: self)
+                if let email = Auth.auth().currentUser?.email{
+//                    self.firestoreDB.collection("users").addDocument(data: ["email": email])
+                    self.firestoreDB.collection("users").document(email).setData(["email": email])
+
+                    self.performSegue(withIdentifier: "toWakeUp", sender: self)
+                }
             }else{
                 print(error!)
             }

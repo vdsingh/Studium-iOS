@@ -3,6 +3,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+import Firebase
 import FlexColorPicker
 
 //makes sure that the course list can refresh when a new course is added
@@ -11,6 +12,7 @@ protocol CourseRefreshProtocol{
 }
 
 class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
+    let firestoreDB = Firestore.firestore()
     
     var course: Course?
     
@@ -212,13 +214,33 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     //saves the new course to the Realm database.
     func save(course: Course){
-        do{
-            try realm.write{
-                realm.add(course)
-            }
-        }catch{
-            print(error)
+        var daysArr: [String] = []
+        for day in course.days{
+            daysArr.append(day)
         }
+        var alertTimesArr: [Int] = []
+        for time in course.notificationAlertTimes{
+            alertTimesArr.append(time)
+        }
+        if Auth.auth().currentUser != nil {//user is signed into firebase.
+            if let email = Auth.auth().currentUser?.email{
+                firestoreDB.collection("users").document(email).collection("courses").addDocument(data: ["name": course.name, "location": course.location, "days": daysArr, "alertTimes": alertTimesArr, "startTime": startDate, "endTime": endDate, "logo": logoString, "color": colorValue, "additionalDetails": additionalDetails])
+                print("Saved course to firestore.")
+            }else{
+                print("User email is nil.")
+            }
+        }else{
+            print("Course was not saved. User is not signed into firestore.")
+        }
+            do{
+                try realm.write{
+                    realm.add(course)
+                }
+            }catch{
+                print(error)
+            }
+        
+        
     }
 }
 
@@ -360,13 +382,10 @@ extension AddCourseViewController{
 extension AddCourseViewController: UITextFieldDelegateExt{
     func textEdited(sender: UITextField) {
         if sender.placeholder == "Name"{
-            print("name edited")
             name = sender.text!
         }else if sender.placeholder == "Location"{
-            print("location edited")
             location = sender.text!
         }else if sender.placeholder == "Additional Details"{
-            print("additionalDetails edited")
             additionalDetails = sender.text!
         }
     }
@@ -374,7 +393,6 @@ extension AddCourseViewController: UITextFieldDelegateExt{
 
 extension AddCourseViewController: DaySelectorDelegate{
     func dayButtonPressed(sender: UIButton) {
-        print("dayButton pressed")
         let dayTitle = sender.titleLabel!.text
         if sender.isSelected{
             sender.isSelected = false
