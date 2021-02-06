@@ -1,9 +1,7 @@
 
-
 import Foundation
 import UIKit
 import RealmSwift
-import Firebase
 import FlexColorPicker
 
 //makes sure that the course list can refresh when a new course is added
@@ -12,9 +10,9 @@ protocol CourseRefreshProtocol{
 }
 
 class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
-    let firestoreDB = Firestore.firestore()
     
     var course: Course?
+    
     
     //system image string that identifies what the logo of the course will be.
     var systemImageString: String = "pencil"
@@ -48,9 +46,12 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     var alertTimes: [Int] = []
     
+    var partitionKey: String = ""
+    
     @IBOutlet weak var navButton: UIBarButtonItem!
     //called when the view loads
     override func viewDidLoad() {
+        super.viewDidLoad()
         //register custom cells for form
         tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
         tableView.register(UINib(nibName: "TimeCell", bundle: nil), forCellReuseIdentifier: "TimeCell")
@@ -105,7 +106,10 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         if errors.count == 0{
             if course == nil{
                 let newCourse = Course()
-                newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes)
+                if let user = app.currentUser {
+                    partitionKey = user.id
+                }
+                newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
                 //scheduling the appropriate notifications
                 for alertTime in alertTimes{
                     for day in daysSelected{
@@ -184,7 +188,10 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
                             scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                             }
                         }
-                        course!.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes)
+                        if let user = app.currentUser {
+                            partitionKey = user.id
+                        }
+                        course!.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
                     }
                 }catch{
                     print(error)
@@ -214,33 +221,20 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     //saves the new course to the Realm database.
     func save(course: Course){
-        var daysArr: [String] = []
-        for day in course.days{
-            daysArr.append(day)
-        }
-        var alertTimesArr: [Int] = []
-        for time in course.notificationAlertTimes{
-            alertTimesArr.append(time)
-        }
-        if Auth.auth().currentUser != nil {//user is signed into firebase.
-            if let email = Auth.auth().currentUser?.email{
-                firestoreDB.collection("users").document(email).collection("courses").addDocument(data: ["name": course.name, "location": course.location, "days": daysArr, "alertTimes": alertTimesArr, "startTime": startDate, "endTime": endDate, "logo": logoString, "color": colorValue, "additionalDetails": additionalDetails])
-                print("Saved course to firestore.")
-            }else{
-                print("User email is nil.")
-            }
-        }else{
-            print("Course was not saved. User is not signed into firestore.")
-        }
+        if let user = app.currentUser {
+            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
             do{
                 try realm.write{
                     realm.add(course)
+                    print("the user id is: \(user.id)")
+                    print("saved course with partitionKey: \(course._partitionKey)")
                 }
             }catch{
-                print(error)
+                print("error saving course: \(error)")
             }
-        
-        
+        }else{
+            print("error accessing user")
+        }
     }
 }
 
@@ -382,10 +376,13 @@ extension AddCourseViewController{
 extension AddCourseViewController: UITextFieldDelegateExt{
     func textEdited(sender: UITextField) {
         if sender.placeholder == "Name"{
+            print("name edited")
             name = sender.text!
         }else if sender.placeholder == "Location"{
+            print("location edited")
             location = sender.text!
         }else if sender.placeholder == "Additional Details"{
+            print("additionalDetails edited")
             additionalDetails = sender.text!
         }
     }
@@ -393,6 +390,7 @@ extension AddCourseViewController: UITextFieldDelegateExt{
 
 extension AddCourseViewController: DaySelectorDelegate{
     func dayButtonPressed(sender: UIButton) {
+        print("dayButton pressed")
         let dayTitle = sender.titleLabel!.text
         if sender.isSelected{
             sender.isSelected = false
@@ -616,4 +614,3 @@ extension Date {
         }
     }
 }
-

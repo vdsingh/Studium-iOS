@@ -74,8 +74,12 @@ class AddToDoListEventViewController: MasterForm, AlertInfoStorer {
         //there are no errors
         if errors == ""{
             if otherEvent == nil{
+                guard let user = app.currentUser else {
+                    print("Error getting user in MasterForm")
+                    return
+                }
                 let newEvent = OtherEvent()
-                newEvent.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes)
+                newEvent.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes, partitionKey: user.id)
                 for alertTime in alertTimes{
                     let alertDate = startDate - (Double(alertTime) * 60)
                     var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)

@@ -71,6 +71,7 @@
 		16A63B8F24AD43DF003A30D3 /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */; };
 		16B2837D25C25BF40039043E /* CourseCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B2837B25C25BF40039043E /* CourseCell2.swift */; };
 		16B2837E25C25BF40039043E /* CourseCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16B2837C25C25BF40039043E /* CourseCell2.xib */; };
+		16B498D025CE2CE6005E9C26 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B498CF25CE2CE6005E9C26 /* Secret.swift */; };
 		16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */; };
 		16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */; };
 		16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */; };
@@ -152,6 +153,7 @@
 		16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
 		16B2837B25C25BF40039043E /* CourseCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell2.swift; sourceTree = "<group>"; };
 		16B2837C25C25BF40039043E /* CourseCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell2.xib; sourceTree = "<group>"; };
+		16B498CF25CE2CE6005E9C26 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
 		16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Italic.otf"; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				1693E73E247A3DC6003D4702 /* Info.plist */,
 				16C60FB625C74E5B006D0FFC /* GoogleService-Info.plist */,
 				1693E754247A4B64003D4702 /* K.swift */,
+				16B498CF25CE2CE6005E9C26 /* Secret.swift */,
 			);
 			path = Studium;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
+				16B498D025CE2CE6005E9C26 /* Secret.swift in Sources */,
 				16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,

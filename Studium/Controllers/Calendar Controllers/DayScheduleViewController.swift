@@ -14,8 +14,28 @@ import CalendarKit
 import DateToolsSwift
 //
 class DayScheduleViewController: DayViewController{
-    let realm = try! Realm()
+    let app = App(id: Secret.appID)
+
+    var realm: Realm!
     let defaults = UserDefaults.standard
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        guard let user = app.currentUser else {
+            print("Error getting user")
+            return
+        }
+        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+        dayView.autoScrollToFirstEvent = true
+        dayView.backgroundColor = .red
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        reloadData()
+//        viewDidLoad()
+        generatedEvents = []
+        alreadyGeneratedSet = Set<Date>()
+    }
     
     @IBAction func settingsButtonPressed(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "toSettings", sender: self)
@@ -38,6 +58,14 @@ class DayScheduleViewController: DayViewController{
         
         let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
         // let allCoursesOnDay = separateCoursesHelper(dayStringIdentifier: usableString) //get all courses that occur on this day.
+        
+        if let user = app.currentUser{
+            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+
+        }else{
+            print("error getting user")
+        }
+            
         
         var coursesOnDay: [Course] = []
         let allCourses = realm.objects(Course.self)
@@ -387,18 +415,7 @@ class DayScheduleViewController: DayViewController{
         return newEvent
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        dayView.autoScrollToFirstEvent = true
-        dayView.backgroundColor = .red
-    }
     
-    override func viewWillAppear(_ animated: Bool) {
-        reloadData()
-//        viewDidLoad()
-        generatedEvents = []
-        alreadyGeneratedSet = Set<Date>()
-    }
     // MARK: EventDataSource
     var generatedEvents = [EventDescriptor]()
     var alreadyGeneratedSet = Set<Date>()

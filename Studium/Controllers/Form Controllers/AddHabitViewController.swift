@@ -145,8 +145,12 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
         
         if errors.count == 0{ //if there are no errors.
             if habit == nil{
+                guard let user = app.currentUser else {
+                    print("Error getting user in MasterForm")
+                    return
+                }
                 let newHabit = Habit()
-                newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthHours: totalLengthHours, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue)
+                newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthHours: totalLengthHours, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: user.id)
                 if !autoschedule{
                     for alertTime in alertTimes{
                         for day in daysSelected{
@@ -238,7 +242,11 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
                                 habit!.notificationAlertTimes.append(alertTime)
                             }
                         }
-                        habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthHours: totalLengthHours, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue)
+                        guard let user = app.currentUser else {
+                            print("Error getting user in MasterForm")
+                            return
+                        }
+                        habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthHours: totalLengthHours, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: user.id)
                         print("editing habit with length hour \(totalLengthHours) segmented control: \(earlier)")
                     }
                 }catch{

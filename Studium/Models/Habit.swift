@@ -10,7 +10,8 @@ import Foundation
 import RealmSwift
 
 class Habit: Object, Autoscheduleable, Recurring{
-    
+    @objc dynamic var _id: ObjectId = ObjectId.generate()
+    @objc dynamic var _partitionKey: String = ""
     
     //Basic String elements for a Habit object
     @objc dynamic var name: String = ""
@@ -39,9 +40,13 @@ class Habit: Object, Autoscheduleable, Recurring{
 
     //List of days that this habit occurs on.
     
+    override static func primaryKey() -> String? {
+        return "_id"
+    }
+    
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, autoschedule: Bool, startEarlier: Bool, autoLengthHours: Int, autoLengthMinutes: Int, days: [String], systemImageString: String, colorHex: String) {
+    func initializeData(name: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, autoschedule: Bool, startEarlier: Bool, autoLengthHours: Int, autoLengthMinutes: Int, days: [String], systemImageString: String, colorHex: String, partitionKey: String) {
 
         self.name = name
         self.location = location
@@ -54,6 +59,8 @@ class Habit: Object, Autoscheduleable, Recurring{
         self.autoLengthMinutes = autoLengthMinutes
         self.systemImageString = systemImageString
         self.color = colorHex
+        
+        self._partitionKey = partitionKey
         
         //handles days
         for day in days{

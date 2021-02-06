@@ -14,7 +14,18 @@ import RealmSwift
 //characteristics of all forms.
 class MasterForm: UITableViewController, UNUserNotificationCenterDelegate{
     //reference to the realm database.
-    let realm = try! Realm()
+    let app = App(id: Secret.appID)
+    
+    var realm: Realm!
+    
+    override func viewDidLoad() {
+        guard let user = app.currentUser else {
+            print("Error getting user in MasterForm")
+            return
+        }
+        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+//        print(us)
+    }
     
     
     //method to schedule Local Notifications to the User.

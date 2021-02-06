@@ -7,12 +7,15 @@
 //
 
 import UIKit
-import Firebase
+import RealmSwift
 
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    
+    let app = App(id: Secret.appID)
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,16 +37,22 @@ class LoginViewController: UIViewController {
     }
     */
     @IBAction func signInButtonPressed(_ sender: UIButton) {
-        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { [weak self] authResult, error in
-          guard let strongSelf = self else { return }
-            if error == nil{
-                strongSelf.performSegue(withIdentifier: "toWakeUp", sender: self)
-            }else{
-                print("Email: \(strongSelf.emailTextField.text!)")
-                print("Password: \(strongSelf.passwordTextField.text!)")
-                print(error!)
+        let email = emailTextField.text!
+        let password = passwordTextField.text!
+        app.login(credentials: Credentials.emailPassword(email: email, password: password)) { (result) in
+            switch result {
+            case .failure(let error):
+                print("Login failed: \(error.localizedDescription)")
+            case .success(let user):
+                print("Successfully logged in as user \(user)")
+                let defaults = UserDefaults.standard
+                defaults.setValue(email, forKey: "email")
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "toWakeUp", sender: self)
+                }
+                // Now logged in, do something with user
+                // Remember to dispatch to main if you are doing anything on the UI thread
             }
-          // ...
         }
     }
     

@@ -10,6 +10,8 @@ import Foundation
 import RealmSwift
 
 class Assignment: Object, Autoscheduleable, Recurring{
+    @objc dynamic var _id: ObjectId = ObjectId.generate()
+    @objc dynamic var _partitionKey: String = ""
     
     //Basic String elements for an Assignment object
     @objc dynamic var name: String = ""
@@ -39,8 +41,12 @@ class Assignment: Object, Autoscheduleable, Recurring{
     var days = List<String>()
 
     
+    override static func primaryKey() -> String? {
+        return "_id"
+    }
+    
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, course: Course, notificationAlertTimes: [Int], autoschedule: Bool, autoLengthHours: Int, autoLengthMinutes: Int, autoDays: [String]) {
+    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, course: Course, notificationAlertTimes: [Int], autoschedule: Bool, autoLengthHours: Int, autoLengthMinutes: Int, autoDays: [String], partitionKey: String) {
 
         self.name = name
         self.additionalDetails = additionalDetails
@@ -51,6 +57,8 @@ class Assignment: Object, Autoscheduleable, Recurring{
         self.autoschedule = autoschedule
         self.autoLengthHours = autoLengthHours
         self.autoLengthMinutes = autoLengthMinutes
+        
+        self._partitionKey = partitionKey
         
         self.notificationAlertTimes.removeAll()
         for alertTime in notificationAlertTimes{
@@ -93,6 +101,5 @@ class Assignment: Object, Autoscheduleable, Recurring{
         }
         print("identifiers to be removed: \(identifiersForRemoval)")
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiersForRemoval)
-
     }
 }

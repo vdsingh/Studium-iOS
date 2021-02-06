@@ -7,13 +7,14 @@
 //
 
 import UIKit
-import Firebase
+import SwiftUI
+import RealmSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     let defaults = UserDefaults.standard
-
+    let app = App(id: Secret.appID)
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -27,14 +28,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //
-        if Auth.auth().currentUser == nil{
+//        if "Insert user here" == nil{
             window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "LoginController")
-        }else if defaults.bool(forKey: "didFinishIntro") == false{
-            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "WakeUpController")
-           
-        }else{
-            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
-        }
+//        }else if defaults.bool(forKey: "didFinishIntro") == false{
+//            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "WakeUpController")
+//           
+//        }else{
+//            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
+//        }
 //           window?.makeKeyAndVisible()
     }
 

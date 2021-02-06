@@ -93,8 +93,12 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         if errors == "" {
             if assignment == nil{
                 print("adding assignment for the first time")
+                guard let user = app.currentUser else {
+                    print("Error getting user")
+                    return
+                }
                 let newAssignment = Assignment()
-                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthHours: workTimeHours, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected)
+                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthHours: workTimeHours, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
                 
                 for alertTime in alertTimes{
                     let alertDate = dueDate - (Double(alertTime) * 60)
@@ -128,7 +132,11 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                     }
                     try realm.write{
                         print("Edited Assignment with \(workTimeHours) and \(workTimeMinutes)")
-                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthHours: workTimeHours, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected)
+                        guard let user = app.currentUser else {
+                            print("Error getting user")
+                            return
+                        }
+                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthHours: workTimeHours, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
                         
                     }
                 }catch{

@@ -7,13 +7,14 @@
 //
 
 import UIKit
-import Firebase
+import RealmSwift
 
 class RegisterViewController: UIViewController {
-    let firestoreDB = Firestore.firestore()
+//    let firestoreDB = Firestore.firestore()
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
@@ -32,16 +33,33 @@ class RegisterViewController: UIViewController {
     }
     */
     @IBAction func registerButtonPressed(_ sender: UIButton) {
-        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { authResult, error in
-            if error == nil{
-                if let email = Auth.auth().currentUser?.email{
-//                    self.firestoreDB.collection("users").addDocument(data: ["email": email])
-                    self.firestoreDB.collection("users").document(email).setData(["email": email])
-
-                    self.performSegue(withIdentifier: "toWakeUp", sender: self)
+        let app = App(id: Secret.appID)
+        let client = app.emailPasswordAuth
+        let email = emailTextField.text!
+        let password = passwordTextField.text!
+        client.registerUser(email: email, password: password) { (error) in
+            guard error == nil else {
+                print("Failed to register: \(error!.localizedDescription)")
+                return
+            }
+            // Registering just registers. You can now log in.
+            
+            print("Successfully registered user.")
+            
+            app.login(credentials: Credentials.emailPassword(email: email, password: password)) { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Login failed: \(error.localizedDescription)")
+                case .success(let user):
+                    print("Successfully logged in as user \(user)")
+                    let defaults = UserDefaults.standard
+                    defaults.setValue(email, forKey: "email")
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "toWakeUp", sender: self)
+                    }
+                    // Now logged in, do something with user
+                    // Remember to dispatch to main if you are doing anything on the UI thread
                 }
-            }else{
-                print(error!)
             }
         }
     }

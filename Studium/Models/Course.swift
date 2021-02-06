@@ -11,6 +11,10 @@ import RealmSwift
 
 class Course: Object, StudiumEvent, Recurring{
     
+    @objc dynamic var _id: ObjectId = ObjectId.generate()
+    @objc dynamic var _partitionKey: String = ""
+
+    
     //Basic String Elements of a Course object.
     @objc dynamic var name: String = ""
     @objc dynamic var color: String = "4287f5"
@@ -36,10 +40,15 @@ class Course: Object, StudiumEvent, Recurring{
     
     //List of the assignments for the course.
     let assignments = List<Assignment>()
+//    let assignmentIDs = RealmSwift.List<ObjectId>()
+    
+    override static func primaryKey() -> String? {
+        return "_id"
+    }
     
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, colorHex: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, days: [String], systemImageString: String, notificationAlertTimes: [Int]) {
+    func initializeData(name: String, colorHex: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, days: [String], systemImageString: String, notificationAlertTimes: [Int], partitionKey: String) {
         
         self.name = name
         self.color = colorHex
@@ -48,6 +57,7 @@ class Course: Object, StudiumEvent, Recurring{
         self.startDate = startDate
         self.endDate = endDate
         self.systemImageString = systemImageString
+        self._partitionKey = partitionKey
         //        self.notificationAlertTimes = notificationAlertTimes
         self.notificationAlertTimes.removeAll()
         for time in notificationAlertTimes{
