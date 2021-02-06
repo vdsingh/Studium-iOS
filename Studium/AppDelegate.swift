@@ -14,19 +14,26 @@ import ChameleonFramework
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-    let realm = try! Realm()
+    var realm: Realm!
     let defaults = UserDefaults.standard
-
-
+    let app = App(id: Secret.appID)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //print(realm.configuration.fileURL)
 //        print("UserDefaults Path: ")
 //        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
         updateTheme(color: K.colorsDict[defaults.string(forKey: "themeColor") ?? "black"] ?? UIColor.black)
+        
+        if let user = app.currentUser {
+            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+            print("User IS signed in.")
+        }else {
+            defaults.setValue("Guest", forKey: "email")
+            print("User is NOT signed in.")
+        }
 //        updateTheme(color: UIColor.green)
         print("Did finish launching");
-
+        
         
         return true
     }

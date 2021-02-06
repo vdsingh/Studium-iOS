@@ -1,5 +1,4 @@
 
-
 import Foundation
 import UIKit
 import RealmSwift
@@ -13,6 +12,7 @@ protocol CourseRefreshProtocol{
 class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     var course: Course?
+    
     
     //system image string that identifies what the logo of the course will be.
     var systemImageString: String = "pencil"
@@ -46,9 +46,12 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     var alertTimes: [Int] = []
     
+    var partitionKey: String = ""
+    
     @IBOutlet weak var navButton: UIBarButtonItem!
     //called when the view loads
     override func viewDidLoad() {
+        super.viewDidLoad()
         //register custom cells for form
         tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
         tableView.register(UINib(nibName: "TimeCell", bundle: nil), forCellReuseIdentifier: "TimeCell")
@@ -103,7 +106,10 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         if errors.count == 0{
             if course == nil{
                 let newCourse = Course()
-                newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes)
+                if let user = app.currentUser {
+                    partitionKey = user.id
+                }
+                newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
                 //scheduling the appropriate notifications
                 for alertTime in alertTimes{
                     for day in daysSelected{
@@ -182,7 +188,10 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
                             scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                             }
                         }
-                        course!.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes)
+                        if let user = app.currentUser {
+                            partitionKey = user.id
+                        }
+                        course!.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
                     }
                 }catch{
                     print(error)
@@ -212,12 +221,19 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     //saves the new course to the Realm database.
     func save(course: Course){
-        do{
-            try realm.write{
-                realm.add(course)
+        if let user = app.currentUser {
+            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+            do{
+                try realm.write{
+                    realm.add(course)
+                    print("the user id is: \(user.id)")
+                    print("saved course with partitionKey: \(course._partitionKey)")
+                }
+            }catch{
+                print("error saving course: \(error)")
             }
-        }catch{
-            print(error)
+        }else{
+            print("error accessing user")
         }
     }
 }
@@ -598,4 +614,3 @@ extension Date {
         }
     }
 }
-

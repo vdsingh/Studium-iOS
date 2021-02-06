@@ -12,11 +12,17 @@ import RealmSwift
 
 
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate{
-    let realm = try! Realm()
-    
+    var realm: Realm!
+    let app = App(id: Secret.appID)
+
     var idString: String = "Cell"
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let user = app.currentUser else {
+            print("Error getting user in MasterForm")
+            return
+        }
+        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
     }
     
     //MARK: - TableView Data Source Methods

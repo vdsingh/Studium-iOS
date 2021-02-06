@@ -14,13 +14,20 @@ class CalendarViewController: UIViewController{
     
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var tableView: UITableView!
-    let realm = try! Realm()
+    var realm: Realm!
+    let app = App(id: Secret.appID)
+
     
     var allEventsInDay: [StudiumEvent] = []
     var selectedDay: Date = Date()
     override func viewDidLoad() {
         //print("calendar viewdidload was called.")
         super.viewDidLoad()
+        guard let user = app.currentUser else {
+            print("Error getting user in MasterForm")
+            return
+        }
+        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
 
 
         tableView.delegate = self

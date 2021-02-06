@@ -11,11 +11,13 @@ import RealmSwift
 import UIKit
 
 class SettingsViewController: UITableViewController{
-    let realm = try! Realm() //Link to the realm where we are storing information
-
+    var realm: Realm! //Link to the realm where we are storing information
+    let app = App(id: Secret.appID)
     
-    let cellData: [[String]] = [["Theme", "Reset Wake Up Times"], ["Delete All Assignments","Delete Completed Assignments",  "Delete All Other Events", "Delete All Completed Other Events"]]
-    let cellLinks: [[String]] = [["toThemePage", "toWakeUpTimes", ""], ["", "", "", ""]]
+    let defaults = UserDefaults.standard
+    
+    let cellData: [[String]] = [["Theme", "Reset Wake Up Times"], ["Delete All Assignments","Delete Completed Assignments",  "Delete All Other Events", "Delete All Completed Other Events"], ["Email", "Sign Out"]]
+    let cellLinks: [[String]] = [["toThemePage", "toWakeUpTimes", ""], ["", "", "", ""], ["", "toLoginScreen"]]
     
     let alertData: [[String]] = [
         ["Delete All Assignments", "Are you sure you want to delete all assignments? You can't undo this action."],
@@ -25,6 +27,11 @@ class SettingsViewController: UITableViewController{
     
     override func viewDidLoad() {
         tableView.tableFooterView = UIView()
+        guard let user = app.currentUser else {
+            print("Error getting user in MasterForm")
+            return
+        }
+        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
 
     }
     override func viewWillAppear(_ animated: Bool){
@@ -34,6 +41,9 @@ class SettingsViewController: UITableViewController{
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         cell?.textLabel?.text = cellData[indexPath.section][indexPath.row]
+        if defaults.value(forKey: "email") != nil && cellData[indexPath.section][indexPath.row] == "Email"{
+            cell?.textLabel?.text = defaults.string(forKey: "email")
+        }
         return cell!
     }
     
@@ -72,6 +82,10 @@ class SettingsViewController: UITableViewController{
             createAlertForOtherEvents(title: alertData[2][0], message: alertData[2][1], isCompleted: false)
         }else if cellData[indexPath.section][indexPath.row] == "Delete All Completed Other Events"{
             createAlertForOtherEvents(title: alertData[3][0], message: alertData[3][1], isCompleted: true)
+        }else if cellData[indexPath.section][indexPath.row] == "Sign Out"{
+            
+        }else if cellData[indexPath.section][indexPath.row] == "Print all firebase courses"{
+//           
         }
     }
     

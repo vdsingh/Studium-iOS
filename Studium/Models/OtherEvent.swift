@@ -10,6 +10,9 @@ import Foundation
 import RealmSwift
 
 class OtherEvent: Object, StudiumEvent{
+    @objc dynamic var _id: ObjectId = ObjectId.generate()
+    @objc dynamic var _partitionKey: String = ""
+    
     //Basic String elements for an OtherEvent object
     @objc dynamic var name: String = ""
     @objc dynamic var location: String = ""
@@ -27,13 +30,18 @@ class OtherEvent: Object, StudiumEvent{
     var notificationAlertTimes = List<Int>()
     var notificationIdentifiers = List<String>()
     
+    override static func primaryKey() -> String? {
+        return "_id"
+    }
+    
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(startDate: Date, endDate: Date, name: String, location: String, additionalDetails: String, notificationAlertTimes: [Int]){
+    func initializeData(startDate: Date, endDate: Date, name: String, location: String, additionalDetails: String, notificationAlertTimes: [Int], partitionKey: String){
         self.startDate = startDate
         self.endDate = endDate
         self.name = name
         self.location = location
         self.additionalDetails = additionalDetails
+        self._partitionKey = partitionKey
         
         self.notificationAlertTimes.removeAll()
         for time in notificationAlertTimes{

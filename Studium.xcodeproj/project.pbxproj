@@ -71,12 +71,15 @@
 		16A63B8F24AD43DF003A30D3 /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */; };
 		16B2837D25C25BF40039043E /* CourseCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B2837B25C25BF40039043E /* CourseCell2.swift */; };
 		16B2837E25C25BF40039043E /* CourseCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16B2837C25C25BF40039043E /* CourseCell2.xib */; };
+		16B498D025CE2CE6005E9C26 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B498CF25CE2CE6005E9C26 /* Secret.swift */; };
 		16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */; };
 		16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */; };
 		16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */; };
 		16C607EC250E985000983C3D /* GlacialIndifference-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */; };
 		16C607ED250E985000983C3D /* GlacialIndifference-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607EA250E985000983C3D /* GlacialIndifference-Bold.otf */; };
 		16C60FB225C5F7FB006D0FFC /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FB125C5F7FB006D0FFC /* Protocols.swift */; };
+		16C60FE825C76C51006D0FFC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FE725C76C51006D0FFC /* LoginViewController.swift */; };
+		16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */; };
 		16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E251462485190E000494DE /* SegmentedControlCell.swift */; };
 		16E251492485190F000494DE /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E251472485190E000494DE /* SegmentedControlCell.xib */; };
 		B7810C2AA5191938B2C9F9FF /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */; };
@@ -149,12 +152,15 @@
 		16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
 		16B2837B25C25BF40039043E /* CourseCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell2.swift; sourceTree = "<group>"; };
 		16B2837C25C25BF40039043E /* CourseCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell2.xib; sourceTree = "<group>"; };
+		16B498CF25CE2CE6005E9C26 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
 		16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Italic.otf"; sourceTree = "<group>"; };
 		16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Regular.otf"; sourceTree = "<group>"; };
 		16C607EA250E985000983C3D /* GlacialIndifference-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Bold.otf"; sourceTree = "<group>"; };
 		16C60FB125C5F7FB006D0FFC /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		16C60FE725C76C51006D0FFC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		16E251462485190E000494DE /* SegmentedControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlCell.swift; sourceTree = "<group>"; };
 		16E251472485190E000494DE /* SegmentedControlCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
 		590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
@@ -189,6 +195,8 @@
 				16429D06247E81630052E47C /* WakeUpIntroController.swift */,
 				164F62F224DF7BFC00DC8169 /* NotificationsController.swift */,
 				164F630024EA2E0900DC8169 /* FirstScreenViewController.swift */,
+				16C60FE725C76C51006D0FFC /* LoginViewController.swift */,
+				16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */,
 			);
 			path = "Intro Controllers";
 			sourceTree = "<group>";
@@ -263,6 +271,7 @@
 				1693E739247A3DC6003D4702 /* Assets.xcassets */,
 				1693E73E247A3DC6003D4702 /* Info.plist */,
 				1693E754247A4B64003D4702 /* K.swift */,
+				16B498CF25CE2CE6005E9C26 /* Secret.swift */,
 			);
 			path = Studium;
 			sourceTree = "<group>";
@@ -545,6 +554,7 @@
 				165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
+				16B498D025CE2CE6005E9C26 /* Secret.swift in Sources */,
 				16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
@@ -566,6 +576,7 @@
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
 				164F62F324DF7BFC00DC8169 /* NotificationsController.swift in Sources */,
 				1686DB5C24812BCE00FA99DB /* TextFieldCell.swift in Sources */,
+				16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */,
 				1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */,
 				16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */,
 				16B2837D25C25BF40039043E /* CourseCell2.swift in Sources */,
@@ -574,6 +585,7 @@
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
 				165A6C81248F0F54004279B0 /* AssignmentCell.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
+				16C60FE825C76C51006D0FFC /* LoginViewController.swift in Sources */,
 				164F630124EA2E0900DC8169 /* FirstScreenViewController.swift in Sources */,
 				16A63B7F24A6D1C4003A30D3 /* AddToDoListEventViewController.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,

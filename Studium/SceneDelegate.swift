@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import SwiftUI
+import RealmSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     let defaults = UserDefaults.standard
-
+    let app = App(id: Secret.appID)
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -21,15 +23,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         //change initial view controller depending on whether user has decided notifications
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if defaults.bool(forKey: "didFinishIntro") == true{
-           window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
-        }else{
-            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "NotificationsScreen")
-        }
-           window?.makeKeyAndVisible()
+//
+//        if "Insert user here" == nil{
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "LoginController")
+//        }else if defaults.bool(forKey: "didFinishIntro") == false{
+//            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "WakeUpController")
+//           
+//        }else{
+//            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
+//        }
+//           window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
