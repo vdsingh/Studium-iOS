@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import UIKit
+import EventKit
 
 class SettingsViewController: UITableViewController{
     var realm: Realm! //Link to the realm where we are storing information
@@ -16,8 +17,14 @@ class SettingsViewController: UITableViewController{
     
     let defaults = UserDefaults.standard
     
-    let cellData: [[String]] = [["Theme", "Reset Wake Up Times"], ["Delete All Assignments","Delete Completed Assignments",  "Delete All Other Events", "Delete All Completed Other Events"], ["Email", "Sign Out"]]
-    let cellLinks: [[String]] = [["toThemePage", "toWakeUpTimes", ""], ["", "", "", ""], ["", "toLoginScreen"]]
+    let cellData: [[String]] = [["Theme", "Reset Wake Up Times"],
+                                ["Sync to Apple Calendar"],
+                                ["Delete All Assignments","Delete Completed Assignments",  "Delete All Other Events", "Delete All Completed Other Events"],
+                                ["Email", "Sign Out"]]
+    let cellLinks: [[String]] = [["toThemePage", "toWakeUpTimes", ""],
+                                [""],
+                                ["", "", "", ""],
+                                ["", "toLoginScreen"]]
     
     let alertData: [[String]] = [
         ["Delete All Assignments", "Are you sure you want to delete all assignments? You can't undo this action."],
@@ -84,8 +91,35 @@ class SettingsViewController: UITableViewController{
             createAlertForOtherEvents(title: alertData[3][0], message: alertData[3][1], isCompleted: true)
         }else if cellData[indexPath.section][indexPath.row] == "Sign Out"{
             
-        }else if cellData[indexPath.section][indexPath.row] == "Print all firebase courses"{
-//           
+        }else if cellData[indexPath.section][indexPath.row] == "Sync to Apple Calendar"{
+            // Initialize the store.
+            let store = EKEventStore()
+
+            // Request access to reminders.
+            store.requestAccess(to: .event) { granted, error in
+                if granted{
+                    let calendars = store.calendars(for: EKEntityType.event) as [EKCalendar]
+                    for calendar in calendars{
+                        if calendar.title == "Studium"{ // the calendar already exists.
+                            return
+                        }
+                    }
+
+                    let studiumCalendar = EKCalendar(for: EKEntityType.event, eventStore: store)
+                    studiumCalendar.title = "Studium"
+                    studiumCalendar.source = store.defaultCalendarForNewEvents?.source
+                    self.defaults.setValue(studiumCalendar.calendarIdentifier, forKey: "appleCalendarID")
+                    print("Calendar Identifier: \(studiumCalendar.calendarIdentifier)")
+                    try! store.saveCalendar(studiumCalendar, commit: true)
+
+//                    do{
+//                    }catch error as NSError{
+//                        print("Error creating Apple calendar: \(error)")
+//                    }
+                }else{
+                    print("error syncing to apple calendar: \(error)")
+                }
+            }
         }
     }
     

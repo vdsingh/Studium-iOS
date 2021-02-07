@@ -27,7 +27,7 @@ class DayScheduleViewController: DayViewController{
         }
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         dayView.autoScrollToFirstEvent = true
-        dayView.backgroundColor = .red
+//        dayView.backgroundColor = .red
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,6 +100,7 @@ class DayScheduleViewController: DayViewController{
 //        let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
 //        let usableString = weekDay.substring(toIndex: 3)
 //        let timeToWake = wakeTimeDictionary[usableString]!
+        
         let timeToWake = defaults.array(forKey: K.wakeUpKeyDict[date.weekday]!)![0] as! Date
         
         let hour = calendar.component(.hour, from: timeToWake)

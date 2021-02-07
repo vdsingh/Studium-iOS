@@ -29,7 +29,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //
 //        if "Insert user here" == nil{
+        if (app.currentUser != nil && app.currentUser!.isLoggedIn){
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
+
+        }else{
             window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "LoginController")
+        }
 //        }else if defaults.bool(forKey: "didFinishIntro") == false{
 //            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "WakeUpController")
 //           

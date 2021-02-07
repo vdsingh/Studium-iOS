@@ -56,7 +56,7 @@ struct K {
         "purplepinkGradient": [UIColor(hexString: "CB218E")!.cgColor, UIColor(hexString: "6617CB")!.cgColor]
     ]
     
-    static var wakeUpKeyDict: [Int: String] = [0: "sunWakeUp", 1: "monWakeUp", 2: "tueWakeUp", 3: "wedWakeUp", 4: "thuWakeUp", 5: "friWakeUp", 6: "satWakeUp"]
+    static var wakeUpKeyDict: [Int: String] = [1: "sunWakeUp", 2: "monWakeUp", 3: "tueWakeUp", 4: "wedWakeUp", 5: "thuWakeUp", 6: "friWakeUp", 7: "satWakeUp"]
 
     
     static func scheduleNotification(components: DateComponents, body: String, titles:String, repeatNotif: Bool, identifier: String) {

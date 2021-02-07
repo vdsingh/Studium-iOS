@@ -201,7 +201,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="calendar" destination="Uwi-Wp-5Zq" id="TCh-R8-67r"/>
                         <outlet property="tableView" destination="h1K-Ld-nWw" id="Umb-WH-Uch"/>
@@ -216,7 +215,7 @@
             <objects>
                 <tableViewController id="R0z-hi-CKK" customClass="ToDoListViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="yLz-Gg-S9H">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="759"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -437,8 +436,9 @@
         <!--Navigation Controller-->
         <scene sceneID="9gg-NV-fIV">
             <objects>
-                <navigationController id="8ry-8P-woK" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="fullScreen" id="8ry-8P-woK" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="calendar.circle" catalog="system" selectedImage="calendar.circle.fill" id="sdd-Lb-EYw"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pUJ-1y-edv">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -895,7 +895,7 @@
             <objects>
                 <viewController storyboardIdentifier="LoginController" id="ESh-Lk-lkL" customClass="LoginViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OVS-q3-vcM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="vG0-md-X7u">
@@ -964,7 +964,6 @@
         <!--Register View Controller-->
         <scene sceneID="BMi-v1-Coj">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1eX-PU-VG6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController modalPresentationStyle="fullScreen" id="7Kq-Qr-UGX" customClass="RegisterViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YE0-UI-gP7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -1028,6 +1027,7 @@
                         <segue destination="13W-JO-cIR" kind="showDetail" identifier="toWakeUp" id="ddV-QA-qiS"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1eX-PU-VG6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="841" y="3227"/>
         </scene>
@@ -1040,7 +1040,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="fVz-Hk-Aub">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

@@ -60,5 +60,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Sync Studium Data (Courses, Assignments, Habits, Other Events) to Apple Calendar</string>
 </dict>
 </plist>
