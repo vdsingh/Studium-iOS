@@ -9,27 +9,10 @@
 import Foundation
 import RealmSwift
 
-class Assignment: Object, Autoscheduleable, Recurring{
-    @objc dynamic var _id: ObjectId = ObjectId.generate()
-    @objc dynamic var _partitionKey: String = ""
-    
-    //Basic String elements for an Assignment object
-    @objc dynamic var name: String = ""
-    @objc dynamic var additionalDetails: String = ""
-    
-    //Basic Date elements for an Assignment object. The endDate is when it is due, and the startDate is just so that the element appears on the DayView
-    @objc dynamic var startDate: Date = Date() - (60 * 60)
-    @objc dynamic var endDate: Date = Date()
-    
-    //Color so that Assignment conforms to Studium protocol. This is always the parent course color
-    @objc dynamic var color: String = "ffffff"
+class Assignment: RecurringStudiumEvent, Autoscheduleable{
     
     //Specifies whether or not the Assignment object is marked as complete or not. This determines where it lies in a tableView and whether or not it's crossed out.
     @objc dynamic var complete: Bool = false
-    
-    //track the identifiers of all notifications associated with this assignment.
-    var notificationIdentifiers = List<String>()
-    var notificationAlertTimes = List<Int>()
 
     //This is a link to the Course that the Assignment object is categorized under.
     var parentCourse = LinkingObjects(fromType: Course.self, property: "assignments")
@@ -38,12 +21,7 @@ class Assignment: Object, Autoscheduleable, Recurring{
     @objc dynamic var autoschedule: Bool = false //in this case, autoschedule refers to scheduling work time.
     @objc dynamic var autoLengthHours: Int = 1
     @objc dynamic var autoLengthMinutes: Int = 0
-    var days = List<String>()
 
-    
-    override static func primaryKey() -> String? {
-        return "_id"
-    }
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
     func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, course: Course, notificationAlertTimes: [Int], autoschedule: Bool, autoLengthHours: Int, autoLengthMinutes: Int, autoDays: [String], partitionKey: String) {
@@ -79,14 +57,7 @@ class Assignment: Object, Autoscheduleable, Recurring{
         self.endDate = endDate
     }
     
-    func deleteNotifications(){
-        var identifiers: [String] = []
-        for id in notificationIdentifiers{
-            identifiers.append(id)
-        }
-        notificationIdentifiers.removeAll()
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
-    }
+    
     
     func updateNotifications(with newAlertTimes: [Int]){
         var identifiersForRemoval: [String] = []

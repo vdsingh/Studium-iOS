@@ -238,7 +238,6 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
             print("error accessing user")
         }
     }
-    
     func addToAppleCalendar(course: Course){
         let store = EKEventStore()
         let event = EKEvent(eventStore: store)
@@ -269,6 +268,7 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
             print("Failed to save event. Error: \(error)")
         }
     }
+    
 }
 
 //MARK: - TableView DataSource

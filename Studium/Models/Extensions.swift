@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import EventKit
 import RealmSwift
 
 extension String { //string extension for subscript access.
