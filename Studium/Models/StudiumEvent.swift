@@ -31,7 +31,6 @@ class StudiumEvent: Object{
         return "_id"
     }
     
-//    func deleteNotifications()
     func addToAppleCalendar(){
         func addToAppleCalendar(){
             let store = EKEventStore()

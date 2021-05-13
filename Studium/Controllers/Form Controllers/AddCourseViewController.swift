@@ -233,39 +233,9 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
             }catch{
                 print("error saving course: \(error)")
             }
-            addToAppleCalendar(course: course)
+            course.addToAppleCalendar()
         }else{
             print("error accessing user")
-        }
-    }
-    func addToAppleCalendar(course: Course){
-        let store = EKEventStore()
-        let event = EKEvent(eventStore: store)
-        
-        let identifier = UserDefaults.standard.string(forKey: "appleCalendarID")
-        if identifier == nil{ //the user is not synced with Apple Calendar
-            return
-        }
-        
-        event.location = course.location
-        event.calendar = store.calendar(withIdentifier: identifier!) ?? store.defaultCalendarForNewEvents
-        event.title = course.name
-        event.startDate = course.startDate
-        event.endDate = course.endDate
-        event.notes = course.additionalDetails
-        
-        let courseToDaysDict: [String: EKRecurrenceDayOfWeek] = ["Mon": EKRecurrenceDayOfWeek(EKWeekday.monday),"Tue": EKRecurrenceDayOfWeek(EKWeekday.tuesday),"Wed": EKRecurrenceDayOfWeek(EKWeekday.wednesday),"Thu": EKRecurrenceDayOfWeek(EKWeekday.thursday),"Fri": EKRecurrenceDayOfWeek(EKWeekday.friday),"Sat": EKRecurrenceDayOfWeek(EKWeekday.saturday),"Sun": EKRecurrenceDayOfWeek(EKWeekday.sunday)]
-        var days: [EKRecurrenceDayOfWeek] = []
-        for day in course.days{
-            days.append(courseToDaysDict[day]!)
-        }
-//        event.addRecurrenceRule(EKRecurrenceRule(recurrenceWith: .weekly, interval: 1, end: nil))
-        event.addRecurrenceRule(EKRecurrenceRule(recurrenceWith: .weekly, interval: 1, daysOfTheWeek: days, daysOfTheMonth: nil, monthsOfTheYear: nil, weeksOfTheYear: nil, daysOfTheYear: nil, setPositions: nil, end: nil))
-
-        do{
-            try store.save(event, span: EKSpan.futureEvents, commit: true)
-        }catch let error as NSError{
-            print("Failed to save event. Error: \(error)")
         }
     }
     

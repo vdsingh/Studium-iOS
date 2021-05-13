@@ -25,7 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         updateTheme(color: K.colorsDict[defaults.string(forKey: "themeColor") ?? "black"] ?? UIColor.black)
         
         if let user = app.currentUser {
-            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+            do{
+                realm = try Realm(configuration: user.configuration(partitionValue: user.id))
+            }catch{
+                print("Error lol")
+            }
             print("User IS signed in.")
         }else {
             defaults.setValue("Guest", forKey: "email")

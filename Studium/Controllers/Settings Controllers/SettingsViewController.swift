@@ -90,7 +90,12 @@ class SettingsViewController: UITableViewController{
         }else if cellData[indexPath.section][indexPath.row] == "Delete All Completed Other Events"{
             createAlertForOtherEvents(title: alertData[3][0], message: alertData[3][1], isCompleted: true)
         }else if cellData[indexPath.section][indexPath.row] == "Sign Out"{
-            
+            guard let user = app.currentUser else {
+                print("Error getting user")
+                return
+            }
+            let _ = user.logOut()
+            performSegue(withIdentifier: "toLoginScreen", sender: self)
         }else if cellData[indexPath.section][indexPath.row] == "Sync to Apple Calendar"{
             // Initialize the store.
             let store = EKEventStore()

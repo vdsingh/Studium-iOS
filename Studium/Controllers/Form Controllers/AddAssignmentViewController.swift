@@ -61,6 +61,11 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         tableView.tableFooterView = UIView()
         
         //getting all courses from realm to populate the course picker.
+        guard let user = app.currentUser else {
+            print("Error getting user in MasterForm")
+            return
+        }
+        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         courses = realm.objects(Course.self)
         
         dueDate = Calendar.current.date(bySetting: .hour, value: 23, of: dueDate)!
