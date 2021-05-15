@@ -122,7 +122,7 @@ class SettingsViewController: UITableViewController{
 //                        print("Error creating Apple calendar: \(error)")
 //                    }
                 }else{
-                    print("error syncing to apple calendar: \(error)")
+                    print("error syncing to apple calendar: \(String(describing: error))")
                 }
             }
         }

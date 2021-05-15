@@ -1,5 +1,5 @@
 PODS:
-  - CalendarKit (0.14.7)
+  - CalendarKit (1.0.6)
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
@@ -7,11 +7,11 @@ PODS:
   - DateToolsSwift (5.0.0)
   - FlexColorPicker (1.4.2)
   - FSCalendar (2.8.2)
-  - Realm (10.5.1):
-    - Realm/Headers (= 10.5.1)
-  - Realm/Headers (10.5.1)
-  - RealmSwift (10.5.1):
-    - Realm (= 10.5.1)
+  - Realm (10.7.6):
+    - Realm/Headers (= 10.7.6)
+  - Realm/Headers (10.7.6)
+  - RealmSwift (10.7.6):
+    - Realm (= 10.7.6)
   - SwipeCellKit (2.7.1)
 
 DEPENDENCIES:
@@ -46,16 +46,16 @@ CHECKOUT OPTIONS:
     :git: https://github.com/wowansm/Chameleon.git
 
 SPEC CHECKSUMS:
-  CalendarKit: 2352322e095c90645a5f22b4f6b1b1e8ca03f665
+  CalendarKit: eb72185fdc61a65107e4edbedb7b6a8f409fb19b
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Colorful: 9e093edacaa9fb73512ad9da157f0707b82d2542
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   FlexColorPicker: d7ed5cfd8ceb936f2930e4e30629f9448967a5f8
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
-  Realm: 77fcb4e0b9f2963ea06f584749a0d7dc9cab95e1
-  RealmSwift: 6abe6aa6cd8b70cc1a87afcb9232cabea74ff1ac
+  Realm: ed860452717c8db8f4bf832b6807f7f2ce708839
+  RealmSwift: e31c4ddbcc42ac879313d656b86f9ca539f6f4f4
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
-PODFILE CHECKSUM: 5c39b6151e9e656c77f64aeb86d720cb5f1366d2
+PODFILE CHECKSUM: 37c7ee3bf8d5eea56f82b6c853364b026df432f1
 
 COCOAPODS: 1.10.1

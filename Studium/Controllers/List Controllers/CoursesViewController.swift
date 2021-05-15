@@ -24,7 +24,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         navigationController?.navigationBar.barTintColor = .red
         
         
-        tableView.register(UINib(nibName: "CourseCell", bundle: nil), forCellReuseIdentifier: "Cell")
+        tableView.register(UINib(nibName: "CourseCell1", bundle: nil), forCellReuseIdentifier: "Cell")
         
         //        loadCourses()
         
@@ -32,7 +32,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         tableView.delegate = self //setting delegate class for the table view to be this
         tableView.dataSource = self //setting data source for the table view to be this
         
-        tableView.rowHeight = 100
+        tableView.rowHeight = 160
         //tableView.separatorStyle = .none //gets rid of dividers between cells.
         
     }
@@ -77,7 +77,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //build the cells
         //let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
-        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! CourseCell
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! CourseCell1
         if let course = courses?[indexPath.row]{
             cell.course = course
             //            cell.deloadData()
