@@ -11,9 +11,7 @@ protocol CourseRefreshProtocol{
 }
 
 class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
-    
     var course: Course?
-    
     
     //system image string that identifies what the logo of the course will be.
     var systemImageString: String = "pencil"

@@ -77,6 +77,8 @@
 		16C05CF4264F37B8004C9629 /* CourseCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C05CF2264F37B8004C9629 /* CourseCell1.swift */; };
 		16C05CF5264F37B8004C9629 /* CourseCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C05CF3264F37B8004C9629 /* CourseCell1.xib */; };
 		16C05CF7264F3AF3004C9629 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C05CF6264F3AF3004C9629 /* TestViewController.swift */; };
+		16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C05CF8264F5ABC004C9629 /* AssignmentCell1.swift */; };
+		16C05CFB264F5ABC004C9629 /* AssignmentCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C05CF9264F5ABC004C9629 /* AssignmentCell1.xib */; };
 		16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */; };
 		16C607EC250E985000983C3D /* GlacialIndifference-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */; };
 		16C607ED250E985000983C3D /* GlacialIndifference-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607EA250E985000983C3D /* GlacialIndifference-Bold.otf */; };
@@ -161,6 +163,8 @@
 		16C05CF2264F37B8004C9629 /* CourseCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell1.swift; sourceTree = "<group>"; };
 		16C05CF3264F37B8004C9629 /* CourseCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell1.xib; sourceTree = "<group>"; };
 		16C05CF6264F3AF3004C9629 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		16C05CF8264F5ABC004C9629 /* AssignmentCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCell1.swift; sourceTree = "<group>"; };
+		16C05CF9264F5ABC004C9629 /* AssignmentCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentCell1.xib; sourceTree = "<group>"; };
 		16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Italic.otf"; sourceTree = "<group>"; };
 		16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Regular.otf"; sourceTree = "<group>"; };
 		16C607EA250E985000983C3D /* GlacialIndifference-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Bold.otf"; sourceTree = "<group>"; };
@@ -375,6 +379,8 @@
 			children = (
 				16C05CF2264F37B8004C9629 /* CourseCell1.swift */,
 				16C05CF3264F37B8004C9629 /* CourseCell1.xib */,
+				16C05CF8264F5ABC004C9629 /* AssignmentCell1.swift */,
+				16C05CF9264F5ABC004C9629 /* AssignmentCell1.xib */,
 			);
 			path = "New Event Cells";
 			sourceTree = "<group>";
@@ -508,6 +514,7 @@
 				165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */,
 				1686DB6124812C4000FA99DB /* SwitchCell.xib in Resources */,
 				165A6C7E248D9AF3004279B0 /* ColorPickerCell.xib in Resources */,
+				16C05CFB264F5ABC004C9629 /* AssignmentCell1.xib in Resources */,
 				16A63B8524AA85A7003A30D3 /* OtherEventCell.xib in Resources */,
 				1686DB832482A0A500FA99DB /* DaySelectorCell.xib in Resources */,
 				16E251492485190F000494DE /* SegmentedControlCell.xib in Resources */,
@@ -582,6 +589,7 @@
 				16C05CF7264F3AF3004C9629 /* TestViewController.swift in Sources */,
 				16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */,
 				1686DB6424812CE000FA99DB /* LabelCell.swift in Sources */,
+				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
 				1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */,
 				1686DB7E24827B8900FA99DB /* TimePickerCell.swift in Sources */,
 				164F62F924E4D54200DC8169 /* LogoSelectorViewController.swift in Sources */,

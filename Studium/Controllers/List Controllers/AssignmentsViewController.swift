@@ -27,7 +27,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     override func viewDidLoad() {
         searchBar.delegate = self
-        tableView.register(UINib(nibName: "AssignmentCell", bundle: nil), forCellReuseIdentifier: "AssignmentCell")
+        tableView.register(UINib(nibName: "AssignmentCell1", bundle: nil), forCellReuseIdentifier: "AssignmentCell")
         
     }
     
@@ -69,7 +69,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         super.idString = "AssignmentCell"
-        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell1
         let assignment = assignmentsArr[indexPath.section][indexPath.row]
         cell.assignment = assignment
         cell.loadData(assignment: assignment)

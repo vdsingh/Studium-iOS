@@ -32,7 +32,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         tableView.delegate = self //setting delegate class for the table view to be this
         tableView.dataSource = self //setting data source for the table view to be this
         
-        tableView.rowHeight = 160
+        tableView.rowHeight = 150
         //tableView.separatorStyle = .none //gets rid of dividers between cells.
         
     }

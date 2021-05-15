@@ -79,7 +79,7 @@
                         </subviews>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="Srv-D5-hMb">
-                        <rect key="frame" x="35" y="111" width="305" height="27"/>
+                        <rect key="frame" x="35" y="121" width="305" height="27"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeb-tu-kmr">
                                 <rect key="frame" x="0.0" y="0.0" width="37.5" height="27"/>
@@ -148,7 +148,7 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Srv-D5-hMb" secondAttribute="bottom" constant="30" id="5S7-VJ-u93"/>
+                    <constraint firstAttribute="bottom" secondItem="Srv-D5-hMb" secondAttribute="bottom" constant="20" id="5S7-VJ-u93"/>
                     <constraint firstAttribute="bottom" secondItem="DCy-gP-tAR" secondAttribute="bottom" constant="7" id="ASv-A7-uvO"/>
                     <constraint firstItem="DCy-gP-tAR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="K8I-H1-Gg7"/>
                     <constraint firstItem="Srv-D5-hMb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="35" id="LF4-DB-5if"/>

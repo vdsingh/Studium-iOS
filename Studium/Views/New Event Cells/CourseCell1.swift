@@ -40,11 +40,12 @@ class CourseCell1: DeletableEventCell {
         background.backgroundColor = UIColor(hexString: colorHex)
         nameLabel.text = courseName
 //        locationLabel.text = "HELLO"
-        locationLabel.text = location
-        if location.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
-            locationLabel.isHidden = true
-        }
-        print("location: \(location) end")
+        locationLabel.text = course.location
+        locationLabel.textColor = .white
+//        if location.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
+//            locationLabel.isHidden = true
+//        }
+        print("location:\(location)end")
         var timeText = startTime.format(with: "h:mm a")
         timeText.append(" - \(endTime.format(with: "h:mm a"))")
         timeLabel.text = timeText
@@ -52,6 +53,7 @@ class CourseCell1: DeletableEventCell {
         for dayLabel in dayLabels{
             if days.contains(dayLabel.text!){
                 dayLabel.backgroundColor = .white
+                dayLabel.layer.cornerRadius = 5
                 dayLabel.textColor = UIColor(hexString: colorHex)
             }else{
                 dayLabel.textColor = .white
