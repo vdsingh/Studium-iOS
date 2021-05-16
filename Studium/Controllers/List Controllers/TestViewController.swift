@@ -13,7 +13,7 @@ class TestViewController: UITableViewController{
     override func viewDidLoad() {
         tableView.register(UINib(nibName: "CourseCell1", bundle: nil), forCellReuseIdentifier: "Cell")
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        tableView.rowHeight = 160
+        tableView.rowHeight = 140
 
     }
     

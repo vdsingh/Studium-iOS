@@ -18,18 +18,18 @@ class CourseCell1: DeletableEventCell {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet weak var iconCircle: UIImageView!
+    
     @IBOutlet var dayLabels: [UILabel]!
+    @IBOutlet var dayBoxes: [UIImageView]!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         background.layer.cornerRadius = 15
-        for dayLabel in dayLabels!{
-            dayLabel.layer.borderWidth = 1
-            dayLabel.layer.borderColor = CGColor.init(red: 255, green: 255, blue: 255, alpha: 1)
-            dayLabel.layer.cornerRadius = 5
-        }
+        background.layer.borderWidth = 4
+        
     }
 
     func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<String>, colorHex: String, course: Course, systemImageString: String){
@@ -37,30 +37,39 @@ class CourseCell1: DeletableEventCell {
         event = course
         iconImage.image = UIImage(systemName: systemImageString)
         iconImage.tintColor = UIColor(hexString: colorHex)
-        background.backgroundColor = UIColor(hexString: colorHex)
+        iconCircle.tintColor = UIColor(hexString: colorHex)
+        
+//        background.backgroundColor = UIColor(hexString: colorHex)
+        background.layer.borderColor = UIColor(hexString: colorHex)!.cgColor
+        
         nameLabel.text = courseName
-//        locationLabel.text = "HELLO"
+        nameLabel.textColor = UIColor(hexString: colorHex)
         locationLabel.text = course.location
-        locationLabel.textColor = .white
-//        if location.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
-//            locationLabel.isHidden = true
-//        }
+
         print("location:\(location)end")
         var timeText = startTime.format(with: "h:mm a")
         timeText.append(" - \(endTime.format(with: "h:mm a"))")
         timeLabel.text = timeText
         
-        for dayLabel in dayLabels{
+        for dayBox in dayBoxes{
+            dayBox.layer.borderWidth = 2
+            dayBox.layer.borderColor = UIColor(hexString: colorHex)!.cgColor
+            dayBox.layer.cornerRadius = 5
+        }
+    
+        for i in 0...dayLabels.count-1{
+//        for dayLabel in dayLabels{
+            let dayLabel = dayLabels[i]
+            let dayBox = dayBoxes[i];
             if days.contains(dayLabel.text!){
-                dayLabel.backgroundColor = .white
-                dayLabel.layer.cornerRadius = 5
-                dayLabel.textColor = UIColor(hexString: colorHex)
+                dayBox.backgroundColor = UIColor(hexString: colorHex)
+//                dayLabel.backgroundColor =
+//                dayLabel.layer.cornerRadius = 5
+//                dayLabel.textColor = UIColor(hexString: colorHex)
             }else{
                 dayLabel.textColor = .white
-                dayLabel.backgroundColor = .none
+                dayBox.backgroundColor = .none
             }
         }
-        
     }
-    
 }
