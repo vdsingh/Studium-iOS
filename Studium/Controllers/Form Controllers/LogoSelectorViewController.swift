@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ChameleonFramework
 protocol LogoStorer{
     var systemImageString: String { get set}
     func refreshLogoCell()
@@ -18,7 +17,9 @@ class LogoSelectorViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     //logos available if OS is less than 14
-    var systemLogoNames: [String] = ["plus", "minus", "multiply", "divide", "number","function","mic", "message", "phone", "envelope", "sun.max", "moon", "zzz", "sparkles", "cloud", "pencil", "folder", "paperplane", "book", "hammer", "lock", "map", "film", "gamecontroller", "headphones", "gift", "lightbulb", "tv", "car", "airplane", "bolt", "paragraph", "a", "play", "bag", "creditcard", "cart", "heart", "bandage"]
+    var systemCourseLogoNames: [String] = ["plus", "minus", "multiply", "divide","function", "pencil", "folder", "book", "film", "lightbulb", "tv"]
+    
+    var systemHabitLogoNames: [String] = ["heart","envelope", "sun.max", "moon", "zzz", "sparkles", "cloud","mic", "message", "phone","paperplane","hammer", "map","gamecontroller", "headphones","car", "airplane", "bolt", "creditcard", "cart"]
                                      
     var letterAndNumberNames: [String] = [ "a.circle","b.circle","c.circle","d.circle","e.circle","f.circle","g.circle","h.circle","i.circle","j.circle","k.circle","l.circle","m.circle","n.circle","o.circle","p.circle","q.circle","r.circle","s.circle","t.circle","u.circle","v.circle","w.circle","x.circle","y.circle","z.circle", "1.circle","2.circle","3.circle","4.circle","5.circle","6.circle","7.circle","8.circle","9.circle","10.circle"]
     
@@ -36,7 +37,7 @@ class LogoSelectorViewController: UIViewController {
 
 extension LogoSelectorViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var logoNames = systemLogoNames;
+        var logoNames = systemCourseLogoNames + systemHabitLogoNames;
         if #available(iOS 14.0, *){
             logoNames += iOS14SystemLogoNames + letterAndNumberNames
         }else{
@@ -51,14 +52,14 @@ extension LogoSelectorViewController: UICollectionViewDelegate{
 extension LogoSelectorViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if #available(iOS 14.0, *){
-            return iOS14SystemLogoNames.count + letterAndNumberNames.count + systemLogoNames.count
+            return iOS14SystemLogoNames.count + letterAndNumberNames.count + systemCourseLogoNames.count + systemHabitLogoNames.count
         }else{
-            return letterAndNumberNames.count + systemLogoNames.count
+            return letterAndNumberNames.count + systemCourseLogoNames.count + systemHabitLogoNames.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var logoNames = systemLogoNames;
+        var logoNames = systemCourseLogoNames + systemHabitLogoNames;
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LogoCollectionViewCell", for: indexPath) as! LogoCollectionViewCell
         if #available(iOS 14.0, *){
             logoNames += iOS14SystemLogoNames + letterAndNumberNames
