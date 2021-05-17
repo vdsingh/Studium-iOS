@@ -14,7 +14,7 @@ protocol LogoStorer{
 }
 class LogoSelectorViewController: UIViewController {
     var delegate: LogoStorer?
-    var color: UIColor = UIColor.white
+    var color: UIColor = .systemBackground
     @IBOutlet weak var collectionView: UICollectionView!
     
     //logos available if OS is less than 14
@@ -31,10 +31,6 @@ class LogoSelectorViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "LogoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "LogoCollectionViewCell")
-        
-        //choose the background of the selection form depending on the color, so that the user can see the form properly.
-        collectionView.backgroundColor = UIColor(contrastingBlackOrWhiteColorOn: color , isFlat: true)
-        self.view.backgroundColor = UIColor(contrastingBlackOrWhiteColorOn: color , isFlat: true)
     }
 }
 
