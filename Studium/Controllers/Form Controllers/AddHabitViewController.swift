@@ -291,12 +291,29 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
     
     //save the Habit to the realm
     func save(habit: Habit){
-        do{
-            try realm.write{
-                realm.add(habit)
+//        do{
+//            try realm.write{
+//                realm.add(habit)
+//            }
+//        }catch{
+//            print(error)
+//        }
+        
+        
+        if let user = app.currentUser {
+            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+            do{
+                try realm.write{
+                    realm.add(habit)
+                    print("the user id is: \(user.id)")
+                    print("saved course with partitionKey: \(habit._partitionKey)")
+                }
+            }catch{
+                print("error saving course: \(error)")
             }
-        }catch{
-            print(error)
+            habit.addToAppleCalendar()
+        }else{
+            print("error accessing user")
         }
     }
     

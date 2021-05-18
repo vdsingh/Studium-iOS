@@ -33,7 +33,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         tableView.dataSource = self //setting data source for the table view to be this
         
         tableView.rowHeight = 140
-        //tableView.separatorStyle = .none //gets rid of dividers between cells.
+        tableView.separatorStyle = .none //gets rid of dividers between cells.
         
     }
     

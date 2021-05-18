@@ -22,7 +22,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "AssignmentCell", bundle: nil), forCellReuseIdentifier: "AssignmentCell")
+        tableView.register(UINib(nibName: "AssignmentCell1", bundle: nil), forCellReuseIdentifier: "AssignmentCell1")
         tableView.register(UINib(nibName: "OtherEventCell", bundle: nil), forCellReuseIdentifier: "OtherEventCell")
     }
     
@@ -129,8 +129,8 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if allEvents[indexPath.section][indexPath.row] is Assignment {
-            super.idString = "AssignmentCell"
-            let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell
+            super.idString = "AssignmentCell1"
+            let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell1
             let assignment = allEvents[indexPath.section][indexPath.row] as! Assignment
             cell.loadData(assignment: assignment)
 
@@ -175,7 +175,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? AssignmentCell{
+        if let cell = tableView.cellForRow(at: indexPath) as? AssignmentCell1{
             if let assignment = cell.assignment{
                 do{
                     try realm.write{

@@ -236,7 +236,6 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
             print("error accessing user")
         }
     }
-    
 }
 
 //MARK: - TableView DataSource

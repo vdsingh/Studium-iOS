@@ -96,13 +96,30 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let assignment = assignmentsArr[indexPath.section][indexPath.row]
-        do{
-            try realm.write{
-                assignment.complete = !assignment.complete
+        
+        if let user = app.currentUser {
+            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+            do{
+                try realm.write{
+                    assignment.complete = !assignment.complete
+                    print("user changed assignment \(assignment.name) completeness")
+//                    print("the user id is: \(user.id)")
+//                    print("saved course with partitionKey: \(course._partitionKey)")
+                }
+            }catch{
+                print("error saving course: \(error)")
             }
-        }catch{
-            print(error)
+        }else{
+            print("error accessing user")
         }
+//        do{
+//            try realm.write{
+//                assignment.complete = !assignment.complete
+//            }
+//        }catch{
+//            print(error)
+//        }
+        
         
         loadAssignments()
         tableView.deselectRow(at: indexPath, animated: true)
