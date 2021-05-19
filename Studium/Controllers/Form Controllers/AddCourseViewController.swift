@@ -221,8 +221,8 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     //saves the new course to the Realm database.
     func save(course: Course){
         if let user = app.currentUser {
-            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
             do{
+                realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
                 try realm.write{
                     realm.add(course)
                     print("the user id is: \(user.id)")
