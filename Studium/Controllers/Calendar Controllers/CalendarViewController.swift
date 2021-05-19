@@ -29,7 +29,12 @@ class CalendarViewController: UIViewController{
         }
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
 
-
+        calendar.appearance.weekdayTextColor = .label
+//        calendar.appearance.headerTitleFont = headert
+        
+        calendar.appearance.headerTitleColor = .label
+        
+        
         tableView.delegate = self
 //        calendar.delegate = self
         tableView.dataSource = self

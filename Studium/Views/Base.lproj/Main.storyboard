@@ -113,16 +113,7 @@
                                 <action selector="settingsButtonPressed:" destination="fig-EF-Ixi" id="arE-3b-5rq"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Month" style="plain" id="kkG-iM-tej">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="5W6-9U-2Er">
-                                <rect key="frame" x="302" y="7" width="92" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Month"/>
-                                <connections>
-                                    <action selector="monthButtonPressed:" destination="fig-EF-Ixi" eventType="touchUpInside" id="m8L-Zn-CmZ"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="calendar" catalog="system" style="plain" id="kkG-iM-tej">
                             <connections>
                                 <action selector="monthButtonPressed:" destination="fig-EF-Ixi" id="EDV-rL-BtE"/>
                             </connections>
@@ -187,17 +178,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Calendar" image="calendar" catalog="system" id="RjS-XH-PjN"/>
                     <navigationItem key="navigationItem" title="Month View" id="i5o-aq-RvD">
-                        <barButtonItem key="rightBarButtonItem" title="Day" style="plain" id="aXM-A7-jXB">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="tvr-FT-hFP">
-                                <rect key="frame" x="302" y="7" width="92" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Day"/>
-                                <connections>
-                                    <action selector="dayButtonPressed:" destination="okE-Gd-bqh" eventType="touchUpInside" id="79g-4i-4Ko"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="list.number" catalog="system" id="RRE-8s-VNW">
                             <connections>
-                                <action selector="dayButtonPressed:" destination="okE-Gd-bqh" id="b9P-gV-kDn"/>
+                                <action selector="dayButtonPressed:" destination="okE-Gd-bqh" id="KdM-OD-LzR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1222,6 +1205,7 @@
         <image name="calendar.circle" catalog="system" width="128" height="121"/>
         <image name="calendar.circle.fill" catalog="system" width="128" height="121"/>
         <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="list.number" catalog="system" width="128" height="97"/>
         <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
