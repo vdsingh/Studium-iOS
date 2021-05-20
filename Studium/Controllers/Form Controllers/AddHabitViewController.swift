@@ -64,7 +64,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
     var colorValue: String = "ffffff"
     var location: String = ""
     var earlier = true
-    var daysSelected: [String] = []
+    var daysSelected: [Int] = []
     
     //array that keeps track of when the user should be sent notifications about this habit
     var alertTimes: [Int] = []
@@ -155,12 +155,12 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
                     for alertTime in alertTimes{
                         for day in daysSelected{
                             
-                            let weekday = Date.convertDayToWeekday(day: day)
-                            let weekdayAsInt = Date.convertDayToInt(day: day)
+//                            let weekday = Date.convertDayToWeekday(day: day)
+//                            let weekdayAsInt = Date.convertDayToInt(day: day)
                             var alertDate = Date()
                             
-                            if startDate.weekday != weekdayAsInt{ //the course doesn't occur today
-                                alertDate = Date.today().next(weekday)
+                            if startDate.weekday != day{ //the course doesn't occur today
+                                alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
                             }
                             
                             alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
@@ -204,12 +204,12 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
                             for alertTime in alertTimes{
                                 for day in daysSelected{
                                     
-                                    let weekday = Date.convertDayToWeekday(day: day)
-                                    let weekdayAsInt = Date.convertDayToInt(day: day)
+//                                    let weekday = Date.convertDayToWeekday(day: day)
+//                                    let weekdayAsInt = Date.convertDayToInt(day: day)
                                     var alertDate = Date()
                                     
-                                    if startDate.weekday != weekdayAsInt{ //the course doesn't occur today
-                                        alertDate = Date.today().next(weekday)
+                                    if startDate.weekday != day{ //the course doesn't occur today
+                                        alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
                                     }
                                     
                                     alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
@@ -557,13 +557,13 @@ extension AddHabitViewController: DaySelectorDelegate{
         if sender.isSelected{
             sender.isSelected = false
             for day in daysSelected{
-                if day == dayTitle{//if day is already selected, and we select it again
+                if day == K.weekdayDict[dayTitle!]{//if day is already selected, and we select it again
                     daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
                 }
             }
         }else{//day was not selected, and we are now selecting it.
             sender.isSelected = true
-            daysSelected.append(dayTitle!)
+            daysSelected.append(K.weekdayDict[dayTitle!]!)
         }
     }
 }

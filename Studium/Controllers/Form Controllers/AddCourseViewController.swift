@@ -40,7 +40,7 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     var colorValue: String = "ffffff"
     var additionalDetails: String = ""
     var location: String = ""
-    var daysSelected: [String] = []
+    var daysSelected: [Int] = []
     var logoString: String = "pencil"
     
     var alertTimes: [Int] = []
@@ -112,11 +112,11 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
                 //scheduling the appropriate notifications
                 for alertTime in alertTimes{
                     for day in daysSelected{
-                        let weekday = Date.convertDayToWeekday(day: day)
-                        let weekdayAsInt = Date.convertDayToInt(day: day)
+//                        let weekday = Date.convertDayToWeekday(day: day)
+//                        let weekdayAsInt = Date.convertDayToInt(day: day)
                         var alertDate = Date()
-                        if startDate.weekday != weekdayAsInt{ //the course doesn't occur today
-                            alertDate = Date.today().next(weekday)
+                        if startDate.weekday != day{ //the course doesn't occur today
+                            alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
                         }
                         
                         alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
@@ -156,11 +156,11 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
                         course!.deleteNotifications()
                         for alertTime in alertTimes{
                             for day in daysSelected{
-                                let weekday = Date.convertDayToWeekday(day: day)
-                                let weekdayAsInt = Date.convertDayToInt(day: day)
+//                                let weekday = Date.convertDayToWeekday(day: day)
+//                                let weekdayAsInt = Date.convertDayToInt(day: day)
                                 var alertDate = Date()
-                                if startDate.weekday != weekdayAsInt{ //the course doesn't occur today
-                                    alertDate = Date.today().next(weekday)
+                                if startDate.weekday != day{
+                                    alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
                                 }
                                 
                                 alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
@@ -391,17 +391,27 @@ extension AddCourseViewController: UITextFieldDelegateExt{
 extension AddCourseViewController: DaySelectorDelegate{
     func dayButtonPressed(sender: UIButton) {
         print("dayButton pressed")
-        let dayTitle = sender.titleLabel!.text
+//        let dayTitle =
         if sender.isSelected{
             sender.isSelected = false
-            for day in daysSelected{
-                if day == dayTitle{//if day is already selected, and we select it again
-                    daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
+            for i in 0...daysSelected.count-1 {
+                if daysSelected[i] == K.weekdayDict[sender.titleLabel!.text!]!{
+                    daysSelected.remove(at: i)
                 }
             }
+//            if (daysSelected.contains(K.weekdayDict[sender.titleLabel!.text!]!)){
+//                daysSelected.remove(at: daysSelected.firstIndex(of: K.weekdayDict[sender.titleLabel!.text!]!)!)
+//            }
+//            for day in daysSelected{
+//                if day == dayTitle{//if day is already selected, and we select it again
+//                    daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
+//                }
+//            }
         }else{//day was not selected, and we are now selecting it.
             sender.isSelected = true
-            daysSelected.append(dayTitle!)
+            daysSelected.append(K.weekdayDict[sender.titleLabel!.text!]!)
+
+//            daysSelected.append(dayTitle!)
         }
     }
 }
@@ -593,21 +603,21 @@ extension Date {
         }
     }
     
-    static func convertDayToWeekday(day: String) -> Weekday{
+    static func convertDayToWeekday(day: Int) -> Weekday{
         switch day{
-        case "Mon":
+        case 2:
             return .monday
-        case "Tue":
+        case 3:
             return .tuesday
-        case "Wed":
+        case 4:
             return .wednesday
-        case "Thu":
+        case 5:
             return .thursday
-        case "Fri":
+        case 6:
             return .friday
-        case "Sat":
+        case 7:
             return .saturday
-        case "Sun":
+        case 1:
             return .sunday
         default:
             return .monday

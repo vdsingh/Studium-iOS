@@ -81,14 +81,18 @@ class CalendarViewController: UIViewController{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
         
-        let weekDay = dateFormatter.string(from: selectedDay)
-        let matchingStr = weekDay.substring(toIndex: 3)
+//        let weekDay = dateFormatter.string(from: selectedDay)
+//        let weekDay = selectedDay.weekday
+//        let matchingStr = weekDay.substring(toIndex: 3)
         for course in allCourses{
-            for day in course.days{ //day is in form "Mon"
-                if day == matchingStr{
-                    allEventsInDay.append(course)
-                }
+            if(course.days.contains(selectedDay.weekday)){
+                allEventsInDay.append(course)
             }
+//            for day in course.days{ //day is in form "Mon"
+//                if day == matchingStr{
+//                    allEventsInDay.append(course)
+//                }
+//            }
         }
     }
     

@@ -44,6 +44,7 @@
 		1686DB7F24827B8900FA99DB /* TimePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB7D24827B8900FA99DB /* TimePickerCell.xib */; };
 		1686DB822482A0A500FA99DB /* DaySelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB802482A0A400FA99DB /* DaySelectorCell.swift */; };
 		1686DB832482A0A500FA99DB /* DaySelectorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB812482A0A400FA99DB /* DaySelectorCell.xib */; };
+		168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */; };
 		1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E730247A3DC4003D4702 /* AppDelegate.swift */; };
 		1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E732247A3DC4003D4702 /* SceneDelegate.swift */; };
 		1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E734247A3DC4003D4702 /* CalendarViewController.swift */; };
@@ -128,6 +129,7 @@
 		1686DB7D24827B8900FA99DB /* TimePickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimePickerCell.xib; sourceTree = "<group>"; };
 		1686DB802482A0A400FA99DB /* DaySelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectorCell.swift; sourceTree = "<group>"; };
 		1686DB812482A0A400FA99DB /* DaySelectorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DaySelectorCell.xib; sourceTree = "<group>"; };
+		168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringStudiumEvent.swift; sourceTree = "<group>"; };
 		1693E72D247A3DC4003D4702 /* Studium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1693E730247A3DC4003D4702 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1693E732247A3DC4003D4702 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				16429D03247E43720052E47C /* Habit.swift */,
 				16A63B8024AA8059003A30D3 /* OtherEvent.swift */,
 				16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */,
+				168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */,
 				1686DB6424812CE000FA99DB /* LabelCell.swift in Sources */,
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
+				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
 				1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */,
 				1686DB7E24827B8900FA99DB /* TimePickerCell.swift in Sources */,
 				164F62F924E4D54200DC8169 /* LogoSelectorViewController.swift in Sources */,

@@ -48,9 +48,9 @@ class HabitCell: DeletableEventCell {
         for label in dayLabels{
             //print("label in dayLabels")
             //print(label.text)
-            let labelText = label.text!
+            if habit.days.contains(K.weekdayDict[label.text!]!){
 
-            if habit.days.contains(labelText){
+//            if habit.days.contains(labelText){
                 //print("habit occurs on \(labelText)")
                 label.backgroundColor = UIColor(hexString: habit.color)
                 label.textColor = .white

@@ -52,11 +52,11 @@ class DayScheduleViewController: DayViewController{
     func addCourses(for date: Date) -> [Event]{
         var events: [Event] = []
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "EEEE"
+//        let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
         
-        let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
+//        let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
         // let allCoursesOnDay = separateCoursesHelper(dayStringIdentifier: usableString) //get all courses that occur on this day.
         
         if let user = app.currentUser{
@@ -70,7 +70,7 @@ class DayScheduleViewController: DayViewController{
         var coursesOnDay: [Course] = []
         let allCourses = realm.objects(Course.self)
         for course in allCourses{
-            if course.days.contains(usableString){ //course occurs on this day.
+            if course.days.contains(date.weekday){ //course occurs on this day.
                 coursesOnDay.append(course)
             }
         }
@@ -138,12 +138,12 @@ class DayScheduleViewController: DayViewController{
         dateFormatter.dateFormat = "EEEE"
         let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
         
-        let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
+//        let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
         // let allCoursesOnDay = separateCoursesHelper(dayStringIdentifier: usableString) //get all courses that occur on this day.
         
         var habitsOnDay: [Habit] = []
         for habit in allHabits{
-            if habit.days.contains(usableString){ //course occurs on this day.
+            if habit.days.contains(date.weekday){ //course occurs on this day.
                 habitsOnDay.append(habit)
             }
         }
@@ -157,7 +157,7 @@ class DayScheduleViewController: DayViewController{
                 let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
                 //print(weekDay)
                 let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
-                if habit.days.contains(usableString){ //habit occurs on this day
+                if habit.days.contains(date.weekday){ //habit occurs on this day
                     var components = Calendar.current.dateComponents([.hour, .minute], from: habit.startDate)
                     let usableStartDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
                     
@@ -176,22 +176,22 @@ class DayScheduleViewController: DayViewController{
         return events
     }
     
-    func isEventBetween(time1: Date, time2: Date, events: [Event]) -> Bool{
-        for event in events{
-            if event.startDate <= time1 && event.startDate >= time2{ //the event completely overlaps the space
-                return true
-            }
-            
-            if event.startDate >= time1 && event.startDate <= time2{ //the event starts within the space
-                return true
-            }
-            
-            if event.endDate >= time1 && event.endDate <= time2{ //the event ends within the space
-                return true
-            }
-        }
-        return false
-    }
+//    func isEventBetween(time1: Date, time2: Date, events: [Event]) -> Bool{
+//        for event in events{
+//            if event.startDate <= time1 && event.startDate >= time2{ //the event completely overlaps the space
+//                return true
+//            }
+//            
+//            if event.startDate >= time1 && event.startDate <= time2{ //the event starts within the space
+//                return true
+//            }
+//            
+//            if event.endDate >= time1 && event.endDate <= time2{ //the event ends within the space
+//                return true
+//            }
+//        }
+//        return false
+//    }
     
     func getEventBetween(time1: Date, time2: Date, events: [Event]) -> Event?{
         for event in events{
@@ -412,8 +412,8 @@ class DayScheduleViewController: DayViewController{
 //                            print("error scheduling autoschedulable habit.")
 //                        }
 //                    }
-////                    events.append(newEvent)
-////                    break
+//                    events.append(newEvent)
+//                    break
 //                    return newEvent
 //                }
 //            }

@@ -20,7 +20,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     
     //variables that hold the total length of the habit.
     var scheduleWorkTime: Bool = false
-    var workDaysSelected: [String] = []
+    var workDaysSelected: [Int] = []
     var workTimeHours = 1
     var workTimeMinutes = 0
     
@@ -196,7 +196,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         }
     }
     
-    func fillForm(name: String, additionalDetails: String, alertTimes: [Int], dueDate: Date, selectedCourse: Course, scheduleWorkTime: Bool, workTimeMinutes: Int, workDays: [String]){
+    func fillForm(name: String, additionalDetails: String, alertTimes: [Int], dueDate: Date, selectedCourse: Course, scheduleWorkTime: Bool, workTimeMinutes: Int, workDays: [Int]){
         navButton.image = .none
         navButton.title = "Done"
         
@@ -484,17 +484,17 @@ extension AddAssignmentViewController: CanHandleSwitch{
 
 extension AddAssignmentViewController: DaySelectorDelegate{
     func dayButtonPressed(sender: UIButton) {
-        let dayTitle = sender.titleLabel!.text
+        let dayTitle = sender.titleLabel!.text!
         if sender.isSelected{
             sender.isSelected = false
             for day in workDaysSelected{
-                if day == dayTitle{//if day is already selected, and we select it again
+                if day == K.weekdayDict[dayTitle]{//if day is already selected, and we select it again
                     workDaysSelected.remove(at: workDaysSelected.firstIndex(of: day)!)
                 }
             }
         }else{//day was not selected, and we are now selecting it.
             sender.isSelected = true
-            workDaysSelected.append(dayTitle!)
+            workDaysSelected.append(K.weekdayDict[dayTitle]!)
         }
     }
 }

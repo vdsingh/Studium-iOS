@@ -28,11 +28,12 @@ class DaySelectorCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func selectDays(days: List<String>){
+    func selectDays(days: List<Int>){
         daysSelected = []
         for button in dayButtons{
             let buttonText = button.titleLabel?.text
-            if days.contains(buttonText!){
+            if days.contains(K.weekdayDict[buttonText!]!){
+//            if days.contains(buttonText!){
                 daysSelected.append(buttonText!)
                 button.isSelected = true
             }else{
@@ -41,11 +42,11 @@ class DaySelectorCell: UITableViewCell {
         }
     }
     
-    func selectDays(days: [String]){
+    func selectDays(days: [Int]){
         daysSelected = []
         for button in dayButtons{
             let buttonText = button.titleLabel?.text
-            if days.contains(buttonText!){
+            if days.contains(K.weekdayDict[buttonText!]!){
                 daysSelected.append(buttonText!)
                 button.isSelected = true
             }else{

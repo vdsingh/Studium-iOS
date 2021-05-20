@@ -32,7 +32,7 @@ class CourseCell1: DeletableEventCell {
         
     }
 
-    func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<String>, colorHex: String, course: Course, systemImageString: String){
+    func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<Int>, colorHex: String, course: Course, systemImageString: String){
         self.course = course
         event = course
         iconImage.image = UIImage(systemName: systemImageString)
@@ -61,7 +61,8 @@ class CourseCell1: DeletableEventCell {
 //        for dayLabel in dayLabels{
             let dayLabel = dayLabels[i]
             let dayBox = dayBoxes[i];
-            if days.contains(dayLabel.text!){
+            if days.contains(K.weekdayDict[dayLabel.text!]!){
+//            if days.contains(dayLabel.text!){
                 dayBox.backgroundColor = UIColor(hexString: colorHex)
 //                dayLabel.backgroundColor =
 //                dayLabel.layer.cornerRadius = 5
