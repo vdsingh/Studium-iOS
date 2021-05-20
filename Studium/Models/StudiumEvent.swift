@@ -8,6 +8,7 @@
 
 import Foundation
 import EventKit
+import CalendarKit
 import RealmSwift
 
 class StudiumEvent: Object{
@@ -69,12 +70,12 @@ class StudiumEvent: Object{
 
 
 protocol Autoscheduleable: StudiumEvent{
-    var autoLengthHours: Int {get set}
     var autoLengthMinutes: Int {get set}
     
 //    var autoDays: List<String> {get set}
     
     var autoschedule: Bool {get set}
+    var scheduledEvents: [StudiumEvent] {get set}
 }
 
 class RecurringStudiumEvent: StudiumEvent{

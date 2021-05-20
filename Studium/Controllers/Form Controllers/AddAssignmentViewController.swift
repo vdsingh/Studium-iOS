@@ -80,9 +80,9 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             for day in assignment!.days{
                 workDaysSelected.append(day)
             }
-            fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate, selectedCourse: assignment!.parentCourse[0], scheduleWorkTime: assignment!.autoschedule, workTimeHours: assignment!.autoLengthHours, workTimeMinutes: assignment!.autoLengthMinutes, workDays: workDaysSelected)
+            fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate, selectedCourse: assignment!.parentCourse[0], scheduleWorkTime: assignment!.autoschedule, workTimeMinutes: assignment!.autoLengthMinutes, workDays: workDaysSelected)
         }else if fromTodoForm{
-            fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate, selectedCourse: assignment!.parentCourse[0], scheduleWorkTime: false, workTimeHours: 1, workTimeMinutes: 0, workDays: [])
+            fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate, selectedCourse: assignment!.parentCourse[0], scheduleWorkTime: false, workTimeMinutes: 0, workDays: [])
         }else{
             navButton.image = UIImage(systemName: "plus")
         }
@@ -103,7 +103,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                     return
                 }
                 let newAssignment = Assignment()
-                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthHours: workTimeHours, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
+                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
                 
                 for alertTime in alertTimes{
                     let alertDate = dueDate - (Double(alertTime) * 60)
@@ -141,7 +141,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                             print("Error getting user")
                             return
                         }
-                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthHours: workTimeHours, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
+                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
                         
                     }
                 }catch{
@@ -196,7 +196,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         }
     }
     
-    func fillForm(name: String, additionalDetails: String, alertTimes: [Int], dueDate: Date, selectedCourse: Course, scheduleWorkTime: Bool, workTimeHours: Int, workTimeMinutes: Int, workDays: [String]){
+    func fillForm(name: String, additionalDetails: String, alertTimes: [Int], dueDate: Date, selectedCourse: Course, scheduleWorkTime: Bool, workTimeMinutes: Int, workDays: [String]){
         navButton.image = .none
         navButton.title = "Done"
         
@@ -230,8 +230,9 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             daysCell.selectDays(days: workDays)
             self.workDaysSelected = workDays
             
-            self.workTimeMinutes = workTimeMinutes
-            self.workTimeHours = workTimeHours
+            self.workTimeHours = workTimeMinutes / 60
+            self.workTimeMinutes = workTimeMinutes % 60
+            
             let workTimePickerCell = tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! PickerCell
 //            workTimePickerCell.picker.
             workTimePickerCell.picker.selectRow(workTimeHours, inComponent: 0, animated: true)

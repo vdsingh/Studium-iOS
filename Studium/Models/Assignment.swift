@@ -11,6 +11,7 @@ import RealmSwift
 
 class Assignment: RecurringStudiumEvent, Autoscheduleable{
     
+    
     //Specifies whether or not the Assignment object is marked as complete or not. This determines where it lies in a tableView and whether or not it's crossed out.
     @objc dynamic var complete: Bool = false
 
@@ -19,12 +20,14 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
     
     //variables that track information about scheduling work time.
     @objc dynamic var autoschedule: Bool = false //in this case, autoschedule refers to scheduling work time.
-    @objc dynamic var autoLengthHours: Int = 1
-    @objc dynamic var autoLengthMinutes: Int = 0
+//    @objc dynamic var autoLengthHours: Int = 1
+    @objc dynamic var autoLengthMinutes: Int = 60
+    
+    @objc dynamic var scheduledEvents: [StudiumEvent] = []
 
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, course: Course, notificationAlertTimes: [Int], autoschedule: Bool, autoLengthHours: Int, autoLengthMinutes: Int, autoDays: [String], partitionKey: String) {
+    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, course: Course, notificationAlertTimes: [Int], autoschedule: Bool, autoLengthMinutes: Int, autoDays: [String], partitionKey: String) {
 
         self.name = name
         self.additionalDetails = additionalDetails
@@ -33,7 +36,6 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
         self.endDate = endDate
         
         self.autoschedule = autoschedule
-        self.autoLengthHours = autoLengthHours
         self.autoLengthMinutes = autoLengthMinutes
         
         self._partitionKey = partitionKey
@@ -72,5 +74,17 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
         }
         print("identifiers to be removed: \(identifiersForRemoval)")
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiersForRemoval)
+    }
+    
+    
+    ///create Assignment events for autoscheduled work times
+    ///
+    /// - Parameters:
+    ///     - endDate: the date in which we will stop scheduilng work time (this is generally the due date of the assignment)
+    ///     - autoDays: the days of the week that we want to schedule work time (specified by user). Ex: ["Mon", "Wed", "Fri"]
+    ///     - autoLengthMinutes: the amount of minutes to work for any given work time.
+    func scheduleWorkTime(endDate: Date, autoDays: [String], autoLengthMinutes: Int){
+//        var currentDate: Date = Date()
+//        while(currentDate < endDate)
     }
 }
