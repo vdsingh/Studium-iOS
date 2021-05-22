@@ -215,14 +215,18 @@ class DayScheduleViewController: DayViewController{
         let allAssignments = realm.objects(Assignment.self)
         for assignment in allAssignments{
             if assignment.endDate.year == date.year && assignment.endDate.month == date.month && assignment.endDate.day == date.day{
+                guard let course = assignment.parentCourse else{
+                    print("Error accessing parent course in DayScheduleViewController")
+                    continue
+                }
                 let newEvent = Event()
                 newEvent.startDate = assignment.startDate
                 newEvent.endDate = assignment.endDate
-                newEvent.color = UIColor(hexString: assignment.parentCourse[0].color)!
+                newEvent.color = UIColor(hexString: course.color)!
 
 //                let attributedText : NSMutableAttributedString =  NSMutableAttributedString(string: )
 //                let textColor = UIColor(contrastingBlackOrWhiteColorOn: newEvent.color, isFlat:true)
-                let string = "\(assignment.endDate.format(with: "h:mm a")): \(assignment.name) due (\(assignment.parentCourse[0].name))"
+                let string = "\(assignment.endDate.format(with: "h:mm a")): \(assignment.name) due (\(course.name))"
                 let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.label]
                 let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
                 if assignment.complete{

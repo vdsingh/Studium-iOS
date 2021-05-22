@@ -43,10 +43,13 @@ class AssignmentCell: DeletableEventCell {
         }
         self.assignment = assignment
         self.event = assignment
-        courseNameLabel.text = assignment.parentCourse[0].name
+        guard let course = assignment.parentCourse else{
+            return
+        }
+        courseNameLabel.text = course.name
         
-        icon.image = UIImage(systemName: assignment.parentCourse[0].systemImageString)
-        icon.tintColor = UIColor(hexString: assignment.parentCourse[0].color)
+        icon.image = UIImage(systemName: course.systemImageString)
+        icon.tintColor = UIColor(hexString: course.color)
         dueDateLabel.text = assignment.endDate.format(with: "MMM d, h:mm a")
     }
 }

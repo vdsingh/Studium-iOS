@@ -156,9 +156,12 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
                     realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
                     try self.realm.write{
                         if let assignment = cell.event as? Assignment{
-                            let parentCourse = assignment.parentCourse[0]
-                            let assignmentIndex = parentCourse.assignments.index(of: assignment)
-                            parentCourse.assignments.remove(at: assignmentIndex!)
+                            guard let course = assignment.parentCourse else{
+                                print("Error accessing parent course in AssignmentViewController")
+                                return
+                            }
+                            let assignmentIndex = course.assignments.index(of: assignment)
+                            course.assignments.remove(at: assignmentIndex!)
                             assignment.deleteNotifications()
                         }
                         cell.event!.deleteNotifications()

@@ -80,9 +80,14 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             for day in assignment!.days{
                 workDaysSelected.append(day)
             }
-            fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate, selectedCourse: assignment!.parentCourse[0], scheduleWorkTime: assignment!.autoschedule, workTimeMinutes: assignment!.autoLengthMinutes, workDays: workDaysSelected)
+            guard let course = assignment!.parentCourse else{
+                print("Error accessing parent course in AssignmentCell1")
+                return
+            }
+            fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate, selectedCourse: course, scheduleWorkTime: assignment!.autoschedule, workTimeMinutes: assignment!.autoLengthMinutes, workDays: workDaysSelected)
         }else if fromTodoForm{
-            fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate, selectedCourse: assignment!.parentCourse[0], scheduleWorkTime: false, workTimeMinutes: 0, workDays: [])
+            //THIS IS BROKEN PLEASE FIX. ASSIGNMENT IS NIL, SO THERE IS NO PARENT COURSE. FIX LATER
+            fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate, selectedCourse: assignment!.parentCourse!, scheduleWorkTime: false, workTimeMinutes: 0, workDays: [])
         }else{
             navButton.image = UIImage(systemName: "plus")
         }
@@ -163,17 +168,36 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     
     //saves the new assignment to the realm
     func save(assignment: Assignment){
-        do{ //adding the assignment to the courses list of assignments
-            try realm.write{
-                if let course = selectedCourse{
-                    course.assignments.append(assignment)
-                }else{
-                    print("course is nil.")
+//        do{ //adding the assignment to the courses list of assignments
+//            try realm.write{
+//                if let course = selectedCourse{
+//                    course.assignments.append(assignment)
+//                }else{
+//                    print("course is nil.")
+//                }
+//            }
+//        }catch{
+//            print("error appending assignment")
+//        }
+        print("attempting to save")
+        if let user = app.currentUser {
+            do{
+                realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+                try realm.write{
+                    if let course = selectedCourse{
+                        course.assignments.append(assignment)
+                    }else{
+                        print("course is nil.")
+                    }
                 }
+                assignment.initiateAutoSchedule()
+            }catch{
+                print("error saving course: \(error)")
             }
-        }catch{
-            print("error appending assignment")
+        }else{
+            print("error accessing user")
         }
+        print("saved")
     }
     
     //set the course picker to whatever course was originally selected, if any

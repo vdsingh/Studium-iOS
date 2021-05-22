@@ -17,7 +17,7 @@ protocol Autoscheduleable: StudiumEvent{
 //    var autoDays: List<String> {get set}
     
     var autoschedule: Bool {get set}
-    var scheduledEvents: [StudiumEvent] {get set}
+//    dynamic var scheduledEvents: List<StudiumEvent> {get set}
 }
 
 class RecurringStudiumEvent: StudiumEvent{

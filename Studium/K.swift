@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import ChameleonFramework
+import RealmSwift
 
 struct K {
     //SEGUES
@@ -59,6 +60,9 @@ struct K {
     static var wakeUpKeyDict: [Int: String] = [1: "sunWakeUp", 2: "monWakeUp", 3: "tueWakeUp", 4: "wedWakeUp", 5: "thuWakeUp", 6: "friWakeUp", 7: "satWakeUp"]
     
     static var weekdayDict: [String: Int] = ["Sun": 1, "Mon": 2, "Tue": 3, "Wed": 4, "Thu": 5, "Fri": 6, "Sat": 7]
+    
+    static let app = App(id: Secret.appID)
+
 
     static func scheduleNotification(components: DateComponents, body: String, titles:String, repeatNotif: Bool, identifier: String) {
             

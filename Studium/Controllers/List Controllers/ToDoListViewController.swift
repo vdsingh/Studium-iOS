@@ -62,12 +62,16 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     
     override func updateModelDelete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        
             do{
                 try self.realm.write{
                     if let assignment = cell.event as? Assignment{
-                        let parentCourse = assignment.parentCourse[0]
-                        let assignmentIndex = parentCourse.assignments.index(of: assignment)
-                        parentCourse.assignments.remove(at: assignmentIndex!)
+                        guard let course = assignment.parentCourse else{
+                            print("Error accessing parent course in ToDoListViewController")
+                            return
+                        }
+                        let assignmentIndex = course.assignments.index(of: assignment)
+                        course.assignments.remove(at: assignmentIndex!)
                         assignment.deleteNotifications()
                     }
                     cell.event!.deleteNotifications()

@@ -6,12 +6,14 @@
 //  Copyright © 2021 Vikram Singh. All rights reserved.
 //
 
+
 import Foundation
 import EventKit
 import CalendarKit
 import RealmSwift
 
 class StudiumEvent: Object{
+
     /// id of the StudiumEvent
     @objc dynamic var _id: ObjectId = ObjectId.generate()
     

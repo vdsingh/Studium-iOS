@@ -35,6 +35,11 @@ class AssignmentCell1: DeletableEventCell {
         event = assignment //this is what's referenced when needs to be deleted.
         let attributeString = NSMutableAttributedString(string: assignment.name)
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+        
+        guard let course = assignment.parentCourse else{
+            print("Error accessing parent course in AssignmentCell1")
+            return
+        }
 
         if assignment.complete{
             background.backgroundColor = .gray
@@ -43,17 +48,16 @@ class AssignmentCell1: DeletableEventCell {
 
 
         }else{
-            background.backgroundColor = UIColor(hexString: assignment.parentCourse[0].color)
+            background.backgroundColor = UIColor(hexString: course.color)
             attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
             assignmentNameLabel.attributedText = attributeString
-            icon.tintColor = UIColor(hexString: assignment.parentCourse[0].color)
-
+            icon.tintColor = UIColor(hexString: course.color)
         }
         self.assignment = assignment
         self.event = assignment
-        courseNameLabel.text = assignment.parentCourse[0].name
+        courseNameLabel.text = course.name
         
-        icon.image = UIImage(systemName: assignment.parentCourse[0].systemImageString)
+        icon.image = UIImage(systemName: course.systemImageString)
         
         
         dueDateLabel.text = assignment.endDate.format(with: "MMM d, h:mm a")
