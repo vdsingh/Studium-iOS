@@ -177,12 +177,43 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
             }
             let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
             
+            //add the courses
             let courses = realm.objects(Course.self)
             for course in courses{
                 if course.days.contains(date.day){
                     let courseStartDate = Date(year: date.year, month: date.month, day: date.day, hour: course.startDate.hour, minute: course.startDate.minute, second: 0)
                     let courseEndDate = Date(year: date.year, month: date.month, day: date.day, hour: course.endDate.hour, minute: course.endDate.minute, second: 0)
                     let newCourseCommitment = [courseStartDate, courseEndDate]
+                    commitments.append(newCourseCommitment)
+                }
+            }
+            
+            let components = Calendar.current.dateComponents([.year, .month, .day], from: date)
+            let broadDate = Calendar.current.date(from: components)!
+            
+            let otherEvents = realm.objects(OtherEvent.self).filter("startDate == %@", broadDate)
+            print("Retrieved otherEvents: \(otherEvents)")
+            for otherEvent in otherEvents{
+            
+                let otherEventStartDate = Date(year: date.year, month: date.month, day: date.day, hour: otherEvent.startDate.hour, minute: otherEvent.startDate.minute, second: 0)
+                var otherEventEndDate = Date(year: date.year, month: date.month, day: date.day, hour: otherEvent.endDate.hour, minute: otherEvent.endDate.minute, second: 0)
+                if(otherEventEndDate.day > date.day){
+                    //if the otherEvent ends on a later day, just make the commitment window the end of the current day.
+                    otherEventEndDate = Date(year: date.year, month: date.month, day: date.day, hour: 23, minute: 59, second: 0)
+                }
+                let newOtherEventCommitment = [otherEventStartDate, otherEventEndDate]
+                commitments.append(newOtherEventCommitment)
+            }
+            
+//            let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+            
+            //add the courses
+            let habits = realm.objects(Habit.self)
+            for habit in habits{
+                if habit.days.contains(date.day){
+                    let habitStartDate = Date(year: date.year, month: date.month, day: date.day, hour: habit.startDate.hour, minute: habit.startDate.minute, second: 0)
+                    let habitEndDate = Date(year: date.year, month: date.month, day: date.day, hour: habit.endDate.hour, minute: habit.endDate.minute, second: 0)
+                    let newCourseCommitment = [habitStartDate, habitEndDate]
                     commitments.append(newCourseCommitment)
                 }
             }
