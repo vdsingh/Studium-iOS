@@ -193,7 +193,8 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
                         newHabit.notificationAlertTimes.append(alertTime)
                     }
                 }
-                save(habit: newHabit)
+                RealmCRUD.saveHabit(habit: newHabit)
+                newHabit.addToAppleCalendar()
                 
             }else{
                 
@@ -290,32 +291,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
     //MARK: - Dealing with Realm stuff
     
     //save the Habit to the realm
-    func save(habit: Habit){
-//        do{
-//            try realm.write{
-//                realm.add(habit)
-//            }
-//        }catch{
-//            print(error)
-//        }
-        
-        
-        if let user = app.currentUser {
-            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-            do{
-                try realm.write{
-                    realm.add(habit)
-                    print("the user id is: \(user.id)")
-                    print("saved course with partitionKey: \(habit._partitionKey)")
-                }
-            }catch{
-                print("error saving course: \(error)")
-            }
-            habit.addToAppleCalendar()
-        }else{
-            print("error accessing user")
-        }
-    }
+    
     
     //MARK: - tableView helpers
     

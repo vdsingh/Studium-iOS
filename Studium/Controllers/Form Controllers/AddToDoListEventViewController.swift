@@ -89,7 +89,7 @@ class AddToDoListEventViewController: MasterForm, AlertInfoStorer {
                     newEvent.notificationIdentifiers.append(identifier)
                     scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                 }
-                save(otherEvent: newEvent)
+                RealmCRUD.saveOtherEvent(otherEvent: newEvent)
             }else{
                 do{
                     try realm.write{
@@ -132,16 +132,7 @@ class AddToDoListEventViewController: MasterForm, AlertInfoStorer {
         dismiss(animated: true)
     }
     
-    //writing to Realm.
-    func save(otherEvent: OtherEvent){
-        do{
-            try realm.write{
-                realm.add(otherEvent)
-            }
-        }catch{
-            print(error)
-        }
-    }
+    
     
     //function that retrieves data from specific cells and updates characteristic variables
 //    func retrieveDataFromCells(){

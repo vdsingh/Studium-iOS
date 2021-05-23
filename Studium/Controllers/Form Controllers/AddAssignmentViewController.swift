@@ -120,7 +120,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                     scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                 }
                 print("Created new Assignment with \(scheduleWorkTime) workTime \(workTimeMinutes) workTimeMinutes and \(workTimeHours) workTimeHours")
-                save(assignment: newAssignment)
+                RealmCRUD.saveAssignment(assignment: newAssignment)
             }else{
                 do{
                     try realm.write{
@@ -165,41 +165,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
-    
-    //saves the new assignment to the realm
-    func save(assignment: Assignment){
-//        do{ //adding the assignment to the courses list of assignments
-//            try realm.write{
-//                if let course = selectedCourse{
-//                    course.assignments.append(assignment)
-//                }else{
-//                    print("course is nil.")
-//                }
-//            }
-//        }catch{
-//            print("error appending assignment")
-//        }
-        print("attempting to save")
-        if let user = app.currentUser {
-            do{
-                realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-                try realm.write{
-                    if let course = selectedCourse{
-                        course.assignments.append(assignment)
-                    }else{
-                        print("course is nil.")
-                    }
-                }
-                assignment.initiateAutoSchedule()
-            }catch{
-                print("error saving course: \(error)")
-            }
-        }else{
-            print("error accessing user")
-        }
-        print("saved")
-    }
-    
+        
     //set the course picker to whatever course was originally selected, if any
     func setDefaultRow(picker: UIPickerView){
         var row = 0

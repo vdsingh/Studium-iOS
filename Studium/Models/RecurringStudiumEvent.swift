@@ -18,14 +18,12 @@ protocol Autoscheduleable: StudiumEvent{
     
     var autoschedule: Bool {get set}
 //    dynamic var scheduledEvents: List<StudiumEvent> {get set}
+    
+    
 }
 
 class RecurringStudiumEvent: StudiumEvent{
     var days: List<Int> = List<Int>()
-    
-
-    
-//    func autosS
     
     ///Adds the event to Apple calendar
     ///Todo: make sure if the event is being edited, it overwrites the previous events in Apple Calendar.
@@ -66,4 +64,7 @@ class RecurringStudiumEvent: StudiumEvent{
             print("Failed to save event. Error: \(error)")
         }
     }
+    
+    
 }
+

@@ -147,8 +147,8 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
                         scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                     }
                 }
-                //            print(UIApplication.shared.scheduledLocalNotifications)
-                save(course: newCourse)
+                RealmCRUD.saveCourse(course: newCourse)
+                newCourse.addToAppleCalendar()
             }else{
                 do{
                     try realm.write{
@@ -218,24 +218,7 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         tableView.reloadData()
     }
     
-    //saves the new course to the Realm database.
-    func save(course: Course){
-        if let user = app.currentUser {
-            do{
-                realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-                try realm.write{
-                    realm.add(course)
-                    print("the user id is: \(user.id)")
-                    print("saved course with partitionKey: \(course._partitionKey)")
-                }
-            }catch{
-                print("error saving course: \(error)")
-            }
-            course.addToAppleCalendar()
-        }else{
-            print("error accessing user")
-        }
-    }
+    
 }
 
 //MARK: - TableView DataSource

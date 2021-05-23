@@ -45,6 +45,8 @@
 		1686DB822482A0A500FA99DB /* DaySelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB802482A0A400FA99DB /* DaySelectorCell.swift */; };
 		1686DB832482A0A500FA99DB /* DaySelectorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB812482A0A400FA99DB /* DaySelectorCell.xib */; };
 		168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */; };
+		168EE1C52659F899009A8001 /* Autoschedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168EE1C42659F899009A8001 /* Autoschedule.swift */; };
+		168EE1C72659FA10009A8001 /* RealmCRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168EE1C62659FA10009A8001 /* RealmCRUD.swift */; };
 		1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E730247A3DC4003D4702 /* AppDelegate.swift */; };
 		1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E732247A3DC4003D4702 /* SceneDelegate.swift */; };
 		1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E734247A3DC4003D4702 /* CalendarViewController.swift */; };
@@ -130,6 +132,8 @@
 		1686DB802482A0A400FA99DB /* DaySelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectorCell.swift; sourceTree = "<group>"; };
 		1686DB812482A0A400FA99DB /* DaySelectorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DaySelectorCell.xib; sourceTree = "<group>"; };
 		168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringStudiumEvent.swift; sourceTree = "<group>"; };
+		168EE1C42659F899009A8001 /* Autoschedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autoschedule.swift; sourceTree = "<group>"; };
+		168EE1C62659FA10009A8001 /* RealmCRUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCRUD.swift; sourceTree = "<group>"; };
 		1693E72D247A3DC4003D4702 /* Studium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1693E730247A3DC4003D4702 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1693E732247A3DC4003D4702 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -283,6 +287,8 @@
 				1693E739247A3DC6003D4702 /* Assets.xcassets */,
 				1693E73E247A3DC6003D4702 /* Info.plist */,
 				1693E754247A4B64003D4702 /* K.swift */,
+				168EE1C42659F899009A8001 /* Autoschedule.swift */,
+				168EE1C62659FA10009A8001 /* RealmCRUD.swift */,
 				16B498CF25CE2CE6005E9C26 /* Secret.swift */,
 			);
 			path = Studium;
@@ -581,6 +587,7 @@
 				164F62FF24E7D41400DC8169 /* AlertTableViewController.swift in Sources */,
 				165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
+				168EE1C72659FA10009A8001 /* RealmCRUD.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
 				16B498D025CE2CE6005E9C26 /* Secret.swift in Sources */,
 				16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */,
@@ -603,6 +610,7 @@
 				16C60FB225C5F7FB006D0FFC /* StudiumEvent.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
 				1686DB682482622800FA99DB /* TimeCell.swift in Sources */,
+				168EE1C52659F899009A8001 /* Autoschedule.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
