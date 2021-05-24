@@ -116,13 +116,38 @@ class Autoschedule{
         return openSlots
     }
     
-    static func bestTime(openTimeSlots: [[Date]], totalMinutes: Int, targetDate: Date)->[Date]{
+    ///Finds the best time range for an event given the event's length in minutes and the open time slots. It does this by finding the longest open time slot and planning the event in the middle of it .
+    ///
+    /// - Parameters:
+    ///     - openTimeSlots: the time slots available in the day. This is usually calculated by the getOpenTimeSlots function
+    ///     - totalMinutes: the total length in minutes of the event we are scheduling
+    /// - Returns: an array containing the start time and the end time of the event.
+    static func bestTime(openTimeSlots: [[Date]], totalMinutes: Int)->[Date]{
+        var maxSlotLength: Int = 0
+        var bestTimeSlot: [Date] = [Date(), Date()]
         for i in 0...openTimeSlots.count-1{
-            let slot = openTimeSlots[i]
             if Int(openTimeSlots[i][1].timeIntervalSince(openTimeSlots[i][0]))/60 > totalMinutes{
-               
+                let slot = openTimeSlots[i]
+                
+                let slotLength = slot[1].minutes(from: slot[0])
+                if(slotLength > maxSlotLength){
+                    maxSlotLength = slotLength
+                    
+                    let calendar = Calendar.current
+                    let midPoint = calendar.date(byAdding: .minute, value: slotLength/2, to: slot[0])!
+                    
+                    print("midPoint: \(midPoint)")
+                    print("totalMinutes: \(totalMinutes)")
+                                            
+                    let assignmentStart = Calendar.current.date(byAdding: .minute, value: -(totalMinutes/2), to: midPoint)!
+                    let assignmentEnd = Calendar.current.date(byAdding: .minute, value: totalMinutes/2, to: midPoint)!
+
+                    bestTimeSlot[0] = assignmentStart
+                    bestTimeSlot[1] = assignmentEnd
+                }
             }
         }
-        return []
+        
+        return bestTimeSlot
     }
 }

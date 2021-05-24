@@ -9,8 +9,9 @@
 import Foundation
 import RealmSwift
 
-class Habit: RecurringStudiumEvent, Autoscheduleable{
-    var scheduledEvents: [StudiumEvent] = []
+class Habit: RecurringStudiumEvent, Autoscheduleable{    
+    
+    var scheduledEvents: [Habit] = []
     
     
     //Autoschedule elements for a Habit object
@@ -44,6 +45,5 @@ class Habit: RecurringStudiumEvent, Autoscheduleable{
             self.days.append(day)
         }
     }
-    
     
 }

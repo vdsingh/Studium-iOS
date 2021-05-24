@@ -11,6 +11,7 @@ import RealmSwift
 
 class Assignment: RecurringStudiumEvent, Autoscheduleable{
     
+    
     let defaults = UserDefaults.standard
 
     //Specifies whether or not the Assignment object is marked as complete or not. This determines where it lies in a tableView and whether or not it's crossed out.
@@ -22,9 +23,13 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
         
     //variables that track information about scheduling work time.
     @objc dynamic var autoschedule: Bool = false //in this case, autoschedule refers to scheduling work time.
+    
+    //was this an autoscheduled assignment?
+    @objc dynamic var isAutoscheduled: Bool = false
 //    @objc dynamic var autoLengthHours: Int = 1
     @objc dynamic var autoLengthMinutes: Int = 60
     
+//    var autoDays: [Int] = []
     var scheduledEvents:[Assignment] = []
 
     
@@ -59,7 +64,6 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
         self.complete = complete
         self.startDate = startDate
         self.endDate = endDate
-//        self.parentCourse
     }
     
     
@@ -88,7 +92,7 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
             for day in days{
                 autoDays.append(day)
             }
-            autoscheduleWorkTime(endDate: startDate, autoDays: autoDays, autoLengthMinutes: autoLengthMinutes)
+            autoscheduleTime(endDate: startDate, autoDays: autoDays, autoLengthMinutes: autoLengthMinutes)
         }
     }
     
@@ -98,7 +102,7 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
     ///     - endDate: the date in which we will stop scheduling work time (this is generally the due date of the assignment)
     ///     - autoDays: the days of the week that we want to schedule work time (specified by user). Ex: ["Mon", "Wed", "Fri"]
     ///     - autoLengthMinutes: the amount of minutes to work for any given work time.
-    func autoscheduleWorkTime(endDate: Date, autoDays: [Int], autoLengthMinutes: Int){
+    func autoscheduleTime(endDate: Date, autoDays: [Int], autoLengthMinutes: Int){
         print("\nattempting to autoschedule work time for \(name)")
         
         //IMPORTANT NOTES:
@@ -111,14 +115,18 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
                 let wakeUpTime = defaults.array(forKey: K.wakeUpKeyDict[currentDate.weekday]!)![0] as! Date
                 
                 let startBound = Date(year: currentDate.year, month: currentDate.month, day: currentDate.day, hour: wakeUpTime.hour, minute: wakeUpTime.minute, second: 0)
-                let endBound = Date(year: currentDate.year, month: currentDate.month, day: currentDate.day, hour: 23, minute: 59, second: 0)
+                var endBound = Date(year: currentDate.year, month: currentDate.month, day: currentDate.day, hour: 23, minute: 59, second: 0)
+                
+                //if the currentDate is the dueDate of the assignment
+                if (currentDate.day == endDate.day){
+                    endBound = endDate
+                }
                 
                 if let event = autoscheduleOnDate(date: currentDate, startBound: startBound, endBound: endBound){
                     print("scheduled an event on date")
                     scheduledEvents.append(event)
                 }
 
-//                break
             }
             //add 24 hours to the currentDate so that we can look at the next day.
             currentDate += (60*60*24)
@@ -133,46 +141,27 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
         ///     - earlier: true if we want to schedule work time earlier. false if later.
         /// - Returns: a 2D date Array that describes all open time slots
         func autoscheduleOnDate(date: Date, startBound: Date, endBound: Date) -> Assignment?{
-            
             let commitments = Autoschedule.getCommitments(date: date)
-            
             let openTimeSlots = Autoschedule.getOpenTimeSlots(startBound: startBound, endBound: endBound, commitments: commitments)
-            
             if openTimeSlots.count == 0{
                 print("There were no open time slots on day \(date) to schedule work time for \(name).")
                 return nil
             }
+            let startAndEnd = Autoschedule.bestTime(openTimeSlots: openTimeSlots, totalMinutes: autoLengthMinutes)
+            let assignmentStart = startAndEnd[0]
+            let assignmentEnd = startAndEnd[1]
             
-            var assignmentStart: Date? = nil
-            var assignmentEnd: Date? = nil
-                
-//                Calendar.current.date(byAdding: .minute, value: autoLengthMinutes, to: assignmentStart)!
-            
-            var maxSlotLength: Int = 0
-            //we want to find the first time slot that can hold our work time
-            for i in 0...openTimeSlots.count-1{
-                if Int(openTimeSlots[i][1].timeIntervalSince(openTimeSlots[i][0]))/60 > autoLengthMinutes{
-                    let slot = openTimeSlots[i]
-                    
-                    let slotLength = slot[1].minutes(from: slot[0])
-                    if(slotLength > maxSlotLength){
-                        maxSlotLength = slotLength
-                        
-                        let calendar = Calendar.current
-                        let midPoint = calendar.date(byAdding: .minute, value: slotLength/2, to: slot[0])!
-                                                
-                        assignmentStart = Calendar.current.date(byAdding: .minute, value: autoLengthMinutes/2, to: midPoint)!
-                        assignmentEnd = Calendar.current.date(byAdding: .minute, value: -autoLengthMinutes/2, to: midPoint)!
-                    }
-                }
-            }
-            
-            if assignmentStart == nil{
-                return nil
-            }
+            print("startAndEnd: \(startAndEnd)")
 
             let newAssignment = Assignment()
-            newAssignment.initializeData(name: "Work on \(name)", additionalDetails: "This is an automatically scheduled event to work on \(name).", complete: false, startDate: assignmentStart!, endDate: assignmentEnd!)
+//            newAssignment.initializeData(name: "Work on \(name)", additionalDetails: "This is an automatically scheduled event to work on \(name).", complete: false, startDate: assignmentStart, endDate: assignmentEnd)
+            guard let user = K.app.currentUser else {
+                print("Error getting user when Autoscheduling Assignments")
+                return nil
+            }
+            newAssignment.initializeData(name: "Work on \(name)", additionalDetails: "This is an automatically scheduled event to work on \(name).", complete: false, startDate: assignmentStart, endDate: assignmentEnd, notificationAlertTimes: [], autoschedule: false, autoLengthMinutes: autoLengthMinutes, autoDays: [], partitionKey: user.id)
+            newAssignment.isAutoscheduled = true
+            
             RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: parentCourse!)
             return newAssignment
         }

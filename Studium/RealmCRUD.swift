@@ -19,17 +19,9 @@ class RealmCRUD{
         let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         do{ //adding the assignment to the courses list of assignments
             try realm.write{
-//                print("Parent Course: \(assignment.parentCourse)")
-//                print("assignment name: \(assignment.name)")
-//                if let course = assignment.parentCourse{
-//                if let course = assignment.tempCourse{
-//                    course.assignments.append(assignment)
-//                    print("appended assignment to course")
-//                }else{
-//                    print("course is nil when saving Assignment.")
-//                }
                 parentCourse.assignments.append(assignment)
             }
+            assignment.initiateAutoSchedule()
         }catch{
             print("error appending assignment")
         }

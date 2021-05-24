@@ -130,9 +130,6 @@ class DayScheduleViewController: DayViewController{
         }
         for habit in habitsOnDay{
             if habit.autoschedule{ // auto schedule habit
-//                events.append(autoschedule(for: date, earlier: habit.startEarlier, autoEvent: habit, with: outsideEvents, events: events))
-//                events.append(autoschedule(for: date, earlier: habit.startEarlier, finalStartBound: habit.startDate, finalEndBound: habit.endDate, autoEvent: habit, with: outsideEvents, events: events))
-            }else{ // schedule the habit as a regular event
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "EEEE"
                 let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
@@ -159,7 +156,7 @@ class DayScheduleViewController: DayViewController{
     
     
     
-    func addAssignments(for date: Date, with outsideEvents: [Event]) -> [Event]{
+    func addAssignments(for date: Date) -> [Event]{
         var events: [Event] = []
         let allAssignments = realm.objects(Assignment.self)
         for assignment in allAssignments{
@@ -172,10 +169,13 @@ class DayScheduleViewController: DayViewController{
                 newEvent.startDate = assignment.startDate
                 newEvent.endDate = assignment.endDate
                 newEvent.color = UIColor(hexString: course.color)!
+                
+                var string = "\(assignment.endDate.format(with: "h:mm a")): \(assignment.name) due (\(course.name))"
 
-//                let attributedText : NSMutableAttributedString =  NSMutableAttributedString(string: )
-//                let textColor = UIColor(contrastingBlackOrWhiteColorOn: newEvent.color, isFlat:true)
-                let string = "\(assignment.endDate.format(with: "h:mm a")): \(assignment.name) due (\(course.name))"
+                if(assignment.isAutoscheduled){
+                    string = "\(assignment.startDate.format(with: "h:mm a")) - \(assignment.endDate.format(with: "h:mm a")): \(assignment.name) (\(course.name))"
+                }
+
                 let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.label]
                 let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
                 if assignment.complete{
@@ -186,16 +186,8 @@ class DayScheduleViewController: DayViewController{
                     ], range: NSMakeRange(0, attributedString.length))
                 }
                 newEvent.attributedText = attributedString
-                
                 events.append(newEvent)
-            }
-        }
-        
-        for assignment in allAssignments{
-            if !assignment.complete && assignment.autoschedule{
-                let startBound = defaults.array(forKey: K.wakeUpKeyDict[date.weekday]!)![0] as! Date
-                let endBound: Date = Date(year: date.year, month: date.month, day: date.day, hour: 23, minute: 59, second: 0)
-//                events.append(autoschedule(for: date, earlier: true, finalStartBound: startBound, finalEndBound: endBound, autoEvent: assignment, with: outsideEvents, events: events))
+                print("added assignment \(assignment.name) with start time \(newEvent.startDate) and end time \(newEvent.endDate)")
             }
         }
         return events
@@ -216,15 +208,11 @@ class DayScheduleViewController: DayViewController{
                 let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
                 newEvent.attributedText = attributedString
                 
-//                newEvent.text = "\(otherEvent.startDate.format(with: "h:mm a")) - \(otherEvent.endDate.format(with: "h:mm a")) - \(otherEvent.name)"
                 events.append(newEvent)
             }
         }
         return events
     }
-    
-
-    
     
     // MARK: EventDataSource
     var generatedEvents = [EventDescriptor]()
@@ -246,10 +234,8 @@ class DayScheduleViewController: DayViewController{
         events.append(contentsOf: addCourses(for: date))
         events.append(contentsOf: addOtherEvents(for: date))
         events.append(contentsOf: addHabits(for: date, with: events))
-        events.append(contentsOf: addAssignments(for: date, with: events))
-
-        
-        
+        events.append(contentsOf: addAssignments(for: date))
+    
         return events
     }
     // MARK: DayViewDelegate

@@ -14,9 +14,11 @@ import RealmSwift
 protocol Autoscheduleable: StudiumEvent{
     var autoLengthMinutes: Int {get set}
     
-//    var autoDays: List<String> {get set}
+//    var autoDays: List<Int> {get set}
     
     var autoschedule: Bool {get set}
+    
+//    func autoscheduleTime(endDate: Date, autoDays: [Int], autoLengthMinutes: Int)
 //    dynamic var scheduledEvents: List<StudiumEvent> {get set}
     
     

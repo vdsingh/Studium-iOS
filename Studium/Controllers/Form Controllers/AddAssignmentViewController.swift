@@ -109,7 +109,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                 }
 
                 let newAssignment = Assignment()
-                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
+                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes + (workTimeHours * 60), autoDays: workDaysSelected, partitionKey: user.id)
                 
                 for alertTime in alertTimes{
                     let alertDate = dueDate - (Double(alertTime) * 60)
