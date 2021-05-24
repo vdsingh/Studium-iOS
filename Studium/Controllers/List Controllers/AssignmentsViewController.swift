@@ -102,6 +102,10 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
             do{
                 try realm.write{
                     assignment.complete = !assignment.complete
+                    for workTime in assignment.scheduledEvents{
+                        workTime.complete = true
+                        print("Marked worktime complete")
+                    }
                     print("user changed assignment \(assignment.name) completeness")
 //                    print("the user id is: \(user.id)")
 //                    print("saved course with partitionKey: \(course._partitionKey)")

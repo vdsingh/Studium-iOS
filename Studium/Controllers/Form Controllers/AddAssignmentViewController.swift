@@ -107,20 +107,20 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                     print("Error getting user")
                     return
                 }
+
                 let newAssignment = Assignment()
-                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
+                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
                 
                 for alertTime in alertTimes{
                     let alertDate = dueDate - (Double(alertTime) * 60)
                     var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
                     components.second = 0
-                    
+
                     let identifier = UUID().uuidString
                     newAssignment.notificationIdentifiers.append(identifier)
                     scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                 }
-                print("Created new Assignment with \(scheduleWorkTime) workTime \(workTimeMinutes) workTimeMinutes and \(workTimeHours) workTimeHours")
-                RealmCRUD.saveAssignment(assignment: newAssignment)
+                RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse!)
             }else{
                 do{
                     try realm.write{
@@ -146,7 +146,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                             print("Error getting user")
                             return
                         }
-                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, course: selectedCourse!, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
+                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
                         
                     }
                 }catch{

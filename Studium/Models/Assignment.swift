@@ -19,7 +19,7 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
     //This is a link to the Course that the Assignment object is categorized under.
     var parentCourses = LinkingObjects(fromType: Course.self, property: "assignments")
     var parentCourse: Course? {return parentCourses.first}
-    
+        
     //variables that track information about scheduling work time.
     @objc dynamic var autoschedule: Bool = false //in this case, autoschedule refers to scheduling work time.
 //    @objc dynamic var autoLengthHours: Int = 1
@@ -29,7 +29,7 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
 
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, course: Course, notificationAlertTimes: [Int], autoschedule: Bool, autoLengthMinutes: Int, autoDays: [Int], partitionKey: String) {
+    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, notificationAlertTimes: [Int], autoschedule: Bool, autoLengthMinutes: Int, autoDays: [Int], partitionKey: String) {
 
         self.name = name
         self.additionalDetails = additionalDetails
@@ -39,10 +39,9 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
         
         self.autoschedule = autoschedule
         self.autoLengthMinutes = autoLengthMinutes
-
         
         self._partitionKey = partitionKey
-        
+                
         self.notificationAlertTimes.removeAll()
         for alertTime in notificationAlertTimes{
             self.notificationAlertTimes.append(alertTime)
@@ -54,7 +53,7 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
         }
     }
     
-    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, course: Course) {
+    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date) {
         self.name = name
         self.additionalDetails = additionalDetails
         self.complete = complete
@@ -114,7 +113,7 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
                 let startBound = Date(year: currentDate.year, month: currentDate.month, day: currentDate.day, hour: wakeUpTime.hour, minute: wakeUpTime.minute, second: 0)
                 let endBound = Date(year: currentDate.year, month: currentDate.month, day: currentDate.day, hour: 23, minute: 59, second: 0)
                 
-                if let event = autoscheduleOnDate(date: currentDate, startBound: startBound, endBound: endBound, earlier: true){
+                if let event = autoscheduleOnDate(date: currentDate, startBound: startBound, endBound: endBound){
                     print("scheduled an event on date")
                     scheduledEvents.append(event)
                 }
@@ -125,8 +124,15 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
             currentDate += (60*60*24)
         }
         
-        
-        func autoscheduleOnDate(date: Date, startBound: Date, endBound: Date, earlier: Bool) -> Assignment?{
+        ///Given a date, will automatically schedule work time for this assignment.
+        ///
+        /// - Parameters:
+        ///     - date: the date on which we want to autoschedule work time
+        ///     - startBound: the start bound time for when to autoschedule the assignment
+        ///     - endBound: the end bound time for when to autoschedule the assignment
+        ///     - earlier: true if we want to schedule work time earlier. false if later.
+        /// - Returns: a 2D date Array that describes all open time slots
+        func autoscheduleOnDate(date: Date, startBound: Date, endBound: Date) -> Assignment?{
             
             let commitments = Autoschedule.getCommitments(date: date)
             
@@ -137,19 +143,37 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
                 return nil
             }
             
-            var assignmentStart = openTimeSlots[0][0]
-            var assignmentEnd = Calendar.current.date(byAdding: .minute, value: autoLengthMinutes, to: assignmentStart)!
+            var assignmentStart: Date? = nil
+            var assignmentEnd: Date? = nil
+                
+//                Calendar.current.date(byAdding: .minute, value: autoLengthMinutes, to: assignmentStart)!
             
+            var maxSlotLength: Int = 0
+            //we want to find the first time slot that can hold our work time
             for i in 0...openTimeSlots.count-1{
                 if Int(openTimeSlots[i][1].timeIntervalSince(openTimeSlots[i][0]))/60 > autoLengthMinutes{
-                    assignmentStart = openTimeSlots[i][0]
-                    assignmentEnd = Calendar.current.date(byAdding: .minute, value: autoLengthMinutes, to: assignmentStart)!
+                    let slot = openTimeSlots[i]
+                    
+                    let slotLength = slot[1].minutes(from: slot[0])
+                    if(slotLength > maxSlotLength){
+                        maxSlotLength = slotLength
+                        
+                        let calendar = Calendar.current
+                        let midPoint = calendar.date(byAdding: .minute, value: slotLength/2, to: slot[0])!
+                                                
+                        assignmentStart = Calendar.current.date(byAdding: .minute, value: autoLengthMinutes/2, to: midPoint)!
+                        assignmentEnd = Calendar.current.date(byAdding: .minute, value: -autoLengthMinutes/2, to: midPoint)!
+                    }
                 }
+            }
+            
+            if assignmentStart == nil{
+                return nil
             }
 
             let newAssignment = Assignment()
-            newAssignment.initializeData(name: "Work on \(name)", additionalDetails: "This is an automatically scheduled event to work on \(name).", complete: false, startDate: assignmentStart, endDate: assignmentEnd, course: parentCourse!)
-            RealmCRUD.saveAssignment(assignment: newAssignment)
+            newAssignment.initializeData(name: "Work on \(name)", additionalDetails: "This is an automatically scheduled event to work on \(name).", complete: false, startDate: assignmentStart!, endDate: assignmentEnd!)
+            RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: parentCourse!)
             return newAssignment
         }
     }

@@ -9,6 +9,12 @@
 import Foundation
 import RealmSwift
 class Autoschedule{
+    
+    ///Returns a 2D Date Array with the commitments for a given day. Ex: [[12:00PM, 2:00PM],[4:00PM, 7:00PM]]. There are 2 commitments on the given date. 1 is from 12:00PM to 2:00PM and the other is from 4:00PM to 7:00PM
+    ///
+    /// - Parameters:
+    ///     - date: the date in which we want to find all commitments
+    /// - Returns: a 2D date Array that describes all commitments for the given date
     static func getCommitments(date: Date)->[[Date]]{
         var commitments:[[Date]] = []
                 
@@ -61,7 +67,13 @@ class Autoschedule{
     }
 
 
-    ///Given a date, finds all of the available time slots for that date.
+    ///Returns a 2D Date Array with the available time slots for a given day (so that we know when we can schedule an event)
+    ///
+    /// - Parameters:
+    ///     - startBound: the start bound for the open time slots for the day. Ex: If this is 7:00AM, we won't schedule anything before then
+    ///     - endBound: the end bound for the open time slots for the day
+    ///     - commitments: the commitments that we need to avoid when looking for open slots. If there is a commitment from 3:00PM-4:00PM we don't want to autoschedule anything during that time
+    /// - Returns: a 2D date Array that describes all open time slots
     static func getOpenTimeSlots(startBound: Date, endBound: Date, commitments: [[Date]]) -> [[Date]]{
     //the available time slots. Ex: [[9:00-12:00], [16:00-20:00]]
         var openSlots: [[Date]] = [[startBound, endBound]]
@@ -102,5 +114,15 @@ class Autoschedule{
             }
         }
         return openSlots
+    }
+    
+    static func bestTime(openTimeSlots: [[Date]], totalMinutes: Int, targetDate: Date)->[Date]{
+        for i in 0...openTimeSlots.count-1{
+            let slot = openTimeSlots[i]
+            if Int(openTimeSlots[i][1].timeIntervalSince(openTimeSlots[i][0]))/60 > totalMinutes{
+               
+            }
+        }
+        return []
     }
 }

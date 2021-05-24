@@ -102,7 +102,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? AssignmentsViewController {
             if let indexPath = tableView.indexPathForSelectedRow{
-                destinationVC.selectedCourse = courses?[indexPath.row]
+                destinationVC.selectedCourse = courses![indexPath.row]
             }
         }
     }
