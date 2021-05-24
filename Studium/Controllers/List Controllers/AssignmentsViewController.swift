@@ -102,8 +102,9 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
             do{
                 try realm.write{
                     assignment.complete = !assignment.complete
-                    for workTime in assignment.scheduledEvents{
-                        workTime.complete = true
+                    print("assignment scheduledEvents length: \(assignment.scheduledEvents.count)")
+                    for event in assignment.scheduledEvents{
+                        event.complete = true
                         print("Marked worktime complete")
                     }
                     print("user changed assignment \(assignment.name) completeness")
@@ -149,7 +150,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     func reloadData() {
         assignmentsArr[0].sort(by: {$0.endDate < $1.endDate})
-        assignmentsArr[1].sort(by: {$0.endDate < $1.endDate})
+        assignmentsArr[1].sort(by: {$0.endDate > $1.endDate})
         tableView.reloadData()
     }
     

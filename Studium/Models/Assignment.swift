@@ -30,7 +30,7 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
     @objc dynamic var autoLengthMinutes: Int = 60
     
 //    var autoDays: [Int] = []
-    var scheduledEvents:[Assignment] = []
+    var scheduledEvents: List<Assignment> = List<Assignment>()
 
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
@@ -123,8 +123,22 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
                 }
                 
                 if let event = autoscheduleOnDate(date: currentDate, startBound: startBound, endBound: endBound){
-                    print("scheduled an event on date")
-                    scheduledEvents.append(event)
+                    guard let user = K.app.currentUser else {
+                        print("Error getting user when")
+                        return
+                    }
+                    let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+                    do{ //adding the assignment to the courses list of assignments
+                        try realm.write{
+                            self.scheduledEvents.append(event)
+                        }
+                    }catch{
+                        print("error appending assignment")
+                    }
+                    print("added an event to scheduledEvents. scheduledEvents count: \(scheduledEvents.count)")
+
+                }else{
+                    print("autoscheduleOnDate returned nil")
                 }
 
             }
