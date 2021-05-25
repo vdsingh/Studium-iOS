@@ -11,7 +11,7 @@ import UIKit
 
 class TestViewController: UITableViewController{
     override func viewDidLoad() {
-        tableView.register(UINib(nibName: "CourseCell1", bundle: nil), forCellReuseIdentifier: "Cell")
+        tableView.register(UINib(nibName: "RecurringEventCell", bundle: nil), forCellReuseIdentifier: "Cell")
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.rowHeight = 140
 
@@ -19,7 +19,7 @@ class TestViewController: UITableViewController{
     
     //MARK: - TableView Data Source Methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:  "Cell", for: indexPath) as! CourseCell1
+        let cell = tableView.dequeueReusableCell(withIdentifier:  "Cell", for: indexPath) as! RecurringEventCell
 //            cell.delegate = self
         return cell
 

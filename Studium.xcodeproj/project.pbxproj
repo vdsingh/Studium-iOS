@@ -77,8 +77,8 @@
 		16B498D025CE2CE6005E9C26 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B498CF25CE2CE6005E9C26 /* Secret.swift */; };
 		16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */; };
 		16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */; };
-		16C05CF4264F37B8004C9629 /* CourseCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C05CF2264F37B8004C9629 /* CourseCell1.swift */; };
-		16C05CF5264F37B8004C9629 /* CourseCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C05CF3264F37B8004C9629 /* CourseCell1.xib */; };
+		16C05CF4264F37B8004C9629 /* RecurringEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C05CF2264F37B8004C9629 /* RecurringEventCell.swift */; };
+		16C05CF5264F37B8004C9629 /* RecurringEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C05CF3264F37B8004C9629 /* RecurringEventCell.xib */; };
 		16C05CF7264F3AF3004C9629 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C05CF6264F3AF3004C9629 /* TestViewController.swift */; };
 		16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C05CF8264F5ABC004C9629 /* AssignmentCell1.swift */; };
 		16C05CFB264F5ABC004C9629 /* AssignmentCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C05CF9264F5ABC004C9629 /* AssignmentCell1.xib */; };
@@ -166,8 +166,8 @@
 		16B498CF25CE2CE6005E9C26 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
 		16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
-		16C05CF2264F37B8004C9629 /* CourseCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell1.swift; sourceTree = "<group>"; };
-		16C05CF3264F37B8004C9629 /* CourseCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell1.xib; sourceTree = "<group>"; };
+		16C05CF2264F37B8004C9629 /* RecurringEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringEventCell.swift; sourceTree = "<group>"; };
+		16C05CF3264F37B8004C9629 /* RecurringEventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecurringEventCell.xib; sourceTree = "<group>"; };
 		16C05CF6264F3AF3004C9629 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		16C05CF8264F5ABC004C9629 /* AssignmentCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCell1.swift; sourceTree = "<group>"; };
 		16C05CF9264F5ABC004C9629 /* AssignmentCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentCell1.xib; sourceTree = "<group>"; };
@@ -386,8 +386,8 @@
 		16C05CF1264F36DC004C9629 /* New Event Cells */ = {
 			isa = PBXGroup;
 			children = (
-				16C05CF2264F37B8004C9629 /* CourseCell1.swift */,
-				16C05CF3264F37B8004C9629 /* CourseCell1.xib */,
+				16C05CF2264F37B8004C9629 /* RecurringEventCell.swift */,
+				16C05CF3264F37B8004C9629 /* RecurringEventCell.xib */,
 				16C05CF8264F5ABC004C9629 /* AssignmentCell1.swift */,
 				16C05CF9264F5ABC004C9629 /* AssignmentCell1.xib */,
 			);
@@ -510,7 +510,7 @@
 				16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */,
 				164F62FD24E4DF4800DC8169 /* LogoCollectionViewCell.xib in Resources */,
 				1641822C24AD9D0800960F86 /* PickerCell.xib in Resources */,
-				16C05CF5264F37B8004C9629 /* CourseCell1.xib in Resources */,
+				16C05CF5264F37B8004C9629 /* RecurringEventCell.xib in Resources */,
 				1686DB692482622800FA99DB /* TimeCell.xib in Resources */,
 				16A63B7D24A01289003A30D3 /* HabitCell.xib in Resources */,
 				16C607EC250E985000983C3D /* GlacialIndifference-Regular.otf in Resources */,
@@ -593,7 +593,7 @@
 				16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
-				16C05CF4264F37B8004C9629 /* CourseCell1.swift in Sources */,
+				16C05CF4264F37B8004C9629 /* RecurringEventCell.swift in Sources */,
 				164F62F624E4D1D500DC8169 /* LogoCell.swift in Sources */,
 				16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */,
 				16C05CF7264F3AF3004C9629 /* TestViewController.swift in Sources */,

@@ -18,8 +18,12 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        tableView.register(UINib(nibName: "HabitCell", bundle: nil), forCellReuseIdentifier: "Cell")
-        tableView.rowHeight = 100
+//        tableView.register(UINib(nibName: "HabitCell", bundle: nil), forCellReuseIdentifier: "Cell")
+        tableView.register(UINib(nibName: "RecurringEventCell", bundle: nil), forCellReuseIdentifier: "Cell")
+
+        
+        tableView.separatorStyle = .none //gets rid of dividers between cells.
+        tableView.rowHeight = 140
     }
     override func viewWillAppear(_ animated: Bool) {
         loadHabits()
@@ -54,9 +58,17 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! HabitCell
+//        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! HabitCell
+//        if let habit = habits?[indexPath.row]{
+//            cell.loadData(from: habit)
+//        }
+//        return cell
+        
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! RecurringEventCell
         if let habit = habits?[indexPath.row]{
-            cell.loadData(from: habit)
+            cell.recurringEvent = habit
+            //            cell.deloadData()
+            cell.loadData(courseName: habit.name, location: habit.location, startTime: habit.startDate, endTime: habit.endDate, days: habit.days, colorHex: habit.color, recurringEvent: habit, systemImageString: habit.systemImageString)
         }
         return cell
     }

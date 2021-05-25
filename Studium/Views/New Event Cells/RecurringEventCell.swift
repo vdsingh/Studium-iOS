@@ -10,8 +10,8 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 
-class CourseCell1: DeletableEventCell {
-    var course: Course?
+class RecurringEventCell: DeletableEventCell {
+    var recurringEvent: RecurringStudiumEvent?
 
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -19,6 +19,7 @@ class CourseCell1: DeletableEventCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var iconCircle: UIImageView!
+
     
     @IBOutlet var dayLabels: [UILabel]!
     @IBOutlet var dayBoxes: [UIImageView]!
@@ -32,19 +33,18 @@ class CourseCell1: DeletableEventCell {
         
     }
 
-    func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<Int>, colorHex: String, course: Course, systemImageString: String){
-        self.course = course
-        event = course
+    func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<Int>, colorHex: String, recurringEvent: RecurringStudiumEvent, systemImageString: String){
+        self.recurringEvent = recurringEvent
         iconImage.image = UIImage(systemName: systemImageString)
         iconImage.tintColor = UIColor(hexString: colorHex)
         iconCircle.tintColor = UIColor(hexString: colorHex)
         
 //        background.backgroundColor = UIColor(hexString: colorHex)
-        background.layer.borderColor = UIColor(hexString: colorHex)!.cgColor
+        background!.layer.borderColor = UIColor(hexString: colorHex)!.cgColor
         
         nameLabel.text = courseName
         nameLabel.textColor = UIColor(hexString: colorHex)
-        locationLabel.text = course.location
+        locationLabel.text = recurringEvent.location
 
         print("location:\(location)end")
         var timeText = startTime.format(with: "h:mm a")

@@ -24,7 +24,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         navigationController?.navigationBar.barTintColor = .red
         
         
-        tableView.register(UINib(nibName: "CourseCell1", bundle: nil), forCellReuseIdentifier: "Cell")
+        tableView.register(UINib(nibName: "RecurringEventCell", bundle: nil), forCellReuseIdentifier: "Cell")
         
         //        loadCourses()
         
@@ -77,11 +77,11 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //build the cells
         //let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
-        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! CourseCell1
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! RecurringEventCell
         if let course = courses?[indexPath.row]{
-            cell.course = course
+            cell.recurringEvent = course
             //            cell.deloadData()
-            cell.loadData(courseName: course.name, location: course.location, startTime: course.startDate, endTime: course.endDate, days: course.days, colorHex: course.color, course: course, systemImageString: course.systemImageString)
+            cell.loadData(courseName: course.name, location: course.location, startTime: course.startDate, endTime: course.endDate, days: course.days, colorHex: course.color, recurringEvent: course, systemImageString: course.systemImageString)
         }
         return cell
     }
