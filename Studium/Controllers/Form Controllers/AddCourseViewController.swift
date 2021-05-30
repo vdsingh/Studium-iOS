@@ -271,6 +271,7 @@ extension AddCourseViewController{
                 //                cell.label.textColor = .black
                 cell.accessoryType = .disclosureIndicator
             }else{
+                cell.backgroundColor = .systemBackground
                 cell.label.textColor = UIColor.red
             }
             cell.label.text = cellText[indexPath.section][indexPath.row]

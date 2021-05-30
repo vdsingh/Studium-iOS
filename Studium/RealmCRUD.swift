@@ -27,6 +27,28 @@ class RealmCRUD{
         }
     }
     
+    static func deleteAssignment(assignment: Assignment){
+        guard let user = K.app.currentUser else {
+            print("Error getting user when deleting Assignment")
+            return
+        }
+        let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+        do{
+            try realm.write{
+//                    guard let course = assignment.parentCourse else{
+//                        print("Error accessing parent course in AssignmentViewController")
+//                        return
+//                    }
+//                    let assignmentIndex = course.assignments.index(of: assignment)
+//                    course.assignments.remove(at: assignmentIndex!)
+//                    assignment.deleteNotifications()
+                realm.delete(assignment)
+            }
+        }catch{
+            print("error writing to realm when deleting assignment \(assignment.name)")
+        }
+    }
+    
     //saves the new course to the Realm database.
     static func saveCourse(course: Course){
         guard let user = K.app.currentUser else {

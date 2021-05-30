@@ -207,6 +207,7 @@ class AddToDoListEventViewController: MasterForm, AlertInfoStorer {
                 cell.accessoryType = .disclosureIndicator
             }else if indexPath.section == 3{
                 cell.label.textColor = .red
+                cell.backgroundColor = .systemBackground
             }
             return cell
         }

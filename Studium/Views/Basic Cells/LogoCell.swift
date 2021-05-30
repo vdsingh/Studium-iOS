@@ -8,11 +8,11 @@
 
 import UIKit
 
-class LogoCell: UITableViewCell {
-
+class LogoCell: BasicCell {
     @IBOutlet weak var logoImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = .secondarySystemBackground
         // Initialization code
     }
 

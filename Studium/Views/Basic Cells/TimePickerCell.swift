@@ -10,7 +10,7 @@ import UIKit
 protocol UITimePickerDelegate {
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath)
 }
-class TimePickerCell: UITableViewCell {
+class TimePickerCell: BasicCell {
     @IBOutlet weak var picker: UIDatePicker!
     
     var delegate: UITimePickerDelegate?
@@ -23,6 +23,8 @@ class TimePickerCell: UITableViewCell {
         if #available(iOS 13.4, *) {
             picker.preferredDatePickerStyle = UIDatePickerStyle.wheels
         }
+        self.backgroundColor = .secondarySystemBackground
+
 //        let date = Date(dateString: "5:30 PM", format: "h:mm a")
 //        picker.setDate(date, animated: true)
     }

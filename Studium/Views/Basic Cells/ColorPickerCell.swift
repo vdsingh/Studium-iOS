@@ -10,7 +10,7 @@ protocol ColorDelegate {
 }
 import UIKit
 import FlexColorPicker
-class ColorPickerCell: UITableViewCell {
+class ColorPickerCell: BasicCell {
     @IBOutlet weak var colorPreview: UIImageView!
     @IBOutlet weak var colorPicker: RadialPaletteControl!
     
@@ -23,6 +23,8 @@ class ColorPickerCell: UITableViewCell {
             colorPreview.backgroundColor = ColorPickerCell.color!
         }
         print(colorPicker.selectedColor.hexValue())
+        self.backgroundColor = .secondarySystemBackground
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

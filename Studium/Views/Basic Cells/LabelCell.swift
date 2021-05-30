@@ -8,11 +8,13 @@
 
 import UIKit
 
-class LabelCell: UITableViewCell {
+class LabelCell: BasicCell {
 
     @IBOutlet weak var label: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = .secondarySystemBackground
+
         // Initialization code
     }
 

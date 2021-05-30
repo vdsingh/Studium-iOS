@@ -11,12 +11,14 @@ import UIKit
 protocol SegmentedControlDelegate{
     func controlValueChanged(sender: UISegmentedControl)
 }
-class SegmentedControlCell: UITableViewCell {
+class SegmentedControlCell: BasicCell {
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     var delegate: SegmentedControlDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = .secondarySystemBackground
+
         // Initialization code
     }
 

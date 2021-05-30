@@ -8,12 +8,14 @@
 
 import UIKit
 
-class ThemeCell: UITableViewCell {
+class ThemeCell: BasicCell {
 
     @IBOutlet weak var colorPreview: UIImageView!
     @IBOutlet weak var label: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = .secondarySystemBackground
+
         // Initialization code
     }
 

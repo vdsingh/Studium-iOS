@@ -10,7 +10,7 @@ import UIKit
 protocol UITextFieldDelegateExt {
     func textEdited(sender: UITextField)
 }
-class TextFieldCell: UITableViewCell {
+class TextFieldCell: BasicCell {
 
     @IBOutlet weak var textField: UITextField!
     var delegate: UITextFieldDelegateExt?
@@ -18,6 +18,9 @@ class TextFieldCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         textField.returnKeyType = UIReturnKeyType.done
+        
+        self.backgroundColor = .secondarySystemBackground
+
 
         // Initialization code
     }

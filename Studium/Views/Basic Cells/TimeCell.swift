@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimeCell: UITableViewCell {
+class TimeCell: BasicCell {
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -16,6 +16,8 @@ class TimeCell: UITableViewCell {
     var date: Date?
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = .secondarySystemBackground
+
         // Initialization code
     }
 

@@ -27,6 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let user = app.currentUser {
             do{
                 realm = try Realm(configuration: user.configuration(partitionValue: user.id))
+                let assignments = realm.objects(Assignment.self)
+                for assignment in assignments{
+                    if(assignment.isAutoscheduled && Date() > assignment.endDate){
+                        RealmCRUD.deleteAssignment(assignment: assignment)
+                    }
+                }
             }catch{
                 print("Error lol")
             }

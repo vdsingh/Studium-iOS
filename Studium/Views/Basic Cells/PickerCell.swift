@@ -9,7 +9,7 @@
 import UIKit
 
 
-class PickerCell: UITableViewCell{
+class PickerCell: BasicCell{
 
     @IBOutlet weak var picker: UIPickerView!
     
@@ -18,6 +18,8 @@ class PickerCell: UITableViewCell{
     override func awakeFromNib() {
 //        picker.delegate = self
         super.awakeFromNib()
+        self.backgroundColor = .secondarySystemBackground
+
     
         // Initialization code
     }

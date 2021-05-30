@@ -11,16 +11,23 @@ protocol CanHandleSwitch{
     func switchValueChanged(sender: UISwitch)
 }
 
-class SwitchCell: UITableViewCell {
+protocol CanHandleInfoDisplay: UIViewController{
+    func displayInformation()
+}
+
+class SwitchCell: BasicCell {
     
     @IBOutlet weak var tableSwitch: UISwitch!
     @IBOutlet weak var label: UILabel!
     
     var on: Bool = false
     
-    var delegate: CanHandleSwitch?
+    var switchDelegate: CanHandleSwitch?
+    var infoDelegate: CanHandleInfoDisplay?
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = .secondarySystemBackground
+
         // Initialization code
     }
     
@@ -32,10 +39,17 @@ class SwitchCell: UITableViewCell {
     
     @IBAction func switchValueChanged(_ sender: UISwitch) {
         on = sender.isOn
-        if let del = delegate{
+        if let del = switchDelegate{
             del.switchValueChanged(sender: sender)
         }
     }
-    
+
+    @IBAction func infoButtonPressed(_ sender: UIButton) {
+        if let del = infoDelegate{
+            del.displayInformation()
+        }else{
+           print("error accessing infoDelegate")
+        }
+    }
     
 }

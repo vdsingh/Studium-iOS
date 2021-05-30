@@ -325,7 +325,8 @@ extension AddHabitViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "SwitchCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
-            cell.delegate = self
+            cell.switchDelegate = self
+            cell.infoDelegate = self
             cell.label.text = cellText[indexPath.section][indexPath.row]
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
@@ -591,6 +592,16 @@ extension AddHabitViewController: CanHandleSwitch{
             autoschedule = false
         }
         reloadData()
+    }
+}
+
+extension AddHabitViewController: CanHandleInfoDisplay{
+    func displayInformation() {
+        let alert = UIAlertController(title: "Autoschedule", message: "This feature autoschedules time for you! \n\nJust specify what days the habit occurs on and how long the habit lasts. We'll find time for you to get it done! \n\nSome common uses for autoscheduling are finding time for the gym, reading, and studying.", preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
+          }))
+        present(alert, animated: true, completion: nil)
     }
 }
 

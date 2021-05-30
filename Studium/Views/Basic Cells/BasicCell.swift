@@ -6,4 +6,10 @@
 //  Copyright © 2021 Vikram Singh. All rights reserved.
 //
 
-import Foundation
+import UIKit
+class BasicCell: UITableViewCell{
+    override class func awakeFromNib() {
+        super.awakeFromNib()
+
+    }
+}

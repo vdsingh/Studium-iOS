@@ -60,6 +60,13 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         tableView.register(UINib(nibName: "DaySelectorCell", bundle: nil), forCellReuseIdentifier: "DaySelectorCell")
         tableView.tableFooterView = UIView()
         
+        tableView.sectionIndexBackgroundColor = .green
+        tableView.sectionIndexColor = .systemPink
+        tableView.sectionIndexTrackingBackgroundColor = .red
+        
+        tableView.backgroundColor = .systemBackground
+        
+        
         //getting all courses from realm to populate the course picker.
         guard let user = app.currentUser else {
             print("Error getting user in MasterForm")
@@ -292,13 +299,15 @@ extension AddAssignmentViewController{
             
             if indexPath.section == 3{
                 cell.label.textColor = UIColor.red
+                cell.backgroundColor = .systemBackground
             }else{
                 cell.accessoryType = .disclosureIndicator
             }
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "SwitchCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
-            cell.delegate = self
+            cell.switchDelegate = self
+            cell.infoDelegate = self
             cell.label.text = cellText[indexPath.section][indexPath.row]
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "DaySelectorCell"{
@@ -319,6 +328,8 @@ extension AddAssignmentViewController{
         
         return 30
     }
+    
+    
     
     //handles adding and removing Pickers when necessary
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -470,6 +481,23 @@ extension AddAssignmentViewController: CanHandleSwitch{
             tableView.reloadData()
         }
     }
+}
+
+extension AddAssignmentViewController: CanHandleInfoDisplay{
+    func displayInformation() {
+        let alert = UIAlertController(title: "Anti-Procrastination!", message: "This feature autoschedules time for you to work! \n\nJust specify what days are best and how long you want to work per day. We'll find time for you to get it done!\n\nSome common uses are autoscheduling time to work on a project or essay, or autoscheduling time to study for an exam.", preferredStyle: UIAlertController.Style.alert)
+
+//        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+//            self.deleteAllOtherEvents(isCompleted: isCompleted)
+//          }))
+
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
+          }))
+        present(alert, animated: true, completion: nil)
+
+    }
+    
+    
 }
 
 extension AddAssignmentViewController: DaySelectorDelegate{

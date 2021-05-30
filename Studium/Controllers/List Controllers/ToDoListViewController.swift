@@ -159,7 +159,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
 //        print("assignmetncell at section \(indexPath.section). row \(indexPath.row)")
-        return 70
+        return 60
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
@@ -179,14 +179,34 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        
         if let cell = tableView.cellForRow(at: indexPath) as? AssignmentCell1{
             if let assignment = cell.assignment{
-                do{
-                    try realm.write{
-                        assignment.complete = !assignment.complete
+                if let user = app.currentUser {
+                    realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+                    do{
+                        try realm.write{
+                            assignment.complete = !assignment.complete
+                            print("assignment scheduledEvents length: \(assignment.scheduledEvents.count)")
+                            for event in assignment.scheduledEvents{
+                                if(assignment.complete){
+                                    event.complete = true
+                                    print("Marked worktime complete")
+                                }else{
+                                    event.complete = false
+                                }
+                            }
+                            print("user changed assignment \(assignment.name) completeness")
+        //                    print("the user id is: \(user.id)")
+        //                    print("saved course with partitionKey: \(course._partitionKey)")
+                        }
+                    }catch{
+                        print("error saving course: \(error)")
                     }
-                }catch{
-                    print(error)
+                }else{
+                    print("error accessing user")
                 }
             }
         }else if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell{

@@ -11,7 +11,7 @@ import RealmSwift
 protocol DaySelectorDelegate{
     func dayButtonPressed(sender: UIButton)
 }
-class DaySelectorCell: UITableViewCell {
+class DaySelectorCell: BasicCell {
 
     var delegate: DaySelectorDelegate?
     
@@ -20,6 +20,8 @@ class DaySelectorCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.backgroundColor = .secondarySystemBackground
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

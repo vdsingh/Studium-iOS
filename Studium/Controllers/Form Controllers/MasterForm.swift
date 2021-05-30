@@ -27,6 +27,13 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate{
 //        print(us)
     }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
+        headerView.backgroundColor = UIColor.systemBackground
+
+      return headerView
+    }
+    
     
     //method to schedule Local Notifications to the User.
     func scheduleNotification(components: DateComponents, body: String, titles:String, repeatNotif: Bool, identifier: String) {
