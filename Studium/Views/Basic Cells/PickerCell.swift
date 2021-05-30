@@ -18,7 +18,7 @@ class PickerCell: BasicCell{
     override func awakeFromNib() {
 //        picker.delegate = self
         super.awakeFromNib()
-        self.backgroundColor = .secondarySystemBackground
+        self.backgroundColor = defaultBackgroundColor
 
     
         // Initialization code

@@ -23,7 +23,8 @@ class ColorPickerCell: BasicCell {
             colorPreview.backgroundColor = ColorPickerCell.color!
         }
         print(colorPicker.selectedColor.hexValue())
-        self.backgroundColor = .secondarySystemBackground
+        self.backgroundColor = defaultBackgroundColor
+        colorPicker.backgroundColor = defaultBackgroundColor
 
     }
 

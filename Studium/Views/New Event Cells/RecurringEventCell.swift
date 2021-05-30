@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import SwipeCellKit
+import ChameleonFramework
 
 class RecurringEventCell: DeletableEventCell {
     var recurringEvent: RecurringStudiumEvent?
@@ -27,10 +28,8 @@ class RecurringEventCell: DeletableEventCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         background.layer.cornerRadius = 15
         background.layer.borderWidth = 4
-        
     }
 
     func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<Int>, colorHex: String, recurringEvent: RecurringStudiumEvent, systemImageString: String){
@@ -58,15 +57,11 @@ class RecurringEventCell: DeletableEventCell {
         }
     
         for i in 0...dayLabels.count-1{
-//        for dayLabel in dayLabels{
             let dayLabel = dayLabels[i]
             let dayBox = dayBoxes[i];
             if days.contains(K.weekdayDict[dayLabel.text!]!){
-//            if days.contains(dayLabel.text!){
                 dayBox.backgroundColor = UIColor(hexString: colorHex)
-//                dayLabel.backgroundColor =
-//                dayLabel.layer.cornerRadius = 5
-//                dayLabel.textColor = UIColor(hexString: colorHex)
+                dayLabel.textColor = UIColor(contrastingBlackOrWhiteColorOn: UIColor(hexString: colorHex)!, isFlat: true)
             }else{
                 dayLabel.textColor = .white
                 dayBox.backgroundColor = .none

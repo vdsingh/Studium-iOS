@@ -367,7 +367,7 @@
                                 <action selector="cancelButtonPressed:" destination="TXL-10-fwd" id="pAg-lH-tJM"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="lFI-er-lhR">
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="lFI-er-lhR">
                             <connections>
                                 <action selector="addButtonPressed:" destination="TXL-10-fwd" id="VYr-kZ-p3X"/>
                             </connections>
@@ -1196,7 +1196,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="d6r-wA-WW0"/>
+        <segue reference="h8J-RB-4SC"/>
         <segue reference="T8N-JJ-KKU"/>
         <segue reference="dGG-R7-t4J"/>
     </inferredMetricsTieBreakers>

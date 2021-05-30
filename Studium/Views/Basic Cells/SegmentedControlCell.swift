@@ -17,7 +17,7 @@ class SegmentedControlCell: BasicCell {
     var delegate: SegmentedControlDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = .secondarySystemBackground
+        self.backgroundColor = defaultBackgroundColor
 
         // Initialization code
     }

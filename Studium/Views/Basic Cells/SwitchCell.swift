@@ -26,7 +26,7 @@ class SwitchCell: BasicCell {
     var infoDelegate: CanHandleInfoDisplay?
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = .secondarySystemBackground
+        self.backgroundColor = defaultBackgroundColor
 
         // Initialization code
     }

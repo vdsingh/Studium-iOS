@@ -20,7 +20,7 @@ class DaySelectorCell: BasicCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.backgroundColor = .secondarySystemBackground
+        self.backgroundColor = defaultBackgroundColor
 
     }
 

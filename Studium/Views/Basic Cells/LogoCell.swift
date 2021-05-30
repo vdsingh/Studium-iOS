@@ -12,7 +12,7 @@ class LogoCell: BasicCell {
     @IBOutlet weak var logoImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = .secondarySystemBackground
+        self.backgroundColor = defaultBackgroundColor
         // Initialization code
     }
 

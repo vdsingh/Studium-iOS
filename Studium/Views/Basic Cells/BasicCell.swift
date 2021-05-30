@@ -8,8 +8,11 @@
 
 import UIKit
 class BasicCell: UITableViewCell{
+    
+    var defaultBackgroundColor = UIColor.secondarySystemBackground
     override class func awakeFromNib() {
         super.awakeFromNib()
+        
 
     }
 }

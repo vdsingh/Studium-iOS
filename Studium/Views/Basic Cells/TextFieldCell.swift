@@ -19,7 +19,7 @@ class TextFieldCell: BasicCell {
         super.awakeFromNib()
         textField.returnKeyType = UIReturnKeyType.done
         
-        self.backgroundColor = .secondarySystemBackground
+        self.backgroundColor = defaultBackgroundColor
 
 
         // Initialization code

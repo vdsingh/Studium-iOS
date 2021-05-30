@@ -16,7 +16,7 @@ class TimeCell: BasicCell {
     var date: Date?
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = .secondarySystemBackground
+        self.backgroundColor = defaultBackgroundColor
 
         // Initialization code
     }

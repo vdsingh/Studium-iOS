@@ -23,7 +23,7 @@ class TimePickerCell: BasicCell {
         if #available(iOS 13.4, *) {
             picker.preferredDatePickerStyle = UIDatePickerStyle.wheels
         }
-        self.backgroundColor = .secondarySystemBackground
+        self.backgroundColor = defaultBackgroundColor
 
 //        let date = Date(dateString: "5:30 PM", format: "h:mm a")
 //        picker.setDate(date, animated: true)
