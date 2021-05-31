@@ -1,4 +1,9 @@
 PODS:
+  - AppAuth (1.4.0):
+    - AppAuth/Core (= 1.4.0)
+    - AppAuth/ExternalUserAgent (= 1.4.0)
+  - AppAuth/Core (1.4.0)
+  - AppAuth/ExternalUserAgent (1.4.0)
   - CalendarKit (1.0.6)
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
@@ -7,6 +12,14 @@ PODS:
   - DateToolsSwift (5.0.0)
   - FlexColorPicker (1.4.2)
   - FSCalendar (2.8.2)
+  - GoogleSignIn (5.0.2):
+    - AppAuth (~> 1.2)
+    - GTMAppAuth (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GTMAppAuth (1.2.2):
+    - AppAuth/Core (~> 1.4)
+    - GTMSessionFetcher/Core (~> 1.5)
+  - GTMSessionFetcher/Core (1.5.0)
   - Realm (10.7.6):
     - Realm/Headers (= 10.7.6)
   - Realm/Headers (10.7.6)
@@ -21,16 +34,21 @@ DEPENDENCIES:
   - DateToolsSwift
   - FlexColorPicker
   - FSCalendar
+  - GoogleSignIn
   - RealmSwift
   - SwipeCellKit
 
 SPEC REPOS:
   trunk:
+    - AppAuth
     - CalendarKit
     - Colorful
     - DateToolsSwift
     - FlexColorPicker
     - FSCalendar
+    - GoogleSignIn
+    - GTMAppAuth
+    - GTMSessionFetcher
     - Realm
     - RealmSwift
     - SwipeCellKit
@@ -46,16 +64,20 @@ CHECKOUT OPTIONS:
     :git: https://github.com/wowansm/Chameleon.git
 
 SPEC CHECKSUMS:
+  AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   CalendarKit: eb72185fdc61a65107e4edbedb7b6a8f409fb19b
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Colorful: 9e093edacaa9fb73512ad9da157f0707b82d2542
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   FlexColorPicker: d7ed5cfd8ceb936f2930e4e30629f9448967a5f8
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
+  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
+  GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
+  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   Realm: ed860452717c8db8f4bf832b6807f7f2ce708839
   RealmSwift: e31c4ddbcc42ac879313d656b86f9ca539f6f4f4
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
-PODFILE CHECKSUM: 37c7ee3bf8d5eea56f82b6c853364b026df432f1
+PODFILE CHECKSUM: 62c196dd2dc5abce183d405eacf5a1719a1e38df
 
 COCOAPODS: 1.10.1

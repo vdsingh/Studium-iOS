@@ -9,10 +9,10 @@
 import UIKit
 import RealmSwift
 import ChameleonFramework
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
 
     var realm: Realm!
     let defaults = UserDefaults.standard
@@ -44,6 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        updateTheme(color: UIColor.green)
         print("Did finish launching");
         
+        
+        GIDSignIn.sharedInstance().clientID="221406332443-he18tqfi4jbg40mbgpgmaaebenekh208.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().serverClientID="221406332443-bvb0ag7qn7ie72v0tm7i3dmgu93qidfl.apps.googleusercontent.com"
+
         
         return true
     }
@@ -85,4 +89,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    //this is all google sign in delegate stuff.
+    @available(iOS 9.0, *)
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
+    }
+    
+    
+    //this is for ios 8 and older
+//    func application(_ application: UIApplication,
+//                     open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+//      return GIDSignIn.sharedInstance().handle(url)
+//    }
+    
+    
 }

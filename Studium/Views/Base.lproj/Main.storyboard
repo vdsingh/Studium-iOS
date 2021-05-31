@@ -927,8 +927,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="vG0-md-X7u">
-                                <rect key="frame" x="30" y="239" width="354" height="248.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="vG0-md-X7u">
+                                <rect key="frame" x="30" y="239" width="354" height="335"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xc-0x-S15">
                                         <rect key="frame" x="151" y="0.0" width="52" height="20.5"/>
@@ -960,8 +960,13 @@
                                             <action selector="noAccountButtonPressed:" destination="ESh-Lk-lkL" eventType="touchUpInside" id="dd5-jj-oLk"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Npz-Ul-WmJ" customClass="GIDSignInButton">
+                                        <rect key="frame" x="57" y="273.5" width="240" height="61.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="Npz-Ul-WmJ" firstAttribute="leading" secondItem="vG0-md-X7u" secondAttribute="leading" constant="57" id="7Tk-ix-vJm"/>
                                     <constraint firstItem="X11-DW-NdZ" firstAttribute="leading" secondItem="vG0-md-X7u" secondAttribute="leading" constant="30" id="ccO-co-EWr"/>
                                     <constraint firstItem="bMF-iR-tLO" firstAttribute="leading" secondItem="vG0-md-X7u" secondAttribute="leading" constant="30" id="idX-C5-bGk"/>
                                     <constraint firstAttribute="trailing" secondItem="X11-DW-NdZ" secondAttribute="trailing" constant="30" id="pOB-4e-kW0"/>
@@ -976,6 +981,7 @@
                             <constraint firstItem="wgy-yU-TSP" firstAttribute="trailing" secondItem="vG0-md-X7u" secondAttribute="trailing" constant="30" id="8vP-os-p35"/>
                             <constraint firstItem="vG0-md-X7u" firstAttribute="centerY" secondItem="OVS-q3-vcM" secondAttribute="centerY" id="a2b-Ww-icq"/>
                             <constraint firstItem="vG0-md-X7u" firstAttribute="centerX" secondItem="OVS-q3-vcM" secondAttribute="centerX" id="kpY-ov-bdu"/>
+                            <constraint firstItem="vG0-md-X7u" firstAttribute="top" secondItem="wgy-yU-TSP" secondAttribute="top" constant="151" id="v8J-R5-Fxs"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1Za-83-HWB"/>

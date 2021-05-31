@@ -10,8 +10,11 @@ import Foundation
 import RealmSwift
 import UIKit
 import EventKit
+import GoogleSignIn
 
 class SettingsViewController: UITableViewController{
+    
+    
     var realm: Realm! //Link to the realm where we are storing information
     let app = App(id: Secret.appID)
     
@@ -40,6 +43,7 @@ class SettingsViewController: UITableViewController{
         }
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
 
+
     }
     override func viewWillAppear(_ animated: Bool){
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -66,7 +70,7 @@ class SettingsViewController: UITableViewController{
         return 60
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 30
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -138,7 +142,7 @@ class SettingsViewController: UITableViewController{
         headerView.backgroundColor = UIColor.black
         return headerView
     }
-    
+//    221406332443-he18tqfi4jbg40mbgpgmaaebenekh208.apps.googleusercontent.com
     //
     func deleteAllAssignments(isCompleted:Bool){
         let assignments: Results<Assignment>? = realm.objects(Assignment.self)
@@ -197,4 +201,6 @@ class SettingsViewController: UITableViewController{
 
         present(refreshAlert, animated: true, completion: nil)
     }
+    
+   
 }

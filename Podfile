@@ -8,6 +8,8 @@ target 'Studium' do
   # Pods for Data Management
 pod 'RealmSwift'
 
+pod 'GoogleSignIn'
+
   # Pods for UI Elements
 pod 'SwipeCellKit'
 pod 'CalendarKit'
