@@ -139,6 +139,10 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         assignments = selectedCourse?.assignments.sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
         assignmentsArr = [[],[]]
         for assignment in assignments!{
+            //skip the autoscheduled events.
+            if assignment.isAutoscheduled{
+                continue
+            }
             if assignment.complete == true{
                 assignmentsArr[1].append(assignment)
             }else{

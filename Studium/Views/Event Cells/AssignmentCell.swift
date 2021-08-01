@@ -10,6 +10,7 @@ import UIKit
 import SwipeCellKit
 class AssignmentCell: DeletableEventCell {
 
+    @IBOutlet weak var caret: UIImageView!
     @IBOutlet weak var assignmentNameLabel: UILabel!
     @IBOutlet weak var courseNameLabel: UILabel!
     @IBOutlet weak var icon: UIImageView!
@@ -51,5 +52,19 @@ class AssignmentCell: DeletableEventCell {
         icon.image = UIImage(systemName: course.systemImageString)
         icon.tintColor = UIColor(hexString: course.color)
         dueDateLabel.text = assignment.endDate.format(with: "MMM d, h:mm a")
+        
+        if assignment.scheduledEvents.count == 0{
+            caret.isHidden = true
+        }
+        
+        if(Date() < assignment.endDate){
+            let diffComponents = Calendar.current.dateComponents([.hour], from: Date(), to: assignment.endDate)
+            let hours = diffComponents.hour
+            if(hours! < 48){
+                dueDateLabel.textColor = .yellow
+            }
+        }else{
+            dueDateLabel.textColor = .red
+        }
     }
 }

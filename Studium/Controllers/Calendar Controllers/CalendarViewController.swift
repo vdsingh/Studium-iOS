@@ -46,7 +46,7 @@ class CalendarViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         updateInfo()
         calendar.appearance.titleDefaultColor = UIColor.white
-        navigationItem.hidesBackButton = true
+//        navigationItem.hidesBackButton = true
 
         
     }

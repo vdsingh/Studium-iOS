@@ -33,15 +33,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
 
         }else{
-            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "LoginController")
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "PeePoo")
         }
-//        }else if defaults.bool(forKey: "didFinishIntro") == false{
-//            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "WakeUpController")
-//           
-//        }else{
-//            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
-//        }
-//           window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

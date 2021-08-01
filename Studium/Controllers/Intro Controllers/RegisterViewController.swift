@@ -14,12 +14,40 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-
+    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var haveAnAccountButton: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var stringOne = "Already have an account?"
+        let stringTwo = "Sign Up."
+
+        let range = (stringOne as NSString).range(of: stringTwo)
+
+        let attributedText = NSMutableAttributedString.init(string: stringOne)
+        attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.blue , range: range)
+        haveAnAccountButton.attributedText = attributedText
+        
         emailTextField.delegate = self
         passwordTextField.delegate = self
         // Do any additional setup after loading the view.
+        
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        emailTextField.layer.borderColor = UIColor.gray.cgColor
+        emailTextField.layer.borderWidth = 1
+        emailTextField.layer.cornerRadius = 10
+        
+        
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password",attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        passwordTextField.layer.borderColor = UIColor.gray.cgColor
+        passwordTextField.layer.borderWidth = 1
+        passwordTextField.layer.cornerRadius = 10
+        
+        
+
+        signUpButton.layer.cornerRadius = 10
+
     }
     
 

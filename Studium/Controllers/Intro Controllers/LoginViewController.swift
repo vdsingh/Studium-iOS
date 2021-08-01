@@ -13,10 +13,13 @@ import GoogleSignIn
 class LoginViewController: UIViewController, GIDSignInDelegate{
 
     
-
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var loginButton: UIButton!
+    
+    @IBOutlet weak var googleSignInButton: GIDSignInButton!
     let app = App(id: Secret.appID)
 
     
@@ -25,6 +28,22 @@ class LoginViewController: UIViewController, GIDSignInDelegate{
         emailTextField.delegate = self
         passwordTextField.delegate = self
         // Do any additional setup after loading the view.
+        
+        emailTextField.layer.borderColor = UIColor.secondaryLabel.cgColor
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",attributes:[NSAttributedString.Key.foregroundColor: UIColor.tertiaryLabel])
+        emailTextField.layer.borderWidth = 1
+        emailTextField.layer.cornerRadius = 10
+        
+        passwordTextField.layer.borderColor = UIColor.secondaryLabel.cgColor
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password",attributes:[NSAttributedString.Key.foregroundColor: UIColor.tertiaryLabel])
+        passwordTextField.layer.borderWidth = 1
+        passwordTextField.layer.cornerRadius = 10
+        
+        loginButton.layer.cornerRadius = 10
+
+        
+        googleSignInButton.style = GIDSignInButtonStyle.wide
+        googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self

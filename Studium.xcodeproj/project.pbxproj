@@ -63,6 +63,7 @@
 		1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */; };
 		1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E758247A59B2003D4702 /* ToDoListViewController.swift */; };
 		1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E75C247B56E8003D4702 /* AddCourseViewController.swift */; };
+		1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697F7EF266C6B6D0064AB28 /* StartViewController.swift */; };
 		16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B7A24A01289003A30D3 /* HabitCell.swift */; };
 		16A63B7D24A01289003A30D3 /* HabitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A63B7B24A01289003A30D3 /* HabitCell.xib */; };
 		16A63B7F24A6D1C4003A30D3 /* AddToDoListEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B7E24A6D1C4003A30D3 /* AddToDoListEventViewController.swift */; };
@@ -154,6 +155,7 @@
 		1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsViewController.swift; sourceTree = "<group>"; };
 		1693E758247A59B2003D4702 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		1693E75C247B56E8003D4702 /* AddCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
+		1697F7EF266C6B6D0064AB28 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		16A63B7A24A01289003A30D3 /* HabitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCell.swift; sourceTree = "<group>"; };
 		16A63B7B24A01289003A30D3 /* HabitCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HabitCell.xib; sourceTree = "<group>"; };
 		16A63B7E24A6D1C4003A30D3 /* AddToDoListEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoListEventViewController.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				164F630024EA2E0900DC8169 /* FirstScreenViewController.swift */,
 				16C60FE725C76C51006D0FFC /* LoginViewController.swift */,
 				16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */,
+				1697F7EF266C6B6D0064AB28 /* StartViewController.swift */,
 			);
 			path = "Intro Controllers";
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				1693E755247A4B64003D4702 /* K.swift in Sources */,
 				1638CB8024EC374100D3D93E /* ThemeCell.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
+				1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */,
 				164F62FF24E7D41400DC8169 /* AlertTableViewController.swift in Sources */,
 				165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
