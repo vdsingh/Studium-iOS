@@ -60,7 +60,7 @@ class AssignmentCell1: DeletableEventCell {
         
         if assignment.scheduledEvents.count == 0{
             print("there are no assignment scheduled events")
-//            chevronButton.isHidden = true
+            chevronButton.isHidden = true
         }
         self.assignment = assignment
         self.event = assignment
@@ -80,11 +80,14 @@ class AssignmentCell1: DeletableEventCell {
                 //handle closing the window
                 assignmentCollapseDelegate?.handleCloseAutoEvents(assignment: assignment!)
                 autoEventsOpen = false
+                chevronButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
                 
             }else{
                 //handle opening the window
                 assignmentCollapseDelegate?.handleOpenAutoEvents(assignment: assignment!)
                 autoEventsOpen = true
+                chevronButton.setImage(UIImage(systemName: "chevron.up"), for: .normal)
+
             }
         }else{
             print("delegate was nil or assignment was nil")

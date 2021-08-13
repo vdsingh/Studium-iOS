@@ -214,7 +214,7 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
         print("Handle opening auto events")
         
         if let ind = assignmentsArr[arrayIndex].firstIndex(of: assignment){
-            var index = ind
+            var index = ind + 1
             for auto in assignment.scheduledEvents{
                 assignmentsArr[arrayIndex].insert(auto, at: index)
                 index += 1
@@ -237,6 +237,7 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
 //            assignmentsArr[arrayIndex].insert(auto, at: index)
 //            index += 1
         }
+        tableView.reloadData()
     }
     
     
