@@ -3,7 +3,7 @@ import UIKit
 import RealmSwift
 
 protocol AssignmentRefreshProtocol{
-    func loadAssignments(skipAutos: Bool)
+    func loadAssignments()
 }
 
 class AddAssignmentViewController: MasterForm, AlertInfoStorer{
@@ -160,7 +160,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                     print("there was an error: \(error)")
                 }
             }
-            delegate?.loadAssignments(skipAutos: true)
+            delegate?.loadAssignments()
             dismiss(animated: true, completion: nil)
         }else{
             cellText[3][1] = errors

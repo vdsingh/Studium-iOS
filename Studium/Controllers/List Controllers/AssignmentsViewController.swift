@@ -17,11 +17,13 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     var assignmentsArr: [[Assignment]] = [[],[]]
     var sectionTitles: [String] = ["Incomplete","Complete"]
     
+//    var openAutoEventsAssignment: Assignment
+    
     @IBOutlet weak var searchBar: UISearchBar!
     
     var selectedCourse: Course? {
         didSet{
-            loadAssignments(skipAutos: true)
+            loadAssignments()
         }
     }
     
@@ -49,7 +51,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         }else{
             print("error")
         }
-        loadAssignments(skipAutos: true)
+        loadAssignments()
         //reloadData()
     }
     
@@ -97,12 +99,24 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let assignment = assignmentsArr[indexPath.section][indexPath.row]
-        
+        let assignmentCell = tableView.cellForRow(at: indexPath) as! AssignmentCell1
+
         if let user = app.currentUser {
             realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
             do{
                 try realm.write{
+                    if assignmentCell.autoEventsOpen{
+        //                        assignmentCell.chevronButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+        //                        handleCloseAutoEvents(assignment: assignment)
+        //                        assignmentCell.autoEventsOpen = false
+                        assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
+                    }
+                    
                     assignment.complete = !assignment.complete
+                    
+                    
+                    
+                    
                     print("assignment scheduledEvents length: \(assignment.scheduledEvents.count)")
                     for event in assignment.scheduledEvents{
                         event.complete = true
@@ -118,7 +132,13 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         }
 
         
-        loadAssignments(skipAutos: false)
+//        loadAssignments(skipAutos: false)
+        if(assignment.isAutoscheduled){
+            tableView.reloadData()
+        }else{
+            loadAssignments()
+            
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -128,17 +148,20 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     //MARK: - CRUD Methods
     
-    
-    func loadAssignments(skipAutos: Bool){
+    //loads all non-autoscheduled assignments by accessing the selected course.
+    func loadAssignments(){
         assignments = selectedCourse?.assignments.sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
+//        assignments = selectedCourse?.assignments
         assignmentsArr = [[],[]]
         for assignment in assignments!{
             //skip the autoscheduled events.
-            if skipAutos && assignment.isAutoscheduled{
+            if assignment.isAutoscheduled{
                 continue
             }
-            if assignment.complete == true{
-                assignmentsArr[1].append(assignment)
+            if assignment.complete == true && !assignment.isAutoscheduled{
+//                if!assignment.isAutoscheduled {
+                    assignmentsArr[1].append(assignment)
+//                }
             }else{
                 assignmentsArr[0].append(assignment)
             }
