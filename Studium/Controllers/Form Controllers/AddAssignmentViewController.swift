@@ -3,7 +3,7 @@ import UIKit
 import RealmSwift
 
 protocol AssignmentRefreshProtocol{
-    func loadAssignments()
+    func loadAssignments(skipAutos: Bool)
 }
 
 class AddAssignmentViewController: MasterForm, AlertInfoStorer{
@@ -160,7 +160,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
                     print("there was an error: \(error)")
                 }
             }
-            delegate?.loadAssignments()
+            delegate?.loadAssignments(skipAutos: true)
             dismiss(animated: true, completion: nil)
         }else{
             cellText[3][1] = errors
@@ -177,7 +177,6 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     func setDefaultRow(picker: UIPickerView){
         var row = 0
         if selectedCourse == nil{
-//            print("selectedCourse is nil. User probably initiated this form from the general add event form")
             return
         }
         if let coursesArr = courses{
@@ -210,11 +209,6 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         dueDateCell.date = dueDate
         
         self.alertTimes = alertTimes
-//        alertTimes = []
-//        for alert in assignment.notificationAlertTimes{
-//            alertTimes.append(alert)
-//        }
-        
         
         self.scheduleWorkTime = scheduleWorkTime
         if scheduleWorkTime == true{

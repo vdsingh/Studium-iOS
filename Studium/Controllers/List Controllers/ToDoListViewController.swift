@@ -226,7 +226,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
 }
 
 extension ToDoListViewController: AssignmentRefreshProtocol{
-    func loadAssignments() {
+    func loadAssignments(skipAutos: Bool) {
         refreshData()
     }
 }

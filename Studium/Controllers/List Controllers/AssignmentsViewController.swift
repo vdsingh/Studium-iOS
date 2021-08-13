@@ -21,7 +21,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     var selectedCourse: Course? {
         didSet{
-            loadAssignments()
+            loadAssignments(skipAutos: true)
         }
     }
     
@@ -49,7 +49,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         }else{
             print("error")
         }
-        loadAssignments()
+        loadAssignments(skipAutos: true)
         //reloadData()
     }
     
@@ -72,6 +72,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell1
         let assignment = assignmentsArr[indexPath.section][indexPath.row]
         cell.assignment = assignment
+        cell.assignmentCollapseDelegate = self
         cell.loadData(assignment: assignment)
         
         return cell
@@ -108,8 +109,6 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
                         print("Marked worktime complete")
                     }
                     print("user changed assignment \(assignment.name) completeness")
-//                    print("the user id is: \(user.id)")
-//                    print("saved course with partitionKey: \(course._partitionKey)")
                 }
             }catch{
                 print("error saving course: \(error)")
@@ -117,16 +116,9 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         }else{
             print("error accessing user")
         }
-//        do{
-//            try realm.write{
-//                assignment.complete = !assignment.complete
-//            }
-//        }catch{
-//            print(error)
-//        }
+
         
-        
-        loadAssignments()
+        loadAssignments(skipAutos: false)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -135,12 +127,14 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     }
     
     //MARK: - CRUD Methods
-    func loadAssignments(){
+    
+    
+    func loadAssignments(skipAutos: Bool){
         assignments = selectedCourse?.assignments.sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
         assignmentsArr = [[],[]]
         for assignment in assignments!{
             //skip the autoscheduled events.
-            if assignment.isAutoscheduled{
+            if skipAutos && assignment.isAutoscheduled{
                 continue
             }
             if assignment.complete == true{
@@ -210,5 +204,41 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         }
         tableView.reloadData()
     }
+}
+
+//This extension ensures that the view controller can handle what happens when user wants to collapsed autoscheduled events.
+extension AssignmentsViewController: AssignmentCollapseDelegate{
+    func handleOpenAutoEvents(assignment: Assignment) {
+        
+        let arrayIndex = assignment.complete ? 1 : 0
+        print("Handle opening auto events")
+        
+        if let ind = assignmentsArr[arrayIndex].firstIndex(of: assignment){
+            var index = ind
+            for auto in assignment.scheduledEvents{
+                assignmentsArr[arrayIndex].insert(auto, at: index)
+                index += 1
+            }
+        }else{
+            print("- Error accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
+        }
+
+        tableView.reloadData()
+    }
+    
+    func handleCloseAutoEvents(assignment: Assignment) {
+        print("Handle close auto events")
+        
+        let arrayIndex = assignment.complete ? 1 : 0
+        let index = assignmentsArr[arrayIndex].firstIndex(of: assignment)!
+
+        for _ in assignment.scheduledEvents{
+            assignmentsArr[arrayIndex].remove(at: index + 1)
+//            assignmentsArr[arrayIndex].insert(auto, at: index)
+//            index += 1
+        }
+    }
+    
+    
 }
 
