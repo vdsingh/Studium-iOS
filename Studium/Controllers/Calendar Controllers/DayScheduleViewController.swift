@@ -51,14 +51,7 @@ class DayScheduleViewController: DayViewController{
     
     func addCourses(for date: Date) -> [Event]{
         var events: [Event] = []
-        
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "EEEE"
-//        let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
-        
-//        let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
-        // let allCoursesOnDay = separateCoursesHelper(dayStringIdentifier: usableString) //get all courses that occur on this day.
-        
+
         if let user = app.currentUser{
             realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
 
@@ -79,7 +72,6 @@ class DayScheduleViewController: DayViewController{
             let courseEvent = Event()
             courseEvent.startDate = Calendar.current.date(bySettingHour: course.startDate.hour, minute: course.startDate.minute, second: 0, of: date)!
             courseEvent.endDate = Calendar.current.date(bySettingHour: course.endDate.hour, minute: course.endDate.minute, second: 0, of: date)!
-//            courseEvent.text = "\(course.startDate.format(with: "h:mm a")) - \(course.endDate.format(with: "h:mm a")): \(course.name)"
             courseEvent.color = UIColor(hexString: course.color)!
             
             let string = "\(course.startDate.format(with: "h:mm a")) - \(course.endDate.format(with: "h:mm a")): \(course.name)"

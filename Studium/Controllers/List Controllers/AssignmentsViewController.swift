@@ -106,22 +106,15 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
             do{
                 try realm.write{
                     if assignmentCell.autoEventsOpen{
-        //                        assignmentCell.chevronButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
-        //                        handleCloseAutoEvents(assignment: assignment)
-        //                        assignmentCell.autoEventsOpen = false
                         assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
                     }
-                    
                     assignment.complete = !assignment.complete
                     
-                    
-                    
-                    
                     print("assignment scheduledEvents length: \(assignment.scheduledEvents.count)")
-                    for event in assignment.scheduledEvents{
-                        event.complete = true
-                        print("Marked worktime complete")
-                    }
+//                    for event in assignment.scheduledEvents{
+//                        event.complete = true
+//                        print("Marked worktime complete")
+//                    }
                     print("user changed assignment \(assignment.name) completeness")
                 }
             }catch{
@@ -257,8 +250,6 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
 
         for _ in assignment.scheduledEvents{
             assignmentsArr[arrayIndex].remove(at: index + 1)
-//            assignmentsArr[arrayIndex].insert(auto, at: index)
-//            index += 1
         }
         tableView.reloadData()
     }

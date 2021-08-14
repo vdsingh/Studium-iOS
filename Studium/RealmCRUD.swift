@@ -43,6 +43,9 @@ class RealmCRUD{
 //                    course.assignments.remove(at: assignmentIndex!)
 //                    assignment.deleteNotifications()
                 realm.delete(assignment)
+                for autoEvent in assignment.scheduledEvents{
+                    realm.delete(autoEvent)
+                }
             }
         }catch{
             print("error writing to realm when deleting assignment \(assignment.name)")
