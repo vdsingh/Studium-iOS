@@ -7,9 +7,11 @@
 //
 
 import UIKit
+
 protocol UITimePickerDelegate {
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath)
 }
+
 class TimePickerCell: BasicCell {
     @IBOutlet weak var picker: UIDatePicker!
     

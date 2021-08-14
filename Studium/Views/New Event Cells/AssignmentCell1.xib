@@ -23,7 +23,7 @@
                         <color key="backgroundColor" systemColor="linkColor"/>
                     </imageView>
                     <stackView opaque="NO" contentMode="left" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="M7B-77-8fv">
-                        <rect key="frame" x="20" y="103.5" width="445" height="50"/>
+                        <rect key="frame" x="69" y="103.5" width="352" height="50"/>
                         <subviews>
                             <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="u9D-Ia-LNc">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -44,25 +44,25 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="IUd-aq-cj6">
-                                <rect key="frame" x="65" y="0.0" width="380" height="50"/>
+                                <rect key="frame" x="65" y="0.0" width="222" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Homework 4 Primer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pF6-1U-gVs">
-                                        <rect key="frame" x="0.0" y="0.0" width="380" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="222" height="25.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Yeo-7f-SgP">
-                                        <rect key="frame" x="0.0" y="28.5" width="380" height="21.5"/>
+                                        <rect key="frame" x="0.0" y="28.5" width="222" height="21.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="COMPSCI 383" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuB-Zg-viJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="190" height="21.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="111" height="21.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="March 18 4:45" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Syo-Rz-w2J">
-                                                <rect key="frame" x="190" y="0.0" width="190" height="21.5"/>
+                                                <rect key="frame" x="111" y="0.0" width="111" height="21.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -71,16 +71,33 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIm-12-tok">
+                                <rect key="frame" x="302" y="0.0" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="pOu-zI-a7S"/>
+                                    <constraint firstAttribute="height" constant="50" id="peH-Sf-fA9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="chevron.down" catalog="system"/>
+                                <connections>
+                                    <action selector="collapseButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="A5o-az-lRk"/>
+                                </connections>
+                            </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="EIm-12-tok" secondAttribute="trailing" id="3dm-fB-Qzy"/>
+                            <constraint firstItem="EIm-12-tok" firstAttribute="centerY" secondItem="M7B-77-8fv" secondAttribute="centerY" id="LVV-ZJ-Bij"/>
+                            <constraint firstItem="EIm-12-tok" firstAttribute="centerY" secondItem="M7B-77-8fv" secondAttribute="centerY" id="w6z-H3-FFP"/>
+                        </constraints>
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="M7B-77-8fv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="M6d-Jw-bSl"/>
+                    <constraint firstItem="M7B-77-8fv" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="OSw-Ca-AuD"/>
                     <constraint firstItem="eJZ-Bg-Kz8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="YYa-nj-5VH"/>
+                    <constraint firstItem="M7B-77-8fv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ZfA-lw-YA7"/>
                     <constraint firstAttribute="bottom" secondItem="eJZ-Bg-Kz8" secondAttribute="bottom" id="dAF-Lc-FcV"/>
-                    <constraint firstItem="M7B-77-8fv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ns6-Ce-aaa"/>
                     <constraint firstAttribute="trailing" secondItem="eJZ-Bg-Kz8" secondAttribute="trailing" id="r2E-LI-G3r"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="M7B-77-8fv" secondAttribute="trailing" constant="5" id="rjR-7T-ih7"/>
                     <constraint firstItem="eJZ-Bg-Kz8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="tjq-63-ybm"/>
                 </constraints>
             </tableViewCellContentView>
@@ -88,14 +105,16 @@
             <connections>
                 <outlet property="assignmentNameLabel" destination="pF6-1U-gVs" id="hkX-IQ-E1u"/>
                 <outlet property="background" destination="eJZ-Bg-Kz8" id="osO-d6-n4X"/>
+                <outlet property="chevronButton" destination="EIm-12-tok" id="y3q-Xl-kY0"/>
                 <outlet property="courseNameLabel" destination="wuB-Zg-viJ" id="kav-49-E8D"/>
                 <outlet property="dueDateLabel" destination="Syo-Rz-w2J" id="XxX-1p-xFd"/>
                 <outlet property="icon" destination="PA4-b9-1uZ" id="YY5-bY-Teo"/>
             </connections>
-            <point key="canvasLocation" x="160.86956521739131" y="81.361607142857139"/>
+            <point key="canvasLocation" x="153.62318840579712" y="64.620535714285708"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <systemColor name="linkColor">

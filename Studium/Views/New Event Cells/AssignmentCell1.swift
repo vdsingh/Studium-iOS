@@ -8,6 +8,12 @@
 
 import UIKit
 import SwipeCellKit
+
+protocol AssignmentCollapseDelegate{
+    func handleOpenAutoEvents(assignment: Assignment)
+    func handleCloseAutoEvents(assignment: Assignment)
+}
+
 class AssignmentCell1: DeletableEventCell {
 
     @IBOutlet weak var background: UIImageView!
@@ -17,18 +23,18 @@ class AssignmentCell1: DeletableEventCell {
     @IBOutlet weak var courseNameLabel: UILabel!
     @IBOutlet weak var dueDateLabel: UILabel!
     
+    @IBOutlet weak var chevronButton: UIButton!
+    var assignmentCollapseDelegate: AssignmentCollapseDelegate?
+    var autoEventsOpen: Bool = false
+    
     var assignment: Assignment?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func loadData(assignment: Assignment){
@@ -45,13 +51,16 @@ class AssignmentCell1: DeletableEventCell {
             background.backgroundColor = .gray
             assignmentNameLabel.attributedText = attributeString
             icon.tintColor = .gray
-
-
         }else{
             background.backgroundColor = UIColor(hexString: course.color)
             attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
             assignmentNameLabel.attributedText = attributeString
             icon.tintColor = UIColor(hexString: course.color)
+        }
+        
+        if assignment.scheduledEvents.count == 0{
+            print("there are no assignment scheduled events")
+            chevronButton.isHidden = true
         }
         self.assignment = assignment
         self.event = assignment
@@ -61,5 +70,27 @@ class AssignmentCell1: DeletableEventCell {
         
         
         dueDateLabel.text = assignment.endDate.format(with: "MMM d, h:mm a")
+    }
+    
+    @IBAction func collapseButtonPressed(_ sender: UIButton) {
+        print("Collapse Button Pressed")
+        if assignmentCollapseDelegate != nil && assignment != nil{
+
+            if autoEventsOpen{
+                //handle closing the window
+                assignmentCollapseDelegate?.handleCloseAutoEvents(assignment: assignment!)
+                autoEventsOpen = false
+                chevronButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+                
+            }else{
+                //handle opening the window
+                assignmentCollapseDelegate?.handleOpenAutoEvents(assignment: assignment!)
+                autoEventsOpen = true
+                chevronButton.setImage(UIImage(systemName: "chevron.up"), for: .normal)
+
+            }
+        }else{
+            print("delegate was nil or assignment was nil")
+        }
     }
 }

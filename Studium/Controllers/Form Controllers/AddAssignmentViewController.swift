@@ -177,7 +177,6 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     func setDefaultRow(picker: UIPickerView){
         var row = 0
         if selectedCourse == nil{
-//            print("selectedCourse is nil. User probably initiated this form from the general add event form")
             return
         }
         if let coursesArr = courses{
@@ -210,11 +209,6 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         dueDateCell.date = dueDate
         
         self.alertTimes = alertTimes
-//        alertTimes = []
-//        for alert in assignment.notificationAlertTimes{
-//            alertTimes.append(alert)
-//        }
-        
         
         self.scheduleWorkTime = scheduleWorkTime
         if scheduleWorkTime == true{
