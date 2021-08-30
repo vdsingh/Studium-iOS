@@ -207,7 +207,6 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
                     tableView.reloadData()
                 }else{
                     loadAssignments()
-                    
                 }
             }
         }else if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell{

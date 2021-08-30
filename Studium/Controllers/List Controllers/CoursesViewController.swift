@@ -79,7 +79,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         //let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! RecurringEventCell
         if let course = courses?[indexPath.row]{
-            cell.recurringEvent = course
+            cell.event = course
             //            cell.deloadData()
             cell.loadData(courseName: course.name, location: course.location, startTime: course.startDate, endTime: course.endDate, days: course.days, colorHex: course.color, recurringEvent: course, systemImageString: course.systemImageString)
         }
@@ -136,13 +136,14 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         identifiers.append(contentsOf: course.notificationIdentifiers)
         for assignment in course.assignments{
             identifiers.append(contentsOf: assignment.notificationIdentifiers)
-            do{
-                try realm.write{
-                    realm.delete(assignment)
-                }
-            }catch{
-                print(error)
-            }
+            RealmCRUD.deleteAssignment(assignment: assignment)
+//            do{
+//                try realm.write{
+//                    realm.delete(assignment)
+//                }
+//            }catch{
+//                print(error)
+//            }
         }
         
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)

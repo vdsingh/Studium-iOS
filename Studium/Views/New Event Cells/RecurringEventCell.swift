@@ -12,7 +12,7 @@ import SwipeCellKit
 import ChameleonFramework
 
 class RecurringEventCell: DeletableEventCell {
-    var recurringEvent: RecurringStudiumEvent?
+//    var recurringEvent: RecurringStudiumEvent?
 
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -33,7 +33,7 @@ class RecurringEventCell: DeletableEventCell {
     }
 
     func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<Int>, colorHex: String, recurringEvent: RecurringStudiumEvent, systemImageString: String){
-        self.recurringEvent = recurringEvent
+        self.event = recurringEvent//just edited
         iconImage.image = UIImage(systemName: systemImageString)
         iconImage.tintColor = UIColor(hexString: colorHex)
         iconCircle.tintColor = UIColor(hexString: colorHex)

@@ -66,7 +66,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! RecurringEventCell
         if let habit = habits?[indexPath.row]{
-            cell.recurringEvent = habit
+            cell.event = habit
             //            cell.deloadData()
             cell.loadData(courseName: habit.name, location: habit.location, startTime: habit.startDate, endTime: habit.endDate, days: habit.days, colorHex: habit.color, recurringEvent: habit, systemImageString: habit.systemImageString)
         }
