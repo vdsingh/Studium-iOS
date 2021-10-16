@@ -170,28 +170,29 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     override func updateModelDelete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-            do{
-                if let user = app.currentUser {
-                    realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-                    try self.realm.write{
-                        if let assignment = cell.event as? Assignment{
-                            guard let course = assignment.parentCourse else{
-                                print("Error accessing parent course in AssignmentViewController")
-                                return
-                            }
-                            let assignmentIndex = course.assignments.index(of: assignment)
-                            course.assignments.remove(at: assignmentIndex!)
-                            assignment.deleteNotifications()
-                        }
-                        cell.event!.deleteNotifications()
-                        self.realm.delete(cell.event!)
-                    }
-                }else{
-                    print("error accessing user")
-                }
-            }catch{
-                print("Error deleting OtherEvent")
-            }
+//        do{
+//            if let user = app.currentUser {
+//                realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+//                try self.realm.write{
+//                    if let assignment = cell.event as? Assignment{
+//                        guard let course = assignment.parentCourse else{
+//                            print("Error accessing parent course in AssignmentViewController")
+//                            return
+//                        }
+//                        let assignmentIndex = course.assignments.index(of: assignment)
+//                        course.assignments.remove(at: assignmentIndex!)
+//                        assignment.deleteNotifications()
+//                    }
+//                    cell.event!.deleteNotifications()
+//                    self.realm.delete(cell.event!)
+//                }
+//            }else{
+//                print("error accessing user")
+//            }
+//        }catch{
+//            print("Error deleting OtherEvent")
+//        }
+        RealmCRUD.deleteAssignment(assignment: cell.event as! Assignment)
         assignmentsArr[indexPath.section].remove(at: indexPath.row)
     }
     

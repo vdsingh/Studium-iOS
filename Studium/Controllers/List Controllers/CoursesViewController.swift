@@ -128,27 +128,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     }
     
     override func updateModelDelete(at indexPath: IndexPath) {
-        //        delete notifications.
-        let course = self.courses![indexPath.row]
-        print("Course Deleting: \(course.name)")
-        var identifiers: [String] = []
-        
-        identifiers.append(contentsOf: course.notificationIdentifiers)
-        for assignment in course.assignments{
-            identifiers.append(contentsOf: assignment.notificationIdentifiers)
-            RealmCRUD.deleteAssignment(assignment: assignment)
-//            do{
-//                try realm.write{
-//                    realm.delete(assignment)
-//                }
-//            }catch{
-//                print(error)
-//            }
-        }
-        
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
-        
-        super.updateModelDelete(at: indexPath)
+        RealmCRUD.deleteCourse(course: self.courses![indexPath.row])
     }
     
     //MARK: - UI Actions
