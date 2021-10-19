@@ -56,6 +56,14 @@ class AssignmentCell1: DeletableEventCell {
             attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
             assignmentNameLabel.attributedText = attributeString
             icon.tintColor = UIColor(hexString: course.color)
+            
+            if Date() > assignment.endDate {
+//                attributeString.addAttributes(NSAttributedString.Key.foregroundColor., range: NSMakeRange(0, attributeString.length))
+//                assignmentNameLabel.attributedText = attributeString
+                dueDateLabel.textColor = .red
+            }else if Date() + (60*60*24*3) > assignment.endDate{
+                dueDateLabel.textColor = .yellow
+            }
         }
         
         if assignment.scheduledEvents.count == 0{
