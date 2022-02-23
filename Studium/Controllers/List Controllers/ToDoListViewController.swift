@@ -51,7 +51,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
             }
         }
         allEvents[0] = allEvents[0].sorted(by: { $0.startDate.compare($1.startDate) == .orderedAscending })
-        allEvents[1] = allEvents[1].sorted(by: { $0.startDate.compare($1.startDate) == .orderedAscending })
+        allEvents[1] = allEvents[1].sorted(by: { $0.startDate.compare($1.startDate) == .orderedDescending })
 
         tableView.reloadData()
     }
