@@ -38,7 +38,4 @@ class Course: RecurringStudiumEvent{
             self.days.append(day)
         }
     }
-    
-    
-
 }

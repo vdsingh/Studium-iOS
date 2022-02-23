@@ -480,11 +480,9 @@ extension AddAssignmentViewController: CanHandleSwitch{
 extension AddAssignmentViewController: CanHandleInfoDisplay{
     func displayInformation() {
         let alert = UIAlertController(title: "Anti-Procrastination!", message: "Need to schedule time to work on this? Specify what days are best and how long you want to work per day. We'll find time for you to get it done!", preferredStyle: UIAlertController.Style.alert)
-
 //        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
 //            self.deleteAllOtherEvents(isCompleted: isCompleted)
 //          }))
-
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
           }))
         present(alert, animated: true, completion: nil)

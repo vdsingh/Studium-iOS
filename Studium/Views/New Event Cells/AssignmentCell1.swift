@@ -67,7 +67,7 @@ class AssignmentCell1: DeletableEventCell {
         }
         
         if assignment.scheduledEvents.count == 0{
-            print("there are no assignment scheduled events")
+//            print("there are no assignment scheduled events")
             chevronButton.isHidden = true
         }
         self.assignment = assignment

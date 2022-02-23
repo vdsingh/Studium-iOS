@@ -32,7 +32,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if (app.currentUser != nil && app.currentUser!.isLoggedIn){
             window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
 
-        }else{
+        }
+        else{
             window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "PeePoo")
         }
     }

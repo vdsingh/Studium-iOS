@@ -20,14 +20,16 @@ class StartViewController: UIViewController, GIDSignInDelegate{
     
     override func viewDidLoad() {
         print("hi")
-        signUpButton.layer.cornerRadius = 10
-        loginButton.layer.cornerRadius = 10
+        signUpButton.layer.cornerRadius = 5
+        loginButton.layer.cornerRadius = 5
         
         googleSignInButton.style = GIDSignInButtonStyle.wide
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
+        
+        navigationItem.hidesBackButton = false
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor googleUser: GIDGoogleUser!, withError error: Error!) {

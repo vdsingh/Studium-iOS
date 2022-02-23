@@ -17,6 +17,7 @@ class FirstScreenViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
+        //the user has already completed the intro steps, skip this screen.
         if defaults.bool(forKey: "didFinishIntro") == true{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "MainTabController")

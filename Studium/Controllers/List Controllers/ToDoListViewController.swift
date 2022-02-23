@@ -203,13 +203,14 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
                 }else{
                     print("error accessing user")
                 }
-                if(assignment.isAutoscheduled){
-                    tableView.reloadData()
-                }else{
-                    loadAssignments()
-                }
+//                if(assignment.isAutoscheduled){
+//                    tableView.reloadData()
+//                }else{
+//                    loadAssignments()
+//                }
             }
         }else if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell{
+            print("Selected an otherEventCell")
             if let otherEvent = cell.otherEvent{
                 do{
                     try realm.write{
@@ -218,9 +219,13 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
                 }catch{
                     print(error)
                 }
+            }else{
+                print("otherEvent from otherEventCell was not assigned - is nil")
             }
+//            tableView.reloadData()
+//            refreshData()
         }
-//        refreshData()
+        refreshData()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }

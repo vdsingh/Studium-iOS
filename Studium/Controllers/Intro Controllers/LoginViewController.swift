@@ -51,6 +51,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate{
 
           // Automatically sign in the user.
 //        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        
+        navigationItem.hidesBackButton = false
     }
     
 
@@ -83,6 +85,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate{
         }
     }
     
+    @IBAction func signUpButtonPressed(_ sender: UIButton) {
+    }
     @IBAction func noAccountButtonPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "toRegister", sender: self)
     }
