@@ -94,7 +94,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate, selectedCourse: course, scheduleWorkTime: assignment!.autoschedule, workTimeMinutes: assignment!.autoLengthMinutes, workDays: workDaysSelected)
         }else if fromTodoForm{
             //THIS IS BROKEN PLEASE FIX. ASSIGNMENT IS NIL, SO THERE IS NO PARENT COURSE. FIX LATER
-            fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate, selectedCourse: assignment!.parentCourse!, scheduleWorkTime: false, workTimeMinutes: 0, workDays: [])
+            fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate, selectedCourse: nil, scheduleWorkTime: false, workTimeMinutes: 0, workDays: [])
         }else{
             navButton.image = UIImage(systemName: "plus")
         }
@@ -192,7 +192,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
         }
     }
     
-    func fillForm(name: String, additionalDetails: String, alertTimes: [Int], dueDate: Date, selectedCourse: Course, scheduleWorkTime: Bool, workTimeMinutes: Int, workDays: [Int]){
+    func fillForm(name: String, additionalDetails: String, alertTimes: [Int], dueDate: Date, selectedCourse: Course?, scheduleWorkTime: Bool, workTimeMinutes: Int, workDays: [Int]){
         navButton.image = .none
         navButton.title = "Done"
         
@@ -232,7 +232,9 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
 
         }
         
-        self.selectedCourse = selectedCourse
+        if (selectedCourse != nil){
+            self.selectedCourse = selectedCourse
+        }
         
         let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! TextFieldCell
         additionalDetailsCell.textField.text = additionalDetails
