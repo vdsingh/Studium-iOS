@@ -41,14 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.setValue("Guest", forKey: "email")
             print("User is NOT signed in.")
         }
-//        updateTheme(color: UIColor.green)
         print("Did finish launching");
-        
-        
         GIDSignIn.sharedInstance().clientID="221406332443-he18tqfi4jbg40mbgpgmaaebenekh208.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().serverClientID="221406332443-bvb0ag7qn7ie72v0tm7i3dmgu93qidfl.apps.googleusercontent.com"
-
-        
         return true
     }
     

@@ -121,7 +121,7 @@ class DayScheduleViewController: DayViewController{
             }
         }
         for habit in habitsOnDay{
-            if habit.autoschedule{ // auto schedule habit
+//            if habit.autoschedule{ // auto schedule habit
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "EEEE"
                 let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
@@ -142,7 +142,11 @@ class DayScheduleViewController: DayViewController{
                     events.append(newEvent)
                 }
             }
-        }
+        
+//        else{ //BASIC HABIT FUNCTIONALITY
+//
+//            }
+//        }
         return events
     }
     

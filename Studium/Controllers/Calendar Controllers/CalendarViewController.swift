@@ -138,7 +138,6 @@ extension CalendarViewController: FSCalendarDataSource{
 }
 
 extension CalendarViewController: FSCalendarDelegate{
-    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         selectedDay = date
         updateInfo()
