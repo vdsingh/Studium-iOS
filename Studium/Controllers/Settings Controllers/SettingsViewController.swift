@@ -13,6 +13,7 @@ import EventKit
 import GoogleSignIn
 
 class SettingsViewController: UITableViewController, AlertInfoStorer{
+    
     var alertTimes: [Int] = []
     
     
@@ -44,15 +45,21 @@ class SettingsViewController: UITableViewController, AlertInfoStorer{
             return
         }
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-        alertTimes = defaults.value(forKey: K.defaultNotificationTimesKey) as! [Int]
+        
+        //the key for default notification times doesn't exist in UserDefaults
+        if defaults.object(forKey: K.defaultNotificationTimesKey) == nil {
+            defaults.setValue(alertTimes, forKey: K.defaultNotificationTimesKey)
+        }else{
+            alertTimes = defaults.value(forKey: K.defaultNotificationTimesKey) as! [Int]
+        }
 
     }
     override func viewWillAppear(_ animated: Bool){
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    func processAlertTimes() {
+        print("LOG: Setting values for default notification times")
         defaults.setValue(alertTimes, forKey: K.defaultNotificationTimesKey)
     }
     
@@ -211,5 +218,10 @@ class SettingsViewController: UITableViewController, AlertInfoStorer{
         present(refreshAlert, animated: true, completion: nil)
     }
     
-   
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? AlertTableViewController{
+            destinationVC.delegate = self
+        }
+    }
 }

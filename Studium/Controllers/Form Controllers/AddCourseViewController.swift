@@ -10,7 +10,7 @@ protocol CourseRefreshProtocol{
     func loadCourses()
 }
 
-class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
+class AddCourseViewController: MasterForm, LogoStorer{
     var course: Course?
     
     //system image string that identifies what the logo of the course will be.
@@ -43,7 +43,7 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
     var daysSelected: [Int] = []
     var logoString: String = "pencil"
     
-    var alertTimes: [Int] = []
+//    var alertTimes: [Int] = []
     
     var partitionKey: String = ""
     
@@ -73,6 +73,13 @@ class AddCourseViewController: MasterForm, LogoStorer, AlertInfoStorer{
         
         if course != nil{
             fillForm(with: course!)
+        }else{
+            
+            //we are creating a new course
+            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
+                print("LOG: Loading User's Default Notification Times for Course Form.")
+                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
+            }
         }
     }
     

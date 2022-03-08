@@ -6,9 +6,31 @@
 //  Copyright © 2020 Vikram Singh. All rights reserved.
 //
 
+
+//HOW TO USE THIS CLASS:
+//1: Conform to AlertInfoStorer protocol - Whenever we want to select alert times, the class we are selecting from must obey the "AlertInfoStorer" protocol, which requires the class to have an integer array dedicated to storing the alertTimes that are selected on this screen as well as informing this screen about the alertTimes already selected.
+//2: Set the delegate for this class to the class that conforms to the AlertInfoStorer protocol in the prepare method for preparing for segue. This usually just looks like:
+
+//override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//    if let destinationVC = segue.destination as? AlertTableViewController{
+//        destinationVC.delegate = self
+//        //            destinationVC.alertTimes = alertTimes
+//    }
+//}
+
+//3: Make sure that alertTimes are stored somewhere for future form fill functionality (an object or UserDefaults for example). If the delegate's alertTimes array is filled with the correct data before segueing to this screen, then this screen will automatically check the alert times that are associated with that data.
+//4: If necessary, implement processAlertTimes(). Right before this screen will be dismissed, processAlertTimes() will be called, in which you can store the data as necessary (UserDefaults usually).
+
+//Example: We want to store the alert times for an assignment.
+//1: Make AddAssignmentViewController conform to AlertInfoStorer protocol (it then has var alertTimes: [Int])
+//2: Before segueing into this screen, make sure alertTimes is populated with the pre-existing information. If the user has already indicated that they want to be notified about the assignment due date 5 minutes before and 15 minutes before, then alertTimes should equal [5, 15] before we segue here
+//3: When we leave this screen and return back to AddAssignmentViewController, alertTimes will be updated with the edits we made here. Store that information in the Assignment object so that it can be kept and used for later.
+
+
 import UIKit
 protocol AlertInfoStorer{
     var alertTimes: [Int] {get set}
+    func processAlertTimes()
 }
 class AlertTableViewController: UITableViewController {
     var delegate: AlertInfoStorer?
@@ -47,6 +69,7 @@ class AlertTableViewController: UITableViewController {
             }
         }
         delegate!.alertTimes = alertTimes
+        delegate!.processAlertTimes()
     }
     
     // MARK: - Table view data source

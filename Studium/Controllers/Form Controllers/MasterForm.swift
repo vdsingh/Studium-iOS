@@ -12,7 +12,9 @@ import UserNotifications
 import RealmSwift
 
 //characteristics of all forms.
-class MasterForm: UITableViewController, UNUserNotificationCenterDelegate{
+class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, AlertInfoStorer{
+    var alertTimes: [Int] = []
+    
     //reference to the realm database.
     let app = App(id: Secret.appID)
     
@@ -65,6 +67,11 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate{
             }
         }
     }
+    
+    func processAlertTimes() {
+        
+    }
+    
 }
 
 

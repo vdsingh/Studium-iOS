@@ -18,7 +18,7 @@ protocol HabitRefreshProtocol{
 }
 
 //Class used to manage the form for adding a Habit. The form is a tableView form, similar to adding an event in
-class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
+class AddHabitViewController: MasterForm, LogoStorer{
     
     var habit: Habit?
     
@@ -67,7 +67,7 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
     var daysSelected: [Int] = []
     
     //array that keeps track of when the user should be sent notifications about this habit
-    var alertTimes: [Int] = []
+//    var alertTimes: [Int] = []
     
     @IBOutlet weak var navButton: UIBarButtonItem!
     override func viewDidLoad() {
@@ -105,6 +105,12 @@ class AddHabitViewController: MasterForm, LogoStorer, AlertInfoStorer{
                 tableView.reloadData()
             }
             fillForm(with: habit!)
+        }else{
+            //We are creating a new habit
+            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
+                print("LOG: Loading User's Default Notification Times for Habit Form.")
+                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
+            }
         }
     }
     

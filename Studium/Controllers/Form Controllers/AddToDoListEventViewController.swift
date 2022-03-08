@@ -13,7 +13,7 @@ protocol ToDoListRefreshProtocol{
     func refreshData()
 }
 
-class AddToDoListEventViewController: MasterForm, AlertInfoStorer {
+class AddToDoListEventViewController: MasterForm {
     
     //tracks the event being edited, if one is being edited.
     var otherEvent: OtherEvent?
@@ -28,7 +28,7 @@ class AddToDoListEventViewController: MasterForm, AlertInfoStorer {
     var startDate: Date = Date()
     var endDate: Date = Date()
     
-    var alertTimes: [Int] = []
+//    var alertTimes: [Int] = []
     
     //Error string that tells the user what is wrong
     var errors: String = ""
@@ -54,6 +54,11 @@ class AddToDoListEventViewController: MasterForm, AlertInfoStorer {
             fillForm(with: otherEvent!)
         }else{
             navButton.image = UIImage(systemName: "plus")
+            //we are creating a new ToDoEvent
+            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
+                print("LOG: Loading User's Default Notification Times for ToDoEvent Form.")
+                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
+            }
         }
     }
     

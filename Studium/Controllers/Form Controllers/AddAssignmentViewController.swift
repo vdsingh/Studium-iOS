@@ -6,7 +6,7 @@ protocol AssignmentRefreshProtocol{
     func loadAssignments()
 }
 
-class AddAssignmentViewController: MasterForm, AlertInfoStorer{
+class AddAssignmentViewController: MasterForm{
     //holds the assignment being edited if an assignment is being edited.
     var assignment: Assignment?
     
@@ -45,7 +45,7 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
     var name: String = ""
     var additionalDetails: String = ""
     
-    var alertTimes: [Int] = []
+//    var alertTimes: [Int] = []
     
     @IBOutlet weak var navButton: UIBarButtonItem!
     
@@ -96,6 +96,13 @@ class AddAssignmentViewController: MasterForm, AlertInfoStorer{
             //THIS IS BROKEN PLEASE FIX. ASSIGNMENT IS NIL, SO THERE IS NO PARENT COURSE. FIX LATER
             fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate, selectedCourse: nil, scheduleWorkTime: false, workTimeMinutes: 0, workDays: [])
         }else{
+            //we are creating a new assignment.
+            
+            //get the user's default notification times if they exist and fill them in!
+            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
+                print("LOG: Loading User's Default Notification Times for Assignment Form.")
+                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
+            }
             navButton.image = UIImage(systemName: "plus")
         }
     }
