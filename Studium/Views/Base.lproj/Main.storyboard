@@ -16,11 +16,11 @@
             <objects>
                 <viewController id="TFg-b8-3jm" customClass="ThemesViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g8n-UN-wUG">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hV2-V9-z8I">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -79,6 +79,7 @@
                     <connections>
                         <segue destination="TFg-b8-3jm" kind="show" identifier="toThemePage" id="iaC-oC-tx9"/>
                         <segue destination="13W-JO-cIR" kind="showDetail" identifier="toWakeUpTimes" id="5zV-Mg-OtU"/>
+                        <segue destination="hFo-id-GNg" kind="show" identifier="toAlertSelection" id="dgf-qv-Fcf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lhd-Sr-54e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1321,7 +1322,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="17s-bD-2iH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6255.072463768116" y="2321.6517857142858"/>
+            <point key="canvasLocation" x="7520" y="2554"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Xd5-9U-6VH">
@@ -1465,7 +1466,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="h8J-RB-4SC"/>
+        <segue reference="dgf-qv-Fcf"/>
         <segue reference="T8N-JJ-KKU"/>
         <segue reference="9lJ-uH-c9Z"/>
         <segue reference="5zV-Mg-OtU"/>

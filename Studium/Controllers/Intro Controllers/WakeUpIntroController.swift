@@ -12,7 +12,7 @@ import UIKit
 //this controls the page that the user sees in the beginning, when they must enter what times they wake up at.
 class WakeUpIntroController: UIViewController{
     
-    //reference to defaults because that is where we will be storing the time data for when the user wakes up
+    //reference to defaults - that is where we will be storing the time data for when the user wakes up
     let defaults = UserDefaults.standard
     
     //reference to certain UIKit elements that we need access to.
