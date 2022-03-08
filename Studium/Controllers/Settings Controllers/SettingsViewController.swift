@@ -12,19 +12,21 @@ import UIKit
 import EventKit
 import GoogleSignIn
 
-class SettingsViewController: UITableViewController{
+class SettingsViewController: UITableViewController, AlertInfoStorer{
+    var alertTimes: [Int] = []
     
     
     var realm: Realm! //Link to the realm where we are storing information
     let app = App(id: Secret.appID)
     
+    //reference to defaults
     let defaults = UserDefaults.standard
     
-    let cellData: [[String]] = [["Theme", "Reset Wake Up Times"],
+    let cellData: [[String]] = [["Theme", "Set Default Notifications","Reset Wake Up Times"],
                                 ["Sync to Apple Calendar"],
                                 ["Delete All Assignments","Delete Completed Assignments",  "Delete All Other Events", "Delete All Completed Other Events"],
                                 ["Email", "Sign Out"]]
-    let cellLinks: [[String]] = [["toThemePage", "toWakeUpTimes", ""],
+    let cellLinks: [[String]] = [["toThemePage","toAlertSelection", "toWakeUpTimes", ""],
                                 [""],
                                 ["", "", "", ""],
                                 ["", "toLoginScreen"]]
@@ -42,11 +44,16 @@ class SettingsViewController: UITableViewController{
             return
         }
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-
+        alertTimes = defaults.value(forKey: K.defaultNotificationTimesKey) as! [Int]
 
     }
     override func viewWillAppear(_ animated: Bool){
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        defaults.setValue(alertTimes, forKey: K.defaultNotificationTimesKey)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -129,6 +136,8 @@ class SettingsViewController: UITableViewController{
                     print("error syncing to apple calendar: \(String(describing: error))")
                 }
             }
+        }else if cellData[indexPath.section][indexPath.row] == "Set Default Notifications"{
+            
         }
     }
     

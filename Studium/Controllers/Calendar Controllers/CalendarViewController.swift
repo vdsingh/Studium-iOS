@@ -35,12 +35,11 @@ class CalendarViewController: UIViewController{
         calendar.appearance.headerTitleColor = .label
         
         
-        
+        //TableView Related Stuff:
+//        tableView.register(UINib(nibName: K.assignmentCellID, bundle: nil), forCellReuseIdentifier: "Cell")
+        tableView.register(UINib(nibName: K.genericCellID, bundle: nil), forCellReuseIdentifier: K.genericCellID)
         tableView.delegate = self
-//        calendar.delegate = self
         tableView.dataSource = self
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,10 +96,25 @@ class CalendarViewController: UIViewController{
         }
     }
     
+    //This will do courses and habits at the same time.
+    func addHabits(){
+        let allHabits = realm.objects(Habit.self)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        
+        for habit in allHabits{
+            if(habit.days.contains(selectedDay.weekday)){
+                allEventsInDay.append(habit)
+            }
+        }
+    }
+    
     func updateInfo(){
         allEventsInDay = []
         addAssignments()
         addCourses()
+        addHabits()
         allEventsInDay = allEventsInDay.sorted(by: { $0.startDate < $1.startDate })
 
         tableView.reloadData()
@@ -109,10 +123,16 @@ class CalendarViewController: UIViewController{
 
 extension CalendarViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:  "Cell", for: indexPath)
-        let correspondingEvent = allEventsInDay[indexPath.row]
-        cell.textLabel?.text = correspondingEvent.name
+        let cell = tableView.dequeueReusableCell(withIdentifier:  K.genericCellID, for: indexPath) as! GenericTableViewCell
+        let correspondingEvent: StudiumEvent = allEventsInDay[indexPath.row]
+//        cell.loadData(assignment: correspondingEvent)
+        cell.loadData(event: correspondingEvent)
+//        cell.textLabel?.text = correspondingEvent.name
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
@@ -141,5 +161,7 @@ extension CalendarViewController: FSCalendarDelegate{
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         selectedDay = date
         updateInfo()
+        
+        
     }
 }
