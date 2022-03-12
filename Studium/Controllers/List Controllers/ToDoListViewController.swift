@@ -15,6 +15,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     var assignments: Results<Assignment>? //Auto updating array linked to the realm
     var otherEvents: Results<OtherEvent>?
     
+    //contains all the StudiumEvents to be listed on this screen (ToDoEvents and Assignments). allEvents[0] is the uncompleted events. allEvents[1] is the completed events.
     var allEvents: [[StudiumEvent]] = [[],[]]
     
 
@@ -29,7 +30,9 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     }
     
     func refreshData(){
+        //allEvents will contain the information in assignmentsArr. The reason that we need to fill up assignmentsArr is so that the super class, AssignmentHolderList, can handle the expansion and collapse of autoscheduled events around certain assignments.
         allEvents = [[],[]]
+
         let assignments = getAssignments()
         let otherEvents = getOtherEvents()
         
@@ -43,6 +46,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
                 allEvents[0].append(assignment)
             }
         }
+        
         for otherEvent in otherEvents{
             if otherEvent.complete{
                 allEvents[1].append(otherEvent)
@@ -63,24 +67,23 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     
     override func updateModelDelete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        
-            do{
-                try self.realm.write{
-                    if let assignment = cell.event as? Assignment{
-                        guard let course = assignment.parentCourse else{
-                            print("Error accessing parent course in ToDoListViewController")
-                            return
-                        }
-                        let assignmentIndex = course.assignments.index(of: assignment)
-                        course.assignments.remove(at: assignmentIndex!)
-                        assignment.deleteNotifications()
+        do{
+            try self.realm.write{
+                if let assignment = cell.event as? Assignment{
+                    guard let course = assignment.parentCourse else{
+                        print("Error accessing parent course in ToDoListViewController")
+                        return
                     }
-                    cell.event!.deleteNotifications()
-                    self.realm.delete(cell.event!)
+                    let assignmentIndex = course.assignments.index(of: assignment)
+                    course.assignments.remove(at: assignmentIndex!)
+                    assignment.deleteNotifications()
                 }
-            }catch{
-                print("Error deleting OtherEvent")
+                cell.event!.deleteNotifications()
+                self.realm.delete(cell.event!)
             }
+        }catch{
+            print("Error deleting OtherEvent")
+        }
         allEvents[indexPath.section].remove(at: indexPath.row)
     }
     
@@ -183,7 +186,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1{
-            if let assignment = assignmentCell.assignment{
+            if let assignment = assignmentCell.event as? Assignment{
                 if let user = app.currentUser {
                     realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
                     do{
@@ -192,22 +195,21 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
                                 assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
                             }
                             assignment.complete = !assignment.complete
-                            print("assignment scheduledEvents length: \(assignment.scheduledEvents.count)")
-                            print("user changed assignment \(assignment.name) completeness")
-        //                    print("the user id is: \(user.id)")
-        //                    print("saved course with partitionKey: \(course._partitionKey)")
                         }
                     }catch{
-                        print("error saving course: \(error)")
+                        print("ERROR: error marking assignment complete")
                     }
                 }else{
-                    print("error accessing user")
+                    print("ERROR: error accessing user")
                 }
-//                if(assignment.isAutoscheduled){
-//                    tableView.reloadData()
-//                }else{
+                
+                //if the assignment is autoscheduled, we don't want to call loadAssignments() because all autoscheduled events will be removed from the data, and thus the tableView. We'll have index and UI issues.
+                if(assignment.isAutoscheduled){
+                    tableView.reloadData()
+                }else{
 //                    loadAssignments()
-//                }
+                    refreshData()
+                }
             }
         }else if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell{
             print("Selected an otherEventCell")
@@ -220,12 +222,11 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
                     print(error)
                 }
             }else{
-                print("otherEvent from otherEventCell was not assigned - is nil")
+                print("ERROR: otherEvent from otherEventCell was not assigned - is nil")
             }
-//            tableView.reloadData()
-//            refreshData()
+            tableView.reloadData()
+            refreshData()
         }
-        refreshData()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -233,23 +234,6 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
 
 extension ToDoListViewController: AssignmentRefreshProtocol{
     func loadAssignments() {
-//        assignments = selectedCourse?.assignments.sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
-////        assignments = selectedCourse?.assignments
-//        assignmentsArr = [[],[]]
-//        for assignment in assignments!{
-//            //skip the autoscheduled events.
-//            if assignment.isAutoscheduled{
-//                continue
-//            }
-//            if assignment.complete == true && !assignment.isAutoscheduled{
-////                if!assignment.isAutoscheduled {
-//                    assignmentsArr[1].append(assignment)
-////                }
-//            }else{
-//                assignmentsArr[0].append(assignment)
-//            }
-//        }
-//        reloadData()
         refreshData()
     }
 }
@@ -266,11 +250,31 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
                 index += 1
             }
         }else{
-            print("- Error accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
+            print("ERROR: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
         }
 
         tableView.reloadData()
     }
+    //
+//    func handleOpenAutoEvents(assignment: Assignment) {
+//
+//        let arrayIndex = assignment.complete ? 1 : 0
+//        print("Handle opening auto events")
+//
+//        if let ind = assignmentsArr[arrayIndex].firstIndex(of: assignment){
+//            var index = ind + 1
+//            for auto in assignment.scheduledEvents{
+//                assignmentsArr[arrayIndex].insert(auto, at: index)
+//                index += 1
+//            }
+//        }else{
+//            print("ERROR: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
+//        }
+//        tableView.reloadData()
+//    }
+    //
+    
+    
     
     func handleCloseAutoEvents(assignment: Assignment) {
         print("Handle close auto events")
@@ -279,8 +283,40 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
         let index = allEvents[arrayIndex].firstIndex(of: assignment)!
 
         for _ in assignment.scheduledEvents{
+            print("INDEX: \(index)")
             allEvents[arrayIndex].remove(at: index + 1)
         }
         tableView.reloadData()
     }
 }
+
+//extension AssignmentsViewController: AssignmentCollapseDelegate{
+//    func handleOpenAutoEvents(assignment: Assignment) {
+//
+//        let arrayIndex = assignment.complete ? 1 : 0
+//        print("Handle opening auto events")
+//
+//        if let ind = assignmentsArr[arrayIndex].firstIndex(of: assignment){
+//            var index = ind + 1
+//            for auto in assignment.scheduledEvents{
+//                assignmentsArr[arrayIndex].insert(auto, at: index)
+//                index += 1
+//            }
+//        }else{
+//            print("ERROR: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
+//        }
+//        tableView.reloadData()
+//    }
+//
+//    func handleCloseAutoEvents(assignment: Assignment) {
+//        print("Handle close auto events")
+//
+//        let arrayIndex = assignment.complete ? 1 : 0
+//        let index = assignmentsArr[arrayIndex].firstIndex(of: assignment)!
+//
+//        for _ in assignment.scheduledEvents{
+//            assignmentsArr[arrayIndex].remove(at: index + 1)
+//        }
+//        tableView.reloadData()
+//    }
+//}

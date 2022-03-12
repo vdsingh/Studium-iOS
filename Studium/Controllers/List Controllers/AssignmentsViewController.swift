@@ -73,7 +73,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         super.idString = "AssignmentCell"
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell1
         let assignment = assignmentsArr[indexPath.section][indexPath.row]
-        cell.assignment = assignment
+        cell.event = assignment
         cell.assignmentCollapseDelegate = self
         cell.loadData(assignment: assignment)
         
@@ -105,16 +105,14 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
             realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
             do{
                 try realm.write{
+                    //if the assignments autoscheduled events list is expanded, collapse it before we mark it complete and move it.
                     if assignmentCell.autoEventsOpen{
                         assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
                     }
                     assignment.complete = !assignment.complete
                     
                     print("assignment scheduledEvents length: \(assignment.scheduledEvents.count)")
-//                    for event in assignment.scheduledEvents{
-//                        event.complete = true
-//                        print("Marked worktime complete")
-//                    }
+
                     print("user changed assignment \(assignment.name) completeness")
                 }
             }catch{
@@ -170,28 +168,6 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     override func updateModelDelete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-//        do{
-//            if let user = app.currentUser {
-//                realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-//                try self.realm.write{
-//                    if let assignment = cell.event as? Assignment{
-//                        guard let course = assignment.parentCourse else{
-//                            print("Error accessing parent course in AssignmentViewController")
-//                            return
-//                        }
-//                        let assignmentIndex = course.assignments.index(of: assignment)
-//                        course.assignments.remove(at: assignmentIndex!)
-//                        assignment.deleteNotifications()
-//                    }
-//                    cell.event!.deleteNotifications()
-//                    self.realm.delete(cell.event!)
-//                }
-//            }else{
-//                print("error accessing user")
-//            }
-//        }catch{
-//            print("Error deleting OtherEvent")
-//        }
         RealmCRUD.deleteAssignment(assignment: cell.event as! Assignment)
         assignmentsArr[indexPath.section].remove(at: indexPath.row)
     }
@@ -226,7 +202,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
 //This extension ensures that the view controller can handle what happens when user wants to collapsed autoscheduled events.
 extension AssignmentsViewController: AssignmentCollapseDelegate{
     func handleOpenAutoEvents(assignment: Assignment) {
-        
+
         let arrayIndex = assignment.complete ? 1 : 0
         print("Handle opening auto events")
         
@@ -237,15 +213,14 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
                 index += 1
             }
         }else{
-            print("- Error accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
+            print("ERROR: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
         }
-
         tableView.reloadData()
     }
-    
+
     func handleCloseAutoEvents(assignment: Assignment) {
         print("Handle close auto events")
-        
+
         let arrayIndex = assignment.complete ? 1 : 0
         let index = assignmentsArr[arrayIndex].firstIndex(of: assignment)!
 
@@ -254,7 +229,5 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
         }
         tableView.reloadData()
     }
-    
-    
 }
 
