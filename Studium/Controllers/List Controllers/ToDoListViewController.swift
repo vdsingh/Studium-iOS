@@ -29,6 +29,10 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         refreshData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        closeAllExpandedAssignments()
+    }
+    
     func refreshData(){
         //allEvents will contain the information in assignmentsArr. The reason that we need to fill up assignmentsArr is so that the super class, AssignmentHolderList, can handle the expansion and collapse of autoscheduled events around certain assignments.
         allEvents = [[],[]]
@@ -241,7 +245,6 @@ extension ToDoListViewController: AssignmentRefreshProtocol{
 extension ToDoListViewController: AssignmentCollapseDelegate{
     func handleOpenAutoEvents(assignment: Assignment) {
         let arrayIndex = assignment.complete ? 1 : 0
-        print("Handle opening auto events")
         
         if let ind = allEvents[arrayIndex].firstIndex(of: assignment){
             var index = ind + 1
@@ -255,29 +258,8 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
 
         tableView.reloadData()
     }
-    //
-//    func handleOpenAutoEvents(assignment: Assignment) {
-//
-//        let arrayIndex = assignment.complete ? 1 : 0
-//        print("Handle opening auto events")
-//
-//        if let ind = assignmentsArr[arrayIndex].firstIndex(of: assignment){
-//            var index = ind + 1
-//            for auto in assignment.scheduledEvents{
-//                assignmentsArr[arrayIndex].insert(auto, at: index)
-//                index += 1
-//            }
-//        }else{
-//            print("ERROR: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
-//        }
-//        tableView.reloadData()
-//    }
-    //
-    
-    
     
     func handleCloseAutoEvents(assignment: Assignment) {
-        print("Handle close auto events")
         
         let arrayIndex = assignment.complete ? 1 : 0
         let index = allEvents[arrayIndex].firstIndex(of: assignment)!
@@ -287,35 +269,15 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
         }
         tableView.reloadData()
     }
-}
+    
+    func closeAllExpandedAssignments(){
+        for cell in tableView.visibleCells{
+            if let assignmentCell = cell as? AssignmentCell1{
 
-//extension AssignmentsViewController: AssignmentCollapseDelegate{
-//    func handleOpenAutoEvents(assignment: Assignment) {
-//
-//        let arrayIndex = assignment.complete ? 1 : 0
-//        print("Handle opening auto events")
-//
-//        if let ind = assignmentsArr[arrayIndex].firstIndex(of: assignment){
-//            var index = ind + 1
-//            for auto in assignment.scheduledEvents{
-//                assignmentsArr[arrayIndex].insert(auto, at: index)
-//                index += 1
-//            }
-//        }else{
-//            print("ERROR: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
-//        }
-//        tableView.reloadData()
-//    }
-//
-//    func handleCloseAutoEvents(assignment: Assignment) {
-//        print("Handle close auto events")
-//
-//        let arrayIndex = assignment.complete ? 1 : 0
-//        let index = assignmentsArr[arrayIndex].firstIndex(of: assignment)!
-//
-//        for _ in assignment.scheduledEvents{
-//            assignmentsArr[arrayIndex].remove(at: index + 1)
-//        }
-//        tableView.reloadData()
-//    }
-//}
+                if assignmentCell.autoEventsOpen{
+                    assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
+                }
+            }
+        }
+    }
+}
