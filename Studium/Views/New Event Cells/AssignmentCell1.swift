@@ -92,20 +92,22 @@ class AssignmentCell1: DeletableEventCell {
         dueDateLabel.text = assignment.endDate.format(with: "MMM d, h:mm a")
 
         if assignment.complete{
+            //if assignment is complete, make it's background color and icon color gray
             background.backgroundColor = .gray
             icon.tintColor = .gray
+            
+            //make the lateness indicator gray- it's not relevant since the assignment has already been completed
+            latenessIndicator.tintColor = .gray
         }else{
             background.backgroundColor = courseColor
             assignmentNameAttributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, assignmentNameAttributeString.length))
             icon.tintColor = courseColor
             
             
-            //If our assignment is past due, make the due date text red. If it is due soon, make the due date text yellow.
+            //If our assignment is past due, make the lateness indicator red. If it is due soon, make the lateness indicator yellow. Otherwise, make it green.
             if Date() > assignment.endDate {
-//                dueDateLabel.textColor = .red
                 latenessIndicator.tintColor = .red
             }else if Date() + (60*60*24*3) > assignment.endDate{
-//                dueDateLabel.textColor = .yellow
                 latenessIndicator.tintColor = .yellow
             }else{
                 latenessIndicator.tintColor = .green

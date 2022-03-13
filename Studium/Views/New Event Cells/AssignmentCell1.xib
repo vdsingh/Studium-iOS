@@ -26,12 +26,24 @@
                     <stackView opaque="NO" contentMode="left" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="M7B-77-8fv">
                         <rect key="frame" x="20" y="61" width="402" height="50"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="UV7-2b-t3a">
-                                <rect key="frame" x="0.0" y="0.5" width="15" height="49"/>
+                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="rRI-if-vrz">
+                                <rect key="frame" x="0.0" y="0.0" width="15" height="50"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" id="pTg-gp-6El">
+                                        <rect key="frame" x="0.0" y="1" width="21" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" id="WU4-W6-TQJ">
+                                        <rect key="frame" x="3" y="13.5" width="15" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="15" id="nY1-3Y-0ol"/>
+                                    <constraint firstAttribute="height" constant="50" id="Lip-yP-R03"/>
+                                    <constraint firstAttribute="width" constant="15" id="wIV-P9-AJy"/>
                                 </constraints>
-                            </imageView>
+                            </view>
                             <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="u9D-Ia-LNc">
                                 <rect key="frame" x="30" y="0.0" width="50" height="50"/>
                                 <subviews>
@@ -51,25 +63,25 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="IUd-aq-cj6">
-                                <rect key="frame" x="95" y="0.0" width="262" height="50"/>
+                                <rect key="frame" x="95" y="0.0" width="242" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Homework 4 Primer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pF6-1U-gVs">
-                                        <rect key="frame" x="0.0" y="0.0" width="262" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="242" height="25.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yeo-7f-SgP">
-                                        <rect key="frame" x="0.0" y="28.5" width="262" height="21.5"/>
+                                        <rect key="frame" x="0.0" y="28.5" width="242" height="21.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="COMPSCI 383" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuB-Zg-viJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="134" height="21.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="114" height="21.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Sep 26, 11:59PM" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Syo-Rz-w2J">
-                                                <rect key="frame" x="134" y="0.0" width="128" height="21.5"/>
+                                                <rect key="frame" x="114" y="0.0" width="128" height="21.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -79,9 +91,9 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIm-12-tok">
-                                <rect key="frame" x="372" y="0.0" width="30" height="50"/>
+                                <rect key="frame" x="352" y="0.0" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="pOu-zI-a7S"/>
+                                    <constraint firstAttribute="width" constant="50" id="pOu-zI-a7S"/>
                                     <constraint firstAttribute="height" constant="50" id="peH-Sf-fA9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -120,7 +132,7 @@
                 <outlet property="courseNameLabel" destination="wuB-Zg-viJ" id="kav-49-E8D"/>
                 <outlet property="dueDateLabel" destination="Syo-Rz-w2J" id="XxX-1p-xFd"/>
                 <outlet property="icon" destination="PA4-b9-1uZ" id="YY5-bY-Teo"/>
-                <outlet property="latenessIndicator" destination="UV7-2b-t3a" id="Cvd-hd-Hmf"/>
+                <outlet property="latenessIndicator" destination="WU4-W6-TQJ" id="U4k-wh-dyc"/>
             </connections>
             <point key="canvasLocation" x="198.55072463768118" y="133.92857142857142"/>
         </tableViewCell>
