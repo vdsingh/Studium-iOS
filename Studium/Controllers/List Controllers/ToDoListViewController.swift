@@ -283,7 +283,6 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
         let index = allEvents[arrayIndex].firstIndex(of: assignment)!
 
         for _ in assignment.scheduledEvents{
-            print("INDEX: \(index)")
             allEvents[arrayIndex].remove(at: index + 1)
         }
         tableView.reloadData()
