@@ -142,7 +142,6 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     //loads all non-autoscheduled assignments by accessing the selected course.
     func loadAssignments(){
         assignments = selectedCourse?.assignments.sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
-//        assignments = selectedCourse?.assignments
         assignmentsArr = [[],[]]
         for assignment in assignments!{
             //skip the autoscheduled events.
@@ -150,13 +149,13 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
                 continue
             }
             if assignment.complete == true && !assignment.isAutoscheduled{
-//                if!assignment.isAutoscheduled {
-                    assignmentsArr[1].append(assignment)
-//                }
+                assignmentsArr[1].append(assignment)
             }else{
                 assignmentsArr[0].append(assignment)
             }
         }
+        
+        
         reloadData()
     }
     

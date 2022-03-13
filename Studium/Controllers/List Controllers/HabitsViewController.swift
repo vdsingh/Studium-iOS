@@ -13,7 +13,10 @@ import UIKit
 class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     //let realm = try! Realm()
     var habits: Results<Habit>?
+    var habitsArr: [[Habit]] = [[],[]]
     let defaults = UserDefaults.standard
+    
+    let sectionHeaders: [String] = ["Today", "Not Today"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,36 +48,45 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     
     func loadHabits(){
         habits = realm.objects(Habit.self)
+        habitsArr = [[],[]]
+        for habit in habits!{
+            if habit.days.contains(Date().week){
+                habitsArr[0].append(habit)
+            }else{
+                habitsArr[1].append(habit)
+            }
+        }
+        
+        //sort all the habits happening today by startTime (the ones that are first come first in the list)
+        habitsArr[0].sort(by: {$0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm")})
         tableView.reloadData()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return sectionHeaders.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return habits?.count ?? 1
+        return habitsArr[section].count
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! HabitCell
-//        if let habit = habits?[indexPath.row]{
-//            cell.loadData(from: habit)
-//        }
-//        return cell
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! RecurringEventCell
-        if let habit = habits?[indexPath.row]{
-            cell.event = habit
-            //            cell.deloadData()
-            cell.loadData(courseName: habit.name, location: habit.location, startTime: habit.startDate, endTime: habit.endDate, days: habit.days, colorHex: habit.color, recurringEvent: habit, systemImageString: habit.systemImageString)
-        }
+        let habit = habitsArr[indexPath.section][indexPath.row]
+        cell.event = habit
+        cell.loadData(courseName: habit.name, location: habit.location, startTime: habit.startDate, endTime: habit.endDate, days: habit.days, colorHex: habit.color, recurringEvent: habit, systemImageString: habit.systemImageString)
+    
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionHeaders[section]
     }
     
     
@@ -91,17 +103,14 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     }
     
     override func updateModelDelete(at indexPath: IndexPath) {
-        let habit = self.habits![indexPath.row]
-        //        print("Course Deleting: \(course.name)")
+        let habit = self.habitsArr[indexPath.section][indexPath.row]
         do{
             try realm.write{
                 habit.deleteNotifications()
             }
         }catch{
-            print("error deleting habit.")
+            print("ERROR: error deleting habit notifications.")
         }
-        
-        
         super.updateModelDelete(at: indexPath)
     }
 }

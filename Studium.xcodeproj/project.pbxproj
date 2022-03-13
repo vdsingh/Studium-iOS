@@ -17,7 +17,6 @@
 		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
 		1649A46427DC7B3B00B75481 /* ColorPickerCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1649A46227DC7B3B00B75481 /* ColorPickerCell2.swift */; };
 		1649A46527DC7B3B00B75481 /* ColorPickerCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1649A46327DC7B3B00B75481 /* ColorPickerCell2.xib */; };
-		1649A46727DC85B000B75481 /* AssignmentHolderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1649A46627DC85B000B75481 /* AssignmentHolderList.swift */; };
 		164F62F324DF7BFC00DC8169 /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62F224DF7BFC00DC8169 /* NotificationsController.swift */; };
 		164F62F624E4D1D500DC8169 /* LogoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62F424E4D1D500DC8169 /* LogoCell.swift */; };
 		164F62F724E4D1D500DC8169 /* LogoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164F62F524E4D1D500DC8169 /* LogoCell.xib */; };
@@ -112,7 +111,6 @@
 		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
 		1649A46227DC7B3B00B75481 /* ColorPickerCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCell2.swift; sourceTree = "<group>"; };
 		1649A46327DC7B3B00B75481 /* ColorPickerCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerCell2.xib; sourceTree = "<group>"; };
-		1649A46627DC85B000B75481 /* AssignmentHolderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentHolderList.swift; sourceTree = "<group>"; };
 		164F62F224DF7BFC00DC8169 /* NotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
 		164F62F424E4D1D500DC8169 /* LogoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoCell.swift; sourceTree = "<group>"; };
 		164F62F524E4D1D500DC8169 /* LogoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoCell.xib; sourceTree = "<group>"; };
@@ -373,7 +371,6 @@
 				1693E758247A59B2003D4702 /* ToDoListViewController.swift */,
 				1693E747247A417B003D4702 /* HabitsViewController.swift */,
 				16C05CF6264F3AF3004C9629 /* TestViewController.swift */,
-				1649A46627DC85B000B75481 /* AssignmentHolderList.swift */,
 			);
 			path = "List Controllers";
 			sourceTree = "<group>";
@@ -682,7 +679,6 @@
 				16C445AB266433D1006076C1 /* BasicCell.swift in Sources */,
 				1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */,
 				165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */,
-				1649A46727DC85B000B75481 /* AssignmentHolderList.swift in Sources */,
 				1686DB822482A0A500FA99DB /* DaySelectorCell.swift in Sources */,
 				1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */,
 				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,

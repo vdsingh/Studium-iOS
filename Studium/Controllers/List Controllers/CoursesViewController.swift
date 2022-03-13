@@ -13,7 +13,9 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     
     //let realm = try! Realm() //Link to the realm where we are storing information
     var courses: Results<Course>? //Auto updating array linked to the realm
+    var coursesArr: [[Course]] = [[],[]]
     
+    let sectionHeaders = ["Today", "Not Today"]
     
     let defaults = UserDefaults.standard
     
@@ -78,20 +80,23 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         //build the cells
         //let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! RecurringEventCell
-        if let course = courses?[indexPath.row]{
-            cell.event = course
-            //            cell.deloadData()
-            cell.loadData(courseName: course.name, location: course.location, startTime: course.startDate, endTime: course.endDate, days: course.days, colorHex: course.color, recurringEvent: course, systemImageString: course.systemImageString)
-        }
+        let course = coursesArr[indexPath.section][indexPath.row]
+        cell.event = course
+        cell.loadData(courseName: course.name, location: course.location, startTime: course.startDate, endTime: course.endDate, days: course.days, colorHex: course.color, recurringEvent: course, systemImageString: course.systemImageString)
+    
         return cell
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return sectionHeaders.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return courses?.count ?? 1
+        return coursesArr[section].count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionHeaders[section]
     }
     
     //MARK: - Delegate Methods
@@ -102,7 +107,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? AssignmentsViewController {
             if let indexPath = tableView.indexPathForSelectedRow{
-                destinationVC.selectedCourse = courses![indexPath.row]
+                destinationVC.selectedCourse = coursesArr[indexPath.section][indexPath.row]
             }
         }
     }
@@ -110,7 +115,19 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     //MARK: - CRUD Methods
     func loadCourses(){
         courses = realm.objects(Course.self) //fetching all objects of type Course and updating array with it.
-        //        print(courses)
+        coursesArr = [[],[]]
+        for course in courses!{
+            if course.days.contains(Date().week){
+//                coursesArr.insert(course, at: 0)
+                coursesArr[0].append(course)
+            }else{
+//                coursesArr.append(course)
+                coursesArr[1].append(course)
+            }
+        }
+        
+        //sort all the habits happening today by startTime (the ones that are first come first in the list)
+        coursesArr[0].sort(by: {$0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm")})
         tableView.reloadData()
     }
     

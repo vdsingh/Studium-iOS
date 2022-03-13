@@ -45,7 +45,6 @@ class RecurringEventCell: DeletableEventCell {
         nameLabel.textColor = UIColor(hexString: colorHex)
         locationLabel.text = recurringEvent.location
 
-        print("location:\(location)end")
         var timeText = startTime.format(with: "h:mm a")
         timeText.append(" - \(endTime.format(with: "h:mm a"))")
         timeLabel.text = timeText
