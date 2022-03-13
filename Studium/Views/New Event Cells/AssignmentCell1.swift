@@ -18,6 +18,9 @@ class AssignmentCell1: DeletableEventCell {
     //the background of the cell (just a solid color)
     @IBOutlet weak var background: UIImageView!
     
+    //this is a circle that tells us how late or close to the deadline this assignment is - red=late, yellow=due soon, green=not due soon.
+    @IBOutlet weak var latenessIndicator: UIImageView!
+    
     //the icon associated with the assignment (it will be the same as the course's icon)
     @IBOutlet weak var icon: UIImageView!
     
@@ -99,9 +102,13 @@ class AssignmentCell1: DeletableEventCell {
             
             //If our assignment is past due, make the due date text red. If it is due soon, make the due date text yellow.
             if Date() > assignment.endDate {
-                dueDateLabel.textColor = .red
+//                dueDateLabel.textColor = .red
+                latenessIndicator.tintColor = .red
             }else if Date() + (60*60*24*3) > assignment.endDate{
-                dueDateLabel.textColor = .yellow
+//                dueDateLabel.textColor = .yellow
+                latenessIndicator.tintColor = .yellow
+            }else{
+                latenessIndicator.tintColor = .green
             }
         }
         
@@ -113,17 +120,7 @@ class AssignmentCell1: DeletableEventCell {
             chevronButton.isHidden = true
         }else{
             chevronButton.isHidden = false
-//            if autoEventsOpen{
-//                let chevUpImage = UIImage(systemName: "chevron.up", withConfiguration: largeConfig)
-//                chevronButton.setImage(chevUpImage, for: .normal)
-//                print("Events are open!")
-//            }else{
-//                let chevDownImage = UIImage(systemName: "chevron.down", withConfiguration: largeConfig)
-//                chevronButton.setImage(chevDownImage, for: .normal)
-//                print("Events are closed!")
-//            }
         }
-//        self.assignment = assignment
         self.event = assignment
         
         //set the image of the icon to be the same as the associated course's icon.
