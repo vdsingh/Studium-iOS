@@ -13,23 +13,28 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     
     //let realm = try! Realm() //Link to the realm where we are storing information
     var courses: Results<Course>? //Auto updating array linked to the realm
+    
+    //2D Course Array that we use to supply data to the tableView. coursesArr[0] are courses that occur today and coursesArr[1] are courses that do not occur today. This is the most up to date data on courses that we have (changes will be made here that might not be made in courses: Results<Course>? until refreshed).
     var coursesArr: [[Course]] = [[],[]]
     
-    let sectionHeaders = ["Today", "Not Today"]
+    //Titles for the section headers
+    let sectionHeaders = ["Today:", "Not Today:"]
+    
+    //keep references to the custom headers so that when we want to change their texts, we can do so. The initial elements are just placeholders, to be replaced when the real headers are created
+    var headerViews: [HeaderTableViewCell] = [HeaderTableViewCell(), HeaderTableViewCell()]
     
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadCourses()
+//        loadCourses()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.barTintColor = .red
         
         
         tableView.register(UINib(nibName: "RecurringEventCell", bundle: nil), forCellReuseIdentifier: "Cell")
-        
-        //        loadCourses()
-        
+        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
+
         
         tableView.delegate = self //setting delegate class for the table view to be this
         tableView.dataSource = self //setting data source for the table view to be this
@@ -51,14 +56,8 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         UINavigationBar.appearance().setBackgroundImage(self.image(fromLayer: gradient), for: .default)
         loadCourses()
         
-        
-        //print(UIColor.gray)
-        
-        //searchBar.barTintColor = UIColor(hexString: colorHex)
-        
-        //        guard let navBar = navigationController?.navigationBar else {fatalError("nav controller doesnt exist")}
-        //        navBar.barTintColor = UIColor.gray
     }
+    
     func image(fromLayer layer: CALayer) -> UIImage {
         UIGraphicsBeginImageContext(layer.frame.size)
 
@@ -69,9 +68,6 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         UIGraphicsEndImageContext()
 
         return outputImage!
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        //        loadCourses()
     }
     
     
@@ -95,8 +91,19 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         return coursesArr[section].count
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionHeaders[section]
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = tableView.dequeueReusableCell(withIdentifier: K.headerCellID) as! HeaderTableViewCell
+        headerCell.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(coursesArr[section].count) Courses")
+        headerViews[section] = headerCell
+        return headerCell
+    }
+    
+    
+    
+    //updates the headers for the given section to correctly display the number of elements in that section
+    func updateHeader(section: Int){
+        let headerView = headerViews[section]
+        headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(coursesArr[section].count) Courses")
     }
     
     //MARK: - Delegate Methods
@@ -118,10 +125,8 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         coursesArr = [[],[]]
         for course in courses!{
             if course.days.contains(Date().week){
-//                coursesArr.insert(course, at: 0)
                 coursesArr[0].append(course)
             }else{
-//                coursesArr.append(course)
                 coursesArr[1].append(course)
             }
         }
@@ -145,7 +150,15 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     }
     
     override func updateModelDelete(at indexPath: IndexPath) {
-        RealmCRUD.deleteCourse(course: self.courses![indexPath.row])
+        let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        let course: Course = cell.event as! Course
+        print("LOG: attempting to delete course \(course.name) at section \(indexPath.section) and row \(indexPath.row)")
+        RealmCRUD.deleteCourse(course: course)
+        coursesArr[indexPath.section].remove(at: indexPath.row)
+        updateHeader(section: indexPath.section)
+//        tableView.deleteRows(at: [indexPath], with: .automatic)
+        
+//        tableView.headerView(forSection: indexPath.section)?.contentConfiguration = config
     }
     
     //MARK: - UI Actions
@@ -153,11 +166,6 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
         addCourseViewController.delegate = self
         let navController = UINavigationController(rootViewController: addCourseViewController)
-//        if defaults.string(forKey: "themeColor") != nil{
-//            ColorPickerCell.color = UIColor(hexString: defaults.string(forKey: "themeColor")!)
-//        }else{
-//            ColorPickerCell.color = K.defaultThemeColor
-//        }
         ColorPickerCell.color = .white
         self.present(navController, animated:true, completion: nil)
     }

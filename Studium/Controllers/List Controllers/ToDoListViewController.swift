@@ -18,11 +18,17 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     //contains all the StudiumEvents to be listed on this screen (ToDoEvents and Assignments). allEvents[0] is the uncompleted events. allEvents[1] is the completed events.
     var allEvents: [[StudiumEvent]] = [[],[]]
     
+    let sectionHeaders: [String] = ["To Do:", "Completed:"]
+    
+    //keep references to the custom headers so that when we want to change their texts, we can do so. The initial elements are just placeholders, to be replaced when the real headers are created
+    var headerViews: [HeaderTableViewCell] = [HeaderTableViewCell(), HeaderTableViewCell()]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "AssignmentCell1", bundle: nil), forCellReuseIdentifier: "AssignmentCell1")
-        tableView.register(UINib(nibName: "OtherEventCell", bundle: nil), forCellReuseIdentifier: "OtherEventCell")
+        tableView.register(UINib(nibName: "AssignmentCell1", bundle: nil), forCellReuseIdentifier: K.assignmentCellID)
+        tableView.register(UINib(nibName: "OtherEventCell", bundle: nil), forCellReuseIdentifier: K.otherEventCellID)
+        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,7 +36,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        closeAllExpandedAssignments()
+        collapseAllExpandedAssignments()
     }
     
     func refreshData(){
@@ -89,6 +95,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
             print("Error deleting OtherEvent")
         }
         allEvents[indexPath.section].remove(at: indexPath.row)
+        updateHeader(section: indexPath.section)
     }
     
     override func updateModelEdit(at indexPath: IndexPath) {
@@ -171,21 +178,23 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
 //        print("assignmetncell at section \(indexPath.section). row \(indexPath.row)")
         return 60
     }
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return 30
-    }
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0{
-            return "To Do:"
-        }else{
-            return "Complete: "
-        }
-    }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = tableView.dequeueReusableCell(withIdentifier: K.headerCellID) as! HeaderTableViewCell
+        headerCell.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(allEvents[section].count) Events")
+        headerViews[section] = headerCell
+
+        return headerCell
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allEvents[section].count
+    }
+    
+    //updates the headers for the given section to correctly display the number of elements in that section
+    func updateHeader(section: Int){
+        let headerView = headerViews[section]
+        headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(allEvents[section].count) Events")
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -270,7 +279,8 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
         tableView.reloadData()
     }
     
-    func closeAllExpandedAssignments(){
+    //this function just collapses all assignmentCells whose autoscheduled events are expanded. We call this when we are leaving the ToDoList screen, to avoid issues when coming back and loading in data.
+    func collapseAllExpandedAssignments(){
         for cell in tableView.visibleCells{
             if let assignmentCell = cell as? AssignmentCell1{
 

@@ -12,6 +12,8 @@ import ChameleonFramework
 import RealmSwift
 
 struct K {
+    static let headerHeight: CGFloat = 32
+    
     //SEGUES
     static let coursesToAssignmentsSegue = "coursesToAssignments"
     static let coursesToAllSegue = "coursesToAll"
@@ -68,6 +70,8 @@ struct K {
     //CELL IDENTIFIERS
     static let assignmentCellID = "AssignmentCell1"
     static let genericCellID = "GenericTableViewCell"
+    static let headerCellID = "HeaderTableViewCell"
+    static let otherEventCellID = "OtherEventCell"
 
 
     static func scheduleNotification(components: DateComponents, body: String, titles:String, repeatNotif: Bool, identifier: String) {

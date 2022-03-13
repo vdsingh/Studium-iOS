@@ -15,7 +15,12 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     var assignments: Results<Assignment>?
     var assignmentsArr: [[Assignment]] = [[],[]]
-    var sectionTitles: [String] = ["Incomplete","Complete"]
+    
+    
+    var sectionHeaders: [String] = ["Incomplete","Complete"]
+    
+    //keep references to the custom headers so that when we want to change their texts, we can do so. The initial elements are just placeholders, to be replaced when the real headers are created
+    var headerViews: [HeaderTableViewCell] = [HeaderTableViewCell(), HeaderTableViewCell()]
     
 //    var openAutoEventsAssignment: Assignment
     
@@ -29,7 +34,9 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     override func viewDidLoad() {
         searchBar.delegate = self
-        tableView.register(UINib(nibName: "AssignmentCell1", bundle: nil), forCellReuseIdentifier: "AssignmentCell")
+        tableView.register(UINib(nibName: "AssignmentCell1", bundle: nil), forCellReuseIdentifier: K.assignmentCellID)
+        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
+
         
     }
     
@@ -80,19 +87,22 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return 30
-    }
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionTitles[section]
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = tableView.dequeueReusableCell(withIdentifier: K.headerCellID) as! HeaderTableViewCell
+        headerCell.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(assignmentsArr[section].count) Courses")
+        headerViews[section] = headerCell
+        return headerCell
     }
     
+    //updates the headers for the given section to correctly display the number of elements in that section
+    func updateHeader(section: Int){
+        let headerView = headerViews[section]
+        headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(assignmentsArr[section].count) Assignments")
+    }
     
     
     //MARK: - Delegate Methods
@@ -169,6 +179,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         RealmCRUD.deleteAssignment(assignment: cell.event as! Assignment)
         assignmentsArr[indexPath.section].remove(at: indexPath.row)
+        updateHeader(section: indexPath.section)
     }
     
     override func updateModelEdit(at indexPath: IndexPath) {

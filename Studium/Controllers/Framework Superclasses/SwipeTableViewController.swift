@@ -19,7 +19,7 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let user = app.currentUser else {
-            print("Error getting user in MasterForm")
+            print("ERROR: error getting user in MasterForm")
             return
         }
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
@@ -31,10 +31,14 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
             cell.delegate = self
             return cell
         }else{
-            print("error in SwipeTableViewController in cellForRowAt.")
+            print("ERROR: error in SwipeTableViewController in cellForRowAt.")
             let cell = tableView.dequeueReusableCell(withIdentifier:  "Cell", for: indexPath)
             return cell
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return K.headerHeight
     }
     
     //MARK: - Swipe Cell Delegate
@@ -71,18 +75,19 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     }
     
     func updateModelDelete(at indexPath: IndexPath){
-        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        if let eventForDeletion = deletableEventCell.event{
-            do{
-                try realm.write{
-                    realm.delete(eventForDeletion)
-                }
-            }catch{
-                print(error)
-            }
-        }else{
-            print("event for deletion is nil")
-        }
+//        print("LOG: updateModelDelete called in SwipeTableViewController")
+//        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+//        if let eventForDeletion = deletableEventCell.event{
+//            do{
+//                try realm.write{
+//                    realm.delete(eventForDeletion)
+//                }
+//            }catch{
+//                print(error)
+//            }
+//        }else{
+//            print("event for deletion is nil")
+//        }
     }
     
     func updateModelEdit(at indexPath: IndexPath){

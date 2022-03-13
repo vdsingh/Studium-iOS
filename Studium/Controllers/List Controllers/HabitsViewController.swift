@@ -16,15 +16,18 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     var habitsArr: [[Habit]] = [[],[]]
     let defaults = UserDefaults.standard
     
-    let sectionHeaders: [String] = ["Today", "Not Today"]
+    let sectionHeaders: [String] = ["Today:", "Not Today:"]
+    
+    //keep references to the custom headers so that when we want to change their texts, we can do so. The initial elements are just placeholders, to be replaced when the real headers are created
+    var headerViews: [HeaderTableViewCell] = [HeaderTableViewCell(), HeaderTableViewCell()]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 //        tableView.register(UINib(nibName: "HabitCell", bundle: nil), forCellReuseIdentifier: "Cell")
         tableView.register(UINib(nibName: "RecurringEventCell", bundle: nil), forCellReuseIdentifier: "Cell")
+        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
 
-        
         tableView.separatorStyle = .none //gets rid of dividers between cells.
         tableView.rowHeight = 140
     }
@@ -85,8 +88,18 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionHeaders[section]
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = tableView.dequeueReusableCell(withIdentifier: K.headerCellID) as! HeaderTableViewCell
+        headerCell.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(habitsArr[section].count) Courses")
+        headerViews[section] = headerCell
+
+        return headerCell
+    }
+    
+    //updates the headers for the given section to correctly display the number of elements in that section
+    func updateHeader(section: Int){
+        let headerView = headerViews[section]
+        headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(habitsArr[section].count) Habits")
     }
     
     
@@ -111,6 +124,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         }catch{
             print("ERROR: error deleting habit notifications.")
         }
-        super.updateModelDelete(at: indexPath)
+//        super.updateModelDelete(at: indexPath)
+        updateHeader(section: indexPath.section)
     }
 }

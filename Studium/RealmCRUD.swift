@@ -78,36 +78,26 @@ class RealmCRUD{
     
     static func deleteCourse(course: Course){
         guard let user = K.app.currentUser else {
-            print("Error getting user when deleting Assignment")
+            print("ERROR: error getting user when deleting course")
             return
         }
         let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         do{
             for assignment in course.assignments{
-//                    realm.delete(assignment)
                 deleteAssignment(assignment: assignment)
             }
             try realm.write{
-//                    guard let course = assignment.parentCourse else{
-//                        print("Error accessing parent course in AssignmentViewController")
-//                        return
-//                    }
-//                    let assignmentIndex = course.assignments.index(of: assignment)
-//                    course.assignments.remove(at: assignmentIndex!)
-//                    assignment.deleteNotifications()
-                
                 realm.delete(course)
             }
         }catch{
-            print("error writing to realm when deleting course \(course.name)")
+            print("ERROR: error writing to realm when deleting course \(course.name)")
         }
-        
     }
     
     //saves the new course to the Realm database.
     static func saveCourse(course: Course){
         guard let user = K.app.currentUser else {
-            print("Error getting user")
+            print("ERROR: error getting user when saving course")
             return
         }
         let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
@@ -139,7 +129,7 @@ class RealmCRUD{
     
     static func saveOtherEvent(otherEvent: OtherEvent){
         guard let user = K.app.currentUser else {
-            print("Error getting user")
+            print("ERROR: error getting user when saving otherEvent")
             return
         }
         let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
@@ -148,7 +138,7 @@ class RealmCRUD{
                 realm.add(otherEvent)
             }
         }catch{
-            print("error saving course: \(error)")
+            print("ERROR: error saving course: \(error)")
         }
     }
 }
