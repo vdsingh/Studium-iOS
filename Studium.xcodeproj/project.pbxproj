@@ -392,10 +392,10 @@
 				165A6C80248F0F54004279B0 /* AssignmentCell.xib */,
 				165A6C7F248F0F54004279B0 /* AssignmentCell.swift */,
 				16A63B8324AA85A7003A30D3 /* OtherEventCell.xib */,
+				16A63B8224AA85A7003A30D3 /* OtherEventCell.swift */,
 				16A63B7B24A01289003A30D3 /* HabitCell.xib */,
 				16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */,
 				165A6C78248A6F5C004279B0 /* CourseCell.xib */,
-				16A63B8224AA85A7003A30D3 /* OtherEventCell.swift */,
 				16A63B7A24A01289003A30D3 /* HabitCell.swift */,
 				165A6C77248A6F5C004279B0 /* CourseCell.swift */,
 			);

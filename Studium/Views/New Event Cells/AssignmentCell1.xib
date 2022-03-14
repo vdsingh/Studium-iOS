@@ -65,7 +65,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="IUd-aq-cj6">
                                 <rect key="frame" x="95" y="0.0" width="262" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Homework 4 Primer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pF6-1U-gVs">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Primary Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pF6-1U-gVs">
                                         <rect key="frame" x="0.0" y="0.0" width="262" height="25.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -74,7 +74,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yeo-7f-SgP">
                                         <rect key="frame" x="0.0" y="28.5" width="262" height="21.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="COMPSCI 383" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuB-Zg-viJ">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Subtext" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuB-Zg-viJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="134" height="21.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -126,13 +126,13 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="assignmentNameLabel" destination="pF6-1U-gVs" id="hkX-IQ-E1u"/>
                 <outlet property="background" destination="eJZ-Bg-Kz8" id="osO-d6-n4X"/>
                 <outlet property="chevronButton" destination="EIm-12-tok" id="y3q-Xl-kY0"/>
-                <outlet property="courseNameLabel" destination="wuB-Zg-viJ" id="kav-49-E8D"/>
                 <outlet property="dueDateLabel" destination="Syo-Rz-w2J" id="XxX-1p-xFd"/>
                 <outlet property="icon" destination="PA4-b9-1uZ" id="YY5-bY-Teo"/>
                 <outlet property="latenessIndicator" destination="WU4-W6-TQJ" id="U4k-wh-dyc"/>
+                <outlet property="primaryLabel" destination="pF6-1U-gVs" id="FeQ-6f-ykH"/>
+                <outlet property="subLabel" destination="wuB-Zg-viJ" id="siE-qp-gdy"/>
             </connections>
             <point key="canvasLocation" x="198.55072463768118" y="133.92857142857142"/>
         </tableViewCell>

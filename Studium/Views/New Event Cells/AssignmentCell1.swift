@@ -28,10 +28,10 @@ class AssignmentCell1: DeletableEventCell {
     @IBOutlet weak var iconBackground: UIImageView!
     
     //the label that shows the assignments name. This is the primary label
-    @IBOutlet weak var assignmentNameLabel: UILabel!
+    @IBOutlet weak var primaryLabel: UILabel!
     
     //the label that shows the course's name.
-    @IBOutlet weak var courseNameLabel: UILabel!
+    @IBOutlet weak var subLabel: UILabel!
     
     //the label that shows the due date of the assignment.
     @IBOutlet weak var dueDateLabel: UILabel!
@@ -58,38 +58,39 @@ class AssignmentCell1: DeletableEventCell {
         super.setSelected(selected, animated: animated)
     }
     
+
     func loadData(assignment: Assignment){
         //store the assignment here - we'll know what to delete if necessary
         event = assignment
         
         //Create an attributed string for the assignment's name (the main label). This is so that when the assignment is marked complete, we can put a slash through the label.
-        let assignmentNameAttributeString = NSMutableAttributedString(string: assignment.name)
-        assignmentNameAttributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, assignmentNameAttributeString.length))
+        let primaryTextAttributeString = NSMutableAttributedString(string: event!.name)
+        primaryTextAttributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, primaryTextAttributeString.length))
         
         //Safely get the associated course for this assignment
         guard let course = assignment.parentCourse else{
-            print("Error accessing parent course in AssignmentCell1")
+            print("ERROR: error accessing parent course in AssignmentCell1")
             return
         }
         
         //the UIColor of the assignment's associated course.
-        let courseColor = UIColor(hexString: course.color) ?? .white
+        let themeColor = UIColor(hexString: course.color) ?? .white
         
         //A contrasting color to the course's color - we don't want white text on yellow background.
-        var contrastingColor = UIColor(contrastingBlackOrWhiteColorOn: courseColor, isFlat: true)
+        var contrastingColor = UIColor(contrastingBlackOrWhiteColorOn: themeColor, isFlat: true)
         //Black as a label color looks too intense. If the contrasting color is supposed to be black, change it to a lighter gray.
         if contrastingColor == UIColor(contrastingBlackOrWhiteColorOn: .white, isFlat: true){
             contrastingColor = UIColor(hexString: "#4a4a4a")!
         }
         
         //Set all of the labels' colors and chevron color to the contrasting color
-        assignmentNameLabel.textColor = contrastingColor
-        courseNameLabel.textColor = contrastingColor
+        primaryLabel.textColor = contrastingColor
+        subLabel.textColor = contrastingColor
         dueDateLabel.textColor = contrastingColor
         chevronButton.tintColor = contrastingColor
 
         //Set all of the labels' texts
-        courseNameLabel.text = course.name
+        subLabel.text = course.name
         dueDateLabel.text = assignment.endDate.format(with: "MMM d, h:mm a")
 
         if assignment.complete{
@@ -100,9 +101,9 @@ class AssignmentCell1: DeletableEventCell {
             //make the lateness indicator gray- it's not relevant since the assignment has already been completed
             latenessIndicator.tintColor = .gray
         }else{
-            background.backgroundColor = courseColor
-            assignmentNameAttributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, assignmentNameAttributeString.length))
-            icon.tintColor = courseColor
+            background.backgroundColor = themeColor
+            primaryTextAttributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, primaryTextAttributeString.length))
+            icon.tintColor = themeColor
             
             
             //If our assignment is past due, make the lateness indicator red. If it is due soon, make the lateness indicator yellow. Otherwise, make it green.
@@ -116,7 +117,7 @@ class AssignmentCell1: DeletableEventCell {
         }
         
         //set the attributed text of the assignment name label.
-        assignmentNameLabel.attributedText = assignmentNameAttributeString
+        primaryLabel.attributedText = primaryTextAttributeString
 
         //this assignment has no autoscheduled events, so there is no need to have a button that drops down the autoscheduled events.
         if assignment.scheduledEvents.count == 0{
