@@ -15,19 +15,23 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     var assignments: Results<Assignment>? //Auto updating array linked to the realm
     var otherEvents: Results<OtherEvent>?
     
-    //contains all the StudiumEvents to be listed on this screen (ToDoEvents and Assignments). allEvents[0] is the uncompleted events. allEvents[1] is the completed events.
-    var allEvents: [[StudiumEvent]] = [[],[]]
+    //contains all the StudiumEvents to be listed on this screen (ToDoEvents and Assignments). eventsArray[0] is the uncompleted events. eventsArray[1] is the completed events.
+//    var eventsArray: [[StudiumEvent]] = [[],[]]
     
-    let sectionHeaders: [String] = ["To Do:", "Completed:"]
+    
+//    let sectionHeaders: [String] = ["To Do:", "Completed:"]
     
     //keep references to the custom headers so that when we want to change their texts, we can do so. The initial elements are just placeholders, to be replaced when the real headers are created
-    var headerViews: [HeaderTableViewCell] = [HeaderTableViewCell(), HeaderTableViewCell()]
+//    var headerViews: [HeaderView] = [HeaderView(), HeaderView()]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "AssignmentCell1", bundle: nil), forCellReuseIdentifier: K.assignmentCellID)
         tableView.register(UINib(nibName: "OtherEventCell", bundle: nil), forCellReuseIdentifier: K.otherEventCellID)
-        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
+//        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
+        
+        sectionHeaders = ["To Do:", "Completed:"]
+        eventTypeString = "Events"
 
     }
     
@@ -40,8 +44,8 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     }
     
     func refreshData(){
-        //allEvents will contain the information in assignmentsArr. The reason that we need to fill up assignmentsArr is so that the super class, AssignmentHolderList, can handle the expansion and collapse of autoscheduled events around certain assignments.
-        allEvents = [[],[]]
+        //eventsArray will contain the information in assignmentsArr. The reason that we need to fill up assignmentsArr is so that the super class, AssignmentHolderList, can handle the expansion and collapse of autoscheduled events around certain assignments.
+        eventsArray = [[],[]]
 
         let assignments = getAssignments()
         let otherEvents = getOtherEvents()
@@ -51,21 +55,21 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
                 continue
             }
             if assignment.complete{
-                allEvents[1].append(assignment)
+                eventsArray[1].append(assignment)
             }else{
-                allEvents[0].append(assignment)
+                eventsArray[0].append(assignment)
             }
         }
         
         for otherEvent in otherEvents{
             if otherEvent.complete{
-                allEvents[1].append(otherEvent)
+                eventsArray[1].append(otherEvent)
             }else{
-                allEvents[0].append(otherEvent)
+                eventsArray[0].append(otherEvent)
             }
         }
-        allEvents[0] = allEvents[0].sorted(by: { $0.startDate.compare($1.startDate) == .orderedAscending })
-        allEvents[1] = allEvents[1].sorted(by: { $0.startDate.compare($1.startDate) == .orderedDescending })
+        eventsArray[0] = eventsArray[0].sorted(by: { $0.startDate.compare($1.startDate) == .orderedAscending })
+        eventsArray[1] = eventsArray[1].sorted(by: { $0.startDate.compare($1.startDate) == .orderedDescending })
 
         tableView.reloadData()
     }
@@ -94,7 +98,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         }catch{
             print("Error deleting OtherEvent")
         }
-        allEvents[indexPath.section].remove(at: indexPath.row)
+        eventsArray[indexPath.section].remove(at: indexPath.row)
         updateHeader(section: indexPath.section)
     }
     
@@ -147,19 +151,19 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if allEvents[indexPath.section][indexPath.row] is Assignment {
+        if eventsArray[indexPath.section][indexPath.row] is Assignment {
             super.idString = "AssignmentCell1"
             let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell1
-            let assignment = allEvents[indexPath.section][indexPath.row] as! Assignment
+            let assignment = eventsArray[indexPath.section][indexPath.row] as! Assignment
             
             cell.assignmentCollapseDelegate = self
             cell.loadData(assignment: assignment)
 
             return cell
-        }else if allEvents[indexPath.section][indexPath.row] is OtherEvent{
+        }else if eventsArray[indexPath.section][indexPath.row] is OtherEvent{
             super.idString = "OtherEventCell"
             let cell = super.tableView(tableView, cellForRowAt: indexPath) as! OtherEventCell
-            let otherEvent = allEvents[indexPath.section][indexPath.row] as! OtherEvent
+            let otherEvent = eventsArray[indexPath.section][indexPath.row] as! OtherEvent
             cell.loadData(from: otherEvent)
             return cell
         }else{
@@ -169,33 +173,20 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         }
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return allEvents.count
-    }
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
 //        print("assignmetncell at section \(indexPath.section). row \(indexPath.row)")
         return 60
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerCell = tableView.dequeueReusableCell(withIdentifier: K.headerCellID) as! HeaderTableViewCell
-        headerCell.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(allEvents[section].count) Events")
-        headerViews[section] = headerCell
-
-        return headerCell
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allEvents[section].count
-    }
-    
-    //updates the headers for the given section to correctly display the number of elements in that section
-    func updateHeader(section: Int){
-        let headerView = headerViews[section]
-        headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(allEvents[section].count) Events")
-    }
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+////        let headerCell = tableView.dequeueReusableCell(withIdentifier: K.headerCellID) as! HeaderView
+//        let headerView = HeaderView()
+//        headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(eventsArray[section].count) Events")
+//        headerViews[section] = headerView
+//
+//        return headerView
+//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1{
@@ -255,10 +246,10 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
     func handleOpenAutoEvents(assignment: Assignment) {
         let arrayIndex = assignment.complete ? 1 : 0
         
-        if let ind = allEvents[arrayIndex].firstIndex(of: assignment){
+        if let ind = eventsArray[arrayIndex].firstIndex(of: assignment){
             var index = ind + 1
             for auto in assignment.scheduledEvents{
-                allEvents[arrayIndex].insert(auto, at: index)
+                eventsArray[arrayIndex].insert(auto, at: index)
                 index += 1
             }
         }else{
@@ -271,10 +262,10 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
     func handleCloseAutoEvents(assignment: Assignment) {
         
         let arrayIndex = assignment.complete ? 1 : 0
-        let index = allEvents[arrayIndex].firstIndex(of: assignment)!
+        let index = eventsArray[arrayIndex].firstIndex(of: assignment)!
 
         for _ in assignment.scheduledEvents{
-            allEvents[arrayIndex].remove(at: index + 1)
+            eventsArray[arrayIndex].remove(at: index + 1)
         }
         tableView.reloadData()
     }

@@ -14,13 +14,13 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     
     var assignments: Results<Assignment>?
-    var assignmentsArr: [[Assignment]] = [[],[]]
+//    var eventsArray: [[Assignment]] = [[],[]]
     
     
-    var sectionHeaders: [String] = ["Incomplete","Complete"]
+//    var sectionHeaders: [String] = ["Incomplete","Complete"]
     
     //keep references to the custom headers so that when we want to change their texts, we can do so. The initial elements are just placeholders, to be replaced when the real headers are created
-    var headerViews: [HeaderTableViewCell] = [HeaderTableViewCell(), HeaderTableViewCell()]
+//    var headerViews: [HeaderView] = [HeaderView(), HeaderView()]
     
 //    var openAutoEventsAssignment: Assignment
     
@@ -35,8 +35,10 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     override func viewDidLoad() {
         searchBar.delegate = self
         tableView.register(UINib(nibName: "AssignmentCell1", bundle: nil), forCellReuseIdentifier: K.assignmentCellID)
-        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
+//        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
 
+        sectionHeaders = ["Incomplete","Complete"]
+        eventTypeString = "Assignments"
         
     }
     
@@ -62,6 +64,10 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         //reloadData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        collapseAllExpandedAssignments()
+    }
+    
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
         addAssignmentViewController.selectedCourse = selectedCourse
@@ -71,15 +77,11 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     }
     
     //MARK: - Data Source Methods
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return assignmentsArr[section].count
-    }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        super.idString = "AssignmentCell"
+        super.idString = K.assignmentCellID
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell1
-        let assignment = assignmentsArr[indexPath.section][indexPath.row]
+        let assignment = eventsArray[indexPath.section][indexPath.row] as! Assignment
         cell.event = assignment
         cell.assignmentCollapseDelegate = self
         cell.loadData(assignment: assignment)
@@ -87,28 +89,10 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         return cell
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerCell = tableView.dequeueReusableCell(withIdentifier: K.headerCellID) as! HeaderTableViewCell
-        headerCell.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(assignmentsArr[section].count) Courses")
-        headerViews[section] = headerCell
-        return headerCell
-    }
-    
-    //updates the headers for the given section to correctly display the number of elements in that section
-    func updateHeader(section: Int){
-        let headerView = headerViews[section]
-        headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(assignmentsArr[section].count) Assignments")
-    }
-    
-    
     //MARK: - Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let assignment = assignmentsArr[indexPath.section][indexPath.row]
+        let assignment = eventsArray[indexPath.section][indexPath.row] as! Assignment
         let assignmentCell = tableView.cellForRow(at: indexPath) as! AssignmentCell1
 
         if let user = app.currentUser {
@@ -152,33 +136,31 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     //loads all non-autoscheduled assignments by accessing the selected course.
     func loadAssignments(){
         assignments = selectedCourse?.assignments.sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
-        assignmentsArr = [[],[]]
+        eventsArray = [[],[]]
         for assignment in assignments!{
             //skip the autoscheduled events.
             if assignment.isAutoscheduled{
                 continue
             }
             if assignment.complete == true && !assignment.isAutoscheduled{
-                assignmentsArr[1].append(assignment)
+                eventsArray[1].append(assignment)
             }else{
-                assignmentsArr[0].append(assignment)
+                eventsArray[0].append(assignment)
             }
         }
-        
-        
         reloadData()
     }
     
     func reloadData() {
-        assignmentsArr[0].sort(by: {$0.endDate < $1.endDate})
-        assignmentsArr[1].sort(by: {$0.endDate > $1.endDate})
+        eventsArray[0].sort(by: {$0.endDate < $1.endDate})
+        eventsArray[1].sort(by: {$0.endDate > $1.endDate})
         tableView.reloadData()
     }
     
     override func updateModelDelete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         RealmCRUD.deleteAssignment(assignment: cell.event as! Assignment)
-        assignmentsArr[indexPath.section].remove(at: indexPath.row)
+        eventsArray[indexPath.section].remove(at: indexPath.row)
         updateHeader(section: indexPath.section)
     }
     
@@ -216,10 +198,10 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
         let arrayIndex = assignment.complete ? 1 : 0
         print("Handle opening auto events")
         
-        if let ind = assignmentsArr[arrayIndex].firstIndex(of: assignment){
+        if let ind = eventsArray[arrayIndex].firstIndex(of: assignment){
             var index = ind + 1
             for auto in assignment.scheduledEvents{
-                assignmentsArr[arrayIndex].insert(auto, at: index)
+                eventsArray[arrayIndex].insert(auto, at: index)
                 index += 1
             }
         }else{
@@ -232,12 +214,24 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
         print("Handle close auto events")
 
         let arrayIndex = assignment.complete ? 1 : 0
-        let index = assignmentsArr[arrayIndex].firstIndex(of: assignment)!
+        let index = eventsArray[arrayIndex].firstIndex(of: assignment)!
 
         for _ in assignment.scheduledEvents{
-            assignmentsArr[arrayIndex].remove(at: index + 1)
+            eventsArray[arrayIndex].remove(at: index + 1)
         }
         tableView.reloadData()
+    }
+    
+    //this function just collapses all assignmentCells whose autoscheduled events are expanded. We call this when we are leaving the ToDoList screen, to avoid issues when coming back and loading in data.
+    func collapseAllExpandedAssignments(){
+        for cell in tableView.visibleCells{
+            if let assignmentCell = cell as? AssignmentCell1{
+
+                if assignmentCell.autoEventsOpen{
+                    assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
+                }
+            }
+        }
     }
 }
 

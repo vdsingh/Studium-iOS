@@ -82,10 +82,11 @@ class AssignmentCell1: DeletableEventCell {
             contrastingColor = UIColor(hexString: "#4a4a4a")!
         }
         
-        //Set all of the labels' colors to the contrasting color
+        //Set all of the labels' colors and chevron color to the contrasting color
         assignmentNameLabel.textColor = contrastingColor
         courseNameLabel.textColor = contrastingColor
         dueDateLabel.textColor = contrastingColor
+        chevronButton.tintColor = contrastingColor
 
         //Set all of the labels' texts
         courseNameLabel.text = course.name

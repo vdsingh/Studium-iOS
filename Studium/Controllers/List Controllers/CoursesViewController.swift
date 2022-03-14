@@ -14,26 +14,29 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     //let realm = try! Realm() //Link to the realm where we are storing information
     var courses: Results<Course>? //Auto updating array linked to the realm
     
-    //2D Course Array that we use to supply data to the tableView. coursesArr[0] are courses that occur today and coursesArr[1] are courses that do not occur today. This is the most up to date data on courses that we have (changes will be made here that might not be made in courses: Results<Course>? until refreshed).
-    var coursesArr: [[Course]] = [[],[]]
+    //2D Course Array that we use to supply data to the tableView. eventsArray[0] are courses that occur today and eventsArray[1] are courses that do not occur today. This is the most up to date data on courses that we have (changes will be made here that might not be made in courses: Results<Course>? until refreshed).
+//    var eventsArray: [[Course]] = [[],[]]
     
     //Titles for the section headers
-    let sectionHeaders = ["Today:", "Not Today:"]
+//    let sectionHeaders = ["Today:", "Not Today:"]
     
     //keep references to the custom headers so that when we want to change their texts, we can do so. The initial elements are just placeholders, to be replaced when the real headers are created
-    var headerViews: [HeaderTableViewCell] = [HeaderTableViewCell(), HeaderTableViewCell()]
+//    var headerViews: [HeaderView?] = [nil, nil]
     
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        sectionHeaders = ["Today:", "Not Today:"]
+        eventTypeString = "Courses"
 //        loadCourses()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.barTintColor = .red
         
         
         tableView.register(UINib(nibName: "RecurringEventCell", bundle: nil), forCellReuseIdentifier: "Cell")
-        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
+//        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
 
         
         tableView.delegate = self //setting delegate class for the table view to be this
@@ -76,34 +79,11 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         //build the cells
         //let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! RecurringEventCell
-        let course = coursesArr[indexPath.section][indexPath.row]
+        let course = eventsArray[indexPath.section][indexPath.row] as! Course
         cell.event = course
         cell.loadData(courseName: course.name, location: course.location, startTime: course.startDate, endTime: course.endDate, days: course.days, colorHex: course.color, recurringEvent: course, systemImageString: course.systemImageString)
     
         return cell
-    }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionHeaders.count
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return coursesArr[section].count
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerCell = tableView.dequeueReusableCell(withIdentifier: K.headerCellID) as! HeaderTableViewCell
-        headerCell.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(coursesArr[section].count) Courses")
-        headerViews[section] = headerCell
-        return headerCell
-    }
-    
-    
-    
-    //updates the headers for the given section to correctly display the number of elements in that section
-    func updateHeader(section: Int){
-        let headerView = headerViews[section]
-        headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(coursesArr[section].count) Courses")
     }
     
     //MARK: - Delegate Methods
@@ -114,7 +94,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? AssignmentsViewController {
             if let indexPath = tableView.indexPathForSelectedRow{
-                destinationVC.selectedCourse = coursesArr[indexPath.section][indexPath.row]
+                destinationVC.selectedCourse = eventsArray[indexPath.section][indexPath.row] as! Course
             }
         }
     }
@@ -122,17 +102,17 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     //MARK: - CRUD Methods
     func loadCourses(){
         courses = realm.objects(Course.self) //fetching all objects of type Course and updating array with it.
-        coursesArr = [[],[]]
+        eventsArray = [[],[]]
         for course in courses!{
             if course.days.contains(Date().week){
-                coursesArr[0].append(course)
+                eventsArray[0].append(course)
             }else{
-                coursesArr[1].append(course)
+                eventsArray[1].append(course)
             }
         }
         
         //sort all the habits happening today by startTime (the ones that are first come first in the list)
-        coursesArr[0].sort(by: {$0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm")})
+        eventsArray[0].sort(by: {$0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm")})
         tableView.reloadData()
     }
     
@@ -154,7 +134,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         let course: Course = cell.event as! Course
         print("LOG: attempting to delete course \(course.name) at section \(indexPath.section) and row \(indexPath.row)")
         RealmCRUD.deleteCourse(course: course)
-        coursesArr[indexPath.section].remove(at: indexPath.row)
+        eventsArray[indexPath.section].remove(at: indexPath.row)
         updateHeader(section: indexPath.section)
 //        tableView.deleteRows(at: [indexPath], with: .automatic)
         

@@ -14,15 +14,23 @@ import RealmSwift
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate{
     var realm: Realm!
     let app = App(id: Secret.appID)
+    
+    var eventsArray: [[StudiumEvent]] = [[],[]]
+    
+    var sectionHeaders: [String] = ["Section 1", "Section 2"]
+    var eventTypeString: String = "Events"
+//    var headerViews: [HeaderView?] = [nil, nil]
 
     var idString: String = "Cell"
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let user = app.currentUser else {
-            print("ERROR: error getting user in MasterForm")
+            print("ERROR: error getting user in SwipeTableViewController")
             return
         }
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+        
+        tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: K.headerCellID)
     }
     
     //MARK: - TableView Data Source Methods
@@ -37,8 +45,33 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         }
     }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: K.headerCellID) as? HeaderView
+        else {
+            return nil
+        }
+        view.primaryLabel.text = sectionHeaders[section]
+        view.secondaryLabel.text = "\(eventsArray[section].count) \(eventTypeString)"
+
+        return view
+    }
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return K.headerHeight
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return eventsArray.count
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return eventsArray[section].count
+    }
+    
+    //updates the headers for the given section to correctly display the number of elements in that section
+    func updateHeader(section: Int){
+        let headerView = tableView.headerView(forSection: section) as! HeaderView
+        headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(eventsArray[section].count) \(eventTypeString)")
     }
     
     //MARK: - Swipe Cell Delegate

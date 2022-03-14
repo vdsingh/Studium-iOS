@@ -70,7 +70,7 @@ struct K {
     //CELL IDENTIFIERS
     static let assignmentCellID = "AssignmentCell1"
     static let genericCellID = "GenericTableViewCell"
-    static let headerCellID = "HeaderTableViewCell"
+    static let headerCellID = "HeaderView"
     static let otherEventCellID = "OtherEventCell"
 
 

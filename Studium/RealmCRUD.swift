@@ -127,6 +127,21 @@ class RealmCRUD{
         }
     }
     
+    static func deleteHabit(habit: Habit){
+        guard let user = K.app.currentUser else {
+            print("ERROR: error getting user when deleting habit")
+            return
+        }
+        let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+        do{
+            try realm.write{
+                realm.delete(habit)
+            }
+        }catch{
+            print("ERROR: error writing to realm when deleting course \(habit.name)")
+        }
+    }
+    
     static func saveOtherEvent(otherEvent: OtherEvent){
         guard let user = K.app.currentUser else {
             print("ERROR: error getting user when saving otherEvent")

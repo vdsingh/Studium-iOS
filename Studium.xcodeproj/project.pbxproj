@@ -17,8 +17,7 @@
 		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
 		1649A46427DC7B3B00B75481 /* ColorPickerCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1649A46227DC7B3B00B75481 /* ColorPickerCell2.swift */; };
 		1649A46527DC7B3B00B75481 /* ColorPickerCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1649A46327DC7B3B00B75481 /* ColorPickerCell2.xib */; };
-		1649A46A27DEAD1900B75481 /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1649A46827DEAD1900B75481 /* HeaderTableViewCell.swift */; };
-		1649A46B27DEAD1900B75481 /* HeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1649A46927DEAD1900B75481 /* HeaderTableViewCell.xib */; };
+		1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1649A46827DEAD1900B75481 /* HeaderView.swift */; };
 		164F62F324DF7BFC00DC8169 /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62F224DF7BFC00DC8169 /* NotificationsController.swift */; };
 		164F62F624E4D1D500DC8169 /* LogoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62F424E4D1D500DC8169 /* LogoCell.swift */; };
 		164F62F724E4D1D500DC8169 /* LogoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164F62F524E4D1D500DC8169 /* LogoCell.xib */; };
@@ -113,8 +112,7 @@
 		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
 		1649A46227DC7B3B00B75481 /* ColorPickerCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCell2.swift; sourceTree = "<group>"; };
 		1649A46327DC7B3B00B75481 /* ColorPickerCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerCell2.xib; sourceTree = "<group>"; };
-		1649A46827DEAD1900B75481 /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
-		1649A46927DEAD1900B75481 /* HeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTableViewCell.xib; sourceTree = "<group>"; };
+		1649A46827DEAD1900B75481 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		164F62F224DF7BFC00DC8169 /* NotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
 		164F62F424E4D1D500DC8169 /* LogoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoCell.swift; sourceTree = "<group>"; };
 		164F62F524E4D1D500DC8169 /* LogoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoCell.xib; sourceTree = "<group>"; };
@@ -340,8 +338,7 @@
 				16E2514524838676000494DE /* Basic Cells */,
 				16B2837B25C25BF40039043E /* CourseCell2.swift */,
 				16B2837C25C25BF40039043E /* CourseCell2.xib */,
-				1649A46827DEAD1900B75481 /* HeaderTableViewCell.swift */,
-				1649A46927DEAD1900B75481 /* HeaderTableViewCell.xib */,
+				1649A46827DEAD1900B75481 /* HeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -553,7 +550,6 @@
 				16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */,
 				1686DB6124812C4000FA99DB /* SwitchCell.xib in Resources */,
 				165A6C7E248D9AF3004279B0 /* ColorPickerCell.xib in Resources */,
-				1649A46B27DEAD1900B75481 /* HeaderTableViewCell.xib in Resources */,
 				16C05CFB264F5ABC004C9629 /* AssignmentCell1.xib in Resources */,
 				16A63B8524AA85A7003A30D3 /* OtherEventCell.xib in Resources */,
 				1686DB832482A0A500FA99DB /* DaySelectorCell.xib in Resources */,
@@ -638,7 +634,7 @@
 				165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
 				168EE1C72659FA10009A8001 /* RealmCRUD.swift in Sources */,
-				1649A46A27DEAD1900B75481 /* HeaderTableViewCell.swift in Sources */,
+				1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
 				16B498D025CE2CE6005E9C26 /* Secret.swift in Sources */,
 				16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */,
