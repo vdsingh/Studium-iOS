@@ -14,15 +14,6 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         
     var assignments: Results<Assignment>? //Auto updating array linked to the realm
     var otherEvents: Results<OtherEvent>?
-    
-    //contains all the StudiumEvents to be listed on this screen (ToDoEvents and Assignments). eventsArray[0] is the uncompleted events. eventsArray[1] is the completed events.
-//    var eventsArray: [[StudiumEvent]] = [[],[]]
-    
-    
-//    let sectionHeaders: [String] = ["To Do:", "Completed:"]
-    
-    //keep references to the custom headers so that when we want to change their texts, we can do so. The initial elements are just placeholders, to be replaced when the real headers are created
-//    var headerViews: [HeaderView] = [HeaderView(), HeaderView()]
 
     override func viewDidLoad() {
         super.viewDidLoad()

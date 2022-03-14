@@ -11,15 +11,8 @@ import RealmSwift
 import UIKit
 
 class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
-    //let realm = try! Realm()
     var habits: Results<Habit>?
-//    var eventsArray: [[Habit]] = [[],[]]
     let defaults = UserDefaults.standard
-    
-//    let sectionHeaders: [String] = ["Today:", "Not Today:"]
-    
-    //keep references to the custom headers so that when we want to change their texts, we can do so. The initial elements are just placeholders, to be replaced when the real headers are created
-//    var headerViews: [HeaderView] = [HeaderView(), HeaderView()]
     
     override func viewDidLoad() {
         super.viewDidLoad()

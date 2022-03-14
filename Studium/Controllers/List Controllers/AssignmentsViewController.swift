@@ -11,19 +11,8 @@ import RealmSwift
 import ChameleonFramework
 
 class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, AssignmentRefreshProtocol{
-    
-    
     var assignments: Results<Assignment>?
-//    var eventsArray: [[Assignment]] = [[],[]]
-    
-    
-//    var sectionHeaders: [String] = ["Incomplete","Complete"]
-    
-    //keep references to the custom headers so that when we want to change their texts, we can do so. The initial elements are just placeholders, to be replaced when the real headers are created
-//    var headerViews: [HeaderView] = [HeaderView(), HeaderView()]
-    
-//    var openAutoEventsAssignment: Assignment
-    
+
     @IBOutlet weak var searchBar: UISearchBar!
     
     var selectedCourse: Course? {

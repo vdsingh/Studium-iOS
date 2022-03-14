@@ -10,19 +10,8 @@ import RealmSwift
 import ChameleonFramework
 
 class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
-    
-    //let realm = try! Realm() //Link to the realm where we are storing information
     var courses: Results<Course>? //Auto updating array linked to the realm
-    
-    //2D Course Array that we use to supply data to the tableView. eventsArray[0] are courses that occur today and eventsArray[1] are courses that do not occur today. This is the most up to date data on courses that we have (changes will be made here that might not be made in courses: Results<Course>? until refreshed).
-//    var eventsArray: [[Course]] = [[],[]]
-    
-    //Titles for the section headers
-//    let sectionHeaders = ["Today:", "Not Today:"]
-    
-    //keep references to the custom headers so that when we want to change their texts, we can do so. The initial elements are just placeholders, to be replaced when the real headers are created
-//    var headerViews: [HeaderView?] = [nil, nil]
-    
+
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -30,10 +19,8 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         
         sectionHeaders = ["Today:", "Not Today:"]
         eventTypeString = "Courses"
-//        loadCourses()
+
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.barTintColor = .red
-        
         
         tableView.delegate = self //setting delegate class for the table view to be this
         tableView.dataSource = self //setting data source for the table view to be this
@@ -59,13 +46,9 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     
     func image(fromLayer layer: CALayer) -> UIImage {
         UIGraphicsBeginImageContext(layer.frame.size)
-
         layer.render(in: UIGraphicsGetCurrentContext()!)
-
         let outputImage = UIGraphicsGetImageFromCurrentImageContext()
-
         UIGraphicsEndImageContext()
-
         return outputImage!
     }
     

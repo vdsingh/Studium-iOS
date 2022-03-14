@@ -27,7 +27,7 @@ class ThemeCell: BasicCell {
     
     func setColorPreviewColor(colors: [CGColor]){
         let view = UIView(frame: colorPreview.frame)
-        view.layer.cornerRadius = 11
+        view.layer.cornerRadius = 21
         view.clipsToBounds = true
         let gradient = CAGradientLayer()
         gradient.frame = view.frame
