@@ -26,10 +26,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "AssignmentCell1", bundle: nil), forCellReuseIdentifier: K.assignmentCellID)
-        tableView.register(UINib(nibName: "OtherEventCell", bundle: nil), forCellReuseIdentifier: K.otherEventCellID)
-//        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
-        
+                
         sectionHeaders = ["To Do:", "Completed:"]
         eventTypeString = "Events"
 
@@ -173,6 +170,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         }
     }
     
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
 //        print("assignmetncell at section \(indexPath.section). row \(indexPath.row)")

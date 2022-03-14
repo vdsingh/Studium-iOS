@@ -35,10 +35,6 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         navigationController?.navigationBar.barTintColor = .red
         
         
-        tableView.register(UINib(nibName: "RecurringEventCell", bundle: nil), forCellReuseIdentifier: "Cell")
-//        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
-
-        
         tableView.delegate = self //setting delegate class for the table view to be this
         tableView.dataSource = self //setting data source for the table view to be this
         
@@ -94,7 +90,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? AssignmentsViewController {
             if let indexPath = tableView.indexPathForSelectedRow{
-                destinationVC.selectedCourse = eventsArray[indexPath.section][indexPath.row] as! Course
+                destinationVC.selectedCourse = eventsArray[indexPath.section][indexPath.row] as? Course
             }
         }
     }

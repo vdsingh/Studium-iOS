@@ -23,10 +23,6 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-//        tableView.register(UINib(nibName: "HabitCell", bundle: nil), forCellReuseIdentifier: "Cell")
-        tableView.register(UINib(nibName: "RecurringEventCell", bundle: nil), forCellReuseIdentifier: "Cell")
-//        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
 
         tableView.separatorStyle = .none //gets rid of dividers between cells.
         tableView.rowHeight = 140
@@ -99,7 +95,8 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let habit: Habit = cell.event as! Habit
         print("LOG: attempting to delete Habit \(habit.name) at section \(indexPath.section) and row \(indexPath.row)")
-        eventsArray[indexPath.section].remove(at: indexPath.row)
         RealmCRUD.deleteHabit(habit: habit)
+        eventsArray[indexPath.section].remove(at: indexPath.row)
+        super.updateHeader(section: indexPath.section)
     }
 }

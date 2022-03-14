@@ -24,25 +24,18 @@ class HeaderView: UITableViewHeaderFooterView {
         secondaryLabel.text = "Secondary Label"
         secondaryLabel.textColor = .label
         secondaryLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
-    
-
-        
-//        let verConstraint = NSLayoutConstraint(item: primaryLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY ,multiplier: 1.0, constant: 0.0)
-//        self.addConstraints([verConstraint])
-        
         
         contentView.addSubview(primaryLabel)
         contentView.addSubview(secondaryLabel)
 
         primaryLabel.translatesAutoresizingMaskIntoConstraints = false
         secondaryLabel.translatesAutoresizingMaskIntoConstraints = false
-//        primaryLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor, constant: 20).isActive = true
+
 
         NSLayoutConstraint.activate([
             primaryLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             primaryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-//            primaryLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
-//            primaryLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20)
+
             secondaryLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             secondaryLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
@@ -54,7 +47,7 @@ class HeaderView: UITableViewHeaderFooterView {
     }
     
     func setTexts(primaryText: String, secondaryText: String){
-//        primaryLabel.text = primaryText
-//        secondaryLabel.text = secondaryText
+        primaryLabel.text = primaryText
+        secondaryLabel.text = secondaryText
     }
 }

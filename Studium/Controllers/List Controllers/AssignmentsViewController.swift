@@ -33,27 +33,21 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         searchBar.delegate = self
-        tableView.register(UINib(nibName: "AssignmentCell1", bundle: nil), forCellReuseIdentifier: K.assignmentCellID)
-//        tableView.register(UINib(nibName: "HeaderTableViewCell", bundle: nil), forCellReuseIdentifier: K.headerCellID)
 
-        sectionHeaders = ["Incomplete","Complete"]
+        sectionHeaders = ["To Do:", "Completed:"]
         eventTypeString = "Assignments"
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if let colorHex = selectedCourse?.color{
             title = selectedCourse!.name
             //searchBar.barTintColor = UIColor(hexString: colorHex)
-            
             guard let navBar = navigationController?.navigationBar else {fatalError("nav controller doesnt exist")}
             
-            
             if let navBarColor = UIColor(hexString: colorHex){
-                //navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
                 navBar.barTintColor = navBarColor
-                //navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(navBarColor, returnFlat: true)]
             }else{
                 print("error")
             }
@@ -61,7 +55,6 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
             print("error")
         }
         loadAssignments()
-        //reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -104,25 +97,18 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
                         assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
                     }
                     assignment.complete = !assignment.complete
-                    
-                    print("assignment scheduledEvents length: \(assignment.scheduledEvents.count)")
-
-                    print("user changed assignment \(assignment.name) completeness")
                 }
             }catch{
-                print("error saving course: \(error)")
+                print("ERROR: error saving course: \(error)")
             }
         }else{
-            print("error accessing user")
+            print("ERROR: error accessing user")
         }
 
-        
-//        loadAssignments(skipAutos: false)
         if(assignment.isAutoscheduled){
             tableView.reloadData()
         }else{
             loadAssignments()
-            
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -194,10 +180,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
 //This extension ensures that the view controller can handle what happens when user wants to collapsed autoscheduled events.
 extension AssignmentsViewController: AssignmentCollapseDelegate{
     func handleOpenAutoEvents(assignment: Assignment) {
-
         let arrayIndex = assignment.complete ? 1 : 0
-        print("Handle opening auto events")
-        
         if let ind = eventsArray[arrayIndex].firstIndex(of: assignment){
             var index = ind + 1
             for auto in assignment.scheduledEvents{
@@ -211,8 +194,6 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
     }
 
     func handleCloseAutoEvents(assignment: Assignment) {
-        print("Handle close auto events")
-
         let arrayIndex = assignment.complete ? 1 : 0
         let index = eventsArray[arrayIndex].firstIndex(of: assignment)!
 
@@ -226,7 +207,6 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
     func collapseAllExpandedAssignments(){
         for cell in tableView.visibleCells{
             if let assignmentCell = cell as? AssignmentCell1{
-
                 if assignmentCell.autoEventsOpen{
                     assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
                 }
