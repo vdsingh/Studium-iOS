@@ -1,70 +1,58 @@
 //
-//  LoginViewController.swift
+//  TempLogin.swift
 //  Studium
 //
-//  Created by Vikram Singh on 1/31/21.
-//  Copyright © 2021 Vikram Singh. All rights reserved.
+//  Created by Vikram Singh on 3/15/22.
+//  Copyright © 2022 Vikram Singh. All rights reserved.
 //
-
+import Foundation
 import UIKit
 import RealmSwift
 import GoogleSignIn
 
 class LoginViewController: UIViewController, GIDSignInDelegate{
-
-    
-    
     @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
     
-    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var continueAsGuestButton: UIButton!
     
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
     let app = App(id: Secret.appID)
 
     
+    //UI CONSTANTS
+    let iconSize = 30
+    let tintColor: UIColor = UIColor(named: "Studium Secondary Theme Color") ?? .black
+    let placeHolderColor: UIColor = .placeholderText
+    let backgroundColor: UIColor =  UIColor(named: "Studium System Background Color") ?? .systemBackground
+    
+    
+    let textFieldBorderWidth: CGFloat = 2
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
-        // Do any additional setup after loading the view.
+        setupUI()
+        view.backgroundColor = backgroundColor
+        view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:))))
         
-        emailTextField.layer.borderColor = UIColor.secondaryLabel.cgColor
-        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",attributes:[NSAttributedString.Key.foregroundColor: UIColor.tertiaryLabel])
-        emailTextField.layer.borderWidth = 1
-        emailTextField.layer.cornerRadius = 10
-        
-        passwordTextField.layer.borderColor = UIColor.secondaryLabel.cgColor
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password",attributes:[NSAttributedString.Key.foregroundColor: UIColor.tertiaryLabel])
-        passwordTextField.layer.borderWidth = 1
-        passwordTextField.layer.cornerRadius = 10
-        
-        loginButton.layer.cornerRadius = 10
-
-        
+        //Google Sign In Button Code
         googleSignInButton.style = GIDSignInButtonStyle.wide
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
-        
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
 
-
-          // Automatically sign in the user.
-//        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-        
-        navigationItem.hidesBackButton = false
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func textFieldEditingDidBegin(_ sender: UITextField) {
+        sender.tintColor = tintColor
+        sender.layer.borderColor = tintColor.cgColor
     }
-    */
+    
+    @IBAction func textFieldEditingDidEnd(_ sender: UITextField) {
+        sender.tintColor = .gray
+        sender.layer.borderColor = UIColor.gray.cgColor
+    }
+    
     @IBAction func signInButtonPressed(_ sender: UIButton) {
         let email = emailTextField.text!
         let password = passwordTextField.text!
@@ -83,12 +71,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate{
                 // Remember to dispatch to main if you are doing anything on the UI thread
             }
         }
-    }
-    
-    @IBAction func signUpButtonPressed(_ sender: UIButton) {
-    }
-    @IBAction func noAccountButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "toRegister", sender: self)
     }
     
     //MARK: Google Sign In Method
@@ -122,5 +104,82 @@ class LoginViewController: UIViewController, GIDSignInDelegate{
                 }
             }
         }
+    }
+    //this function sets up the textfields (adds the left image and right image.)
+    func setupUI(){
+        //EMAIL TEXT FIELD SETUP:
+        let emailImageView = UIImageView(frame: CGRect(x: iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
+        emailImageView.image = UIImage(systemName: "envelope")
+        emailImageView.contentMode = .scaleAspectFit
+
+        let emailView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize/3*4, height: iconSize/3*5))
+        emailView.addSubview(emailImageView)
+        emailTextField.tintColor = .gray
+        emailTextField.leftViewMode = UITextField.ViewMode.always
+        emailTextField.leftView = emailView
+        emailTextField.layer.masksToBounds = true
+        emailTextField.layer.cornerRadius = 10
+        emailTextField.layer.masksToBounds = true
+        emailTextField.layer.borderColor = UIColor.gray.cgColor
+        emailTextField.layer.borderWidth = textFieldBorderWidth
+        
+        let emailPlaceholderAttributedString = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: placeHolderColor])
+        emailTextField.attributedPlaceholder = emailPlaceholderAttributedString
+        emailTextField.backgroundColor = backgroundColor
+        emailTextField.returnKeyType = .done
+        emailTextField.delegate = self
+
+
+        
+        //PASSWORD TEXT FIELD SETUP:
+        let passwordIconImageView = UIImageView(frame: CGRect(x: iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
+        passwordIconImageView.image = UIImage(systemName: "lock")
+        passwordIconImageView.contentMode = .scaleAspectFit
+
+        let passwordIconView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize/3*4, height: iconSize/3*5))
+        passwordIconView.addSubview(passwordIconImageView)
+        passwordTextField.leftView = passwordIconView
+        passwordTextField.leftViewMode = UITextField.ViewMode.always
+        
+        let passwordEyeImageView = UIImageView(frame: CGRect(x: -iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
+        passwordEyeImageView.image = UIImage(systemName: "eye")
+        passwordEyeImageView.contentMode = .scaleAspectFit
+
+        let passwordEyeView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize/3*4, height: iconSize/3*5))
+        passwordEyeView.addSubview(passwordEyeImageView)
+        passwordTextField.tintColor = .gray
+        passwordTextField.rightViewMode = UITextField.ViewMode.always
+        passwordTextField.rightView = passwordEyeView
+        passwordTextField.layer.cornerRadius = 10
+        passwordTextField.layer.masksToBounds = true
+        passwordTextField.layer.borderColor = UIColor.gray.cgColor
+        passwordTextField.layer.borderWidth = textFieldBorderWidth
+        
+        let passwordPlaceholderAttributedString = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: placeHolderColor])
+        passwordTextField.attributedPlaceholder = passwordPlaceholderAttributedString
+        passwordTextField.backgroundColor = backgroundColor
+        passwordTextField.returnKeyType = .done
+        passwordTextField.delegate = self
+        
+        
+        signInButton.backgroundColor = tintColor
+        signInButton.layer.cornerRadius = 10
+        signInButton.setTitleColor(.white, for: .normal)
+    
+        continueAsGuestButton.tintColor = tintColor
+    }
+    
+    @IBAction func backButtonPressed(_ sender: UIButton) {
+        print("Back Button Pressed")
+        self.navigationController?.popViewController(animated: true)
+        if(navigationController == nil){
+            print("NAVIGATION CONTROLLER IS NIL")
+        }
+    }
+    
+    //close the keyboard - do nothing
+    func textFieldShouldReturn(textField: UITextField!) -> Bool // called when 'return' key pressed. return NO to ignore.
+    {
+        return true;
     }
 }

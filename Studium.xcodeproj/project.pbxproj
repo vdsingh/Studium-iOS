@@ -15,6 +15,7 @@
 		16429CFE247D20F90052E47C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429CFD247D20F90052E47C /* Extensions.swift */; };
 		16429D04247E43720052E47C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D03247E43720052E47C /* Habit.swift */; };
 		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
+		164905B727E18732002DE61D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164905B627E18732002DE61D /* LoginViewController.swift */; };
 		1649A46427DC7B3B00B75481 /* ColorPickerCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1649A46227DC7B3B00B75481 /* ColorPickerCell2.swift */; };
 		1649A46527DC7B3B00B75481 /* ColorPickerCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1649A46327DC7B3B00B75481 /* ColorPickerCell2.xib */; };
 		1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1649A46827DEAD1900B75481 /* HeaderView.swift */; };
@@ -74,8 +75,6 @@
 		16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */; };
 		16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8824AD4161003A30D3 /* MasterForm.swift */; };
 		16A63B8F24AD43DF003A30D3 /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */; };
-		16B2837D25C25BF40039043E /* CourseCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B2837B25C25BF40039043E /* CourseCell2.swift */; };
-		16B2837E25C25BF40039043E /* CourseCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16B2837C25C25BF40039043E /* CourseCell2.xib */; };
 		16B498D025CE2CE6005E9C26 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B498CF25CE2CE6005E9C26 /* Secret.swift */; };
 		16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */; };
 		16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */; };
@@ -90,7 +89,7 @@
 		16C607EC250E985000983C3D /* GlacialIndifference-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */; };
 		16C607ED250E985000983C3D /* GlacialIndifference-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607EA250E985000983C3D /* GlacialIndifference-Bold.otf */; };
 		16C60FB225C5F7FB006D0FFC /* StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */; };
-		16C60FE825C76C51006D0FFC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FE725C76C51006D0FFC /* LoginViewController.swift */; };
+		16C60FE825C76C51006D0FFC /* LoginViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FE725C76C51006D0FFC /* LoginViewController1.swift */; };
 		16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */; };
 		16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E251462485190E000494DE /* SegmentedControlCell.swift */; };
 		16E251492485190F000494DE /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E251472485190E000494DE /* SegmentedControlCell.xib */; };
@@ -108,6 +107,7 @@
 		16429CFD247D20F90052E47C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		16429D03247E43720052E47C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
+		164905B627E18732002DE61D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1649A46227DC7B3B00B75481 /* ColorPickerCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCell2.swift; sourceTree = "<group>"; };
 		1649A46327DC7B3B00B75481 /* ColorPickerCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerCell2.xib; sourceTree = "<group>"; };
 		1649A46827DEAD1900B75481 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -169,8 +169,6 @@
 		16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletableEventCell.swift; sourceTree = "<group>"; };
 		16A63B8824AD4161003A30D3 /* MasterForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterForm.swift; sourceTree = "<group>"; };
 		16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
-		16B2837B25C25BF40039043E /* CourseCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell2.swift; sourceTree = "<group>"; };
-		16B2837C25C25BF40039043E /* CourseCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell2.xib; sourceTree = "<group>"; };
 		16B498CF25CE2CE6005E9C26 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
 		16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
@@ -185,7 +183,7 @@
 		16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Regular.otf"; sourceTree = "<group>"; };
 		16C607EA250E985000983C3D /* GlacialIndifference-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Bold.otf"; sourceTree = "<group>"; };
 		16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEvent.swift; sourceTree = "<group>"; };
-		16C60FE725C76C51006D0FFC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		16C60FE725C76C51006D0FFC /* LoginViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController1.swift; sourceTree = "<group>"; };
 		16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		16E251462485190E000494DE /* SegmentedControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlCell.swift; sourceTree = "<group>"; };
 		16E251472485190E000494DE /* SegmentedControlCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
@@ -223,11 +221,19 @@
 				16429D06247E81630052E47C /* WakeUpIntroController.swift */,
 				164F62F224DF7BFC00DC8169 /* NotificationsController.swift */,
 				164F630024EA2E0900DC8169 /* FirstScreenViewController.swift */,
-				16C60FE725C76C51006D0FFC /* LoginViewController.swift */,
+				16C60FE725C76C51006D0FFC /* LoginViewController1.swift */,
+				164905B627E18732002DE61D /* LoginViewController.swift */,
 				16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */,
 				1697F7EF266C6B6D0064AB28 /* StartViewController.swift */,
 			);
 			path = "Intro Controllers";
+			sourceTree = "<group>";
+		};
+		164905B827E18793002DE61D /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Custom Views";
 			sourceTree = "<group>";
 		};
 		16547B6B24DA4AA900E68E4D /* Settings Controllers */ = {
@@ -326,14 +332,13 @@
 		1693E74B247A4634003D4702 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				164905B827E18793002DE61D /* Custom Views */,
 				16C05CF1264F36DC004C9629 /* New Event Cells */,
 				16B2837925C25BA50039043E /* Event Cells */,
 				1665FF1E250EA98300485F3D /* Fonts */,
 				1693E736247A3DC4003D4702 /* Main.storyboard */,
 				1693E73B247A3DC6003D4702 /* LaunchScreen.storyboard */,
-				16E2514524838676000494DE /* Basic Cells */,
-				16B2837B25C25BF40039043E /* CourseCell2.swift */,
-				16B2837C25C25BF40039043E /* CourseCell2.xib */,
+				16E2514524838676000494DE /* Basic TableView Cells */,
 				1649A46827DEAD1900B75481 /* HeaderView.swift */,
 			);
 			path = Views;
@@ -409,7 +414,7 @@
 			path = "New Event Cells";
 			sourceTree = "<group>";
 		};
-		16E2514524838676000494DE /* Basic Cells */ = {
+		16E2514524838676000494DE /* Basic TableView Cells */ = {
 			isa = PBXGroup;
 			children = (
 				1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */,
@@ -440,7 +445,7 @@
 				1649A46227DC7B3B00B75481 /* ColorPickerCell2.swift */,
 				1649A46327DC7B3B00B75481 /* ColorPickerCell2.xib */,
 			);
-			path = "Basic Cells";
+			path = "Basic TableView Cells";
 			sourceTree = "<group>";
 		};
 		8E6006EE7CC6D255D05E9EBF /* Frameworks */ = {
@@ -525,7 +530,6 @@
 				1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */,
 				1693E73A247A3DC6003D4702 /* Assets.xcassets in Resources */,
 				1649A46527DC7B3B00B75481 /* ColorPickerCell2.xib in Resources */,
-				16B2837E25C25BF40039043E /* CourseCell2.xib in Resources */,
 				16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */,
 				164F62FD24E4DF4800DC8169 /* LogoCollectionViewCell.xib in Resources */,
 				1641822C24AD9D0800960F86 /* PickerCell.xib in Resources */,
@@ -660,13 +664,13 @@
 				16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */,
 				1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */,
 				16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */,
-				16B2837D25C25BF40039043E /* CourseCell2.swift in Sources */,
 				16429CFE247D20F90052E47C /* Extensions.swift in Sources */,
 				1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */,
+				164905B727E18732002DE61D /* LoginViewController.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
-				16C60FE825C76C51006D0FFC /* LoginViewController.swift in Sources */,
+				16C60FE825C76C51006D0FFC /* LoginViewController1.swift in Sources */,
 				164F630124EA2E0900DC8169 /* FirstScreenViewController.swift in Sources */,
 				16A63B7F24A6D1C4003A30D3 /* AddToDoListEventViewController.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,

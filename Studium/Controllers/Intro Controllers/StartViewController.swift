@@ -19,9 +19,9 @@ class StartViewController: UIViewController, GIDSignInDelegate{
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
     
     override func viewDidLoad() {
-        print("hi")
-        signUpButton.layer.cornerRadius = 5
-        loginButton.layer.cornerRadius = 5
+        print("nav controller: \(navigationController)")
+        signUpButton.layer.cornerRadius = 10
+        loginButton.layer.cornerRadius = 10
         
         googleSignInButton.style = GIDSignInButtonStyle.wide
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark

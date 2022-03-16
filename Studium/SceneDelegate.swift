@@ -24,18 +24,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //change initial view controller depending on whether user has decided notifications
         
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: windowScene)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        guard let windowScene = (scene as? UIWindowScene) else { return }
+//        window = UIWindow(windowScene: windowScene)
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //
-//        if "Insert user here" == nil{
-        if (app.currentUser != nil && app.currentUser!.isLoggedIn){
-            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
-
-        }
-        else{
-            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "PeePoo")
-        }
+        
+        
+//        if (app.currentUser != nil && app.currentUser!.isLoggedIn){
+//            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
+//
+//        }
+//        else{
+//            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "PeePoo")
+//        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
