@@ -27,6 +27,7 @@ class WakeUpIntroController: UIViewController{
     @IBOutlet weak var satLabel: UILabel!
     
     @IBOutlet weak var timePicker: UIDatePicker!
+    @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var errorsLabel: UILabel!
     var selectedDay: UIButton?
     
@@ -47,6 +48,18 @@ class WakeUpIntroController: UIViewController{
             if error != nil{
                 print(error!)
             }
+        }
+        
+        if #available(iOS 15.0, *) {
+            nextButton.configuration = .filled()
+        } else {
+            // Fallback on earlier versions
+            print("IOS 15 NOT AVAILABLE")
+//            nextButton.configuration = .
+//            nextButton.backgroundColor = .link
+            nextButton.titleLabel?.text = "Next"
+            nextButton.titleLabel?.textColor = .orange
+            nextButton.layer.cornerRadius = 10
         }
 
         //selects sunday by default
@@ -98,6 +111,7 @@ class WakeUpIntroController: UIViewController{
             day.isSelected = false
         }
         sender.isSelected = true
+        sender.setTitleColor(.label, for: .selected)
         
     }
     
@@ -126,6 +140,7 @@ class WakeUpIntroController: UIViewController{
     //selects Sunday
     func selectSunday(){
         for day in days!{ //select sunday at start
+            day.setTitleColor(.label, for: .selected)
             if day.titleLabel?.text == "Sun"{
                 day.isSelected = true
                 selectedDay = day

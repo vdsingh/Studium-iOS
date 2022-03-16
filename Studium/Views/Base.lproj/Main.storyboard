@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3aL-gU-GxG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="13W-JO-cIR">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -80,11 +80,12 @@
                         <segue destination="TFg-b8-3jm" kind="show" identifier="toThemePage" id="iaC-oC-tx9"/>
                         <segue destination="13W-JO-cIR" kind="showDetail" identifier="toWakeUpTimes" id="5zV-Mg-OtU"/>
                         <segue destination="hFo-id-GNg" kind="show" identifier="toAlertSelection" id="dgf-qv-Fcf"/>
+                        <segue destination="kab-UP-nRT" kind="showDetail" identifier="toLoginScreen" id="2TK-NK-MGx"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lhd-Sr-54e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-71" y="-1572"/>
+            <point key="canvasLocation" x="-71" y="-1553"/>
         </scene>
         <!--Day View-->
         <scene sceneID="qp6-ef-PCF">
@@ -521,17 +522,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="W6V-nj-3lM">
-                                <rect key="frame" x="20" y="64" width="374" height="778"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="W6V-nj-3lM">
+                                <rect key="frame" x="20" y="94" width="374" height="718"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When do you wake up?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwb-l7-dZL">
-                                        <rect key="frame" x="99" y="0.0" width="176" height="23"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="31" y="0.0" width="312" height="76.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yOK-kj-lpp">
-                                        <rect key="frame" x="39.5" y="33" width="295" height="35.5"/>
+                                        <rect key="frame" x="0.0" y="96.5" width="374" height="51"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="NV6-0o-h5W"/>
+                                        </constraints>
                                         <segments>
                                             <segment title="Different Times"/>
                                             <segment title="Same Time Everyday"/>
@@ -541,76 +545,100 @@
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="lvA-nu-ynG">
-                                        <rect key="frame" x="21" y="77.5" width="332" height="37.5"/>
+                                        <rect key="frame" x="21" y="166.5" width="332" height="31"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="TZa-Wx-7FK">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="37.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Sun"/>
+                                                <color key="tintColor" name="Studium Button Color"/>
+                                                <state key="normal" title="Sun">
+                                                    <color key="titleColor" name="Studium Button Color"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="cJc-cA-OCb"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7P-7Y-z1l">
-                                                <rect key="frame" x="50" y="0.0" width="31" height="37.5"/>
-                                                <state key="normal" title="Mon"/>
+                                                <rect key="frame" x="50" y="0.0" width="31" height="31"/>
+                                                <color key="tintColor" name="Studium Button Color"/>
+                                                <state key="normal" title="Mon">
+                                                    <color key="titleColor" name="Studium Button Color"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="xnj-iP-frN"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="aYj-Ep-44S">
-                                                <rect key="frame" x="101" y="0.0" width="30" height="37.5"/>
+                                                <rect key="frame" x="101" y="0.0" width="30" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Tue"/>
+                                                <color key="tintColor" name="Studium Button Color"/>
+                                                <state key="normal" title="Tue">
+                                                    <color key="titleColor" name="Studium Button Color"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="tEa-Iz-xBR"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="1nv-lV-dXL">
-                                                <rect key="frame" x="151" y="0.0" width="31" height="37.5"/>
+                                                <rect key="frame" x="151" y="0.0" width="31" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Wed"/>
+                                                <color key="tintColor" name="Studium Button Color"/>
+                                                <state key="normal" title="Wed">
+                                                    <color key="titleColor" name="Studium Button Color"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="5RJ-Ac-9pT"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="wbw-Jv-AwL">
-                                                <rect key="frame" x="202" y="0.0" width="30" height="37.5"/>
+                                                <rect key="frame" x="202" y="0.0" width="30" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Thu"/>
+                                                <color key="tintColor" name="Studium Button Color"/>
+                                                <state key="normal" title="Thu">
+                                                    <color key="titleColor" name="Studium Button Color"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="wCg-vb-att"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="q9I-As-Q7g">
-                                                <rect key="frame" x="252" y="0.0" width="30" height="37.5"/>
+                                                <rect key="frame" x="252" y="0.0" width="30" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Fri"/>
+                                                <color key="tintColor" name="Studium Button Color"/>
+                                                <state key="normal" title="Fri">
+                                                    <color key="titleColor" name="Studium Button Color"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="ZSW-8v-FlA"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="ceD-z6-mLH">
-                                                <rect key="frame" x="302" y="0.0" width="30" height="37.5"/>
+                                                <rect key="frame" x="302" y="0.0" width="30" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Sat"/>
+                                                <color key="tintColor" name="Studium Button Color"/>
+                                                <state key="normal" title="Sat">
+                                                    <color key="titleColor" name="Studium Button Color"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="dayButtonPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="E51-aI-0aq"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gT5-b6-OX2">
-                                        <rect key="frame" x="27" y="125" width="320" height="241.5"/>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="gT5-b6-OX2">
+                                        <rect key="frame" x="27" y="217.5" width="320" height="150"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="VVj-Lk-1lx"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="timePickerChanged:" destination="13W-JO-cIR" eventType="valueChanged" id="fW1-HO-0ey"/>
                                         </connections>
                                     </datePicker>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="wR4-sE-vpc">
-                                        <rect key="frame" x="72.5" y="376.5" width="229" height="311.5"/>
+                                        <rect key="frame" x="72.5" y="387.5" width="229" height="260.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="18" id="gVI-71-EoW">
-                                                <rect key="frame" x="0.0" y="30" width="89.5" height="251.5"/>
+                                                <rect key="frame" x="0.0" y="4.5" width="89.5" height="251.5"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L9s-UE-Bxo">
@@ -666,7 +694,7 @@
                                                 <viewLayoutGuide key="safeArea" id="Htg-bq-w3L"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="F3Z-cF-IGp">
-                                                <rect key="frame" x="139.5" y="30" width="89.5" height="251.5"/>
+                                                <rect key="frame" x="139.5" y="4.5" width="89.5" height="251.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:30 AM" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8e-qc-t7o">
                                                         <rect key="frame" x="0.0" y="0.0" width="64" height="20.5"/>
@@ -721,22 +749,35 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFf-Jg-AzX">
-                                        <rect key="frame" x="171" y="698" width="32" height="80"/>
-                                        <state key="normal" title="Next"/>
+                                        <rect key="frame" x="0.0" y="668" width="374" height="50"/>
+                                        <color key="backgroundColor" name="Studium Button Color"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="E1Q-hP-HqL"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Next">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="nextPressed:" destination="13W-JO-cIR" eventType="touchUpInside" id="wGK-f9-vl0"/>
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="VFf-Jg-AzX" secondAttribute="trailing" id="RXl-hg-c1g"/>
+                                    <constraint firstItem="VFf-Jg-AzX" firstAttribute="leading" secondItem="W6V-nj-3lM" secondAttribute="leading" id="eZJ-5W-mSq"/>
+                                    <constraint firstItem="yOK-kj-lpp" firstAttribute="leading" secondItem="W6V-nj-3lM" secondAttribute="leading" id="fsI-Bu-riW"/>
+                                    <constraint firstAttribute="trailing" secondItem="yOK-kj-lpp" secondAttribute="trailing" id="lTD-mn-F4H"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="M0J-tZ-cxH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="M0J-tZ-cxH" firstAttribute="bottom" secondItem="W6V-nj-3lM" secondAttribute="bottom" constant="20" id="E91-63-Pzo"/>
+                            <constraint firstItem="M0J-tZ-cxH" firstAttribute="bottom" secondItem="W6V-nj-3lM" secondAttribute="bottom" constant="50" id="E91-63-Pzo"/>
                             <constraint firstItem="M0J-tZ-cxH" firstAttribute="trailing" secondItem="W6V-nj-3lM" secondAttribute="trailing" constant="20" id="aKJ-f6-sbn"/>
                             <constraint firstItem="W6V-nj-3lM" firstAttribute="leading" secondItem="M0J-tZ-cxH" secondAttribute="leading" constant="20" id="fuF-9U-THI"/>
-                            <constraint firstItem="W6V-nj-3lM" firstAttribute="top" secondItem="M0J-tZ-cxH" secondAttribute="top" constant="20" id="pg1-Jp-EgH"/>
+                            <constraint firstItem="W6V-nj-3lM" firstAttribute="top" secondItem="M0J-tZ-cxH" secondAttribute="top" constant="50" id="pg1-Jp-EgH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5Ya-sm-upB">
@@ -749,6 +790,7 @@
                     <connections>
                         <outlet property="friLabel" destination="3Uv-cR-AZO" id="9Oy-r4-65A"/>
                         <outlet property="monLabel" destination="ofJ-Ok-flK" id="KLb-yC-txe"/>
+                        <outlet property="nextButton" destination="VFf-Jg-AzX" id="J7c-WN-iuD"/>
                         <outlet property="satLabel" destination="byh-pb-3U5" id="Te4-Dw-H0B"/>
                         <outlet property="sunLabel" destination="J8e-qc-t7o" id="euX-KY-Ijz"/>
                         <outlet property="thuLabel" destination="6eG-a9-kN7" id="lbl-2v-XxT"/>
@@ -1348,6 +1390,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3aL-gU-GxG" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="4gE-lv-QcC"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="oh2-S2-vbH">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1458,6 +1501,7 @@
                         <outlet property="googleSignInButton" destination="hQ1-Zc-OCF" id="il8-cV-q6R"/>
                         <outlet property="loginButton" destination="WKd-h2-5bY" id="Pht-AA-FMI"/>
                         <outlet property="signUpButton" destination="UF8-fU-utZ" id="Nu9-Kc-Aq0"/>
+                        <segue destination="13W-JO-cIR" kind="showDetail" identifier="toWakeUp" id="J7L-Rc-yCL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z6U-AZ-w2S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1466,6 +1510,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="2TK-NK-MGx"/>
         <segue reference="dgf-qv-Fcf"/>
         <segue reference="T8N-JJ-KKU"/>
         <segue reference="9lJ-uH-c9Z"/>

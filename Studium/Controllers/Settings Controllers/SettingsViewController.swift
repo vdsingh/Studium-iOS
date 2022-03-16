@@ -23,7 +23,7 @@ class SettingsViewController: UITableViewController, AlertInfoStorer{
     //reference to defaults
     let defaults = UserDefaults.standard
     
-    let cellData: [[String]] = [["Theme", "Set Default Notifications","Reset Wake Up Times"],
+    let cellData: [[String]] = [["Theme", "Set Default Notifications", "Reset Wake Up Times"],
                                 ["Sync to Apple Calendar"],
                                 ["Delete All Assignments","Delete Completed Assignments",  "Delete All Other Events", "Delete All Completed Other Events"],
                                 ["Email", "Sign Out"]]
@@ -84,7 +84,7 @@ class SettingsViewController: UITableViewController, AlertInfoStorer{
         return 60
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return K.headerHeight
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -97,8 +97,6 @@ class SettingsViewController: UITableViewController, AlertInfoStorer{
             center.removeAllDeliveredNotifications()    // to remove all delivered notifications
             center.removeAllPendingNotificationRequests()   // to remove all pending notifications
             UIApplication.shared.applicationIconBadgeNumber = 0 // to clear the icon notification badge
-//            print("cleared all notifications")
-//            print(UIApplication.shared.scheduledLocalNotifications)
         }else if cellData[indexPath.section][indexPath.row] == "Delete All Assignments"{
             createAlertForAssignments(title: alertData[0][0], message: alertData[0][1], isCompleted: false)
         }else if cellData[indexPath.section][indexPath.row] == "Delete Completed Assignments"{
@@ -113,7 +111,15 @@ class SettingsViewController: UITableViewController, AlertInfoStorer{
                 return
             }
             let _ = user.logOut()
-            performSegue(withIdentifier: "toLoginScreen", sender: self)
+//            self.navigationController?.popToRootViewController(animated: true)
+//            guard let vc = self.presentingViewController else { return }
+//
+//            print("Dismissing VC")
+//            vc.dismiss(animated: true, completion: nil)
+//            vc.dismiss(animated: true, completion: nil)
+//            vc.dismiss(animated: true, completion: nil)
+
+//            performSegue(withIdentifier: "toLoginScreen", sender: self)
         }else if cellData[indexPath.section][indexPath.row] == "Sync to Apple Calendar"{
             // Initialize the store.
             let store = EKEventStore()

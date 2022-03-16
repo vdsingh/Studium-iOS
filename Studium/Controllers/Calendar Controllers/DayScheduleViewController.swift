@@ -44,10 +44,6 @@ class DayScheduleViewController: DayViewController{
     @IBAction func monthButtonPressed(_ sender: Any) {
         performSegue(withIdentifier: "toCalendar", sender: self)
     }
-    //    @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
-//        performSegue(withIdentifier: "toCalendar", sender: self)
-//        sender.selectedSegmentIndex = 0
-//    }
     
     func addCourses(for date: Date) -> [Event]{
         var events: [Event] = []
@@ -56,7 +52,7 @@ class DayScheduleViewController: DayViewController{
             realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
 
         }else{
-            print("error getting user")
+            print("ERROR: error getting user")
         }
             
         
@@ -86,6 +82,11 @@ class DayScheduleViewController: DayViewController{
     
     func addWakeTimes(for date: Date) -> [Event]{
         var events: [Event] = []
+        
+        if UserDefaults.standard.object(forKey: K.wakeUpKeyDict[date.weekday]!) == nil {
+            print("LOG: user did not specify wake times.")
+            return []
+        }
         
         let timeToWake = defaults.array(forKey: K.wakeUpKeyDict[date.weekday]!)![0] as! Date
         
