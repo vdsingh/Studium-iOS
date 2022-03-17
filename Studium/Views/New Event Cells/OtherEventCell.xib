@@ -103,7 +103,6 @@
                         </subviews>
                     </stackView>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="BmO-Tg-S6n" secondAttribute="trailing" id="geo-iU-gJ2"/>
                     <constraint firstItem="BmO-Tg-S6n" firstAttribute="centerY" secondItem="eI7-gs-Cfy" secondAttribute="centerY" id="hjQ-nF-1Ia"/>
@@ -115,7 +114,7 @@
                 <outlet property="endTimeLabel" destination="lH7-rB-8Sv" id="uNz-s2-nLc"/>
                 <outlet property="latenessIndicator" destination="HId-8I-2Gm" id="ZrU-Hf-cMC"/>
                 <outlet property="primaryLabel" destination="lKT-1X-Amo" id="19o-Zx-7sp"/>
-                <outlet property="startTimeLabel" destination="lH7-rB-8Sv" id="0DW-xK-Bht"/>
+                <outlet property="startTimeLabel" destination="hp7-Ju-s4c" id="h7d-It-LjU"/>
                 <outlet property="subLabel" destination="VOW-C5-XvW" id="C8D-Bg-hHU"/>
             </connections>
             <point key="canvasLocation" x="69.565217391304358" y="157.36607142857142"/>

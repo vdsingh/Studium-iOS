@@ -131,6 +131,7 @@ class AssignmentCell1: DeletableEventCell {
         icon.image = UIImage(systemName: course.systemImageString)
     }
     
+    
     //Handle collapse button pressed for assignments that have autoscheduled events.
     @IBAction func collapseButtonPressed(_ sender: UIButton) {
         if assignmentCollapseDelegate != nil && event != nil{

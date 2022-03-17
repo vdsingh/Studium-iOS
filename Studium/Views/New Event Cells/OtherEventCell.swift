@@ -59,8 +59,38 @@ class OtherEventCell: DeletableEventCell{
         subLabel.text = otherEvent.location
         startTimeLabel.text = otherEvent.startDate.format(with: "MMM d, h:mm a")
         endTimeLabel.text = otherEvent.endDate.format(with: "MMM d, h:mm a")
-        
+        backgroundColor = .black
 
+    }
+    
+    func loadDataGeneric(primaryText: String, secondaryText: String, startDate: Date, endDate: Date, cellColor: UIColor){
+        var contrastingColor = UIColor(contrastingBlackOrWhiteColorOn: cellColor, isFlat: true)
+        //Black as a label color looks too intense. If the contrasting color is supposed to be black, change it to a lighter gray.
+        if contrastingColor == UIColor(contrastingBlackOrWhiteColorOn: .white, isFlat: true){
+            contrastingColor = UIColor(hexString: "#4a4a4a")!
+        }
+
+        primaryLabel.text = primaryText
+        primaryLabel.textColor = contrastingColor
+        
+        subLabel.text = secondaryText
+        subLabel.textColor = contrastingColor
+        
+        startTimeLabel.text = startDate.format(with: "h:mm a")
+        startTimeLabel.textColor = contrastingColor
+
+        endTimeLabel.text = endDate.format(with: "h:mm a")
+        endTimeLabel.textColor = contrastingColor
+
+        
+        backgroundColor = cellColor
+        
+//        background.backgroundColor = cellColor
+//        background.backgroundColor = cellColor
+        
+//        icon.image = iconImage
+//        icon.tintColor = cellColor
+        latenessIndicator.isHidden = true
     }
     
 }

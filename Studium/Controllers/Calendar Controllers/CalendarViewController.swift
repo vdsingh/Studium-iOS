@@ -21,23 +21,21 @@ class CalendarViewController: UIViewController{
     var allEventsInDay: [StudiumEvent] = []
     var selectedDay: Date = Date()
     override func viewDidLoad() {
-        //print("calendar viewdidload was called.")
         super.viewDidLoad()
         guard let user = app.currentUser else {
-            print("Error getting user in MasterForm")
+            print("ERROR: error getting user in CalendarViewController")
             return
         }
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
 
         calendar.appearance.weekdayTextColor = .label
-//        calendar.appearance.headerTitleFont = headert
-        
         calendar.appearance.headerTitleColor = .label
         
         
         //TableView Related Stuff:
-//        tableView.register(UINib(nibName: K.assignmentCellID, bundle: nil), forCellReuseIdentifier: "Cell")
-        tableView.register(UINib(nibName: K.genericCellID, bundle: nil), forCellReuseIdentifier: K.genericCellID)
+        tableView.register(UINib(nibName: K.otherEventCellID, bundle: nil), forCellReuseIdentifier: K.otherEventCellID)
+        tableView.register(UINib(nibName: K.assignmentCellID, bundle: nil), forCellReuseIdentifier: K.assignmentCellID)
+
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -123,16 +121,25 @@ class CalendarViewController: UIViewController{
 
 extension CalendarViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:  K.genericCellID, for: indexPath) as! GenericTableViewCell
-        let correspondingEvent: StudiumEvent = allEventsInDay[indexPath.row]
-//        cell.loadData(assignment: correspondingEvent)
-        cell.loadData(event: correspondingEvent)
-//        cell.textLabel?.text = correspondingEvent.name
-        return cell
+        let event: StudiumEvent = allEventsInDay[indexPath.row]
+        print("EVENT COLOR for \(event.name): \(event.color)")
+        if event is Assignment{
+            let cell = tableView.dequeueReusableCell(withIdentifier:  K.assignmentCellID, for: indexPath) as! AssignmentCell1
+            cell.loadData(assignment: event as! Assignment)
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier:  K.otherEventCellID, for: indexPath) as! OtherEventCell
+            cell.loadDataGeneric(primaryText: event.name, secondaryText: event.location, startDate: event.startDate, endDate: event.endDate, cellColor: UIColor(hexString: event.color.substring(fromIndex: 1)) ?? .black)
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     
 }
@@ -144,6 +151,7 @@ extension CalendarViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allEventsInDay.count
     }
+    
 }
 
 extension CalendarViewController: FSCalendarDataSource{
