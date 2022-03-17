@@ -10,7 +10,9 @@ import UIKit
 import RealmSwift
 import GoogleSignIn
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, UIGestureRecognizerDelegate, GIDSignInDelegate {
+    
+    
 //    let firestoreDB = Firestore.firestore()
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -31,32 +33,28 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var stringOne = "Already have an account?"
-        let stringTwo = "Sign Up."
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        tap.delegate = self
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
+//        var stringOne = "Already have an account?"
+//        let stringTwo = "Sign Up."
 
-        let range = (stringOne as NSString).range(of: stringTwo)
+//        let range = (stringOne as NSString).range(of: stringTwo)
 
-        let attributedText = NSMutableAttributedString.init(string: stringOne)
-        attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.blue , range: range)
+//        let attributedText = NSMutableAttributedString.init(string: stringOne)
+//        attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.blue , range: range)
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        // Do any additional setup after loading the view.
         
-//        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
-//        emailTextField.layer.borderColor = UIColor.gray.cgColor
-//        emailTextField.layer.borderWidth = 1
-//        emailTextField.layer.cornerRadius = 10
-//
-//
-//        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password",attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
-//        passwordTextField.layer.borderColor = UIColor.gray.cgColor
-//        passwordTextField.layer.borderWidth = 1
-//        passwordTextField.layer.cornerRadius = 10
-//
-//
-//
-//        signUpButton.layer.cornerRadius = 10
+        //Google Sign In Button Code
+        googleSignInButton.style = GIDSignInButtonStyle.wide
+        googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance().delegate = self
+        
         setupUI()
 
     }
@@ -98,6 +96,34 @@ class RegisterViewController: UIViewController {
                     }
                     // Now logged in, do something with user
                     // Remember to dispatch to main if you are doing anything on the UI thread
+                }
+            }
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor googleUser: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
+                print("The user has not signed in before or they have since signed out.")
+            } else {
+                print("\(error.localizedDescription)")
+            }
+            return
+        }
+        // Signed in successfully, forward credentials to MongoDB Realm.
+        let credentials = Credentials.google(serverAuthCode: googleUser.serverAuthCode)
+        K.app.login(credentials: credentials) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print("Failed to log in to MongoDB Realm: \(error)")
+                case .success(let user):
+                    print("Successfully logged in to MongoDB Realm using Google OAuth.")
+                    let defaults = UserDefaults.standard
+                    defaults.setValue(googleUser.profile.email, forKey: "email")
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "toWakeUp", sender: self)
+                    }
                 }
             }
         }

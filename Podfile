@@ -6,17 +6,18 @@ target 'Studium' do
   use_frameworks!
 
   # Pods for Data Management
-pod 'RealmSwift'
+pod 'RealmSwift', '~> 10.7.6'
 
-pod 'GoogleSignIn'
+#Google Authentication
+pod 'GoogleSignIn', '~> 5.0.2'
 
-  # Pods for UI Elements
+# Pods for UI Elements
 pod 'SwipeCellKit'
-pod 'CalendarKit'
+pod 'CalendarKit', '~> 1.0.6'
 pod 'FSCalendar'
 pod 'ChameleonFramework/Swift', :git => 'https://github.com/wowansm/Chameleon.git', :branch => 'swift5'
 pod 'Colorful'
-pod 'FlexColorPicker'
+pod 'FlexColorPicker', '~> 1.4.2'
 
 pod 'DateToolsSwift'
 

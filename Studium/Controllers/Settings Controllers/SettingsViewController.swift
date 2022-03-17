@@ -106,11 +106,8 @@ class SettingsViewController: UITableViewController, AlertInfoStorer{
         }else if cellData[indexPath.section][indexPath.row] == "Delete All Completed Other Events"{
             createAlertForOtherEvents(title: alertData[3][0], message: alertData[3][1], isCompleted: true)
         }else if cellData[indexPath.section][indexPath.row] == "Sign Out"{
-            guard let user = app.currentUser else {
-                print("Error getting user")
-                return
-            }
-            let _ = user.logOut()
+            
+            K.handleLogOut()
 //            self.navigationController?.popToRootViewController(animated: true)
 //            guard let vc = self.presentingViewController else { return }
 //

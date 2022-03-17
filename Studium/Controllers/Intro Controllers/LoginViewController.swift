@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import GoogleSignIn
 
-class LoginViewController: UIViewController, GIDSignInDelegate{
+class LoginViewController: UIViewController, GIDSignInDelegate, UIGestureRecognizerDelegate{
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
@@ -21,8 +21,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate{
     let app = App(id: Secret.appID)
 
     
-    //UI CONSTANTS
-    let iconSize = 30
+    //UI CONSTANT PARAMETERS: these parameters control elements of the UI
+    let textFieldIconSize = 30
     let tintColor: UIColor = UIColor(named: "Studium Secondary Theme Color") ?? .black
     let placeHolderColor: UIColor = .placeholderText
     let backgroundColor: UIColor =  UIColor(named: "Studium System Background Color") ?? .systemBackground
@@ -33,14 +33,17 @@ class LoginViewController: UIViewController, GIDSignInDelegate{
     override func viewDidLoad() {
         setupUI()
         view.backgroundColor = backgroundColor
-        view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:))))
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        tap.delegate = self
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
         
         //Google Sign In Button Code
         googleSignInButton.style = GIDSignInButtonStyle.wide
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
-
     }
     
     @IBAction func textFieldEditingDidBegin(_ sender: UITextField) {
@@ -73,7 +76,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate{
         }
     }
     
-    //MARK: Google Sign In Method
     func sign(_ signIn: GIDSignIn!, didSignInFor googleUser: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
@@ -83,11 +85,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate{
             }
             return
         }
-        
         // Signed in successfully, forward credentials to MongoDB Realm.
         let credentials = Credentials.google(serverAuthCode: googleUser.serverAuthCode)
-//        GIDSignIn.sharedInstance().serverClientID
-        app.login(credentials: credentials) { result in
+        K.app.login(credentials: credentials) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
@@ -99,20 +99,19 @@ class LoginViewController: UIViewController, GIDSignInDelegate{
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "toWakeUp", sender: self)
                     }
-                    // Now logged in, do something with user
-                    // Remember to dispatch to main if you are doing anything on the UI thread
                 }
             }
         }
     }
+    
     //this function sets up the textfields (adds the left image and right image.)
     func setupUI(){
         //EMAIL TEXT FIELD SETUP:
-        let emailImageView = UIImageView(frame: CGRect(x: iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
+        let emailImageView = UIImageView(frame: CGRect(x: textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))
         emailImageView.image = UIImage(systemName: "envelope")
         emailImageView.contentMode = .scaleAspectFit
 
-        let emailView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize/3*4, height: iconSize/3*5))
+        let emailView = UIView(frame: CGRect(x: 0, y: 0, width: textFieldIconSize/3*4, height: textFieldIconSize/3*5))
         emailView.addSubview(emailImageView)
         emailTextField.tintColor = .gray
         emailTextField.leftViewMode = UITextField.ViewMode.always
@@ -132,20 +131,20 @@ class LoginViewController: UIViewController, GIDSignInDelegate{
 
         
         //PASSWORD TEXT FIELD SETUP:
-        let passwordIconImageView = UIImageView(frame: CGRect(x: iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
+        let passwordIconImageView = UIImageView(frame: CGRect(x: textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))
         passwordIconImageView.image = UIImage(systemName: "lock")
         passwordIconImageView.contentMode = .scaleAspectFit
 
-        let passwordIconView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize/3*4, height: iconSize/3*5))
+        let passwordIconView = UIView(frame: CGRect(x: 0, y: 0, width: textFieldIconSize/3*4, height: textFieldIconSize/3*5))
         passwordIconView.addSubview(passwordIconImageView)
         passwordTextField.leftView = passwordIconView
         passwordTextField.leftViewMode = UITextField.ViewMode.always
         
-        let passwordEyeImageView = UIImageView(frame: CGRect(x: -iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
+        let passwordEyeImageView = UIImageView(frame: CGRect(x: -textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))
         passwordEyeImageView.image = UIImage(systemName: "eye")
         passwordEyeImageView.contentMode = .scaleAspectFit
 
-        let passwordEyeView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize/3*4, height: iconSize/3*5))
+        let passwordEyeView = UIView(frame: CGRect(x: 0, y: 0, width: textFieldIconSize/3*4, height: textFieldIconSize/3*5))
         passwordEyeView.addSubview(passwordEyeImageView)
         passwordTextField.tintColor = .gray
         passwordTextField.rightViewMode = UITextField.ViewMode.always

@@ -42,8 +42,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("User is NOT signed in.")
         }
         print("Did finish launching");
-        GIDSignIn.sharedInstance().clientID="221406332443-he18tqfi4jbg40mbgpgmaaebenekh208.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance().serverClientID="221406332443-bvb0ag7qn7ie72v0tm7i3dmgu93qidfl.apps.googleusercontent.com"
+        
+        //clientID must be specified for Google Authentication
+        GIDSignIn.sharedInstance().clientID = Secret.clientID
+        GIDSignIn.sharedInstance().serverClientID = Secret.serverClientID
+        
+//        GIDSignIn.sharedInstance().restorePreviousSignIn()
+    
+        
+        
         return true
     }
     
@@ -71,7 +78,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          // get
         updateTheme(color: K.colorsDict[colorKey] ?? UIColor.black)
     }
-
+    
+    
     // MARK: UISceneSession Lifecycle
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.

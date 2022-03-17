@@ -10,8 +10,15 @@ import Foundation
 import UIKit
 import ChameleonFramework
 import RealmSwift
+import GoogleSignIn
 
 struct K {
+    
+//    static let app = App(id: Secret.appID)
+
+    //GOOGLE SIGN IN STUFF
+//    static let signInConfig = GIDConfiguration.init(clientID: Secret.clientID)
+    
     static let headerHeight: CGFloat = 32
     
     //SEGUES
@@ -106,4 +113,14 @@ struct K {
                 }
             }
         }
+    
+    static func handleLogOut(){
+//        GIDSignIn.sharedInstance.signOut()
+
+        guard let user = app.currentUser else {
+            print("ERROR: error getting user when trying to sign out")
+            return
+        }
+        let _ = user.logOut()
+    }
 }

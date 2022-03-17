@@ -20,7 +20,7 @@ class Autoschedule{
                 
         //do the courses
         guard let user = K.app.currentUser else {
-            print("Error getting user")
+            print("ERROR: error getting user in Autoschedule - getCommitments")
             return [[]]
         }
         let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))

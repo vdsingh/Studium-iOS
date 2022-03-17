@@ -27,7 +27,6 @@ class DayScheduleViewController: DayViewController{
         }
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         dayView.autoScrollToFirstEvent = true
-//        dayView.backgroundColor = .red
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,7 +51,9 @@ class DayScheduleViewController: DayViewController{
             realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
 
         }else{
-            print("ERROR: error getting user")
+            print("ERROR: error getting user when adding courses in DayScheduleViewController. Logging Out.")
+            K.handleLogOut()
+            return []
         }
             
         
