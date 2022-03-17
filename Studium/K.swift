@@ -30,14 +30,16 @@ struct K {
     
     //The current theme is stored as a string key in UserDefaults (ex: "black"). We then retrieve the UIColor based on that key from here, to use as the theme.
     static var colorsDict: [String: UIColor] = [
-        "black": UIColor(hexString: "000000")!,
-        "flatRed": UIColor(hexString: "#F34440")!,
-        "flatOrange": UIColor(hexString:"#F77F49")!,
-        "flatYellow": UIColor(hexString:"#F7BA63")!,
-        "flatGreen": UIColor(hexString:"#ACCF6A")!,
-        "flatTeal": UIColor(hexString:"51B2AF")!,
-        "flatBlue": UIColor(hexString:"2d73f5")!,
-        "flatPurple": UIColor(hexString:"aa46be")!,
+        "black": UIColor(hexString: "000000") ?? .flatBlack(),
+        "studiumPurple": UIColor(named: "Studium Purple") ?? .purple,
+        "studiumOrange": UIColor(named: "Studium Orange") ?? .orange,
+        "flatRed": UIColor(hexString: "#F34440") ?? .flatRed(),
+        "flatOrange": UIColor(hexString:"#F77F49") ?? .flatOrange(),
+        "flatYellow": UIColor(hexString:"#F7BA63") ?? .flatYellow(),
+        "flatGreen": UIColor(hexString:"#ACCF6A") ?? .flatGreen(),
+        "flatTeal": UIColor(hexString:"51B2AF") ?? .flatTeal(),
+        "flatBlue": UIColor(hexString:"2d73f5") ?? .flatBlue(),
+        "flatPurple": UIColor(hexString:"aa46be") ?? .flatPurple(),
         "redorangeGradient": UIColor(gradientStyle: UIGradientStyle.leftToRight, withFrame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), andColors: [UIColor.red, UIColor.orange]),
         "blueGradient": UIColor(gradientStyle: UIGradientStyle.leftToRight, withFrame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), andColors: [UIColor(hexString: "2C69D1")!, UIColor(hexString: "0ABCF9")!]),
         "bluegreenGradient": UIColor(gradientStyle: UIGradientStyle.leftToRight, withFrame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), andColors: [UIColor(hexString: "087EE1")!, UIColor(hexString: "05E8BA")!]),
@@ -46,6 +48,8 @@ struct K {
     
     static var gradientPreviewDict: [String: [CGColor]] = [
         "black": [UIColor(hexString: "000000")!.cgColor,UIColor(hexString: "000000")!.cgColor],
+        "studiumPurple": [UIColor(named: "Studium Purple")?.cgColor ?? UIColor.purple.cgColor, UIColor(named: "Studium Purple")?.cgColor ?? UIColor.purple.cgColor],
+        "studiumOrange": [UIColor(named: "Studium Orange")?.cgColor ?? UIColor.orange.cgColor, UIColor(named: "Studium Orange")?.cgColor ?? UIColor.orange.cgColor],
         "flatRed": [UIColor(hexString: "#F34440")!.cgColor,UIColor(hexString: "#F34440")!.cgColor],
         "flatOrange": [UIColor(hexString:"#F77F49")!.cgColor,UIColor(hexString:"#F77F49")!.cgColor],
         "flatYellow": [UIColor(hexString:"#F7BA63")!.cgColor,UIColor(hexString:"#F7BA63")!.cgColor],

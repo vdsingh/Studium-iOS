@@ -22,7 +22,7 @@ class DayScheduleViewController: DayViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let user = app.currentUser else {
-            print("Error getting user")
+            print("ERROR: error getting user in DayScheduleViewController viewDidLoad")
             return
         }
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))

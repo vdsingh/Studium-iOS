@@ -13,13 +13,13 @@ import ChameleonFramework
 class ThemesViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
-    var themeNames: [[String]] = [["Black"],["Red", "Orange", "Yellow", "Green", "Teal", "Blue", "Purple"], ["Red/Orange", "Blue", "Blue/Green", "Pink/Purple"]]
-    var colors: [[String]] = [["black"], ["flatRed","flatOrange","flatYellow","flatGreen","flatTeal", "flatBlue", "flatPurple"], ["redorangeGradient", "blueGradient", "bluegreenGradient", "purplepinkGradient"]]
+    var themeNames: [[String]] = [["Studium Purple", "Studium Orange"],["Black", "Red", "Orange", "Yellow", "Green", "Teal", "Blue", "Purple"], ["Red/Orange", "Blue", "Blue/Green", "Pink/Purple"]]
+    var colors: [[String]] = [["studiumPurple", "studiumOrange"], ["black", "flatRed","flatOrange","flatYellow","flatGreen","flatTeal", "flatBlue", "flatPurple"], ["redorangeGradient", "blueGradient", "bluegreenGradient", "purplepinkGradient"]]
     
     
 //
     
-    var sectionHeaders: [String] = ["Boring", "Muted Colors", "Gradients"]
+    var sectionHeaders: [String] = ["Studium Colors", "Muted Colors", "Gradients"]
     override func viewDidLoad() {
         tableView.delegate = self
         tableView.dataSource = self
