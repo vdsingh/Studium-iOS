@@ -26,10 +26,14 @@ class WakeUpIntroController: UIViewController{
     @IBOutlet weak var friLabel: UILabel!
     @IBOutlet weak var satLabel: UILabel!
     
+    @IBOutlet var weekdayLabels: Array<UILabel>?
+    
     @IBOutlet weak var timePicker: UIDatePicker!
     @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var errorsLabel: UILabel!
+    
     var selectedDay: UIButton?
+    
+    @IBOutlet weak var secondaryBackground: UIView!
     
     //dictionaries that help keep the data organized
     
@@ -38,9 +42,14 @@ class WakeUpIntroController: UIViewController{
     
     //the String is the day (e.g: "Sun") and the UILabel is a reference to the label that it corresponds to
     var labels: [String: UILabel] = [:]
+    var dayLabels: [String: UILabel] = [:]
     
     //boolean that tells whether the user wakes up at different times depending on the day.
     var differentTimes: Bool = true
+    
+    let tintColor: UIColor = UIColor(named: "Studium Secondary Theme Color") ?? .label
+    let labelColor: UIColor = UIColor(named: "Studium Label Color") ?? .label
+
     
     override func viewDidLoad() {
         let center = UNUserNotificationCenter.current()
@@ -49,21 +58,14 @@ class WakeUpIntroController: UIViewController{
                 print(error!)
             }
         }
+
+        nextButton.titleLabel?.text = "Next"
+        nextButton.titleLabel?.textColor = .orange
+        nextButton.layer.cornerRadius = 10
         
-        if #available(iOS 15.0, *) {
-            nextButton.configuration = .filled()
-        } else {
-            // Fallback on earlier versions
-            print("IOS 15 NOT AVAILABLE")
-//            nextButton.configuration = .
-//            nextButton.backgroundColor = .link
-            nextButton.titleLabel?.text = "Next"
-            nextButton.titleLabel?.textColor = .orange
-            nextButton.layer.cornerRadius = 10
-        }
+        secondaryBackground.layer.cornerRadius = 10
 
         //selects sunday by default
-        selectSunday()
         
         //selects the time 7:30AM by default
         let date = Calendar.current.date(bySettingHour: 7, minute: 30, second: 0, of: Date())!
@@ -73,6 +75,11 @@ class WakeUpIntroController: UIViewController{
         times = ["Sun": date, "Mon": date, "Tue": date, "Wed": date, "Thu": date, "Fri": date, "Sat": date]
         labels = ["Sun": sunLabel, "Mon": monLabel, "Tue": tueLabel, "Wed": wedLabel, "Thu": thuLabel, "Fri": friLabel, "Sat": satLabel]
         
+        if weekdayLabels != nil{
+            dayLabels = ["Sun": weekdayLabels![0], "Mon": weekdayLabels![1], "Tue": weekdayLabels![2], "Wed": weekdayLabels![3], "Thu": weekdayLabels![4], "Fri": weekdayLabels![5], "Sat": weekdayLabels![6]]
+        }
+        
+        selectSunday()
     }
     
     //function that is called when the user switches between whether they wake up at different times or at the same time.
@@ -88,8 +95,12 @@ class WakeUpIntroController: UIViewController{
         }else{ //same time everyday
             differentTimes = false
             for day in days!{
+                day.setTitleColor(.lightGray, for: .disabled)
                 day.isSelected = false
                 day.isEnabled = false
+                
+                labels[day.titleLabel!.text!]?.textColor = labelColor
+                dayLabels[day.titleLabel!.text!]?.textColor = labelColor
             }
             
             let dateFormatter = DateFormatter()
@@ -109,10 +120,16 @@ class WakeUpIntroController: UIViewController{
         selectedDay = sender
         for day in days!{
             day.isSelected = false
+            labels[day.titleLabel!.text!]?.textColor = labelColor
+            dayLabels[day.titleLabel!.text!]?.textColor = labelColor
         }
         sender.isSelected = true
         sender.setTitleColor(.label, for: .selected)
         
+        labels[sender.titleLabel!.text!]?.textColor = tintColor
+        if weekdayLabels != nil{
+            dayLabels[sender.titleLabel!.text!]?.textColor = tintColor
+        }
     }
     
     //function that is called when the user edits a timePicker
@@ -140,8 +157,11 @@ class WakeUpIntroController: UIViewController{
     //selects Sunday
     func selectSunday(){
         for day in days!{ //select sunday at start
-            day.setTitleColor(.label, for: .selected)
+//            day.setTitleColor(.label, for: .selected)
             if day.titleLabel?.text == "Sun"{
+                labels["Sun"]!.textColor = tintColor
+                dayLabels["Sun"]!.textColor = tintColor
+                day.setTitleColor(.label, for: .selected)
                 day.isSelected = true
                 selectedDay = day
                 break
