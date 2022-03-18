@@ -7,6 +7,8 @@
 //
 
 import UIKit
+
+import FBSDKLoginKit
 import RealmSwift
 import GoogleSignIn
 
@@ -21,6 +23,7 @@ class RegisterViewController: UIViewController, UIGestureRecognizerDelegate, GID
     @IBOutlet weak var continueAsGuestButton: UIButton!
     
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
+    @IBOutlet weak var fbViewHolder: UIView!
     
     //UI CONSTANTS
     let iconSize = 30
@@ -37,15 +40,7 @@ class RegisterViewController: UIViewController, UIGestureRecognizerDelegate, GID
         tap.delegate = self
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
-        
-//        var stringOne = "Already have an account?"
-//        let stringTwo = "Sign Up."
-
-//        let range = (stringOne as NSString).range(of: stringTwo)
-
-//        let attributedText = NSMutableAttributedString.init(string: stringOne)
-//        attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.blue , range: range)
-        
+    
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
@@ -146,6 +141,17 @@ class RegisterViewController: UIViewController, UIGestureRecognizerDelegate, GID
     
     //this function sets up the textfields (adds the left image and right image.)
     func setupUI(){
+        let loginButton = FBLoginButton()
+        loginButton.center = fbViewHolder.center
+        loginButton.fs_width = fbViewHolder.fs_width
+        loginButton.fs_height = fbViewHolder.fs_height
+        loginButton.fs_left = fbViewHolder.fs_left
+        loginButton.fs_right = fbViewHolder.fs_right
+        loginButton.permissions = ["public_profile", "email"]
+        fbViewHolder.isHidden = true
+        
+        view.addSubview(loginButton)
+        
         //EMAIL TEXT FIELD SETUP:
         let emailImageView = UIImageView(frame: CGRect(x: iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
         emailImageView.image = UIImage(systemName: "envelope")

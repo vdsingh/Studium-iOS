@@ -11,6 +11,9 @@ pod 'RealmSwift', '~> 10.7.6'
 #Google Authentication
 pod 'GoogleSignIn', '~> 5.0.2'
 
+#Facebook Authentication
+pod 'FBSDKLoginKit'
+
 # Pods for UI Elements
 pod 'SwipeCellKit'
 pod 'CalendarKit', '~> 1.0.6'

@@ -7,8 +7,13 @@
 //
 import Foundation
 import UIKit
+
+//AUTHENTICATION
 import RealmSwift
 import GoogleSignIn
+//import FacebookLogin
+import FBSDKLoginKit
+
 
 class LoginViewController: UIViewController, GIDSignInDelegate, UIGestureRecognizerDelegate{
     @IBOutlet weak var emailTextField: UITextField!
@@ -18,6 +23,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, UIGestureRecogni
     @IBOutlet weak var continueAsGuestButton: UIButton!
     
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
+    @IBOutlet weak var fbSignInViewHolder: UIView!
+    //    @IBOutlet weak var fbLoginView: UIView!
+    @IBOutlet weak var fbViewHolder: UIView!
     let app = App(id: Secret.appID)
 
     
@@ -106,6 +114,21 @@ class LoginViewController: UIViewController, GIDSignInDelegate, UIGestureRecogni
     
     //this function sets up the textfields (adds the left image and right image.)
     func setupUI(){
+//        googleSignInButton.fs_left = 20
+//        googleSignInButton.fs_right = 20
+//        googleSignInButton.fs_height = 50
+        
+        let loginButton = FBLoginButton()
+        loginButton.center = fbViewHolder.center
+        loginButton.fs_width = fbViewHolder.fs_width
+        loginButton.fs_height = fbViewHolder.fs_height
+        loginButton.fs_left = fbViewHolder.fs_left
+        loginButton.fs_right = fbViewHolder.fs_right
+        
+        loginButton.permissions = ["public_profile", "email"]
+        fbViewHolder.isHidden = true
+        view.addSubview(loginButton)
+
         //EMAIL TEXT FIELD SETUP:
         let emailImageView = UIImageView(frame: CGRect(x: textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))
         emailImageView.image = UIImage(systemName: "envelope")

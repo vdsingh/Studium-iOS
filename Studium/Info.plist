@@ -34,9 +34,28 @@
 				<string>com.vikramsingh.Studium</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb388524089338566</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>388524089338566</string>
+	<key>FacebookClientToken</key>
+	<string>99ee883704caf82d53d2c595f1ed145e</string>
+	<key>FacebookDisplayName</key>
+	<string>Studium - Student Planner</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCalendarsUsageDescription</key>

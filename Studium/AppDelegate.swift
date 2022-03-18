@@ -7,9 +7,12 @@
 //
 
 import UIKit
-import RealmSwift
 import ChameleonFramework
+
+//AUTHENTICATION
+import RealmSwift
 import GoogleSignIn
+import FBSDKLoginKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -46,6 +49,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //clientID must be specified for Google Authentication
         GIDSignIn.sharedInstance().clientID = Secret.clientID
         GIDSignIn.sharedInstance().serverClientID = Secret.serverClientID
+        
+        // Initialize Facebook SDK
+        FBSDKCoreKit.ApplicationDelegate.shared.application(
+            application,
+            didFinishLaunchingWithOptions: launchOptions
+        )
         
 //        GIDSignIn.sharedInstance().restorePreviousSignIn()
     
@@ -96,7 +105,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //this is all google sign in delegate stuff.
     @available(iOS 9.0, *)
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url)
+        
+        let googleSignIn = GIDSignIn.sharedInstance().handle(url)
+        if googleSignIn {
+            return true
+        }
+        ApplicationDelegate.shared.application(
+            app,
+            open: url,
+            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
+        )
+        return false
     }
     
     
