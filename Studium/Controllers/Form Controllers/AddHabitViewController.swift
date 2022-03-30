@@ -152,11 +152,11 @@ class AddHabitViewController: MasterForm, LogoStorer{
         if errors.count == 0{ //if there are no errors.
             if habit == nil{
                 guard let user = app.currentUser else {
-                    print("Error getting user in MasterForm")
+                    print("ERROR: error getting user in MasterForm")
                     return
                 }
                 let newHabit = Habit()
-                newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: user.id)
+                newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthHours * 60 + totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: user.id)
                 if !autoschedule{
                     for alertTime in alertTimes{
                         for day in daysSelected{

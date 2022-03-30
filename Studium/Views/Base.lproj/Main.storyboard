@@ -1343,10 +1343,10 @@
                                 <rect key="frame" x="20" y="244" width="374" height="468"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="under-tree-2" translatesAutoresizingMaskIntoConstraints="NO" id="5ad-Mp-wbe">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="348"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="288"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="lIP-uA-glR">
-                                        <rect key="frame" x="0.0" y="358" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="298" width="374" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UF8-fU-utZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="183" height="50"/>
@@ -1376,12 +1376,24 @@
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQ1-Zc-OCF" customClass="GIDSignInButton">
-                                        <rect key="frame" x="0.0" y="418" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="358" width="374" height="50"/>
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="NcN-4W-uaJ"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qzz-4e-xnO">
+                                        <rect key="frame" x="0.0" y="418" width="374" height="50"/>
+                                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="aue-Mc-DdG"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Sign In with Facebook"/>
+                                        <connections>
+                                            <action selector="fbLoginButtonClicked" destination="kab-UP-nRT" eventType="touchUpInside" id="JFi-GU-U0K"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3IZ-Wv-vRg">
@@ -1397,20 +1409,12 @@
                                     </attributedString>
                                 </state>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xLu-NV-VYn">
-                                <rect key="frame" x="22.5" y="718" width="369" height="40"/>
-                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="XJa-CP-VJl"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0Le-pN-cSF"/>
                         <color key="backgroundColor" name="Studium System Background Color"/>
                         <constraints>
                             <constraint firstItem="idv-E1-lOR" firstAttribute="leading" secondItem="0Le-pN-cSF" secondAttribute="leading" constant="20" id="1Z8-X7-BGd"/>
                             <constraint firstItem="0Le-pN-cSF" firstAttribute="trailing" secondItem="idv-E1-lOR" secondAttribute="trailing" constant="20" id="4m9-Xv-vgj"/>
-                            <constraint firstItem="0Le-pN-cSF" firstAttribute="trailing" secondItem="xLu-NV-VYn" secondAttribute="trailing" constant="22.5" id="92n-Lb-fdg"/>
                             <constraint firstItem="idv-E1-lOR" firstAttribute="top" secondItem="0Le-pN-cSF" secondAttribute="top" constant="200" id="AbV-fI-beg"/>
                             <constraint firstItem="ven-L6-pCu" firstAttribute="top" secondItem="2oM-j4-aJ3" secondAttribute="top" id="DfB-Md-2ny"/>
                             <constraint firstItem="gkR-Na-vUZ" firstAttribute="top" secondItem="0Le-pN-cSF" secondAttribute="top" constant="100" id="MFX-hS-UgN"/>
@@ -1420,17 +1424,14 @@
                             <constraint firstItem="3IZ-Wv-vRg" firstAttribute="centerX" secondItem="2oM-j4-aJ3" secondAttribute="centerX" id="cAV-3I-uNb"/>
                             <constraint firstItem="ven-L6-pCu" firstAttribute="bottom" secondItem="2oM-j4-aJ3" secondAttribute="bottom" id="ckS-d9-ilN"/>
                             <constraint firstItem="ven-L6-pCu" firstAttribute="trailing" secondItem="2oM-j4-aJ3" secondAttribute="trailing" id="e8W-Ma-74O"/>
-                            <constraint firstItem="xLu-NV-VYn" firstAttribute="top" secondItem="idv-E1-lOR" secondAttribute="bottom" constant="6" id="grI-Z5-9Pj"/>
                             <constraint firstItem="0Le-pN-cSF" firstAttribute="trailing" secondItem="gkR-Na-vUZ" secondAttribute="trailing" constant="20" id="i5S-hq-VAn"/>
                             <constraint firstAttribute="bottom" secondItem="3IZ-Wv-vRg" secondAttribute="bottom" constant="60" id="n63-Uu-ARy"/>
                             <constraint firstItem="gkR-Na-vUZ" firstAttribute="leading" secondItem="0Le-pN-cSF" secondAttribute="leading" constant="20" id="tvm-Tu-LeJ"/>
-                            <constraint firstItem="xLu-NV-VYn" firstAttribute="leading" secondItem="0Le-pN-cSF" secondAttribute="leading" constant="22.5" id="yEZ-MQ-Uch"/>
                             <constraint firstItem="gkR-Na-vUZ" firstAttribute="leading" secondItem="0Le-pN-cSF" secondAttribute="leading" constant="20" id="yGh-rn-8OD"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hbU-rX-mRq"/>
                     <connections>
-                        <outlet property="fbViewHolder" destination="xLu-NV-VYn" id="hKh-NZ-V3R"/>
                         <outlet property="googleSignInButton" destination="hQ1-Zc-OCF" id="il8-cV-q6R"/>
                         <outlet property="loginButton" destination="WKd-h2-5bY" id="Pht-AA-FMI"/>
                         <outlet property="mainStackView" destination="idv-E1-lOR" id="rih-1g-rrC"/>
@@ -1521,7 +1522,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qs8-2f-MqW">
-                                <rect key="frame" x="124.5" y="803.5" width="165.5" height="32.5"/>
+                                <rect key="frame" x="124.5" y="813" width="165.5" height="23"/>
                                 <color key="tintColor" name="Studium Secondary Theme Color"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
@@ -1546,13 +1547,6 @@
                                     <action selector="backButtonPressed:" destination="BhP-zo-giK" eventType="touchUpInside" id="c8W-Xp-0Gy"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWq-wi-qJ9">
-                                <rect key="frame" x="22.5" y="723.5" width="369" height="40"/>
-                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="JCd-pU-OQT"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELz-5L-ucc" customClass="GIDSignInButton">
                                 <rect key="frame" x="20" y="673.5" width="374" height="40"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
@@ -1563,14 +1557,24 @@
                                     <action selector="signInWithGoogleWithSender:" destination="BhP-zo-giK" eventType="valueChanged" id="MZo-9K-e41"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E5w-mP-XOg">
+                                <rect key="frame" x="20" y="733.5" width="374" height="40"/>
+                                <color key="backgroundColor" name="Studium Purple"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ife-Op-okS"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yhS-tS-IMj"/>
                         <color key="backgroundColor" name="Studium System Background Color"/>
                         <constraints>
+                            <constraint firstItem="qs8-2f-MqW" firstAttribute="top" secondItem="E5w-mP-XOg" secondAttribute="bottom" constant="39.5" id="1uq-AT-BMe"/>
                             <constraint firstItem="yhS-tS-IMj" firstAttribute="trailing" secondItem="ELz-5L-ucc" secondAttribute="trailing" constant="20" id="8iK-LH-Kfz"/>
                             <constraint firstItem="ELz-5L-ucc" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" constant="20" id="ABR-6Z-SEO"/>
-                            <constraint firstItem="eWq-wi-qJ9" firstAttribute="top" secondItem="ELz-5L-ucc" secondAttribute="bottom" constant="10" id="ABh-F9-qrv"/>
                             <constraint firstItem="SXw-eR-3kO" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" constant="20" id="B7D-Fh-CsV"/>
+                            <constraint firstItem="E5w-mP-XOg" firstAttribute="top" secondItem="ELz-5L-ucc" secondAttribute="bottom" constant="20" id="Def-dr-2hF"/>
                             <constraint firstItem="81E-Ap-oY8" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" constant="20" id="Dew-a0-JEy"/>
                             <constraint firstItem="ELz-5L-ucc" firstAttribute="centerX" secondItem="wSF-q2-wZS" secondAttribute="centerX" id="FU2-y1-VRL"/>
                             <constraint firstItem="81E-Ap-oY8" firstAttribute="top" secondItem="yhS-tS-IMj" secondAttribute="top" constant="35" id="GTL-tG-C6z"/>
@@ -1581,24 +1585,23 @@
                             <constraint firstItem="nhl-6F-OC7" firstAttribute="top" secondItem="81E-Ap-oY8" secondAttribute="bottom" constant="30" id="Yd6-vw-yUj"/>
                             <constraint firstItem="yhS-tS-IMj" firstAttribute="trailing" secondItem="9KX-LP-HXC" secondAttribute="trailing" id="Z9w-aH-J4D"/>
                             <constraint firstItem="qs8-2f-MqW" firstAttribute="centerX" secondItem="wSF-q2-wZS" secondAttribute="centerX" id="ZOK-34-lPa"/>
+                            <constraint firstItem="yhS-tS-IMj" firstAttribute="trailing" secondItem="E5w-mP-XOg" secondAttribute="trailing" constant="20" id="bji-uh-k4r"/>
                             <constraint firstItem="yhS-tS-IMj" firstAttribute="trailing" secondItem="SXw-eR-3kO" secondAttribute="trailing" constant="20" id="coF-SE-llg"/>
-                            <constraint firstItem="yhS-tS-IMj" firstAttribute="trailing" secondItem="eWq-wi-qJ9" secondAttribute="trailing" constant="22.5" id="ena-2g-IcJ"/>
                             <constraint firstItem="wc2-8N-fie" firstAttribute="leading" secondItem="SXw-eR-3kO" secondAttribute="leading" id="gA6-gd-pmR"/>
                             <constraint firstItem="nYy-Nl-45g" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" constant="20" id="gt3-pe-iQr"/>
                             <constraint firstItem="wc2-8N-fie" firstAttribute="top" secondItem="SXw-eR-3kO" secondAttribute="bottom" constant="21" id="kQ5-2v-xr1"/>
+                            <constraint firstItem="ELz-5L-ucc" firstAttribute="top" secondItem="wSF-q2-wZS" secondAttribute="top" constant="673.5" id="kYo-7t-DB3"/>
                             <constraint firstItem="nYy-Nl-45g" firstAttribute="top" secondItem="81E-Ap-oY8" secondAttribute="bottom" constant="65" id="kuO-hK-9N3"/>
                             <constraint firstItem="wc2-8N-fie" firstAttribute="trailing" secondItem="SXw-eR-3kO" secondAttribute="trailing" id="lgt-Ni-tZr"/>
+                            <constraint firstItem="E5w-mP-XOg" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" constant="20" id="pEb-5N-XIs"/>
                             <constraint firstAttribute="bottom" secondItem="9KX-LP-HXC" secondAttribute="bottom" id="u0a-m6-g9R"/>
                             <constraint firstItem="9KX-LP-HXC" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" id="vAl-oS-X8M"/>
-                            <constraint firstItem="qs8-2f-MqW" firstAttribute="top" secondItem="eWq-wi-qJ9" secondAttribute="bottom" constant="40" id="vcw-cu-fcj"/>
-                            <constraint firstItem="eWq-wi-qJ9" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" constant="22.5" id="x9o-gq-Mc2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="uVO-Xb-1Gi"/>
                     <connections>
                         <outlet property="continueAsGuestButton" destination="qs8-2f-MqW" id="EjS-su-Vrx"/>
                         <outlet property="emailTextField" destination="8hq-AP-3ps" id="5zZ-aK-cY6"/>
-                        <outlet property="fbViewHolder" destination="eWq-wi-qJ9" id="mxv-i3-7ul"/>
                         <outlet property="googleSignInButton" destination="ELz-5L-ucc" id="1kH-UL-2O9"/>
                         <outlet property="passwordTextField" destination="GmV-MU-0qA" id="Wdy-dA-pYP"/>
                         <outlet property="signUpButton" destination="wc2-8N-fie" id="PuT-Qi-EeJ"/>
@@ -1613,7 +1616,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="dgf-qv-Fcf"/>
         <segue reference="T8N-JJ-KKU"/>
-        <segue reference="QsE-hI-Cdf"/>
+        <segue reference="J7L-Rc-yCL"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="2" width="300" height="300"/>
@@ -1638,6 +1641,9 @@
         <namedColor name="Studium Label Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="Studium Purple">
+            <color red="0.27799999713897705" green="0.31799998879432678" blue="0.9179999828338623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Studium Secondary Theme Color">
             <color red="0.98400002717971802" green="0.44299998879432678" blue="0.41999998688697815" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -1658,6 +1664,9 @@
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

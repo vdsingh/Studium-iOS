@@ -131,16 +131,26 @@ class DayScheduleViewController: DayViewController{
                 let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
                 if habit.days.contains(date.weekday){ //habit occurs on this day
                     var components = Calendar.current.dateComponents([.hour, .minute], from: habit.startDate)
-                    let usableStartDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
+                    var usableStartDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
                     
                     components = Calendar.current.dateComponents([.hour, .minute], from: habit.endDate)
-                    let usableEndDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
-                    //let newEvent = CalendarEvent(startDate: usableStartDate, endDate: usableEndDate, title: habit.name, location: habit.location)
+                    var usableEndDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
                     
+                    //if this habit is autoscheduled, we use the Autoschedule algorithm from Autoschedule class to find the best time for this event to occur. We then change usableStartDate and usableEndDate to the dates calculated by the algorithm.
+                    if habit.autoschedule{
+                        let dates: [Date] = Autoschedule.getStartAndEndDates(dateOccurring: date, startBound: usableStartDate, endBound: usableEndDate, totalMinutes: habit.autoLengthMinutes)
+                        print("AUTOSCHEDULING HABIT: \(habit.name) with minutes: \(habit.autoLengthMinutes). AND FOUND DATES: \(dates)")
+
+                        components = Calendar.current.dateComponents([.hour, .minute], from: dates[0])
+                        usableStartDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
+                        
+                        components = Calendar.current.dateComponents([.hour, .minute], from: dates[1])
+                        usableEndDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
+                    }
                     let newEvent = Event()
                     newEvent.startDate = usableStartDate
                     newEvent.endDate = usableEndDate
-                    newEvent.text = "\(habit.startDate.format(with: "h:mm a")) - \(habit.endDate.format(with: "h:mm a")): \(habit.name)"
+                    newEvent.text = "\(usableStartDate.format(with: "h:mm a")) - \(usableEndDate.format(with: "h:mm a")): \(habit.name)"
                     events.append(newEvent)
                 }
             }
@@ -160,7 +170,7 @@ class DayScheduleViewController: DayViewController{
         for assignment in allAssignments{
             if assignment.endDate.year == date.year && assignment.endDate.month == date.month && assignment.endDate.day == date.day{
                 guard let course = assignment.parentCourse else{
-                    print("Error accessing parent course in DayScheduleViewController")
+                    print("ERROR: Error accessing parent course in DayScheduleViewController")
                     continue
                 }
                 let newEvent = Event()
@@ -169,7 +179,7 @@ class DayScheduleViewController: DayViewController{
                 newEvent.color = UIColor(hexString: course.color)!
                 
                 var string = "\(assignment.endDate.format(with: "h:mm a")): \(assignment.name) due (\(course.name))"
-
+                
                 if(assignment.isAutoscheduled){
                     string = "\(assignment.startDate.format(with: "h:mm a")) - \(assignment.endDate.format(with: "h:mm a")): \(assignment.name) (\(course.name))"
                 }

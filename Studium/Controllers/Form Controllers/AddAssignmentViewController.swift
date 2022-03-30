@@ -69,7 +69,7 @@ class AddAssignmentViewController: MasterForm{
         
         //getting all courses from realm to populate the course picker.
         guard let user = app.currentUser else {
-            print("Error getting user in MasterForm")
+            print("ERROR: error getting user in MasterForm")
             return
         }
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
@@ -88,7 +88,7 @@ class AddAssignmentViewController: MasterForm{
                 workDaysSelected.append(day)
             }
             guard let course = assignment!.parentCourse else{
-                print("Error accessing parent course in AssignmentCell1")
+                print("ERROR: error accessing parent course in AssignmentCell1")
                 return
             }
             fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate, selectedCourse: course, scheduleWorkTime: assignment!.autoschedule, workTimeMinutes: assignment!.autoLengthMinutes, workDays: workDaysSelected)
@@ -118,7 +118,7 @@ class AddAssignmentViewController: MasterForm{
             if assignment == nil{
                 print("adding assignment for the first time")
                 guard let user = app.currentUser else {
-                    print("Error getting user")
+                    print("ERROR: error getting user")
                     return
                 }
 
@@ -157,14 +157,14 @@ class AddAssignmentViewController: MasterForm{
                     try realm.write{
                         print("Edited Assignment with \(workTimeHours) and \(workTimeMinutes)")
                         guard let user = app.currentUser else {
-                            print("Error getting user")
+                            print("ERROR: error getting user")
                             return
                         }
                         assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
                         
                     }
                 }catch{
-                    print("there was an error: \(error)")
+                    print("ERROR: \(error)")
                 }
             }
             delegate?.loadAssignments()
@@ -195,7 +195,7 @@ class AddAssignmentViewController: MasterForm{
                 row += 1
             }
         }else{
-            print("error. courses in AddAssignment is nil")
+            print("ERROR: courses in AddAssignment is nil")
         }
     }
     

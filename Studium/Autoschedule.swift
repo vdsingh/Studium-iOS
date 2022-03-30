@@ -63,6 +63,7 @@ class Autoschedule{
                 commitments.append(newCourseCommitment)
             }
         }
+        print("Commitments on day: \(date): \(commitments)")
         return commitments
     }
 
@@ -77,6 +78,7 @@ class Autoschedule{
     static func getOpenTimeSlots(startBound: Date, endBound: Date, commitments: [[Date]]) -> [[Date]]{
     //the available time slots. Ex: [[9:00-12:00], [16:00-20:00]]
         var openSlots: [[Date]] = [[startBound, endBound]]
+        //Iterate through each commitment to remove it from open slots.
         for commitment in commitments{
             let commitmentStartTime = commitment[0]
             let commitmentEndTime = commitment[1]
@@ -86,33 +88,46 @@ class Autoschedule{
                 let slotStartTime = slot[0]
                 let slotEndTime = slot[1]
                 
+                //the commitment is completely within the slot, so we remove the chunk containing the commitment.
                 if(commitmentStartTime > slotStartTime && commitmentEndTime < slotEndTime){
-                    //the commitment is completely within the slot
                     
                     print("The commitment is completely within the slot")
                     let newSlot1 = [slotStartTime, commitmentStartTime-1]
                     let newSlot2 = [commitmentEndTime+1, slotEndTime]
                     
-                    //avoid removing anything because we want to avoid shifting (inefficient)
+                    //remove the entire old open slot
+                    openSlots.remove(at: i)
+                    
+                    //append new open slots not including the commitment
                     openSlots.append(newSlot1)
                     openSlots.append(newSlot2)
 
+                //the bottom portion of the commitment is within the slot.
                 }else if(commitmentStartTime < slotStartTime && commitmentEndTime > slotStartTime && commitmentEndTime < slotEndTime){
-                    //the bottom portion of the commitment is within the slot.
-                    let newSlot = [commitmentEndTime+60, slotEndTime]
+                    let newSlot = [commitmentEndTime+1, slotEndTime]
                     
+                    //remove the entire old slot
+                    openSlots.remove(at: i)
+                    
+                    //add the new slot not containing the commitment
                     openSlots.append(newSlot)
+                    
+                //the top portion of the commitment is within the slot.
                 }else if(commitmentStartTime < slotEndTime && commitmentStartTime > slotStartTime && commitmentEndTime > slotEndTime){
-                    //the top portion of the commitment is within the slot.
                     
-                    let newSlot = [slotStartTime, commitmentStartTime - 60]
+                    //remove the entire old slot
+                    openSlots.remove(at: i)
+                    
+                    let newSlot = [slotStartTime, commitmentStartTime - 1]
                     openSlots.append(newSlot)
+                    
+                //the slot is completely within the commitment
                 }else if(slotStartTime >= commitmentStartTime && slotEndTime <= commitmentEndTime){
-                    //the slot is completely within the commitment
-    //                openSlots.remove(at: i)
+                    openSlots.remove(at: i)
                 }
             }
         }
+        print("Open time slots: \(openSlots)")
         return openSlots
     }
     
@@ -126,22 +141,30 @@ class Autoschedule{
         var maxSlotLength: Int = 0
         var bestTimeSlot: [Date] = [Date(), Date()]
         for i in 0...openTimeSlots.count-1{
-            if Int(openTimeSlots[i][1].timeIntervalSince(openTimeSlots[i][0]))/60 > totalMinutes{
+            let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: openTimeSlots[i][0], to: openTimeSlots[i][1])
+            
+            let minutes = diffComponents.hour! * 60 + diffComponents.minute!
+            print("openTimeSlot: \(openTimeSlots[i]). Total Minutes of timeSlot: \(minutes)")
+            
+            if minutes >= totalMinutes{
                 let slot = openTimeSlots[i]
                 
                 let slotLength = slot[1].minutes(from: slot[0])
                 if(slotLength > maxSlotLength){
                     maxSlotLength = slotLength
                     
-                    let calendar = Calendar.current
-                    let midPoint = calendar.date(byAdding: .minute, value: slotLength/2, to: slot[0])!
+                    let midPoint = Calendar.current.date(byAdding: .minute, value: slotLength/2, to: slot[0])!
                     
                     print("midPoint: \(midPoint)")
                     print("totalMinutes: \(totalMinutes)")
                                             
                     let assignmentStart = Calendar.current.date(byAdding: .minute, value: -(totalMinutes/2), to: midPoint)!
                     let assignmentEnd = Calendar.current.date(byAdding: .minute, value: totalMinutes/2, to: midPoint)!
+                    
+                    print("start: \(assignmentStart)")
+                    print("end: \(assignmentEnd)")
 
+                    
                     bestTimeSlot[0] = assignmentStart
                     bestTimeSlot[1] = assignmentEnd
                 }
@@ -149,5 +172,12 @@ class Autoschedule{
         }
         
         return bestTimeSlot
+    }
+    
+    
+    static func getStartAndEndDates(dateOccurring: Date, startBound: Date, endBound: Date, totalMinutes: Int) -> [Date]{
+        let commitments = getCommitments(date: dateOccurring)
+        let openTimeSlots = getOpenTimeSlots(startBound: startBound, endBound: endBound, commitments: commitments)
+        return bestTime(openTimeSlots: openTimeSlots, totalMinutes: totalMinutes)
     }
 }
