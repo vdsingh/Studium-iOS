@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FqG-qS-3nl" customClass="RadialPaletteControl" customModule="FlexColorPicker">
-                        <rect key="frame" x="123.5" y="46.5" width="130" height="130"/>
+                        <rect key="frame" x="107.5" y="30.5" width="162" height="162"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="130" id="Kmy-mB-kfA"/>

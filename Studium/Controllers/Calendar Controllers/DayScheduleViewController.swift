@@ -140,12 +140,16 @@ class DayScheduleViewController: DayViewController{
                     if habit.autoschedule{
                         let dates: [Date] = Autoschedule.getStartAndEndDates(dateOccurring: date, startBound: usableStartDate, endBound: usableEndDate, totalMinutes: habit.autoLengthMinutes)
                         print("AUTOSCHEDULING HABIT: \(habit.name) with minutes: \(habit.autoLengthMinutes). AND FOUND DATES: \(dates)")
-
-                        components = Calendar.current.dateComponents([.hour, .minute], from: dates[0])
-                        usableStartDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
+                        usableStartDate = dates[0]
+                        print("Start: \(usableStartDate.format(with: "h:mm a zzz"))")
                         
-                        components = Calendar.current.dateComponents([.hour, .minute], from: dates[1])
-                        usableEndDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
+                        usableEndDate = dates[1]
+
+//                        components = Calendar.current.dateComponents([.hour, .minute], from: dates[0])
+//                        usableStartDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
+//
+//                        components = Calendar.current.dateComponents([.hour, .minute], from: dates[1])
+//                        usableEndDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
                     }
                     let newEvent = Event()
                     newEvent.startDate = usableStartDate

@@ -125,7 +125,9 @@ extension CalendarViewController: UITableViewDelegate{
         print("EVENT COLOR for \(event.name): \(event.color)")
         if event is Assignment{
             let cell = tableView.dequeueReusableCell(withIdentifier:  K.assignmentCellID, for: indexPath) as! AssignmentCell1
+            cell.hideChevronButton = true
             cell.loadData(assignment: event as! Assignment)
+        
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier:  K.otherEventCellID, for: indexPath) as! OtherEventCell

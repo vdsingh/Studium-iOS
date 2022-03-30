@@ -45,6 +45,9 @@ class AssignmentCell1: DeletableEventCell {
     //boolean that tells us whether the autoscheduled events list for this cell has been expanded.
     var autoEventsOpen: Bool = false
     
+    //boolean that allows us to override the chevron button if we don't want it to appear even if applicable
+    var hideChevronButton: Bool = false
+    
     let largeConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .large)
 
     
@@ -129,6 +132,11 @@ class AssignmentCell1: DeletableEventCell {
         
         //set the image of the icon to be the same as the associated course's icon.
         icon.image = UIImage(systemName: course.systemImageString)
+        
+        //override the chevron button.
+        if hideChevronButton{
+            chevronButton.isHidden = true
+        }
     }
     
     
