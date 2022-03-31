@@ -28,7 +28,9 @@ class Autoschedule{
         //add the courses
         let courses = realm.objects(Course.self)
         for course in courses{
-            if course.days.contains(date.day){
+//            print("Checking course: \(course). for day: \(date.weekday)")
+//            date.weekday
+            if course.days.contains(date.weekday){
                 let courseStartDate = Date(year: date.year, month: date.month, day: date.day, hour: course.startDate.hour, minute: course.startDate.minute, second: 0)
                 let courseEndDate = Date(year: date.year, month: date.month, day: date.day, hour: course.endDate.hour, minute: course.endDate.minute, second: 0)
                 let newCourseCommitment = [courseStartDate, courseEndDate]
@@ -56,7 +58,7 @@ class Autoschedule{
         //add the courses
         let habits = realm.objects(Habit.self)
         for habit in habits{
-            if habit.days.contains(date.day){
+            if habit.days.contains(date.weekday){
                 let habitStartDate = Date(year: date.year, month: date.month, day: date.day, hour: habit.startDate.hour, minute: habit.startDate.minute, second: 0)
                 let habitEndDate = Date(year: date.year, month: date.month, day: date.day, hour: habit.endDate.hour, minute: habit.endDate.minute, second: 0)
                 let newCourseCommitment = [habitStartDate, habitEndDate]

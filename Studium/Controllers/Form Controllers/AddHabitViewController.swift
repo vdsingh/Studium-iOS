@@ -71,6 +71,7 @@ class AddHabitViewController: MasterForm, LogoStorer{
     
     @IBOutlet weak var navButton: UIBarButtonItem!
     override func viewDidLoad() {
+        super.viewDidLoad()
         //register the cells that are to be used in the form.
         tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
         tableView.register(UINib(nibName: "SwitchCell", bundle: nil), forCellReuseIdentifier: "SwitchCell")
