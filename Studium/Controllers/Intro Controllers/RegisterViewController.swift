@@ -12,7 +12,7 @@ import FBSDKLoginKit
 import RealmSwift
 import GoogleSignIn
 
-class RegisterViewController: UIViewController, UIGestureRecognizerDelegate, GIDSignInDelegate {
+class RegisterViewController: FBAndGoogleAuthViewController, UIGestureRecognizerDelegate {
     
     
 //    let firestoreDB = Firestore.firestore()
@@ -23,7 +23,8 @@ class RegisterViewController: UIViewController, UIGestureRecognizerDelegate, GID
     @IBOutlet weak var continueAsGuestButton: UIButton!
     
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
-    @IBOutlet weak var fbViewHolder: UIView!
+    @IBOutlet weak var facebookSignInButton: UIButton!
+//    @IBOutlet weak var fbViewHolder: UIView!
     
     //UI CONSTANTS
     let iconSize = 30
@@ -49,6 +50,10 @@ class RegisterViewController: UIViewController, UIGestureRecognizerDelegate, GID
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
+        
+        sender = self
+        facebookSignInButton.layer.cornerRadius = 10
+        facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
         
         setupUI()
 
@@ -96,33 +101,33 @@ class RegisterViewController: UIViewController, UIGestureRecognizerDelegate, GID
         }
     }
     
-    func sign(_ signIn: GIDSignIn!, didSignInFor googleUser: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
-                print("The user has not signed in before or they have since signed out.")
-            } else {
-                print("\(error.localizedDescription)")
-            }
-            return
-        }
-        // Signed in successfully, forward credentials to MongoDB Realm.
-        let credentials = Credentials.google(serverAuthCode: googleUser.serverAuthCode)
-        K.app.login(credentials: credentials) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(let error):
-                    print("Failed to log in to MongoDB Realm: \(error)")
-                case .success(let user):
-                    print("Successfully logged in to MongoDB Realm using Google OAuth.")
-                    let defaults = UserDefaults.standard
-                    defaults.setValue(googleUser.profile.email, forKey: "email")
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "toWakeUp", sender: self)
-                    }
-                }
-            }
-        }
-    }
+//    func sign(_ signIn: GIDSignIn!, didSignInFor googleUser: GIDGoogleUser!, withError error: Error!) {
+//        if let error = error {
+//            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
+//                print("The user has not signed in before or they have since signed out.")
+//            } else {
+//                print("\(error.localizedDescription)")
+//            }
+//            return
+//        }
+//        // Signed in successfully, forward credentials to MongoDB Realm.
+//        let credentials = Credentials.google(serverAuthCode: googleUser.serverAuthCode)
+//        K.app.login(credentials: credentials) { result in
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .failure(let error):
+//                    print("Failed to log in to MongoDB Realm: \(error)")
+//                case .success(let user):
+//                    print("Successfully logged in to MongoDB Realm using Google OAuth.")
+//                    let defaults = UserDefaults.standard
+//                    defaults.setValue(googleUser.profile.email, forKey: "email")
+//                    DispatchQueue.main.async {
+//                        self.performSegue(withIdentifier: "toWakeUp", sender: self)
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
         print("nav controllerrr \(self.navigationController)")
@@ -141,16 +146,16 @@ class RegisterViewController: UIViewController, UIGestureRecognizerDelegate, GID
     
     //this function sets up the textfields (adds the left image and right image.)
     func setupUI(){
-        let loginButton = FBLoginButton()
-        loginButton.center = fbViewHolder.center
-        loginButton.fs_width = fbViewHolder.fs_width
-        loginButton.fs_height = fbViewHolder.fs_height
-        loginButton.fs_left = fbViewHolder.fs_left
-        loginButton.fs_right = fbViewHolder.fs_right
-        loginButton.permissions = ["public_profile", "email"]
-        fbViewHolder.isHidden = true
+//        let loginButton = FBLoginButton()
+//        loginButton.center = fbViewHolder.center
+//        loginButton.fs_width = fbViewHolder.fs_width
+//        loginButton.fs_height = fbViewHolder.fs_height
+//        loginButton.fs_left = fbViewHolder.fs_left
+//        loginButton.fs_right = fbViewHolder.fs_right
+//        loginButton.permissions = ["public_profile", "email"]
+//        fbViewHolder.isHidden = true
         
-        view.addSubview(loginButton)
+//        view.addSubview(loginButton)
         
         //EMAIL TEXT FIELD SETUP:
         let emailImageView = UIImageView(frame: CGRect(x: iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))

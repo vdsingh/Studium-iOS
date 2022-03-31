@@ -33,6 +33,7 @@
 		165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C7B248D9AF3004279B0 /* ColorPickerCell.swift */; };
 		165A6C7E248D9AF3004279B0 /* ColorPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C7C248D9AF3004279B0 /* ColorPickerCell.xib */; };
 		166F53D125BC93320065963D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166F53D025BC93320065963D /* TabBarController.swift */; };
+		16827D1A27F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16827D1927F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift */; };
 		1686DB5C24812BCE00FA99DB /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */; };
 		1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */; };
 		1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB5E24812C4000FA99DB /* SwitchCell.swift */; };
@@ -125,6 +126,7 @@
 		165A6C7B248D9AF3004279B0 /* ColorPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCell.swift; sourceTree = "<group>"; };
 		165A6C7C248D9AF3004279B0 /* ColorPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerCell.xib; sourceTree = "<group>"; };
 		166F53D025BC93320065963D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		16827D1927F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBAndGoogleAuthViewController.swift; sourceTree = "<group>"; };
 		1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
 		1686DB5E24812C4000FA99DB /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 			isa = PBXGroup;
 			children = (
 				1693E751247A487C003D4702 /* SwipeTableViewController.swift */,
+				16827D1927F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift */,
 			);
 			path = "Framework Superclasses";
 			sourceTree = "<group>";
@@ -633,6 +636,7 @@
 				168EE1C72659FA10009A8001 /* RealmCRUD.swift in Sources */,
 				1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
+				16827D1A27F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift in Sources */,
 				16B498D025CE2CE6005E9C26 /* Secret.swift in Sources */,
 				16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,

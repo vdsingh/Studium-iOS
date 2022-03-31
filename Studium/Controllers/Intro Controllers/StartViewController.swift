@@ -13,14 +13,15 @@ import GoogleSignIn
 import RealmSwift
 import FBSDKLoginKit
 
-class StartViewController: UIViewController, GIDSignInDelegate{
+class StartViewController: FBAndGoogleAuthViewController{
     
     let app = App(id: Secret.appID)
 
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
-    @IBOutlet weak var fbViewHolder: UIView!
+//    @IBOutlet weak var fbViewHolder: UIView!
+    @IBOutlet weak var facebookSignInButton: UIButton!
     
     @IBOutlet weak var mainStackView: UIStackView!
     override func viewDidLoad() {
@@ -33,6 +34,10 @@ class StartViewController: UIViewController, GIDSignInDelegate{
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
         
+        sender = self
+        facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
+//        cell.followButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+
         navigationItem.hidesBackButton = false
         
 //        let loginButton = FBLoginButton()
@@ -63,122 +68,91 @@ class StartViewController: UIViewController, GIDSignInDelegate{
     override func viewWillAppear(_ animated: Bool) {
         print("StartViewController viewwillappear")
     }
-
     
 
-    func sign(_ signIn: GIDSignIn!, didSignInFor googleUser: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
-                print("The user has not signed in before or they have since signed out.")
-            } else {
-                print("\(error.localizedDescription)")
-            }
-            return
-        }
-        // Signed in successfully, forward credentials to MongoDB Realm.
-        let credentials = Credentials.google(serverAuthCode: googleUser.serverAuthCode)
-        K.app.login(credentials: credentials) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(let error):
-                    print("Failed to log in to MongoDB Realm: \(error)")
-                case .success(let user):
-                    print("Successfully logged in to MongoDB Realm using Google OAuth.")
-                    self.handleGeneralLoginSuccess(email: googleUser.profile.email)
-                }
-            }
-        }
-    }
+//    func sign(_ signIn: GIDSignIn!, didSignInFor googleUser: GIDGoogleUser!, withError error: Error!) {
+//        if let error = error {
+//            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
+//                print("The user has not signed in before or they have since signed out.")
+//            } else {
+//                print("\(error.localizedDescription)")
+//            }
+//            return
+//        }
+//        // Signed in successfully, forward credentials to MongoDB Realm.
+//        let credentials = Credentials.google(serverAuthCode: googleUser.serverAuthCode)
+//        K.app.login(credentials: credentials) { result in
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .failure(let error):
+//                    print("Failed to log in to MongoDB Realm: \(error)")
+//                case .success(let user):
+//                    print("Successfully logged in to MongoDB Realm using Google OAuth.")
+//                    self.handleGeneralLoginSuccess(email: googleUser.profile.email)
+//                }
+//            }
+//        }
+//    }
     
     
     // FACEBOOK AUTHENTICATION CODE:
     
     // Once the button is clicked, show the login dialog
-    @IBAction func fbLoginButtonClicked() {
-        let loginManager = LoginManager()
-        
-        if AccessToken.current != nil {
-            loginManager.logOut()
-//                FBSDKLoginManager().logOut()
-            return
-        }
-        
-        
-        loginManager.logIn(permissions: ["email", "public_profile"], from: self) { result, error in
-            if let error = error {
-                print("ERROR: encountered Error when logging in with Facebook: \(error)")
-            } else if let result = result, result.isCancelled {
-                print("LOG: User Cancelled Login with Facebook")
-            } else {
-                print("LOG: User Successfully Logged In with Facebook")
-    
-                self.handleFBLoginSuccess()
-            }
-        }
-    }
-    
-    
-    func handleFBLoginSuccess(){
-        if let accessToken = AccessToken.current, !accessToken.isExpired {
-                // User is logged in, do work such as go to next view controller.
-            let credentials = Credentials.facebook(accessToken: accessToken.tokenString)
-            K.app.login(credentials: credentials) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .failure(let error):
-                        print("Failed to log in to MongoDB Realm: \(error)")
-                    case .success(let user):
-//                        accessToke
-                        print("Successfully logged in to MongoDB Realm using Facebook OAuth.")
-                        // Now logged in, do something with user
-                        // Remember to dispatch to main if you are doing anything on the UI thread
-//                        let email =
-                        self.handleGeneralLoginSuccess(email: nil)
-                    }
-                }
-            }
-        }else{
-            print("ERROR: something is wrong with AccessToken when trying to log in with Facebook on StartViewController.")
-        }
-    }
-    
-    //this function just does what all authentication methods do upon success (Google, Facebook, Email, etc.)
-    func handleGeneralLoginSuccess(email: String?){
-        let defaults = UserDefaults.standard
-
-        if email != nil{
-            defaults.setValue(email, forKey: "email")
-
-        } else  {
-            defaults.setValue("Logged In", forKey: "email")
-        }
-//        DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "toWakeUp", sender: self)
+//    @IBAction func fbLoginButtonClicked() {
+//        let loginManager = LoginManager()
+//
+//        if AccessToken.current != nil {
+//            loginManager.logOut()
+//            return
 //        }
-    }
-    
-//    func fetchUserProfile()
-//        {
-//            let graphRequest : GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields":"id, email, name"])
-//            graphRequest.start(completion: { (connection, result, error) -> Void in
 //
-//                if ((error) != nil)
-//                {
-//                    print("Error took place: \(error)")
-//                }
-//                else
-//                {
-//                    print("Print entire fetched result: \(result)")
-//                    let id : NSString = result.valueForKey("id") as! NSString
-//                    print("User ID is: \(id)")
+//        loginManager.logIn(permissions: ["email", "public_profile"], from: self) { result, error in
+//            if let error = error {
+//                print("ERROR: encountered Error when logging in with Facebook: \(error)")
+//            } else if let result = result, result.isCancelled {
+//                print("LOG: User Cancelled Login with Facebook")
+//            } else {
+//                print("LOG: User Successfully Logged In with Facebook")
+//                self.handleFBLoginSuccess()
+//            }
+//        }
+//    }
 //
-//                    if let userName: NSString = result.valueForKey("name") as! NSString
-//                    {
-//                        print("userName: \(userName)")
-////                        self.userFullName.text = userName
+//
+//    func handleFBLoginSuccess(){
+//        if let accessToken = AccessToken.current, !accessToken.isExpired {
+//                // User is logged in, do work such as go to next view controller.
+//            let credentials = Credentials.facebook(accessToken: accessToken.tokenString)
+//            K.app.login(credentials: credentials) { result in
+//                DispatchQueue.main.async {
+//                    switch result {
+//                    case .failure(let error):
+//                        print("Failed to log in to MongoDB Realm: \(error)")
+//                    case .success(let user):
+////                        accessToke
+//                        print("Successfully logged in to MongoDB Realm using Facebook OAuth.")
+//                        // Now logged in, do something with user
+//                        // Remember to dispatch to main if you are doing anything on the UI thread
+////                        let email =
+//                        self.handleGeneralLoginSuccess(email: nil)
 //                    }
-//
 //                }
-//            })
+//            }
+//        }else{
+//            print("ERROR: something is wrong with AccessToken when trying to log in with Facebook on StartViewController.")
 //        }
+//    }
+//
+//    //this function just does what all authentication methods do upon success (Google, Facebook, Email, etc.)
+//    func handleGeneralLoginSuccess(email: String?){
+//        let defaults = UserDefaults.standard
+//
+//        if email != nil{
+//            defaults.setValue(email, forKey: "email")
+//
+//        } else  {
+//            defaults.setValue("Logged In", forKey: "email")
+//        }
+//        self.performSegue(withIdentifier: "toWakeUp", sender: self)
+//    }
 }

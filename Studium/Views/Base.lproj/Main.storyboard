@@ -523,9 +523,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="it6-6e-9w4">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Big-Jz-Zze">
                                 <rect key="frame" x="20" y="84" width="374" height="738"/>
                                 <subviews>
@@ -792,15 +789,11 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="M0J-tZ-cxH"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Studium System Background Color"/>
                         <constraints>
-                            <constraint firstItem="it6-6e-9w4" firstAttribute="trailing" secondItem="M0J-tZ-cxH" secondAttribute="trailing" id="0Nn-bh-OqP"/>
                             <constraint firstItem="M0J-tZ-cxH" firstAttribute="bottom" secondItem="Big-Jz-Zze" secondAttribute="bottom" constant="40" id="Sbc-Zo-w6z"/>
-                            <constraint firstItem="it6-6e-9w4" firstAttribute="leading" secondItem="M0J-tZ-cxH" secondAttribute="leading" id="Zl8-aw-1ip"/>
                             <constraint firstItem="Big-Jz-Zze" firstAttribute="leading" secondItem="M0J-tZ-cxH" secondAttribute="leading" constant="20" id="e0l-JY-gl0"/>
-                            <constraint firstItem="it6-6e-9w4" firstAttribute="top" secondItem="jrO-jm-cGb" secondAttribute="top" id="eHa-Gb-pul"/>
                             <constraint firstItem="Big-Jz-Zze" firstAttribute="top" secondItem="M0J-tZ-cxH" secondAttribute="top" constant="40" id="ioS-H5-qBN"/>
-                            <constraint firstAttribute="bottom" secondItem="it6-6e-9w4" secondAttribute="bottom" id="kIT-Rm-Ey6"/>
                             <constraint firstItem="M0J-tZ-cxH" firstAttribute="trailing" secondItem="Big-Jz-Zze" secondAttribute="trailing" constant="20" id="uTs-mR-YU8"/>
                         </constraints>
                     </view>
@@ -1113,32 +1106,31 @@
                                     </attributedString>
                                 </buttonConfiguration>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mPd-MN-F9U">
-                                <rect key="frame" x="22.5" y="723.5" width="369" height="40"/>
-                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="hE0-T1-eAB"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bcx-Xz-NHD" customClass="GIDSignInButton">
-                                <rect key="frame" x="20" y="673.5" width="374" height="40"/>
+                                <rect key="frame" x="20" y="672.5" width="374" height="40"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="jCL-MQ-Uas"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ir-nI-otp">
+                                <rect key="frame" x="20" y="732.5" width="374" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fv7-Gr-4II"/>
                         <color key="backgroundColor" name="Studium System Background Color"/>
                         <constraints>
-                            <constraint firstItem="mPd-MN-F9U" firstAttribute="leading" secondItem="fv7-Gr-4II" secondAttribute="leading" constant="22.5" id="3po-uy-fYo"/>
                             <constraint firstItem="Bcx-Xz-NHD" firstAttribute="leading" secondItem="fv7-Gr-4II" secondAttribute="leading" constant="20" id="771-IZ-8vF"/>
                             <constraint firstItem="fv7-Gr-4II" firstAttribute="trailing" secondItem="6re-cS-Wrl" secondAttribute="trailing" id="7Tk-38-8ma"/>
                             <constraint firstItem="fv7-Gr-4II" firstAttribute="trailing" secondItem="rIb-tP-Vqc" secondAttribute="trailing" constant="20" id="9Mv-S6-Y2H"/>
                             <constraint firstItem="fv7-Gr-4II" firstAttribute="trailing" secondItem="Xu3-hd-GyR" secondAttribute="trailing" constant="20" id="9hM-od-EAd"/>
                             <constraint firstAttribute="bottom" secondItem="6re-cS-Wrl" secondAttribute="bottom" id="A4R-6b-uSt"/>
-                            <constraint firstItem="FtF-uU-aKj" firstAttribute="top" secondItem="mPd-MN-F9U" secondAttribute="bottom" constant="40" id="AZe-uf-NhO"/>
+                            <constraint firstItem="6ir-nI-otp" firstAttribute="top" secondItem="Bcx-Xz-NHD" secondAttribute="bottom" constant="20" id="AG7-mq-2E8"/>
                             <constraint firstItem="6re-cS-Wrl" firstAttribute="leading" secondItem="fv7-Gr-4II" secondAttribute="leading" id="B1s-Uh-YOn"/>
+                            <constraint firstItem="FtF-uU-aKj" firstAttribute="top" secondItem="6ir-nI-otp" secondAttribute="bottom" constant="40" id="CDy-Kb-5IP"/>
+                            <constraint firstItem="6ir-nI-otp" firstAttribute="leading" secondItem="fv7-Gr-4II" secondAttribute="leading" constant="20" id="FXF-Ir-rE4"/>
                             <constraint firstItem="bTa-ur-DO6" firstAttribute="leading" secondItem="fv7-Gr-4II" secondAttribute="leading" constant="20" id="G2k-fu-MjR"/>
                             <constraint firstItem="fv7-Gr-4II" firstAttribute="trailing" secondItem="Bcx-Xz-NHD" secondAttribute="trailing" constant="20" id="HSk-OM-Wf2"/>
                             <constraint firstItem="Xu3-hd-GyR" firstAttribute="leading" secondItem="fv7-Gr-4II" secondAttribute="leading" constant="20" id="HVe-WM-nVG"/>
@@ -1151,20 +1143,18 @@
                             <constraint firstItem="fv7-Gr-4II" firstAttribute="trailing" secondItem="4zg-wr-65h" secondAttribute="trailing" constant="20" id="diw-bl-YQa"/>
                             <constraint firstItem="Xu3-hd-GyR" firstAttribute="top" secondItem="rIb-tP-Vqc" secondAttribute="bottom" constant="40" id="fv4-gd-Hip"/>
                             <constraint firstItem="bTa-ur-DO6" firstAttribute="top" secondItem="Ief-Cj-hfS" secondAttribute="bottom" constant="65" id="hLD-CI-TXk"/>
+                            <constraint firstItem="fv7-Gr-4II" firstAttribute="trailing" secondItem="6ir-nI-otp" secondAttribute="trailing" constant="20" id="hPq-Ae-uJg"/>
                             <constraint firstItem="rIb-tP-Vqc" firstAttribute="top" secondItem="Ief-Cj-hfS" secondAttribute="bottom" constant="30" id="hZ6-LS-UjB"/>
                             <constraint firstAttribute="bottom" secondItem="FtF-uU-aKj" secondAttribute="bottom" constant="60" id="i7J-ya-hYh"/>
                             <constraint firstItem="4zg-wr-65h" firstAttribute="top" secondItem="foU-dt-8wm" secondAttribute="bottom" constant="20" id="lRq-SO-YmN"/>
-                            <constraint firstItem="mPd-MN-F9U" firstAttribute="top" secondItem="Bcx-Xz-NHD" secondAttribute="bottom" constant="10" id="vW5-un-wFi"/>
                             <constraint firstItem="foU-dt-8wm" firstAttribute="top" secondItem="Xu3-hd-GyR" secondAttribute="bottom" constant="21" id="wZz-WP-BiK"/>
-                            <constraint firstItem="fv7-Gr-4II" firstAttribute="trailing" secondItem="mPd-MN-F9U" secondAttribute="trailing" constant="22.5" id="x3o-Ve-Yyi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1mg-PB-g0X"/>
                     <connections>
                         <outlet property="continueAsGuestButton" destination="FtF-uU-aKj" id="PxG-jO-ptu"/>
                         <outlet property="emailTextField" destination="Yrm-lj-XNH" id="RUb-T9-2vM"/>
-                        <outlet property="fbSignInViewHolder" destination="mPd-MN-F9U" id="v2c-EV-u1p"/>
-                        <outlet property="fbViewHolder" destination="mPd-MN-F9U" id="Wyx-Hy-UUf"/>
+                        <outlet property="facebookSignInButton" destination="6ir-nI-otp" id="NRe-6p-hwM"/>
                         <outlet property="googleSignInButton" destination="Bcx-Xz-NHD" id="oZv-5g-Zar"/>
                         <outlet property="passwordTextField" destination="Mbc-XB-whW" id="FO3-3U-W3x"/>
                         <outlet property="signInButton" destination="foU-dt-8wm" id="gQ9-Rr-WeJ"/>
@@ -1390,9 +1380,6 @@
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Sign In with Facebook"/>
-                                        <connections>
-                                            <action selector="fbLoginButtonClicked" destination="kab-UP-nRT" eventType="touchUpInside" id="JFi-GU-U0K"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -1432,6 +1419,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="hbU-rX-mRq"/>
                     <connections>
+                        <outlet property="facebookSignInButton" destination="Qzz-4e-xnO" id="IHT-0r-YrV"/>
                         <outlet property="googleSignInButton" destination="hQ1-Zc-OCF" id="il8-cV-q6R"/>
                         <outlet property="loginButton" destination="WKd-h2-5bY" id="Pht-AA-FMI"/>
                         <outlet property="mainStackView" destination="idv-E1-lOR" id="rih-1g-rrC"/>
@@ -1522,7 +1510,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qs8-2f-MqW">
-                                <rect key="frame" x="124.5" y="813" width="165.5" height="23"/>
+                                <rect key="frame" x="124.5" y="813.5" width="165.5" height="22.5"/>
                                 <color key="tintColor" name="Studium Secondary Theme Color"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
@@ -1557,43 +1545,73 @@
                                     <action selector="signInWithGoogleWithSender:" destination="BhP-zo-giK" eventType="valueChanged" id="MZo-9K-e41"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E5w-mP-XOg">
-                                <rect key="frame" x="20" y="733.5" width="374" height="40"/>
-                                <color key="backgroundColor" name="Studium Purple"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WrR-6Q-Ppa">
+                                <rect key="frame" x="20" y="735" width="374" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E5w-mP-XOg">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                        <color key="backgroundColor" red="0.25882352941176467" green="0.40392156862745099" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="ife-Op-okS"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <backgroundConfiguration key="background"/>
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Sign in with Facebook"/>
+                                            </attributedString>
+                                        </buttonConfiguration>
+                                    </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fb_logo" translatesAutoresizingMaskIntoConstraints="NO" id="hjx-wZ-nPu">
+                                        <rect key="frame" x="10" y="10" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="dTP-BA-YSJ"/>
+                                            <constraint firstAttribute="width" constant="30" id="exk-DY-rjl"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="ife-Op-okS"/>
+                                    <constraint firstAttribute="bottom" secondItem="E5w-mP-XOg" secondAttribute="bottom" id="7wa-ky-j6t"/>
+                                    <constraint firstItem="E5w-mP-XOg" firstAttribute="leading" secondItem="WrR-6Q-Ppa" secondAttribute="leading" id="9WF-Nj-VUb"/>
+                                    <constraint firstItem="hjx-wZ-nPu" firstAttribute="leading" secondItem="WrR-6Q-Ppa" secondAttribute="leading" constant="10" id="JJI-Wg-P4k"/>
+                                    <constraint firstAttribute="trailing" secondItem="E5w-mP-XOg" secondAttribute="trailing" id="JZU-0V-ZIr"/>
+                                    <constraint firstItem="E5w-mP-XOg" firstAttribute="centerY" secondItem="WrR-6Q-Ppa" secondAttribute="centerY" id="ReL-Aq-Rtk"/>
+                                    <constraint firstItem="hjx-wZ-nPu" firstAttribute="centerY" secondItem="WrR-6Q-Ppa" secondAttribute="centerY" id="Sot-ry-7tB"/>
+                                    <constraint firstItem="E5w-mP-XOg" firstAttribute="top" secondItem="WrR-6Q-Ppa" secondAttribute="top" id="a0V-O8-p2u"/>
+                                    <constraint firstItem="E5w-mP-XOg" firstAttribute="centerX" secondItem="WrR-6Q-Ppa" secondAttribute="centerX" id="nmg-o5-vie"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                            </button>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yhS-tS-IMj"/>
                         <color key="backgroundColor" name="Studium System Background Color"/>
                         <constraints>
-                            <constraint firstItem="qs8-2f-MqW" firstAttribute="top" secondItem="E5w-mP-XOg" secondAttribute="bottom" constant="39.5" id="1uq-AT-BMe"/>
                             <constraint firstItem="yhS-tS-IMj" firstAttribute="trailing" secondItem="ELz-5L-ucc" secondAttribute="trailing" constant="20" id="8iK-LH-Kfz"/>
                             <constraint firstItem="ELz-5L-ucc" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" constant="20" id="ABR-6Z-SEO"/>
                             <constraint firstItem="SXw-eR-3kO" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" constant="20" id="B7D-Fh-CsV"/>
-                            <constraint firstItem="E5w-mP-XOg" firstAttribute="top" secondItem="ELz-5L-ucc" secondAttribute="bottom" constant="20" id="Def-dr-2hF"/>
                             <constraint firstItem="81E-Ap-oY8" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" constant="20" id="Dew-a0-JEy"/>
                             <constraint firstItem="ELz-5L-ucc" firstAttribute="centerX" secondItem="wSF-q2-wZS" secondAttribute="centerX" id="FU2-y1-VRL"/>
                             <constraint firstItem="81E-Ap-oY8" firstAttribute="top" secondItem="yhS-tS-IMj" secondAttribute="top" constant="35" id="GTL-tG-C6z"/>
+                            <constraint firstItem="qs8-2f-MqW" firstAttribute="top" secondItem="WrR-6Q-Ppa" secondAttribute="bottom" constant="28.5" id="LHd-hH-J4U"/>
                             <constraint firstItem="SXw-eR-3kO" firstAttribute="top" secondItem="nhl-6F-OC7" secondAttribute="bottom" constant="40" id="SLf-OU-faT"/>
                             <constraint firstItem="9KX-LP-HXC" firstAttribute="top" secondItem="wSF-q2-wZS" secondAttribute="top" id="T9e-Qd-KXs"/>
                             <constraint firstItem="yhS-tS-IMj" firstAttribute="trailing" secondItem="nhl-6F-OC7" secondAttribute="trailing" constant="20" id="TMP-8z-TwI"/>
+                            <constraint firstItem="WrR-6Q-Ppa" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" constant="20" id="Thb-sE-OEf"/>
+                            <constraint firstItem="WrR-6Q-Ppa" firstAttribute="top" secondItem="ELz-5L-ucc" secondAttribute="bottom" constant="21.5" id="U9S-cS-jLC"/>
                             <constraint firstAttribute="bottom" secondItem="qs8-2f-MqW" secondAttribute="bottom" constant="60" id="UY0-Ue-Uh6"/>
+                            <constraint firstItem="WrR-6Q-Ppa" firstAttribute="trailing" secondItem="ELz-5L-ucc" secondAttribute="trailing" id="X9V-QH-YdY"/>
                             <constraint firstItem="nhl-6F-OC7" firstAttribute="top" secondItem="81E-Ap-oY8" secondAttribute="bottom" constant="30" id="Yd6-vw-yUj"/>
                             <constraint firstItem="yhS-tS-IMj" firstAttribute="trailing" secondItem="9KX-LP-HXC" secondAttribute="trailing" id="Z9w-aH-J4D"/>
                             <constraint firstItem="qs8-2f-MqW" firstAttribute="centerX" secondItem="wSF-q2-wZS" secondAttribute="centerX" id="ZOK-34-lPa"/>
-                            <constraint firstItem="yhS-tS-IMj" firstAttribute="trailing" secondItem="E5w-mP-XOg" secondAttribute="trailing" constant="20" id="bji-uh-k4r"/>
                             <constraint firstItem="yhS-tS-IMj" firstAttribute="trailing" secondItem="SXw-eR-3kO" secondAttribute="trailing" constant="20" id="coF-SE-llg"/>
                             <constraint firstItem="wc2-8N-fie" firstAttribute="leading" secondItem="SXw-eR-3kO" secondAttribute="leading" id="gA6-gd-pmR"/>
+                            <constraint firstItem="yhS-tS-IMj" firstAttribute="trailing" secondItem="WrR-6Q-Ppa" secondAttribute="trailing" constant="20" id="gSF-zG-Bc5"/>
                             <constraint firstItem="nYy-Nl-45g" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" constant="20" id="gt3-pe-iQr"/>
                             <constraint firstItem="wc2-8N-fie" firstAttribute="top" secondItem="SXw-eR-3kO" secondAttribute="bottom" constant="21" id="kQ5-2v-xr1"/>
                             <constraint firstItem="ELz-5L-ucc" firstAttribute="top" secondItem="wSF-q2-wZS" secondAttribute="top" constant="673.5" id="kYo-7t-DB3"/>
                             <constraint firstItem="nYy-Nl-45g" firstAttribute="top" secondItem="81E-Ap-oY8" secondAttribute="bottom" constant="65" id="kuO-hK-9N3"/>
                             <constraint firstItem="wc2-8N-fie" firstAttribute="trailing" secondItem="SXw-eR-3kO" secondAttribute="trailing" id="lgt-Ni-tZr"/>
-                            <constraint firstItem="E5w-mP-XOg" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" constant="20" id="pEb-5N-XIs"/>
                             <constraint firstAttribute="bottom" secondItem="9KX-LP-HXC" secondAttribute="bottom" id="u0a-m6-g9R"/>
                             <constraint firstItem="9KX-LP-HXC" firstAttribute="leading" secondItem="yhS-tS-IMj" secondAttribute="leading" id="vAl-oS-X8M"/>
                         </constraints>
@@ -1602,6 +1620,7 @@
                     <connections>
                         <outlet property="continueAsGuestButton" destination="qs8-2f-MqW" id="EjS-su-Vrx"/>
                         <outlet property="emailTextField" destination="8hq-AP-3ps" id="5zZ-aK-cY6"/>
+                        <outlet property="facebookSignInButton" destination="E5w-mP-XOg" id="quG-C2-Bf0"/>
                         <outlet property="googleSignInButton" destination="ELz-5L-ucc" id="1kH-UL-2O9"/>
                         <outlet property="passwordTextField" destination="GmV-MU-0qA" id="Wdy-dA-pYP"/>
                         <outlet property="signUpButton" destination="wc2-8N-fie" id="PuT-Qi-EeJ"/>
@@ -1616,7 +1635,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="vzC-T2-xCs"/>
         <segue reference="sMc-gW-Ufz"/>
-        <segue reference="J7L-Rc-yCL"/>
+        <segue reference="QsE-hI-Cdf"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="2" width="300" height="300"/>
@@ -1626,6 +1645,7 @@
         <image name="calendar.circle" catalog="system" width="128" height="121"/>
         <image name="calendar.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="fb_logo" width="256" height="256"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="list.number" catalog="system" width="128" height="97"/>
         <image name="pencil.circle" catalog="system" width="128" height="121"/>
@@ -1641,9 +1661,6 @@
         <namedColor name="Studium Label Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="Studium Purple">
-            <color red="0.27799999713897705" green="0.31799998879432678" blue="0.9179999828338623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="Studium Secondary Theme Color">
             <color red="0.98400002717971802" green="0.44299998879432678" blue="0.41999998688697815" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -1658,9 +1675,6 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
