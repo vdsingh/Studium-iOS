@@ -162,8 +162,11 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
                 return nil
             }
             let startAndEnd = Autoschedule.bestTime(openTimeSlots: openTimeSlots, totalMinutes: autoLengthMinutes)
-            let assignmentStart = startAndEnd[0]
-            let assignmentEnd = startAndEnd[1]
+            if startAndEnd == nil {
+                return nil
+            }
+            let assignmentStart = startAndEnd![0]
+            let assignmentEnd = startAndEnd![1]
             
             print("startAndEnd: \(startAndEnd)")
 

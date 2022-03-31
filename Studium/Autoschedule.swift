@@ -58,6 +58,9 @@ class Autoschedule{
         //add the courses
         let habits = realm.objects(Habit.self)
         for habit in habits{
+            if habit.autoschedule{
+                continue
+            }
             if habit.days.contains(date.weekday){
                 let habitStartDate = Date(year: date.year, month: date.month, day: date.day, hour: habit.startDate.hour, minute: habit.startDate.minute, second: 0)
                 let habitEndDate = Date(year: date.year, month: date.month, day: date.day, hour: habit.endDate.hour, minute: habit.endDate.minute, second: 0)
@@ -84,8 +87,12 @@ class Autoschedule{
         for commitment in commitments{
             let commitmentStartTime = commitment[0]
             let commitmentEndTime = commitment[1]
-            print("Commitment: start \(commitmentStartTime) end \(commitmentEndTime)")
-            for i in 0...openSlots.count-1{
+            print("Commitment: start \(commitmentStartTime.format(with: "h:mm a")) end \(commitmentEndTime.format(with: "h:mm a"))")
+            var i = 0
+            while(i < openSlots.count){
+//            for var i in 0...openSlots.count-1{
+                print("SLOTS: \(openSlots)")
+                print("i: \(i)")
                 let slot = openSlots[i]
                 let slotStartTime = slot[0]
                 let slotEndTime = slot[1]
@@ -99,6 +106,7 @@ class Autoschedule{
                     
                     //remove the entire old open slot
                     openSlots.remove(at: i)
+                    i-=1
                     
                     //append new open slots not including the commitment
                     openSlots.append(newSlot1)
@@ -110,6 +118,7 @@ class Autoschedule{
                     
                     //remove the entire old slot
                     openSlots.remove(at: i)
+                    i-=1
                     
                     //add the new slot not containing the commitment
                     openSlots.append(newSlot)
@@ -119,6 +128,7 @@ class Autoschedule{
                     
                     //remove the entire old slot
                     openSlots.remove(at: i)
+                    i-=1
                     
                     let newSlot = [slotStartTime, commitmentStartTime - 1]
                     openSlots.append(newSlot)
@@ -126,7 +136,9 @@ class Autoschedule{
                 //the slot is completely within the commitment
                 }else if(slotStartTime >= commitmentStartTime && slotEndTime <= commitmentEndTime){
                     openSlots.remove(at: i)
+                    i-=1
                 }
+                i+=1
             }
         }
         print("Open time slots: \(openSlots)")
@@ -139,9 +151,12 @@ class Autoschedule{
     ///     - openTimeSlots: the time slots available in the day. This is usually calculated by the getOpenTimeSlots function
     ///     - totalMinutes: the total length in minutes of the event we are scheduling
     /// - Returns: an array containing the start time and the end time of the event.
-    static func bestTime(openTimeSlots: [[Date]], totalMinutes: Int)->[Date]{
+    static func bestTime(openTimeSlots: [[Date]], totalMinutes: Int)->[Date]?{
         var maxSlotLength: Int = 0
         var bestTimeSlot: [Date] = [Date(), Date()]
+        if(openTimeSlots.count == 0){
+            return []
+        }
         for i in 0...openTimeSlots.count-1{
             let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: openTimeSlots[i][0], to: openTimeSlots[i][1])
             
@@ -177,9 +192,13 @@ class Autoschedule{
     }
     
     
-    static func getStartAndEndDates(dateOccurring: Date, startBound: Date, endBound: Date, totalMinutes: Int) -> [Date]{
+    static func getStartAndEndDates(dateOccurring: Date, startBound: Date, endBound: Date, totalMinutes: Int) -> [Date]?{
         let commitments = getCommitments(date: dateOccurring)
         let openTimeSlots = getOpenTimeSlots(startBound: startBound, endBound: endBound, commitments: commitments)
-        return bestTime(openTimeSlots: openTimeSlots, totalMinutes: totalMinutes)
+        if openTimeSlots.count > 0{
+            return bestTime(openTimeSlots: openTimeSlots, totalMinutes: totalMinutes)
+        }else{
+            return nil
+        }
     }
 }

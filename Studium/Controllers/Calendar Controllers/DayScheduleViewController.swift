@@ -138,12 +138,16 @@ class DayScheduleViewController: DayViewController{
                     
                     //if this habit is autoscheduled, we use the Autoschedule algorithm from Autoschedule class to find the best time for this event to occur. We then change usableStartDate and usableEndDate to the dates calculated by the algorithm.
                     if habit.autoschedule{
-                        let dates: [Date] = Autoschedule.getStartAndEndDates(dateOccurring: date, startBound: usableStartDate, endBound: usableEndDate, totalMinutes: habit.autoLengthMinutes)
+                        let dates: [Date]? = Autoschedule.getStartAndEndDates(dateOccurring: date, startBound: usableStartDate, endBound: usableEndDate, totalMinutes: habit.autoLengthMinutes)
+                        //there were no open time slots.
+                        if dates == nil{
+                            continue
+                        }
                         print("AUTOSCHEDULING HABIT: \(habit.name) with minutes: \(habit.autoLengthMinutes). AND FOUND DATES: \(dates)")
-                        usableStartDate = dates[0]
+                        usableStartDate = dates![0]
                         print("Start: \(usableStartDate.format(with: "h:mm a zzz"))")
                         
-                        usableEndDate = dates[1]
+                        usableEndDate = dates![1]
 
 //                        components = Calendar.current.dateComponents([.hour, .minute], from: dates[0])
 //                        usableStartDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
