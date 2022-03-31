@@ -36,6 +36,7 @@ class StartViewController: FBAndGoogleAuthViewController{
         
         sender = self
         facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
+        facebookSignInButton.layer.cornerRadius = 10
 //        cell.followButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
 
         navigationItem.hidesBackButton = false

@@ -55,6 +55,7 @@ class LoginViewController: FBAndGoogleAuthViewController, UIGestureRecognizerDel
         
         sender = self
         facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
+        facebookSignInButton.layer.cornerRadius = 10
 
     }
     
