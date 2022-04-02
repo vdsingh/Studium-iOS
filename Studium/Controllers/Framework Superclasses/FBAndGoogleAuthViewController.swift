@@ -12,14 +12,11 @@ import FBSDKLoginKit
 import GoogleSignIn
 import RealmSwift
 class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate{
-    
     var sender: Any? = self
-    
+
     @IBAction func handleLoginAsGuest(){
         let app = App(id: Secret.appID)
         let client = app.emailPasswordAuth
-//        let email = emailTextField.text!
-//        let email = UUID().uuidString
         let email = UIDevice.current.identifierForVendor?.uuidString
         let password = "password"
         client.registerUser(email: email!, password: password) { (error) in
@@ -27,8 +24,6 @@ class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate{
                 print("ERROR: failed to register guest: \(error!.localizedDescription)")
                 return
             }
-            // Registering just registers. You can now log in.
-            
             print("LOG: successfully registered guest.")
         }
         
@@ -43,8 +38,6 @@ class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate{
                 DispatchQueue.main.async {
                     self.performSegue(withIdentifier: "toWakeUp", sender: self)
                 }
-                // Now logged in, do something with user
-                // Remember to dispatch to main if you are doing anything on the UI thread
             }
         }
     }
