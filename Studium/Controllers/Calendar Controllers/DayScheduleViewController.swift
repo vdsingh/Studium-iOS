@@ -55,8 +55,7 @@ class DayScheduleViewController: DayViewController{
             K.handleLogOut()
             return []
         }
-            
-        
+    
         var coursesOnDay: [Course] = []
         let allCourses = realm.objects(Course.self)
         for course in allCourses{
@@ -76,7 +75,6 @@ class DayScheduleViewController: DayViewController{
             let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
             courseEvent.attributedText = attributedString
             events.append(courseEvent)
-            
         }
         return events
     }

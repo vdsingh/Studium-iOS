@@ -24,7 +24,8 @@ class RegisterViewController: FBAndGoogleAuthViewController, UIGestureRecognizer
     
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
     @IBOutlet weak var facebookSignInButton: UIButton!
-//    @IBOutlet weak var fbViewHolder: UIView!
+    @IBOutlet weak var guestSignInButton: UIButton!
+    //    @IBOutlet weak var fbViewHolder: UIView!
     
     //UI CONSTANTS
     let iconSize = 30
@@ -54,6 +55,9 @@ class RegisterViewController: FBAndGoogleAuthViewController, UIGestureRecognizer
         sender = self
         facebookSignInButton.layer.cornerRadius = 10
         facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
+        
+        guestSignInButton.addTarget(self, action: #selector(handleLoginAsGuest), for: .touchUpInside)
+
         
         setupUI()
 

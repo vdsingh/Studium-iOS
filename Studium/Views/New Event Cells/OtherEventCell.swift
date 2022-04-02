@@ -18,7 +18,7 @@ class OtherEventCell: DeletableEventCell{
     
     @IBOutlet weak var latenessIndicator: UIImageView!
     var otherEvent: OtherEvent?
-    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

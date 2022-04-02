@@ -20,7 +20,7 @@ class LoginViewController: FBAndGoogleAuthViewController, UIGestureRecognizerDel
     
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signInButton: UIButton!
-    @IBOutlet weak var continueAsGuestButton: UIButton!
+    @IBOutlet weak var guestSignInButton: UIButton!
     
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
     @IBOutlet weak var facebookSignInButton: UIButton!
@@ -56,6 +56,8 @@ class LoginViewController: FBAndGoogleAuthViewController, UIGestureRecognizerDel
         sender = self
         facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
         facebookSignInButton.layer.cornerRadius = 10
+        guestSignInButton.addTarget(self, action: #selector(handleLoginAsGuest), for: .touchUpInside)
+
 
     }
     
@@ -193,7 +195,7 @@ class LoginViewController: FBAndGoogleAuthViewController, UIGestureRecognizerDel
         signInButton.layer.cornerRadius = 10
         signInButton.setTitleColor(.white, for: .normal)
     
-        continueAsGuestButton.tintColor = tintColor
+//        continueAsGuestButton.tintColor = tintColor
     }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {

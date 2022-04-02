@@ -22,6 +22,7 @@ class StartViewController: FBAndGoogleAuthViewController{
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
 //    @IBOutlet weak var fbViewHolder: UIView!
     @IBOutlet weak var facebookSignInButton: UIButton!
+    @IBOutlet weak var guestSignInButton: UIButton!
     
     @IBOutlet weak var mainStackView: UIStackView!
     override func viewDidLoad() {
@@ -37,7 +38,7 @@ class StartViewController: FBAndGoogleAuthViewController{
         sender = self
         facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
         facebookSignInButton.layer.cornerRadius = 10
-//        cell.followButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        guestSignInButton.addTarget(self, action: #selector(handleLoginAsGuest), for: .touchUpInside)
 
         navigationItem.hidesBackButton = false
         

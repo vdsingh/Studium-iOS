@@ -146,7 +146,6 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uwi-Wp-5Zq" customClass="FSCalendar">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="340"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <connections>
                                             <outlet property="delegate" destination="okE-Gd-bqh" id="VaJ-Lg-g4k"/>
                                         </connections>
@@ -205,6 +204,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="sectionIndexBackgroundColor" name="Studium System Background Color"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" id="wie-pR-hQu" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
@@ -243,6 +243,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="sectionIndexBackgroundColor" name="Studium System Background Color"/>
                         <connections>
                             <outlet property="dataSource" destination="hpd-53-o9w" id="QeX-o3-38U"/>
                             <outlet property="delegate" destination="hpd-53-o9w" id="Fnc-C0-Qy4"/>
@@ -294,6 +295,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="sectionIndexBackgroundColor" name="Studium System Background Color"/>
                         <connections>
                             <outlet property="dataSource" destination="Ict-Kx-JgS" id="2h4-Rq-cqb"/>
                             <outlet property="delegate" destination="Ict-Kx-JgS" id="4gt-8m-RoL"/>
@@ -394,6 +396,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="sectionIndexBackgroundColor" name="Studium System Background Color"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="iXA-jG-3Nd">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -1185,10 +1188,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="1mg-PB-g0X"/>
                     <connections>
-                        <outlet property="continueAsGuestButton" destination="FtF-uU-aKj" id="PxG-jO-ptu"/>
                         <outlet property="emailTextField" destination="Yrm-lj-XNH" id="RUb-T9-2vM"/>
                         <outlet property="facebookSignInButton" destination="DYj-ec-gjn" id="UzW-Xd-uz0"/>
                         <outlet property="googleSignInButton" destination="Bcx-Xz-NHD" id="oZv-5g-Zar"/>
+                        <outlet property="guestSignInButton" destination="FtF-uU-aKj" id="ro2-Wd-zz8"/>
                         <outlet property="passwordTextField" destination="Mbc-XB-whW" id="FO3-3U-W3x"/>
                         <outlet property="signInButton" destination="foU-dt-8wm" id="gQ9-Rr-WeJ"/>
                         <segue destination="13W-JO-cIR" kind="showDetail" identifier="toWakeUp" id="327-zR-EyQ"/>
@@ -1281,7 +1284,7 @@
             <objects>
                 <tableViewController id="hFo-id-GNg" customClass="AlertTableViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="0f3-qI-arm">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <connections>
@@ -1483,6 +1486,7 @@
                     <connections>
                         <outlet property="facebookSignInButton" destination="UUR-Rf-c4S" id="i1t-eJ-tj6"/>
                         <outlet property="googleSignInButton" destination="hQ1-Zc-OCF" id="il8-cV-q6R"/>
+                        <outlet property="guestSignInButton" destination="3IZ-Wv-vRg" id="73y-X3-Z0k"/>
                         <outlet property="loginButton" destination="WKd-h2-5bY" id="Pht-AA-FMI"/>
                         <outlet property="mainStackView" destination="idv-E1-lOR" id="rih-1g-rrC"/>
                         <outlet property="signUpButton" destination="UF8-fU-utZ" id="Nu9-Kc-Aq0"/>
@@ -1684,6 +1688,7 @@
                         <outlet property="emailTextField" destination="8hq-AP-3ps" id="5zZ-aK-cY6"/>
                         <outlet property="facebookSignInButton" destination="E5w-mP-XOg" id="quG-C2-Bf0"/>
                         <outlet property="googleSignInButton" destination="ELz-5L-ucc" id="1kH-UL-2O9"/>
+                        <outlet property="guestSignInButton" destination="qs8-2f-MqW" id="1kW-RQ-51K"/>
                         <outlet property="passwordTextField" destination="GmV-MU-0qA" id="Wdy-dA-pYP"/>
                         <outlet property="signUpButton" destination="wc2-8N-fie" id="PuT-Qi-EeJ"/>
                         <segue destination="13W-JO-cIR" kind="showDetail" identifier="toWakeUp" id="QsE-hI-Cdf"/>
@@ -1695,9 +1700,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vzC-T2-xCs"/>
+        <segue reference="U26-7i-LD2"/>
         <segue reference="sMc-gW-Ufz"/>
-        <segue reference="QsE-hI-Cdf"/>
+        <segue reference="327-zR-EyQ"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="2" width="300" height="300"/>
