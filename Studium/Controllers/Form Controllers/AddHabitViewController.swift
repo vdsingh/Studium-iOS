@@ -85,8 +85,6 @@ class AddHabitViewController: MasterForm, LogoStorer{
         tableView.register(UINib(nibName: "LogoCell", bundle: nil), forCellReuseIdentifier: "LogoCell")
         tableView.register(UINib(nibName: "ColorPickerCell", bundle: nil), forCellReuseIdentifier: "ColorPickerCell")
         
-        
-        
         //used to decipher which TimeCell should have which dates
         times = [startDate, endDate]
         
@@ -309,6 +307,7 @@ class AddHabitViewController: MasterForm, LogoStorer{
         tableView.reloadData()
     }
 }
+
 //MARK: - tableView Data Source
 extension AddHabitViewController{
     
@@ -614,6 +613,7 @@ extension AddHabitViewController: CanHandleInfoDisplay{
 
 extension AddHabitViewController{
     func fillForm(with habit: Habit){
+        print("FILL FORM CALLED")
         reloadData()
         
         navButton.image = .none
