@@ -24,9 +24,15 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
+        
+        //hide for now
+        searchBar.isHidden = true
 
         sectionHeaders = ["To Do:", "Completed:"]
         eventTypeString = "Assignments"
+        
+        self.tabBarController?.tabBar.barTintColor = K.themeColor
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

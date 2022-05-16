@@ -21,6 +21,9 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         sectionHeaders = ["To Do:", "Completed:"]
         eventTypeString = "Events"
 
+        
+        self.tabBarController?.tabBar.barTintColor = K.themeColor
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

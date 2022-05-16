@@ -22,6 +22,10 @@ pod 'ChameleonFramework/Swift', :git => 'https://github.com/wowansm/Chameleon.gi
 pod 'Colorful'
 pod 'FlexColorPicker', '~> 1.4.2'
 
+#Custom Tab Bar
+pod 'RAMAnimatedTabBarController'
+
+
 pod 'DateToolsSwift'
 
 end

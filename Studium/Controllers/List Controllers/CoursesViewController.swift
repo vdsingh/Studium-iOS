@@ -28,6 +28,8 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         tableView.rowHeight = 140
         tableView.separatorStyle = .none //gets rid of dividers between cells.
         
+        tabBarController?.tabBar.isTranslucent = false
+        self.tabBarController?.tabBar.barTintColor = K.themeColor
     }
     
     override func viewWillAppear(_ animated: Bool) {

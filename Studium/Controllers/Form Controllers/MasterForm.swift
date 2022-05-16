@@ -60,9 +60,9 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
         //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNUserNotificationCenter.current().add(request) {(error) in
             if error != nil {
-                print("error with adding notification")
+                print("ERROR: error with adding notification")
             }else{
-                print("notification scheduled.")
+                print("LOG: notification scheduled.")
                 
             }
         }

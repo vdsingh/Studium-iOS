@@ -45,7 +45,6 @@ class AddAssignmentViewController: MasterForm{
     var name: String = ""
     var additionalDetails: String = ""
     
-//    var alertTimes: [Int] = []
     
     @IBOutlet weak var navButton: UIBarButtonItem!
     
@@ -209,10 +208,10 @@ class AddAssignmentViewController: MasterForm{
         nameCell.textField.text = name
         self.name = name
         
+        print("Name Cell Text: \(name)")
+        
         let dueDateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
         self.dueDate = dueDate
-//        dueDateCell.timeLabel.text = "dueDate.format(with: "h:mm a")"
-//        dueDateCell.timeLabel.text = "Hello!"
         dueDateCell.date = dueDate
         
         self.alertTimes = alertTimes

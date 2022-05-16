@@ -25,7 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //print(realm.configuration.fileURL)
 //        print("UserDefaults Path: ")
 //        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
-        updateTheme(color: K.colorsDict[defaults.string(forKey: "themeColor") ?? "black"] ?? UIColor.black)
+        if let color = K.colorsDict[defaults.string(forKey: "themeColor")!]{
+//            updateTheme(color: K.colorsDict[defaults.string(forKey: "themeColor") ?? "black"] ?? UIColor.black)
+            updateTheme(color: color)
+        }
         
         if let user = app.currentUser {
             do{
@@ -66,19 +69,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //updates the theme color of the app.
     func updateTheme(color: UIColor){
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = color
+        let navAppearance = UINavigationBarAppearance()
+        navAppearance.backgroundColor = color
         
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        navAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
 
         UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().compactAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().standardAppearance = navAppearance
+        UINavigationBar.appearance().compactAppearance = navAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navAppearance
         
-        UITabBar.appearance().barTintColor = color // your color
-        UITabBarAppearance().backgroundColor = color
+        let tabAppearance = UITabBarAppearance()
+        tabAppearance.backgroundColor = color
+//        tabAppearance.
+    
+        UITabBar.appearance().standardAppearance = tabAppearance
+//        UITabBar.appearance().scrollEdgeAppearance = tabAppearance
     }
     
     func changeTheme(colorKey: String){

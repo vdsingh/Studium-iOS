@@ -28,6 +28,7 @@ PODS:
     - AppAuth/Core (~> 1.4)
     - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher/Core (1.7.0)
+  - RAMAnimatedTabBarController (5.2.0)
   - Realm (10.7.7):
     - Realm/Headers (= 10.7.7)
   - Realm/Headers (10.7.7)
@@ -44,6 +45,7 @@ DEPENDENCIES:
   - FlexColorPicker (~> 1.4.2)
   - FSCalendar
   - GoogleSignIn (~> 5.0.2)
+  - RAMAnimatedTabBarController
   - RealmSwift (~> 10.7.6)
   - SwipeCellKit
 
@@ -62,6 +64,7 @@ SPEC REPOS:
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
+    - RAMAnimatedTabBarController
     - Realm
     - RealmSwift
     - SwipeCellKit
@@ -91,10 +94,11 @@ SPEC CHECKSUMS:
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
+  RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
   Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
   RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
-PODFILE CHECKSUM: bc3f014f771cfc02aee1d5d9b2910d61b104517c
+PODFILE CHECKSUM: 8589f5202843b62dbd6ed94a85f9907aa60c27ba
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.3

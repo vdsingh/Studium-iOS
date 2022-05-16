@@ -35,6 +35,9 @@ struct K {
 //    static var assignmentNum = 0
     static var defaultThemeColor: UIColor = UIColor(hexString: "#F77F49")!
     
+    static var themeColor: UIColor = colorsDict[UserDefaults.standard.string(forKey: "themeColor") ?? "flatRed"] ?? .black
+
+    
     //The current theme is stored as a string key in UserDefaults (ex: "black"). We then retrieve the UIColor based on that key from here, to use as the theme.
     static var colorsDict: [String: UIColor] = [
         "black": UIColor(hexString: "000000") ?? .flatBlack(),

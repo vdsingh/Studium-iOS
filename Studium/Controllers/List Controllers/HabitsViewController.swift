@@ -22,6 +22,9 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         
         sectionHeaders = ["Today:", "Not Today:"]
         eventTypeString = "Habits"
+        
+        self.tabBarController?.tabBar.backgroundColor = K.themeColor
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         loadHabits()
