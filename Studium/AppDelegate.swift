@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                 }
             }catch{
-                print("Error lol")
+                print("ERROR: error working with realm.")
             }
             print("User IS signed in.")
         }else {

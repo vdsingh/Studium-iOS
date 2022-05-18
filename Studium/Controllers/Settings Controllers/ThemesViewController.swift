@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import ChameleonFramework
+import RAMAnimatedTabBarController
 
 class ThemesViewController: UIViewController{
     
@@ -42,15 +43,21 @@ extension ThemesViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let color: UIColor = K.colorsDict[colors[indexPath.section][indexPath.row]] ?? UIColor.black
+//        let color: UIColor = K.colorsDict[colors[indexPath.section][indexPath.row]] ?? UIColor.black
+        let colorKey = colors[indexPath.section][indexPath.row]
+        let newColor: UIColor = K.colorsDict[colorKey]!
         
-        appDelegate.changeTheme(colorKey: colors[indexPath.section][indexPath.row])
+        appDelegate.changeTheme(colorKey: colorKey)
         //hide and unhide the navbar to basically refresh it
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.isNavigationBarHidden = false
-        self.tabBarController!.tabBar.barTintColor = color
         
+        let tabAppearance = UITabBarAppearance()
+        tabAppearance.backgroundColor = newColor
+        UITabBar.appearance().standardAppearance = tabAppearance
         
+        self.tabBarController?.tabBar.backgroundColor = .orange
+
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
