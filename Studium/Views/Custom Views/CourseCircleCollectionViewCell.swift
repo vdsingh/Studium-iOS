@@ -38,10 +38,7 @@ class CourseCircleCollectionViewCell: UIView {
     
     init(){
         super.init(frame: .zero)
-        addViews()
-
-//        addViews()
-        
+        addViews()        
     }
     
     override init(frame: CGRect){

@@ -35,10 +35,13 @@
 		167E2A5C2835A6CF00ED9975 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 167E2A5B2835A6CF00ED9975 /* Main.storyboard */; };
 		167E2A5E2835AB0C00ED9975 /* StudiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E2A5D2835AB0C00ED9975 /* StudiumViewController.swift */; };
 		167E2A602835BA9600ED9975 /* CourseCellNEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E2A5F2835BA9500ED9975 /* CourseCellNEW.swift */; };
+		167E2A622835EA2D00ED9975 /* CourseViewControllerNEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E2A612835EA2D00ED9975 /* CourseViewControllerNEW.swift */; };
+		167E2A642835EAAF00ED9975 /* GradeBreakdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E2A632835EAAF00ED9975 /* GradeBreakdownView.swift */; };
+		167E2A662835F8F200ED9975 /* StudiumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E2A652835F8F200ED9975 /* StudiumTableViewController.swift */; };
 		16809E372834588200C926E3 /* CourseCircleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16809E352834588200C926E3 /* CourseCircleCollectionViewCell.swift */; };
 		16809E3A2834B9A500C926E3 /* EventCellNEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16809E392834B9A400C926E3 /* EventCellNEW.swift */; };
 		16809E3C2834C9EB00C926E3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16809E3B2834C9EB00C926E3 /* Extensions.swift */; };
-		16809E3E2835970900C926E3 /* CoursesViewControllerNEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16809E3D2835970900C926E3 /* CoursesViewControllerNEW.swift */; };
+		16809E3E2835970900C926E3 /* CoursesListViewControllerNEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16809E3D2835970900C926E3 /* CoursesListViewControllerNEW.swift */; };
 		16827D1A27F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16827D1927F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift */; };
 		1686DB5C24812BCE00FA99DB /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */; };
 		1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */; };
@@ -134,10 +137,13 @@
 		167E2A5B2835A6CF00ED9975 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		167E2A5D2835AB0C00ED9975 /* StudiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumViewController.swift; sourceTree = "<group>"; };
 		167E2A5F2835BA9500ED9975 /* CourseCellNEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCellNEW.swift; sourceTree = "<group>"; };
+		167E2A612835EA2D00ED9975 /* CourseViewControllerNEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseViewControllerNEW.swift; sourceTree = "<group>"; };
+		167E2A632835EAAF00ED9975 /* GradeBreakdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeBreakdownView.swift; sourceTree = "<group>"; };
+		167E2A652835F8F200ED9975 /* StudiumTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumTableViewController.swift; sourceTree = "<group>"; };
 		16809E352834588200C926E3 /* CourseCircleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCircleCollectionViewCell.swift; sourceTree = "<group>"; };
 		16809E392834B9A400C926E3 /* EventCellNEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellNEW.swift; sourceTree = "<group>"; };
 		16809E3B2834C9EB00C926E3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		16809E3D2835970900C926E3 /* CoursesViewControllerNEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesViewControllerNEW.swift; sourceTree = "<group>"; };
+		16809E3D2835970900C926E3 /* CoursesListViewControllerNEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesListViewControllerNEW.swift; sourceTree = "<group>"; };
 		16827D1927F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBAndGoogleAuthViewController.swift; sourceTree = "<group>"; };
 		1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
@@ -249,6 +255,7 @@
 				16809E352834588200C926E3 /* CourseCircleCollectionViewCell.swift */,
 				16809E392834B9A400C926E3 /* EventCellNEW.swift */,
 				167E2A5F2835BA9500ED9975 /* CourseCellNEW.swift */,
+				167E2A632835EAAF00ED9975 /* GradeBreakdownView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -437,8 +444,10 @@
 			isa = PBXGroup;
 			children = (
 				16C880D228337D3300074842 /* ToDoListViewControllerNEW.swift */,
-				16809E3D2835970900C926E3 /* CoursesViewControllerNEW.swift */,
+				16809E3D2835970900C926E3 /* CoursesListViewControllerNEW.swift */,
 				167E2A5D2835AB0C00ED9975 /* StudiumViewController.swift */,
+				167E2A612835EA2D00ED9975 /* CourseViewControllerNEW.swift */,
+				167E2A652835F8F200ED9975 /* StudiumTableViewController.swift */,
 			);
 			path = REWORK;
 			sourceTree = "<group>";
@@ -653,16 +662,19 @@
 				1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */,
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
 				1693E755247A4B64003D4702 /* K.swift in Sources */,
+				167E2A642835EAAF00ED9975 /* GradeBreakdownView.swift in Sources */,
 				1638CB8024EC374100D3D93E /* ThemeCell.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */,
 				164F62FF24E7D41400DC8169 /* AlertTableViewController.swift in Sources */,
 				165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */,
 				16C880D328337D3400074842 /* ToDoListViewControllerNEW.swift in Sources */,
+				167E2A662835F8F200ED9975 /* StudiumTableViewController.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
 				168EE1C72659FA10009A8001 /* RealmCRUD.swift in Sources */,
 				1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
+				167E2A622835EA2D00ED9975 /* CourseViewControllerNEW.swift in Sources */,
 				16827D1A27F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift in Sources */,
 				16B498D025CE2CE6005E9C26 /* Secret.swift in Sources */,
 				16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */,
@@ -691,7 +703,7 @@
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
 				16809E3C2834C9EB00C926E3 /* Extensions.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
-				16809E3E2835970900C926E3 /* CoursesViewControllerNEW.swift in Sources */,
+				16809E3E2835970900C926E3 /* CoursesListViewControllerNEW.swift in Sources */,
 				16809E3A2834B9A500C926E3 /* EventCellNEW.swift in Sources */,
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
 				1649A46427DC7B3B00B75481 /* ColorPickerCell2.swift in Sources */,

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class CoursesViewControllerNEW: StudiumViewController{
+class CoursesListViewControllerNEW: StudiumTableViewController{
 
     var coursesTodayLabel: UILabel = {
         let coursesTodayLabel = UILabel()
@@ -23,37 +23,41 @@ class CoursesViewControllerNEW: StudiumViewController{
         let allCoursesLabel = UILabel()
         allCoursesLabel.translatesAutoresizingMaskIntoConstraints = false
         allCoursesLabel.attributedText = NSAttributedString(string: "All Courses:", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25)])
-        allCoursesLabel.textColor = UIColor(hexString: "252A80")
+        allCoursesLabel.textColor = K.studiumDarkPurple
         return allCoursesLabel
     }()
     
-    var coursesTableView: UITableView = {
-        let coursesTableView = UITableView()
-        coursesTableView.translatesAutoresizingMaskIntoConstraints = false
-        coursesTableView.separatorStyle = .none
-        coursesTableView.backgroundColor = .clear
-        return coursesTableView
-    }()
+//    var coursesTableView: UITableView = {
+//        let coursesTableView = UITableView()
+//        coursesTableView.translatesAutoresizingMaskIntoConstraints = false
+//        coursesTableView.separatorStyle = .none
+//        coursesTableView.backgroundColor = .clear
+//        return coursesTableView
+//    }()
     
     let headerHeight: CGFloat = 230
+//    let sectionHeaders: [String] = ["Today", "Not Today"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateSectionHeaders(sectionHeaders: ["Today", "Not Today"])
     }
     
     override func loadView() {
         super.loadView()
         
-        coursesTableView.delegate = self
-        coursesTableView.dataSource = self
-        coursesTableView.register(CourseCellNEW.self, forCellReuseIdentifier: "CourseCellNEW")
+        //lets our tableview manager class to use Course specific tableview cells
+        containsAssignmentsOrEvents = false
+//        tableView.delegate = self
+//        coursesTableView.dataSource = self
+//        coursesTableView.register(CourseCellNEW.self, forCellReuseIdentifier: "CourseCellNEW")
         
         setTitleLabelText(string: "Courses")
         setHeaderHeight(headerHeight: headerHeight)
         
         header.addSubview(coursesTodayLabel)
         view.addSubview(allCoursesLabel)
-        view.addSubview(coursesTableView)
+        view.addSubview(tableView)
     
         //Activate Constraints
         NSLayoutConstraint.activate([
@@ -71,26 +75,39 @@ class CoursesViewControllerNEW: StudiumViewController{
             allCoursesLabel.heightAnchor.constraint(equalToConstant: 30),
             
             //Courses Table View Constraints
-            coursesTableView.topAnchor.constraint(equalTo: allCoursesLabel.bottomAnchor),
-            coursesTableView.leftAnchor.constraint(equalTo: coursesTableView.superview?.leftAnchor ?? view.leftAnchor, constant: 20),
-            coursesTableView.rightAnchor.constraint(equalTo: coursesTableView.superview?.rightAnchor ?? view.rightAnchor, constant: -20),
-            coursesTableView.bottomAnchor.constraint(equalTo: coursesTableView.superview?.bottomAnchor ?? view.bottomAnchor)
+            tableView.topAnchor.constraint(equalTo: allCoursesLabel.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: tableView.superview?.leftAnchor ?? view.leftAnchor, constant: 20),
+            tableView.rightAnchor.constraint(equalTo: tableView.superview?.rightAnchor ?? view.rightAnchor, constant: -20),
+            tableView.bottomAnchor.constraint(equalTo: tableView.superview?.bottomAnchor ?? view.bottomAnchor)
         ])
     }
 }
 
-extension CoursesViewControllerNEW: UITableViewDelegate, UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let courseCell = tableView.dequeueReusableCell(withIdentifier: "CourseCellNEW", for: indexPath) as! CourseCellNEW
-        
-        return courseCell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
-    }
-}
+//extension CoursesListViewControllerNEW: UITableViewDelegate, UITableViewDataSource{
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 3
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let courseCell = tableView.dequeueReusableCell(withIdentifier: "CourseCellNEW", for: indexPath) as! CourseCellNEW
+//
+//        return courseCell
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 150
+//    }
+//
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 2
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 10
+//    }
+//
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return sectionHeaders[section]
+//    }
+//
+//}

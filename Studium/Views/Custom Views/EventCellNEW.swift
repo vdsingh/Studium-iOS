@@ -178,10 +178,8 @@ class EventCellNEW: UITableViewCell{
             
             lateIndicator.heightAnchor.constraint(equalToConstant: 10),
             lateIndicator.widthAnchor.constraint(equalToConstant: 10),
-//            lateIndicator.centerYAnchor.constraint(equalTo: lateIndicator.superview?.centerYAnchor ?? detailStackView.centerYAnchor),
 
-            detailStackView.heightAnchor.constraint(equalToConstant: 30),
-            titleLabel.heightAnchor.constraint(equalToConstant: 30)
+//            titleLabel.heightAnchor.constraint(equalToConstant: 30)
             
         ])
     }

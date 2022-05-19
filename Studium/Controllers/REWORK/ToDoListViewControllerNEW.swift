@@ -45,7 +45,6 @@ class ToDoListViewControllerNEW: UIViewController{
         eventsTableView.delegate = self
         eventsTableView.dataSource = self
         eventsTableView.separatorStyle = .none
-        eventsTableView.register(EventCellNEW.self, forCellReuseIdentifier: "EventCellNEW")
     }
     
     

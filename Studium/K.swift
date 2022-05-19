@@ -17,6 +17,7 @@ struct K {
     
     static let studiumStandardPurple: UIColor = UIColor(hexString: "4750E9") ?? .flatPurple()
     static let studiumLightPurple: UIColor = UIColor(hexString: "C7CEEA") ?? .lightGray
+    static let studiumDarkPurple: UIColor = UIColor(hexString: "252A80") ?? .flatPurpleDark()
 //    static let app = App(id: Secret.appID)
 
     //GOOGLE SIGN IN STUFF

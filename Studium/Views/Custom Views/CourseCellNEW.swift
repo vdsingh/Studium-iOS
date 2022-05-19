@@ -56,7 +56,7 @@ class CourseCellNEW: UITableViewCell{
         let textStackView = UIStackView()
         textStackView.translatesAutoresizingMaskIntoConstraints = false
         textStackView.axis = .vertical
-        textStackView.distribution = .fillEqually
+        textStackView.distribution = .fillProportionally
         textStackView.alignment = UIStackView.Alignment.leading
         textStackView.spacing = 5
         return textStackView
@@ -81,8 +81,9 @@ class CourseCellNEW: UITableViewCell{
     let assignmentNumberLabel: UILabel = {
         let assignmentNumberLabel = UILabel()
         assignmentNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-        assignmentNumberLabel.textColor = .white
-        assignmentNumberLabel.text = "3"
+        assignmentNumberLabel.attributedText = NSAttributedString(string: "3", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.white])
+//        assignmentNumberLabel.textColor = .white
+//        assignmentNumberLabel.text = "3"
         assignmentNumberLabel.textAlignment = .center
         assignmentNumberLabel.contentMode = .center
         return assignmentNumberLabel
@@ -93,6 +94,7 @@ class CourseCellNEW: UITableViewCell{
         assignmentIcon.translatesAutoresizingMaskIntoConstraints = false
         assignmentIcon.image = UIImage(systemName: "checkmark.square")
         assignmentIcon.tintColor = .white
+//        assignmentIcon.tintColor.setStroke(
         return assignmentIcon
     }()
     
@@ -141,6 +143,7 @@ class CourseCellNEW: UITableViewCell{
     }
     
     func establishConstraints(){
+        let mainDistanceFromTop: CGFloat = 10
         NSLayoutConstraint.activate([
             
             background.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5),
@@ -160,16 +163,16 @@ class CourseCellNEW: UITableViewCell{
             icon.widthAnchor.constraint(equalToConstant: 40),
             
 //            textStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            textStackView.topAnchor.constraint(equalTo: background.topAnchor, constant: 15),
+            textStackView.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
             textStackView.leftAnchor.constraint(equalTo: iconBackground.rightAnchor, constant: 10),
             textStackView.heightAnchor.constraint(equalToConstant: 70),
             
-            assignmentNumberLabel.topAnchor.constraint(equalTo: background.topAnchor, constant: 20),
+            assignmentNumberLabel.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
             assignmentNumberLabel.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -20),
             assignmentNumberLabel.heightAnchor.constraint(equalTo: assignmentIcon.heightAnchor),
 
             assignmentIcon.rightAnchor.constraint(equalTo: assignmentNumberLabel.leftAnchor, constant: -2),
-            assignmentIcon.topAnchor.constraint(equalTo: background.topAnchor, constant: 20),
+            assignmentIcon.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
             assignmentIcon.widthAnchor.constraint(equalToConstant: 25),
             assignmentIcon.heightAnchor.constraint(equalToConstant: 25),
             

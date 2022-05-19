@@ -20,15 +20,16 @@ class StudiumViewController: UIViewController{
         searchBar.backgroundColor = .white
         let searchBarPlaceHolderString = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         searchBar.attributedPlaceholder = searchBarPlaceHolderString
+//        searchBar.setLeftPaddingPoints(50)
         
         let iconSize = 25
         let iconName = "magnifyingglass"
-        let magnifyIconImageView = UIImageView(frame: CGRect(x: 5, y: 0, width: iconSize, height: iconSize))
+        let magnifyIconImageView = UIImageView(frame: CGRect(x: 15, y: 0, width: iconSize, height: iconSize))
         magnifyIconImageView.image = UIImage(systemName: iconName)
         magnifyIconImageView.tintColor = UIColor(hexString: "B4B4B4") ?? .gray
-        magnifyIconImageView.contentMode = .scaleAspectFit
+        
 
-        let magnifyIconView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize, height: iconSize))
+        let magnifyIconView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize + 20, height: iconSize))
         magnifyIconView.addSubview(magnifyIconImageView)
         searchBar.leftView = magnifyIconView
         searchBar.leftViewMode = UITextField.ViewMode.always
