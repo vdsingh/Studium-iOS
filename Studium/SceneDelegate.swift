@@ -30,10 +30,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //change initial view controller depending on whether user has decided notifications
         
-//        guard let windowScene = (scene as? UIWindowScene) else { return }
-//        window = UIWindow(windowScene: windowScene)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        let window = UIWindow(windowScene: windowScene)
+        window.rootViewController = CoursesViewControllerNEW()
+        self.window = window
+        window.makeKeyAndVisible()
 //
         
 //        UNCOMMENT

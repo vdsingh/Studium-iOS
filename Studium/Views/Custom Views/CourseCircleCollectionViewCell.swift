@@ -12,8 +12,8 @@ class CourseCircleCollectionViewCell: UIView {
     let courseLogoBackground: UIView = {
         let courseLogoBackground = UIView()
         courseLogoBackground.translatesAutoresizingMaskIntoConstraints = false
-        courseLogoBackground.backgroundColor = .white
-        courseLogoBackground.layer.cornerRadius = 25
+        courseLogoBackground.backgroundColor = UIColor(hexString: "FF9AA2")
+        courseLogoBackground.layer.cornerRadius = 30
         return courseLogoBackground
     }()
     
@@ -22,6 +22,7 @@ class CourseCircleCollectionViewCell: UIView {
         courseLogo.translatesAutoresizingMaskIntoConstraints = false
 
         courseLogo.image = UIImage(systemName: "pencil")
+        courseLogo.tintColor = .white
         return courseLogo
     }()
     
@@ -29,7 +30,7 @@ class CourseCircleCollectionViewCell: UIView {
         let courseLabel = UILabel()
         courseLabel.translatesAutoresizingMaskIntoConstraints = false
 //        courseLabel.text = "CS325"
-        courseLabel.attributedText = NSAttributedString(string: "CS325", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)])
+        courseLabel.attributedText = NSAttributedString(string: "CS325", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
 //        courseLabel.contentMode = .center
         courseLabel.textAlignment = .center
         return courseLabel
@@ -64,8 +65,8 @@ class CourseCircleCollectionViewCell: UIView {
         NSLayoutConstraint.activate([
             
             //Course Logo Background Constraints
-            courseLogoBackground.widthAnchor.constraint(equalToConstant: 50),
-            courseLogoBackground.heightAnchor.constraint(equalToConstant: 50),
+            courseLogoBackground.widthAnchor.constraint(equalToConstant: 60),
+            courseLogoBackground.heightAnchor.constraint(equalToConstant: 60),
             courseLogoBackground.topAnchor.constraint(equalTo: self.topAnchor, constant: 12),
             courseLogoBackground.centerXAnchor.constraint(equalTo: self.centerXAnchor),
 
