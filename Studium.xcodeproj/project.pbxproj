@@ -10,6 +10,7 @@
 		161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161A69E424C7B84B00E5A5AE /* SettingsViewController.swift */; };
 		1638CB8024EC374100D3D93E /* ThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1638CB7E24EC374100D3D93E /* ThemeCell.swift */; };
 		1638CB8124EC374100D3D93E /* ThemeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1638CB7F24EC374100D3D93E /* ThemeCell.xib */; };
+		163900FA2839845600BBE580 /* BreakdownSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163900F92839845600BBE580 /* BreakdownSectionTableViewCell.swift */; };
 		1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1641822924AD9D0800960F86 /* PickerCell.swift */; };
 		1641822C24AD9D0800960F86 /* PickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1641822A24AD9D0800960F86 /* PickerCell.xib */; };
 		16429D04247E43720052E47C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D03247E43720052E47C /* Habit.swift */; };
@@ -112,6 +113,7 @@
 		161A69E424C7B84B00E5A5AE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1638CB7E24EC374100D3D93E /* ThemeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCell.swift; sourceTree = "<group>"; };
 		1638CB7F24EC374100D3D93E /* ThemeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemeCell.xib; sourceTree = "<group>"; };
+		163900F92839845600BBE580 /* BreakdownSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakdownSectionTableViewCell.swift; sourceTree = "<group>"; };
 		1641822924AD9D0800960F86 /* PickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		1641822A24AD9D0800960F86 /* PickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerCell.xib; sourceTree = "<group>"; };
 		16429D03247E43720052E47C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				16809E392834B9A400C926E3 /* EventCellNEW.swift */,
 				167E2A5F2835BA9500ED9975 /* CourseCellNEW.swift */,
 				167E2A632835EAAF00ED9975 /* GradeBreakdownView.swift */,
+				163900F92839845600BBE580 /* BreakdownSectionTableViewCell.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -708,6 +711,7 @@
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
 				1649A46427DC7B3B00B75481 /* ColorPickerCell2.swift in Sources */,
 				164F62F324DF7BFC00DC8169 /* NotificationsController.swift in Sources */,
+				163900FA2839845600BBE580 /* BreakdownSectionTableViewCell.swift in Sources */,
 				1686DB5C24812BCE00FA99DB /* TextFieldCell.swift in Sources */,
 				16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */,
 				1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */,

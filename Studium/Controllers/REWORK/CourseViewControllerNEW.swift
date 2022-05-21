@@ -21,6 +21,14 @@ class CourseViewControllerNEW: StudiumTableViewController{
         return background
     }()
     
+//    let assignmentsToDoLabel: UILabel = {
+//        let assignmentsToDoLabel = UILabel()
+//        assignmentsToDoLabel.translatesAutoresizingMaskIntoConstraints = false
+//        assignmentsToDoLabel.attributedText = NSAttributedString(string: "Assignments To Do: 5", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)])
+//        assignmentsToDoLabel.textColor = .white
+//        return assignmentsToDoLabel
+//    }()
+    
     override func viewDidLoad() {
         view.addSubview(background)
         showGradeBreakdown = true
@@ -54,6 +62,12 @@ class CourseViewControllerNEW: StudiumTableViewController{
             background.leftAnchor.constraint(equalTo: view.leftAnchor),
             background.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
+    }
+    
+    func loadData(course: Course){
+        let courseColor = UIColor(hexString: course.color) ?? K.studiumStandardPurple
+        background.backgroundColor = courseColor.withAlphaComponent(0.15)
+        header.backgroundColor = courseColor
     }
     
 }

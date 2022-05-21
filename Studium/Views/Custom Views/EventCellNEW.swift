@@ -22,7 +22,6 @@ class EventCellNEW: UITableViewCell{
         background.layer.shadowColor = EventCellNEW.themeColor.cgColor
         background.layer.shadowOpacity = 1
         background.layer.shadowOffset = CGSize(width: 2, height: 2)
-//        background.layer.sp
         background.layer.shadowRadius = 4
         
         return background

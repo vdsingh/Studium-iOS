@@ -34,6 +34,11 @@ class StudiumViewController: UIViewController{
         searchBar.leftView = magnifyIconView
         searchBar.leftViewMode = UITextField.ViewMode.always
         
+        searchBar.layer.shadowColor = UIColor.black.cgColor
+        searchBar.layer.shadowOpacity = 1
+        searchBar.layer.shadowOffset = CGSize(width: 2, height: 2)
+        searchBar.layer.shadowRadius = 4
+        
         return searchBar
     }()
     
@@ -65,6 +70,14 @@ class StudiumViewController: UIViewController{
         return topRightButton
     }()
     
+    var detailTextLabel: UILabel = {
+        let detailTextLabel = UILabel()
+        detailTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        detailTextLabel.attributedText = NSAttributedString(string: "Assignments To Do: 5", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)])
+        detailTextLabel.textColor = .white
+        return detailTextLabel
+    }()
+    
 //    var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -79,29 +92,39 @@ class StudiumViewController: UIViewController{
         view.addSubview(header)
         header.addSubview(searchBar)
         header.addSubview(titleLabel)
+        header.addSubview(detailTextLabel)
         header.addSubview(topRightButton)
 
         NSLayoutConstraint.activate([
+            //Header Constraints
             header.topAnchor.constraint(equalTo: view.topAnchor),
             header.leftAnchor.constraint(equalTo: view.leftAnchor),
             header.rightAnchor.constraint(equalTo: view.rightAnchor),
             header.heightAnchor.constraint(equalToConstant: 200),
             
+            //Top Right Button Constraints
             topRightButton.rightAnchor.constraint(equalTo: topRightButton.superview?.rightAnchor ?? view.rightAnchor, constant: -20),
             topRightButton.topAnchor.constraint(equalTo: topRightButton.superview?.topAnchor ?? view.topAnchor, constant: 60),
             topRightButton.heightAnchor.constraint(equalToConstant: 30),
             topRightButton.widthAnchor.constraint(equalToConstant: 35),
             
+            //Title Label Constraints
             titleLabel.leftAnchor.constraint(equalTo: titleLabel.superview?.leftAnchor ?? view.leftAnchor),
             titleLabel.rightAnchor.constraint(equalTo: titleLabel.superview?.rightAnchor ?? view.rightAnchor),
             titleLabel.topAnchor.constraint(equalTo: titleLabel.superview?.topAnchor ?? view.topAnchor, constant: 60),
             titleLabel.heightAnchor.constraint(equalToConstant: 30),
           
-            
+            //Search Bar Constraints
             searchBar.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             searchBar.leftAnchor.constraint(equalTo: searchBar.superview?.leftAnchor ?? view.leftAnchor, constant: 20),
             searchBar.rightAnchor.constraint(equalTo: searchBar.superview?.rightAnchor ?? view.rightAnchor, constant: -20),
-            searchBar.heightAnchor.constraint(equalToConstant: 50)
+            searchBar.heightAnchor.constraint(equalToConstant: 50),
+            
+            detailTextLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20),
+            detailTextLabel.leftAnchor.constraint(equalTo: detailTextLabel.superview?.leftAnchor ?? view.leftAnchor, constant: 20),
+            detailTextLabel.rightAnchor.constraint(equalTo: detailTextLabel.superview?.rightAnchor ?? view.rightAnchor, constant: -20),
+            detailTextLabel.heightAnchor.constraint(equalToConstant: 30),
+            
         ])
     }
 }
@@ -133,6 +156,10 @@ extension StudiumViewController{
     
     func setTopRightButtonImage(image: UIImage){
         topRightButton.setImage(image, for: .normal)
+    }
+    
+    func setDetailTextLabelText(text: String){
+        detailTextLabel.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)])
     }
     
 //    func addTableView(bottomAnchor: NSLayoutAnchor<NSLayoutYAxisAnchor>, topAnchor: NSLayoutAnchor<NSLayoutYAxisAnchor>, leftAnchor: NSLayoutAnchor<NSLayoutXAxisAnchor>, rightAnchor: NSLayoutAnchor<NSLayoutXAxisAnchor>){

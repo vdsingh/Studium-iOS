@@ -11,14 +11,14 @@ import UIKit
 
 class CoursesListViewControllerNEW: StudiumTableViewController{
 
-    var coursesTodayLabel: UILabel = {
-        let coursesTodayLabel = UILabel()
-        coursesTodayLabel.translatesAutoresizingMaskIntoConstraints = false
-        coursesTodayLabel.attributedText = NSAttributedString(string: "Courses Today:", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)])
-        coursesTodayLabel.textColor = .white
-        return coursesTodayLabel
-    }()
-    
+//    var coursesTodayLabel: UILabel = {
+//        let coursesTodayLabel = UILabel()
+//        coursesTodayLabel.translatesAutoresizingMaskIntoConstraints = false
+//        coursesTodayLabel.attributedText = NSAttributedString(string: "Courses Today:", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)])
+//        coursesTodayLabel.textColor = .white
+//        return coursesTodayLabel
+//    }()
+//
     var allCoursesLabel: UILabel = {
         let allCoursesLabel = UILabel()
         allCoursesLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -53,9 +53,10 @@ class CoursesListViewControllerNEW: StudiumTableViewController{
 //        coursesTableView.register(CourseCellNEW.self, forCellReuseIdentifier: "CourseCellNEW")
         
         setTitleLabelText(string: "Courses")
+        setDetailTextLabelText(text: "Courses Today: ")
         setHeaderHeight(headerHeight: headerHeight)
         
-        header.addSubview(coursesTodayLabel)
+//        header.addSubview(coursesTodayLabel)
         view.addSubview(allCoursesLabel)
         view.addSubview(tableView)
     
@@ -63,11 +64,11 @@ class CoursesListViewControllerNEW: StudiumTableViewController{
         NSLayoutConstraint.activate([
             
             //Courses Today Label Constraints
-            coursesTodayLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20),
-            coursesTodayLabel.leftAnchor.constraint(equalTo: coursesTodayLabel.superview?.leftAnchor ?? view.leftAnchor, constant: 20),
-            coursesTodayLabel.rightAnchor.constraint(equalTo: coursesTodayLabel.superview?.rightAnchor ?? view.rightAnchor, constant: -20),
-            coursesTodayLabel.heightAnchor.constraint(equalToConstant: 30),
-            
+//            coursesTodayLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20),
+//            coursesTodayLabel.leftAnchor.constraint(equalTo: coursesTodayLabel.superview?.leftAnchor ?? view.leftAnchor, constant: 20),
+//            coursesTodayLabel.rightAnchor.constraint(equalTo: coursesTodayLabel.superview?.rightAnchor ?? view.rightAnchor, constant: -20),
+//            coursesTodayLabel.heightAnchor.constraint(equalToConstant: 30),
+//
             //All Courses Label Constraints
             allCoursesLabel.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 20),
             allCoursesLabel.leftAnchor.constraint(equalTo: allCoursesLabel.superview?.leftAnchor ?? view.leftAnchor, constant: 20),
