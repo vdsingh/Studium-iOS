@@ -143,16 +143,14 @@ class EventCellNEW: UITableViewCell{
     }
     
     func establishConstraints(){
-        NSLayoutConstraint.activate([
-//            self.heightAnchor.constraint(equalToConstant: 70),
-            
-            background.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5),
-            background.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5),
+        NSLayoutConstraint.activate([            
+            background.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
+            background.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             background.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
             background.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             
-            iconBackground.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
-            iconBackground.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            iconBackground.leftAnchor.constraint(equalTo: background.leftAnchor, constant: 20),
+            iconBackground.centerYAnchor.constraint(equalTo: background.centerYAnchor),
             iconBackground.heightAnchor.constraint(equalToConstant: 40),
             iconBackground.widthAnchor.constraint(equalToConstant: 40),
             
@@ -161,25 +159,22 @@ class EventCellNEW: UITableViewCell{
             icon.heightAnchor.constraint(equalToConstant: 25),
             icon.widthAnchor.constraint(equalToConstant: 25),
             
-            textStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            textStackView.centerYAnchor.constraint(equalTo: background.centerYAnchor),
             textStackView.leftAnchor.constraint(equalTo: iconBackground.rightAnchor, constant: 10),
             textStackView.heightAnchor.constraint(equalToConstant: 40),
             
-            checkBox.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
-            checkBox.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            checkBox.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -20),
+            checkBox.centerYAnchor.constraint(equalTo: background.centerYAnchor),
             checkBox.heightAnchor.constraint(equalToConstant: 20),
             checkBox.widthAnchor.constraint(equalToConstant: 20),
             
             expandCaret.rightAnchor.constraint(equalTo: checkBox.leftAnchor, constant: -10),
-            expandCaret.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            expandCaret.centerYAnchor.constraint(equalTo: background.centerYAnchor),
             expandCaret.heightAnchor.constraint(equalToConstant: 25),
             expandCaret.widthAnchor.constraint(equalToConstant: 25),
             
             lateIndicator.heightAnchor.constraint(equalToConstant: 10),
             lateIndicator.widthAnchor.constraint(equalToConstant: 10),
-
-//            titleLabel.heightAnchor.constraint(equalToConstant: 30)
-            
         ])
     }
 }

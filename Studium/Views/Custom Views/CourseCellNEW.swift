@@ -21,9 +21,9 @@ class CourseCellNEW: UITableViewCell{
         background.backgroundColor = themeColor
         
         background.layer.shadowColor = UIColor.black.cgColor
-        background.layer.shadowOpacity = 1
+        background.layer.shadowOpacity = 0.5
         background.layer.shadowOffset = CGSize(width: 2, height: 2)
-        background.layer.shadowRadius = 4
+        background.layer.shadowRadius = 2
         
         return background
     }()
@@ -58,7 +58,7 @@ class CourseCellNEW: UITableViewCell{
         textStackView.axis = .vertical
         textStackView.distribution = .fillProportionally
         textStackView.alignment = UIStackView.Alignment.leading
-        textStackView.spacing = 5
+        textStackView.spacing = 3
         return textStackView
     }()
     
@@ -105,7 +105,7 @@ class CourseCellNEW: UITableViewCell{
         daysBackground.backgroundColor = .white
         
         daysBackground.layer.shadowColor = UIColor.black.cgColor
-        daysBackground.layer.shadowOpacity = 1
+        daysBackground.layer.shadowOpacity = 0.5
         daysBackground.layer.shadowOffset = CGSize(width: 2, height: 2)
         daysBackground.layer.shadowRadius = 2
         
@@ -146,36 +146,42 @@ class CourseCellNEW: UITableViewCell{
         let mainDistanceFromTop: CGFloat = 10
         NSLayoutConstraint.activate([
             
-            background.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5),
-            background.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5),
+            //Background Constraints
+            background.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
+            background.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             background.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            background.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30),
+            background.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -25),
             
+            //Icon Background Constraints (White Circular Background)
             iconBackground.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
             iconBackground.topAnchor.constraint(equalTo: background.topAnchor, constant: 10),
 //            iconBackground.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             iconBackground.heightAnchor.constraint(equalToConstant: 70),
             iconBackground.widthAnchor.constraint(equalToConstant: 70),
             
+            //Icon Constraints
             icon.centerXAnchor.constraint(equalTo: iconBackground.centerXAnchor),
             icon.centerYAnchor.constraint(equalTo: iconBackground.centerYAnchor),
             icon.heightAnchor.constraint(equalToConstant: 40),
             icon.widthAnchor.constraint(equalToConstant: 40),
             
-//            textStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            //Main Text Stack Constraints
             textStackView.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
             textStackView.leftAnchor.constraint(equalTo: iconBackground.rightAnchor, constant: 10),
-            textStackView.heightAnchor.constraint(equalToConstant: 70),
+            textStackView.bottomAnchor.constraint(equalTo: daysBackground.topAnchor, constant: mainDistanceFromTop * -1),
             
+            //Assignment Number Label Constraints (How many assignments incomplete?)
             assignmentNumberLabel.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
             assignmentNumberLabel.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -20),
             assignmentNumberLabel.heightAnchor.constraint(equalTo: assignmentIcon.heightAnchor),
 
+            //Assignment Icon Constraints (Icon next to assignment number label)
             assignmentIcon.rightAnchor.constraint(equalTo: assignmentNumberLabel.leftAnchor, constant: -2),
             assignmentIcon.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
             assignmentIcon.widthAnchor.constraint(equalToConstant: 25),
             assignmentIcon.heightAnchor.constraint(equalToConstant: 25),
             
+            //Days Background Constraints
             daysBackground.widthAnchor.constraint(equalTo: background.widthAnchor, constant: -12),
             daysBackground.heightAnchor.constraint(equalToConstant: 40),
             daysBackground.centerXAnchor.constraint(equalTo: self.centerXAnchor),

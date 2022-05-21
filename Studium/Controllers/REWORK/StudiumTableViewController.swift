@@ -15,7 +15,6 @@ class StudiumTableViewController: StudiumViewController{
     
     var sectionHeaders: [String] = ["Section 1", "Section 2"]
     var numSections: Int = 2
-//    var content: [Any] = []
     
     
     var showGradeBreakdown: Bool = false

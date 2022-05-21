@@ -12,6 +12,7 @@ import UIKit
 
 
 class StudiumViewController: UIViewController{
+    
     var searchBar: UITextField = {
         let searchBar = UITextField()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +25,7 @@ class StudiumViewController: UIViewController{
         
         let iconSize = 25
         let iconName = "magnifyingglass"
-        let magnifyIconImageView = UIImageView(frame: CGRect(x: 15, y: 0, width: iconSize, height: iconSize))
+        let magnifyIconImageView = UIImageView(frame: CGRect(x: 15, y: 0, width: iconSize, height: iconSize - 5))
         magnifyIconImageView.image = UIImage(systemName: iconName)
         magnifyIconImageView.tintColor = UIColor(hexString: "B4B4B4") ?? .gray
         
