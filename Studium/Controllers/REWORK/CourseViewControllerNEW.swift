@@ -33,7 +33,7 @@ class CourseViewControllerNEW: StudiumTableViewController{
         view.addSubview(background)
         showGradeBreakdown = true
         numSections = 4
-        updateSectionHeaders(sectionHeaders: ["", "Incomplete", "Report", "Complete"])
+        setSectionHeaders(sectionHeaders: ["", "Incomplete", "Report", "Complete"])
         super.viewDidLoad()
         
 //        themeColor.wi

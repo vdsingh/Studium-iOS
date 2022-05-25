@@ -39,7 +39,7 @@ class StudiumTableViewController: StudiumViewController{
 
     }
     
-    func updateSectionHeaders(sectionHeaders: [String]){
+    func setSectionHeaders(sectionHeaders: [String]){
         self.sectionHeaders = sectionHeaders
         tableView.reloadData()
     }
