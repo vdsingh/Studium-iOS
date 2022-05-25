@@ -78,24 +78,16 @@ class CourseCellNEW: UITableViewCell{
         return icon
     }()
     
-    let assignmentNumberLabel: UILabel = {
-        let assignmentNumberLabel = UILabel()
-        assignmentNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-        assignmentNumberLabel.attributedText = NSAttributedString(string: "3", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.white])
-//        assignmentNumberLabel.textColor = .white
-//        assignmentNumberLabel.text = "3"
-        assignmentNumberLabel.textAlignment = .center
-        assignmentNumberLabel.contentMode = .center
-        return assignmentNumberLabel
-    }()
     
-    let assignmentIcon: UIImageView = {
-        let assignmentIcon = UIImageView()
-        assignmentIcon.translatesAutoresizingMaskIntoConstraints = false
-        assignmentIcon.image = UIImage(systemName: "checkmark.square")
-        assignmentIcon.tintColor = .white
-//        assignmentIcon.tintColor.setStroke(
-        return assignmentIcon
+    let statusIndicatorStackView: UIStackView = {
+        let statusIndicatorStackView = UIStackView()
+        statusIndicatorStackView.translatesAutoresizingMaskIntoConstraints = false
+        statusIndicatorStackView.axis = .vertical
+        statusIndicatorStackView.distribution = .fill
+        statusIndicatorStackView.spacing = 8
+        statusIndicatorStackView.backgroundColor = .clear
+        
+        return statusIndicatorStackView
     }()
     
     let daysBackground: UIView = {
@@ -136,8 +128,10 @@ class CourseCellNEW: UITableViewCell{
         
         background.addSubview(textStackView)
         background.addSubview(iconBackground)
-        background.addSubview(assignmentIcon)
-        background.addSubview(assignmentNumberLabel)
+        background.addSubview(statusIndicatorStackView)
+        addStatusIndicators()
+//        background.addSubview(assignmentIcon)
+//        background.addSubview(assignmentNumberLabel)
         iconBackground.addSubview(icon)
         
     }
@@ -171,15 +165,19 @@ class CourseCellNEW: UITableViewCell{
             textStackView.bottomAnchor.constraint(equalTo: daysBackground.topAnchor, constant: mainDistanceFromTop * -1),
             
             //Assignment Number Label Constraints (How many assignments incomplete?)
-            assignmentNumberLabel.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
-            assignmentNumberLabel.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -20),
-            assignmentNumberLabel.heightAnchor.constraint(equalTo: assignmentIcon.heightAnchor),
-
-            //Assignment Icon Constraints (Icon next to assignment number label)
-            assignmentIcon.rightAnchor.constraint(equalTo: assignmentNumberLabel.leftAnchor, constant: -2),
-            assignmentIcon.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
-            assignmentIcon.widthAnchor.constraint(equalToConstant: 25),
-            assignmentIcon.heightAnchor.constraint(equalToConstant: 25),
+//            assignmentNumberLabel.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
+//            assignmentNumberLabel.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -20),
+//            assignmentNumberLabel.heightAnchor.constraint(equalTo: assignmentIcon.heightAnchor),
+//
+//            //Assignment Icon Constraints (Icon next to assignment number label)
+//            assignmentIcon.rightAnchor.constraint(equalTo: assignmentNumberLabel.leftAnchor, constant: -2),
+//            assignmentIcon.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
+//            assignmentIcon.widthAnchor.constraint(equalToConstant: 25),
+//            assignmentIcon.heightAnchor.constraint(equalToConstant: 25),
+            statusIndicatorStackView.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
+            statusIndicatorStackView.bottomAnchor.constraint(equalTo: daysBackground.topAnchor, constant: -mainDistanceFromTop),
+            statusIndicatorStackView.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -10),
+            statusIndicatorStackView.widthAnchor.constraint(equalToConstant: 40),
             
             //Days Background Constraints
             daysBackground.widthAnchor.constraint(equalTo: background.widthAnchor, constant: -12),
@@ -220,6 +218,57 @@ class CourseCellNEW: UITableViewCell{
             }
 
             stackView.addArrangedSubview(dayButton)
+        }
+    }
+    
+    func addStatusIndicators(){
+        let iconNames = ["square", "square.and.pencil", "checkmark.square"]
+        let values = ["3", "2", "9"]
+        
+        for i in 0..<iconNames.count{
+            let indicatorStackView: UIStackView = {
+                let indicatorStackView = UIStackView()
+                indicatorStackView.translatesAutoresizingMaskIntoConstraints = false
+                indicatorStackView.axis = .horizontal
+                indicatorStackView.distribution = .fill
+                indicatorStackView.contentMode = .right
+                indicatorStackView.spacing = 0
+                return indicatorStackView
+            }()
+            let assignmentNumberLabel: UILabel = {
+                let assignmentNumberLabel = UILabel()
+                assignmentNumberLabel.translatesAutoresizingMaskIntoConstraints = false
+                assignmentNumberLabel.attributedText = NSAttributedString(string: values[i], attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.white])
+                assignmentNumberLabel.textAlignment = .center
+                assignmentNumberLabel.contentMode = .center
+                return assignmentNumberLabel
+            }()
+            
+            let assignmentIcon: UIImageView = {
+                let assignmentIcon = UIImageView()
+                assignmentIcon.translatesAutoresizingMaskIntoConstraints = false
+                assignmentIcon.image = UIImage(systemName: iconNames[i])
+                assignmentIcon.tintColor = .white
+                return assignmentIcon
+            }()
+            
+            
+            indicatorStackView.addArrangedSubview(assignmentIcon)
+            indicatorStackView.addArrangedSubview(assignmentNumberLabel)
+            
+            statusIndicatorStackView.addArrangedSubview(indicatorStackView)
+            
+            NSLayoutConstraint.activate([
+                assignmentIcon.heightAnchor.constraint(equalToConstant: 20),
+                assignmentIcon.widthAnchor.constraint(equalToConstant: 20),
+                
+                assignmentNumberLabel.heightAnchor.constraint(equalToConstant: 20),
+                assignmentNumberLabel.widthAnchor.constraint(equalToConstant: 20),
+                
+                indicatorStackView.leftAnchor.constraint(equalTo: statusIndicatorStackView.leftAnchor),
+                indicatorStackView.rightAnchor.constraint(equalTo: statusIndicatorStackView.rightAnchor),
+//                indicatorStackView.heightAnchor.constraint(equalToConstant: 40)
+            ])
         }
     }
 }

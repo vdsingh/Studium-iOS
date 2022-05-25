@@ -57,6 +57,7 @@ extension StudiumTableViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(showGradeBreakdown && indexPath.section == 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: "GradeBreakdownCell") as! GradeBreakdownView
+            cell.selectionStyle = .none
             return cell
         }
         if (containsAssignmentsOrEvents){

@@ -21,6 +21,7 @@ pod 'FSCalendar'
 pod 'ChameleonFramework/Swift', :git => 'https://github.com/wowansm/Chameleon.git', :branch => 'swift5'
 pod 'Colorful'
 pod 'FlexColorPicker', '~> 1.4.2'
+pod 'Charts'
 
 #Custom Tab Bar
 pod 'RAMAnimatedTabBarController'

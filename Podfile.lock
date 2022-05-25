@@ -8,6 +8,10 @@ PODS:
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
+  - Charts (4.0.2):
+    - Charts/Core (= 4.0.2)
+  - Charts/Core (4.0.2):
+    - SwiftAlgorithms (~> 1.0)
   - Colorful (3.0.0)
   - DateToolsSwift (5.0.0)
   - FBAEMKit (13.0.0):
@@ -34,11 +38,13 @@ PODS:
   - Realm/Headers (10.7.7)
   - RealmSwift (10.7.7):
     - Realm (= 10.7.7)
+  - SwiftAlgorithms (1.0.0)
   - SwipeCellKit (2.7.1)
 
 DEPENDENCIES:
   - CalendarKit (~> 1.0.6)
   - ChameleonFramework/Swift (from `https://github.com/wowansm/Chameleon.git`, branch `swift5`)
+  - Charts
   - Colorful
   - DateToolsSwift
   - FBSDKLoginKit
@@ -53,6 +59,7 @@ SPEC REPOS:
   trunk:
     - AppAuth
     - CalendarKit
+    - Charts
     - Colorful
     - DateToolsSwift
     - FBAEMKit
@@ -67,6 +74,7 @@ SPEC REPOS:
     - RAMAnimatedTabBarController
     - Realm
     - RealmSwift
+    - SwiftAlgorithms
     - SwipeCellKit
 
 EXTERNAL SOURCES:
@@ -83,6 +91,7 @@ SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   CalendarKit: 9d1ca8a20e082948796ca1c7f359cee91f793317
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  Charts: cfa4e911e6dc289582c2fe011a0e87c03d96727f
   Colorful: 9e093edacaa9fb73512ad9da157f0707b82d2542
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   FBAEMKit: 11a0bcdc7a88e26ed764bcf56372afc6cbbbdcd9
@@ -97,8 +106,9 @@ SPEC CHECKSUMS:
   RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
   Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
   RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
-PODFILE CHECKSUM: 8589f5202843b62dbd6ed94a85f9907aa60c27ba
+PODFILE CHECKSUM: fc7f65a3c69ec2f5cb6d709fe61209fa5ef462f6
 
 COCOAPODS: 1.11.3
