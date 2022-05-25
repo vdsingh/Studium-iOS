@@ -12,12 +12,22 @@ import UIKit
 /// Superclass for most Studium View Controllers. Main functionality includes building the dynamic Header View and providing functions to alter UI element's characteristics
 class StudiumViewController: UIViewController{
     
+    ///The Corner Radius of the Header View
+    static let headerCornerRadius: CGFloat = 40
+    
+    ///The Corner Radius of the Subviews within the Header View
+    static let headerSubviewsCornerRadius: CGFloat = 20
+    
+    ///The Spacing of the StackView containing the Header Subviews
+    static let headerStackViewSpacing: CGFloat = 20
+    
+    
     ///The main header that will contain various things like the title and search bar
     var header: UIView = {
         let header = UIView()
         header.translatesAutoresizingMaskIntoConstraints = false
         header.backgroundColor = K.studiumStandardPurple
-        header.layer.cornerRadius = 40
+        header.layer.cornerRadius = StudiumViewController.headerCornerRadius
         return header
     }()
     
@@ -26,7 +36,9 @@ class StudiumViewController: UIViewController{
         let headerStackView = UIStackView()
         headerStackView.translatesAutoresizingMaskIntoConstraints = false
         headerStackView.axis = .vertical
-        headerStackView.spacing = 20
+        headerStackView.distribution = .fill
+//        headerStackView.contentMode = .fill
+        headerStackView.spacing = StudiumViewController.headerStackViewSpacing
         return headerStackView
     }()
     
@@ -34,7 +46,7 @@ class StudiumViewController: UIViewController{
     var searchBar: UITextField = {
         let searchBar = UITextField()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.layer.cornerRadius = 20
+        searchBar.layer.cornerRadius = StudiumViewController.headerSubviewsCornerRadius
         searchBar.clipsToBounds = true
         searchBar.backgroundColor = .white
         let searchBarPlaceHolderString = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
@@ -126,10 +138,10 @@ class StudiumViewController: UIViewController{
             header.rightAnchor.constraint(equalTo: view.rightAnchor),
             header.bottomAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 20),
             
-            headerStackView.topAnchor.constraint(equalTo: headerStackView.superview?.topAnchor ?? header.topAnchor),
-            headerStackView.bottomAnchor.constraint(equalTo: headerStackView.superview?.bottomAnchor ?? header.bottomAnchor),
-            headerStackView.leftAnchor.constraint(equalTo: headerStackView.superview?.leftAnchor ?? header.leftAnchor),
-            headerStackView.rightAnchor.constraint(equalTo: headerStackView.superview?.rightAnchor ?? header.rightAnchor),
+            headerStackView.topAnchor.constraint(equalTo: headerStackView.superview?.topAnchor ?? header.topAnchor, constant: 60),
+//            headerStackView.bottomAnchor.constraint(equalTo: headerStackView.superview?.bottomAnchor ?? header.bottomAnchor),
+            headerStackView.leftAnchor.constraint(equalTo: headerStackView.superview?.leftAnchor ?? header.leftAnchor, constant: 20),
+            headerStackView.rightAnchor.constraint(equalTo: headerStackView.superview?.rightAnchor ?? header.rightAnchor, constant: -20),
 
 //            header.heightAnchor.constraint(equalToConstant: 200),
             
@@ -142,18 +154,18 @@ class StudiumViewController: UIViewController{
             //Title Label Constraints
             titleLabel.leftAnchor.constraint(equalTo: titleLabel.superview?.leftAnchor ?? view.leftAnchor),
             titleLabel.rightAnchor.constraint(equalTo: titleLabel.superview?.rightAnchor ?? view.rightAnchor),
-            titleLabel.topAnchor.constraint(equalTo: titleLabel.superview?.topAnchor ?? view.topAnchor, constant: 60),
+//            titleLabel.topAnchor.constraint(equalTo: titleLabel.superview?.topAnchor ?? view.topAnchor, constant: 60),
             titleLabel.heightAnchor.constraint(equalToConstant: 30),
           
             //Search Bar Constraints
-            searchBar.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            searchBar.leftAnchor.constraint(equalTo: searchBar.superview?.leftAnchor ?? view.leftAnchor, constant: 20),
-            searchBar.rightAnchor.constraint(equalTo: searchBar.superview?.rightAnchor ?? view.rightAnchor, constant: -20),
+//            searchBar.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+//            searchBar.leftAnchor.constraint(equalTo: searchBar.superview?.leftAnchor ?? view.leftAnchor, constant: 20),
+//            searchBar.rightAnchor.constraint(equalTo: searchBar.superview?.rightAnchor ?? view.rightAnchor, constant: -20),
             searchBar.heightAnchor.constraint(equalToConstant: 50),
-            
-            detailLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20),
-            detailLabel.leftAnchor.constraint(equalTo: detailLabel.superview?.leftAnchor ?? view.leftAnchor, constant: 20),
-            detailLabel.rightAnchor.constraint(equalTo: detailLabel.superview?.rightAnchor ?? view.rightAnchor, constant: -20),
+//
+//            detailLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20),
+//            detailLabel.leftAnchor.constraint(equalTo: detailLabel.superview?.leftAnchor ?? view.leftAnchor, constant: 20),
+//            detailLabel.rightAnchor.constraint(equalTo: detailLabel.superview?.rightAnchor ?? view.rightAnchor, constant: -20),
             detailLabel.heightAnchor.constraint(equalToConstant: 30),
             
         ])
