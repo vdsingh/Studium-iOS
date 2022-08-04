@@ -16,9 +16,9 @@ class GradeBreakdownView: UITableViewCell{
         background.layer.cornerRadius = 30
         
         background.layer.shadowColor = UIColor.black.cgColor
-        background.layer.shadowOpacity = 0.25
+        background.layer.shadowOpacity = 1
         background.layer.shadowOffset = CGSize(width: 2, height: 2)
-        background.layer.shadowRadius = 2
+        background.layer.shadowRadius = 4
         
         return background
     }()
@@ -91,8 +91,8 @@ class GradeBreakdownView: UITableViewCell{
         NSLayoutConstraint.activate([
             
             //Background Constraints
-            background.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
-            background.rightAnchor.constraint(equalTo: rightAnchor, constant: -10),
+            background.leftAnchor.constraint(equalTo: leftAnchor),
+            background.rightAnchor.constraint(equalTo: rightAnchor),
             background.topAnchor.constraint(equalTo: topAnchor),
             background.heightAnchor.constraint(equalToConstant: 160),
 

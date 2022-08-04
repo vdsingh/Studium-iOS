@@ -53,8 +53,8 @@ class CourseViewControllerNEW: StudiumTableViewController{
     func activateConstraints(){
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 20),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             background.topAnchor.constraint(equalTo: view.topAnchor),
