@@ -54,6 +54,7 @@ class CoursesListViewControllerNEW: StudiumTableViewController{
         
         setTitleLabelText(string: "Courses")
         setDetailLabelText(text: "Courses Today: ")
+        setHeaderHeight(headerHeight: headerHeight)
         
 //        header.addSubview(coursesTodayLabel)
         view.addSubview(allCoursesLabel)

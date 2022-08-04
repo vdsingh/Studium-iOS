@@ -41,6 +41,7 @@ class CourseViewControllerNEW: StudiumTableViewController{
 //        view.backgroundColor =
         header.backgroundColor = CourseViewControllerNEW.themeColor
         
+        setHeaderHeight(headerHeight: headerHeight)
         setTitleLabelText(string: "CS325")
 //        view.addSubview(gradeBreakdownView)
 //        view.addSubview(background)
@@ -49,7 +50,7 @@ class CourseViewControllerNEW: StudiumTableViewController{
         
     }
     
-    override func activateConstraints(){
+    func activateConstraints(){
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 20),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
