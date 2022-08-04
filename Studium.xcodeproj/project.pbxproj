@@ -12,6 +12,7 @@
 		1638CB8124EC374100D3D93E /* ThemeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1638CB7F24EC374100D3D93E /* ThemeCell.xib */; };
 		1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1641822924AD9D0800960F86 /* PickerCell.swift */; };
 		1641822C24AD9D0800960F86 /* PickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1641822A24AD9D0800960F86 /* PickerCell.xib */; };
+		16429CFE247D20F90052E47C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429CFD247D20F90052E47C /* Extensions.swift */; };
 		16429D04247E43720052E47C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D03247E43720052E47C /* Habit.swift */; };
 		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
 		164905B727E18732002DE61D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164905B627E18732002DE61D /* LoginViewController.swift */; };
@@ -32,9 +33,6 @@
 		165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C7B248D9AF3004279B0 /* ColorPickerCell.swift */; };
 		165A6C7E248D9AF3004279B0 /* ColorPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C7C248D9AF3004279B0 /* ColorPickerCell.xib */; };
 		166F53D125BC93320065963D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166F53D025BC93320065963D /* TabBarController.swift */; };
-		16809E372834588200C926E3 /* CourseCircleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16809E352834588200C926E3 /* CourseCircleCollectionViewCell.swift */; };
-		16809E3A2834B9A500C926E3 /* EventCellNEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16809E392834B9A400C926E3 /* EventCellNEW.swift */; };
-		16809E3C2834C9EB00C926E3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16809E3B2834C9EB00C926E3 /* Extensions.swift */; };
 		16827D1A27F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16827D1927F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift */; };
 		1686DB5C24812BCE00FA99DB /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */; };
 		1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */; };
@@ -94,7 +92,6 @@
 		16C60FB225C5F7FB006D0FFC /* StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */; };
 		16C60FE825C76C51006D0FFC /* LoginViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FE725C76C51006D0FFC /* LoginViewController1.swift */; };
 		16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */; };
-		16C880D328337D3400074842 /* ToDoListViewControllerNEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C880D228337D3300074842 /* ToDoListViewControllerNEW.swift */; };
 		16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E251462485190E000494DE /* SegmentedControlCell.swift */; };
 		16E251492485190F000494DE /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E251472485190E000494DE /* SegmentedControlCell.xib */; };
 		16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E7B22E27D1EF8D00AAE756 /* GenericTableViewCell.swift */; };
@@ -108,6 +105,7 @@
 		1638CB7F24EC374100D3D93E /* ThemeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemeCell.xib; sourceTree = "<group>"; };
 		1641822924AD9D0800960F86 /* PickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		1641822A24AD9D0800960F86 /* PickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerCell.xib; sourceTree = "<group>"; };
+		16429CFD247D20F90052E47C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		16429D03247E43720052E47C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
 		164905B627E18732002DE61D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -128,9 +126,6 @@
 		165A6C7B248D9AF3004279B0 /* ColorPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCell.swift; sourceTree = "<group>"; };
 		165A6C7C248D9AF3004279B0 /* ColorPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerCell.xib; sourceTree = "<group>"; };
 		166F53D025BC93320065963D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		16809E352834588200C926E3 /* CourseCircleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCircleCollectionViewCell.swift; sourceTree = "<group>"; };
-		16809E392834B9A400C926E3 /* EventCellNEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellNEW.swift; sourceTree = "<group>"; };
-		16809E3B2834C9EB00C926E3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		16827D1927F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBAndGoogleAuthViewController.swift; sourceTree = "<group>"; };
 		1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
@@ -192,7 +187,6 @@
 		16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEvent.swift; sourceTree = "<group>"; };
 		16C60FE725C76C51006D0FFC /* LoginViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController1.swift; sourceTree = "<group>"; };
 		16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		16C880D228337D3300074842 /* ToDoListViewControllerNEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewControllerNEW.swift; sourceTree = "<group>"; };
 		16E251462485190E000494DE /* SegmentedControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlCell.swift; sourceTree = "<group>"; };
 		16E251472485190E000494DE /* SegmentedControlCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
 		16E7B22E27D1EF8D00AAE756 /* GenericTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewCell.swift; sourceTree = "<group>"; };
@@ -240,8 +234,6 @@
 		164905B827E18793002DE61D /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				16809E352834588200C926E3 /* CourseCircleCollectionViewCell.swift */,
-				16809E392834B9A400C926E3 /* EventCellNEW.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -320,7 +312,6 @@
 				168EE1C42659F899009A8001 /* Autoschedule.swift */,
 				168EE1C62659FA10009A8001 /* RealmCRUD.swift */,
 				16B498CF25CE2CE6005E9C26 /* Secret.swift */,
-				16809E3B2834C9EB00C926E3 /* Extensions.swift */,
 			);
 			path = Studium;
 			sourceTree = "<group>";
@@ -328,7 +319,6 @@
 		1693E744247A413B003D4702 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				16C880D128337A5300074842 /* REWORK */,
 				166F53CE25BC92FA0065963D /* Navigation Controllers */,
 				16547B6B24DA4AA900E68E4D /* Settings Controllers */,
 				165A6C8324916BD9004279B0 /* Form Controllers */,
@@ -362,6 +352,7 @@
 				1693E74D247A464F003D4702 /* Course.swift */,
 				1693E74F247A4660003D4702 /* Assignment.swift */,
 				16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */,
+				16429CFD247D20F90052E47C /* Extensions.swift */,
 				16429D03247E43720052E47C /* Habit.swift */,
 				16A63B8024AA8059003A30D3 /* OtherEvent.swift */,
 				16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */,
@@ -424,14 +415,6 @@
 				16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */,
 			);
 			path = "New Event Cells";
-			sourceTree = "<group>";
-		};
-		16C880D128337A5300074842 /* REWORK */ = {
-			isa = PBXGroup;
-			children = (
-				16C880D228337D3300074842 /* ToDoListViewControllerNEW.swift */,
-			);
-			path = REWORK;
 			sourceTree = "<group>";
 		};
 		16E2514524838676000494DE /* Basic TableView Cells */ = {
@@ -649,7 +632,6 @@
 				1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */,
 				164F62FF24E7D41400DC8169 /* AlertTableViewController.swift in Sources */,
 				165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */,
-				16C880D328337D3400074842 /* ToDoListViewControllerNEW.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
 				168EE1C72659FA10009A8001 /* RealmCRUD.swift in Sources */,
 				1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */,
@@ -677,11 +659,8 @@
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
 				1686DB682482622800FA99DB /* TimeCell.swift in Sources */,
 				168EE1C52659F899009A8001 /* Autoschedule.swift in Sources */,
-				16809E372834588200C926E3 /* CourseCircleCollectionViewCell.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
-				16809E3C2834C9EB00C926E3 /* Extensions.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
-				16809E3A2834B9A500C926E3 /* EventCellNEW.swift in Sources */,
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
 				1649A46427DC7B3B00B75481 /* ColorPickerCell2.swift in Sources */,
 				164F62F324DF7BFC00DC8169 /* NotificationsController.swift in Sources */,
@@ -689,6 +668,7 @@
 				16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */,
 				1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */,
 				16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */,
+				16429CFE247D20F90052E47C /* Extensions.swift in Sources */,
 				1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */,
 				164905B727E18732002DE61D /* LoginViewController.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,

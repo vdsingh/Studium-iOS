@@ -30,18 +30,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //change initial view controller depending on whether user has decided notifications
         
-//        guard let windowScene = (scene as? UIWindowScene) else { return }
-//        window = UIWindow(windowScene: windowScene)
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-//
-        
-//        UNCOMMENT
-//        if (app.currentUser != nil && app.currentUser!.isLoggedIn){
-//            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
-//        }else{
-//            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "StartViewControllerNavigation")
+//        GIDSignIn.sharedInstance().restorePreviousSignIn{ user, error in
+//            if error != nil || user == nil {
+//              // Show the app's signed-out state.
+//                print("LOG: User is NOT signed in with Google")
+//            } else {
+//              // Show the app's signed-in state.
+//                if let email = user?.profile?.email {
+//                    print("LOG: User is signed in with Google. Restored sign-in. User Email: \(email). Going to MainTabController.")
+//                    self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
+//                }else{
+//                    print("ERROR: User is signed in with Google but their Email is nil.")
+//                }
+//            }
 //        }
+        
+        if (app.currentUser != nil && app.currentUser!.isLoggedIn){
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
+        }else{
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "StartViewControllerNavigation")
+        }
     }
     
     //Facebook code:
