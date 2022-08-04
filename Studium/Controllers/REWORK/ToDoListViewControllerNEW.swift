@@ -17,17 +17,23 @@ class ToDoListViewControllerNEW: UIViewController{
     //    @IBOutlet weak var coursesCollectionView: UICollectionView!
     @IBOutlet weak var eventsTableView: UITableView!
     
-    
-    let sectionHeaders: [String] = ["Incomplete", "Report Your Grade"]
-    
     let placeHolderColor: UIColor = .gray
     
     let iconSize = 30
     let iconName = "magnifyingglass"
     func setupUI(){
+//        coursesCollectionView.dataSource = self
+//        coursesCollectionView.delegate = self
+//        coursesCollectionView.register(UINib.init(nibName: "CourseCircleCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CourseCircleCollectionViewCell")
+//        coursesCollectionView.register(CourseCircleCollectionViewCell.self, forCellWithReuseIdentifier: "CourseCircleCollectionViewCell")
+        
+//        var titleAttributedString =
         headerView.layer.cornerRadius = 40
         
-        
+        searchBar.layer.cornerRadius = 20
+        searchBar.clipsToBounds = true
+        let searchBarPlaceHolderString = NSAttributedString(string: "Search for Assignments or Other Events", attributes: [NSAttributedString.Key.foregroundColor: placeHolderColor])
+        searchBar.attributedPlaceholder = searchBarPlaceHolderString
         
         let magnifyIconImageView = UIImageView(frame: CGRect(x: 5, y: 0, width: iconSize, height: iconSize))
         magnifyIconImageView.image = UIImage(systemName: iconName)
@@ -40,6 +46,7 @@ class ToDoListViewControllerNEW: UIViewController{
         
         courseCirclesScrollView.layer.cornerRadius = 30
 //        courseCirclesScrollView.layer.masksToBounds = true
+        titleLabel.attributedText = NSAttributedString(string: "To Do List",attributes:[NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 30)])
         
         eventsTableView.backgroundColor = .clear
         eventsTableView.delegate = self
@@ -59,18 +66,6 @@ class ToDoListViewControllerNEW: UIViewController{
 extension ToDoListViewControllerNEW: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionHeaders.count
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionHeaders[section]
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

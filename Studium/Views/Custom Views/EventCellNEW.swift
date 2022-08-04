@@ -11,7 +11,7 @@ import UIKit
 
 class EventCellNEW: UITableViewCell{
     
-    static let themeColor: UIColor = UIColor(hexString: "FF9AA2") ?? .red
+    static let themeColor: UIColor = .red
     
     let background: UIView = {
         let background = UIView()
