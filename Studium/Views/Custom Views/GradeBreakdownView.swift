@@ -14,12 +14,6 @@ class GradeBreakdownView: UITableViewCell{
         background.translatesAutoresizingMaskIntoConstraints = false
         background.backgroundColor = .white
         background.layer.cornerRadius = 30
-        
-        background.layer.shadowColor = UIColor.black.cgColor
-        background.layer.shadowOpacity = 1
-        background.layer.shadowOffset = CGSize(width: 2, height: 2)
-        background.layer.shadowRadius = 4
-        
         return background
     }()
     
@@ -50,10 +44,7 @@ class GradeBreakdownView: UITableViewCell{
     var breakdownTableView: UITableView = {
         let breakdownTableView = UITableView()
         breakdownTableView.translatesAutoresizingMaskIntoConstraints = false
-        breakdownTableView.register(BreakdownSectionTableViewCell.self, forCellReuseIdentifier: "BreakdownSectionTableViewCell")
-        breakdownTableView.separatorStyle = .none
-        breakdownTableView.backgroundColor = .clear
-        
+        breakdownTableView.backgroundColor = .orange
         return breakdownTableView
     }()
     
@@ -63,7 +54,20 @@ class GradeBreakdownView: UITableViewCell{
         self.backgroundColor = .clear
 
         addViews()
+//        establishConstraints()
+//        addDayLabels()
     }
+//
+//    init(){
+//        super.init(frame: .zero)
+//        addViews()
+//    }
+    
+//    override init(frame: CGRect){
+//        super.init(frame: frame)
+//        addViews()
+//    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         addViews()
@@ -75,11 +79,7 @@ class GradeBreakdownView: UITableViewCell{
         addSubview(background)
         background.addSubview(titleLabel)
         background.addSubview(piChart)
-        
         background.addSubview(breakdownTableView)
-        breakdownTableView.dataSource = self
-        breakdownTableView.delegate = self
-        
         background.addSubview(gradePercent)
         
         activateConstraints()
@@ -95,6 +95,8 @@ class GradeBreakdownView: UITableViewCell{
             background.rightAnchor.constraint(equalTo: rightAnchor),
             background.topAnchor.constraint(equalTo: topAnchor),
             background.heightAnchor.constraint(equalToConstant: 160),
+//            background.bottomAnchor.constraint(equalTo: bottomAnchor),
+//            background.heightAnchor.constraint(equalToConstant: 100),
 
             
             //Title Label Constraints
@@ -111,32 +113,11 @@ class GradeBreakdownView: UITableViewCell{
             piChart.widthAnchor.constraint(equalToConstant: 100),
             piChart.heightAnchor.constraint(equalToConstant: 100),
             
-            //Grade Breakdown TableView Constraints
             breakdownTableView.leftAnchor.constraint(equalTo: piChart.rightAnchor, constant: 20),
-            breakdownTableView.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -20),
             breakdownTableView.heightAnchor.constraint(equalToConstant: 100),
             breakdownTableView.centerYAnchor.constraint(equalTo: piChart.centerYAnchor),
+        
         ])
     }
-}
-
-extension GradeBreakdownView: UITableViewDelegate, UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let breakdownSectionCell = tableView.dequeueReusableCell(withIdentifier: "BreakdownSectionTableViewCell") as! BreakdownSectionTableViewCell
-        
-        return breakdownSectionCell
-    }
-    
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 35
-    }
 }
