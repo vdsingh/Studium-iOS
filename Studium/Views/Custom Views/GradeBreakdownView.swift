@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import Charts
 class GradeBreakdownView: UITableViewCell{
     var background: UIView = {
         let background = UIView()
@@ -58,25 +57,12 @@ class GradeBreakdownView: UITableViewCell{
         return breakdownTableView
     }()
     
-    var breakdownPieChart: PieChartView = {
-        let breakdownPieChart = PieChartView()
-        breakdownPieChart.translatesAutoresizingMaskIntoConstraints = false
-        breakdownPieChart.backgroundColor = .clear
-        breakdownPieChart.legend.enabled = false
-        breakdownPieChart.entryLabelColor = K.studiumDarkPurple
-//        breakdownPieChart.label
-//        breakdownPieChart.sizeToFit()
-//        breakdownPieChart.contentMode = .scaleAspectFill
-        return breakdownPieChart
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.backgroundColor = .clear
 
         addViews()
-        addPieChartData()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -88,8 +74,7 @@ class GradeBreakdownView: UITableViewCell{
         
         addSubview(background)
         background.addSubview(titleLabel)
-//        background.addSubview(piChart)
-        background.addSubview(breakdownPieChart)
+        background.addSubview(piChart)
         
         background.addSubview(breakdownTableView)
         breakdownTableView.dataSource = self
@@ -121,36 +106,17 @@ class GradeBreakdownView: UITableViewCell{
             gradePercent.topAnchor.constraint(equalTo: gradePercent.superview?.topAnchor ?? background.topAnchor, constant: 10),
             
             //Pi Chart Constraints
-            breakdownPieChart.leftAnchor.constraint(equalTo: superview?.leftAnchor ?? background.leftAnchor, constant: 20),
-            breakdownPieChart.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
-            breakdownPieChart.widthAnchor.constraint(equalToConstant: 100),
-            breakdownPieChart.heightAnchor.constraint(equalToConstant: 100),
+            piChart.leftAnchor.constraint(equalTo: superview?.leftAnchor ?? background.leftAnchor, constant: 20),
+            piChart.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+            piChart.widthAnchor.constraint(equalToConstant: 100),
+            piChart.heightAnchor.constraint(equalToConstant: 100),
             
             //Grade Breakdown TableView Constraints
-            breakdownTableView.leftAnchor.constraint(equalTo: breakdownPieChart.rightAnchor, constant: 20),
+            breakdownTableView.leftAnchor.constraint(equalTo: piChart.rightAnchor, constant: 20),
             breakdownTableView.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -20),
             breakdownTableView.heightAnchor.constraint(equalToConstant: 100),
-            breakdownTableView.centerYAnchor.constraint(equalTo: breakdownPieChart.centerYAnchor),
+            breakdownTableView.centerYAnchor.constraint(equalTo: piChart.centerYAnchor),
         ])
-    }
-    
-    func addPieChartData(){
-        let entries = [PieChartDataEntry(value: 10, label: "first"), PieChartDataEntry(value: 20, label: "second")]
-        let label = "Hello"
-        let dataSet = PieChartDataSet(entries: entries, label: label)
-        dataSet.drawValuesEnabled = false
-        dataSet.colors = [.green, .red]
-        dataSet.selectionShift = 0
-        dataSet.entryLabelColor = K.studiumDarkPurple
-
-        let chartData = PieChartData(dataSet: dataSet)
-        breakdownPieChart.data = chartData
-        breakdownPieChart.drawHoleEnabled = true
-        breakdownPieChart.holeRadiusPercent = 0.5
-        breakdownPieChart.rotationAngle = 0
-        breakdownPieChart.rotationEnabled = false
-//        breakdownPieChart.radius = 50
-//        breakdownPieChart.
     }
 }
 
