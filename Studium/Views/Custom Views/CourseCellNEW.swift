@@ -31,7 +31,7 @@ class CourseCellNEW: UITableViewCell{
     let titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.attributedText = NSAttributedString(string: "CS325", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25)])
+        titleLabel.attributedText = NSAttributedString(string: "CS325", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)])
         titleLabel.textColor = .white
         return titleLabel
     }()
@@ -39,7 +39,7 @@ class CourseCellNEW: UITableViewCell{
     let timeLabel: UILabel = {
         let timeLabel = UILabel()
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        timeLabel.attributedText = NSAttributedString(string: "11:00 AM - 11:30 AM", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)])
+        timeLabel.attributedText = NSAttributedString(string: "11:00 AM - 11:30 AM", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)])
         timeLabel.textColor = .white
         return timeLabel
     }()
@@ -47,7 +47,7 @@ class CourseCellNEW: UITableViewCell{
     let locationLabel: UILabel = {
         let locationLabel = UILabel()
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
-        locationLabel.attributedText = NSAttributedString(string: "Building A", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)])
+        locationLabel.attributedText = NSAttributedString(string: "Building A", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
         locationLabel.textColor = .white
         return locationLabel
     }()
@@ -56,7 +56,7 @@ class CourseCellNEW: UITableViewCell{
         let textStackView = UIStackView()
         textStackView.translatesAutoresizingMaskIntoConstraints = false
         textStackView.axis = .vertical
-        textStackView.distribution = .fillProportionally
+        textStackView.distribution = .fillEqually
         textStackView.alignment = UIStackView.Alignment.leading
         textStackView.spacing = 5
         return textStackView
@@ -65,7 +65,7 @@ class CourseCellNEW: UITableViewCell{
     let iconBackground: UIView = {
         let iconBackground = UIView()
         iconBackground.translatesAutoresizingMaskIntoConstraints = false
-        iconBackground.layer.cornerRadius = 35
+        iconBackground.layer.cornerRadius = 30
         iconBackground.backgroundColor = .white
         return iconBackground
     }()
@@ -81,9 +81,8 @@ class CourseCellNEW: UITableViewCell{
     let assignmentNumberLabel: UILabel = {
         let assignmentNumberLabel = UILabel()
         assignmentNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-        assignmentNumberLabel.attributedText = NSAttributedString(string: "3", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.white])
-//        assignmentNumberLabel.textColor = .white
-//        assignmentNumberLabel.text = "3"
+        assignmentNumberLabel.textColor = .white
+        assignmentNumberLabel.text = "3"
         assignmentNumberLabel.textAlignment = .center
         assignmentNumberLabel.contentMode = .center
         return assignmentNumberLabel
@@ -94,7 +93,6 @@ class CourseCellNEW: UITableViewCell{
         assignmentIcon.translatesAutoresizingMaskIntoConstraints = false
         assignmentIcon.image = UIImage(systemName: "checkmark.square")
         assignmentIcon.tintColor = .white
-//        assignmentIcon.tintColor.setStroke(
         return assignmentIcon
     }()
     
@@ -119,7 +117,6 @@ class CourseCellNEW: UITableViewCell{
 
         addViews()
         establishConstraints()
-        addDayLabels()
     }
     
     required init?(coder: NSCoder) {
@@ -143,19 +140,18 @@ class CourseCellNEW: UITableViewCell{
     }
     
     func establishConstraints(){
-        let mainDistanceFromTop: CGFloat = 10
         NSLayoutConstraint.activate([
             
             background.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5),
             background.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5),
             background.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            background.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30),
+            background.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40),
             
             iconBackground.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
             iconBackground.topAnchor.constraint(equalTo: background.topAnchor, constant: 10),
 //            iconBackground.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            iconBackground.heightAnchor.constraint(equalToConstant: 70),
-            iconBackground.widthAnchor.constraint(equalToConstant: 70),
+            iconBackground.heightAnchor.constraint(equalToConstant: 60),
+            iconBackground.widthAnchor.constraint(equalToConstant: 60),
             
             icon.centerXAnchor.constraint(equalTo: iconBackground.centerXAnchor),
             icon.centerYAnchor.constraint(equalTo: iconBackground.centerYAnchor),
@@ -163,16 +159,16 @@ class CourseCellNEW: UITableViewCell{
             icon.widthAnchor.constraint(equalToConstant: 40),
             
 //            textStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            textStackView.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
+            textStackView.topAnchor.constraint(equalTo: background.topAnchor, constant: 10),
             textStackView.leftAnchor.constraint(equalTo: iconBackground.rightAnchor, constant: 10),
-            textStackView.heightAnchor.constraint(equalToConstant: 70),
+            textStackView.heightAnchor.constraint(equalToConstant: 60),
             
-            assignmentNumberLabel.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
+            assignmentNumberLabel.topAnchor.constraint(equalTo: background.topAnchor, constant: 20),
             assignmentNumberLabel.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -20),
             assignmentNumberLabel.heightAnchor.constraint(equalTo: assignmentIcon.heightAnchor),
 
             assignmentIcon.rightAnchor.constraint(equalTo: assignmentNumberLabel.leftAnchor, constant: -2),
-            assignmentIcon.topAnchor.constraint(equalTo: background.topAnchor, constant: mainDistanceFromTop),
+            assignmentIcon.topAnchor.constraint(equalTo: background.topAnchor, constant: 20),
             assignmentIcon.widthAnchor.constraint(equalToConstant: 25),
             assignmentIcon.heightAnchor.constraint(equalToConstant: 25),
             
@@ -181,39 +177,5 @@ class CourseCellNEW: UITableViewCell{
             daysBackground.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             daysBackground.bottomAnchor.constraint(equalTo: background.bottomAnchor, constant: 20)
         ])
-    }
-    
-    func addDayLabels(){
-        let stackView: UIStackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.contentMode = .center
-        stackView.spacing = 5
-        daysBackground.addSubview(stackView)
-
-
-        stackView.leftAnchor.constraint(equalTo: daysBackground.leftAnchor, constant: 10).isActive = true
-        stackView.rightAnchor.constraint(equalTo: daysBackground.rightAnchor, constant: -10).isActive = true
-        stackView.topAnchor.constraint(equalTo: daysBackground.topAnchor, constant: 9).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: daysBackground.bottomAnchor, constant: -9).isActive = true
-
-
-        
-        let dayLabels: [String] = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
-        for day in dayLabels{
-            let dayButton = UIButton()
-            dayButton.translatesAutoresizingMaskIntoConstraints = false
-//            dayButton.setTitle(day, for: .normal)
-            dayButton.setAttributedTitle(NSAttributedString(string: day, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15), NSAttributedString.Key.foregroundColor: CourseCellNEW.themeColor]), for: .normal)
-            
-            if day == "TUE"{
-                dayButton.setAttributedTitle(NSAttributedString(string: day, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15), NSAttributedString.Key.foregroundColor: UIColor.white]), for: .normal)
-                dayButton.backgroundColor = CourseCellNEW.themeColor
-                dayButton.layer.cornerRadius = 5
-            }
-
-            stackView.addArrangedSubview(dayButton)
-        }
     }
 }
