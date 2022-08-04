@@ -42,14 +42,14 @@ class EventCellNEW: UITableViewCell{
         detailText.attributedText = NSAttributedString(string: "Due 5/22 at 5:00PM", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)])
         detailText.textColor = EventCellNEW.themeColor
         return detailText
+        
     }()
     
     let textStackView: UIStackView = {
         let textStackView = UIStackView()
         textStackView.translatesAutoresizingMaskIntoConstraints = false
         textStackView.axis = .vertical
-        textStackView.distribution = .fillEqually
-        textStackView.alignment = UIStackView.Alignment.leading
+        textStackView.distribution = .fill
         textStackView.spacing = 5
         return textStackView
     }()
@@ -58,9 +58,7 @@ class EventCellNEW: UITableViewCell{
         let detailStackView = UIStackView()
         detailStackView.translatesAutoresizingMaskIntoConstraints = false
         detailStackView.axis = .horizontal
-        detailStackView.distribution = .fillProportionally
-        detailStackView.alignment = .center
-        detailStackView.spacing = 5
+        detailStackView.spacing = 10
         return detailStackView
     }()
     
@@ -85,7 +83,7 @@ class EventCellNEW: UITableViewCell{
         let lateIndicator = UIView()
         lateIndicator.translatesAutoresizingMaskIntoConstraints = false
         lateIndicator.backgroundColor = themeColor
-        lateIndicator.layer.cornerRadius = 5
+        lateIndicator.layer.cornerRadius = lateIndicator.bounds.width / 2
         return lateIndicator
     }()
     
@@ -94,7 +92,6 @@ class EventCellNEW: UITableViewCell{
         checkBox.translatesAutoresizingMaskIntoConstraints = false
         checkBox.setImage(UIImage(systemName: "square"), for: .normal)
         checkBox.tintColor = EventCellNEW.themeColor
-        checkBox.contentMode = .scaleAspectFill
         return checkBox
     }()
     
@@ -129,11 +126,11 @@ class EventCellNEW: UITableViewCell{
         
         addSubview(background)
         
-        detailStackView.addArrangedSubview(lateIndicator)
-        detailStackView.addArrangedSubview(detailText)
+        detailStackView.addSubview(detailText)
+        detailStackView.addSubview(lateIndicator)
         
-        textStackView.addArrangedSubview(titleLabel)
-        textStackView.addArrangedSubview(detailStackView)
+        textStackView.addSubview(titleLabel)
+        textStackView.addSubview(detailStackView)
         
         background.addSubview(textStackView)
         background.addSubview(iconBackground)
@@ -176,10 +173,10 @@ class EventCellNEW: UITableViewCell{
             expandCaret.heightAnchor.constraint(equalToConstant: 25),
             expandCaret.widthAnchor.constraint(equalToConstant: 25),
             
-            lateIndicator.heightAnchor.constraint(equalToConstant: 10),
-            lateIndicator.widthAnchor.constraint(equalToConstant: 10),
+            lateIndicator.heightAnchor.constraint(equalToConstant: 5),
+            lateIndicator.widthAnchor.constraint(equalToConstant: 5),
+            lateIndicator.centerYAnchor.constraint(equalTo: lateIndicator.superview?.centerYAnchor ?? detailStackView.centerYAnchor)
 
-//            titleLabel.heightAnchor.constraint(equalToConstant: 30)
             
         ])
     }

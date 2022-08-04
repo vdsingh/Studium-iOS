@@ -78,9 +78,5 @@ extension ToDoListViewControllerNEW: UITableViewDelegate, UITableViewDataSource{
         return 90
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
-    }
-    
     
 }
