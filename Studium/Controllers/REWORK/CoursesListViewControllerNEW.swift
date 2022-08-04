@@ -40,7 +40,7 @@ class CoursesListViewControllerNEW: StudiumTableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setSectionHeaders(sectionHeaders: ["Today", "Not Today"])
+        updateSectionHeaders(sectionHeaders: ["Today", "Not Today"])
     }
     
     override func loadView() {
@@ -53,7 +53,7 @@ class CoursesListViewControllerNEW: StudiumTableViewController{
 //        coursesTableView.register(CourseCellNEW.self, forCellReuseIdentifier: "CourseCellNEW")
         
         setTitleLabelText(string: "Courses")
-        setDetailLabelText(text: "Courses Today: ")
+        setDetailTextLabelText(text: "Courses Today: ")
         setHeaderHeight(headerHeight: headerHeight)
         
 //        header.addSubview(coursesTodayLabel)
