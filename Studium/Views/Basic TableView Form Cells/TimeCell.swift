@@ -1,16 +1,19 @@
 //
-//  LabelCell.swift
+//  TimeCell.swift
 //  Studium
 //
-//  Created by Vikram Singh on 5/29/20.
+//  Created by Vikram Singh on 5/30/20.
 //  Copyright © 2020 Vikram Singh. All rights reserved.
 //
 
 import UIKit
 
-class LabelCell: BasicCell {
+class TimeCell: BasicCell {
 
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    
+    var date: Date?
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = defaultBackgroundColor
@@ -24,4 +27,8 @@ class LabelCell: BasicCell {
         // Configure the view for the selected state
     }
     
+}
+
+extension TimeCell: FormCell {
+    public static var id: String = "TimeCell"
 }

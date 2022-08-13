@@ -23,3 +23,7 @@ class LogoCollectionViewCell: UICollectionViewCell {
     }
 
 }
+
+extension LogoCollectionViewCell: FormCell {
+    static var id: String = "LogoCollectionViewCell"
+}

@@ -1,17 +1,20 @@
 //
-//  ColorPickerCell2.swift
+//  LabelCell.swift
 //  Studium
 //
-//  Created by Vikram Singh on 3/12/22.
-//  Copyright © 2022 Vikram Singh. All rights reserved.
+//  Created by Vikram Singh on 5/29/20.
+//  Copyright © 2020 Vikram Singh. All rights reserved.
 //
 
 import UIKit
 
-class ColorPickerCell2: UITableViewCell {
+class LabelCell: BasicCell {
 
+    @IBOutlet weak var label: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = defaultBackgroundColor
+
         // Initialization code
     }
 
@@ -21,4 +24,8 @@ class ColorPickerCell2: UITableViewCell {
         // Configure the view for the selected state
     }
     
+}
+
+extension LabelCell: FormCell {
+    static var id: String = "LabelCell"
 }

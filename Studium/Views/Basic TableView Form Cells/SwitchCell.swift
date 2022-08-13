@@ -53,3 +53,7 @@ class SwitchCell: BasicCell {
     }
     
 }
+
+extension SwitchCell: FormCell {
+    static var id: String = "SwitchCell"
+}

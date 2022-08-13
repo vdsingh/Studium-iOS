@@ -7,12 +7,20 @@
 //
 
 import UIKit
-class BasicCell: UITableViewCell{
+protocol FormCell {
+    static var id: String { get }
     
+}
+
+class BasicCell: UITableViewCell{
     var defaultBackgroundColor = UIColor.secondarySystemBackground
     override class func awakeFromNib() {
         super.awakeFromNib()
         
 
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

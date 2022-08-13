@@ -23,7 +23,7 @@ class CalendarViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let user = app.currentUser else {
-            print("ERROR: error getting user in CalendarViewController")
+            print("!! ERROR: error getting user in CalendarViewController")
             return
         }
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))

@@ -43,3 +43,7 @@ class TimePickerCell: BasicCell {
     }
     
 }
+
+extension TimePickerCell: FormCell {
+    public static var id: String = "TimePickerCell"
+}

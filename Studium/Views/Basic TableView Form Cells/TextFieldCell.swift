@@ -38,3 +38,7 @@ class TextFieldCell: BasicCell {
         delegate!.textEdited(sender: sender)
     }
 }
+
+extension TextFieldCell: FormCell {
+    static var id: String = "TextFieldCell"
+}

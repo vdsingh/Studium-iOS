@@ -33,3 +33,7 @@ class SegmentedControlCell: BasicCell {
     }
     
 }
+
+extension SegmentedControlCell: FormCell {
+    static var id: String = "SegmentedControlCell"
+}

@@ -37,3 +37,7 @@ class ColorPickerCell: BasicCell {
     }
     
 }
+
+extension ColorPickerCell: FormCell {
+    static var id: String = "ColorPickerCell"
+}

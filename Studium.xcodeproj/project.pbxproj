@@ -340,7 +340,7 @@
 				1665FF1E250EA98300485F3D /* Fonts */,
 				1693E736247A3DC4003D4702 /* Main.storyboard */,
 				1693E73B247A3DC6003D4702 /* LaunchScreen.storyboard */,
-				16E2514524838676000494DE /* Basic TableView Cells */,
+				16E2514524838676000494DE /* Basic TableView Form Cells */,
 				1649A46827DEAD1900B75481 /* HeaderView.swift */,
 			);
 			path = Views;
@@ -417,7 +417,7 @@
 			path = "New Event Cells";
 			sourceTree = "<group>";
 		};
-		16E2514524838676000494DE /* Basic TableView Cells */ = {
+		16E2514524838676000494DE /* Basic TableView Form Cells */ = {
 			isa = PBXGroup;
 			children = (
 				1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */,
@@ -448,7 +448,7 @@
 				1649A46227DC7B3B00B75481 /* ColorPickerCell2.swift */,
 				1649A46327DC7B3B00B75481 /* ColorPickerCell2.xib */,
 			);
-			path = "Basic TableView Cells";
+			path = "Basic TableView Form Cells";
 			sourceTree = "<group>";
 		};
 		8E6006EE7CC6D255D05E9EBF /* Frameworks */ = {

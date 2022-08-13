@@ -21,7 +21,12 @@ class AddCourseViewController: MasterForm, LogoStorer{
     
     //arrays that structure the form (determine each type of cell and what goes in them for the most part)
     var cellText: [[String]] = [["Name", "Location", "Days", "Remind Me"], ["Starts", "Ends"], ["Logo", "Color Picker", "Additional Details"], [""]]
-    var cellType: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell", "LabelCell"],  ["TimeCell", "TimeCell"], ["LogoCell", "ColorPickerCell", "TextFieldCell"], ["LabelCell"]]
+    var cellType: [[FormCellType]] = [
+        [.textFieldCell, .textFieldCell, .daySelectorCell, .labelCell],
+        [.timeCell, .timeCell, .logoCell, .colorPickerCell, .textFieldCell],
+        [.labelCell]
+    ]
+//    var cellType: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell", "LabelCell"],  ["TimeCell", "TimeCell"], ["LogoCell", "ColorPickerCell", "TextFieldCell"], ["LabelCell"]]
     
     //start and end time for the course. The date doesn't actually matter because the days are selected elsewhere
     var startDate: Date = Date()
@@ -85,7 +90,7 @@ class AddCourseViewController: MasterForm, LogoStorer{
     
     //when we pick a logo, this function is called to update the preview on the logo cell.
     func refreshLogoCell() {
-        let logoCellRow = cellType[2].firstIndex(of: "LogoCell")!
+        let logoCellRow = cellType[2].firstIndex(of: .logoCell)!
         let logoCell = tableView.cellForRow(at: IndexPath(row: logoCellRow, section: 2)) as! LogoCell
         logoCell.setImage(systemImageName: systemImageString)
 //        logoCell.systemImageString = systemImageString
@@ -240,13 +245,13 @@ extension AddCourseViewController{
     
     //constructs the form based on information mostly from the main arrays.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
+        if cellType[indexPath.section][indexPath.row] == .textFieldCell{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
             cell.textField.delegate = self
             cell.delegate = self
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
+        }else if cellType[indexPath.section][indexPath.row] == .timeCell{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
             if cellText[indexPath.section][indexPath.row] == "Starts"{
                 cell.timeLabel.text = startDate.format(with: "h:mm a")
@@ -258,7 +263,7 @@ extension AddCourseViewController{
             
             cell.label.text = cellText[indexPath.section][indexPath.row]
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
+        }else if cellType[indexPath.section][indexPath.row] == .timePickerCell{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
             cell.delegate = self
             cell.indexPath = indexPath
@@ -268,11 +273,11 @@ extension AddCourseViewController{
             let date = dateFormatter.date(from: dateString)!
             cell.picker.setDate(date, animated: true)
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "DaySelectorCell"{
+        }else if cellType[indexPath.section][indexPath.row] == .daySelectorCell{
             let cell = tableView.dequeueReusableCell(withIdentifier: "DaySelectorCell", for: indexPath) as! DaySelectorCell
             cell.delegate = self
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
+        }else if cellType[indexPath.section][indexPath.row] == .labelCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
             if indexPath.section == 0 && indexPath.row == 3{
                 //                cell.label.textColor = .black
@@ -284,11 +289,11 @@ extension AddCourseViewController{
             cell.label.text = cellText[indexPath.section][indexPath.row]
             //print("added a label cell")
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
+        }else if cellType[indexPath.section][indexPath.row] == .colorPickerCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ColorPickerCell", for: indexPath) as! ColorPickerCell
             cell.delegate = self
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
+        }else if cellType[indexPath.section][indexPath.row] == .logoCell{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LogoCell", for: indexPath) as! LogoCell
             //cell.delegate = self
             cell.setImage(systemImageName: systemImageString)
@@ -307,10 +312,13 @@ extension AddCourseViewController{
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if cellType[indexPath.section][indexPath.row] == "PickerCell" || cellType[indexPath.section][indexPath.row] == "TimePickerCell" || cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
+        if cellType[indexPath.section][indexPath.row] == .pickerCell ||
+            cellType[indexPath.section][indexPath.row] == .timePickerCell ||
+            cellType[indexPath.section][indexPath.row] == .colorPickerCell
+        {
             return 150
         }
-        if(cellType[indexPath.section][indexPath.row] == "LogoCell"){
+        if(cellType[indexPath.section][indexPath.row] == .logoCell){
             return 60
         }
         return 50
@@ -322,9 +330,9 @@ extension AddCourseViewController{
         tableView.deselectRow(at: indexPath, animated: true)
         
         let selectedRowText = cellText[indexPath.section][indexPath.row]
-        if cellType[indexPath.section][indexPath.row] == "TimeCell"{
+        if cellType[indexPath.section][indexPath.row] == .timeCell{
             let timeCell = tableView.cellForRow(at: indexPath) as! TimeCell
-            let pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")
+            let pickerIndex = cellType[indexPath.section].firstIndex(of: .timePickerCell)
             
             tableView.beginUpdates()
             
@@ -341,10 +349,10 @@ extension AddCourseViewController{
             let newIndex = cellText[indexPath.section].firstIndex(of: selectedRowText)! + 1
             tableView.insertRows(at: [IndexPath(row: newIndex, section: indexPath.section)], with: .left)
             
-            cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
+            cellType[indexPath.section].insert(.timePickerCell, at: newIndex)
             cellText[indexPath.section].insert("\(timeCell.date!.format(with: "h:mm a"))", at: newIndex)
             tableView.endUpdates()
-        }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
+        }else if cellType[indexPath.section][indexPath.row] == .logoCell {
             performSegue(withIdentifier: "toLogoSelection", sender: self)
         }else if cellText[indexPath.section][indexPath.row] == "Remind Me"{ //user selected "Remind Me"
             performSegue(withIdentifier: "toAlertSelection", sender: self)
@@ -355,7 +363,7 @@ extension AddCourseViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? LogoSelectorViewController {
             destinationVC.delegate = self
-            let colorCell = tableView.cellForRow(at: IndexPath(row: cellType[2].firstIndex(of: "ColorPickerCell")!, section: 2)) as! ColorPickerCell
+            let colorCell = tableView.cellForRow(at: IndexPath(row: cellType[2].firstIndex(of: .colorPickerCell)!, section: 2)) as! ColorPickerCell
             destinationVC.color = colorCell.colorPreview.backgroundColor ?? .white
         }else if let destinationVC = segue.destination as? AlertTableViewController{
             destinationVC.delegate = self

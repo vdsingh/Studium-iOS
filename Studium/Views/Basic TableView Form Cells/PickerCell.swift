@@ -9,10 +9,9 @@
 import UIKit
 
 
-class PickerCell: BasicCell{
+class PickerCell: BasicCell {
 
     @IBOutlet weak var picker: UIPickerView!
-    
 //    var delegate: PickerDelegate?
     var indexPath: IndexPath?
     override func awakeFromNib() {
@@ -34,4 +33,8 @@ class PickerCell: BasicCell{
         
     }
     
+}
+
+extension PickerCell: FormCell {
+    static var id: String = "PickerCell"
 }

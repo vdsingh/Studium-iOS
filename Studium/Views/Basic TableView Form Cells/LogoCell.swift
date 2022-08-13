@@ -29,3 +29,7 @@ class LogoCell: BasicCell {
     }
     
 }
+
+extension LogoCell: FormCell {
+    static var id: String = "LogoCell"
+}

@@ -1,23 +1,17 @@
 //
-//  TimeCell.swift
+//  ColorPickerCell2.swift
 //  Studium
 //
-//  Created by Vikram Singh on 5/30/20.
-//  Copyright © 2020 Vikram Singh. All rights reserved.
+//  Created by Vikram Singh on 3/12/22.
+//  Copyright © 2022 Vikram Singh. All rights reserved.
 //
 
 import UIKit
 
-class TimeCell: BasicCell {
-
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    
-    var date: Date?
+class ColorPickerCell2: UITableViewCell, FormCell {
+    static var id: String = "ColorPickerCell2"
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = defaultBackgroundColor
-
         // Initialization code
     }
 

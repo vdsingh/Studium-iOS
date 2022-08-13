@@ -11,6 +11,20 @@ import UIKit
 import UserNotifications
 import RealmSwift
 
+public enum FormCellType {
+    case textFieldCell
+    case switchCell
+    case labelCell
+    case timeCell
+    case timePickerCell
+    case daySelectorCell
+    case segmentedControlCell
+    case colorPickerCell
+    case pickerCell
+    case logoCollectionViewCell
+    case themeCell
+    case logoCell
+}
 //characteristics of all forms.
 class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, AlertInfoStorer{
     var alertTimes: [Int] = []
@@ -26,7 +40,15 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
             return
         }
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-//        print(us)
+        
+        /// registering the necessary cells for the form.
+        tableView.register(UINib(nibName: TextFieldCell.id, bundle: nil), forCellReuseIdentifier: TextFieldCell.id)
+        tableView.register(UINib(nibName: TimeCell.id, bundle: nil), forCellReuseIdentifier: TimeCell.id)
+        tableView.register(UINib(nibName: PickerCell.id, bundle: nil), forCellReuseIdentifier: PickerCell.id)
+        tableView.register(UINib(nibName: TimePickerCell.id, bundle: nil), forCellReuseIdentifier: TimePickerCell.id)
+        tableView.register(UINib(nibName: LabelCell.id, bundle: nil), forCellReuseIdentifier: LabelCell.id)
+        tableView.register(UINib(nibName: SwitchCell.id, bundle: nil), forCellReuseIdentifier: SwitchCell.id)
+        tableView.register(UINib(nibName: DaySelectorCell.id, bundle: nil), forCellReuseIdentifier: DaySelectorCell.id)
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

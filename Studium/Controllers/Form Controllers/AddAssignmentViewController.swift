@@ -33,7 +33,7 @@ class AddAssignmentViewController: MasterForm{
     
     //array variables that lay our form out into sections and rows
     var cellText: [[String]] = [["Name", "Due Date", "Remind Me"], ["Schedule Time to Work"], ["Course"], ["Additional Details", ""]]
-    var cellType: [[String]] = [["TextFieldCell", "TimeCell", "LabelCell"], ["SwitchCell"], ["PickerCell"], ["TextFieldCell", "LabelCell"]]
+    var cellType: [[FormCellType]] = [[.textFieldCell, .timeCell, .labelCell], [.switchCell], [.pickerCell], [.textFieldCell, .labelCell]]
     
     //errors string that is displayed if there are any issues (e.g: user didnt enter a name)
     var errors: String = ""
@@ -50,13 +50,13 @@ class AddAssignmentViewController: MasterForm{
     
     override func viewDidLoad() {
         //registering the necessary cells for the form.
-        tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
-        tableView.register(UINib(nibName: "TimeCell", bundle: nil), forCellReuseIdentifier: "TimeCell")
-        tableView.register(UINib(nibName: "PickerCell", bundle: nil), forCellReuseIdentifier: "PickerCell")
-        tableView.register(UINib(nibName: "TimePickerCell", bundle: nil), forCellReuseIdentifier: "TimePickerCell")
-        tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
-        tableView.register(UINib(nibName: "SwitchCell", bundle: nil), forCellReuseIdentifier: "SwitchCell")
-        tableView.register(UINib(nibName: "DaySelectorCell", bundle: nil), forCellReuseIdentifier: "DaySelectorCell")
+//        tableView.register(UINib(nibName: .textFieldCell, bundle: nil), forCellReuseIdentifier: .textFieldCell)
+//        tableView.register(UINib(nibName: .timeCell, bundle: nil), forCellReuseIdentifier: .timeCell)
+//        tableView.register(UINib(nibName: .pickerCell, bundle: nil), forCellReuseIdentifier: .pickerCell)
+//        tableView.register(UINib(nibName: .timePickerCell, bundle: nil), forCellReuseIdentifier: "TimePickerCell")
+//        tableView.register(UINib(nibName: .labelCell, bundle: nil), forCellReuseIdentifier: .labelCell)
+//        tableView.register(UINib(nibName: .switchCell, bundle: nil), forCellReuseIdentifier: .switchCell)
+//        tableView.register(UINib(nibName: .daySelectorCell, bundle: nil), forCellReuseIdentifier: .daySelectorCell)
         tableView.tableFooterView = UIView()
         
         tableView.sectionIndexBackgroundColor = .green
@@ -264,20 +264,20 @@ extension AddAssignmentViewController{
     
     //information on what to do/other important calls when the form is being created
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
+        if cellType[indexPath.section][indexPath.row] == .textFieldCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.id, for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
             cell.textField.delegate = self
             cell.delegate = self
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
+        }else if cellType[indexPath.section][indexPath.row] == .timeCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: TimeCell.id, for: indexPath) as! TimeCell
             cell.date = dueDate
             cell.timeLabel.text = dueDate.format(with: "MMM d, h:mm a")
             cell.label.text = cellText[indexPath.section][indexPath.row]
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "PickerCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PickerCell", for: indexPath) as! PickerCell
+        }else if cellType[indexPath.section][indexPath.row] == .pickerCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: PickerCell.id, for: indexPath) as! PickerCell
             cell.picker.delegate = self
             cell.picker.dataSource = self
             
@@ -288,14 +288,14 @@ extension AddAssignmentViewController{
                 cell.picker.tag = 0
             }
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
+        }else if cellType[indexPath.section][indexPath.row] == .timePickerCell{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
             cell.picker.datePickerMode = .dateAndTime
             cell.picker.date = dueDate
             cell.delegate = self
             cell.indexPath = indexPath
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
+        }else if cellType[indexPath.section][indexPath.row] == .labelCell{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
             cell.label.text = cellText[indexPath.section][indexPath.row]
             
@@ -306,14 +306,14 @@ extension AddAssignmentViewController{
                 cell.accessoryType = .disclosureIndicator
             }
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "SwitchCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+        }else if cellType[indexPath.section][indexPath.row] == .switchCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: SwitchCell.id, for: indexPath) as! SwitchCell
             cell.switchDelegate = self
             cell.infoDelegate = self
             cell.label.text = cellText[indexPath.section][indexPath.row]
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "DaySelectorCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DaySelectorCell", for: indexPath) as! DaySelectorCell
+        }else if cellType[indexPath.section][indexPath.row] == .daySelectorCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: DaySelectorCell.id, for: indexPath) as! DaySelectorCell
             cell.delegate = self
             return cell
         }else{
@@ -339,11 +339,11 @@ extension AddAssignmentViewController{
         view.endEditing(true)
         
         let selectedRowText = cellText[indexPath.section][indexPath.row]
-        if cellType[indexPath.section][indexPath.row] == "TimeCell"{
+        if cellType[indexPath.section][indexPath.row] == .timeCell{
             let timeCell = tableView.cellForRow(at: indexPath) as! TimeCell
-            var pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")
+            var pickerIndex = cellType[indexPath.section].firstIndex(of: .timePickerCell)
             if pickerIndex == nil{
-                pickerIndex = cellType[indexPath.section].firstIndex(of: "PickerCell")
+                pickerIndex = cellType[indexPath.section].firstIndex(of: .pickerCell)
             }
             tableView.beginUpdates()
             
@@ -361,7 +361,7 @@ extension AddAssignmentViewController{
             let newIndex = cellText[indexPath.section].firstIndex(of: selectedRowText)! + 1
             
             tableView.insertRows(at: [IndexPath(row: newIndex, section: indexPath.section)], with: .left)
-            cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
+            cellType[indexPath.section].insert(.timePickerCell, at: newIndex)
             cellText[indexPath.section].insert("\(timeCell.date!.format(with: "h:mm a"))", at: newIndex)
             tableView.endUpdates()
         }else if cellText[indexPath.section][indexPath.row] == "Remind Me"{ //user selected "Remind Me"
@@ -430,7 +430,7 @@ extension AddAssignmentViewController: UIPickerViewDelegate{
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if cellType[indexPath.section][indexPath.row] == "PickerCell" || cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
+        if cellType[indexPath.section][indexPath.row] == .pickerCell || cellType[indexPath.section][indexPath.row] == .timePickerCell{
             return 150
         }
         return 50
@@ -453,7 +453,7 @@ extension AddAssignmentViewController: UIPickerViewDelegate{
 //MARK: - Date/TimePicker Delegate Methods
 extension AddAssignmentViewController: UITimePickerDelegate{
     
-    //method that auto updates a corresponding TimeCell when a TimePicker is changed.
+    //method that auto updates a corresponding .timeCell when a TimePicker is changed.
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
         let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
         correspondingTimeCell.date = sender.date
@@ -469,17 +469,17 @@ extension AddAssignmentViewController: CanHandleSwitch{
         if sender.isOn{
             scheduleWorkTime = true
             cellText[1].append("New Cell")
-            cellType[1].append("DaySelectorCell")
+            cellType[1].append(.daySelectorCell)
             
             cellText[1].append("Length")
-            cellType[1].append("PickerCell")
+            cellType[1].append(.pickerCell)
             tableView.reloadData()
         }else{
             scheduleWorkTime = false
             cellText[1].removeAll()
             cellType[1].removeAll()
             cellText[1].append("Schedule Time to Work")
-            cellType[1].append("SwitchCell")
+            cellType[1].append(.switchCell)
             tableView.reloadData()
         }
     }
