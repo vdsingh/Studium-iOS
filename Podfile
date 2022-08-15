@@ -6,7 +6,7 @@ target 'Studium' do
   use_frameworks!
 
   # Pods for Data Management
-pod 'RealmSwift', '~> 10.7.6'
+pod 'RealmSwift'
 
 #Google Authentication
 pod 'GoogleSignIn', '~> 5.0.2'

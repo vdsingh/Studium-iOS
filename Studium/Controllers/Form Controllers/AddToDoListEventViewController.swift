@@ -34,8 +34,18 @@ class AddToDoListEventViewController: MasterForm {
     var errors: String = ""
     
     //Arrays that help construct the form. Describes which types of cells go where and what their contents are.
-    var cellText: [[String]] = [["This Event is a Course Assignment"],["Name", "Location", "Remind Me"], ["Starts", "Ends"], ["Additional Details", ""]]
-    var cellType: [[String]] = [["LabelCell"],["TextFieldCell", "TextFieldCell", "LabelCell"], ["TimeCell", "TimeCell"], ["TextFieldCell", "LabelCell"]]
+    var cellText: [[String]] = [
+        ["This Event is a Course Assignment"],
+        ["Name", "Location", "Remind Me"],
+        ["Starts", "Ends"],
+        ["Additional Details", ""]
+    ]
+    var cellType: [[FormCellType]] = [
+        [.labelCell],
+        [.textFieldCell, .textFieldCell, .labelCell],
+        [.timeCell, .timeCell],
+        [.textFieldCell, .labelCell]
+    ]
     
     @IBOutlet weak var navButton: UIBarButtonItem!
     override func viewDidLoad() {
@@ -172,21 +182,21 @@ class AddToDoListEventViewController: MasterForm {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
+        if cellType[indexPath.section][indexPath.row] == .timePickerCell {
             return 150
         }
         return 50
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
+        if cellType[indexPath.section][indexPath.row] == .textFieldCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.id, for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
             cell.textField.delegate = self
             cell.delegate = self
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
+        }else if cellType[indexPath.section][indexPath.row] == .timeCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TimeCell.id, for: indexPath) as! TimeCell
             if indexPath.row == 0{
                 cell.date = startDate
                 cell.timeLabel.text = startDate.format(with: "MMM d, h:mm a")
@@ -197,14 +207,14 @@ class AddToDoListEventViewController: MasterForm {
             cell.label.text = cellText[indexPath.section][indexPath.row]
 //            cell.date = Date()
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
+        }else if cellType[indexPath.section][indexPath.row] == .timePickerCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TimePickerCell.id, for: indexPath) as! TimePickerCell
             cell.picker.datePickerMode = .dateAndTime
             cell.delegate = self
             cell.indexPath = indexPath
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
+        }else if cellType[indexPath.section][indexPath.row] == .labelCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: LabelCell.id, for: indexPath) as! LabelCell
             cell.label.text = cellText[indexPath.section][indexPath.row]
             if indexPath.section == 0{
                 cell.label.textAlignment = .center
@@ -256,10 +266,10 @@ class AddToDoListEventViewController: MasterForm {
             
             //handles timeCells trigger timePickerCells.
             let selectedRowText = cellText[indexPath.section][indexPath.row]
-            if cellType[indexPath.section][indexPath.row] == "TimeCell"{
-                var pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")
+            if cellType[indexPath.section][indexPath.row] == .timeCell {
+                var pickerIndex = cellType[indexPath.section].firstIndex(of: .timePickerCell)
                 if pickerIndex == nil{
-                    pickerIndex = cellType[indexPath.section].firstIndex(of: "PickerCell")
+                    pickerIndex = cellType[indexPath.section].firstIndex(of: .pickerCell)
                 }
                 tableView.beginUpdates()
                 
@@ -276,7 +286,7 @@ class AddToDoListEventViewController: MasterForm {
                 let newIndex = cellText[indexPath.section].firstIndex(of: selectedRowText)! + 1
                 
                 tableView.insertRows(at: [IndexPath(row: newIndex, section: indexPath.section)], with: .left)
-                cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
+                cellType[indexPath.section].insert(.timePickerCell, at: newIndex)
                 cellText[indexPath.section].insert("", at: newIndex)
                 tableView.endUpdates()
             }

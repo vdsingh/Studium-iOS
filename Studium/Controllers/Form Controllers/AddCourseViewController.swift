@@ -20,10 +20,14 @@ class AddCourseViewController: MasterForm, LogoStorer{
     var delegate: CourseRefreshProtocol?
     
     //arrays that structure the form (determine each type of cell and what goes in them for the most part)
-    var cellText: [[String]] = [["Name", "Location", "Days", "Remind Me"], ["Starts", "Ends"], ["Logo", "Color Picker", "Additional Details"], [""]]
+    var cellText: [[String]] = [
+        ["Name", "Location", "Days", "Remind Me"],
+        ["Starts", "Ends"], ["Logo", "Color Picker", "Additional Details"],
+        [""]
+    ]
     var cellType: [[FormCellType]] = [
         [.textFieldCell, .textFieldCell, .daySelectorCell, .labelCell],
-        [.timeCell, .timeCell, .logoCell, .colorPickerCell, .textFieldCell],
+        [.timeCell, .timeCell], [.logoCell, .colorPickerCell, .textFieldCell],
         [.labelCell]
     ]
 //    var cellType: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell", "LabelCell"],  ["TimeCell", "TimeCell"], ["LogoCell", "ColorPickerCell", "TextFieldCell"], ["LabelCell"]]

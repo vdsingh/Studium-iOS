@@ -46,7 +46,7 @@ DEPENDENCIES:
   - FSCalendar
   - GoogleSignIn (~> 5.0.2)
   - RAMAnimatedTabBarController
-  - RealmSwift (~> 10.7.6)
+  - RealmSwift
   - SwipeCellKit
 
 SPEC REPOS:
@@ -99,6 +99,6 @@ SPEC CHECKSUMS:
   RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
-PODFILE CHECKSUM: 8589f5202843b62dbd6ed94a85f9907aa60c27ba
+PODFILE CHECKSUM: 9476b12cfc70bcb18fe3ca3f207c4cb10bb2b1a3
 
 COCOAPODS: 1.11.3

@@ -33,16 +33,32 @@ class AddHabitViewController: MasterForm, LogoStorer{
     var delegate: HabitRefreshProtocol?
     
     //Since this form is dynamic, there are different cells for whether or not the user chooses to schedule this Habit automatically. If the Habit is not automatic, this is how the form cells are laid out.
-    var cellTextNoAuto: [[String]] = [["Name", "Location", "Days", "Remind Me"], ["Autoschedule", "Starts", "Ends"], ["Logo", "Color Picker", "Additional Details", ""]]
-    var cellTypeNoAuto: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell", "LabelCell"],  ["SwitchCell", "TimeCell", "TimeCell"], ["LogoCell", "ColorPickerCell" , "TextFieldCell", "LabelCell"]]
+    var cellTextNoAuto: [[String]] = [
+        ["Name", "Location", "Days", "Remind Me"],
+        ["Autoschedule", "Starts", "Ends"],
+        ["Logo", "Color Picker", "Additional Details", ""]
+    ]
+    var cellTypeNoAuto: [[FormCellType]] = [
+        [.textFieldCell, .textFieldCell, .daySelectorCell, .labelCell],
+        [.switchCell, .timeCell, .timeCell],
+        [.logoCell, .colorPickerCell, .textFieldCell, .labelCell]
+    ]
     
     //if the form is automatic, the cells are laid out this way.
-    var cellTextAuto: [[String]] = [["Name", "Location", "Days", "Remind Me"], ["Autoschedule", "Between", "And", "Length of Habit", ""],["Logo", "Color Picker", "Additional Details", ""]]
-    var cellTypeAuto: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell", "LabelCell"],  ["SwitchCell", "TimeCell", "TimeCell", "TimeCell", "SegmentedControlCell"],["LogoCell","ColorPickerCell", "TextFieldCell", "LabelCell"]]
+    var cellTextAuto: [[String]] = [
+        ["Name", "Location", "Days", "Remind Me"],
+        ["Autoschedule", "Between", "And", "Length of Habit", ""],
+        ["Logo", "Color Picker", "Additional Details", ""]
+    ]
+    var cellTypeAuto: [[FormCellType]] = [
+        [.textFieldCell, .textFieldCell, .daySelectorCell, .labelCell],
+        [.switchCell, .timeCell, .timeCell, .timeCell, .segmentedControlCell],
+        [.logoCell, .colorPickerCell, .textFieldCell, .labelCell]
+    ]
     
     //These are the holders for the cellText and cellType. Basically these hold the above arrays and are used depending on whether the user chooses to use autoschedule or not.
     var cellText: [[String]] = [[]]
-    var cellType: [[String]] = [[]]
+    var cellType: [[FormCellType]] = [[]]
     
     //startDate and endDate for the habit. if the Habit is autoschedule, this is the time frame it will be scheduled between. Also, this is just a time during the day. Since habits repeat, the days that the time occur on are specified elsewhere.
     var startDate: Date = Date()
@@ -73,17 +89,17 @@ class AddHabitViewController: MasterForm, LogoStorer{
     override func viewDidLoad() {
         super.viewDidLoad()
         //register the cells that are to be used in the form.
-        tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
-        tableView.register(UINib(nibName: "SwitchCell", bundle: nil), forCellReuseIdentifier: "SwitchCell")
-        tableView.register(UINib(nibName: "TimeCell", bundle: nil), forCellReuseIdentifier: "TimeCell")
-        tableView.register(UINib(nibName: "PickerCell", bundle: nil), forCellReuseIdentifier: "PickerCell") //a cell that allows user to pick time (e.g. 2 hours, 4 mins)
-        
-        tableView.register(UINib(nibName: "TimePickerCell", bundle: nil), forCellReuseIdentifier: "TimePickerCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
-        tableView.register(UINib(nibName: "DaySelectorCell", bundle: nil), forCellReuseIdentifier: "DaySelectorCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
-        tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
-        tableView.register(UINib(nibName: "SegmentedControlCell", bundle: nil), forCellReuseIdentifier: "SegmentedControlCell")
-        tableView.register(UINib(nibName: "LogoCell", bundle: nil), forCellReuseIdentifier: "LogoCell")
-        tableView.register(UINib(nibName: "ColorPickerCell", bundle: nil), forCellReuseIdentifier: "ColorPickerCell")
+//        tableView.register(UINib(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "TextFieldCell")
+//        tableView.register(UINib(nibName: "SwitchCell", bundle: nil), forCellReuseIdentifier: "SwitchCell")
+//        tableView.register(UINib(nibName: "TimeCell", bundle: nil), forCellReuseIdentifier: "TimeCell")
+//        tableView.register(UINib(nibName: "PickerCell", bundle: nil), forCellReuseIdentifier: "PickerCell") //a cell that allows user to pick time (e.g. 2 hours, 4 mins)
+//
+//        tableView.register(UINib(nibName: "TimePickerCell", bundle: nil), forCellReuseIdentifier: "TimePickerCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
+//        tableView.register(UINib(nibName: "DaySelectorCell", bundle: nil), forCellReuseIdentifier: "DaySelectorCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
+//        tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell") //a cell that allows user to pick day time (e.g. 5:30 PM)
+//        tableView.register(UINib(nibName: "SegmentedControlCell", bundle: nil), forCellReuseIdentifier: "SegmentedControlCell")
+//        tableView.register(UINib(nibName: .logoCell, bundle: nil), forCellReuseIdentifier: .logoCell)
+//        tableView.register(UINib(nibName: "ColorPickerCell", bundle: nil), forCellReuseIdentifier: "ColorPickerCell")
         
         //used to decipher which TimeCell should have which dates
         times = [startDate, endDate]
@@ -114,7 +130,7 @@ class AddHabitViewController: MasterForm, LogoStorer{
     }
     
     func refreshLogoCell() {
-        let logoCellRow = cellType[2].firstIndex(of: "LogoCell")!
+        let logoCellRow = cellType[2].firstIndex(of: .logoCell)!
         let logoCell = tableView.cellForRow(at: IndexPath(row: logoCellRow, section: 2)) as! LogoCell
         logoCell.setImage(systemImageName: systemImageString)
     }
@@ -323,20 +339,20 @@ extension AddHabitViewController{
     
     //this method is used to specify what goes into each cell. Uses the main arrays to figure this out.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if cellType[indexPath.section][indexPath.row] == "TextFieldCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
+        if cellType[indexPath.section][indexPath.row] == .textFieldCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.id, for: indexPath) as! TextFieldCell
             cell.textField.placeholder = cellText[indexPath.section][indexPath.row]
             cell.textField.delegate = self
             cell.delegate = self
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "SwitchCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
+        }else if cellType[indexPath.section][indexPath.row] == .switchCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: SwitchCell.id, for: indexPath) as! SwitchCell
             cell.switchDelegate = self
             cell.infoDelegate = self
             cell.label.text = cellText[indexPath.section][indexPath.row]
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "TimeCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TimeCell", for: indexPath) as! TimeCell
+        }else if cellType[indexPath.section][indexPath.row] == .timeCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: TimeCell.id, for: indexPath) as! TimeCell
             if cellText[indexPath.section][indexPath.row] == "Length of Habit"{
                 cell.timeLabel.text = "\(totalLengthHours) hours \(totalLengthMinutes) mins"
                 cell.label.text = cellText[indexPath.section][indexPath.row]
@@ -347,8 +363,8 @@ extension AddHabitViewController{
                 timeCounter+=1
             }
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "PickerCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PickerCell", for: indexPath) as! PickerCell
+        }else if cellType[indexPath.section][indexPath.row] == .pickerCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: PickerCell.id, for: indexPath) as! PickerCell
             cell.picker.delegate = self
             cell.picker.dataSource = self
             if resetAll{
@@ -356,8 +372,8 @@ extension AddHabitViewController{
             }
             cell.indexPath = indexPath
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "TimePickerCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TimePickerCell", for: indexPath) as! TimePickerCell
+        }else if cellType[indexPath.section][indexPath.row] == .timePickerCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: TimePickerCell.id, for: indexPath) as! TimePickerCell
             if resetAll{
                 let dateString = cellText[indexPath.section][indexPath.row]
                 let dateFormatter = DateFormatter()
@@ -368,31 +384,31 @@ extension AddHabitViewController{
             cell.delegate = self
             cell.indexPath = indexPath
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "DaySelectorCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DaySelectorCell", for: indexPath) as! DaySelectorCell
+        }else if cellType[indexPath.section][indexPath.row] == .daySelectorCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: DaySelectorCell.id, for: indexPath) as! DaySelectorCell
             cell.delegate = self
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "LabelCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
+        }else if cellType[indexPath.section][indexPath.row] == .labelCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: LabelCell.id, for: indexPath) as! LabelCell
             cell.label.text = cellText[indexPath.section][indexPath.row]
             errorLabel = cell
             //print("added a label cell")
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "SegmentedControlCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SegmentedControlCell", for: indexPath) as! SegmentedControlCell
+        }else if cellType[indexPath.section][indexPath.row] == .segmentedControlCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: SegmentedControlCell.id, for: indexPath) as! SegmentedControlCell
             cell.segmentedControl.setTitle("Earlier", forSegmentAt: 0)
             cell.segmentedControl.setTitle("Later", forSegmentAt: 1)
             
             cell.delegate = self
             //print("added a label cell")
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "LogoCell", for: indexPath) as! LogoCell
+        }else if cellType[indexPath.section][indexPath.row] == .logoCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: LogoCell.id, for: indexPath) as! LogoCell
             //cell.delegate = self
             cell.setImage(systemImageName: systemImageString)
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ColorPickerCell", for: indexPath) as! ColorPickerCell
+        }else if cellType[indexPath.section][indexPath.row] == .colorPickerCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: ColorPickerCell.id, for: indexPath) as! ColorPickerCell
             cell.delegate = self
             return cell
         }else{
@@ -411,7 +427,7 @@ extension AddHabitViewController{
     
     //determines the height of each row
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if cellType[indexPath.section][indexPath.row] == "PickerCell" || cellType[indexPath.section][indexPath.row] == "TimePickerCell" || cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
+        if cellType[indexPath.section][indexPath.row] == .pickerCell || cellType[indexPath.section][indexPath.row] == .timePickerCell || cellType[indexPath.section][indexPath.row] == .colorPickerCell {
             return 150
         }
         return 50
@@ -423,12 +439,12 @@ extension AddHabitViewController{
         view.endEditing(true)
         
         let selectedRowText = cellText[indexPath.section][indexPath.row]
-        if cellType[indexPath.section][indexPath.row] == "TimeCell"{
+        if cellType[indexPath.section][indexPath.row] == .timeCell{
             let timeCell = tableView.cellForRow(at: indexPath) as! TimeCell
             //this section handles the event when a TimePicker or Picker is already active and must be removed before continuing.
-            var pickerIndex = cellType[indexPath.section].firstIndex(of: "TimePickerCell")
+            var pickerIndex = cellType[indexPath.section].firstIndex(of: .timePickerCell)
             if pickerIndex == nil{
-                pickerIndex = cellType[indexPath.section].firstIndex(of: "PickerCell")
+                pickerIndex = cellType[indexPath.section].firstIndex(of: .pickerCell)
             }
             tableView.beginUpdates()
             if let index = pickerIndex{
@@ -447,13 +463,13 @@ extension AddHabitViewController{
             //activePicker = cellText[indexPath.section][newIndex - 1]
             if selectedRowText == "Length of Habit"{
                 cellText[indexPath.section].insert("", at: newIndex)
-                cellType[indexPath.section].insert("PickerCell", at: newIndex)
+                cellType[indexPath.section].insert(.pickerCell, at: newIndex)
             }else{
                 cellText[indexPath.section].insert("\(timeCell.date!.format(with: "h:mm a"))", at: newIndex)
-                cellType[indexPath.section].insert("TimePickerCell", at: newIndex)
+                cellType[indexPath.section].insert(.timePickerCell, at: newIndex)
             }
             tableView.endUpdates()
-        }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
+        }else if cellType[indexPath.section][indexPath.row] == .logoCell {
             performSegue(withIdentifier: "toLogoSelection", sender: self)
         }else if cellText[indexPath.section][indexPath.row] == "Remind Me"{ //user selected "Remind Me"
             performSegue(withIdentifier: "toAlertSelection", sender: self)
@@ -467,7 +483,7 @@ extension AddHabitViewController{
             destinationVC.delegate = self
             //                let colorCell = tableView.cellForRow(at: IndexPath(row: cellType[2].firstIndex(of: "ColorPickerCell")!, section: 2)) as! ColorPickerCell
             //                destinationVC.color = colorCell.colorPreview.backgroundColor
-            let colorCell = tableView.cellForRow(at: IndexPath(row: cellType[2].firstIndex(of: "ColorPickerCell")!, section: 2)) as! ColorPickerCell
+            let colorCell = tableView.cellForRow(at: IndexPath(row: cellType[2].firstIndex(of: .colorPickerCell)!, section: 2)) as! ColorPickerCell
             destinationVC.color = colorCell.colorPreview.backgroundColor ?? .white
         }else if let destinationVC = segue.destination as? AlertTableViewController{
             destinationVC.delegate = self
