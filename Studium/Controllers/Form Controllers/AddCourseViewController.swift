@@ -389,7 +389,7 @@ extension AddCourseViewController{
 //    }
     
     private func findFirstPickerCellIndex(section: Int) -> Int? {
-        for i in 0...cells[section].count {
+        for i in 0..<cells[section].count {
             switch cells[section][i] {
             case .timePickerCell(_, _):
                 return i
@@ -399,32 +399,39 @@ extension AddCourseViewController{
         }
         return nil
     }
-
+                    
     private func timeCellClicked(indexPath: IndexPath) {
         guard let timeCell = tableView.cellForRow(at: indexPath) as? TimeCell else {
             return
         }
+        var timeCellIndex = indexPath.row
+
 //        let timeCell = cells[indexPath.section][indexPath.row] as? TimeCell
 //        var pickerIndex: Int? =
-//        tableView.beginUpdates()
-
-        if let index = findFirstPickerCellIndex(section: indexPath.section) {
-            cells[indexPath.section].remove(at: index)
-            tableView.deleteRows(at: [IndexPath(row: index, section: indexPath.section)], with: .right)
-            if index == indexPath.row + 1{
+        tableView.beginUpdates()
+        
+        /// Find the first time picker (if there is one) and remove it
+        if let indexOfFirstTimePicker = self.findFirstPickerCellIndex(section: indexPath.section) {
+            cells[indexPath.section].remove(at: indexOfFirstTimePicker)
+            tableView.deleteRows(at: [IndexPath(row: indexOfFirstTimePicker, section: indexPath.section)], with: .right)
+            /// Clicked on time cell while corresopnding timepicker is already expanded.
+            if indexOfFirstTimePicker == indexPath.row + 1 {
                 tableView.endUpdates()
                 return
+            /// Clicked on time cell while above timepicker is expanded
+            } else if indexOfFirstTimePicker == indexPath.row - 1 {
+                /// Remove one from the index since we removed a cell above
+                timeCellIndex -= 1
             }
         }
 
 //        let newIndex = cellText[indexPath.section].firstIndex(of: selectedRowText)! + 1
-//        tableView.insertRows(at: [IndexPath(row: indexPath.row + 1, section: indexPath.section)], with: .left)
-        
-        cells[indexPath.section].insert(.timePickerCell(dateString: "\(timeCell.date!.format(with: "h:mm a"))", delegate: self), at: indexPath.row + 1)
-        tableView.reloadData()
+        cells[indexPath.section].insert(.timePickerCell(dateString: "\(timeCell.date!.format(with: "h:mm a"))", delegate: self), at: timeCellIndex + 1)
+        tableView.insertRows(at: [IndexPath(row: timeCellIndex + 1, section: indexPath.section)], with: .left)
+//        tableView.reloadData()
 //        cellType[indexPath.section].insert(.timePickerCell, at: newIndex)
 //        cellText[indexPath.section].insert("\(timeCell.date!.format(with: "h:mm a"))", at: newIndex)
-//        tableView.endUpdates()
+        tableView.endUpdates()
 //        }
     }
     
