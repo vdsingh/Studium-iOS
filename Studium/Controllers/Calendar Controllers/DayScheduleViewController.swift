@@ -144,7 +144,7 @@ class DayScheduleViewController: DayViewController{
                         if dates == nil{
                             continue
                         }
-                        print("AUTOSCHEDULING HABIT: \(habit.name) with minutes: \(habit.autoLengthMinutes). AND FOUND DATES: \(dates)")
+                        print("AUTOSCHEDULING HABIT: \(habit.name) with minutes: \(habit.autoLengthMinutes). AND FOUND DATES: \(dates ?? [])")
                         usableStartDate = dates![0]
                         print("Start: \(usableStartDate.format(with: "h:mm a zzz"))")
                         

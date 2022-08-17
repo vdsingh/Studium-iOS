@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ColorPickerCell2: UITableViewCell, FormCell {
+class ColorPickerCell2: UITableViewCell, FormCellProtocol {
     static var id: String = "ColorPickerCell2"
     override func awakeFromNib() {
         super.awakeFromNib()

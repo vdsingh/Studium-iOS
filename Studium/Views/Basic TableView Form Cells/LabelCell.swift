@@ -26,6 +26,6 @@ class LabelCell: BasicCell {
     
 }
 
-extension LabelCell: FormCell {
+extension LabelCell: FormCellProtocol {
     static var id: String = "LabelCell"
 }

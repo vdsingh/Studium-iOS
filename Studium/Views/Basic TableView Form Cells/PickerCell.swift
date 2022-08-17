@@ -35,6 +35,6 @@ class PickerCell: BasicCell {
     
 }
 
-extension PickerCell: FormCell {
+extension PickerCell: FormCellProtocol {
     static var id: String = "PickerCell"
 }

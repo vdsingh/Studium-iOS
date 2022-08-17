@@ -7,11 +7,11 @@
 //
 
 import UIKit
-protocol CanHandleSwitch{
+public protocol CanHandleSwitch{
     func switchValueChanged(sender: UISwitch)
 }
 
-protocol CanHandleInfoDisplay: UIViewController{
+public protocol CanHandleInfoDisplay: UIViewController{
     func displayInformation()
 }
 
@@ -54,6 +54,6 @@ class SwitchCell: BasicCell {
     
 }
 
-extension SwitchCell: FormCell {
+extension SwitchCell: FormCellProtocol {
     static var id: String = "SwitchCell"
 }

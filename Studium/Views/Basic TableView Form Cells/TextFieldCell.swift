@@ -7,38 +7,44 @@
 //
 
 import UIKit
-protocol UITextFieldDelegateExt {
+public protocol UITextFieldDelegateExt {
     func textEdited(sender: UITextField)
 }
 class TextFieldCell: BasicCell {
 
     @IBOutlet weak var textField: UITextField!
-    var delegate: UITextFieldDelegateExt?
+    public var delegate: UITextFieldDelegateExt!
+    
+//    init(delegate: UITextFieldDelegateExt, style: UITableViewCell.CellStyle = .default) {
+//        self.delegate = delegate
+//        super.init(style: style, reuseIdentifier: TextFieldCell.id)
+//    }
+    
+//    required init?(coder: NSCoder) {
+////        fatalError("init(coder:) has not been implemented")
+//        super.init(coder: coder)
+//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         textField.returnKeyType = UIReturnKeyType.done
         
         self.backgroundColor = defaultBackgroundColor
-
-
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
+    
     @IBAction func finishedEditingText(_ sender: UITextField) {
         
     }
     
     @IBAction func textEdited(_ sender: UITextField) {
-        delegate!.textEdited(sender: sender)
+        delegate.textEdited(sender: sender)
     }
 }
 
-extension TextFieldCell: FormCell {
+extension TextFieldCell: FormCellProtocol {
     static var id: String = "TextFieldCell"
 }

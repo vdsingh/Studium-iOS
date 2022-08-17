@@ -11,8 +11,10 @@ import UIKit
 import FBSDKLoginKit
 import GoogleSignIn
 import RealmSwift
-class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate{
-    var sender: Any? = self
+class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate {
+    var codeLocationString: String = "FBAndGoogleAuthViewController"
+    
+    var sender: Any? = FBAndGoogleAuthViewController.self
 
     @IBAction func handleLoginAsGuest(){
         let app = App(id: Secret.appID)
@@ -60,7 +62,7 @@ class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate{
                 case .failure(let error):
                     print("Failed to log in to MongoDB Realm: \(error)")
                 case .success(let user):
-                    print("Successfully logged in to MongoDB Realm using Google OAuth.")
+                    Logs.Authentication.googleLoginSuccess(logLocation: self.codeLocationString, additionalInfo: "User: \(user)").printLog()
                     self.handleGeneralLoginSuccess(email: googleUser.profile.email)
                 }
             }

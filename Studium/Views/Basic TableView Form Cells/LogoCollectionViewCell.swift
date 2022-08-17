@@ -24,6 +24,6 @@ class LogoCollectionViewCell: UICollectionViewCell {
 
 }
 
-extension LogoCollectionViewCell: FormCell {
+extension LogoCollectionViewCell: FormCellProtocol {
     static var id: String = "LogoCollectionViewCell"
 }

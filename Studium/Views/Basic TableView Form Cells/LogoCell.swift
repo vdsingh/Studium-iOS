@@ -30,6 +30,6 @@ class LogoCell: BasicCell {
     
 }
 
-extension LogoCell: FormCell {
+extension LogoCell: FormCellProtocol {
     static var id: String = "LogoCell"
 }

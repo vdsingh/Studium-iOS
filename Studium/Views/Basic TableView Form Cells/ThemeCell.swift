@@ -41,6 +41,6 @@ class ThemeCell: BasicCell {
     
 }
 
-extension ThemeCell: FormCell {
+extension ThemeCell: FormCellProtocol {
     static var id: String = "ThemeCell"
 }

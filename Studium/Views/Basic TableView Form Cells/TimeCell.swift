@@ -29,6 +29,6 @@ class TimeCell: BasicCell {
     
 }
 
-extension TimeCell: FormCell {
+extension TimeCell: FormCellProtocol {
     public static var id: String = "TimeCell"
 }

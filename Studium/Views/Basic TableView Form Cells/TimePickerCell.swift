@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol UITimePickerDelegate {
+public protocol UITimePickerDelegate {
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath)
 }
 
@@ -44,6 +44,6 @@ class TimePickerCell: BasicCell {
     
 }
 
-extension TimePickerCell: FormCell {
+extension TimePickerCell: FormCellProtocol {
     public static var id: String = "TimePickerCell"
 }

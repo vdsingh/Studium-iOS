@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SegmentedControlDelegate{
+public protocol SegmentedControlDelegate{
     func controlValueChanged(sender: UISegmentedControl)
 }
 class SegmentedControlCell: BasicCell {
@@ -34,6 +34,6 @@ class SegmentedControlCell: BasicCell {
     
 }
 
-extension SegmentedControlCell: FormCell {
+extension SegmentedControlCell: FormCellProtocol {
     static var id: String = "SegmentedControlCell"
 }
