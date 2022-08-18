@@ -117,6 +117,7 @@ class AddHabitViewController: MasterForm, LogoStorer {
 //    var alertTimes: [Int] = []
     
     @IBOutlet weak var navButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -129,8 +130,8 @@ class AddHabitViewController: MasterForm, LogoStorer {
 //        cellType = cellTypeNoAuto
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", id: FormCellID.nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", id: FormCellID.locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(delegate: self),
                 .labelCell(cellText: "Label Text", onClick: nil)
             ],
@@ -142,7 +143,7 @@ class AddHabitViewController: MasterForm, LogoStorer {
             [
                 .logoCell(imageString: "image string", onClick: nil),
                 .colorPickerCell(delegate: self),
-                .textFieldCell(placeholderText: "Additional Details", textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Additional Details", id: FormCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "Label", onClick: nil)
             ]
         ]
@@ -244,7 +245,7 @@ class AddHabitViewController: MasterForm, LogoStorer {
                             let identifier = UUID().uuidString
                             newHabit.notificationIdentifiers.append(identifier)
                             newHabit.notificationAlertTimes.append(alertTime)
-                            scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
+                            NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                         }
                     }
                 }else{
@@ -293,7 +294,7 @@ class AddHabitViewController: MasterForm, LogoStorer {
                                     let identifier = UUID().uuidString
                                     habit!.notificationIdentifiers.append(identifier)
                                     habit!.notificationAlertTimes.append(alertTime)
-                                    scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
+                                    NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                                 }
                             }
                         }else{
@@ -607,15 +608,21 @@ extension AddHabitViewController: DaySelectorDelegate{
 
 
 extension AddHabitViewController: UITextFieldDelegateExt{
-    func textEdited(sender: UITextField) {
-        if sender.placeholder == "Name"{
-            name = sender.text!
-        }else if sender.placeholder == "Location"{
-            location = sender.text!
-        }else if sender.placeholder == "Additional Details"{
-            additionalDetails = sender.text!
+    func textEdited(sender: UITextField, textFieldID: FormCellID) {
+        guard let text = sender.text else {
+            print("$ ERROR: sender's text is nil when editing text.")
+            return
+        }
+        switch textFieldID {
+        case .nameTextField:
+            self.name = text
+        case .locationTextField:
+            self.location = text
+        case .additionalDetailsTextField:
+            self.additionalDetails = text
         }
     }
+    
 }
 
 extension AddHabitViewController: ColorDelegate{

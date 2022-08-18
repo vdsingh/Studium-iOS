@@ -14,6 +14,8 @@ protocol ToDoListRefreshProtocol{
     func refreshData()
 }
 
+
+
 class AddToDoListEventViewController: MasterForm {
     var codeLocationString: String = "Add To Do List Event Form"
     
@@ -44,21 +46,25 @@ class AddToDoListEventViewController: MasterForm {
 //    ]
 //    var cells: [[FormCell]] =
     
+    
+
     @IBOutlet weak var navButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         self.cells = [
             [
                 .labelCell(cellText: "This Event is a Course Assignment", onClick: nil)
             ],
             [
-                .textFieldCell(placeholderText: "Name", textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", id: FormCellID.nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", id: FormCellID.locationTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .detailDisclosureButton, onClick: nil)
             ],
-            [.timeCell(cellText: "Starts", date: self.startDate, onClick: nil),
-             .timeCell(cellText: "Ends", date: self.endDate, onClick: nil)],
             [
-                .textFieldCell(placeholderText: "Additional Details", textFieldDelegate: self, delegate: self),
+                .timeCell(cellText: "Starts", date: self.startDate, onClick: nil),
+                .timeCell(cellText: "Ends", date: self.endDate, onClick: nil)],
+            [
+                .textFieldCell(placeholderText: "Additional Details", id: FormCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "", textColor: .systemRed, onClick: nil)
             ]
         ]
@@ -109,7 +115,7 @@ class AddToDoListEventViewController: MasterForm {
                     
                     let identifier = UUID().uuidString
                     newEvent.notificationIdentifiers.append(identifier)
-                    scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+                    NotificationHandler.scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                 }
                 RealmCRUD.saveOtherEvent(otherEvent: newEvent)
             }else{
@@ -129,7 +135,7 @@ class AddToDoListEventViewController: MasterForm {
                                 otherEvent!.notificationIdentifiers.append(identifier)
                                 otherEvent!.notificationAlertTimes.append(alertTime)
                             }
-                            scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+                            NotificationHandler.scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                         }
 
                     }

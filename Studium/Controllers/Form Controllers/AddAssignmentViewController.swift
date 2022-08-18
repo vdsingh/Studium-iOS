@@ -53,7 +53,7 @@ class AddAssignmentViewController: MasterForm{
     override func viewDidLoad() {
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", id: FormCellID.nameTextField, textFieldDelegate: self, delegate: self),
                 .timeCell(cellText: "Due Date", date: self.dueDate, onClick: nil),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .detailDisclosureButton, onClick: nil)
             ],
@@ -64,7 +64,7 @@ class AddAssignmentViewController: MasterForm{
                 .pickerCell(cellText: "Course", delegate: self, dataSource: self)
             ],
             [
-                .textFieldCell(placeholderText: "Additional Details", textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Additional Details", id: FormCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "", textColor: .systemRed, onClick: nil)
             ]
         ]
@@ -142,7 +142,7 @@ class AddAssignmentViewController: MasterForm{
 
                     let identifier = UUID().uuidString
                     newAssignment.notificationIdentifiers.append(identifier)
-                    scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+                    NotificationHandler.scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                 }
                 RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse!)
             }else{
@@ -161,7 +161,7 @@ class AddAssignmentViewController: MasterForm{
                                 assignment!.notificationIdentifiers.append(identifier)
                                 assignment!.notificationAlertTimes.append(alertTime)
                             }
-                            scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+                            NotificationHandler.scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                         }
                     }
                     try realm.write{
@@ -391,14 +391,30 @@ extension AddAssignmentViewController{
 
  //MARK: - Cell DataSource and Delegates
 extension AddAssignmentViewController: UITextFieldDelegateExt{
-    func textEdited(sender: UITextField) {
-        if sender.placeholder == "Name"{
-            print("name edited")
-            name = sender.text!
-        }else if sender.placeholder == "Additional Details"{
-            print("additionalDetails edited")
-            additionalDetails = sender.text!
+
+    //TODO: Implement IDs here
+    func textEdited(sender: UITextField, textFieldID: FormCellID) {
+        guard let text = sender.text else {
+            print("$ ERROR: sender's text was nil. File: \(#file), Function: \(#function), Line: \(#line)")
+            return
         }
+        switch textFieldID {
+        case .nameTextField:
+            self.name = text
+        case .additionalDetailsTextField:
+            self.additionalDetails = text
+        default:
+            print("$ ERROR: edited text for non-existent field. File: \(#file), Function: \(#function), Line: \(#line)")
+            break
+        }
+        
+//        if sender.placeholder == "Name"{
+//            print("name edited")
+//            name = sender.text!
+//        }else if sender.placeholder == "Additional Details"{
+//            print("additionalDetails edited")
+//            additionalDetails = sender.text!
+//        }
     }
 }
 
