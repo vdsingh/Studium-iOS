@@ -130,20 +130,20 @@ class AddHabitViewController: MasterForm, LogoStorer {
 //        cellType = cellTypeNoAuto
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", id: FormCellID.nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", id: FormCellID.locationTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", id: .nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", id: .locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(delegate: self),
                 .labelCell(cellText: "Label Text", onClick: nil)
             ],
             [
                 .switchCell(cellText: "Switch", switchDelegate: self, infoDelegate: self),
-                .timeCell(cellText: "Time", date: Date(), onClick: nil),
-                .timeCell(cellText: "Time 2", date: Date(), onClick: nil)
+                .timeCell(cellText: "Time", date: Date(), id: .startTimeCell, onClick: nil),
+                .timeCell(cellText: "Time 2", date: Date(), id: .endTimeCell, onClick: nil)
             ],
             [
                 .logoCell(imageString: "image string", onClick: nil),
                 .colorPickerCell(delegate: self),
-                .textFieldCell(placeholderText: "Additional Details", id: FormCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "Label", onClick: nil)
             ]
         ]
@@ -569,10 +569,10 @@ extension AddHabitViewController: UIPickerViewDelegate{
 }
 
 //MARK: - TimePicker Delegate
-extension AddHabitViewController: UITimePickerDelegate{
+extension AddHabitViewController: UITimePickerDelegate {
     
     //handles whenever the user changes the value of the TimePicker
-    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
+    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCell) {
         //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
         let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
         correspondingTimeCell.date = sender.date
@@ -608,7 +608,7 @@ extension AddHabitViewController: DaySelectorDelegate{
 
 
 extension AddHabitViewController: UITextFieldDelegateExt{
-    func textEdited(sender: UITextField, textFieldID: FormCellID) {
+    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
             print("$ ERROR: sender's text is nil when editing text.")
             return

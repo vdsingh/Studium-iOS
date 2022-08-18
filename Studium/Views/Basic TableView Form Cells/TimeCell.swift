@@ -9,11 +9,13 @@
 import UIKit
 
 class TimeCell: BasicCell {
+    public var formCellID: FormCellID.TimeCell?
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
     var date: Date?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = defaultBackgroundColor

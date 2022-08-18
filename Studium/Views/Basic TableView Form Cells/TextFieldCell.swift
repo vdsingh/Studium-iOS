@@ -8,15 +8,16 @@
 
 import UIKit
 public protocol UITextFieldDelegateExt {
-    func textEdited(sender: UITextField, textFieldID: FormCellID)
+    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell)
 }
 class TextFieldCell: BasicCell {
+    
+    public var textFieldID: FormCellID.TextFieldCell?
+
 
     @IBOutlet weak var textField: UITextField!
     public var delegate: UITextFieldDelegateExt!
-    
-    public var textFieldID: FormCellID?
-    
+        
 //    init(delegate: UITextFieldDelegateExt, style: UITableViewCell.CellStyle = .default) {
 //        self.delegate = delegate
 //        super.init(style: style, reuseIdentifier: TextFieldCell.id)
@@ -55,3 +56,6 @@ class TextFieldCell: BasicCell {
 extension TextFieldCell: FormCellProtocol {
     static var id: String = "TextFieldCell"
 }
+
+//extension TextFieldCell: FormCellIdentifiable {
+//}

@@ -18,12 +18,11 @@ public enum FormCell: Equatable {
         return "\(lhs)" == "\(rhs)"
     }
     
-
-    case textFieldCell(placeholderText: String, id: FormCellID, textFieldDelegate: UITextFieldDelegate, delegate: UITextFieldDelegateExt)
+    case textFieldCell(placeholderText: String, id: FormCellID.TextFieldCell, textFieldDelegate: UITextFieldDelegate, delegate: UITextFieldDelegateExt)
     case switchCell(cellText: String, switchDelegate: CanHandleSwitch?, infoDelegate: CanHandleInfoDisplay?)
     case labelCell(cellText: String, textColor: UIColor = .label, backgroundColor: UIColor = kCellBackgroundColor, cellAccessoryType: UITableViewCell.AccessoryType = .none, onClick: (() -> Void)? = nil)
-    case timeCell(cellText: String, date: Date, onClick: ((IndexPath) -> Void)? = nil)
-    case timePickerCell(dateString: String, delegate: UITimePickerDelegate)
+    case timeCell(cellText: String, date: Date, id: FormCellID.TimeCell, onClick: ((IndexPath) -> Void)? = nil)
+    case timePickerCell(dateString: String, id: FormCellID.TimePickerCell, delegate: UITimePickerDelegate)
     case daySelectorCell(delegate: DaySelectorDelegate)
     case segmentedControlCell(firstTitle: String, secondTitle: String, delegate: SegmentedControlDelegate)
     case colorPickerCell(delegate: ColorDelegate)
@@ -33,9 +32,24 @@ public enum FormCell: Equatable {
 
 /// IDs for FormCells that we can use instead of hardcoded strings
 public enum FormCellID {
-    case nameTextField
-    case locationTextField
-    case additionalDetailsTextField
+    // TextField Cells
+    public enum TextFieldCell {
+        case nameTextField
+        case locationTextField
+        case additionalDetailsTextField
+    }
+    
+    // TimePickerCells
+    public enum TimePickerCell {
+        case startDateTimePicker
+        case endDateTimePicker
+    }
+    
+    // TimeCells
+    public enum TimeCell {
+        case startTimeCell
+        case endTimeCell
+    }
 }
 
 typealias MasterForm = MasterFormClass
@@ -81,9 +95,6 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
       return headerView
     }
     
-    
-
-    
     func processAlertTimes() {
         
     }
@@ -110,33 +121,26 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
             cell.label.textColor = textColor
             cell.backgroundColor = backgroundColor
             cell.accessoryType = cellAccessoryType
-//            if indexPath.section == 0 && indexPath.row == 3{
-//                //                cell.label.textColor = .black
-//                cell.accessoryType = .disclosureIndicator
-//            }else{
-//                cell.backgroundColor = .systemBackground
-//                cell.label.textColor = UIColor.red
-//            }
-//            cell.label.text = cellText[indexPath.section][indexPath.row]
-            //print("added a label cell")
             return cell
-        case .timeCell(let cellText, let date, _):
+        case .timeCell(let cellText, let date, let id, _):
             let cell = tableView.dequeueReusableCell(withIdentifier: TimeCell.id, for: indexPath) as! TimeCell
             cell.label.text = cellText
             cell.timeLabel.text = date.format(with: "h:mm a")
             cell.date = date
+            cell.formCellID = id
             return cell
-        case .timePickerCell(let dateString, let delegate):
+        case .timePickerCell(let dateString, let formCellID, let delegate):
             let cell = tableView.dequeueReusableCell(withIdentifier: TimePickerCell.id, for: indexPath) as! TimePickerCell
             cell.delegate = delegate
             cell.indexPath = indexPath
+            cell.formCellID = formCellID
             let dateString = dateString
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "h:mm a"
             if let date = dateFormatter.date(from: dateString) {
                 cell.picker.setDate(date, animated: true)
             } else {
-                print("$ ERROR: date is nil.")
+                print("$ ERROR: date is nil. \n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
             }
             return cell
         case .daySelectorCell(let delegate):
@@ -149,7 +153,6 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
             cell.segmentedControl.setTitle(secondTitle, forSegmentAt: 1)
             
             cell.delegate = delegate
-            //print("added a label cell")
             return cell
         case .colorPickerCell(let delegate):
             let cell = tableView.dequeueReusableCell(withIdentifier: ColorPickerCell.id, for: indexPath) as! ColorPickerCell
@@ -176,7 +179,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
         tableView.deselectRow(at: indexPath, animated: true)
         let cell = cells[indexPath.section][indexPath.row]
         switch cell {
-        case .timeCell(_, _, let onClick):
+        case .timeCell(_, _, _, let onClick):
             if let onClick = onClick {
                 onClick(indexPath)
             }
@@ -223,7 +226,7 @@ extension MasterFormClass {
     func findFirstLogoCellIndex(section: Int) -> IndexPath? {
         for i in 0..<cells[section].count {
             switch cells[section][i] {
-            case .logoCell(_, _):
+            case .logoCell:
                 return IndexPath(row: i, section: section)
             default:
                 continue
@@ -235,7 +238,7 @@ extension MasterFormClass {
     func findFirstPickerCellIndex(section: Int) -> Int? {
         for i in 0..<cells[section].count {
             switch cells[section][i] {
-            case .timePickerCell(_, _):
+            case .timePickerCell:
                 return i
             default:
                 continue
@@ -256,6 +259,7 @@ extension MasterFormClass {
                                              backgroundColor: backgroundColor,
                                              cellAccessoryType: cellAccessoryType,
                                              onClick: onClick)
+            tableView.reloadData()
         default:
             return
         }

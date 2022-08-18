@@ -56,15 +56,15 @@ class AddToDoListEventViewController: MasterForm {
                 .labelCell(cellText: "This Event is a Course Assignment", onClick: nil)
             ],
             [
-                .textFieldCell(placeholderText: "Name", id: FormCellID.nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", id: FormCellID.locationTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", id: FormCellID.TextFieldCell.locationTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .detailDisclosureButton, onClick: nil)
             ],
             [
-                .timeCell(cellText: "Starts", date: self.startDate, onClick: nil),
-                .timeCell(cellText: "Ends", date: self.endDate, onClick: nil)],
+                .timeCell(cellText: "Starts", date: self.startDate, id: FormCellID.TimeCell.startTimeCell, onClick: nil),
+                .timeCell(cellText: "Ends", date: self.endDate, id: FormCellID.TimeCell.endTimeCell, onClick: nil)],
             [
-                .textFieldCell(placeholderText: "Additional Details", id: FormCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "", textColor: .systemRed, onClick: nil)
             ]
         ]
@@ -263,7 +263,7 @@ class AddToDoListEventViewController: MasterForm {
 }
 
 extension AddToDoListEventViewController: UITimePickerDelegate{
-    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
+    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCell) {
         //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
         let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
         correspondingTimeCell.date = sender.date
@@ -281,7 +281,7 @@ extension AddToDoListEventViewController: UITimePickerDelegate{
 }
 
 extension AddToDoListEventViewController: UITextFieldDelegateExt{
-    func textEdited(sender: UITextField, textFieldID: FormCellID) {
+    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
             print("$ ERROR: sender's text was nil. \nFile: \(#file)\nFunction: \(#function)\nLine: \(#line)")
             return

@@ -9,7 +9,6 @@
 import UIKit
 protocol FormCellProtocol {
     static var id: String { get }
-    
 }
 
 class BasicCell: UITableViewCell{

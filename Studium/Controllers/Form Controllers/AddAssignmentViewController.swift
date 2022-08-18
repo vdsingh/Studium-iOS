@@ -53,8 +53,8 @@ class AddAssignmentViewController: MasterForm{
     override func viewDidLoad() {
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", id: FormCellID.nameTextField, textFieldDelegate: self, delegate: self),
-                .timeCell(cellText: "Due Date", date: self.dueDate, onClick: nil),
+                .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
+                .timeCell(cellText: "Due Date", date: self.dueDate, id: .endTimeCell, onClick: nil),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .detailDisclosureButton, onClick: nil)
             ],
             [
@@ -64,7 +64,7 @@ class AddAssignmentViewController: MasterForm{
                 .pickerCell(cellText: "Course", delegate: self, dataSource: self)
             ],
             [
-                .textFieldCell(placeholderText: "Additional Details", id: FormCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "", textColor: .systemRed, onClick: nil)
             ]
         ]
@@ -393,7 +393,7 @@ extension AddAssignmentViewController{
 extension AddAssignmentViewController: UITextFieldDelegateExt{
 
     //TODO: Implement IDs here
-    func textEdited(sender: UITextField, textFieldID: FormCellID) {
+    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
             print("$ ERROR: sender's text was nil. File: \(#file), Function: \(#function), Line: \(#line)")
             return
@@ -482,7 +482,7 @@ extension AddAssignmentViewController: UIPickerViewDelegate{
 extension AddAssignmentViewController: UITimePickerDelegate{
     
     //method that auto updates a corresponding .timeCell when a TimePicker is changed.
-    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath) {
+    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCell) {
         let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
         correspondingTimeCell.date = sender.date
         correspondingTimeCell.timeLabel.text = sender.date.format(with: "MMM d, h:mm a")
