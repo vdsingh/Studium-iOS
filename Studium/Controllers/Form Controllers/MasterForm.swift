@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import UserNotifications
 import RealmSwift
 
 //let cell = tableView.dequeueReusableCell(withIdentifier: LogoCell.id, for: indexPath) as! LogoCell
@@ -76,36 +75,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     }
     
     
-    //method to schedule Local Notifications to the User.
-    func scheduleNotification(components: DateComponents, body: String, titles:String, repeatNotif: Bool, identifier: String) {
-        
-        
-//        let triggerWeekly = Calendar.current.dateComponents([.weekday,.hour,.minute], from: date)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: repeatNotif)
-        
-        
-        let content = UNMutableNotificationContent()
-        content.title = titles
-        content.body = body
-        content.sound = UNNotificationSound.default
-//        content.categoryIdentifier = identifier
-        
-        
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-        //identifiers for courses are stored as "courseName alertTime"
-//        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-//        print(request)
-//        UNUserNotificationCenter.curren///t().delegate = self
-        //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        UNUserNotificationCenter.current().add(request) {(error) in
-            if error != nil {
-                print("ERROR: error with adding notification")
-            }else{
-                print("LOG: notification scheduled.")
-                
-            }
-        }
-    }
+
     
     func processAlertTimes() {
         
@@ -151,7 +121,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
         case .timePickerCell(let dateString, let delegate):
             let cell = tableView.dequeueReusableCell(withIdentifier: TimePickerCell.id, for: indexPath) as! TimePickerCell
             cell.delegate = delegate
-//            cell.indexPath = indexPath
+            cell.indexPath = indexPath
             let dateString = dateString
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "h:mm a"
