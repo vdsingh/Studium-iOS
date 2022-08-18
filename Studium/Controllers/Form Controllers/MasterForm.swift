@@ -10,13 +10,9 @@ import Foundation
 import UIKit
 import RealmSwift
 
-//let cell = tableView.dequeueReusableCell(withIdentifier: LogoCell.id, for: indexPath) as! LogoCell
-////cell.delegate = self
-//cell.setImage(systemImageName: systemImageString)
-//return cell
-
 public let kCellBackgroundColor = UIColor.secondarySystemBackground
 
+/// Form cells and all their necessary information to build a form
 public enum FormCell: Equatable {
     public static func == (lhs: FormCell, rhs: FormCell) -> Bool {
         return "\(lhs)" == "\(rhs)"
@@ -35,6 +31,7 @@ public enum FormCell: Equatable {
     case logoCell(imageString: String, onClick: (() -> Void)? = nil)
 }
 
+/// IDs for FormCells that we can use instead of hardcoded strings
 public enum FormCellID {
     case nameTextField
     case locationTextField
@@ -158,7 +155,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
             let cell = tableView.dequeueReusableCell(withIdentifier: ColorPickerCell.id, for: indexPath) as! ColorPickerCell
             cell.delegate = delegate
             return cell
-        case .pickerCell(let cellText, let delegate, let dataSource):
+        case .pickerCell(_, let delegate, let dataSource):
             let cell = tableView.dequeueReusableCell(withIdentifier: PickerCell.id, for: indexPath) as! PickerCell
             cell.picker.delegate = delegate
             cell.picker.dataSource = dataSource
@@ -171,8 +168,6 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
             let cell = tableView.dequeueReusableCell(withIdentifier: LogoCell.id, for: indexPath) as! LogoCell
             cell.setImage(systemImageName: imageString)
             return cell
-        default:
-            return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         }
     }
     
@@ -196,37 +191,6 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
         default:
             return
         }
-        
-//
-//        let selectedRowText = cellText[indexPath.section][indexPath.row]
-//        if cellType[indexPath.section][indexPath.row] == .timeCell{
-//            let timeCell = tableView.cellForRow(at: indexPath) as! TimeCell
-//            let pickerIndex = cellType[indexPath.section].firstIndex(of: .timePickerCell)
-//
-//            tableView.beginUpdates()
-//
-//            if let index = pickerIndex{
-//                cellText[indexPath.section].remove(at: index)
-//                cellType[indexPath.section].remove(at: index)
-//                tableView.deleteRows(at: [IndexPath(row: index, section: indexPath.section)], with: .right)
-//                if index == indexPath.row + 1{
-//                    tableView.endUpdates()
-//                    return
-//                }
-//            }
-//
-//            let newIndex = cellText[indexPath.section].firstIndex(of: selectedRowText)! + 1
-//            tableView.insertRows(at: [IndexPath(row: newIndex, section: indexPath.section)], with: .left)
-//
-//            cellType[indexPath.section].insert(.timePickerCell, at: newIndex)
-//            cellText[indexPath.section].insert("\(timeCell.date!.format(with: "h:mm a"))", at: newIndex)
-//            tableView.endUpdates()
-//        }else if cellType[indexPath.section][indexPath.row] == .logoCell {
-//            performSegue(withIdentifier: "toLogoSelection", sender: self)
-//        }else if cellText[indexPath.section][indexPath.row] == "Remind Me"{ //user selected "Remind Me"
-//            performSegue(withIdentifier: "toAlertSelection", sender: self)
-//        }
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -256,51 +220,6 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
 
 // MARK: - FormCell Searching
 extension MasterFormClass {
-//    func findFirstOccurrenceOfCell(cell: FormCell) -> IndexPath {
-//        let cellString = "\(cell)"
-//        for i in 0...cells.count {
-//            for j in 0...cells[i].count {
-//                if case cells[i][j] = cell {
-//                    return IndexPath(row: j, section: i)
-//                }
-////                switch cells[i] {
-////                default:
-////                    if "\(cells[i][j])" == cellString {
-////                        return IndexPath(row: j, section: i)
-////                    }
-////                }
-//            }
-//        }
-//        // TODO: Fix this: return nil
-//        return IndexPath(row: 0, section: 0)
-//    }
-//
-//    func findFirstOccurrenceOfCell(cell: FormCell, section: Int) -> IndexPath {
-        
-//        let row = cells[2].firstIndex(where: { cell in
-//            if case .colorPickerCell = cell {
-//                return true
-//            }
-//            return false
-//        }
-//        let cellString = "\(cell)"
-        
-//        for j in 0...cells[section].count {
-//            let cell = cells[section][j]
-//            if case .colorPickerCell = cell {
-//
-//            }
-//            switch cells[section][j] {
-//            default:
-//                if "\(cells[section][j])" == cellString {
-//                    return IndexPath(row: j, section: section)
-//                }
-//            }
-//        }
-//        // TODO: Fix this: return nil
-//        return IndexPath(row: 0, section: 0)
-//    }
-    
     func findFirstLogoCellIndex(section: Int) -> IndexPath? {
         for i in 0..<cells[section].count {
             switch cells[section][i] {
@@ -340,5 +259,13 @@ extension MasterFormClass {
         default:
             return
         }
+    }
+}
+
+//makes the keyboard dismiss when user clicks done
+extension UIViewController: UITextFieldDelegate{
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
     }
 }
