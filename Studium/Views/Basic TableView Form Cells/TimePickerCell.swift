@@ -38,10 +38,14 @@ class TimePickerCell: BasicCell {
 
         // Configure the view for the selected state
     }
-    @IBAction func pickerValueChanged(_ sender: UIDatePicker) {
-       delegate?.pickerValueChanged(sender: sender, indexPath: indexPath!)
-    }
     
+    @IBAction func pickerValueChanged(_ sender: UIDatePicker) {
+        if let indexPath = indexPath {
+            delegate?.pickerValueChanged(sender: sender, indexPath: indexPath)
+        } else {
+            print("$ ERROR: indexPath not supplied to TimePickerCell")
+        }
+    }
 }
 
 extension TimePickerCell: FormCellProtocol {
