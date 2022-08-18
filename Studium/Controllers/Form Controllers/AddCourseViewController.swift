@@ -21,40 +21,6 @@ class AddCourseViewController: MasterForm, LogoStorer {
     
     //link to the list that is to be refreshed when a new course is added.
     var delegate: CourseRefreshProtocol?
-    
-    //arrays that structure the form (determine each type of cell and what goes in them for the most part)
-//    var cellText: [[String]] = [
-//        ["Name", "Location", "Days", "Remind Me"],
-//        ["Starts", "Ends"], ["Logo", "Color Picker", "Additional Details"],
-//        [""]
-//    ]
-    
-//    cell.label.text = cellText[indexPath.section][indexPath.row]
-//    return cell
-    
-//    lazy var cells: [[FormCell]] = {
-//        [
-//            [
-//                .textFieldCell(placeholderText: "Name", textFieldDelegate: self),
-//                .textFieldCell(placeholderText: "Location", textFieldDelegate: self),
-//                .daySelectorCell,
-//                .labelCell
-//            ],
-//            [
-//                .timeCell, .timeCell
-//            ],
-//            [
-//                .logoCell,
-//                .colorPickerCell,
-//                .textFieldCell(placeholderText: "Additional Details", textFieldDelegate: self)
-//            ],
-//            [
-//                .labelCell
-//            ]
-//        ]
-//    }()
-//    var cellType: [[String]] = [["TextFieldCell", "TextFieldCell", "DaySelectorCell", "LabelCell"],  ["TimeCell", "TimeCell"], ["LogoCell", "ColorPickerCell", "TextFieldCell"], ["LabelCell"]]
-    
     //start and end time for the course. The date doesn't actually matter because the days are selected elsewhere
     var startDate: Date = Date()
     var endDate: Date = Date() + (60*60)
@@ -74,32 +40,11 @@ class AddCourseViewController: MasterForm, LogoStorer {
     var location: String = ""
     var daysSelected: [Int] = []
     var logoString: String = "pencil"
-    
-//    var alertTimes: [Int] = []
-    
+        
     var partitionKey: String = ""
     
     @IBOutlet weak var navButton: UIBarButtonItem!
-    //called when the view loads
-    
-//    var cellText: [[String]] = [
-//        ["Name", "Location", "Days", "Remind Me"],
-//        ["Starts", "Ends"],
-//        ["Logo", "Color Picker", "Additional Details"],
-//        [""]
-    
-//    let cell = tableView.dequeueReusableCell(withIdentifier: TimeCell.id, for: indexPath) as! TimeCell
-//    if cellText[indexPath.section][indexPath.row] == "Starts" {
-//        cell.timeLabel.text = startDate.format(with: "h:mm a")
-//        cell.date = startDate
-//    } else {
-//        cell.timeLabel.text = endDate.format(with: "h:mm a")
-//        cell.date = endDate
-//    }
-//
-//    cell.label.text = cellText[indexPath.section][indexPath.row]
-//    return cell
-    
+
     override func viewDidLoad() {
         self.cells = [
             [
@@ -160,117 +105,42 @@ class AddCourseViewController: MasterForm, LogoStorer {
         errors = ""
 //        retrieveData()
         endDate = Calendar.current.date(bySettingHour: endDate.hour, minute: endDate.minute, second: endDate.second, of: startDate)!
-        if name == ""{
+        if name == "" {
             errors.append(" Please specify a course name.")
         }
         
-        if daysSelected == []{
+        if daysSelected == [] {
             errors.append(" Please specify at least one day.")
         }
         
         if endDate.isEarlier(than: startDate){
-            //            print("start date: \(startDate), end date: \(endDate)")
             errors.append(" End time cannot occur before start time.")
         }
         
-        if errors.count == 0{
-            if course == nil{
+        if errors.count == 0 {
+            if let course = self.course {
+                // TODO: Move deleteNotifications to NotificationHandler
+                course.deleteNotifications()
+                NotificationHandler.scheduleNotificationsForCourse(course: course)
+                
+                if let user = app.currentUser {
+                    partitionKey = user.id
+                }
+                course.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
+            } else {
                 let newCourse = Course()
                 if let user = app.currentUser {
                     partitionKey = user.id
                 }
                 newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
                 //scheduling the appropriate notifications
-                for alertTime in alertTimes{
-                    for day in daysSelected{
-//                        let weekday = Date.convertDayToWeekday(day: day)
-//                        let weekdayAsInt = Date.convertDayToInt(day: day)
-                        var alertDate = Date()
-                        if startDate.weekday != day{ //the course doesn't occur today
-                            alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
-                        }
-                        
-                        alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
-                        
-                        alertDate -= (60 * Double(alertTime))
-                        //                    alertDate = startDate - (60 * Double(alertTime))
-                        //consider how subtracting time from alertDate will affect the weekday component.
-                        let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
-                        //                    print(courseComponents)
-                        
-                        //adjust title as appropriate
-                        var title = ""
-                        if alertTime < 60{
-                            title = "\(name) starts in \(alertTime) minutes."
-                        }else if alertTime == 60{
-                            title = "\(name) starts in 1 hour"
-                        }else{
-                            title = "\(name) starts in \(alertTime / 60) hours"
-                        }
-                        //                    let alertTimeDouble: Double = Double(alertTime)
-                        let timeFormat = startDate.format(with: "h:mm a")
-                        
-                        
-                        let identifier = UUID().uuidString
-                        //keeping track of the identifiers of notifs associated with the course.
-                        newCourse.notificationIdentifiers.append(identifier)
-
-                        scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
-                    }
-                }
+                NotificationHandler.scheduleNotificationsForCourse(course: newCourse)
                 RealmCRUD.saveCourse(course: newCourse)
                 newCourse.addToAppleCalendar()
-            }else{
-                do{
-                    try realm.write{
-                        print("the system image string: \(systemImageString)")
-                        course!.deleteNotifications()
-                        for alertTime in alertTimes{
-                            for day in daysSelected{
-//                                let weekday = Date.convertDayToWeekday(day: day)
-//                                let weekdayAsInt = Date.convertDayToInt(day: day)
-                                var alertDate = Date()
-                                if startDate.weekday != day{
-                                    alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
-                                }
-                                
-                                alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
-                            
-                                alertDate -= (60 * Double(alertTime))
-                                let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
-                            
-                            //adjust title as appropriate
-                                var title = ""
-                                if alertTime < 60{
-                                    title = "\(name) starts in \(alertTime) minutes."
-                                }else if alertTime == 60{
-                                    title = "\(name) starts in 1 hour"
-                                }else{
-                                    title = "\(name) starts in \(alertTime / 60) hours"
-                                }
-                            //                    let alertTimeDouble: Double = Double(alertTime)
-                            let timeFormat = startDate.format(with: "h:mm a")
-                            
-                            let identifier = UUID().uuidString
-                            //keeping track of the identifiers of notifs associated with the course.
-                            course!.notificationIdentifiers.append(identifier)
-
-                            scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
-                            }
-                        }
-                        if let user = app.currentUser {
-                            partitionKey = user.id
-                        }
-                        course!.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
-                    }
-                }catch{
-                    print(error)
-                }
             }
             dismiss(animated: true, completion: delegate?.loadCourses)
         }else{
             self.replaceLabelText(text: errors, section: 3, row: 0)
-//            cellText[3][0] = errors
             reloadData()
         }
     }
@@ -302,70 +172,6 @@ extension AddCourseViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells[section].count
     }
-    
-    // Constructs the form based on information mostly from the main arrays.
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cellType = cellType[indexPath.section][indexPath.row]
-//        let cellText = cellText[indexPath.section][indexPath.row]
-//        switch cellType {
-//        case .textFieldCell:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.id, for: indexPath) as! TextFieldCell
-//            cell.textField.placeholder = cellText
-//            cell.textField.delegate = self
-//            cell.delegate = self
-//            return cell
-//        case .timeCell:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: TimeCell.id, for: indexPath) as! TimeCell
-//            if cellText[indexPath.section][indexPath.row] == "Starts" {
-//                cell.timeLabel.text = startDate.format(with: "h:mm a")
-//                cell.date = startDate
-//            } else {
-//                cell.timeLabel.text = endDate.format(with: "h:mm a")
-//                cell.date = endDate
-//            }
-//
-//            cell.label.text = cellText[indexPath.section][indexPath.row]
-//            return cell
-//        case .timePickerCell:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: TimePickerCell.id, for: indexPath) as! TimePickerCell
-//            cell.delegate = self
-//            cell.indexPath = indexPath
-//            let dateString = cellText[indexPath.section][indexPath.row]
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "h:mm a"
-//            let date = dateFormatter.date(from: dateString)!
-//            cell.picker.setDate(date, animated: true)
-//            return cell
-//        case .daySelectorCell:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: DaySelectorCell.id, for: indexPath) as! DaySelectorCell
-//            cell.delegate = self
-//            return cell
-//        case .labelCell:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: LabelCell.id, for: indexPath) as! LabelCell
-//            if indexPath.section == 0 && indexPath.row == 3{
-//                //                cell.label.textColor = .black
-//                cell.accessoryType = .disclosureIndicator
-//            }else{
-//                cell.backgroundColor = .systemBackground
-//                cell.label.textColor = UIColor.red
-//            }
-//            cell.label.text = cellText[indexPath.section][indexPath.row]
-//            //print("added a label cell")
-//            return cell
-//
-//        case .colorPickerCell:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: ColorPickerCell.id, for: indexPath) as! ColorPickerCell
-//            cell.delegate = self
-//            return cell
-//        case .logoCell:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: LogoCell.id, for: indexPath) as! LogoCell
-//            //cell.delegate = self
-//            cell.setImage(systemImageName: systemImageString)
-//            return cell
-//        default:
-//            return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-//        }
-//    }
 }
 
 //MARK: - TableView Delegate
