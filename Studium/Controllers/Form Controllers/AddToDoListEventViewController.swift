@@ -275,13 +275,18 @@ extension AddToDoListEventViewController: UITimePickerDelegate{
 }
 
 extension AddToDoListEventViewController: UITextFieldDelegateExt{
-    func textEdited(sender: UITextField) {
-        if sender.placeholder == "Name"{
-            name = sender.text!
-        }else if sender.placeholder == "Location"{
-            location = sender.text!
-        }else if sender.placeholder == "Additional Details"{
-            additionalDetails = sender.text!
+    func textEdited(sender: UITextField, textFieldID: FormCellID) {
+        guard let text = sender.text else {
+            print("$ ERROR: sender's text was nil. \nFile: \(#file)\nFunction: \(#function)\nLine: \(#line)")
+            return
+        }
+        switch textFieldID {
+        case .nameTextField:
+            self.name = text
+        case .locationTextField:
+            self.location = text
+        case .additionalDetailsTextField:
+            self.additionalDetails = text
         }
     }
 }
