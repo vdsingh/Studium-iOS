@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         if let user = app.currentUser {
-            do{
+            do {
                 realm = try Realm(configuration: user.configuration(partitionValue: user.id))
                 let assignments = realm.objects(Assignment.self)
                 for assignment in assignments{
@@ -39,11 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         RealmCRUD.deleteAssignment(assignment: assignment)
                     }
                 }
-            }catch{
+            } catch {
                 print("Error lol")
             }
             print("User IS signed in.")
-        }else {
+        } else {
             defaults.setValue("Guest", forKey: "email")
             print("User is NOT signed in.")
         }
@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     //updates the theme color of the app.
-    func updateTheme(color: UIColor){
+    func updateTheme(color: UIColor) {
         let navAppearance = UINavigationBarAppearance()
         navAppearance.backgroundColor = color
         
@@ -88,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        UITabBar.appearance().scrollEdgeAppearance = tabAppearance
     }
     
-    func changeTheme(colorKey: String){
+    func changeTheme(colorKey: String) {
 //        defaults.setColor(color: color, forKey: "themeColor") // set
         defaults.setValue(colorKey, forKey: "themeColor")
          // get

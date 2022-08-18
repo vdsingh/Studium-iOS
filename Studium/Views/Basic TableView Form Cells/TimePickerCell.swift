@@ -9,10 +9,12 @@
 import UIKit
 
 public protocol UITimePickerDelegate {
-    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath)
+    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCell)
 }
 
 class TimePickerCell: BasicCell {
+    public var formCellID: FormCellID.TimePickerCell?
+    
     @IBOutlet weak var picker: UIDatePicker!
     
     var delegate: UITimePickerDelegate?
@@ -25,26 +27,28 @@ class TimePickerCell: BasicCell {
         if #available(iOS 13.4, *) {
             picker.preferredDatePickerStyle = UIDatePickerStyle.wheels
         }
-        self.backgroundColor = defaultBackgroundColor
 
-//        let date = Date(dateString: "5:30 PM", format: "h:mm a")
-//        picker.setDate(date, animated: true)
+        self.backgroundColor = defaultBackgroundColor
     }
     
     
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     @IBAction func pickerValueChanged(_ sender: UIDatePicker) {
-        if let indexPath = indexPath {
-            delegate?.pickerValueChanged(sender: sender, indexPath: indexPath)
-        } else {
-            print("$ ERROR: indexPath not supplied to TimePickerCell")
+        guard let indexPath = self.indexPath, let formCellID = self.formCellID else {
+            print("$ ERROR: indexPath or formCellID were nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            return
         }
+        
+        guard let delegate = self.delegate else {
+            print("$ ERROR: delegate is nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            return
+        }
+        
+        delegate.pickerValueChanged(sender: sender, indexPath: indexPath, pickerID: formCellID)
     }
 }
 
