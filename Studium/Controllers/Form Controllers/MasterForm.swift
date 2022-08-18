@@ -17,9 +17,13 @@ import RealmSwift
 
 public let kCellBackgroundColor = UIColor.secondarySystemBackground
 
-public enum FormCell {
+public enum FormCell: Equatable {
+    public static func == (lhs: FormCell, rhs: FormCell) -> Bool {
+        return "\(lhs)" == "\(rhs)"
+    }
+    
 
-    case textFieldCell(placeholderText: String, textFieldDelegate: UITextFieldDelegate, delegate: UITextFieldDelegateExt)
+    case textFieldCell(placeholderText: String, id: FormCellID, textFieldDelegate: UITextFieldDelegate, delegate: UITextFieldDelegateExt)
     case switchCell(cellText: String, switchDelegate: CanHandleSwitch?, infoDelegate: CanHandleInfoDisplay?)
     case labelCell(cellText: String, textColor: UIColor = .label, backgroundColor: UIColor = kCellBackgroundColor, cellAccessoryType: UITableViewCell.AccessoryType = .none, onClick: (() -> Void)? = nil)
     case timeCell(cellText: String, date: Date, onClick: ((IndexPath) -> Void)? = nil)
@@ -29,6 +33,12 @@ public enum FormCell {
     case colorPickerCell(delegate: ColorDelegate)
     case pickerCell(cellText: String, delegate: UIPickerViewDelegate, dataSource: UIPickerViewDataSource)
     case logoCell(imageString: String, onClick: (() -> Void)? = nil)
+}
+
+public enum FormCellID {
+    case nameTextField
+    case locationTextField
+    case additionalDetailsTextField
 }
 
 typealias MasterForm = MasterFormClass
@@ -84,11 +94,12 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cells[indexPath.section][indexPath.row]
         switch cell {
-        case .textFieldCell(let placeholderText, let textFieldDelegate, let delegate):
+        case .textFieldCell(let placeholderText, let id, let textFieldDelegate, let delegate):
             let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.id, for: indexPath) as! TextFieldCell
             cell.textField.placeholder = placeholderText
             cell.textField.delegate = textFieldDelegate
             cell.delegate = delegate
+            cell.textFieldID = id
             return cell
         case .switchCell(let cellText, let switchDelegate, let infoDelegate):
             let cell = tableView.dequeueReusableCell(withIdentifier: SwitchCell.id, for: indexPath) as! SwitchCell
@@ -245,34 +256,73 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
 
 // MARK: - FormCell Searching
 extension MasterFormClass {
-    func findFirstOccurrenceOfCell(cell: FormCell) -> IndexPath {
-        let cellString = "\(cell)"
-        for i in 0...cells.count {
-            for j in 0...cells[i].count {
-                switch cells[i] {
-                default:
-                    if "\(cells[i][j])" == cellString {
-                        return IndexPath(row: j, section: i)
-                    }
-                }
+//    func findFirstOccurrenceOfCell(cell: FormCell) -> IndexPath {
+//        let cellString = "\(cell)"
+//        for i in 0...cells.count {
+//            for j in 0...cells[i].count {
+//                if case cells[i][j] = cell {
+//                    return IndexPath(row: j, section: i)
+//                }
+////                switch cells[i] {
+////                default:
+////                    if "\(cells[i][j])" == cellString {
+////                        return IndexPath(row: j, section: i)
+////                    }
+////                }
+//            }
+//        }
+//        // TODO: Fix this: return nil
+//        return IndexPath(row: 0, section: 0)
+//    }
+//
+//    func findFirstOccurrenceOfCell(cell: FormCell, section: Int) -> IndexPath {
+        
+//        let row = cells[2].firstIndex(where: { cell in
+//            if case .colorPickerCell = cell {
+//                return true
+//            }
+//            return false
+//        }
+//        let cellString = "\(cell)"
+        
+//        for j in 0...cells[section].count {
+//            let cell = cells[section][j]
+//            if case .colorPickerCell = cell {
+//
+//            }
+//            switch cells[section][j] {
+//            default:
+//                if "\(cells[section][j])" == cellString {
+//                    return IndexPath(row: j, section: section)
+//                }
+//            }
+//        }
+//        // TODO: Fix this: return nil
+//        return IndexPath(row: 0, section: 0)
+//    }
+    
+    func findFirstLogoCellIndex(section: Int) -> IndexPath? {
+        for i in 0..<cells[section].count {
+            switch cells[section][i] {
+            case .logoCell(_, _):
+                return IndexPath(row: i, section: section)
+            default:
+                continue
             }
         }
-        // TODO: Fix this: return nil
-        return IndexPath(row: 0, section: 0)
+        return nil
     }
     
-    func findFirstOccurrenceOfCell(cell: FormCell, section: Int) -> IndexPath {
-        let cellString = "\(cell)"
-        for j in 0...cells[section].count {
-            switch cells[section][j] {
+    func findFirstPickerCellIndex(section: Int) -> Int? {
+        for i in 0..<cells[section].count {
+            switch cells[section][i] {
+            case .timePickerCell(_, _):
+                return i
             default:
-                if "\(cells[section][j])" == cellString {
-                    return IndexPath(row: j, section: section)
-                }
+                continue
             }
         }
-        // TODO: Fix this: return nil
-        return IndexPath(row: 0, section: 0)
+        return nil
     }
 }
 

@@ -44,12 +44,18 @@ class AddCourseViewController: MasterForm, LogoStorer {
     var partitionKey: String = ""
     
     @IBOutlet weak var navButton: UIBarButtonItem!
+    
+//    enum CellID: String {
+//        case nameTextField
+//        case locationTextField
+//        case additionalDetailsTextField
+//    }
 
     override func viewDidLoad() {
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", id: FormCellID.nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", id: FormCellID.locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(delegate: self),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: {
                     self.performSegue(withIdentifier: "toAlertSelection", sender: self)
@@ -65,7 +71,7 @@ class AddCourseViewController: MasterForm, LogoStorer {
                     self.performSegue(withIdentifier: "toLogoSelection", sender: self)
                 }),
                 .colorPickerCell(delegate: self),
-                .textFieldCell(placeholderText: "Additional Details", textFieldDelegate: self, delegate: self)
+                .textFieldCell(placeholderText: "Additional Details", id: FormCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],
             [
                 .labelCell(cellText: "", textColor: .systemRed, backgroundColor: .systemBackground, cellAccessoryType: .disclosureIndicator)
@@ -95,8 +101,15 @@ class AddCourseViewController: MasterForm, LogoStorer {
     //when we pick a logo, this function is called to update the preview on the logo cell.
     func refreshLogoCell() {
 //        let logoCellRow = cellType[2].firstIndex(of: .logoCell)!
-//        let logoCell = tableView.cellForRow(at: indexPath) as! LogoCell
-//        logoCell.setImage(systemImageName: systemImageString)
+        guard let logoCellIndexPath = self.findFirstLogoCellIndex(section: 2) else {
+            print("$ ERROR: Can't locate logo cell")
+            return
+        }
+        guard let logoCell = tableView.cellForRow(at: logoCellIndexPath) as? LogoCell else {
+            print("$ ERROR: LogoCell not found")
+            return
+        }
+        logoCell.setImage(systemImageName: systemImageString)
 //        logoCell.systemImageString = systemImageString
     }
     
@@ -181,30 +194,7 @@ extension AddCourseViewController{
         return 30
     }
     
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if cellType[indexPath.section][indexPath.row] == .pickerCell ||
-//            cellType[indexPath.section][indexPath.row] == .timePickerCell ||
-//            cellType[indexPath.section][indexPath.row] == .colorPickerCell
-//        {
-//            return 150
-//        }
-//        if(cellType[indexPath.section][indexPath.row] == .logoCell){
-//            return 60
-//        }
-//        return 50
-//    }
     
-    private func findFirstPickerCellIndex(section: Int) -> Int? {
-        for i in 0..<cells[section].count {
-            switch cells[section][i] {
-            case .timePickerCell(_, _):
-                return i
-            default:
-                continue
-            }
-        }
-        return nil
-    }
                     
     private func timeCellClicked(indexPath: IndexPath) {
         guard let timeCell = tableView.cellForRow(at: indexPath) as? TimeCell else {
@@ -280,7 +270,6 @@ extension AddCourseViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? LogoSelectorViewController {
             destinationVC.delegate = self
-//            let colorCellIndexPath = self.findFirstOccurrenceOfCell(cell: .colorPickerCell, section: 2)
             guard let colorCellRow = cells[2].firstIndex(where: { cell in
                 if case .colorPickerCell = cell {
                     return true
@@ -289,8 +278,6 @@ extension AddCourseViewController{
             }) else {
                 return
             }
-//            let colorCellIndexPath = cells[2].ind
-        
             guard let colorCell = tableView.cellForRow(at: IndexPath(row: colorCellRow, section: 2)) as? ColorPickerCell else {
                 return
             }
@@ -303,13 +290,20 @@ extension AddCourseViewController{
 }
 
 extension AddCourseViewController: UITextFieldDelegateExt{
-    func textEdited(sender: UITextField) {
-        if sender.placeholder == "Name"{
-            name = sender.text!
-        }else if sender.placeholder == "Location"{
-            location = sender.text!
-        }else if sender.placeholder == "Additional Details"{
-            additionalDetails = sender.text!
+    func textEdited(sender: UITextField, textFieldID: FormCellID) {
+        guard let text = sender.text else {
+            print("$ ERROR: sender's text is nil when editing text in \(textFieldID).\n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
+            return
+        }
+        switch textFieldID {
+        case .nameTextField:
+            self.name = text
+        case .locationTextField:
+            self.location = text
+        case .additionalDetailsTextField:
+            self.additionalDetails = text
+        default:
+            print("$ ERROR: unknown field when editing text.\n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
         }
     }
 }

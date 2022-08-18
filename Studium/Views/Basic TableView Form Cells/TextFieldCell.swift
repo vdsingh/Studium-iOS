@@ -8,12 +8,14 @@
 
 import UIKit
 public protocol UITextFieldDelegateExt {
-    func textEdited(sender: UITextField)
+    func textEdited(sender: UITextField, textFieldID: FormCellID)
 }
 class TextFieldCell: BasicCell {
 
     @IBOutlet weak var textField: UITextField!
     public var delegate: UITextFieldDelegateExt!
+    
+    public var textFieldID: FormCellID?
     
 //    init(delegate: UITextFieldDelegateExt, style: UITableViewCell.CellStyle = .default) {
 //        self.delegate = delegate
@@ -27,7 +29,7 @@ class TextFieldCell: BasicCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        textField.returnKeyType = UIReturnKeyType.done
+        self.textField.returnKeyType = UIReturnKeyType.done
         
         self.backgroundColor = defaultBackgroundColor
     }
@@ -41,7 +43,12 @@ class TextFieldCell: BasicCell {
     }
     
     @IBAction func textEdited(_ sender: UITextField) {
-        delegate.textEdited(sender: sender)
+        if let textFieldID = self.textFieldID {
+            delegate.textEdited(sender: sender, textFieldID: textFieldID)
+        } else {
+            print("$ ERROR: textFieldID not supplied.")
+        }
+//        delegate.textEdited(sender: sender)
     }
 }
 
