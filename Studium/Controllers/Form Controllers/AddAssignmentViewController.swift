@@ -54,18 +54,20 @@ class AddAssignmentViewController: MasterForm{
         self.cells = [
             [
                 .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
-                .timeCell(cellText: "Due Date", date: self.dueDate, id: .endTimeCell, onClick: nil),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .detailDisclosureButton, onClick: nil)
+                .timeCell(cellText: "Due Date", date: self.dueDate, id: .endTimeCell, onClick: timeCellClicked),
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: {
+                    self.performSegue(withIdentifier: "toAlertSelection", sender: self)
+                })
             ],
             [
                 .switchCell(cellText: "Schedule Time to Work", switchDelegate: self, infoDelegate: self)
             ],
             [
-                .pickerCell(cellText: "Course", delegate: self, dataSource: self)
+                .pickerCell(cellText: "Course", tag: FormCellID.PickerCell.coursePickerCell, delegate: self, dataSource: self)
             ],
             [
                 .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "", textColor: .systemRed, onClick: nil)
+                .labelCell(cellText: "", textColor: .systemRed)
             ]
         ]
         super.viewDidLoad()
@@ -117,68 +119,30 @@ class AddAssignmentViewController: MasterForm{
     //method that is triggered when the user wants to finalize the form
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         errors = ""
-        if name == ""{
         if name == "" {
             errors.append(" Please specify a name.")
         }
         
         if errors == "" {
-            if assignment == nil{
+            if assignment == nil {
                 print("adding assignment for the first time")
                 guard let user = app.currentUser else {
-                    print("ERROR: error getting user")
+                    print("$ ERROR: error getting user")
                     return
                 }
 
                 let newAssignment = Assignment()
                 newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes + (workTimeHours * 60), autoDays: workDaysSelected, partitionKey: user.id)
                 
-                for alertTime in alertTimes{
-                    let alertDate = dueDate - (Double(alertTime) * 60)
-                    var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
-                    components.second = 0
-
-                    let identifier = UUID().uuidString
-                    newAssignment.notificationIdentifiers.append(identifier)
-                    NotificationHandler.scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
-                }
+                NotificationHandler.scheduleNotificationsForAssignment(assignment: newAssignment)
                 RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse!)
             }else{
-                do{
-                    try realm.write{
-                        assignment!.updateNotifications(with: alertTimes)
-                    }
-                    for alertTime in alertTimes{
-                        if !assignment!.notificationAlertTimes.contains(alertTime){
-                            let alertDate = dueDate - (Double(alertTime) * 60)
-                            var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
-                            components.second = 0
-                            let identifier = UUID().uuidString
-                            try realm.write{
-                                print("scheduling new notification for alertTime: \(alertTime)")
-                                assignment!.notificationIdentifiers.append(identifier)
-                                assignment!.notificationAlertTimes.append(alertTime)
-                            }
-                            NotificationHandler.scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
-                        }
-                    }
-                    try realm.write{
-                        print("Edited Assignment with \(workTimeHours) and \(workTimeMinutes)")
-                        guard let user = app.currentUser else {
-                            print("ERROR: error getting user")
-                            return
-                        }
-                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
-                        
-                    }
-                }catch{
-                    print("ERROR: \(error)")
-                }
+                // TODO: Implement assignment notification updates here
+                
             }
             delegate?.loadAssignments()
             dismiss(animated: true, completion: nil)
-        }else{
-//            cellText[3][1] = errors
+        } else {
             self.replaceLabelText(text: errors, section: 3, row: 1)
             tableView.reloadData()
         }
@@ -192,12 +156,13 @@ class AddAssignmentViewController: MasterForm{
     //set the course picker to whatever course was originally selected, if any
     func setDefaultRow(picker: UIPickerView){
         var row = 0
-        if selectedCourse == nil{
+        guard let selectedCourse = self.selectedCourse else {
             return
         }
-        if let coursesArr = courses{
-            for course in coursesArr{
-                if course.name == selectedCourse!.name{
+
+        if let coursesArr = courses {
+            for course in coursesArr {
+                if course.name == selectedCourse.name {
                     picker.selectRow(row, inComponent: 0, animated: true)
                     break
                 }
@@ -251,8 +216,6 @@ class AddAssignmentViewController: MasterForm{
 //            workTimePickerCell.picker.
             workTimePickerCell.picker.selectRow(workTimeHours, inComponent: 0, animated: true)
             workTimePickerCell.picker.selectRow(workTimeMinutes, inComponent: 1, animated: true)
-
-
         }
         
         if (selectedCourse != nil){
@@ -291,23 +254,15 @@ extension AddAssignmentViewController: UITextFieldDelegateExt{
             print("$ ERROR: edited text for non-existent field. File: \(#file), Function: \(#function), Line: \(#line)")
             break
         }
-        
-//        if sender.placeholder == "Name"{
-//            print("name edited")
-//            name = sender.text!
-//        }else if sender.placeholder == "Additional Details"{
-//            print("additionalDetails edited")
-//            additionalDetails = sender.text!
-//        }
     }
 }
 
 //MARK: - TimerPicker DataSource Methods
 extension AddAssignmentViewController: UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView.tag == 1{
+        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue{
             return courses?.count ?? 1
-        }else if pickerView.tag == 0{
+        } else if pickerView.tag == FormCellID.PickerCell.lengthPickerCell.rawValue {
             if component == 0{
                 return 24
             }
@@ -317,10 +272,10 @@ extension AddAssignmentViewController: UIPickerViewDataSource{
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        if pickerView.tag == 0{
-            return 2
-        }else if pickerView.tag == 1{
+        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
             return 1
+        }else if pickerView.tag == FormCellID.PickerCell.lengthPickerCell.rawValue {
+            return 2
         }
         return 0
     }
@@ -330,9 +285,9 @@ extension AddAssignmentViewController: UIPickerViewDataSource{
 extension AddAssignmentViewController: UIPickerViewDelegate{
     //helps set up information in the UIPickerView
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView.tag == 1{
+        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
             return courses![row].name
-        }else if pickerView.tag == 0{
+        } else if pickerView.tag == FormCellID.PickerCell.lengthPickerCell.rawValue {
             if component == 0{
                 return "\(row) hours"
             }
@@ -341,65 +296,56 @@ extension AddAssignmentViewController: UIPickerViewDelegate{
         return "Unknown Picker"
     }
     
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if cellType[indexPath.section][indexPath.row] == .pickerCell || cellType[indexPath.section][indexPath.row] == .timePickerCell{
-//            return 150
-//        }
-//        return 50
-//    }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        if pickerView.tag == 1{ //course selection
+        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
+            // Course selection
             let selectedRow = pickerView.selectedRow(inComponent: 0)
             selectedCourse = courses![selectedRow]
-        }else if pickerView.tag == 0{
-            if component == 0{
+        } else if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
+            if component == 0 {
                 workTimeHours = row
-            }else{
+            } else {
                 workTimeMinutes = row
             }
-           
         }
     }
 }
 
 //MARK: - Date/TimePicker Delegate Methods
-extension AddAssignmentViewController: UITimePickerDelegate{
+extension AddAssignmentViewController: UITimePickerDelegate {
     
     //method that auto updates a corresponding .timeCell when a TimePicker is changed.
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCell) {
         let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
         correspondingTimeCell.date = sender.date
         correspondingTimeCell.timeLabel.text = sender.date.format(with: "MMM d, h:mm a")
-        
         dueDate = sender.date
     }
 }
 
 extension AddAssignmentViewController: CanHandleSwitch{
     func switchValueChanged(sender: UISwitch) {
-//        print("switch changed")
-//        if sender.isOn{
-//            scheduleWorkTime = true
-//            cellText[1].append("New Cell")
-//            cellType[1].append(.daySelectorCell)
-//
-//            cellText[1].append("Length")
-//            cellType[1].append(.pickerCell)
-//            tableView.reloadData()
-//        }else{
-//            scheduleWorkTime = false
-//            cellText[1].removeAll()
-//            cellType[1].removeAll()
-//            cellText[1].append("Schedule Time to Work")
-//            cellType[1].append(.switchCell)
-//            tableView.reloadData()
-//        }
+        print("$ LOG: Switch value changed")
+        // TODO: Use tableview updates so these actions are animated.
+        if sender.isOn{
+            scheduleWorkTime = true
+            cells[1].append(.daySelectorCell(delegate: self))
+            cells[1].append(.pickerCell(cellText: "Length", tag: FormCellID.PickerCell.lengthPickerCell, delegate: self, dataSource: self))
+            tableView.reloadData()
+        }else{
+            scheduleWorkTime = false
+            cells[1].removeAll()
+            cells[1].append(.switchCell(cellText: "Schedule Time to Work", switchDelegate: self, infoDelegate: self))
+            tableView.reloadData()
+        }
     }
 }
 
 extension AddAssignmentViewController: CanHandleInfoDisplay{
     func displayInformation() {
-        let alert = UIAlertController(title: "Anti-Procrastination!", message: "Need to schedule time to work on this? Specify what days are best and how long you want to work per day. We'll find time for you to get it done!", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Anti-Procrastination!",
+                                      message: "Need to schedule time to work on this? Specify what days are best and how long you want to work per day. We'll find time for you to get it done!",
+                                      preferredStyle: UIAlertController.Style.alert)
 //        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
 //            self.deleteAllOtherEvents(isCompleted: isCompleted)
 //          }))
@@ -408,8 +354,6 @@ extension AddAssignmentViewController: CanHandleInfoDisplay{
         present(alert, animated: true, completion: nil)
 
     }
-    
-    
 }
 
 extension AddAssignmentViewController: DaySelectorDelegate{
@@ -429,3 +373,46 @@ extension AddAssignmentViewController: DaySelectorDelegate{
     }
 }
 
+extension AddAssignmentViewController {
+    private func timeCellClicked(indexPath: IndexPath) {
+        guard let timeCell = tableView.cellForRow(at: indexPath) as? TimeCell else {
+            print("$ ERROR: Time Cell Mismatch.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            return
+        }
+        var timeCellIndex = indexPath.row
+        tableView.beginUpdates()
+        
+        /// Find the first time picker (if there is one) and remove it
+        if let indexOfFirstTimePicker = self.findFirstPickerCellIndex(section: indexPath.section) {
+            cells[indexPath.section].remove(at: indexOfFirstTimePicker)
+            tableView.deleteRows(at: [IndexPath(row: indexOfFirstTimePicker, section: indexPath.section)], with: .right)
+            /// Clicked on time cell while corresopnding timepicker is already expanded.
+            if indexOfFirstTimePicker == indexPath.row + 1 {
+                tableView.endUpdates()
+                return
+            /// Clicked on time cell while above timepicker is expanded
+            } else if indexOfFirstTimePicker == indexPath.row - 1 {
+                /// Remove one from the index since we removed a cell above
+                timeCellIndex -= 1
+            }
+        }
+        var timePickerID = FormCellID.TimePickerCell.startDateTimePicker
+        switch timeCell.formCellID {
+        case .endTimeCell:
+            timePickerID = FormCellID.TimePickerCell.endDateTimePicker
+        case .startTimeCell:
+            timePickerID = FormCellID.TimePickerCell.startDateTimePicker
+        default:
+            print("$ ERROR: unexpected cell ID.\nFile: \(#file)\nFunction:\(#function)\nLine:\(#line)")
+            return
+        }
+        
+        cells[indexPath.section].insert(
+            .timePickerCell(dateString: "\(timeCell.date!.format(with: "h:mm a"))",
+                            id: timePickerID,
+                            delegate: self),
+            at: timeCellIndex + 1)
+        tableView.insertRows(at: [IndexPath(row: timeCellIndex + 1, section: indexPath.section)], with: .left)
+        tableView.endUpdates()
+    }
+}
