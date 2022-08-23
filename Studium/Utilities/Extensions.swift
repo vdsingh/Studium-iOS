@@ -11,7 +11,6 @@ import EventKit
 import RealmSwift
 
 extension String { //string extension for subscript access.
-
     var length: Int {
         return count
     }
@@ -36,7 +35,6 @@ extension String { //string extension for subscript access.
         return String(self[start ..< end])
     }
 }
-
 
 //date extension to get the next weekday of the week (i.e. next monday)
 extension Date {
@@ -158,3 +156,9 @@ extension Date {
     }
 }
 
+//allows us to parse Strings for ints.
+extension String{
+    func parseToInt() -> Int? {
+        return Int(self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined())
+    }
+}

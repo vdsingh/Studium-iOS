@@ -104,7 +104,7 @@ class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate {
                         print("Failed to log in to MongoDB Realm: \(error)")
                     case .success(let user):
 //                        accessToke
-                        print("Successfully logged in to MongoDB Realm using Facebook OAuth.")
+                        print("Successfully logged in to MongoDB Realm using Facebook OAuth. \(user)")
                         // Now logged in, do something with user
                         // Remember to dispatch to main if you are doing anything on the UI thread
 //                        let email =

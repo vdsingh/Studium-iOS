@@ -71,6 +71,7 @@ class AddCourseViewController: MasterForm {
         
         if let course = self.course {
             fillForm(with: course)
+            // TODO: Update course notification times
         }else{
             
             //we are creating a new course
@@ -172,6 +173,8 @@ extension AddCourseViewController: DaySelectorDelegate{
         }else{
             //day was not selected, and we are now selecting it.
             sender.isSelected = true
+            
+            // TODO: Fix force unwrap
             daysSelected.append(K.weekdayDict[sender.titleLabel!.text!]!)
         }
     }
@@ -190,6 +193,8 @@ extension AddCourseViewController{
         
         navButton.image = .none
         navButton.title = "Done"
+        
+        // TODO: Fix force typing 
         
         let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
         nameCell.textField.text = course.name

@@ -8,7 +8,9 @@
 
 import Foundation
 class StudiumState {
-    static var state = StudiumState()
+    public static var state = StudiumState()
+    
+//    var realm
     
     var courses: [Course] = []
     var habits: [Habit] = []

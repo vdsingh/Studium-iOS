@@ -38,9 +38,9 @@ class LogoSelectorViewController: UIViewController {
 extension LogoSelectorViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var logoNames = systemCourseLogoNames + systemHabitLogoNames;
-        if #available(iOS 14.0, *){
+        if #available(iOS 14.0, *) {
             logoNames += iOS14SystemLogoNames + letterAndNumberNames
-        }else{
+        } else {
             logoNames += letterAndNumberNames
         }
         delegate?.systemImageString = logoNames[indexPath.row]
@@ -61,9 +61,9 @@ extension LogoSelectorViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var logoNames = systemCourseLogoNames + systemHabitLogoNames;
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LogoCollectionViewCell", for: indexPath) as! LogoCollectionViewCell
-        if #available(iOS 14.0, *){
+        if #available(iOS 14.0, *) {
             logoNames += iOS14SystemLogoNames + letterAndNumberNames
-        }else{
+        } else {
             logoNames += letterAndNumberNames
         }
         cell.setImage(systemImageName: logoNames[indexPath.row], tintColor: color )

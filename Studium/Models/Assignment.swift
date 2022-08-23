@@ -168,7 +168,7 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
             let assignmentStart = startAndEnd![0]
             let assignmentEnd = startAndEnd![1]
             
-            print("startAndEnd: \(startAndEnd)")
+            print("startAndEnd: \(startAndEnd ?? [])")
 
             let newAssignment = Assignment()
 //            newAssignment.initializeData(name: "Work on \(name)", additionalDetails: "This is an automatically scheduled event to work on \(name).", complete: false, startDate: assignmentStart, endDate: assignmentEnd)

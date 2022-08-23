@@ -97,6 +97,8 @@
 		16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E7B22E27D1EF8D00AAE756 /* GenericTableViewCell.swift */; };
 		16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E7B22F27D1EF8D00AAE756 /* GenericTableViewCell.xib */; };
 		B939A89628A9D08600FB2728 /* Errors+Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939A89528A9D08600FB2728 /* Errors+Logs.swift */; };
+		B939A89828ADB61300FB2728 /* StudiumState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939A89728ADB61300FB2728 /* StudiumState.swift */; };
+		B939A89D28ADB78300FB2728 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939A89C28ADB78300FB2728 /* NotificationHandler.swift */; };
 		E8EA8423C30C2F3F29DA0025 /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */; };
 /* End PBXBuildFile section */
 
@@ -196,6 +198,8 @@
 		8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Studium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.release.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.release.xcconfig"; sourceTree = "<group>"; };
 		B939A89528A9D08600FB2728 /* Errors+Logs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Errors+Logs.swift"; sourceTree = "<group>"; };
+		B939A89728ADB61300FB2728 /* StudiumState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumState.swift; sourceTree = "<group>"; };
+		B939A89C28ADB78300FB2728 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,6 +306,7 @@
 		1693E72F247A3DC4003D4702 /* Studium */ = {
 			isa = PBXGroup;
 			children = (
+				B939A89B28ADB74000FB2728 /* Utilities */,
 				1693E730247A3DC4003D4702 /* AppDelegate.swift */,
 				1693E732247A3DC4003D4702 /* SceneDelegate.swift */,
 				1693E74C247A463D003D4702 /* Models */,
@@ -310,9 +315,6 @@
 				1693E739247A3DC6003D4702 /* Assets.xcassets */,
 				1693E73E247A3DC6003D4702 /* Info.plist */,
 				16C445AE26646C75006076C1 /* credentials.plist */,
-				1693E754247A4B64003D4702 /* K.swift */,
-				168EE1C42659F899009A8001 /* Autoschedule.swift */,
-				168EE1C62659FA10009A8001 /* RealmCRUD.swift */,
 				16B498CF25CE2CE6005E9C26 /* Secret.swift */,
 				B939A89528A9D08600FB2728 /* Errors+Logs.swift */,
 			);
@@ -355,7 +357,6 @@
 				1693E74D247A464F003D4702 /* Course.swift */,
 				1693E74F247A4660003D4702 /* Assignment.swift */,
 				16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */,
-				16429CFD247D20F90052E47C /* Extensions.swift */,
 				16429D03247E43720052E47C /* Habit.swift */,
 				16A63B8024AA8059003A30D3 /* OtherEvent.swift */,
 				16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */,
@@ -469,6 +470,19 @@
 				AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		B939A89B28ADB74000FB2728 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				168EE1C62659FA10009A8001 /* RealmCRUD.swift */,
+				168EE1C42659F899009A8001 /* Autoschedule.swift */,
+				1693E754247A4B64003D4702 /* K.swift */,
+				16429CFD247D20F90052E47C /* Extensions.swift */,
+				B939A89728ADB61300FB2728 /* StudiumState.swift */,
+				B939A89C28ADB78300FB2728 /* NotificationHandler.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -652,6 +666,7 @@
 				1686DB6424812CE000FA99DB /* LabelCell.swift in Sources */,
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
 				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
+				B939A89D28ADB78300FB2728 /* NotificationHandler.swift in Sources */,
 				1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */,
 				1686DB7E24827B8900FA99DB /* TimePickerCell.swift in Sources */,
 				164F62F924E4D54200DC8169 /* LogoSelectorViewController.swift in Sources */,
@@ -674,6 +689,7 @@
 				16429CFE247D20F90052E47C /* Extensions.swift in Sources */,
 				1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */,
 				164905B727E18732002DE61D /* LoginViewController.swift in Sources */,
+				B939A89828ADB61300FB2728 /* StudiumState.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
 				B939A89628A9D08600FB2728 /* Errors+Logs.swift in Sources */,
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,

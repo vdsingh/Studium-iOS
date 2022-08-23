@@ -30,8 +30,6 @@ class TimePickerCell: BasicCell {
 
         self.backgroundColor = defaultBackgroundColor
     }
-    
-    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
