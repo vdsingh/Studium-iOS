@@ -54,7 +54,7 @@ class DayScheduleViewController: DayViewController{
             realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
 
         }else{
-            print("ERROR: error getting user when adding courses in DayScheduleViewController. Logging Out.")
+            print("$ ERROR: error getting user when adding courses in DayScheduleViewController. Logging Out.")
             K.handleLogOut()
             return []
         }
