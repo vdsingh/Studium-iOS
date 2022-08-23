@@ -10,21 +10,15 @@ protocol CourseRefreshProtocol{
     func loadCourses()
 }
 
-class AddCourseViewController: MasterForm, LogoStorer {
+class AddCourseViewController: MasterForm {
     
     let codeLocationString = "AddCourseViewController"
     
     var course: Course?
     
-    //system image string that identifies what the logo of the course will be.
-    var systemImageString: String = "pencil"
-    
     //link to the list that is to be refreshed when a new course is added.
     var delegate: CourseRefreshProtocol?
-    //start and end time for the course. The date doesn't actually matter because the days are selected elsewhere
-    var startDate: Date = Date()
-    var endDate: Date = Date() + (60*60)
-    
+
     //error string that is displayed when there are errors
     var errors: String = ""
     
@@ -85,18 +79,6 @@ class AddCourseViewController: MasterForm, LogoStorer {
                 alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
             }
         }
-    }
-    //when we pick a logo, this function is called to update the preview on the logo cell.
-    func refreshLogoCell() {
-        guard let logoCellIndexPath = self.findFirstLogoCellIndex(section: 2) else {
-            print("$ ERROR: Can't locate logo cell")
-            return
-        }
-        guard let logoCell = tableView.cellForRow(at: logoCellIndexPath) as? LogoCell else {
-            print("$ ERROR: LogoCell not found")
-            return
-        }
-        logoCell.setImage(systemImageName: systemImageString)
     }
     
     //final step that occurs when the user has filled out the form and wants to add the new course
@@ -160,80 +142,13 @@ extension AddCourseViewController{
     }
 }
 
-//MARK: - TableView Delegate
-extension AddCourseViewController {
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
-                    
-    private func timeCellClicked(indexPath: IndexPath) {
-        guard let timeCell = tableView.cellForRow(at: indexPath) as? TimeCell else {
-            return
-        }
-        var timeCellIndex = indexPath.row
-        tableView.beginUpdates()
-        
-        /// Find the first time picker (if there is one) and remove it
-        if let indexOfFirstTimePicker = self.findFirstPickerCellIndex(section: indexPath.section) {
-            cells[indexPath.section].remove(at: indexOfFirstTimePicker)
-            tableView.deleteRows(at: [IndexPath(row: indexOfFirstTimePicker, section: indexPath.section)], with: .right)
-            /// Clicked on time cell while corresopnding timepicker is already expanded.
-            if indexOfFirstTimePicker == indexPath.row + 1 {
-                tableView.endUpdates()
-                return
-            /// Clicked on time cell while above timepicker is expanded
-            } else if indexOfFirstTimePicker == indexPath.row - 1 {
-                /// Remove one from the index since we removed a cell above
-                timeCellIndex -= 1
-            }
-        }
-        var timePickerID = FormCellID.TimePickerCell.startDateTimePicker
-        switch timeCell.formCellID {
-        case .endTimeCell:
-            timePickerID = FormCellID.TimePickerCell.endDateTimePicker
-        case .startTimeCell:
-            timePickerID = FormCellID.TimePickerCell.startDateTimePicker
-        case .none:
-            print("$ ERROR: Time cell ID not found.\nFile: \(#file)\nFunction:\(#function)\nLine:\(#line)")
-            return
-        }
-        
-        cells[indexPath.section].insert(
-            .timePickerCell(dateString: "\(timeCell.date!.format(with: "h:mm a"))",
-                            id: timePickerID,
-                            delegate: self),
-            at: timeCellIndex + 1)
-        tableView.insertRows(at: [IndexPath(row: timeCellIndex + 1, section: indexPath.section)], with: .left)
-        tableView.endUpdates()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? LogoSelectorViewController {
-            destinationVC.delegate = self
-            guard let colorCellRow = cells[2].firstIndex(where: { cell in
-                if case .colorPickerCell = cell {
-                    return true
-                }
-                return false
-            }) else {
-                return
-            }
-            guard let colorCell = tableView.cellForRow(at: IndexPath(row: colorCellRow, section: 2)) as? ColorPickerCell else {
-                return
-            }
-            destinationVC.color = colorCell.colorPreview.backgroundColor ?? .white
-        }else if let destinationVC = segue.destination as? AlertTableViewController{
-            destinationVC.delegate = self
-        }
-    }
-}
-
 extension AddCourseViewController: UITextFieldDelegateExt{
     func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
             print("$ ERROR: sender's text is nil when editing text in \(textFieldID).\n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
             return
         }
+
         switch textFieldID {
         case .nameTextField:
             self.name = text
@@ -267,28 +182,6 @@ extension AddCourseViewController: ColorDelegate{
         colorValue = sender.selectedColor.hexValue()
     }
     
-}
-
-//MARK: - TimePicker Delegate
-extension AddCourseViewController: UITimePickerDelegate {
-    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCell) {
-        //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
-        guard let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as? TimeCell else {
-            print("$ ERROR: couldn't find TimeCell when changing picker value.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
-            return
-        }
-        correspondingTimeCell.date = sender.date
-        correspondingTimeCell.timeLabel.text = correspondingTimeCell.date!.format(with: "h:mm a")
-        
-        switch pickerID {
-        case .startDateTimePicker:
-            self.startDate = sender.date
-            print("$ LOG: updated startDate \(self.startDate)")
-        case .endDateTimePicker:
-            self.endDate = sender.date
-            print("$ LOG: updated endDate \(self.endDate)")
-        }
-    }
 }
 
 extension AddCourseViewController{

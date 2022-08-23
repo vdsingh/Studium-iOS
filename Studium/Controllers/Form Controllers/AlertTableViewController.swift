@@ -49,14 +49,18 @@ class AlertTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
         
-        for time in delegate!.alertTimes{
+        guard let delegate = delegate else {
+            print("$ ERROR: delegate is nil in AlertTableViewController")
+            return
+        }
+
+        for time in delegate.alertTimes{
             let index = times.firstIndex(of: time)
             checked[index!] = true
         }
         
         //makes it so that there are no empty cells at the bottom
         tableView.tableFooterView = UIView()
-        
     }
     
     //when the user presses the back button we update data appropriately

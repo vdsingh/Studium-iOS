@@ -41,8 +41,6 @@ class AddAssignmentViewController: MasterForm{
     var errors: String = ""
     
     //basic assignment variables
-    
-    var dueDate = Date()
     var selectedCourse: Course? = nil
     var name: String = ""
     var additionalDetails: String = ""
@@ -54,7 +52,7 @@ class AddAssignmentViewController: MasterForm{
         self.cells = [
             [
                 .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
-                .timeCell(cellText: "Due Date", date: self.dueDate, id: .endTimeCell, onClick: timeCellClicked),
+                .timeCell(cellText: "Due Date", date: self.endDate, id: .endTimeCell, onClick: timeCellClicked),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: {
                     self.performSegue(withIdentifier: "toAlertSelection", sender: self)
                 })
@@ -84,8 +82,9 @@ class AddAssignmentViewController: MasterForm{
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         courses = realm.objects(Course.self)
         
-        dueDate = Calendar.current.date(bySetting: .hour, value: 23, of: dueDate)!
-        dueDate = Calendar.current.date(bySetting: .minute, value: 59, of: dueDate)!
+        // TODO: Fix force unwrap
+        self.endDate = Calendar.current.date(bySetting: .hour, value: 23, of: self.endDate)!
+        self.endDate = Calendar.current.date(bySetting: .minute, value: 59, of: self.endDate)!
         
         if assignment != nil{
             alertTimes = [];
@@ -125,14 +124,14 @@ class AddAssignmentViewController: MasterForm{
         
         if errors == "" {
             if assignment == nil {
-                print("adding assignment for the first time")
+                print("$ LOG: adding assignment for the first time")
                 guard let user = app.currentUser else {
                     print("$ ERROR: error getting user")
                     return
                 }
 
                 let newAssignment = Assignment()
-                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes + (workTimeHours * 60), autoDays: workDaysSelected, partitionKey: user.id)
+                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: self.endDate - (60*60), endDate: self.endDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes + (workTimeHours * 60), autoDays: workDaysSelected, partitionKey: user.id)
                 
                 NotificationHandler.scheduleNotificationsForAssignment(assignment: newAssignment)
                 RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse!)
@@ -193,7 +192,7 @@ class AddAssignmentViewController: MasterForm{
         print("Name Cell Text: \(name)")
         
         let dueDateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
-        self.dueDate = dueDate
+        self.endDate = endDate
         dueDateCell.date = dueDate
         
         self.alertTimes = alertTimes
@@ -203,7 +202,6 @@ class AddAssignmentViewController: MasterForm{
             
             let scheduleWorkCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell
             scheduleWorkCell.tableSwitch.isOn = true
-//            self.switchValueChanged(sender: scheduleWorkCell.tableSwitch)
             
             let daysCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! DaySelectorCell
             daysCell.selectDays(days: workDays)
@@ -213,7 +211,6 @@ class AddAssignmentViewController: MasterForm{
             self.workTimeMinutes = workTimeMinutes % 60
             
             let workTimePickerCell = tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! PickerCell
-//            workTimePickerCell.picker.
             workTimePickerCell.picker.selectRow(workTimeHours, inComponent: 0, animated: true)
             workTimePickerCell.picker.selectRow(workTimeMinutes, inComponent: 1, animated: true)
         }
@@ -311,18 +308,6 @@ extension AddAssignmentViewController: UIPickerViewDelegate{
     }
 }
 
-//MARK: - Date/TimePicker Delegate Methods
-extension AddAssignmentViewController: UITimePickerDelegate {
-    
-    //method that auto updates a corresponding .timeCell when a TimePicker is changed.
-    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCell) {
-        let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as! TimeCell
-        correspondingTimeCell.date = sender.date
-        correspondingTimeCell.timeLabel.text = sender.date.format(with: "MMM d, h:mm a")
-        dueDate = sender.date
-    }
-}
-
 extension AddAssignmentViewController: CanHandleSwitch{
     func switchValueChanged(sender: UISwitch) {
         print("$ LOG: Switch value changed")
@@ -374,45 +359,5 @@ extension AddAssignmentViewController: DaySelectorDelegate{
 }
 
 extension AddAssignmentViewController {
-    private func timeCellClicked(indexPath: IndexPath) {
-        guard let timeCell = tableView.cellForRow(at: indexPath) as? TimeCell else {
-            print("$ ERROR: Time Cell Mismatch.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
-            return
-        }
-        var timeCellIndex = indexPath.row
-        tableView.beginUpdates()
-        
-        /// Find the first time picker (if there is one) and remove it
-        if let indexOfFirstTimePicker = self.findFirstPickerCellIndex(section: indexPath.section) {
-            cells[indexPath.section].remove(at: indexOfFirstTimePicker)
-            tableView.deleteRows(at: [IndexPath(row: indexOfFirstTimePicker, section: indexPath.section)], with: .right)
-            /// Clicked on time cell while corresopnding timepicker is already expanded.
-            if indexOfFirstTimePicker == indexPath.row + 1 {
-                tableView.endUpdates()
-                return
-            /// Clicked on time cell while above timepicker is expanded
-            } else if indexOfFirstTimePicker == indexPath.row - 1 {
-                /// Remove one from the index since we removed a cell above
-                timeCellIndex -= 1
-            }
-        }
-        var timePickerID = FormCellID.TimePickerCell.startDateTimePicker
-        switch timeCell.formCellID {
-        case .endTimeCell:
-            timePickerID = FormCellID.TimePickerCell.endDateTimePicker
-        case .startTimeCell:
-            timePickerID = FormCellID.TimePickerCell.startDateTimePicker
-        default:
-            print("$ ERROR: unexpected cell ID.\nFile: \(#file)\nFunction:\(#function)\nLine:\(#line)")
-            return
-        }
-        
-        cells[indexPath.section].insert(
-            .timePickerCell(dateString: "\(timeCell.date!.format(with: "h:mm a"))",
-                            id: timePickerID,
-                            delegate: self),
-            at: timeCellIndex + 1)
-        tableView.insertRows(at: [IndexPath(row: timeCellIndex + 1, section: indexPath.section)], with: .left)
-        tableView.endUpdates()
-    }
+    
 }
