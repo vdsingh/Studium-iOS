@@ -40,18 +40,14 @@ class AddCourseViewController: MasterForm {
                 .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", id: FormCellID.TextFieldCell.locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: {
-                    self.performSegue(withIdentifier: "toAlertSelection", sender: self)
-                })
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
                 .timeCell(cellText: "Starts", date: self.startDate, id: FormCellID.TimeCell.startTimeCell, onClick: timeCellClicked),
                 .timeCell(cellText: "Ends", date: self.endDate, id: FormCellID.TimeCell.endTimeCell, onClick: timeCellClicked)
             ],
             [
-                .logoCell(imageString: self.systemImageString, onClick: {
-                    self.performSegue(withIdentifier: "toLogoSelection", sender: self)
-                }),
+                .logoCell(imageString: self.systemImageString, onClick: self.navigateToLogoSelection),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],
@@ -76,7 +72,7 @@ class AddCourseViewController: MasterForm {
             
             //we are creating a new course
             if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
-                Logs.Notifications.loadingDefaultNotificationTimes(logLocation: self.codeLocationString).printLog()
+//                Logs.Notifications.loadingDefaultNotificationTimes(logLocation: self.codeLocationString).printLog()
                 alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
             }
         }

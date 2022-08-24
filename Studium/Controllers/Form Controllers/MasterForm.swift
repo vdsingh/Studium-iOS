@@ -26,7 +26,7 @@ public enum FormCell: Equatable {
     case daySelectorCell(delegate: DaySelectorDelegate)
     case segmentedControlCell(firstTitle: String, secondTitle: String, delegate: SegmentedControlDelegate)
     case colorPickerCell(delegate: ColorDelegate)
-    case pickerCell(cellText: String, delegate: UIPickerViewDelegate, dataSource: UIPickerViewDataSource)
+    case pickerCell(cellText: String, tag: FormCellID.PickerCell, delegate: UIPickerViewDelegate, dataSource: UIPickerViewDataSource)
     case logoCell(imageString: String, onClick: (() -> Void)? = nil)
 }
 
@@ -43,12 +43,21 @@ public enum FormCellID {
     public enum TimePickerCell {
         case startDateTimePicker
         case endDateTimePicker
+        case lengthTimePicker
     }
     
     // TimeCells
     public enum TimeCell {
         case startTimeCell
         case endTimeCell
+        case lengthTimeCell
+
+    }
+    
+    // PickerCells need to be Ints since we use tag
+    public enum PickerCell: Int {
+        case coursePickerCell = 0
+        case lengthPickerCell = 1
     }
 }
 
@@ -58,7 +67,12 @@ typealias MasterForm = MasterFormClass
 let kLargeCellHeight: CGFloat = 150
 let kMediumCellHeight: CGFloat = 60
 let kNormalCellHeight: CGFloat = 50
-class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, AlertInfoStorer{
+class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, AlertInfoStorer, LogoStorer, UITimePickerDelegate {
+
+    var systemImageString: String = "book.fill"
+    var startDate: Date = Date()
+    var endDate: Date = Date() + (60*60)
+    
     var alertTimes: [Int] = []
     
     var cells: [[FormCell]] = [[]]
@@ -85,6 +99,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
         tableView.register(UINib(nibName: DaySelectorCell.id, bundle: nil), forCellReuseIdentifier: DaySelectorCell.id)
         tableView.register(UINib(nibName: LogoCell.id, bundle: nil), forCellReuseIdentifier: LogoCell.id)
         tableView.register(UINib(nibName: ColorPickerCell.id, bundle: nil), forCellReuseIdentifier: ColorPickerCell.id)
+        tableView.register(UINib(nibName: SegmentedControlCell.id, bundle: nil), forCellReuseIdentifier: SegmentedControlCell.id)
 
     }
     
@@ -158,10 +173,11 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
             let cell = tableView.dequeueReusableCell(withIdentifier: ColorPickerCell.id, for: indexPath) as! ColorPickerCell
             cell.delegate = delegate
             return cell
-        case .pickerCell(_, let delegate, let dataSource):
+        case .pickerCell(_, let tag, let delegate, let dataSource):
             let cell = tableView.dequeueReusableCell(withIdentifier: PickerCell.id, for: indexPath) as! PickerCell
             cell.picker.delegate = delegate
             cell.picker.dataSource = dataSource
+            cell.picker.tag = tag.rawValue
 //            if resetAll{
 //                cell.picker.selectRow(1, inComponent: 0, animated: true)
 //            }
@@ -219,17 +235,53 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? LogoSelectorViewController {
+            destinationVC.delegate = self
+            guard let colorCellRow = cells[2].firstIndex(where: { cell in
+                if case .colorPickerCell = cell {
+                    return true
+                }
+                return false
+            }) else {
+                return
+            }
+            guard let colorCell = tableView.cellForRow(at: IndexPath(row: colorCellRow, section: 2)) as? ColorPickerCell else {
+                return
+            }
+            destinationVC.color = colorCell.colorPreview.backgroundColor ?? .white
+        }else if let destinationVC = segue.destination as? AlertTableViewController{
+            destinationVC.delegate = self
+        }
+    }
+    
+    
+    //when we pick a logo, this function is called to update the preview on the logo cell.
+    func refreshLogoCell() {
+        guard let logoCellIndexPath = self.findFirstLogoCellIndex() else {
+            print("$ ERROR: Can't locate logo cell")
+            return
+        }
+        guard let logoCell = tableView.cellForRow(at: logoCellIndexPath) as? LogoCell else {
+            print("$ ERROR: LogoCell not found")
+            return
+        }
+        logoCell.setImage(systemImageName: systemImageString)
+    }
 }
 
 // MARK: - FormCell Searching
 extension MasterFormClass {
-    func findFirstLogoCellIndex(section: Int) -> IndexPath? {
-        for i in 0..<cells[section].count {
-            switch cells[section][i] {
-            case .logoCell:
-                return IndexPath(row: i, section: section)
-            default:
-                continue
+    func findFirstLogoCellIndex() -> IndexPath? {
+        for i in 0..<cells.count {
+            for j in 0..<cells[i].count {
+                switch cells[i][j] {
+                case .logoCell:
+                    return IndexPath(row: j, section: i)
+                default:
+                    continue
+                }
             }
         }
         return nil
@@ -263,6 +315,77 @@ extension MasterFormClass {
         default:
             return
         }
+    }
+    
+    func timeCellClicked(indexPath: IndexPath) {
+        guard let timeCell = tableView.cellForRow(at: indexPath) as? TimeCell else {
+            print("$ ERROR: Time Cell Mismatch.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            return
+        }
+        var timeCellIndex = indexPath.row
+        tableView.beginUpdates()
+        
+        /// Find the first time picker (if there is one) and remove it
+        if let indexOfFirstTimePicker = self.findFirstPickerCellIndex(section: indexPath.section) {
+            cells[indexPath.section].remove(at: indexOfFirstTimePicker)
+            tableView.deleteRows(at: [IndexPath(row: indexOfFirstTimePicker, section: indexPath.section)], with: .right)
+            /// Clicked on time cell while corresopnding timepicker is already expanded.
+            if indexOfFirstTimePicker == indexPath.row + 1 {
+                tableView.endUpdates()
+                return
+            /// Clicked on time cell while above timepicker is expanded
+            } else if indexOfFirstTimePicker == indexPath.row - 1 {
+                /// Remove one from the index since we removed a cell above
+                timeCellIndex -= 1
+            }
+        }
+        var timePickerID = FormCellID.TimePickerCell.startDateTimePicker
+        switch timeCell.formCellID {
+        case .endTimeCell:
+            timePickerID = FormCellID.TimePickerCell.endDateTimePicker
+        case .startTimeCell:
+            timePickerID = FormCellID.TimePickerCell.startDateTimePicker
+        default:
+            print("$ ERROR: unexpected cell ID.\nFile: \(#file)\nFunction:\(#function)\nLine:\(#line)")
+            return
+        }
+        
+        cells[indexPath.section].insert(
+            .timePickerCell(dateString: "\(timeCell.date!.format(with: "h:mm a"))",
+                            id: timePickerID,
+                            delegate: self),
+            at: timeCellIndex + 1)
+        tableView.insertRows(at: [IndexPath(row: timeCellIndex + 1, section: indexPath.section)], with: .left)
+        tableView.endUpdates()
+    }
+    
+    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCell) {
+        //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
+        guard let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as? TimeCell else {
+            print("$ ERROR: couldn't find TimeCell when changing picker value.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            return
+        }
+        correspondingTimeCell.date = sender.date
+        correspondingTimeCell.timeLabel.text = correspondingTimeCell.date!.format(with: "h:mm a")
+        
+        switch pickerID {
+        case .startDateTimePicker:
+            self.startDate = sender.date
+            print("$ LOG: updated startDate \(self.startDate)")
+        case .endDateTimePicker:
+            self.endDate = sender.date
+            print("$ LOG: updated endDate \(self.endDate)")
+        default:
+            print("$ ERROR: unexpected TimePicker ID.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+        }
+    }
+    
+    func navigateToLogoSelection() {
+        self.performSegue(withIdentifier: "toLogoSelection", sender: self)
+    }
+    
+    func navigateToAlertTimes() {
+        self.performSegue(withIdentifier: "toAlertSelection", sender: self)
     }
 }
 

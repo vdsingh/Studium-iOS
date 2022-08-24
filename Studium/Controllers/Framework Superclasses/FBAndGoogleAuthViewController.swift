@@ -62,7 +62,7 @@ class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate {
                 case .failure(let error):
                     print("Failed to log in to MongoDB Realm: \(error)")
                 case .success(let user):
-                    Logs.Authentication.googleLoginSuccess(logLocation: self.codeLocationString, additionalInfo: "User: \(user)").printLog()
+//                    Logs.Authentication.googleLoginSuccess(logLocation: self.codeLocationString, additionalInfo: "User: \(user)").printLog()
                     self.handleGeneralLoginSuccess(email: googleUser.profile.email)
                 }
             }

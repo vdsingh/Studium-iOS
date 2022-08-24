@@ -43,15 +43,15 @@ class AddToDoListEventViewController: MasterForm {
             [
                 .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", id: FormCellID.TextFieldCell.locationTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: nil)
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
-                .timeCell(cellText: "Starts", date: self.startDate, id: FormCellID.TimeCell.startTimeCell, onClick: timeCellClicked),
-                .timeCell(cellText: "Ends", date: self.endDate, id: FormCellID.TimeCell.endTimeCell, onClick: timeCellClicked)
+                .timeCell(cellText: "Starts", date: self.startDate, id: FormCellID.TimeCell.startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Ends", date: self.endDate, id: FormCellID.TimeCell.endTimeCell, onClick: self.timeCellClicked)
             ],
             [
                 .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "", textColor: .systemRed, backgroundColor: .systemBackground, onClick: nil)
+                .labelCell(cellText: "", textColor: .systemRed, backgroundColor: .systemBackground)
             ]
         ]
         super.viewDidLoad()
@@ -89,19 +89,19 @@ class AddToDoListEventViewController: MasterForm {
         if errors == ""{
             if otherEvent == nil{
                 guard let user = app.currentUser else {
-                    print("Error getting user in MasterForm")
+                    print("$ ERROR: error getting user in MasterForm")
                     return
                 }
                 let newEvent = OtherEvent()
-                newEvent.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes, partitionKey: user.id)
+                newEvent.initializeData(startDate: self.startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes, partitionKey: user.id)
                 for alertTime in alertTimes{
-                    let alertDate = startDate - (Double(alertTime) * 60)
+                    let alertDate = self.startDate - (Double(alertTime) * 60)
                     var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
                     components.second = 0
                     
                     let identifier = UUID().uuidString
                     newEvent.notificationIdentifiers.append(identifier)
-                    NotificationHandler.scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+                    NotificationHandler.scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(self.startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                 }
                 RealmCRUD.saveOtherEvent(otherEvent: newEvent)
             }else{

@@ -96,7 +96,6 @@
 		16E251492485190F000494DE /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E251472485190E000494DE /* SegmentedControlCell.xib */; };
 		16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E7B22E27D1EF8D00AAE756 /* GenericTableViewCell.swift */; };
 		16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E7B22F27D1EF8D00AAE756 /* GenericTableViewCell.xib */; };
-		B939A89628A9D08600FB2728 /* Errors+Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939A89528A9D08600FB2728 /* Errors+Logs.swift */; };
 		B939A89828ADB61300FB2728 /* StudiumState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939A89728ADB61300FB2728 /* StudiumState.swift */; };
 		B939A89D28ADB78300FB2728 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939A89C28ADB78300FB2728 /* NotificationHandler.swift */; };
 		E8EA8423C30C2F3F29DA0025 /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */; };
@@ -197,7 +196,6 @@
 		590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
 		8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Studium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.release.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.release.xcconfig"; sourceTree = "<group>"; };
-		B939A89528A9D08600FB2728 /* Errors+Logs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Errors+Logs.swift"; sourceTree = "<group>"; };
 		B939A89728ADB61300FB2728 /* StudiumState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumState.swift; sourceTree = "<group>"; };
 		B939A89C28ADB78300FB2728 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -316,7 +314,6 @@
 				1693E73E247A3DC6003D4702 /* Info.plist */,
 				16C445AE26646C75006076C1 /* credentials.plist */,
 				16B498CF25CE2CE6005E9C26 /* Secret.swift */,
-				B939A89528A9D08600FB2728 /* Errors+Logs.swift */,
 			);
 			path = Studium;
 			sourceTree = "<group>";
@@ -691,7 +688,6 @@
 				164905B727E18732002DE61D /* LoginViewController.swift in Sources */,
 				B939A89828ADB61300FB2728 /* StudiumState.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
-				B939A89628A9D08600FB2728 /* Errors+Logs.swift in Sources */,
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				16C60FE825C76C51006D0FFC /* LoginViewController1.swift in Sources */,

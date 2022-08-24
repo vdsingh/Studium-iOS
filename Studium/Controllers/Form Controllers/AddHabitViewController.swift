@@ -71,19 +71,15 @@ class AddHabitViewController: MasterForm {
                 .textFieldCell(placeholderText: "Name", id: .nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", id: .locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: {
-                    self.performSegue(withIdentifier: "toAlertSelection", sender: self)
-                })
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
                 .switchCell(cellText: "Autoschedule", switchDelegate: self, infoDelegate: self),
-                .timeCell(cellText: "Time", date: Date(), id: .startTimeCell, onClick: timeCellClicked),
-                .timeCell(cellText: "Time 2", date: Date(), id: .endTimeCell, onClick: timeCellClicked)
+                .timeCell(cellText: "Time", date: Date(), id: .startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Time 2", date: Date(), id: .endTimeCell, onClick: self.timeCellClicked)
             ],
             [
-                .logoCell(imageString: "pencil", onClick: {
-                    self.performSegue(withIdentifier: "toLogoSelection", sender: self)
-                }),
+                .logoCell(imageString: "pencil", onClick: self.navigateToLogoSelection),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details",
                                id: FormCellID.TextFieldCell.additionalDetailsTextField,
@@ -98,17 +94,17 @@ class AddHabitViewController: MasterForm {
                 .textFieldCell(placeholderText: "Name", id: .nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", id: .locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: nil)
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
                 .switchCell(cellText: "Autoschedule", switchDelegate: self, infoDelegate: self),
-                .timeCell(cellText: "Between", date: Date(), id: .startTimeCell, onClick: nil),
-                .timeCell(cellText: "And", date: Date(), id: .endTimeCell, onClick: nil),
-                .timeCell(cellText: "Length of Habit", date: Date(), id: .lengthTimeCell, onClick: nil),
+                .timeCell(cellText: "Between", date: Date(), id: .startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "And", date: Date(), id: .endTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Length of Habit", date: Date(), id: .lengthTimeCell, onClick: self.timeCellClicked),
                 .segmentedControlCell(firstTitle: "Title 1", secondTitle: "Title 2", delegate: self)
             ],
             [
-                .logoCell(imageString: "pencil", onClick: nil),
+                .logoCell(imageString: self.systemImageString, onClick: self.navigateToLogoSelection),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", id: .additionalDetailsTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "", textColor: .systemRed, backgroundColor: .systemBackground)
@@ -125,7 +121,7 @@ class AddHabitViewController: MasterForm {
             if habit.autoschedule{
                 tableView.reloadData()
             }
-            fillForm(with: habit!)
+            fillForm(with: habit)
         }else{
             //We are creating a new habit
             if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
@@ -162,17 +158,17 @@ class AddHabitViewController: MasterForm {
             errors.append("The total time exceeds the time frame. ")
         }
         
-        if errors.count == 0{ //if there are no errors.
-            if habit == nil{
+        if errors.count == 0 { //if there are no errors.
+            if habit == nil {
                 guard let user = app.currentUser else {
                     print("ERROR: error getting user in MasterForm")
                     return
                 }
                 let newHabit = Habit()
                 newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthHours * 60 + totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: user.id)
-                if !autoschedule{
-                    for alertTime in alertTimes{
-                        for day in daysSelected{
+                if !autoschedule {
+                    for alertTime in alertTimes {
+                        for day in daysSelected {
                             
 //                            let weekday = Date.convertDayToWeekday(day: day)
 //                            let weekdayAsInt = Date.convertDayToInt(day: day)

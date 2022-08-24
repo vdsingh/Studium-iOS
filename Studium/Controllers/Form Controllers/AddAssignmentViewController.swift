@@ -53,9 +53,7 @@ class AddAssignmentViewController: MasterForm{
             [
                 .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
                 .timeCell(cellText: "Due Date", date: self.endDate, id: .endTimeCell, onClick: timeCellClicked),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: {
-                    self.performSegue(withIdentifier: "toAlertSelection", sender: self)
-                })
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
                 .switchCell(cellText: "Schedule Time to Work", switchDelegate: self, infoDelegate: self)

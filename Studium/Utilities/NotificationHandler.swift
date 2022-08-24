@@ -54,6 +54,56 @@ class NotificationHandler {
         }
     }
     
+    static func scheduleNotificationsForAssignment(assignment: Assignment) {
+        let alertTimes = assignment.notificationAlertTimes
+        let dueDate = assignment.endDate
+        let name = assignment.name
+        for alertTime in alertTimes {
+            let alertDate = dueDate - (Double(alertTime) * 60)
+            var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
+            components.second = 0
+
+            let identifier = UUID().uuidString
+            assignment.notificationIdentifiers.append(identifier)
+            NotificationHandler.scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+        }
+    }
+    
+//    static func updateNotificationsForAssignment(assignment: Assignment) {
+//        do{
+//            let alertTimes = assignment.notificationAlertTimes
+//            let dueDate = assignment.endDate
+////            try realm.write{
+////                assignment!.updateNotifications(with: alertTimes)
+////            }
+//            for alertTime in alertTimes{
+//                if !assignment.notificationAlertTimes.contains(alertTime){
+//                    let alertDate = dueDate - (Double(alertTime) * 60)
+//                    var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
+//                    components.second = 0
+//                    let identifier = UUID().uuidString
+//                    try realm.write{
+//                        print("scheduling new notification for alertTime: \(alertTime)")
+//                        assignment!.notificationIdentifiers.append(identifier)
+//                        assignment!.notificationAlertTimes.append(alertTime)
+//                    }
+//                    NotificationHandler.scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+//                }
+//            }
+//            try realm.write{
+//                print("Edited Assignment with \(workTimeHours) and \(workTimeMinutes)")
+//                guard let user = app.currentUser else {
+//                    print("$ ERROR: error getting user")
+//                    return
+//                }
+//                assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
+//
+//            }
+//        }catch{
+//            print("$ ERROR: \(error)")
+//        }
+//    }
+    
     //method to schedule Local Notifications to the User.
     static func scheduleNotification(components: DateComponents, body: String, titles:String, repeatNotif: Bool, identifier: String) {
         
