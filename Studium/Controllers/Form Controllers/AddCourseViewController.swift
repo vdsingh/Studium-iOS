@@ -43,8 +43,8 @@ class AddCourseViewController: MasterForm {
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
-                .timeCell(cellText: "Starts", date: self.startDate, id: FormCellID.TimeCell.startTimeCell, onClick: timeCellClicked),
-                .timeCell(cellText: "Ends", date: self.endDate, id: FormCellID.TimeCell.endTimeCell, onClick: timeCellClicked)
+                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: "h:mm a", id: FormCellID.TimeCell.startTimeCell, onClick: timeCellClicked),
+                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: "h:mm a", id: FormCellID.TimeCell.endTimeCell, onClick: timeCellClicked)
             ],
             [
                 .logoCell(imageString: self.systemImageString, onClick: self.navigateToLogoSelection),
@@ -68,8 +68,7 @@ class AddCourseViewController: MasterForm {
         if let course = self.course {
             fillForm(with: course)
             // TODO: Update course notification times
-        }else{
-            
+        } else {
             //we are creating a new course
             if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
 //                Logs.Notifications.loadingDefaultNotificationTimes(logLocation: self.codeLocationString).printLog()
@@ -97,18 +96,29 @@ class AddCourseViewController: MasterForm {
         if errors.count == 0 {
             if let course = self.course {
                 // TODO: Move deleteNotifications to NotificationHandler
-                course.deleteNotifications()
-                NotificationHandler.scheduleNotificationsForCourse(course: course)
+                
+//                course.deleteNotifications()
+//                NotificationHandler.scheduleNotificationsForCourse(course: course)
                 
                 if let user = app.currentUser {
                     partitionKey = user.id
+                } else {
+                    print("$ ERROR: user is nil")
                 }
-                course.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
+                do {
+                    // TODO: Abstract away realm to state
+                    try realm.write {
+                        course.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
+                    }
+                } catch {
+                    print("$ ERROR: error updating course data: \(error)")
+                }
             } else {
                 let newCourse = Course()
                 if let user = app.currentUser {
                     partitionKey = user.id
                 }
+                
                 newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
                 //scheduling the appropriate notifications
                 NotificationHandler.scheduleNotificationsForCourse(course: newCourse)

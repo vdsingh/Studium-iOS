@@ -38,7 +38,7 @@ class AddToDoListEventViewController: MasterForm {
     override func viewDidLoad() {
         self.cells = [
             [
-                .labelCell(cellText: "This Event is a Course Assignment", onClick: nil)
+                .labelCell(cellText: "This Event is a Course Assignment", onClick: self.isAssignmentClicked)
             ],
             [
                 .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
@@ -46,8 +46,8 @@ class AddToDoListEventViewController: MasterForm {
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
-                .timeCell(cellText: "Starts", date: self.startDate, id: FormCellID.TimeCell.startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Ends", date: self.endDate, id: FormCellID.TimeCell.endTimeCell, onClick: self.timeCellClicked)
+                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: "h:mm a", id: FormCellID.TimeCell.startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: "h:mm a", id: FormCellID.TimeCell.endTimeCell, onClick: self.timeCellClicked)
             ],
             [
                 .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
@@ -59,9 +59,9 @@ class AddToDoListEventViewController: MasterForm {
         //makes it so that the form doesn't have a bunch of empty cells at the bottom
         tableView.tableFooterView = UIView()
         
-        if otherEvent != nil{
-            fillForm(with: otherEvent!)
-        }else{
+        if let otherEvent = otherEvent {
+            fillForm(with: otherEvent)
+        } else {
             navButton.image = UIImage(systemName: "plus")
             //we are creating a new ToDoEvent
             if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
@@ -77,17 +77,17 @@ class AddToDoListEventViewController: MasterForm {
         
         //updates the characteristic variables
 //        retrieveDataFromCells()
-        if name == ""{
+        if name == "" {
             errors.append("Please specify a name.")
         }
         
-        if self.endDate < self.startDate{
+        if self.endDate < self.startDate {
             errors.append(" End Date cannot be before Start Date")
         }
         
         //there are no errors
-        if errors == ""{
-            if otherEvent == nil{
+        if errors == "" {
+            if otherEvent == nil {
                 guard let user = app.currentUser else {
                     print("$ ERROR: error getting user in MasterForm")
                     return
@@ -104,9 +104,10 @@ class AddToDoListEventViewController: MasterForm {
                     NotificationHandler.scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(self.startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                 }
                 RealmCRUD.saveOtherEvent(otherEvent: newEvent)
-            }else{
-                do{
+            } else {
+                do {
                     try realm.write{
+                        // TODO: FIX FORCE UNWRAP
                         otherEvent!.updateNotifications(with: alertTimes)
                     }
                     for alertTime in alertTimes{
@@ -121,14 +122,18 @@ class AddToDoListEventViewController: MasterForm {
                                 otherEvent!.notificationIdentifiers.append(identifier)
                                 otherEvent!.notificationAlertTimes.append(alertTime)
                             }
-                            NotificationHandler.scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+                            NotificationHandler.scheduleNotification(components: components,
+                                                                     body: "Don't be late!",
+                                                                     titles: "\(name) at \(startDate.format(with: "h:mm a"))",
+                                                                     repeatNotif: false,
+                                                                     identifier: identifier)
                         }
 
                     }
-                    try realm.write{
+                    try realm.write {
                         otherEvent!.initializeData(startDate: self.startDate, endDate: self.endDate, name: name, location: location, additionalDetails: additionalDetails)
                     }
-                }catch{
+                } catch {
                     print("there was an error: \(error)")
                 }
             }
@@ -211,11 +216,6 @@ extension AddToDoListEventViewController{
 }
 
 extension AddToDoListEventViewController {
-    
-    private func remindMeClicked() {
-        performSegue(withIdentifier: "toAlertSelection", sender: self)
-    }
-    
     private func isAssignmentClicked() {
         let courses = realm.objects(Course.self)
         if courses.count != 0 {
@@ -230,7 +230,7 @@ extension AddToDoListEventViewController {
                 //go to the assignment form instead of todo item form. Also provide the assignment form the information from the current form.
                 del.openAssignmentForm(name: self.name, location: self.location, additionalDetails: self.additionalDetails, alertTimes: self.alertTimes, dueDate: self.endDate)
             }
-        }else{
+        } else {
             let alert = UIAlertController(title: "No Courses Available", message: "You haven't added any Courses yet. To add an Assignment, please add a Course first.", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))

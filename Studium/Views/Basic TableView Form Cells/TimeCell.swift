@@ -15,6 +15,7 @@ class TimeCell: BasicCell {
     @IBOutlet weak var timeLabel: UILabel!
     
     var date: Date?
+    var dateFormat: String = "h:mm a"
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -11,6 +11,7 @@ protocol LogoStorer{
     var systemImageString: String { get set}
     func refreshLogoCell()
 }
+
 class LogoSelectorViewController: UIViewController {
     var delegate: LogoStorer?
     var color: UIColor = .systemBackground

@@ -54,9 +54,9 @@ class StudiumEvent: Object{
             event.endDate = endDate
             event.notes = additionalDetails
 
-            do{
+            do {
                 try store.save(event, span: EKSpan.futureEvents, commit: true)
-            }catch let error as NSError{
+            } catch let error as NSError {
                 print("Failed to save event. Error: \(error)")
             }
         }

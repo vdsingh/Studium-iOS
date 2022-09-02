@@ -54,15 +54,15 @@ class RecurringStudiumEvent: StudiumEvent{
             7: EKRecurrenceDayOfWeek(EKWeekday.saturday),
             1: EKRecurrenceDayOfWeek(EKWeekday.sunday)]
         var newDays: [EKRecurrenceDayOfWeek] = []
-        for day in days{
+        for day in days {
             newDays.append(daysDict[day]!)
         }
 //        event.addRecurrenceRule(EKRecurrenceRule(recurrenceWith: .weekly, interval: 1, end: nil))
         event.addRecurrenceRule(EKRecurrenceRule(recurrenceWith: .weekly, interval: 1, daysOfTheWeek: newDays, daysOfTheMonth: nil, monthsOfTheYear: nil, weeksOfTheYear: nil, daysOfTheYear: nil, setPositions: nil, end: nil))
 
-        do{
+        do {
             try store.save(event, span: EKSpan.futureEvents, commit: true)
-        }catch let error as NSError{
+        } catch let error as NSError {
             print("Failed to save event. Error: \(error)")
         }
     }

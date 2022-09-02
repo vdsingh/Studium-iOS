@@ -52,7 +52,7 @@ class AddAssignmentViewController: MasterForm{
         self.cells = [
             [
                 .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
-                .timeCell(cellText: "Due Date", date: self.endDate, id: .endTimeCell, onClick: timeCellClicked),
+                .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: "MMM d, h:mm a", id: .endTimeCell, onClick: self.timeCellClicked),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
@@ -84,7 +84,7 @@ class AddAssignmentViewController: MasterForm{
         self.endDate = Calendar.current.date(bySetting: .hour, value: 23, of: self.endDate)!
         self.endDate = Calendar.current.date(bySetting: .minute, value: 59, of: self.endDate)!
         
-        if assignment != nil{
+        if assignment != nil {
             alertTimes = [];
             for alert in assignment!.notificationAlertTimes{
                 alertTimes.append(alert)
@@ -98,10 +98,10 @@ class AddAssignmentViewController: MasterForm{
                 return
             }
             fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate, selectedCourse: course, scheduleWorkTime: assignment!.autoschedule, workTimeMinutes: assignment!.autoLengthMinutes, workDays: workDaysSelected)
-        }else if fromTodoForm{
+        } else if fromTodoForm {
             //THIS IS BROKEN PLEASE FIX. ASSIGNMENT IS NIL, SO THERE IS NO PARENT COURSE. FIX LATER
             fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate, selectedCourse: nil, scheduleWorkTime: false, workTimeMinutes: 0, workDays: [])
-        }else{
+        } else {
             //we are creating a new assignment.
             
             //get the user's default notification times if they exist and fill them in!
@@ -354,8 +354,4 @@ extension AddAssignmentViewController: DaySelectorDelegate{
             workDaysSelected.append(K.weekdayDict[dayTitle]!)
         }
     }
-}
-
-extension AddAssignmentViewController {
-    
 }

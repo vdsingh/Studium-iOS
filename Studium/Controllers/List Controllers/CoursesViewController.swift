@@ -62,7 +62,14 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! RecurringEventCell
         let course = eventsArray[indexPath.section][indexPath.row] as! Course
         cell.event = course
-        cell.loadData(courseName: course.name, location: course.location, startTime: course.startDate, endTime: course.endDate, days: course.days, colorHex: course.color, recurringEvent: course, systemImageString: course.systemImageString)
+        cell.loadData(courseName: course.name,
+                      location: course.location,
+                      startTime: course.startDate,
+                      endTime: course.endDate,
+                      days: course.days,
+                      colorHex: course.color,
+                      recurringEvent: course,
+                      systemImageString: course.systemImageString)
     
         return cell
     }
@@ -84,7 +91,8 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     func loadCourses(){
         courses = realm.objects(Course.self) //fetching all objects of type Course and updating array with it.
         eventsArray = [[],[]]
-        for course in courses!{
+        // TODO: Fix force unwrap
+        for course in courses! {
             if course.days.contains(Date().week){
                 eventsArray[0].append(course)
             }else{

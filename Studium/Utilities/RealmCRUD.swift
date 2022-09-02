@@ -8,23 +8,24 @@
 
 import Foundation
 import RealmSwift
-
-class RealmCRUD{
+class RealmCRUD {
     static func saveAssignment(assignment: Assignment, parentCourse: Course){
-        print("just about to save")
-        guard let user = K.app.currentUser else {
-            print("Error getting user when saving Assignment")
+        print("$ LOG: about to save assignment")
+        guard let user = StudiumState.state.user else {
+            print("$ ERROR: user is nil when saving Assignment")
             return
         }
+
         let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-        do{ //adding the assignment to the courses list of assignments
-            try realm.write{
+        do { //adding the assignment to the courses list of assignments
+            try realm.write {
                 parentCourse.assignments.append(assignment)
             }
             assignment.initiateAutoSchedule()
-        }catch{
-            print("error appending assignment")
+        } catch {
+            print("$ ERROR: error appending assignment")
         }
+        StudiumState.state.updateAssignments()
     }
     
 //    static func deleteAssignment(assignment: Assignment){

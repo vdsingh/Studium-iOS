@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Course: RecurringStudiumEvent{
+class Course: RecurringStudiumEvent {
     @objc dynamic var systemImageString: String = "pencil"
 
     //List of the assignments for the course.

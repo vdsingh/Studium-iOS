@@ -41,9 +41,9 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
             //searchBar.barTintColor = UIColor(hexString: colorHex)
             guard let navBar = navigationController?.navigationBar else {fatalError("nav controller doesnt exist")}
             
-            if let navBarColor = UIColor(hexString: colorHex){
+            if let navBarColor = UIColor(hexString: colorHex) {
                 navBar.barTintColor = navBarColor
-            }else{
+            } else {
                 print("error")
             }
         }else{
@@ -85,18 +85,18 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
 
         if let user = app.currentUser {
             realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-            do{
-                try realm.write{
+            do {
+                try realm.write {
                     //if the assignments autoscheduled events list is expanded, collapse it before we mark it complete and move it.
                     if assignmentCell.autoEventsOpen{
                         assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
                     }
                     assignment.complete = !assignment.complete
                 }
-            }catch{
+            } catch {
                 print("ERROR: error saving course: \(error)")
             }
-        }else{
+        } else {
             print("ERROR: error accessing user")
         }
 
@@ -118,12 +118,13 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     func loadAssignments(){
         assignments = selectedCourse?.assignments.sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
         eventsArray = [[],[]]
-        for assignment in assignments!{
+        // TODO: Fix force unwrap
+        for assignment in assignments! {
             //skip the autoscheduled events.
-            if assignment.isAutoscheduled{
+            if assignment.isAutoscheduled {
                 continue
             }
-            if assignment.complete == true && !assignment.isAutoscheduled{
+            if assignment.complete == true && !assignment.isAutoscheduled {
                 eventsArray[1].append(assignment)
             }else{
                 eventsArray[0].append(assignment)
@@ -165,7 +166,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         assignments = selectedCourse?.assignments.sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
         
-        if searchBar.text?.count != 0{
+        if searchBar.text?.count != 0 {
             assignments = assignments?.filter("\(K.sortAssignmentsBy) CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
         }
         tableView.reloadData()
@@ -183,7 +184,7 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
                 index += 1
             }
         }else{
-            print("ERROR: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
+            print("$ ERROR: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
         }
         tableView.reloadData()
     }
@@ -201,8 +202,8 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
     //this function just collapses all assignmentCells whose autoscheduled events are expanded. We call this when we are leaving the ToDoList screen, to avoid issues when coming back and loading in data.
     func collapseAllExpandedAssignments(){
         for cell in tableView.visibleCells{
-            if let assignmentCell = cell as? AssignmentCell1{
-                if assignmentCell.autoEventsOpen{
+            if let assignmentCell = cell as? AssignmentCell1 {
+                if assignmentCell.autoEventsOpen {
                     assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
                 }
             }

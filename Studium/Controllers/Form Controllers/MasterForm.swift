@@ -21,8 +21,8 @@ public enum FormCell: Equatable {
     case textFieldCell(placeholderText: String, id: FormCellID.TextFieldCell, textFieldDelegate: UITextFieldDelegate, delegate: UITextFieldDelegateExt)
     case switchCell(cellText: String, switchDelegate: CanHandleSwitch?, infoDelegate: CanHandleInfoDisplay?)
     case labelCell(cellText: String, textColor: UIColor = .label, backgroundColor: UIColor = kCellBackgroundColor, cellAccessoryType: UITableViewCell.AccessoryType = .none, onClick: (() -> Void)? = nil)
-    case timeCell(cellText: String, date: Date, id: FormCellID.TimeCell, onClick: ((IndexPath) -> Void)? = nil)
-    case timePickerCell(dateString: String, id: FormCellID.TimePickerCell, delegate: UITimePickerDelegate)
+    case timeCell(cellText: String, date: Date, dateFormat: String, id: FormCellID.TimeCell, onClick: ((IndexPath) -> Void)? = nil)
+    case timePickerCell(dateString: String, dateFormat: String, id: FormCellID.TimePickerCell, delegate: UITimePickerDelegate)
     case daySelectorCell(delegate: DaySelectorDelegate)
     case segmentedControlCell(firstTitle: String, secondTitle: String, delegate: SegmentedControlDelegate)
     case colorPickerCell(delegate: ColorDelegate)
@@ -87,6 +87,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
             print("Error getting user in MasterForm")
             return
         }
+
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         
         /// registering the necessary cells for the form.
@@ -137,21 +138,22 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
             cell.backgroundColor = backgroundColor
             cell.accessoryType = cellAccessoryType
             return cell
-        case .timeCell(let cellText, let date, let id, _):
+        case .timeCell(let cellText, let date, let dateFormat, let id, _):
             let cell = tableView.dequeueReusableCell(withIdentifier: TimeCell.id, for: indexPath) as! TimeCell
             cell.label.text = cellText
             cell.timeLabel.text = date.format(with: "h:mm a")
             cell.date = date
+            cell.dateFormat = dateFormat
             cell.formCellID = id
             return cell
-        case .timePickerCell(let dateString, let formCellID, let delegate):
+        case .timePickerCell(let dateString, let dateFormat, let formCellID, let delegate):
             let cell = tableView.dequeueReusableCell(withIdentifier: TimePickerCell.id, for: indexPath) as! TimePickerCell
             cell.delegate = delegate
             cell.indexPath = indexPath
             cell.formCellID = formCellID
             let dateString = dateString
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm a"
+            dateFormatter.dateFormat = dateFormat
             if let date = dateFormatter.date(from: dateString) {
                 cell.picker.setDate(date, animated: true)
             } else {
@@ -195,7 +197,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
         tableView.deselectRow(at: indexPath, animated: true)
         let cell = cells[indexPath.section][indexPath.row]
         switch cell {
-        case .timeCell(_, _, _, let onClick):
+        case .timeCell(_, _, _, _, let onClick):
             if let onClick = onClick {
                 onClick(indexPath)
             }
@@ -247,6 +249,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
             }) else {
                 return
             }
+
             guard let colorCell = tableView.cellForRow(at: IndexPath(row: colorCellRow, section: 2)) as? ColorPickerCell else {
                 return
             }
@@ -284,6 +287,7 @@ extension MasterFormClass {
                 }
             }
         }
+
         return nil
     }
     
@@ -322,6 +326,7 @@ extension MasterFormClass {
             print("$ ERROR: Time Cell Mismatch.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
+        
         var timeCellIndex = indexPath.row
         tableView.beginUpdates()
         
@@ -345,6 +350,8 @@ extension MasterFormClass {
             timePickerID = FormCellID.TimePickerCell.endDateTimePicker
         case .startTimeCell:
             timePickerID = FormCellID.TimePickerCell.startDateTimePicker
+        case .lengthTimeCell:
+            timePickerID = FormCellID.TimePickerCell.lengthTimePicker
         default:
             print("$ ERROR: unexpected cell ID.\nFile: \(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
@@ -352,6 +359,7 @@ extension MasterFormClass {
         
         cells[indexPath.section].insert(
             .timePickerCell(dateString: "\(timeCell.date!.format(with: "h:mm a"))",
+                            dateFormat: timeCell.dateFormat,
                             id: timePickerID,
                             delegate: self),
             at: timeCellIndex + 1)

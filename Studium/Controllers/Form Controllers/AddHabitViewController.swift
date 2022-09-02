@@ -75,8 +75,8 @@ class AddHabitViewController: MasterForm {
             ],
             [
                 .switchCell(cellText: "Autoschedule", switchDelegate: self, infoDelegate: self),
-                .timeCell(cellText: "Time", date: Date(), id: .startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Time 2", date: Date(), id: .endTimeCell, onClick: self.timeCellClicked)
+                .timeCell(cellText: "Time", date: Date(), dateFormat: "MMM d, h:mm a", id: .startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Time 2", date: Date(), dateFormat: "MMM d, h:mm a", id: .endTimeCell, onClick: self.timeCellClicked)
             ],
             [
                 .logoCell(imageString: "pencil", onClick: self.navigateToLogoSelection),
@@ -98,9 +98,9 @@ class AddHabitViewController: MasterForm {
             ],
             [
                 .switchCell(cellText: "Autoschedule", switchDelegate: self, infoDelegate: self),
-                .timeCell(cellText: "Between", date: Date(), id: .startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "And", date: Date(), id: .endTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Length of Habit", date: Date(), id: .lengthTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Between", date: Date(), dateFormat: "h:mm a", id: .startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "And", date: Date(), dateFormat: "h:mm a", id: .endTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Length of Habit", date: Date(), dateFormat: "h:mm a", id: .lengthTimeCell, onClick: self.timeCellClicked),
                 .segmentedControlCell(firstTitle: "Title 1", secondTitle: "Title 2", delegate: self)
             ],
             [
@@ -125,7 +125,7 @@ class AddHabitViewController: MasterForm {
         }else{
             //We are creating a new habit
             if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
-                print("LOG: Loading User's Default Notification Times for Habit Form.")
+                print("$ LOG: Loading User's Default Notification Times for Habit Form.")
                 alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
             }
         }
@@ -139,18 +139,19 @@ class AddHabitViewController: MasterForm {
         errors = ""
 //        cellText[2][cellText[2].count - 1] = ""
 //        retrieveData()
+        // TODO: FIX FORCE UNWRAP
         endDate = Calendar.current.date(bySettingHour: self.endDate.hour, minute: self.endDate.minute, second: self.endDate.second, of: self.startDate)!
 //        reloadData()
         
         
-        if name == ""{
+        if name == "" {
             errors.append("Please specify a name. ")
         }
         
-        if daysSelected == []{
+        if daysSelected == [] {
             errors.append("Please select at least one day. ")
         }
-        if autoschedule && totalLengthHours == 0 && totalLengthMinutes == 0{
+        if autoschedule && totalLengthHours == 0 && totalLengthMinutes == 0 {
             errors.append("Please specify total time. ")
         } else if self.endDate < self.startDate {
             errors.append("The first time bound must be before the second time bound")
@@ -204,7 +205,7 @@ class AddHabitViewController: MasterForm {
                         }
                     }
                 }else{
-                    for alertTime in alertTimes{
+                    for alertTime in alertTimes {
                         newHabit.notificationAlertTimes.append(alertTime)
                     }
                 }
@@ -212,13 +213,13 @@ class AddHabitViewController: MasterForm {
                 newHabit.addToAppleCalendar()
                 
             }else{
-                
                 do{
-                    try realm.write{
-                        if !autoschedule{
+                    try realm.write {
+                        if !autoschedule {
+                            // TODO: FIX FORCE UNWRAP
                             habit!.deleteNotifications()
-                            for alertTime in alertTimes{
-                                for day in daysSelected{
+                            for alertTime in alertTimes {
+                                for day in daysSelected {
                                     
 //                                    let weekday = Date.convertDayToWeekday(day: day)
 //                                    let weekdayAsInt = Date.convertDayToInt(day: day)
@@ -237,11 +238,11 @@ class AddHabitViewController: MasterForm {
                                     
                                     //adjust title as appropriate
                                     var title = ""
-                                    if alertTime < 60{
+                                    if alertTime < 60 {
                                         title = "\(name) starts in \(alertTime) minutes."
-                                    }else if alertTime == 60{
+                                    } else if alertTime == 60 {
                                         title = "\(name) starts in 1 hour"
-                                    }else{
+                                    } else {
                                         title = "\(name) starts in \(alertTime / 60) hours"
                                     }
                                     let timeFormat = startDate.format(with: "h:mm a")
@@ -259,9 +260,11 @@ class AddHabitViewController: MasterForm {
                             }
                         }
                         guard let user = app.currentUser else {
-                            print("Error getting user in MasterForm")
+                            print("$ ERROR: error getting user in MasterForm")
                             return
                         }
+                        
+                        
                         habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: user.id)
                         print("editing habit with length hour \(totalLengthHours) segmented control: \(earlier)")
                     }
@@ -275,7 +278,7 @@ class AddHabitViewController: MasterForm {
                 if let del = self.delegate{
                     del.loadHabits()
                 }else{
-                    print("delegate was not defined.")
+                    print("$ ERROR: delegate was not defined.")
                 }
             }
         }else{ //if there are errors.
@@ -297,8 +300,6 @@ class AddHabitViewController: MasterForm {
         timeCounter = 0
         tableView.reloadData()
     }
-
-    
 }
 
 //MARK: - Picker DataSource
@@ -399,15 +400,10 @@ extension AddHabitViewController: SegmentedControlDelegate {
 extension AddHabitViewController: CanHandleSwitch {
     //method triggered when the autoschedule switch is triggered
     func switchValueChanged(sender: UISwitch) {
-        //        retrieveData()
         if sender.isOn {//auto schedule
-//            cellText = cellTextAuto
-//            cellType = cellTypeAuto
             self.cells = self.cellsAuto
             autoschedule = true
         } else {
-//            cellText = cellTextNoAuto
-//            cellType = cellTypeNoAuto
             self.cells = self.cellsNoAuto
             autoschedule = false
         }
@@ -482,9 +478,6 @@ extension AddHabitViewController{
             autoschedule = true
             
             let lengthCell = tableView.cellForRow(at: IndexPath(row: 3, section: 1)) as! TimeCell
-//            totalLengthHours = habit.autoLengthHours
-//            totalLengthMinutes = habit.autoLengthHours
-//            print("Length of Habit: \(habit.autoLengthHours)")
             lengthCell.timeLabel.text = "\(totalLengthHours) hours \(totalLengthMinutes) mins"
             
             let earlierLaterCell = tableView.cellForRow(at: IndexPath(row: 4, section: 1)) as! SegmentedControlCell
