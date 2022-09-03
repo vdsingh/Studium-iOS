@@ -27,9 +27,9 @@ class AddHabitViewController: MasterForm {
     var resetAll: Bool = true
     
     //variables that hold the total length of the habit.
-    var totalLengthHours = 1
-    var totalLengthMinutes = 0
-    
+//    var totalLengthHours = 1
+//    var totalLengthMinutes = 0
+//
     //reference to the Habits list, so that once complete, it can update and show the new Habit
     var delegate: HabitRefreshProtocol?
     
@@ -75,8 +75,8 @@ class AddHabitViewController: MasterForm {
             ],
             [
                 .switchCell(cellText: "Autoschedule", switchDelegate: self, infoDelegate: self),
-                .timeCell(cellText: "Time", date: Date(), dateFormat: "MMM d, h:mm a", id: .startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Time 2", date: Date(), dateFormat: "MMM d, h:mm a", id: .endTimeCell, onClick: self.timeCellClicked)
+                .timeCell(cellText: "Start", date: Date(), dateFormat: "h:mm a", id: .startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Finish", date: Date(), dateFormat: "h:mm a", id: .endTimeCell, onClick: self.timeCellClicked)
             ],
             [
                 .logoCell(imageString: "pencil", onClick: self.navigateToLogoSelection),
@@ -100,8 +100,8 @@ class AddHabitViewController: MasterForm {
                 .switchCell(cellText: "Autoschedule", switchDelegate: self, infoDelegate: self),
                 .timeCell(cellText: "Between", date: Date(), dateFormat: "h:mm a", id: .startTimeCell, onClick: self.timeCellClicked),
                 .timeCell(cellText: "And", date: Date(), dateFormat: "h:mm a", id: .endTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Length of Habit", date: Date(), dateFormat: "h:mm a", id: .lengthTimeCell, onClick: self.timeCellClicked),
-                .segmentedControlCell(firstTitle: "Title 1", secondTitle: "Title 2", delegate: self)
+                .timeCell(cellText: "Length of Habit", date: nil, dateFormat: nil, timeLabelText: "\(self.totalLengthHours) hours \(self.totalLengthMinutes) mins", id: .lengthTimeCell, onClick: self.timeCellClicked),
+                .segmentedControlCell(firstTitle: "Earlier", secondTitle: "Later", delegate: self)
             ],
             [
                 .logoCell(imageString: self.systemImageString, onClick: self.navigateToLogoSelection),
@@ -118,11 +118,11 @@ class AddHabitViewController: MasterForm {
         
         navButton.image = UIImage(systemName: "plus")
         if let habit = habit {
-            if habit.autoschedule{
+            if habit.autoschedule {
                 tableView.reloadData()
             }
             fillForm(with: habit)
-        }else{
+        } else {
             //We are creating a new habit
             if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
                 print("$ LOG: Loading User's Default Notification Times for Habit Form.")
@@ -268,20 +268,20 @@ class AddHabitViewController: MasterForm {
                         habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: user.id)
                         print("editing habit with length hour \(totalLengthHours) segmented control: \(earlier)")
                     }
-                }catch{
+                } catch {
                     print(error)
                 }
             }
-            //            delegate?.loadHabits()
-            //            print(newHabit.days)
+
             dismiss(animated: true) {
-                if let del = self.delegate{
+                if let del = self.delegate {
                     del.loadHabits()
-                }else{
+                } else {
                     print("$ ERROR: delegate was not defined.")
                 }
             }
-        }else{ //if there are errors.
+        } else {
+            //if there are errors.
             self.replaceLabelText(text: errors, section: 2, row: 3)
             tableView.reloadData()
         }
@@ -303,42 +303,42 @@ class AddHabitViewController: MasterForm {
 }
 
 //MARK: - Picker DataSource
-extension AddHabitViewController: UIPickerViewDataSource {
-    
-    //how many rows in the picker view, given the component
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 { //hours
-            return 24
-        }
-        //minutes
-        return 60
-    }
-    
-    //number of components in the pickerView
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
-    }
-}
+//extension AddHabitViewController: UIPickerViewDataSource {
+//
+//    //how many rows in the picker view, given the component
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        if component == 0 { //hours
+//            return 24
+//        }
+//        //minutes
+//        return 60
+//    }
+//
+//    //number of components in the pickerView
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        return 2
+//    }
+//}
 
 //MARK: - Picker Delegate
-extension AddHabitViewController: UIPickerViewDelegate{
-    
-    //determines the text in each row, given the row and component
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if component == 0{
-            return "\(row) hours"
-        }
-        return "\(row) min"
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let lengthIndex = cellText[1].lastIndex(of: "Length of Habit")
-        let timeCell = tableView.cellForRow(at: IndexPath(row: lengthIndex!, section: 1)) as! TimeCell
-        totalLengthHours = pickerView.selectedRow(inComponent: 0)
-        totalLengthMinutes = pickerView.selectedRow(inComponent: 1)
-        timeCell.timeLabel.text = "\(totalLengthHours) hours \(totalLengthMinutes) mins"
-    }
-}
+//extension AddHabitViewController: UIPickerViewDelegate{
+//    
+//    //determines the text in each row, given the row and component
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        if component == 0{
+//            return "\(row) hours"
+//        }
+//        return "\(row) min"
+//    }
+//    
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        let lengthIndex = cellText[1].lastIndex(of: "Length of Habit")
+//        let timeCell = tableView.cellForRow(at: IndexPath(row: lengthIndex!, section: 1)) as! TimeCell
+//        totalLengthHours = pickerView.selectedRow(inComponent: 0)
+//        totalLengthMinutes = pickerView.selectedRow(inComponent: 1)
+//        timeCell.timeLabel.text = "\(totalLengthHours) hours \(totalLengthMinutes) mins"
+//    }
+//}
 
 extension AddHabitViewController: DaySelectorDelegate{
     func dayButtonPressed(sender: UIButton) {
@@ -386,10 +386,10 @@ extension AddHabitViewController: ColorDelegate{
 
 extension AddHabitViewController: SegmentedControlDelegate {
     func controlValueChanged(sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0{
+        if sender.selectedSegmentIndex == 0 {
             print("Earlier is true")
             earlier = true
-        }else{
+        } else {
             print("Earlier is false")
             earlier = false
         }

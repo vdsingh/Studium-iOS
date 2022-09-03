@@ -21,7 +21,7 @@ public enum FormCell: Equatable {
     case textFieldCell(placeholderText: String, id: FormCellID.TextFieldCell, textFieldDelegate: UITextFieldDelegate, delegate: UITextFieldDelegateExt)
     case switchCell(cellText: String, switchDelegate: CanHandleSwitch?, infoDelegate: CanHandleInfoDisplay?)
     case labelCell(cellText: String, textColor: UIColor = .label, backgroundColor: UIColor = kCellBackgroundColor, cellAccessoryType: UITableViewCell.AccessoryType = .none, onClick: (() -> Void)? = nil)
-    case timeCell(cellText: String, date: Date, dateFormat: String, id: FormCellID.TimeCell, onClick: ((IndexPath) -> Void)? = nil)
+    case timeCell(cellText: String, date: Date?, dateFormat: String?, timeLabelText: String? = nil, id: FormCellID.TimeCell, onClick: ((IndexPath) -> Void)? = nil)
     case timePickerCell(dateString: String, dateFormat: String, id: FormCellID.TimePickerCell, delegate: UITimePickerDelegate)
     case daySelectorCell(delegate: DaySelectorDelegate)
     case segmentedControlCell(firstTitle: String, secondTitle: String, delegate: SegmentedControlDelegate)
@@ -51,7 +51,6 @@ public enum FormCellID {
         case startTimeCell
         case endTimeCell
         case lengthTimeCell
-
     }
     
     // PickerCells need to be Ints since we use tag
@@ -68,10 +67,13 @@ let kLargeCellHeight: CGFloat = 150
 let kMediumCellHeight: CGFloat = 60
 let kNormalCellHeight: CGFloat = 50
 class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, AlertInfoStorer, LogoStorer, UITimePickerDelegate {
-
+    
     var systemImageString: String = "book.fill"
     var startDate: Date = Date()
     var endDate: Date = Date() + (60*60)
+    
+    var totalLengthHours = 1
+    var totalLengthMinutes = 0
     
     var alertTimes: [Int] = []
     
@@ -82,12 +84,15 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     
     var realm: Realm!
     
+    private var idCounter = 0
+    
     override func viewDidLoad() {
+//        self.tableView.static
         guard let user = app.currentUser else {
-            print("Error getting user in MasterForm")
+            print("$ ERROR: Error getting user in MasterForm")
             return
         }
-
+        
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         
         /// registering the necessary cells for the form.
@@ -101,14 +106,14 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
         tableView.register(UINib(nibName: LogoCell.id, bundle: nil), forCellReuseIdentifier: LogoCell.id)
         tableView.register(UINib(nibName: ColorPickerCell.id, bundle: nil), forCellReuseIdentifier: ColorPickerCell.id)
         tableView.register(UINib(nibName: SegmentedControlCell.id, bundle: nil), forCellReuseIdentifier: SegmentedControlCell.id)
-
+        
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
         headerView.backgroundColor = UIColor.systemBackground
-
-      return headerView
+        
+        return headerView
     }
     
     func processAlertTimes() {
@@ -138,13 +143,17 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
             cell.backgroundColor = backgroundColor
             cell.accessoryType = cellAccessoryType
             return cell
-        case .timeCell(let cellText, let date, let dateFormat, let id, _):
+        case .timeCell(let cellText, let date, let dateFormat, let timeLabelText, let id, _):
             let cell = tableView.dequeueReusableCell(withIdentifier: TimeCell.id, for: indexPath) as! TimeCell
             cell.label.text = cellText
-            cell.timeLabel.text = date.format(with: "h:mm a")
-            cell.date = date
-            cell.dateFormat = dateFormat
             cell.formCellID = id
+            if let date = date, let dateFormat = dateFormat {
+                cell.timeLabel.text = date.format(with: dateFormat)
+                cell.dateFormat = dateFormat
+                cell.date = date
+            } else if let timeLabelText = timeLabelText {
+                cell.timeLabel.text = timeLabelText
+            }
             return cell
         case .timePickerCell(let dateString, let dateFormat, let formCellID, let delegate):
             let cell = tableView.dequeueReusableCell(withIdentifier: TimePickerCell.id, for: indexPath) as! TimePickerCell
@@ -180,9 +189,9 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
             cell.picker.delegate = delegate
             cell.picker.dataSource = dataSource
             cell.picker.tag = tag.rawValue
-//            if resetAll{
-//                cell.picker.selectRow(1, inComponent: 0, animated: true)
-//            }
+            //            if resetAll{
+            //                cell.picker.selectRow(1, inComponent: 0, animated: true)
+            //            }
             cell.indexPath = indexPath
             return cell
         case .logoCell(let imageString, _):
@@ -197,7 +206,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
         tableView.deselectRow(at: indexPath, animated: true)
         let cell = cells[indexPath.section][indexPath.row]
         switch cell {
-        case .timeCell(_, _, _, _, let onClick):
+        case .timeCell(_, _, _, _, _, let onClick):
             if let onClick = onClick {
                 onClick(indexPath)
             }
@@ -249,7 +258,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
             }) else {
                 return
             }
-
+            
             guard let colorCell = tableView.cellForRow(at: IndexPath(row: colorCellRow, section: 2)) as? ColorPickerCell else {
                 return
             }
@@ -287,19 +296,36 @@ extension MasterFormClass {
                 }
             }
         }
-
+        
         return nil
     }
     
     func findFirstPickerCellIndex(section: Int) -> Int? {
-        for i in 0..<cells[section].count {
+        for i in 0 ..< cells[section].count {
             switch cells[section][i] {
-            case .timePickerCell:
+            case .timePickerCell, .pickerCell:
                 return i
             default:
                 continue
             }
         }
+        return nil
+    }
+    
+    func findFirstTimeCellWithID(id: FormCellID.TimeCell) -> IndexPath? {
+        for i in 0 ..< cells.count {
+            for j in 0 ..< cells[i].count {
+                switch cells[i][j] {
+                case .timeCell(_, _, _, _, let cellID, _):
+                    if id == cellID {
+                        return IndexPath(row: j, section: i)
+                    }
+                default:
+                    continue
+                }
+            }
+        }
+        
         return nil
     }
 }
@@ -338,7 +364,7 @@ extension MasterFormClass {
             if indexOfFirstTimePicker == indexPath.row + 1 {
                 tableView.endUpdates()
                 return
-            /// Clicked on time cell while above timepicker is expanded
+                /// Clicked on time cell while above timepicker is expanded
             } else if indexOfFirstTimePicker == indexPath.row - 1 {
                 /// Remove one from the index since we removed a cell above
                 timeCellIndex -= 1
@@ -348,21 +374,37 @@ extension MasterFormClass {
         switch timeCell.formCellID {
         case .endTimeCell:
             timePickerID = FormCellID.TimePickerCell.endDateTimePicker
+            cells[indexPath.section].insert(
+                .timePickerCell(dateString: "\(timeCell.date!.format(with: "h:mm a"))",
+                                dateFormat: timeCell.dateFormat,
+                                id: timePickerID,
+                                delegate: self),
+                at: timeCellIndex + 1)
         case .startTimeCell:
             timePickerID = FormCellID.TimePickerCell.startDateTimePicker
+            cells[indexPath.section].insert(
+                .timePickerCell(dateString: "\(timeCell.date!.format(with: "h:mm a"))",
+                                dateFormat: timeCell.dateFormat,
+                                id: timePickerID,
+                                delegate: self),
+                at: timeCellIndex + 1)
         case .lengthTimeCell:
             timePickerID = FormCellID.TimePickerCell.lengthTimePicker
+            cells[indexPath.section].insert(
+                .pickerCell(cellText: "Length of Habit", tag: .lengthPickerCell, delegate: self, dataSource: self),
+                at: timeCellIndex + 1)
         default:
             print("$ ERROR: unexpected cell ID.\nFile: \(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
         
-        cells[indexPath.section].insert(
-            .timePickerCell(dateString: "\(timeCell.date!.format(with: "h:mm a"))",
-                            dateFormat: timeCell.dateFormat,
-                            id: timePickerID,
-                            delegate: self),
-            at: timeCellIndex + 1)
+        
+//        cells[indexPath.section].insert(
+//            .timePickerCell(dateString: "\(timeCell.date!.format(with: "h:mm a"))",
+//                            dateFormat: timeCell.dateFormat,
+//                            id: timePickerID,
+//                            delegate: self),
+//            at: timeCellIndex + 1)
         tableView.insertRows(at: [IndexPath(row: timeCellIndex + 1, section: indexPath.section)], with: .left)
         tableView.endUpdates()
     }
@@ -403,4 +445,107 @@ extension UIViewController: UITextFieldDelegate{
         textField.resignFirstResponder()
         return true;
     }
+}
+
+extension MasterFormClass: UIPickerViewDelegate {
+//    extension AddHabitViewController: UIPickerViewDelegate{
+        
+        //determines the text in each row, given the row and component
+        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+            switch pickerView.tag {
+            case FormCellID.PickerCell.coursePickerCell.rawValue:
+                return StudiumState.state.getCourses()[row].name
+            case FormCellID.PickerCell.lengthPickerCell.rawValue:
+                if component == 0 {
+                    return "\(row) hours"
+                } else {
+                    return "\(row) min"
+                }
+            default:
+                print("$ ERROR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+                return nil
+            }
+        }
+        
+        func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//            switch pickerView.tag {
+//            case FormCellID.PickerCell.lengthPickerCell:
+//
+//            }
+//            let lengthIndex = cellText[1].lastIndex(of: "Length of Habit")
+            switch pickerView.tag {
+            case FormCellID.PickerCell.lengthPickerCell.rawValue:
+                guard let lengthIndex = self.findFirstTimeCellWithID(id: FormCellID.TimeCell.lengthTimeCell) else {
+                    print("$ ERROR: Couldn't find associated TimeCell.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+                    return
+                }
+                let timeCell = tableView.cellForRow(at: lengthIndex) as! TimeCell
+                totalLengthHours = pickerView.selectedRow(inComponent: 0)
+                totalLengthMinutes = pickerView.selectedRow(inComponent: 1)
+                timeCell.timeLabel.text = "\(totalLengthHours) hours \(totalLengthMinutes) mins"
+//            case FormCellID.PickerCell.coursePickerCell.rawValue:
+//                coursePickerRowSelected()
+            default:
+                return
+            }
+        }
+    
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+//        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
+//            // Course selection
+//            let selectedRow = pickerView.selectedRow(inComponent: 0)
+//            selectedCourse = courses![selectedRow]
+//        } else if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
+//            if component == 0 {
+//                workTimeHours = row
+//            } else {
+//                workTimeMinutes = row
+//            }
+//        }
+//    }
+//    }
+}
+
+extension MasterFormClass: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        switch pickerView.tag {
+        case FormCellID.PickerCell.lengthPickerCell.rawValue:
+            return 2
+        case FormCellID.PickerCell.coursePickerCell.rawValue:
+            return 1
+        default:
+            print("$ ERROR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            return 0
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        switch pickerView.tag {
+        case FormCellID.PickerCell.lengthPickerCell.rawValue:
+            print("LENGTH")
+            if component == 0 {
+                return 24
+            } else {
+                return 60
+            }
+        case FormCellID.PickerCell.coursePickerCell.rawValue:
+            return StudiumState.state.getCourses().count
+//            break
+        default:
+            print("$ ERROR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            return 0
+        }
+    }
+    
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//           if pickerView.tag == 1{
+//               return courses?.count ?? 1
+//           }else if pickerView.tag == 0{
+//               if component == 0{
+//                   return 24
+//               }
+//               return 60
+//           }
+//           return 0
+//       }
 }

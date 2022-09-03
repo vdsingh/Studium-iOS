@@ -23,8 +23,8 @@ class AddAssignmentViewController: MasterForm{
     //variables that hold the total length of the habit.
     var scheduleWorkTime: Bool = false
     var workDaysSelected: [Int] = []
-    var workTimeHours = 1
-    var workTimeMinutes = 0
+//    var workTimeHours = 1
+//    var workTimeMinutes = 0
     
     
     //a list of courses so that the user can pick which course the assignment is attached to
@@ -66,6 +66,7 @@ class AddAssignmentViewController: MasterForm{
                 .labelCell(cellText: "", textColor: .systemRed)
             ]
         ]
+        
         super.viewDidLoad()
         
         tableView.tableFooterView = UIView()
@@ -77,6 +78,7 @@ class AddAssignmentViewController: MasterForm{
             print("$ ERROR: error getting user in MasterForm")
             return
         }
+
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         courses = realm.objects(Course.self)
         
@@ -84,20 +86,20 @@ class AddAssignmentViewController: MasterForm{
         self.endDate = Calendar.current.date(bySetting: .hour, value: 23, of: self.endDate)!
         self.endDate = Calendar.current.date(bySetting: .minute, value: 59, of: self.endDate)!
         
-        if assignment != nil {
-            alertTimes = [];
-            for alert in assignment!.notificationAlertTimes{
+        if let assignment = assignment {
+            alertTimes = []
+            for alert in assignment.notificationAlertTimes {
                 alertTimes.append(alert)
             }
             
-            for day in assignment!.days{
+            for day in assignment.days {
                 workDaysSelected.append(day)
             }
-            guard let course = assignment!.parentCourse else{
+            guard let course = assignment.parentCourse else{
                 print("$ ERROR: error accessing parent course in AssignmentCell1")
                 return
             }
-            fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate, selectedCourse: course, scheduleWorkTime: assignment!.autoschedule, workTimeMinutes: assignment!.autoLengthMinutes, workDays: workDaysSelected)
+            fillForm(name: assignment.name, additionalDetails: assignment.additionalDetails, alertTimes: alertTimes, dueDate: assignment.endDate, selectedCourse: course, scheduleWorkTime: assignment.autoschedule, workTimeMinutes: assignment.autoLengthMinutes, workDays: workDaysSelected)
         } else if fromTodoForm {
             //THIS IS BROKEN PLEASE FIX. ASSIGNMENT IS NIL, SO THERE IS NO PARENT COURSE. FIX LATER
             fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate, selectedCourse: nil, scheduleWorkTime: false, workTimeMinutes: 0, workDays: [])
@@ -129,11 +131,11 @@ class AddAssignmentViewController: MasterForm{
                 }
 
                 let newAssignment = Assignment()
-                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: self.endDate - (60*60), endDate: self.endDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes + (workTimeHours * 60), autoDays: workDaysSelected, partitionKey: user.id)
+                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: self.endDate - (60*60), endDate: self.endDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: self.totalLengthMinutes + (self.totalLengthHours * 60), autoDays: workDaysSelected, partitionKey: user.id)
                 
                 NotificationHandler.scheduleNotificationsForAssignment(assignment: newAssignment)
                 RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse!)
-            }else{
+            } else {
                 // TODO: Implement assignment notification updates here
                 
             }
@@ -166,7 +168,7 @@ class AddAssignmentViewController: MasterForm{
                 row += 1
             }
         }else{
-            print("$ ERROR: courses in AddAssignment is nil. ")
+            print("$ ERROR: courses in AddAssignment is nil.")
         }
     }
     
@@ -181,7 +183,7 @@ class AddAssignmentViewController: MasterForm{
         navButton.image = .none
         navButton.title = "Done"
         
-        print("attempting to fillForm with \(scheduleWorkTime)")
+        print("$ LOG: attempting to fillForm with \(scheduleWorkTime)")
         
         let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
         nameCell.textField.text = name
@@ -205,12 +207,12 @@ class AddAssignmentViewController: MasterForm{
             daysCell.selectDays(days: workDays)
             self.workDaysSelected = workDays
             
-            self.workTimeHours = workTimeMinutes / 60
-            self.workTimeMinutes = workTimeMinutes % 60
+            self.totalLengthHours = self.totalLengthMinutes / 60
+            self.totalLengthMinutes = self.totalLengthMinutes % 60
             
             let workTimePickerCell = tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! PickerCell
-            workTimePickerCell.picker.selectRow(workTimeHours, inComponent: 0, animated: true)
-            workTimePickerCell.picker.selectRow(workTimeMinutes, inComponent: 1, animated: true)
+            workTimePickerCell.picker.selectRow(self.totalLengthHours, inComponent: 0, animated: true)
+            workTimePickerCell.picker.selectRow(self.totalLengthMinutes, inComponent: 1, animated: true)
         }
         
         if (selectedCourse != nil){
@@ -253,56 +255,63 @@ extension AddAssignmentViewController: UITextFieldDelegateExt{
 }
 
 //MARK: - TimerPicker DataSource Methods
-extension AddAssignmentViewController: UIPickerViewDataSource{
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue{
-            return courses?.count ?? 1
-        } else if pickerView.tag == FormCellID.PickerCell.lengthPickerCell.rawValue {
-            if component == 0{
-                return 24
-            }
-            return 60
-        }
-        return 0
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
-            return 1
-        }else if pickerView.tag == FormCellID.PickerCell.lengthPickerCell.rawValue {
-            return 2
-        }
-        return 0
-    }
-}
+//extension AddAssignmentViewController: UIPickerViewDataSource{
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue{
+//            return courses?.count ?? 1
+//        } else if pickerView.tag == FormCellID.PickerCell.lengthPickerCell.rawValue {
+//            if component == 0{
+//                return 24
+//            }
+//            return 60
+//        }
+//        return 0
+//    }
+//
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
+//            return 1
+//        }else if pickerView.tag == FormCellID.PickerCell.lengthPickerCell.rawValue {
+//            return 2
+//        }
+//        return 0
+//    }
+//}
 
 //MARK: - Picker Delegate Methods
-extension AddAssignmentViewController: UIPickerViewDelegate{
+extension AddAssignmentViewController {
     //helps set up information in the UIPickerView
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
-            return courses![row].name
-        } else if pickerView.tag == FormCellID.PickerCell.lengthPickerCell.rawValue {
-            if component == 0{
-                return "\(row) hours"
-            }
-            return "\(row) min"
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
+//            return courses![row].name
+//        } else if pickerView.tag == FormCellID.PickerCell.lengthPickerCell.rawValue {
+//            if component == 0{
+//                return "\(row) hours"
+//            }
+//            return "\(row) min"
+//        }
+//        return "Unknown Picker"
+//    }
+    override func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+        switch pickerView.tag {
+        case FormCellID.PickerCell.coursePickerCell.rawValue:
+            self.selectedCourse = StudiumState.state.getCourses()[pickerView.selectedRow(inComponent: component)]
+        default:
+            break
         }
-        return "Unknown Picker"
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
-            // Course selection
-            let selectedRow = pickerView.selectedRow(inComponent: 0)
-            selectedCourse = courses![selectedRow]
-        } else if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
-            if component == 0 {
-                workTimeHours = row
-            } else {
-                workTimeMinutes = row
-            }
-        }
+        
+        
+//        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
+//            // Course selection
+//            let selectedRow = pickerView.selectedRow(inComponent: 0)
+//            selectedCourse = courses![selectedRow]
+//        } else if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
+//            if component == 0 {
+//                workTimeHours = row
+//            } else {
+//                workTimeMinutes = row
+//            }
+//        }
     }
 }
 

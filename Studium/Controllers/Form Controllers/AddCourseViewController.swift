@@ -176,7 +176,7 @@ extension AddCourseViewController: DaySelectorDelegate{
                     daysSelected.remove(at: i)
                 }
             }
-        }else{
+        } else {
             //day was not selected, and we are now selecting it.
             sender.isSelected = true
             

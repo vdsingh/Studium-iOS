@@ -17,7 +17,7 @@ class TextFieldCell: BasicCell {
 
     @IBOutlet weak var textField: UITextField!
     public var delegate: UITextFieldDelegateExt!
-        
+            
 //    init(delegate: UITextFieldDelegateExt, style: UITableViewCell.CellStyle = .default) {
 //        self.delegate = delegate
 //        super.init(style: style, reuseIdentifier: TextFieldCell.id)
@@ -39,6 +39,10 @@ class TextFieldCell: BasicCell {
         super.setSelected(selected, animated: animated)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+
     @IBAction func finishedEditingText(_ sender: UITextField) {
         
     }

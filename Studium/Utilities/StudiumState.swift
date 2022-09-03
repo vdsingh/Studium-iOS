@@ -35,6 +35,10 @@ class StudiumState {
     var otherEvents: [OtherEvent] = []
     var assignments: [Assignment] = []
     
+    public func getCourses() -> [Course] {
+        return courses
+    }
+    
     public func updateCourses() {
 //        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
 //        courses = realm.objects(Course.self)
