@@ -30,18 +30,40 @@ class StudiumState {
         return user
     }()
     
-    var courses: [Course] = []
-    var habits: [Habit] = []
-    var otherEvents: [OtherEvent] = []
-    var assignments: [Assignment] = []
+    private var courses: [Course] = []
+    private var habits: [Habit] = []
+    private var otherEvents: [OtherEvent] = []
+    private var assignments: [Assignment] = []
     
+    // MARK: - GETTERS
     public func getCourses() -> [Course] {
         return courses
     }
     
+    public func getHabits() -> [Habit] {
+        return habits
+    }
+    
+    public func getOtherEvents() -> [OtherEvent] {
+        return otherEvents
+    }
+    
+    public func getAssignments() -> [Assignment] {
+        return assignments
+    }
+    
     public func updateCourses() {
-//        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-//        courses = realm.objects(Course.self)
+        guard let realm = realm else {
+            print("$ ERROR: realm is nil.\n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
+            return
+        }
+
+        let coursesResult = realm.objects(Course.self)
+        for course in coursesResult {
+            courses.append(course)
+        }
+        
+        courses.sort(by: {$0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm")})
     }
     
     public func updateHabits() {

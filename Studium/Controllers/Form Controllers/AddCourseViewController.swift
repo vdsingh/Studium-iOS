@@ -6,9 +6,9 @@ import FlexColorPicker
 import EventKit
 
 //makes sure that the course list can refresh when a new course is added
-protocol CourseRefreshProtocol{
-    func loadCourses()
-}
+//protocol CourseRefreshProtocol{
+//    func loadCourses()
+//}
 
 class AddCourseViewController: MasterForm {
     
@@ -17,7 +17,7 @@ class AddCourseViewController: MasterForm {
     var course: Course?
     
     //link to the list that is to be refreshed when a new course is added.
-    var delegate: CourseRefreshProtocol?
+//    var delegate: CourseRefreshProtocol?
 
     //error string that is displayed when there are errors
     var errors: String = ""
@@ -125,7 +125,7 @@ class AddCourseViewController: MasterForm {
                 RealmCRUD.saveCourse(course: newCourse)
                 newCourse.addToAppleCalendar()
             }
-            dismiss(animated: true, completion: delegate?.loadCourses)
+            dismiss(animated: true, completion: StudiumState.state.updateCourses)
         }else{
             self.replaceLabelText(text: errors, section: 3, row: 0)
             tableView.reloadData()
