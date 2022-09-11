@@ -352,6 +352,7 @@ extension MasterFormClass {
             print("$ ERROR: Time Cell Mismatch.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
+//        timeCell.d
         
         var timeCellIndex = indexPath.row
         tableView.beginUpdates()
@@ -375,7 +376,7 @@ extension MasterFormClass {
         case .endTimeCell:
             timePickerID = FormCellID.TimePickerCell.endDateTimePicker
             cells[indexPath.section].insert(
-                .timePickerCell(dateString: "\(timeCell.date!.format(with: "h:mm a"))",
+                .timePickerCell(dateString: "\(timeCell.date!.format(with: timeCell.dateFormat))",
                                 dateFormat: timeCell.dateFormat,
                                 id: timePickerID,
                                 delegate: self),

@@ -131,7 +131,7 @@ class AddAssignmentViewController: MasterForm{
                 }
 
                 let newAssignment = Assignment()
-                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: self.endDate - (60*60), endDate: self.endDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: self.totalLengthMinutes + (self.totalLengthHours * 60), autoDays: workDaysSelected, partitionKey: user.id)
+                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: self.endDate - (60 * 60), endDate: self.endDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: self.totalLengthMinutes + (self.totalLengthHours * 60), autoDays: workDaysSelected, partitionKey: user.id)
                 
                 NotificationHandler.scheduleNotificationsForAssignment(assignment: newAssignment)
                 RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse!)
@@ -344,21 +344,26 @@ extension AddAssignmentViewController: CanHandleInfoDisplay{
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
           }))
         present(alert, animated: true, completion: nil)
-
     }
 }
 
-extension AddAssignmentViewController: DaySelectorDelegate{
+extension AddAssignmentViewController: DaySelectorDelegate {
     func dayButtonPressed(sender: UIButton) {
-        let dayTitle = sender.titleLabel!.text!
-        if sender.isSelected{
+        guard let titleLabel = sender.titleLabel, let dayTitle = titleLabel.text else {
+            print("$ ERROR: titleLabel or dayTitle is nil.\n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
+            return
+        }
+        
+        if sender.isSelected {
             sender.isSelected = false
             for day in workDaysSelected{
-                if day == K.weekdayDict[dayTitle]{//if day is already selected, and we select it again
+                if day == K.weekdayDict[dayTitle] {
+                    //if day is already selected, and we select it again
                     workDaysSelected.remove(at: workDaysSelected.firstIndex(of: day)!)
                 }
             }
-        }else{//day was not selected, and we are now selecting it.
+        } else {
+            //day was not selected, and we are now selecting it.
             sender.isSelected = true
             workDaysSelected.append(K.weekdayDict[dayTitle]!)
         }
