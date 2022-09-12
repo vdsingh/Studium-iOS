@@ -204,7 +204,7 @@ class AddHabitViewController: MasterForm {
                             NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                         }
                     }
-                }else{
+                } else {
                     for alertTime in alertTimes {
                         newHabit.notificationAlertTimes.append(alertTime)
                     }
@@ -212,8 +212,8 @@ class AddHabitViewController: MasterForm {
                 RealmCRUD.saveHabit(habit: newHabit)
                 newHabit.addToAppleCalendar()
                 
-            }else{
-                do{
+            } else {
+                do {
                     try realm.write {
                         if !autoschedule {
                             // TODO: FIX FORCE UNWRAP
@@ -253,7 +253,7 @@ class AddHabitViewController: MasterForm {
                                     NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                                 }
                             }
-                        }else{
+                        } else {
                             habit!.deleteNotifications()
                             for alertTime in alertTimes{
                                 habit!.notificationAlertTimes.append(alertTime)
@@ -340,18 +340,18 @@ class AddHabitViewController: MasterForm {
 //    }
 //}
 
-extension AddHabitViewController: DaySelectorDelegate{
+extension AddHabitViewController: DaySelectorDelegate {
     func dayButtonPressed(sender: UIButton) {
         print("dayButton pressed")
         let dayTitle = sender.titleLabel!.text
-        if sender.isSelected{
+        if sender.isSelected {
             sender.isSelected = false
             for day in daysSelected{
-                if day == K.weekdayDict[dayTitle!]{//if day is already selected, and we select it again
+                if day == K.weekdayDict[dayTitle!] {//if day is already selected, and we select it again
                     daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
                 }
             }
-        }else{//day was not selected, and we are now selecting it.
+        } else {//day was not selected, and we are now selecting it.
             sender.isSelected = true
             daysSelected.append(K.weekdayDict[dayTitle!]!)
         }
@@ -359,12 +359,13 @@ extension AddHabitViewController: DaySelectorDelegate{
 }
 
 
-extension AddHabitViewController: UITextFieldDelegateExt{
+extension AddHabitViewController: UITextFieldDelegateExt {
     func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
             print("$ ERROR: sender's text is nil when editing text.")
             return
         }
+
         switch textFieldID {
         case .nameTextField:
             self.name = text
@@ -424,7 +425,7 @@ extension AddHabitViewController: CanHandleInfoDisplay{
 }
 
 extension AddHabitViewController{
-    func fillForm(with habit: Habit){
+    func fillForm(with habit: Habit) {
         reloadData()
         
         navButton.image = .none
@@ -441,7 +442,7 @@ extension AddHabitViewController{
         let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
         daysCell.selectDays(days: habit.days)
         daysSelected = []
-        for day in habit.days{
+        for day in habit.days {
             daysSelected.append(day)
         }
         
@@ -472,7 +473,7 @@ extension AddHabitViewController{
         endCell.timeLabel.text = endDate.format(with: "h:mm a")
         endCell.date = endDate
         
-        if habit.autoschedule{
+        if habit.autoschedule {
             let autoscheduleCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell
             autoscheduleCell.tableSwitch.isOn = true
             autoschedule = true

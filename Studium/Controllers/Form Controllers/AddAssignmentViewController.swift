@@ -52,7 +52,7 @@ class AddAssignmentViewController: MasterForm{
         self.cells = [
             [
                 .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
-                .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: "MMM d, h:mm a", id: .endTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: "MMM d, h:mm a", timePickerMode: .dateAndTime, id: .endTimeCell, onClick: self.timeCellClicked),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
@@ -319,12 +319,12 @@ extension AddAssignmentViewController: CanHandleSwitch{
     func switchValueChanged(sender: UISwitch) {
         print("$ LOG: Switch value changed")
         // TODO: Use tableview updates so these actions are animated.
-        if sender.isOn{
+        if sender.isOn {
             scheduleWorkTime = true
             cells[1].append(.daySelectorCell(delegate: self))
             cells[1].append(.pickerCell(cellText: "Length", tag: FormCellID.PickerCell.lengthPickerCell, delegate: self, dataSource: self))
             tableView.reloadData()
-        }else{
+        } else {
             scheduleWorkTime = false
             cells[1].removeAll()
             cells[1].append(.switchCell(cellText: "Schedule Time to Work", switchDelegate: self, infoDelegate: self))
@@ -351,14 +351,14 @@ extension AddAssignmentViewController: CanHandleInfoDisplay{
 extension AddAssignmentViewController: DaySelectorDelegate{
     func dayButtonPressed(sender: UIButton) {
         let dayTitle = sender.titleLabel!.text!
-        if sender.isSelected{
+        if sender.isSelected {
             sender.isSelected = false
-            for day in workDaysSelected{
-                if day == K.weekdayDict[dayTitle]{//if day is already selected, and we select it again
+            for day in workDaysSelected {
+                if day == K.weekdayDict[dayTitle] {//if day is already selected, and we select it again
                     workDaysSelected.remove(at: workDaysSelected.firstIndex(of: day)!)
                 }
             }
-        }else{//day was not selected, and we are now selecting it.
+        } else {//day was not selected, and we are now selecting it.
             sender.isSelected = true
             workDaysSelected.append(K.weekdayDict[dayTitle]!)
         }

@@ -18,12 +18,15 @@ class TimePickerCell: BasicCell {
     @IBOutlet weak var picker: UIDatePicker!
     
     var delegate: UITimePickerDelegate?
+//    var timePickerMode: UIDatePicker.Mode?
     var indexPath : IndexPath?
     var pickerID: Int?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         picker.timeZone = NSTimeZone.local
+//        picker.datePickerMode = self.timePickerMode ?? .time
+//        picker.datePickerMode = .dateAndTime
         if #available(iOS 13.4, *) {
             picker.preferredDatePickerStyle = UIDatePickerStyle.wheels
         }
@@ -47,6 +50,10 @@ class TimePickerCell: BasicCell {
         }
         
         delegate.pickerValueChanged(sender: sender, indexPath: indexPath, pickerID: formCellID)
+    }
+    
+    func setPickerMode(datePickerMode: UIDatePicker.Mode) {
+        self.picker.datePickerMode = datePickerMode
     }
 }
 

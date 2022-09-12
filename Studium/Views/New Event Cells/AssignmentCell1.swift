@@ -96,14 +96,14 @@ class AssignmentCell1: DeletableEventCell {
         subLabel.text = course.name
         dueDateLabel.text = assignment.endDate.format(with: "MMM d, h:mm a")
 
-        if assignment.complete{
+        if assignment.complete {
             //if assignment is complete, make it's background color and icon color gray
             background.backgroundColor = .gray
             icon.tintColor = .gray
             
             //make the lateness indicator gray- it's not relevant since the assignment has already been completed
             latenessIndicator.tintColor = .gray
-        }else{
+        } else {
             background.backgroundColor = themeColor
             primaryTextAttributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, primaryTextAttributeString.length))
             icon.tintColor = themeColor
