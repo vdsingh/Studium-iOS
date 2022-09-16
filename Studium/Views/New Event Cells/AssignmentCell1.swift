@@ -111,10 +111,11 @@ class AssignmentCell1: DeletableEventCell {
             
             //If our assignment is past due, make the lateness indicator red. If it is due soon, make the lateness indicator yellow. Otherwise, make it green.
             if Date() > assignment.endDate {
+                print("$$ LOG: assignment end date: \(assignment.endDate)")
                 latenessIndicator.tintColor = .red
-            }else if Date() + (60*60*24*3) > assignment.endDate{
+            } else if Date() + (60*60*24*3) > assignment.endDate {
                 latenessIndicator.tintColor = .yellow
-            }else{
+            } else {
                 latenessIndicator.tintColor = .green
             }
         }
@@ -123,18 +124,19 @@ class AssignmentCell1: DeletableEventCell {
         primaryLabel.attributedText = primaryTextAttributeString
 
         //this assignment has no autoscheduled events, so there is no need to have a button that drops down the autoscheduled events.
-        if assignment.scheduledEvents.count == 0{
+        if assignment.scheduledEvents.count == 0 {
             chevronButton.isHidden = true
-        }else{
+        } else {
             chevronButton.isHidden = false
         }
+        
         self.event = assignment
         
         //set the image of the icon to be the same as the associated course's icon.
         icon.image = UIImage(systemName: course.systemImageString)
         
         //override the chevron button.
-        if hideChevronButton{
+        if hideChevronButton {
             chevronButton.isHidden = true
         }
     }
@@ -145,14 +147,14 @@ class AssignmentCell1: DeletableEventCell {
         if assignmentCollapseDelegate != nil && event != nil{
             if let assignment = event as? Assignment{
                 //configuration settings for chevron button (sizing)
-                if autoEventsOpen{
+                if autoEventsOpen {
                     //handle closing the window
                     assignmentCollapseDelegate?.handleCloseAutoEvents(assignment: assignment)
                     autoEventsOpen = false
                     let chevDownImage = UIImage(systemName: "chevron.down", withConfiguration: largeConfig)
                     chevronButton.setImage(chevDownImage, for: .normal)
 
-                }else{
+                } else {
                     //handle opening the window
                     assignmentCollapseDelegate?.handleOpenAutoEvents(assignment: assignment)
                     autoEventsOpen = true
@@ -160,10 +162,10 @@ class AssignmentCell1: DeletableEventCell {
                     chevronButton.setImage(chevUpImage, for: .normal)
 
                 }
-            }else{
+            } else {
                 print("ERROR: problem getting the event as an assignment when trying to expand assignment's autoscheduled events using the chevron button..")
             }
-        }else{
+        } else {
             print("ERROR: delegate was nil or assignment was nil.")
         }
     }

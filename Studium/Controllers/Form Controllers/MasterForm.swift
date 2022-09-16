@@ -418,10 +418,19 @@ extension MasterFormClass {
             print("$ ERROR: couldn't find TimeCell when changing picker value.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
-        correspondingTimeCell.date = sender.date
-        if let date = correspondingTimeCell.date {
-//        correspondingTimeCell.timeLabel.text = correspondingTimeCell.date!.format(with: "h:mm a")
-            correspondingTimeCell.timeLabel.text = date.format(with: correspondingTimeCell.dateFormat)
+        
+        var components = Calendar.current.dateComponents([.month, .day, .hour, .minute], from: sender.date)
+        components.year = Date().year
+        var pickerDate = Calendar.current.date(from: components)
+        
+        if pickerDate != nil {
+            if pickerDate! < Date() {
+                components.year = Date().year + 1
+                pickerDate = Calendar.current.date(from: components)
+
+            }
+    
+            correspondingTimeCell.timeLabel.text = pickerDate!.format(with: correspondingTimeCell.dateFormat)
         } else {
             print("$ ERROR: date is nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
         }
