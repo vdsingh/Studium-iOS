@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 import ChameleonFramework
 
-class CoursesViewController: SwipeTableViewController {
+class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     var courses: Results<Course>? //Auto updating array linked to the realm
 
     let defaults = UserDefaults.standard
@@ -123,7 +123,7 @@ class CoursesViewController: SwipeTableViewController {
         
         let eventForEdit = deletableEventCell.event! as! Course
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
-//        addCourseViewController.delegate = self
+        addCourseViewController.delegate = self
         addCourseViewController.course = eventForEdit
         ColorPickerCell.color = UIColor(hexString: eventForEdit.color)
         addCourseViewController.title = "View/Edit Course"
@@ -146,7 +146,7 @@ class CoursesViewController: SwipeTableViewController {
     //MARK: - UI Actions
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
-//        addCourseViewController.delegate = self
+        addCourseViewController.delegate = self
         let navController = UINavigationController(rootViewController: addCourseViewController)
         ColorPickerCell.color = .white
         self.present(navController, animated:true, completion: nil)

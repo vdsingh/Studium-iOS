@@ -126,6 +126,9 @@ class AddCourseViewController: MasterForm {
                 newCourse.addToAppleCalendar()
             }
 //            dismiss(animated: true, completion: StudiumState.state.updateCourses)
+            if delegate == nil {
+                print("$ LOG: Course refresh delegate is nil.")
+            }
             dismiss(animated: true, completion: delegate?.loadCourses)
         }else{
             self.replaceLabelText(text: errors, section: 3, row: 0)
