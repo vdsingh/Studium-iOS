@@ -22,7 +22,7 @@ public enum FormCell: Equatable {
     case switchCell(cellText: String, switchDelegate: CanHandleSwitch?, infoDelegate: CanHandleInfoDisplay?)
     case labelCell(cellText: String, textColor: UIColor = .label, backgroundColor: UIColor = kCellBackgroundColor, cellAccessoryType: UITableViewCell.AccessoryType = .none, onClick: (() -> Void)? = nil)
     case timeCell(cellText: String, date: Date?, dateFormat: String?, timePickerMode: UIDatePicker.Mode? = .time, timeLabelText: String? = nil, id: FormCellID.TimeCell, onClick: ((IndexPath) -> Void)? = nil)
-    case timePickerCell(dateString: String, dateFormat: String, timePickerMode: UIDatePicker.Mode, id: FormCellID.TimePickerCell, delegate: UITimePickerDelegate)
+    case timePickerCell(date: Date, dateFormat: String, timePickerMode: UIDatePicker.Mode, id: FormCellID.TimePickerCell, delegate: UITimePickerDelegate)
     case daySelectorCell(delegate: DaySelectorDelegate)
     case segmentedControlCell(firstTitle: String, secondTitle: String, delegate: SegmentedControlDelegate)
     case colorPickerCell(delegate: ColorDelegate)
@@ -155,20 +155,15 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
                 cell.timeLabel.text = timeLabelText
             }
             return cell
-        case .timePickerCell(let dateString, let dateFormat, let timePickerMode, let formCellID, let delegate):
+        case .timePickerCell(let date, let dateFormat, let timePickerMode, let formCellID, let delegate):
             let cell = tableView.dequeueReusableCell(withIdentifier: TimePickerCell.id, for: indexPath) as! TimePickerCell
             cell.delegate = delegate
             cell.indexPath = indexPath
             cell.formCellID = formCellID
-            cell.setPickerMode(datePickerMode: timePickerMode)
-            let dateString = dateString
+            cell.picker.datePickerMode = timePickerMode
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = dateFormat
-            if let date = dateFormatter.date(from: dateString) {
-                cell.picker.setDate(date, animated: true)
-            } else {
-                print("$ ERROR: date is nil. \n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
-            }
+            cell.picker.setDate(date, animated: true)
             return cell
         case .daySelectorCell(let delegate):
             let cell = tableView.dequeueReusableCell(withIdentifier: DaySelectorCell.id, for: indexPath) as! DaySelectorCell
@@ -376,7 +371,8 @@ extension MasterFormClass {
         case .endTimeCell:
             timePickerID = FormCellID.TimePickerCell.endDateTimePicker
             cells[indexPath.section].insert(
-                .timePickerCell(dateString: "\(timeCell.date!.format(with: timeCell.dateFormat))",
+//                .timePickerCell(date: "\(timeCell.date!.format(with: timeCell.dateFormat))",
+                .timePickerCell(date: timeCell.date ?? Date(),
                                 dateFormat: timeCell.dateFormat,
                                 timePickerMode: timeCell.timePickerMode ?? .time,
                                 id: timePickerID,
@@ -385,7 +381,8 @@ extension MasterFormClass {
         case .startTimeCell:
             timePickerID = FormCellID.TimePickerCell.startDateTimePicker
             cells[indexPath.section].insert(
-                .timePickerCell(dateString: "\(timeCell.date!.format(with: timeCell.dateFormat))",
+                //                .timePickerCell(dateString: "\(timeCell.date!.format(with: timeCell.dateFormat))",
+                .timePickerCell(date: timeCell.date ?? Date(),
                                 dateFormat: timeCell.dateFormat,
                                 timePickerMode: timeCell.timePickerMode ?? .time,
                                 id: timePickerID,
@@ -401,13 +398,6 @@ extension MasterFormClass {
             return
         }
         
-        
-//        cells[indexPath.section].insert(
-//            .timePickerCell(dateString: "\(timeCell.date!.format(with: "h:mm a"))",
-//                            dateFormat: timeCell.dateFormat,
-//                            id: timePickerID,
-//                            delegate: self),
-//            at: timeCellIndex + 1)
         tableView.insertRows(at: [IndexPath(row: timeCellIndex + 1, section: indexPath.section)], with: .left)
         tableView.endUpdates()
     }
@@ -418,6 +408,8 @@ extension MasterFormClass {
             print("$ ERROR: couldn't find TimeCell when changing picker value.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
+        
+        print("SENDER DATE: \(sender.date)")
         
         var components = Calendar.current.dateComponents([.month, .day, .hour, .minute], from: sender.date)
         components.year = Date().year
