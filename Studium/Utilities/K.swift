@@ -126,6 +126,6 @@ struct K {
             print("ERROR: error getting user when trying to sign out")
             return
         }
-        let _ = user.logOut()
+//        let _ = user.logOut()
     }
 }

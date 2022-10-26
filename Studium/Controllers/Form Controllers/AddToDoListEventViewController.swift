@@ -46,8 +46,8 @@ class AddToDoListEventViewController: MasterForm {
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
-                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: "h:mm a", id: FormCellID.TimeCell.startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: "h:mm a", id: FormCellID.TimeCell.endTimeCell, onClick: self.timeCellClicked)
+                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: "MMM d, h:mm a", id: FormCellID.TimeCell.startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: "MMM d, h:mm a", timePickerMode: .dateAndTime, id: FormCellID.TimeCell.endTimeCell, onClick: self.timeCellClicked)
             ],
             [
                 .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
