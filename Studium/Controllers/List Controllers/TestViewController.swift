@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class TestViewController: UITableViewController{
+class TestViewController: UITableViewController {
     override func viewDidLoad() {
         tableView.register(UINib(nibName: "RecurringEventCell", bundle: nil), forCellReuseIdentifier: "Cell")
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -20,7 +20,6 @@ class TestViewController: UITableViewController{
     //MARK: - TableView Data Source Methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:  "Cell", for: indexPath) as! RecurringEventCell
-//            cell.delegate = self
         return cell
 
     }

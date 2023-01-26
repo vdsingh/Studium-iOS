@@ -22,32 +22,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let app = App(id: Secret.appID)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        //print(realm.configuration.fileURL)
-//        print("UserDefaults Path: ")
-//        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
-        if let color = K.colorsDict[defaults.string(forKey: "themeColor")!]{
-//            updateTheme(color: K.colorsDict[defaults.string(forKey: "themeColor") ?? "black"] ?? UIColor.black)
+        
+        if let themeColorValue = defaults.string(forKey: "themeColor"),
+            let color = K.colorsDict[themeColorValue]{
             updateTheme(color: color)
+        } else {
+            print("$Log: no theme color saved.")
         }
         
         if let user = app.currentUser {
-            do{
+            do {
                 realm = try Realm(configuration: user.configuration(partitionValue: user.id))
                 let assignments = realm.objects(Assignment.self)
-                for assignment in assignments{
-                    if(assignment.isAutoscheduled && Date() > assignment.endDate){
+                for assignment in assignments {
+                    if(assignment.isAutoscheduled && Date() > assignment.endDate) {
                         RealmCRUD.deleteAssignment(assignment: assignment)
                     }
                 }
-            }catch{
-                print("Error lol")
+            } catch {
+                print("$Error: issue accessing assignments in Realm.")
             }
             print("User IS signed in.")
-        }else {
+        } else {
             defaults.setValue("Guest", forKey: "email")
-            print("User is NOT signed in.")
+            print("$Log: User is NOT signed in.")
         }
-        print("Did finish launching");
+        print("$Log: Did finish launching");
         
         //clientID must be specified for Google Authentication
         GIDSignIn.sharedInstance().clientID = Secret.clientID
@@ -58,10 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
-        
-//        GIDSignIn.sharedInstance().restorePreviousSignIn()
-    
-        
         
         return true
     }
@@ -82,16 +78,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tabAppearance = UITabBarAppearance()
         tabAppearance.backgroundColor = color
-//        tabAppearance.
     
         UITabBar.appearance().standardAppearance = tabAppearance
-//        UITabBar.appearance().scrollEdgeAppearance = tabAppearance
     }
     
     func changeTheme(colorKey: String){
-//        defaults.setColor(color: color, forKey: "themeColor") // set
         defaults.setValue(colorKey, forKey: "themeColor")
-         // get
         updateTheme(color: K.colorsDict[colorKey] ?? UIColor.black)
     }
     

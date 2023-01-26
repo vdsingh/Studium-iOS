@@ -15,13 +15,13 @@ protocol ToDoListRefreshProtocol{
 
 class AddToDoListEventViewController: MasterForm {
     
-    //tracks the event being edited, if one is being edited.
+    /// tracks the event being edited, if one is being edited.
     var otherEvent: OtherEvent?
     
-    //link to the list of OtherEvents, so that when a new ToDo Event is created, the list refreshes.
+    /// link to the list of OtherEvents, so that when a new ToDo Event is created, the list refreshes.
     var delegate: ToDoListRefreshProtocol?
     
-    //Basic OtherEvent characteristics
+    /// Basic OtherEvent characteristics
     var name: String = ""
     var location: String = ""
     var additionalDetails: String = ""
