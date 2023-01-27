@@ -1,39 +1,40 @@
 PODS:
-  - AppAuth (1.4.0):
-    - AppAuth/Core (= 1.4.0)
-    - AppAuth/ExternalUserAgent (= 1.4.0)
-  - AppAuth/Core (1.4.0)
-  - AppAuth/ExternalUserAgent (1.4.0)
+  - AppAuth (1.6.0):
+    - AppAuth/Core (= 1.6.0)
+    - AppAuth/ExternalUserAgent (= 1.6.0)
+  - AppAuth/Core (1.6.0)
+  - AppAuth/ExternalUserAgent (1.6.0):
+    - AppAuth/Core
   - CalendarKit (1.0.18)
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
   - Colorful (3.0.0)
   - DateToolsSwift (5.0.0)
-  - FBAEMKit (13.0.0):
-    - FBSDKCoreKit_Basics (= 13.0.0)
-  - FBSDKCoreKit (13.0.0):
-    - FBAEMKit (= 13.0.0)
-    - FBSDKCoreKit_Basics (= 13.0.0)
-  - FBSDKCoreKit_Basics (13.0.0)
-  - FBSDKLoginKit (13.0.0):
-    - FBSDKCoreKit (= 13.0.0)
+  - FBAEMKit (15.0.0):
+    - FBSDKCoreKit_Basics (= 15.0.0)
+  - FBSDKCoreKit (15.0.0):
+    - FBAEMKit (= 15.0.0)
+    - FBSDKCoreKit_Basics (= 15.0.0)
+  - FBSDKCoreKit_Basics (15.0.0)
+  - FBSDKLoginKit (15.0.0):
+    - FBSDKCoreKit (= 15.0.0)
   - FlexColorPicker (1.4.4)
-  - FSCalendar (2.8.2)
+  - FSCalendar (2.8.4)
   - GoogleSignIn (5.0.2):
     - AppAuth (~> 1.2)
     - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GTMAppAuth (1.2.2):
-    - AppAuth/Core (~> 1.4)
-    - GTMSessionFetcher/Core (~> 1.5)
-  - GTMSessionFetcher/Core (1.7.0)
+  - GTMAppAuth (1.3.1):
+    - AppAuth/Core (~> 1.6)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.5)
+  - GTMSessionFetcher/Core (1.7.2)
   - RAMAnimatedTabBarController (5.2.0)
-  - Realm (10.7.7):
-    - Realm/Headers (= 10.7.7)
-  - Realm/Headers (10.7.7)
-  - RealmSwift (10.7.7):
-    - Realm (= 10.7.7)
+  - Realm (10.31.0):
+    - Realm/Headers (= 10.31.0)
+  - Realm/Headers (10.31.0)
+  - RealmSwift (10.31.0):
+    - Realm (= 10.31.0)
   - SwipeCellKit (2.7.1)
 
 DEPENDENCIES:
@@ -80,23 +81,23 @@ CHECKOUT OPTIONS:
     :git: https://github.com/wowansm/Chameleon.git
 
 SPEC CHECKSUMS:
-  AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
+  AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
   CalendarKit: 9d1ca8a20e082948796ca1c7f359cee91f793317
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Colorful: 9e093edacaa9fb73512ad9da157f0707b82d2542
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
-  FBAEMKit: 11a0bcdc7a88e26ed764bcf56372afc6cbbbdcd9
-  FBSDKCoreKit: 00e1e751257e1005304fa29cb683d2dfe008f41a
-  FBSDKCoreKit_Basics: 96ec2ddb67a032e54f0754ea3d59db6f84f42389
-  FBSDKLoginKit: 66ff4ddf372d9c3fc360e65ae048a47a482c29b9
+  FBAEMKit: d8312d8451ead46282adc7f3565ffc4965e3a4a7
+  FBSDKCoreKit: 81879058dd06208c0820fc713d054ca54903e8ba
+  FBSDKCoreKit_Basics: eebc9bb69a0e5d133b92dca53a20716227faa454
+  FBSDKLoginKit: 11995469cd7da16fd4d5245e8d2ec61060479270
   FlexColorPicker: ce72e0a9e0870815a0beba419ac3e09913401624
-  FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
+  FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
-  GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
-  GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
+  GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
+  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
-  Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
-  RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
+  Realm: 10df7d86e1ca09d9948fdce2faa3fc623fb092c6
+  RealmSwift: aecc52389574be4d451bf6cb1b08824eaa17dad0
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
 PODFILE CHECKSUM: 9476b12cfc70bcb18fe3ca3f207c4cb10bb2b1a3

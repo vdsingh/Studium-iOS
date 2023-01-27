@@ -121,20 +121,6 @@ class LoginViewController: FBAndGoogleAuthViewController, UIGestureRecognizerDel
     
     //this function sets up the textfields (adds the left image and right image.)
     func setupUI(){
-//        googleSignInButton.fs_left = 20
-//        googleSignInButton.fs_right = 20
-//        googleSignInButton.fs_height = 50
-//        
-//        let loginButton = FBLoginButton()
-//        loginButton.center = fbViewHolder.center
-//        loginButton.fs_width = fbViewHolder.fs_width
-//        loginButton.fs_height = fbViewHolder.fs_height
-//        loginButton.fs_left = fbViewHolder.fs_left
-//        loginButton.fs_right = fbViewHolder.fs_right
-//        
-//        loginButton.permissions = ["public_profile", "email"]
-//        fbViewHolder.isHidden = true
-//        view.addSubview(loginButton)
 
         //EMAIL TEXT FIELD SETUP:
         let emailImageView = UIImageView(frame: CGRect(x: textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))

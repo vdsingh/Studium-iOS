@@ -12,7 +12,7 @@ import EventKit
 import CalendarKit
 import RealmSwift
 
-class StudiumEvent: Object{
+class StudiumEvent: Object {
 
     /// id of the StudiumEvent
     @objc dynamic var _id: ObjectId = ObjectId.generate()
@@ -54,9 +54,9 @@ class StudiumEvent: Object{
             event.endDate = endDate
             event.notes = additionalDetails
 
-            do {
+            do{
                 try store.save(event, span: EKSpan.futureEvents, commit: true)
-            } catch let error as NSError {
+            }catch let error as NSError{
                 print("Failed to save event. Error: \(error)")
             }
         }
