@@ -134,7 +134,7 @@ class RegisterViewController: FBAndGoogleAuthViewController, UIGestureRecognizer
 //    }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        print("nav controllerrr \(self.navigationController)")
+        print("$Log: nav controller \(self.navigationController)")
         self.navigationController?.popViewController(animated: true)
     }
     

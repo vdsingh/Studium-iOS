@@ -112,9 +112,7 @@ class AddCourseViewController: MasterForm, LogoStorer{
         if errors.count == 0{
             if course == nil{
                 let newCourse = Course()
-                if let user = app.currentUser {
-                    partitionKey = user.id
-                }
+                partitionKey = DatabaseService.shared.user.id
                 newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
                 //scheduling the appropriate notifications
                 for alertTime in alertTimes{
@@ -158,7 +156,7 @@ class AddCourseViewController: MasterForm, LogoStorer{
                 newCourse.addToAppleCalendar()
             }else{
                 do{
-                    try realm.write{
+                    try DatabaseService.shared.realm.write {
                         print("the system image string: \(systemImageString)")
                         course!.deleteNotifications()
                         for alertTime in alertTimes{
@@ -194,9 +192,9 @@ class AddCourseViewController: MasterForm, LogoStorer{
                             scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                             }
                         }
-                        if let user = app.currentUser {
-                            partitionKey = user.id
-                        }
+//                        if let user = app.currentUser {
+                        partitionKey = DatabaseService.shared.user.id
+//                        }
                         course!.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
                     }
                 }catch{

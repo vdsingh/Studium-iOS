@@ -16,6 +16,7 @@ class LogoSelectorViewController: UIViewController {
     var color: UIColor = .systemBackground
     @IBOutlet weak var collectionView: UICollectionView!
     
+    //TODO: Move to enum
     //logos available if OS is less than 14
     var systemCourseLogoNames: [String] = ["plus", "minus", "multiply", "divide","function", "pencil", "folder", "book", "film", "lightbulb", "tv"]
     

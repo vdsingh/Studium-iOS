@@ -150,12 +150,9 @@ class AddHabitViewController: MasterForm, LogoStorer{
         
         if errors.count == 0{ //if there are no errors.
             if habit == nil{
-                guard let user = app.currentUser else {
-                    print("ERROR: error getting user in MasterForm")
-                    return
-                }
+
                 let newHabit = Habit()
-                newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthHours * 60 + totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: user.id)
+                newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthHours * 60 + totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: DatabaseService.shared.user.id)
                 if !autoschedule{
                     for alertTime in alertTimes{
                         for day in daysSelected{
@@ -201,10 +198,11 @@ class AddHabitViewController: MasterForm, LogoStorer{
                 RealmCRUD.saveHabit(habit: newHabit)
                 newHabit.addToAppleCalendar()
                 
-            }else{
+            } else {
                 
+                //TODO: Get rid of the realm code here.
                 do{
-                    try realm.write{
+                    try DatabaseService.shared.realm.write{
                         if !autoschedule{
                             habit!.deleteNotifications()
                             for alertTime in alertTimes{
@@ -242,17 +240,15 @@ class AddHabitViewController: MasterForm, LogoStorer{
                                     scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                                 }
                             }
-                        }else{
+                        } else {
                             habit!.deleteNotifications()
                             for alertTime in alertTimes{
                                 habit!.notificationAlertTimes.append(alertTime)
                             }
                         }
-                        guard let user = app.currentUser else {
-                            print("Error getting user in MasterForm")
-                            return
-                        }
-                        habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: user.id)
+
+                        
+                        habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: DatabaseService.shared.user.id)
                         print("editing habit with length hour \(totalLengthHours) segmented control: \(earlier)")
                     }
                 }catch{

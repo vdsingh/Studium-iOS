@@ -79,10 +79,11 @@ class AddToDoListEventViewController: MasterForm {
         //there are no errors
         if errors == ""{
             if otherEvent == nil{
-                guard let user = app.currentUser else {
-                    print("Error getting user in MasterForm")
+                guard let user = DatabaseService.shared.app.currentUser else {
+                    print("$Error: error getting user in MasterForm")
                     return
                 }
+                
                 let newEvent = OtherEvent()
                 newEvent.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes, partitionKey: user.id)
                 for alertTime in alertTimes{
@@ -97,9 +98,9 @@ class AddToDoListEventViewController: MasterForm {
                 RealmCRUD.saveOtherEvent(otherEvent: newEvent)
             }else{
                 do{
-                    try realm.write{
-                        otherEvent!.updateNotifications(with: alertTimes)
-                    }
+//                    try realm.write{
+//                        otherEvent!.updateNotifications(with: alertTimes)
+//                    }
                     for alertTime in alertTimes{
                         if !otherEvent!.notificationAlertTimes.contains(alertTime){
                             let alertDate = startDate - (Double(alertTime) * 60)
@@ -107,18 +108,18 @@ class AddToDoListEventViewController: MasterForm {
                             components.second = 0
                             print("alertDate: \(alertDate). Start Date: \(startDate)")
                             let identifier = UUID().uuidString
-                            try realm.write{
-                                print("scheduling new notification for alertTime: \(alertTime)")
-                                otherEvent!.notificationIdentifiers.append(identifier)
-                                otherEvent!.notificationAlertTimes.append(alertTime)
-                            }
+//                            try realm.write{
+//                                print("scheduling new notification for alertTime: \(alertTime)")
+//                                otherEvent!.notificationIdentifiers.append(identifier)
+//                                otherEvent!.notificationAlertTimes.append(alertTime)
+//                            }
                             scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                         }
 
                     }
-                    try realm.write{
-                        otherEvent!.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails)
-                    }
+//                    try realm.write{
+//                        otherEvent!.initializeData(startDate: startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails)
+//                    }
                 }catch{
                     print("there was an error: \(error)")
                 }
@@ -231,7 +232,8 @@ class AddToDoListEventViewController: MasterForm {
 
         //user taps "This Event is a Course Assignment"
         if indexPath.section == 0{
-            let courses = realm.objects(Course.self)
+//            let courses = realm.objects(Course.self)
+            let courses = DatabaseService.shared.getCourses()
             if courses.count != 0{
                 let del = delegate as! ToDoListViewController
                 self.dismiss(animated: true) {

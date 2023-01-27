@@ -12,21 +12,26 @@ import UserNotifications
 import RealmSwift
 
 //characteristics of all forms.
-class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, AlertInfoStorer{
+class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, AlertInfoStorer {
+    //TODO: Figure out this Protocol Function
+    func processAlertTimes() {
+        
+    }
+    
     var alertTimes: [Int] = []
     
+    //TODO: Abstract Realm and App to separate layer
     //reference to the realm database.
-    let app = App(id: Secret.appID)
+//    let app = App(id: Secret.appID)
     
-    var realm: Realm!
+//    var realm: Realm!
     
     override func viewDidLoad() {
-        guard let user = app.currentUser else {
-            print("Error getting user in MasterForm")
-            return
-        }
-        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-//        print(us)
+//        guard let user = app.currentUser else {
+//            print("Error getting user in MasterForm")
+//            return
+//        }
+//        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -36,6 +41,7 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
       return headerView
     }
     
+    //TODO: Abstract notifications to a notification handler.
     
     //method to schedule Local Notifications to the User.
     func scheduleNotification(components: DateComponents, body: String, titles:String, repeatNotif: Bool, identifier: String) {
@@ -49,7 +55,6 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
         content.title = titles
         content.body = body
         content.sound = UNNotificationSound.default
-//        content.categoryIdentifier = identifier
         
         
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
@@ -60,18 +65,13 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
         //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNUserNotificationCenter.current().add(request) {(error) in
             if error != nil {
-                print("ERROR: error with adding notification")
+                print("$Error: error with adding notification")
             }else{
-                print("LOG: notification scheduled.")
+                print("$Log: notification scheduled.")
                 
             }
         }
     }
-    
-    func processAlertTimes() {
-        
-    }
-    
 }
 
 

@@ -97,6 +97,8 @@
 		16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E7B22E27D1EF8D00AAE756 /* GenericTableViewCell.swift */; };
 		16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E7B22F27D1EF8D00AAE756 /* GenericTableViewCell.xib */; };
 		B7810C2AA5191938B2C9F9FF /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */; };
+		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
+		B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5E2983465D00A25457 /* SystemIcon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -194,6 +196,8 @@
 		590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
 		8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Studium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.release.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.release.xcconfig"; sourceTree = "<group>"; };
+		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		B96E6A5E2983465D00A25457 /* SystemIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,6 +304,8 @@
 		1693E72F247A3DC4003D4702 /* Studium */ = {
 			isa = PBXGroup;
 			children = (
+				B96E6A5D2983464900A25457 /* Utility */,
+				B96E6A5A298323CC00A25457 /* Repository */,
 				1693E730247A3DC4003D4702 /* AppDelegate.swift */,
 				1693E732247A3DC4003D4702 /* SceneDelegate.swift */,
 				1693E74C247A463D003D4702 /* Models */,
@@ -468,6 +474,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		B96E6A5A298323CC00A25457 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				B96E6A5B298323DD00A25457 /* DatabaseService.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		B96E6A5D2983464900A25457 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				B96E6A5E2983465D00A25457 /* SystemIcon.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -627,6 +649,7 @@
 				1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */,
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
 				1693E755247A4B64003D4702 /* K.swift in Sources */,
+				B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */,
 				1638CB8024EC374100D3D93E /* ThemeCell.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */,
@@ -679,6 +702,7 @@
 				16A63B7F24A6D1C4003A30D3 /* AddToDoListEventViewController.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
 				164F62FC24E4DF4800DC8169 /* LogoCollectionViewCell.swift in Sources */,
+				B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */,
 				16A63B8F24AD43DF003A30D3 /* AddHabitViewController.swift in Sources */,
 				16C445AB266433D1006076C1 /* BasicCell.swift in Sources */,
 				1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */,

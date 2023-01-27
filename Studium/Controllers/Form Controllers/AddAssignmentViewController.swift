@@ -6,7 +6,7 @@ protocol AssignmentRefreshProtocol{
     func loadAssignments()
 }
 
-class AddAssignmentViewController: MasterForm{
+class AddAssignmentViewController: MasterForm {
     //holds the assignment being edited if an assignment is being edited.
     var assignment: Assignment?
     
@@ -24,9 +24,17 @@ class AddAssignmentViewController: MasterForm{
     var workTimeHours = 1
     var workTimeMinutes = 0
     
+    private var user: User {
+        guard let user = DatabaseService.shared.app.currentUser else {
+            fatalError("$Error: couldn't access current user.")
+        }
+        
+        return user
+    }
+    
     
     //a list of courses so that the user can pick which course the assignment is attached to
-    var courses: Results<Course>? = nil
+    var courses: [Course] = []
     
     //link to the main list of assignments, so it can refresh when we add a new one
     var delegate: AssignmentRefreshProtocol?
@@ -67,12 +75,11 @@ class AddAssignmentViewController: MasterForm{
         
         
         //getting all courses from realm to populate the course picker.
-        guard let user = app.currentUser else {
-            print("ERROR: error getting user in MasterForm")
-            return
-        }
-        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-        courses = realm.objects(Course.self)
+        
+        //        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+        //        courses = realm.objects(Course.self)
+        self.courses = DatabaseService.shared.getCourses()
+        
         
         dueDate = Calendar.current.date(bySetting: .hour, value: 23, of: dueDate)!
         dueDate = Calendar.current.date(bySetting: .minute, value: 59, of: dueDate)!
@@ -87,9 +94,10 @@ class AddAssignmentViewController: MasterForm{
                 workDaysSelected.append(day)
             }
             guard let course = assignment!.parentCourse else{
-                print("ERROR: error accessing parent course in AssignmentCell1")
+                print("$Error: error accessing parent course in AssignmentCell1")
                 return
             }
+            //TODO: Fix force unwrap
             fillForm(name: assignment!.name, additionalDetails: assignment!.additionalDetails, alertTimes: alertTimes, dueDate: assignment!.endDate, selectedCourse: course, scheduleWorkTime: assignment!.autoschedule, workTimeMinutes: assignment!.autoLengthMinutes, workDays: workDaysSelected)
         }else if fromTodoForm{
             //THIS IS BROKEN PLEASE FIX. ASSIGNMENT IS NIL, SO THERE IS NO PARENT COURSE. FIX LATER
@@ -116,11 +124,7 @@ class AddAssignmentViewController: MasterForm{
         if errors == "" {
             if assignment == nil{
                 print("adding assignment for the first time")
-                guard let user = app.currentUser else {
-                    print("ERROR: error getting user")
-                    return
-                }
-
+                
                 let newAssignment = Assignment()
                 newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes + (workTimeHours * 60), autoDays: workDaysSelected, partitionKey: user.id)
                 
@@ -128,42 +132,41 @@ class AddAssignmentViewController: MasterForm{
                     let alertDate = dueDate - (Double(alertTime) * 60)
                     var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
                     components.second = 0
-
+                    
                     let identifier = UUID().uuidString
                     newAssignment.notificationIdentifiers.append(identifier)
                     scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                 }
                 RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse!)
-            }else{
-                do{
-                    try realm.write{
-                        assignment!.updateNotifications(with: alertTimes)
-                    }
-                    for alertTime in alertTimes{
+            } else {
+                do {
+                    //                    try realm.write {
+                    //                        assignment!.updateNotifications(with: alertTimes)
+                    //                    }
+                    
+                    for alertTime in alertTimes {
                         if !assignment!.notificationAlertTimes.contains(alertTime){
                             let alertDate = dueDate - (Double(alertTime) * 60)
                             var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
                             components.second = 0
                             let identifier = UUID().uuidString
-                            try realm.write{
-                                print("scheduling new notification for alertTime: \(alertTime)")
-                                assignment!.notificationIdentifiers.append(identifier)
-                                assignment!.notificationAlertTimes.append(alertTime)
-                            }
+                            //                            try realm.write {
+                            //                                print("scheduling new notification for alertTime: \(alertTime)")
+                            //                                assignment!.notificationIdentifiers.append(identifier)
+                            //                                assignment!.notificationAlertTimes.append(alertTime)
+                            //                            }
                             scheduleNotification(components: components, body: "", titles: "\(name) due at \(dueDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
                         }
                     }
-                    try realm.write{
-                        print("Edited Assignment with \(workTimeHours) and \(workTimeMinutes)")
-                        guard let user = app.currentUser else {
-                            print("ERROR: error getting user")
-                            return
-                        }
-                        assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
-                        
-                    }
-                }catch{
-                    print("ERROR: \(error)")
+                    
+                    //                    try realm.write {
+                    print("$Log: Edited Assignment with \(workTimeHours) and \(workTimeMinutes)")
+                    
+                    assignment!.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: dueDate - (60*60), endDate: dueDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: workTimeMinutes, autoDays: workDaysSelected, partitionKey: user.id)
+                    
+                    //                    }
+                } catch {
+                    print("$Error: \(error)")
                 }
             }
             delegate?.loadAssignments()
@@ -178,24 +181,23 @@ class AddAssignmentViewController: MasterForm{
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
-        
+    
     //set the course picker to whatever course was originally selected, if any
     func setDefaultRow(picker: UIPickerView){
         var row = 0
-        if selectedCourse == nil{
+        if selectedCourse == nil {
             return
         }
-        if let coursesArr = courses{
-            for course in coursesArr{
-                if course.name == selectedCourse!.name{
-                    picker.selectRow(row, inComponent: 0, animated: true)
-                    break
-                }
-                row += 1
+        
+        for course in courses {
+            if course.name == selectedCourse!.name {
+                picker.selectRow(row, inComponent: 0, animated: true)
+                break
             }
-        }else{
-            print("ERROR: courses in AddAssignment is nil")
+            
+            row += 1
         }
+        
     }
     
     func fillForm(name: String, additionalDetails: String, alertTimes: [Int], dueDate: Date, selectedCourse: Course?, scheduleWorkTime: Bool, workTimeMinutes: Int, workDays: [Int]){
@@ -231,11 +233,11 @@ class AddAssignmentViewController: MasterForm{
             self.workTimeMinutes = workTimeMinutes % 60
             
             let workTimePickerCell = tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! PickerCell
-//            workTimePickerCell.picker.
+            //            workTimePickerCell.picker.
             workTimePickerCell.picker.selectRow(workTimeHours, inComponent: 0, animated: true)
             workTimePickerCell.picker.selectRow(workTimeMinutes, inComponent: 1, animated: true)
-
-
+            
+            
         }
         
         if (selectedCourse != nil){
@@ -377,7 +379,7 @@ extension AddAssignmentViewController{
     }
 }
 
- //MARK: - Cell DataSource and Delegates
+//MARK: - Cell DataSource and Delegates
 extension AddAssignmentViewController: UITextFieldDelegateExt{
     func textEdited(sender: UITextField) {
         if sender.placeholder == "Name"{
@@ -393,9 +395,9 @@ extension AddAssignmentViewController: UITextFieldDelegateExt{
 //MARK: - TimerPicker DataSource Methods
 extension AddAssignmentViewController: UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView.tag == 1{
-            return courses?.count ?? 1
-        }else if pickerView.tag == 0{
+        if pickerView.tag == 1 {
+            return courses.count
+        } else if pickerView.tag == 0 {
             if component == 0{
                 return 24
             }
@@ -419,7 +421,7 @@ extension AddAssignmentViewController: UIPickerViewDelegate{
     //helps set up information in the UIPickerView
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView.tag == 1{
-            return courses![row].name
+            return courses[row].name
         }else if pickerView.tag == 0{
             if component == 0{
                 return "\(row) hours"
@@ -438,14 +440,14 @@ extension AddAssignmentViewController: UIPickerViewDelegate{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         if pickerView.tag == 1{ //course selection
             let selectedRow = pickerView.selectedRow(inComponent: 0)
-            selectedCourse = courses![selectedRow]
+            selectedCourse = courses[selectedRow]
         }else if pickerView.tag == 0{
             if component == 0{
                 workTimeHours = row
             }else{
                 workTimeMinutes = row
             }
-           
+            
         }
     }
 }
@@ -488,13 +490,13 @@ extension AddAssignmentViewController: CanHandleSwitch{
 extension AddAssignmentViewController: CanHandleInfoDisplay{
     func displayInformation() {
         let alert = UIAlertController(title: "Anti-Procrastination!", message: "Need to schedule time to work on this? Specify what days are best and how long you want to work per day. We'll find time for you to get it done!", preferredStyle: UIAlertController.Style.alert)
-//        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-//            self.deleteAllOtherEvents(isCompleted: isCompleted)
-//          }))
+        //        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+        //            self.deleteAllOtherEvents(isCompleted: isCompleted)
+        //          }))
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
-          }))
+        }))
         present(alert, animated: true, completion: nil)
-
+        
     }
     
     
