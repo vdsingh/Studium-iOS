@@ -7,34 +7,59 @@
 //
 
 import UIKit
-protocol UITextFieldDelegateExt {
-    func textEdited(sender: UITextField)
+public protocol UITextFieldDelegateExt {
+    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell)
 }
 class TextFieldCell: BasicCell {
+    
+    public var textFieldID: FormCellID.TextFieldCell?
+
 
     @IBOutlet weak var textField: UITextField!
-    var delegate: UITextFieldDelegateExt?
+    public var delegate: UITextFieldDelegateExt!
+            
+//    init(delegate: UITextFieldDelegateExt, style: UITableViewCell.CellStyle = .default) {
+//        self.delegate = delegate
+//        super.init(style: style, reuseIdentifier: TextFieldCell.id)
+//    }
+    
+//    required init?(coder: NSCoder) {
+////        fatalError("init(coder:) has not been implemented")
+//        super.init(coder: coder)
+//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        textField.returnKeyType = UIReturnKeyType.done
+        self.textField.returnKeyType = UIReturnKeyType.done
         
         self.backgroundColor = defaultBackgroundColor
-
-
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+
     @IBAction func finishedEditingText(_ sender: UITextField) {
         
     }
     
     @IBAction func textEdited(_ sender: UITextField) {
-        delegate!.textEdited(sender: sender)
+        if let textFieldID = self.textFieldID {
+            delegate.textEdited(sender: sender, textFieldID: textFieldID)
+        } else {
+            print("$ ERROR: textFieldID not supplied.")
+        }
+//        delegate.textEdited(sender: sender)
     }
 }
+
+extension TextFieldCell: FormCellProtocol {
+    static var id: String = "TextFieldCell"
+}
+
+//extension TextFieldCell: FormCellIdentifiable {
+//}

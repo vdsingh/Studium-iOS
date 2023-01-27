@@ -8,11 +8,10 @@
 
 import UIKit
 import RealmSwift
-protocol DaySelectorDelegate{
+public protocol DaySelectorDelegate{
     func dayButtonPressed(sender: UIButton)
 }
 class DaySelectorCell: BasicCell {
-
     var delegate: DaySelectorDelegate?
     
     @IBOutlet var dayButtons: [UIButton]!
@@ -75,4 +74,8 @@ class DaySelectorCell: BasicCell {
 //        }
     }
     
+}
+
+extension DaySelectorCell: FormCellProtocol {
+    static var id: String = "DaySelectorCell"
 }

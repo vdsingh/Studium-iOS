@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import GoogleSignIn
 
-class LoginViewController1: UIViewController{
+class LoginViewController1: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!

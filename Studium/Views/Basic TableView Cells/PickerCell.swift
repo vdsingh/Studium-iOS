@@ -9,16 +9,17 @@
 import UIKit
 
 
-class PickerCell: BasicCell{
+class PickerCell: BasicCell {
 
     @IBOutlet weak var picker: UIPickerView!
-    
 //    var delegate: PickerDelegate?
+    var formCellID: FormCellID.PickerCell?
     var indexPath: IndexPath?
     override func awakeFromNib() {
 //        picker.delegate = self
         super.awakeFromNib()
         self.backgroundColor = defaultBackgroundColor
+        
 
     
         // Initialization code
@@ -26,12 +27,17 @@ class PickerCell: BasicCell{
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    
 
         // Configure the view for the selected state
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+        print("$ LOG: PICKER VIEW CHANGED")
     }
     
+}
+
+extension PickerCell: FormCellProtocol {
+    static var id: String = "PickerCell"
 }

@@ -9,11 +9,16 @@
 import UIKit
 
 class TimeCell: BasicCell {
+    public var formCellID: FormCellID.TimeCell?
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
     var date: Date?
+    var dateFormat: String = "h:mm a"
+    
+    var timePickerMode: UIDatePicker.Mode?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = defaultBackgroundColor
@@ -27,4 +32,8 @@ class TimeCell: BasicCell {
         // Configure the view for the selected state
     }
     
+}
+
+extension TimeCell: FormCellProtocol {
+    public static var id: String = "TimeCell"
 }
