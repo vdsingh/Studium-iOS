@@ -129,7 +129,7 @@ class DayScheduleViewController: DayViewController{
                 dateFormatter.dateFormat = "EEEE"
                 let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
                 //print(weekDay)
-                let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
+//                let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
                 if habit.days.contains(date.weekday){ //habit occurs on this day
                     var components = Calendar.current.dateComponents([.hour, .minute], from: habit.startDate)
                     var usableStartDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
