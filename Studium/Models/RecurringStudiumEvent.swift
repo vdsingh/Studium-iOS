@@ -11,7 +11,7 @@ import EventKit
 import CalendarKit
 import RealmSwift
 
-protocol Autoscheduleable: StudiumEvent{
+protocol Autoscheduleable: StudiumEvent {
     var autoLengthMinutes: Int {get set}
     
 //    var autoDays: List<Int> {get set}
@@ -24,7 +24,7 @@ protocol Autoscheduleable: StudiumEvent{
     
 }
 
-class RecurringStudiumEvent: StudiumEvent{
+class RecurringStudiumEvent: StudiumEvent {
     var days: List<Int> = List<Int>()
     
     ///Adds the event to Apple calendar
