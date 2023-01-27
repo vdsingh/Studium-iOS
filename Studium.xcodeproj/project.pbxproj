@@ -96,9 +96,9 @@
 		16E251492485190F000494DE /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E251472485190E000494DE /* SegmentedControlCell.xib */; };
 		16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E7B22E27D1EF8D00AAE756 /* GenericTableViewCell.swift */; };
 		16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E7B22F27D1EF8D00AAE756 /* GenericTableViewCell.xib */; };
-		B939A89828ADB61300FB2728 /* StudiumState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939A89728ADB61300FB2728 /* StudiumState.swift */; };
-		B939A89D28ADB78300FB2728 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939A89C28ADB78300FB2728 /* NotificationHandler.swift */; };
-		E8EA8423C30C2F3F29DA0025 /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */; };
+		B7810C2AA5191938B2C9F9FF /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */; };
+		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
+		B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5E2983465D00A25457 /* SystemIcon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -196,8 +196,8 @@
 		590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
 		8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Studium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.release.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.release.xcconfig"; sourceTree = "<group>"; };
-		B939A89728ADB61300FB2728 /* StudiumState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumState.swift; sourceTree = "<group>"; };
-		B939A89C28ADB78300FB2728 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		B96E6A5E2983465D00A25457 /* SystemIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,7 +205,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8EA8423C30C2F3F29DA0025 /* Pods_Studium.framework in Frameworks */,
+				B7810C2AA5191938B2C9F9FF /* Pods_Studium.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +304,8 @@
 		1693E72F247A3DC4003D4702 /* Studium */ = {
 			isa = PBXGroup;
 			children = (
-				B939A89B28ADB74000FB2728 /* Utilities */,
+				B96E6A5D2983464900A25457 /* Utility */,
+				B96E6A5A298323CC00A25457 /* Repository */,
 				1693E730247A3DC4003D4702 /* AppDelegate.swift */,
 				1693E732247A3DC4003D4702 /* SceneDelegate.swift */,
 				1693E74C247A463D003D4702 /* Models */,
@@ -313,6 +314,9 @@
 				1693E739247A3DC6003D4702 /* Assets.xcassets */,
 				1693E73E247A3DC6003D4702 /* Info.plist */,
 				16C445AE26646C75006076C1 /* credentials.plist */,
+				1693E754247A4B64003D4702 /* K.swift */,
+				168EE1C42659F899009A8001 /* Autoschedule.swift */,
+				168EE1C62659FA10009A8001 /* RealmCRUD.swift */,
 				16B498CF25CE2CE6005E9C26 /* Secret.swift */,
 			);
 			path = Studium;
@@ -342,7 +346,7 @@
 				1665FF1E250EA98300485F3D /* Fonts */,
 				1693E736247A3DC4003D4702 /* Main.storyboard */,
 				1693E73B247A3DC6003D4702 /* LaunchScreen.storyboard */,
-				16E2514524838676000494DE /* Basic TableView Form Cells */,
+				16E2514524838676000494DE /* Basic TableView Cells */,
 				1649A46827DEAD1900B75481 /* HeaderView.swift */,
 			);
 			path = Views;
@@ -354,6 +358,7 @@
 				1693E74D247A464F003D4702 /* Course.swift */,
 				1693E74F247A4660003D4702 /* Assignment.swift */,
 				16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */,
+				16429CFD247D20F90052E47C /* Extensions.swift */,
 				16429D03247E43720052E47C /* Habit.swift */,
 				16A63B8024AA8059003A30D3 /* OtherEvent.swift */,
 				16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */,
@@ -418,7 +423,7 @@
 			path = "New Event Cells";
 			sourceTree = "<group>";
 		};
-		16E2514524838676000494DE /* Basic TableView Form Cells */ = {
+		16E2514524838676000494DE /* Basic TableView Cells */ = {
 			isa = PBXGroup;
 			children = (
 				1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */,
@@ -449,7 +454,7 @@
 				1649A46227DC7B3B00B75481 /* ColorPickerCell2.swift */,
 				1649A46327DC7B3B00B75481 /* ColorPickerCell2.xib */,
 			);
-			path = "Basic TableView Form Cells";
+			path = "Basic TableView Cells";
 			sourceTree = "<group>";
 		};
 		8E6006EE7CC6D255D05E9EBF /* Frameworks */ = {
@@ -469,17 +474,20 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B939A89B28ADB74000FB2728 /* Utilities */ = {
+		B96E6A5A298323CC00A25457 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				168EE1C62659FA10009A8001 /* RealmCRUD.swift */,
-				168EE1C42659F899009A8001 /* Autoschedule.swift */,
-				1693E754247A4B64003D4702 /* K.swift */,
-				16429CFD247D20F90052E47C /* Extensions.swift */,
-				B939A89728ADB61300FB2728 /* StudiumState.swift */,
-				B939A89C28ADB78300FB2728 /* NotificationHandler.swift */,
+				B96E6A5B298323DD00A25457 /* DatabaseService.swift */,
 			);
-			path = Utilities;
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		B96E6A5D2983464900A25457 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				B96E6A5E2983465D00A25457 /* SystemIcon.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -494,7 +502,7 @@
 				1693E72A247A3DC4003D4702 /* Frameworks */,
 				1693E72B247A3DC4003D4702 /* Resources */,
 				FE67BCE7A45700F01C1E38E5 /* [CP] Embed Pods Frameworks */,
-				BD753A011114201AA5C80714 /* [CP] Copy Pods Resources */,
+				FE124506BD3320495DB7600D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -597,7 +605,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BD753A011114201AA5C80714 /* [CP] Copy Pods Resources */ = {
+		FE124506BD3320495DB7600D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -641,6 +649,7 @@
 				1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */,
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
 				1693E755247A4B64003D4702 /* K.swift in Sources */,
+				B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */,
 				1638CB8024EC374100D3D93E /* ThemeCell.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */,
@@ -663,7 +672,6 @@
 				1686DB6424812CE000FA99DB /* LabelCell.swift in Sources */,
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
 				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
-				B939A89D28ADB78300FB2728 /* NotificationHandler.swift in Sources */,
 				1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */,
 				1686DB7E24827B8900FA99DB /* TimePickerCell.swift in Sources */,
 				164F62F924E4D54200DC8169 /* LogoSelectorViewController.swift in Sources */,
@@ -686,7 +694,6 @@
 				16429CFE247D20F90052E47C /* Extensions.swift in Sources */,
 				1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */,
 				164905B727E18732002DE61D /* LoginViewController.swift in Sources */,
-				B939A89828ADB61300FB2728 /* StudiumState.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
@@ -695,6 +702,7 @@
 				16A63B7F24A6D1C4003A30D3 /* AddToDoListEventViewController.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
 				164F62FC24E4DF4800DC8169 /* LogoCollectionViewCell.swift in Sources */,
+				B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */,
 				16A63B8F24AD43DF003A30D3 /* AddHabitViewController.swift in Sources */,
 				16C445AB266433D1006076C1 /* BasicCell.swift in Sources */,
 				1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */,
@@ -848,13 +856,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */;
 			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VJUSE27PV3;
-				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = Studium/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -862,7 +866,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vikramsingh.Studium;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -874,13 +877,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */;
 			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VJUSE27PV3;
-				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = Studium/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -888,7 +887,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vikramsingh.Studium;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

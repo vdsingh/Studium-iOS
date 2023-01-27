@@ -37,8 +37,6 @@ class StudiumState {
     
     // MARK: - GETTERS
     public func getCourses() -> [Course] {
-        print("$ LOG: getCourses called")
-        self.updateCourses()
         return courses
     }
     
@@ -55,8 +53,6 @@ class StudiumState {
     }
     
     public func updateCourses() {
-        print("$ LOG: Courses updated.")
-        courses = []
         guard let realm = realm else {
             print("$ ERROR: realm is nil.\n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
             return

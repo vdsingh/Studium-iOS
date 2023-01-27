@@ -30,8 +30,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //change initial view controller depending on whether user has decided notifications
         
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: windowScene)
+//        guard let windowScene = (scene as? UIWindowScene) else { return }
+//        window = UIWindow(windowScene: windowScene)
+        
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
 //        GIDSignIn.sharedInstance().restorePreviousSignIn{ user, error in

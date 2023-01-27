@@ -24,7 +24,7 @@ protocol Autoscheduleable: StudiumEvent {
     
 }
 
-class RecurringStudiumEvent: StudiumEvent {
+class RecurringStudiumEvent: StudiumEvent{
     var days: List<Int> = List<Int>()
     
     ///Adds the event to Apple calendar
@@ -34,7 +34,7 @@ class RecurringStudiumEvent: StudiumEvent {
         let event = EKEvent(eventStore: store)
         
         let identifier = UserDefaults.standard.string(forKey: "appleCalendarID")
-        if identifier == nil{ //the user is not synced with Apple Calendar
+        if identifier == nil { //the user is not synced with Apple Calendar
             return
         }
         
@@ -63,7 +63,7 @@ class RecurringStudiumEvent: StudiumEvent {
         do {
             try store.save(event, span: EKSpan.futureEvents, commit: true)
         } catch let error as NSError {
-            print("Failed to save event. Error: \(error)")
+            print("$Error: Failed to save event. Error: \(error)")
         }
     }
     
