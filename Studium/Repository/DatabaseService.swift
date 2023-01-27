@@ -15,9 +15,10 @@ final class DatabaseService {
     
     let app = App(id: Secret.appID)
     
-    var user: User {
+    var user: User? {
         guard let user = app.currentUser else {
-            fatalError("$Error: Current User is nil")
+            print("$Error: Current User is nil")
+            return nil
         }
         
         return user
@@ -26,7 +27,7 @@ final class DatabaseService {
     //TODO: Make this private once all instances using it have been removed
     
     var realm: Realm {
-        if let user = app.currentUser {
+        if let user = self.user {
             do {
                 return try Realm(configuration: user.configuration(partitionValue: user.id))
             } catch {
@@ -41,10 +42,23 @@ final class DatabaseService {
         }
     }
     
-    
-    
-    public func getCourses() -> [Course] {
-        let courses = self.realm.objects(Course.self)
-        return [Course](courses)
+    public func getStudiumObjects <T: Object> (expecting type: T.Type) -> [T] {
+        return [T](self.realm.objects(type))
     }
+    
+//    public func getCourses() -> [Course] {
+//        return [Course](self.realm.objects(Course.self))
+//    }
+//    
+//    public func getHabits() -> [Habit] {
+//        return [Habit](self.realm.objects(Habit.self))
+//    }
+//    
+//    public func getAssignments() -> [Assignment] {
+//        return [Assignment](self.realm.objects(Assignment.self))
+//    }
+//    
+//    public func getOtherEvents() -> [OtherEvent] {
+//        return [Assignment](self.realm.objects(Assignment.self))
+//    }
 }
