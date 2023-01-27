@@ -11,7 +11,6 @@ import UIKit
 import RealmSwift
 import FlexColorPicker
 
-
 //guarantees that the Habit list has a method that allows it to refresh.
 protocol HabitRefreshProtocol{
     func loadHabits()
@@ -140,11 +139,12 @@ class AddHabitViewController: MasterForm, LogoStorer {
         if daysSelected == []{
             errors.append("Please select at least one day. ")
         }
+        
         if autoschedule && totalLengthHours == 0 && totalLengthMinutes == 0{
             errors.append("Please specify total time. ")
-        }else if endDate < startDate{
+        } else if endDate < startDate {
             errors.append("The first time bound must be before the second time bound")
-        }else if autoschedule && (endDate.hour - startDate.hour) * 60 + (endDate.minute - startDate.minute) < totalLengthHours * 60 + totalLengthMinutes{
+        } else if autoschedule && (endDate.hour - startDate.hour) * 60 + (endDate.minute - startDate.minute) < totalLengthHours * 60 + totalLengthMinutes {
             errors.append("The total time exceeds the time frame. ")
         }
         
