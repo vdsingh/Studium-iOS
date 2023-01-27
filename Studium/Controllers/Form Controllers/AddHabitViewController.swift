@@ -18,7 +18,7 @@ protocol HabitRefreshProtocol{
 }
 
 //Class used to manage the form for adding a Habit. The form is a tableView form, similar to adding an event in
-class AddHabitViewController: MasterForm, LogoStorer{
+class AddHabitViewController: MasterForm, LogoStorer {
     
     var habit: Habit?
     
@@ -60,7 +60,7 @@ class AddHabitViewController: MasterForm, LogoStorer{
     var autoschedule = false
     var name: String = ""
     var additionalDetails: String = ""
-    var systemImageString: String = "book.fill"
+    var systemImage: SystemIcon = .book
     var colorValue: String = "ffffff"
     var location: String = ""
     var earlier = true
@@ -116,7 +116,7 @@ class AddHabitViewController: MasterForm, LogoStorer{
     func refreshLogoCell() {
         let logoCellRow = cellType[2].firstIndex(of: "LogoCell")!
         let logoCell = tableView.cellForRow(at: IndexPath(row: logoCellRow, section: 2)) as! LogoCell
-        logoCell.setImage(systemImageName: systemImageString)
+        logoCell.setImage(self.systemImage.createImage())
     }
     
     //MARK: - UIElement IBActions
@@ -152,7 +152,21 @@ class AddHabitViewController: MasterForm, LogoStorer{
             if habit == nil{
 
                 let newHabit = Habit()
-                newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthHours * 60 + totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: DatabaseService.shared.user.id)
+                newHabit.initializeData(
+                    name: name,
+                    location: location,
+                    additionalDetails: additionalDetails,
+                    startDate: startDate,
+                    endDate: endDate,
+                    autoschedule: autoschedule,
+                    startEarlier: earlier,
+                    autoLengthMinutes: totalLengthHours * 60 + totalLengthMinutes,
+                    days: daysSelected,
+                    systemImageString: systemImage.rawValue,
+                    colorHex: colorValue,
+                    partitionKey: DatabaseService.shared.user.id
+                )
+                
                 if !autoschedule{
                     for alertTime in alertTimes{
                         for day in daysSelected{
@@ -241,14 +255,30 @@ class AddHabitViewController: MasterForm, LogoStorer{
                                 }
                             }
                         } else {
+                            
+                            //TODO: force unwrap
                             habit!.deleteNotifications()
                             for alertTime in alertTimes{
                                 habit!.notificationAlertTimes.append(alertTime)
                             }
                         }
 
+                       //TODO: Fix force unwrap
+                        habit!.initializeData(
+                            name: name,
+                            location: location,
+                            additionalDetails: additionalDetails,
+                            startDate: startDate,
+                            endDate: endDate,
+                            autoschedule: autoschedule,
+                            startEarlier: earlier,
+                            autoLengthMinutes: totalLengthMinutes,
+                            days: daysSelected,
+                            systemImageString: systemImage.rawValue,
+                            colorHex: colorValue,
+                            partitionKey: DatabaseService.shared.user.id
+                        )
                         
-                        habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: DatabaseService.shared.user.id)
                         print("editing habit with length hour \(totalLengthHours) segmented control: \(earlier)")
                     }
                 }catch{
@@ -382,10 +412,11 @@ extension AddHabitViewController{
             cell.delegate = self
             //print("added a label cell")
             return cell
-        }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "LogoCell", for: indexPath) as! LogoCell
+        } else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
+            let cell = tableView.dequeueReusableCell(withIdentifier: LogoCell.reuseIdentifier, for: indexPath) as! LogoCell
             //cell.delegate = self
-            cell.setImage(systemImageName: systemImageString)
+//            cell.setImage(systemImageName: systemImageString)
+            cell.setImage(systemImage.createImage())
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "ColorPickerCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ColorPickerCell", for: indexPath) as! ColorPickerCell
@@ -637,7 +668,9 @@ extension AddHabitViewController{
         
         let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
         logoCell.logoImageView.image = UIImage(systemName: habit.systemImageString)
-        systemImageString = habit.systemImageString
+//        systemImageString = habit.systemImageString
+        //TODO: Fix (look at line above)
+        systemImage = .airplane
         
         let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
         colorCell.colorPreview.backgroundColor = UIColor(hexString: habit.color)!

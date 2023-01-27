@@ -10,14 +10,25 @@ import Foundation
 import RealmSwift
 
 class Course: RecurringStudiumEvent {
-    @objc dynamic var systemImageString: String = "pencil"
+    @objc dynamic var systemImageString: String = SystemIcon.pencil.rawValue
 
     //List of the assignments for the course.
     let assignments = List<Assignment>()
 //    @objc dynamic var testVar: String = "TEST"
 
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, colorHex: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, days: [Int], systemImageString: String, notificationAlertTimes: [Int], partitionKey: String) {
+    func initializeData(
+        name: String,
+        colorHex: String,
+        location: String,
+        additionalDetails: String,
+        startDate: Date,
+        endDate: Date,
+        days: [Int],
+        systemImageString: SystemIcon.RawValue,
+        notificationAlertTimes: [Int],
+        partitionKey: String
+    ) {
         
         self.name = name
         self.color = colorHex

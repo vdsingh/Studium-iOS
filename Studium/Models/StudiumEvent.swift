@@ -12,7 +12,7 @@ import EventKit
 import CalendarKit
 import RealmSwift
 
-class StudiumEvent: Object{
+class StudiumEvent: Object {
 
     /// id of the StudiumEvent
     @objc dynamic var _id: ObjectId = ObjectId.generate()

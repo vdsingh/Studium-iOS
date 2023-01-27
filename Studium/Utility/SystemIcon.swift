@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import RealmSwift
 import UIKit
 
 /// Represents system icons.
-enum SystemIcon: String {
+enum SystemIcon: String, CaseIterable {
     case plus
     case minus
     case multiply

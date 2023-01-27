@@ -10,11 +10,13 @@ protocol CourseRefreshProtocol{
     func loadCourses()
 }
 
-class AddCourseViewController: MasterForm, LogoStorer{
+class AddCourseViewController: MasterForm, LogoStorer {
+    var systemImage: SystemIcon = SystemIcon.pencil
+    
     var course: Course?
     
     //system image string that identifies what the logo of the course will be.
-    var systemImageString: String = "pencil"
+//    var systemImage: SystemIcon = .pencil
     
     //link to the list that is to be refreshed when a new course is added.
     var delegate: CourseRefreshProtocol?
@@ -87,7 +89,7 @@ class AddCourseViewController: MasterForm, LogoStorer{
     func refreshLogoCell() {
         let logoCellRow = cellType[2].firstIndex(of: "LogoCell")!
         let logoCell = tableView.cellForRow(at: IndexPath(row: logoCellRow, section: 2)) as! LogoCell
-        logoCell.setImage(systemImageName: systemImageString)
+        logoCell.setImage(systemImage.createImage())
 //        logoCell.systemImageString = systemImageString
     }
     
@@ -113,7 +115,7 @@ class AddCourseViewController: MasterForm, LogoStorer{
             if course == nil{
                 let newCourse = Course()
                 partitionKey = DatabaseService.shared.user.id
-                newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
+                newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImage.rawValue, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
                 //scheduling the appropriate notifications
                 for alertTime in alertTimes{
                     for day in daysSelected{
@@ -157,7 +159,7 @@ class AddCourseViewController: MasterForm, LogoStorer{
             }else{
                 do{
                     try DatabaseService.shared.realm.write {
-                        print("the system image string: \(systemImageString)")
+                        print("$Log: the system image string: \(systemImage.rawValue)")
                         course!.deleteNotifications()
                         for alertTime in alertTimes{
                             for day in daysSelected{
@@ -195,7 +197,8 @@ class AddCourseViewController: MasterForm, LogoStorer{
 //                        if let user = app.currentUser {
                         partitionKey = DatabaseService.shared.user.id
 //                        }
-                        course!.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
+                        //TODO: Fix force unwrap
+                        course!.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImage.rawValue, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
                     }
                 }catch{
                     print(error)
@@ -288,8 +291,7 @@ extension AddCourseViewController{
             return cell
         }else if cellType[indexPath.section][indexPath.row] == "LogoCell"{
             let cell = tableView.dequeueReusableCell(withIdentifier: "LogoCell", for: indexPath) as! LogoCell
-            //cell.delegate = self
-            cell.setImage(systemImageName: systemImageString)
+            cell.setImage(systemImage.createImage())
             return cell
         }else{
             return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
@@ -469,7 +471,10 @@ extension AddCourseViewController{
         
         let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
         logoCell.logoImageView.image = UIImage(systemName: course.systemImageString)
-        systemImageString = course.systemImageString
+        
+        //TODO: Fix this:
+        self.systemImage = .pencil
+//        systemImageString = course.systemImageString
         
         let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
         colorCell.colorPreview.backgroundColor = UIColor(hexString: course.color)!
