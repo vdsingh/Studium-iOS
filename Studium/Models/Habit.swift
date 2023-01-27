@@ -15,13 +15,13 @@ class Habit: RecurringStudiumEvent, Autoscheduleable{
     
     
     //Autoschedule elements for a Habit object
-    @objc dynamic var autoschedule: Bool = false //will this habit be scheduled automatically
-    @objc dynamic var startEarlier: Bool = true //will this habit be scheduled earlier or later.
+    @Persisted var autoschedule: Bool = false //will this habit be scheduled automatically
+    @Persisted var startEarlier: Bool = true //will this habit be scheduled earlier or later.
     
     //Time elements for a Habit object. 
-    @objc dynamic var autoLengthMinutes: Int = 60
+    @Persisted var autoLengthMinutes: Int = 60
 
-    @objc dynamic var systemImageString: String = "pencil"
+    @Persisted var systemImageString: String = "pencil"
 
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.

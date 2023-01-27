@@ -17,6 +17,8 @@ class TimeCell: BasicCell {
     var date: Date?
     var dateFormat: String = "h:mm a"
     
+    var timePickerMode: UIDatePicker.Mode?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = defaultBackgroundColor

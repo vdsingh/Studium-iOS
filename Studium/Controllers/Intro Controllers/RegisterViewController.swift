@@ -105,8 +105,36 @@ class RegisterViewController: FBAndGoogleAuthViewController, UIGestureRecognizer
         }
     }
     
+//    func sign(_ signIn: GIDSignIn!, didSignInFor googleUser: GIDGoogleUser!, withError error: Error!) {
+//        if let error = error {
+//            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
+//                print("The user has not signed in before or they have since signed out.")
+//            } else {
+//                print("\(error.localizedDescription)")
+//            }
+//            return
+//        }
+//        // Signed in successfully, forward credentials to MongoDB Realm.
+//        let credentials = Credentials.google(serverAuthCode: googleUser.serverAuthCode)
+//        K.app.login(credentials: credentials) { result in
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .failure(let error):
+//                    print("Failed to log in to MongoDB Realm: \(error)")
+//                case .success(let user):
+//                    print("Successfully logged in to MongoDB Realm using Google OAuth.")
+//                    let defaults = UserDefaults.standard
+//                    defaults.setValue(googleUser.profile.email, forKey: "email")
+//                    DispatchQueue.main.async {
+//                        self.performSegue(withIdentifier: "toWakeUp", sender: self)
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        print("nav controllerrr \(String(describing: self.navigationController))")
+        print("$Log: nav controller \(self.navigationController)")
         self.navigationController?.popViewController(animated: true)
     }
     

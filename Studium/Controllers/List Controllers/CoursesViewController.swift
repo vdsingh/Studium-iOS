@@ -9,8 +9,8 @@ import UIKit
 import RealmSwift
 import ChameleonFramework
 
-class CoursesViewController: SwipeTableViewController {
-//    var courses: Results<Course>? //Auto updating array linked to the realm
+class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
+    var courses: Results<Course>? //Auto updating array linked to the realm
 
     let defaults = UserDefaults.standard
     
@@ -42,8 +42,8 @@ class CoursesViewController: SwipeTableViewController {
         gradient.colors = [UIColor.white.cgColor, UIColor.black.cgColor]
 
         UINavigationBar.appearance().setBackgroundImage(self.image(fromLayer: gradient), for: .default)
-        sortCourses()
-//        loadCourses()
+//        sortCourses()
+        loadCourses()
         
     }
     
@@ -89,41 +89,41 @@ class CoursesViewController: SwipeTableViewController {
     }
     
     //MARK: - CRUD Methods
-//    func loadCourses(){
-//        courses = realm.objects(Course.self) //fetching all objects of type Course and updating array with it.
-//        eventsArray = [[],[]]
-//        // TODO: Fix force unwrap
-//        for course in courses! {
-//            if course.days.contains(Date().week){
-//                eventsArray[0].append(course)
-//            }else{
-//                eventsArray[1].append(course)
-//            }
-//        }
-//
-//        //sort all the habits happening today by startTime (the ones that are first come first in the list)
-//        eventsArray[0].sort(by: {$0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm")})
-//        tableView.reloadData()
-//    }
-    
-    func sortCourses() {
-        let stateCourses = StudiumState.state.getCourses()
-        for course in stateCourses {
-            if course.days.contains(Date().week) {
+    func loadCourses(){
+        courses = realm.objects(Course.self) //fetching all objects of type Course and updating array with it.
+        eventsArray = [[],[]]
+        // TODO: Fix force unwrap
+        for course in courses! {
+            if course.days.contains(Date().week){
                 eventsArray[0].append(course)
             } else {
                 eventsArray[1].append(course)
             }
         }
-        eventsArray[0].sort(by: { $0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm") })
+
+        //sort all the habits happening today by startTime (the ones that are first come first in the list)
+        eventsArray[0].sort(by: {$0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm")})
+        tableView.reloadData()
     }
+    
+//    func sortCourses() {
+//        let stateCourses = StudiumState.state.getCourses()
+//        for course in stateCourses {
+//            if course.days.contains(Date().week) {
+//                eventsArray[0].append(course)
+//            } else {
+//                eventsArray[1].append(course)
+//            }
+//        }
+//        eventsArray[0].sort(by: { $0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm") })
+//    }
     
     override func updateModelEdit(at indexPath: IndexPath) {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         
         let eventForEdit = deletableEventCell.event! as! Course
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
-//        addCourseViewController.delegate = self
+        addCourseViewController.delegate = self
         addCourseViewController.course = eventForEdit
         ColorPickerCell.color = UIColor(hexString: eventForEdit.color)
         addCourseViewController.title = "View/Edit Course"
@@ -146,7 +146,7 @@ class CoursesViewController: SwipeTableViewController {
     //MARK: - UI Actions
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
-//        addCourseViewController.delegate = self
+        addCourseViewController.delegate = self
         let navController = UINavigationController(rootViewController: addCourseViewController)
         ColorPickerCell.color = .white
         self.present(navController, animated:true, completion: nil)

@@ -11,7 +11,7 @@ import EventKit
 import CalendarKit
 import RealmSwift
 
-protocol Autoscheduleable: StudiumEvent{
+protocol Autoscheduleable: StudiumEvent {
     var autoLengthMinutes: Int {get set}
     
 //    var autoDays: List<Int> {get set}
@@ -34,7 +34,7 @@ class RecurringStudiumEvent: StudiumEvent{
         let event = EKEvent(eventStore: store)
         
         let identifier = UserDefaults.standard.string(forKey: "appleCalendarID")
-        if identifier == nil{ //the user is not synced with Apple Calendar
+        if identifier == nil { //the user is not synced with Apple Calendar
             return
         }
         
@@ -63,7 +63,7 @@ class RecurringStudiumEvent: StudiumEvent{
         do {
             try store.save(event, span: EKSpan.futureEvents, commit: true)
         } catch let error as NSError {
-            print("Failed to save event. Error: \(error)")
+            print("$Error: Failed to save event. Error: \(error)")
         }
     }
     

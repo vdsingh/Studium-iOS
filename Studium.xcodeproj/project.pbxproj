@@ -8,45 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161A69E424C7B84B00E5A5AE /* SettingsViewController.swift */; };
-		1638CB8024EC374100D3D93E /* ThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1638CB7E24EC374100D3D93E /* ThemeCell.swift */; };
-		1638CB8124EC374100D3D93E /* ThemeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1638CB7F24EC374100D3D93E /* ThemeCell.xib */; };
-		1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1641822924AD9D0800960F86 /* PickerCell.swift */; };
-		1641822C24AD9D0800960F86 /* PickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1641822A24AD9D0800960F86 /* PickerCell.xib */; };
-		16429CFE247D20F90052E47C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429CFD247D20F90052E47C /* Extensions.swift */; };
 		16429D04247E43720052E47C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D03247E43720052E47C /* Habit.swift */; };
 		16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16429D06247E81630052E47C /* WakeUpIntroController.swift */; };
 		164905B727E18732002DE61D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164905B627E18732002DE61D /* LoginViewController.swift */; };
-		1649A46427DC7B3B00B75481 /* ColorPickerCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1649A46227DC7B3B00B75481 /* ColorPickerCell2.swift */; };
-		1649A46527DC7B3B00B75481 /* ColorPickerCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1649A46327DC7B3B00B75481 /* ColorPickerCell2.xib */; };
 		1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1649A46827DEAD1900B75481 /* HeaderView.swift */; };
 		164F62F324DF7BFC00DC8169 /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62F224DF7BFC00DC8169 /* NotificationsController.swift */; };
-		164F62F624E4D1D500DC8169 /* LogoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62F424E4D1D500DC8169 /* LogoCell.swift */; };
-		164F62F724E4D1D500DC8169 /* LogoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164F62F524E4D1D500DC8169 /* LogoCell.xib */; };
 		164F62F924E4D54200DC8169 /* LogoSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62F824E4D54200DC8169 /* LogoSelectorViewController.swift */; };
-		164F62FC24E4DF4800DC8169 /* LogoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62FA24E4DF4800DC8169 /* LogoCollectionViewCell.swift */; };
-		164F62FD24E4DF4800DC8169 /* LogoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164F62FB24E4DF4800DC8169 /* LogoCollectionViewCell.xib */; };
 		164F62FF24E7D41400DC8169 /* AlertTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F62FE24E7D41400DC8169 /* AlertTableViewController.swift */; };
 		164F630124EA2E0900DC8169 /* FirstScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164F630024EA2E0900DC8169 /* FirstScreenViewController.swift */; };
 		16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16547B6C24DA4AC000E68E4D /* ThemesViewController.swift */; };
 		165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C77248A6F5C004279B0 /* CourseCell.swift */; };
 		165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C78248A6F5C004279B0 /* CourseCell.xib */; };
-		165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C7B248D9AF3004279B0 /* ColorPickerCell.swift */; };
-		165A6C7E248D9AF3004279B0 /* ColorPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C7C248D9AF3004279B0 /* ColorPickerCell.xib */; };
 		166F53D125BC93320065963D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166F53D025BC93320065963D /* TabBarController.swift */; };
 		16827D1A27F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16827D1927F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift */; };
-		1686DB5C24812BCE00FA99DB /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */; };
-		1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */; };
-		1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB5E24812C4000FA99DB /* SwitchCell.swift */; };
-		1686DB6124812C4000FA99DB /* SwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB5F24812C4000FA99DB /* SwitchCell.xib */; };
-		1686DB6424812CE000FA99DB /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB6224812CE000FA99DB /* LabelCell.swift */; };
-		1686DB6524812CE000FA99DB /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB6324812CE000FA99DB /* LabelCell.xib */; };
-		1686DB682482622800FA99DB /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB662482622800FA99DB /* TimeCell.swift */; };
-		1686DB692482622800FA99DB /* TimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB672482622800FA99DB /* TimeCell.xib */; };
 		1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB6A248267EC00FA99DB /* PickerTest.swift */; };
-		1686DB7E24827B8900FA99DB /* TimePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB7C24827B8900FA99DB /* TimePickerCell.swift */; };
-		1686DB7F24827B8900FA99DB /* TimePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB7D24827B8900FA99DB /* TimePickerCell.xib */; };
-		1686DB822482A0A500FA99DB /* DaySelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB802482A0A400FA99DB /* DaySelectorCell.swift */; };
-		1686DB832482A0A500FA99DB /* DaySelectorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1686DB812482A0A400FA99DB /* DaySelectorCell.xib */; };
 		168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */; };
 		168EE1C52659F899009A8001 /* Autoschedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168EE1C42659F899009A8001 /* Autoschedule.swift */; };
 		168EE1C72659FA10009A8001 /* RealmCRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168EE1C62659FA10009A8001 /* RealmCRUD.swift */; };
@@ -62,7 +37,6 @@
 		1693E74E247A464F003D4702 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E74D247A464F003D4702 /* Course.swift */; };
 		1693E750247A4660003D4702 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E74F247A4660003D4702 /* Assignment.swift */; };
 		1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E751247A487C003D4702 /* SwipeTableViewController.swift */; };
-		1693E755247A4B64003D4702 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E754247A4B64003D4702 /* K.swift */; };
 		1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */; };
 		1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E758247A59B2003D4702 /* ToDoListViewController.swift */; };
 		1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E75C247B56E8003D4702 /* AddCourseViewController.swift */; };
@@ -76,7 +50,6 @@
 		16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */; };
 		16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8824AD4161003A30D3 /* MasterForm.swift */; };
 		16A63B8F24AD43DF003A30D3 /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */; };
-		16B498D025CE2CE6005E9C26 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B498CF25CE2CE6005E9C26 /* Secret.swift */; };
 		16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */; };
 		16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */; };
 		16C05CF4264F37B8004C9629 /* RecurringEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C05CF2264F37B8004C9629 /* RecurringEventCell.swift */; };
@@ -84,7 +57,6 @@
 		16C05CF7264F3AF3004C9629 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C05CF6264F3AF3004C9629 /* TestViewController.swift */; };
 		16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C05CF8264F5ABC004C9629 /* AssignmentCell1.swift */; };
 		16C05CFB264F5ABC004C9629 /* AssignmentCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C05CF9264F5ABC004C9629 /* AssignmentCell1.xib */; };
-		16C445AB266433D1006076C1 /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C445AA266433D1006076C1 /* BasicCell.swift */; };
 		16C445AF26646C75006076C1 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16C445AE26646C75006076C1 /* credentials.plist */; };
 		16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */; };
 		16C607EC250E985000983C3D /* GlacialIndifference-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */; };
@@ -92,56 +64,60 @@
 		16C60FB225C5F7FB006D0FFC /* StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */; };
 		16C60FE825C76C51006D0FFC /* LoginViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FE725C76C51006D0FFC /* LoginViewController1.swift */; };
 		16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */; };
-		16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E251462485190E000494DE /* SegmentedControlCell.swift */; };
-		16E251492485190F000494DE /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E251472485190E000494DE /* SegmentedControlCell.xib */; };
 		16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E7B22E27D1EF8D00AAE756 /* GenericTableViewCell.swift */; };
 		16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E7B22F27D1EF8D00AAE756 /* GenericTableViewCell.xib */; };
-		B939A89828ADB61300FB2728 /* StudiumState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939A89728ADB61300FB2728 /* StudiumState.swift */; };
-		B939A89D28ADB78300FB2728 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B939A89C28ADB78300FB2728 /* NotificationHandler.swift */; };
-		E8EA8423C30C2F3F29DA0025 /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */; };
+		B7810C2AA5191938B2C9F9FF /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */; };
+		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
+		B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5E2983465D00A25457 /* SystemIcon.swift */; };
+		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
+		B96E6A9E298456C700A25457 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9D298456C700A25457 /* Secret.swift */; };
+		B96E6AA02984572A00A25457 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9F2984572A00A25457 /* Extensions.swift */; };
+		B96E6B30298458B800A25457 /* LogoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B14298458B700A25457 /* LogoCollectionViewCell.swift */; };
+		B96E6B31298458B800A25457 /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B15298458B700A25457 /* SegmentedControlCell.xib */; };
+		B96E6B32298458B800A25457 /* LogoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B16298458B700A25457 /* LogoCollectionViewCell.xib */; };
+		B96E6B33298458B800A25457 /* DaySelectorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B17298458B700A25457 /* DaySelectorCell.xib */; };
+		B96E6B34298458B800A25457 /* ColorPickerCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B18298458B700A25457 /* ColorPickerCell2.xib */; };
+		B96E6B35298458B800A25457 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B19298458B700A25457 /* TextFieldCell.swift */; };
+		B96E6B36298458B800A25457 /* TimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B1A298458B700A25457 /* TimeCell.xib */; };
+		B96E6B37298458B800A25457 /* TimePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B1B298458B700A25457 /* TimePickerCell.xib */; };
+		B96E6B38298458B800A25457 /* ColorPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B1C298458B700A25457 /* ColorPickerCell.xib */; };
+		B96E6B39298458B800A25457 /* ColorPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B1D298458B700A25457 /* ColorPickerCell.swift */; };
+		B96E6B3A298458B800A25457 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B1E298458B700A25457 /* PickerCell.swift */; };
+		B96E6B3B298458B800A25457 /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B1F298458B700A25457 /* TimeCell.swift */; };
+		B96E6B3C298458B800A25457 /* DaySelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B20298458B700A25457 /* DaySelectorCell.swift */; };
+		B96E6B3D298458B800A25457 /* SwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B21298458B700A25457 /* SwitchCell.xib */; };
+		B96E6B3E298458B800A25457 /* BasicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B22298458B700A25457 /* BasicCell.xib */; };
+		B96E6B3F298458B800A25457 /* ThemeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B23298458B700A25457 /* ThemeCell.xib */; };
+		B96E6B40298458B800A25457 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B24298458B700A25457 /* SwitchCell.swift */; };
+		B96E6B41298458B800A25457 /* SegmentedControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B25298458B700A25457 /* SegmentedControlCell.swift */; };
+		B96E6B42298458B800A25457 /* ThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B26298458B700A25457 /* ThemeCell.swift */; };
+		B96E6B43298458B800A25457 /* LogoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B27298458B800A25457 /* LogoCell.swift */; };
+		B96E6B44298458B800A25457 /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B28298458B800A25457 /* LabelCell.xib */; };
+		B96E6B45298458B800A25457 /* TimePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B29298458B800A25457 /* TimePickerCell.swift */; };
+		B96E6B46298458B800A25457 /* LogoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B2A298458B800A25457 /* LogoCell.xib */; };
+		B96E6B47298458B800A25457 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B2B298458B800A25457 /* LabelCell.swift */; };
+		B96E6B48298458B800A25457 /* ColorPickerCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B2C298458B800A25457 /* ColorPickerCell2.swift */; };
+		B96E6B49298458B800A25457 /* PickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B2D298458B800A25457 /* PickerCell.xib */; };
+		B96E6B4A298458B800A25457 /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B96E6B2E298458B800A25457 /* TextFieldCell.xib */; };
+		B96E6B4B298458B800A25457 /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6B2F298458B800A25457 /* BasicCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		161A69E424C7B84B00E5A5AE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		1638CB7E24EC374100D3D93E /* ThemeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCell.swift; sourceTree = "<group>"; };
-		1638CB7F24EC374100D3D93E /* ThemeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemeCell.xib; sourceTree = "<group>"; };
-		1641822924AD9D0800960F86 /* PickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
-		1641822A24AD9D0800960F86 /* PickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerCell.xib; sourceTree = "<group>"; };
-		16429CFD247D20F90052E47C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		16429D03247E43720052E47C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		16429D06247E81630052E47C /* WakeUpIntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpIntroController.swift; sourceTree = "<group>"; };
 		164905B627E18732002DE61D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		1649A46227DC7B3B00B75481 /* ColorPickerCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCell2.swift; sourceTree = "<group>"; };
-		1649A46327DC7B3B00B75481 /* ColorPickerCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerCell2.xib; sourceTree = "<group>"; };
 		1649A46827DEAD1900B75481 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		164F62F224DF7BFC00DC8169 /* NotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
-		164F62F424E4D1D500DC8169 /* LogoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoCell.swift; sourceTree = "<group>"; };
-		164F62F524E4D1D500DC8169 /* LogoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoCell.xib; sourceTree = "<group>"; };
 		164F62F824E4D54200DC8169 /* LogoSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoSelectorViewController.swift; sourceTree = "<group>"; };
-		164F62FA24E4DF4800DC8169 /* LogoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoCollectionViewCell.swift; sourceTree = "<group>"; };
-		164F62FB24E4DF4800DC8169 /* LogoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoCollectionViewCell.xib; sourceTree = "<group>"; };
 		164F62FE24E7D41400DC8169 /* AlertTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewController.swift; sourceTree = "<group>"; };
 		164F630024EA2E0900DC8169 /* FirstScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstScreenViewController.swift; sourceTree = "<group>"; };
 		16547B6C24DA4AC000E68E4D /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		165A6C77248A6F5C004279B0 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		165A6C78248A6F5C004279B0 /* CourseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell.xib; sourceTree = "<group>"; };
-		165A6C7B248D9AF3004279B0 /* ColorPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCell.swift; sourceTree = "<group>"; };
-		165A6C7C248D9AF3004279B0 /* ColorPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerCell.xib; sourceTree = "<group>"; };
 		166F53D025BC93320065963D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		16827D1927F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBAndGoogleAuthViewController.swift; sourceTree = "<group>"; };
-		1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
-		1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
-		1686DB5E24812C4000FA99DB /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
-		1686DB5F24812C4000FA99DB /* SwitchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchCell.xib; sourceTree = "<group>"; };
-		1686DB6224812CE000FA99DB /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
-		1686DB6324812CE000FA99DB /* LabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
-		1686DB662482622800FA99DB /* TimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
-		1686DB672482622800FA99DB /* TimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeCell.xib; sourceTree = "<group>"; };
 		1686DB6A248267EC00FA99DB /* PickerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTest.swift; sourceTree = "<group>"; };
-		1686DB7C24827B8900FA99DB /* TimePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerCell.swift; sourceTree = "<group>"; };
-		1686DB7D24827B8900FA99DB /* TimePickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimePickerCell.xib; sourceTree = "<group>"; };
-		1686DB802482A0A400FA99DB /* DaySelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectorCell.swift; sourceTree = "<group>"; };
-		1686DB812482A0A400FA99DB /* DaySelectorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DaySelectorCell.xib; sourceTree = "<group>"; };
 		168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringStudiumEvent.swift; sourceTree = "<group>"; };
 		168EE1C42659F899009A8001 /* Autoschedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autoschedule.swift; sourceTree = "<group>"; };
 		168EE1C62659FA10009A8001 /* RealmCRUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCRUD.swift; sourceTree = "<group>"; };
@@ -159,7 +135,6 @@
 		1693E74D247A464F003D4702 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		1693E74F247A4660003D4702 /* Assignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		1693E751247A487C003D4702 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
-		1693E754247A4B64003D4702 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		1693E756247A4BCB003D4702 /* AssignmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsViewController.swift; sourceTree = "<group>"; };
 		1693E758247A59B2003D4702 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		1693E75C247B56E8003D4702 /* AddCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
@@ -173,7 +148,6 @@
 		16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletableEventCell.swift; sourceTree = "<group>"; };
 		16A63B8824AD4161003A30D3 /* MasterForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterForm.swift; sourceTree = "<group>"; };
 		16A63B8E24AD43DF003A30D3 /* AddHabitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
-		16B498CF25CE2CE6005E9C26 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		16B51915247BD216005ED8E4 /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
 		16B5191D247C80B7005ED8E4 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		16C05CF2264F37B8004C9629 /* RecurringEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringEventCell.swift; sourceTree = "<group>"; };
@@ -181,7 +155,6 @@
 		16C05CF6264F3AF3004C9629 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		16C05CF8264F5ABC004C9629 /* AssignmentCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCell1.swift; sourceTree = "<group>"; };
 		16C05CF9264F5ABC004C9629 /* AssignmentCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentCell1.xib; sourceTree = "<group>"; };
-		16C445AA266433D1006076C1 /* BasicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
 		16C445AE26646C75006076C1 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Italic.otf"; sourceTree = "<group>"; };
 		16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Regular.otf"; sourceTree = "<group>"; };
@@ -189,15 +162,44 @@
 		16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEvent.swift; sourceTree = "<group>"; };
 		16C60FE725C76C51006D0FFC /* LoginViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController1.swift; sourceTree = "<group>"; };
 		16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		16E251462485190E000494DE /* SegmentedControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlCell.swift; sourceTree = "<group>"; };
-		16E251472485190E000494DE /* SegmentedControlCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
 		16E7B22E27D1EF8D00AAE756 /* GenericTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewCell.swift; sourceTree = "<group>"; };
 		16E7B22F27D1EF8D00AAE756 /* GenericTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenericTableViewCell.xib; sourceTree = "<group>"; };
 		590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
 		8931957C3B09F5DC5FEDA685 /* Pods_Studium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Studium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.release.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.release.xcconfig"; sourceTree = "<group>"; };
-		B939A89728ADB61300FB2728 /* StudiumState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumState.swift; sourceTree = "<group>"; };
-		B939A89C28ADB78300FB2728 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		B96E6A5E2983465D00A25457 /* SystemIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcon.swift; sourceTree = "<group>"; };
+		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		B96E6A9D298456C700A25457 /* Secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Secret.swift; path = ../../../Secret.swift; sourceTree = "<group>"; };
+		B96E6A9F2984572A00A25457 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B96E6B14298458B700A25457 /* LogoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoCollectionViewCell.swift; sourceTree = "<group>"; };
+		B96E6B15298458B700A25457 /* SegmentedControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
+		B96E6B16298458B700A25457 /* LogoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoCollectionViewCell.xib; sourceTree = "<group>"; };
+		B96E6B17298458B700A25457 /* DaySelectorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DaySelectorCell.xib; sourceTree = "<group>"; };
+		B96E6B18298458B700A25457 /* ColorPickerCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorPickerCell2.xib; sourceTree = "<group>"; };
+		B96E6B19298458B700A25457 /* TextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
+		B96E6B1A298458B700A25457 /* TimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeCell.xib; sourceTree = "<group>"; };
+		B96E6B1B298458B700A25457 /* TimePickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimePickerCell.xib; sourceTree = "<group>"; };
+		B96E6B1C298458B700A25457 /* ColorPickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorPickerCell.xib; sourceTree = "<group>"; };
+		B96E6B1D298458B700A25457 /* ColorPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerCell.swift; sourceTree = "<group>"; };
+		B96E6B1E298458B700A25457 /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
+		B96E6B1F298458B700A25457 /* TimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
+		B96E6B20298458B700A25457 /* DaySelectorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DaySelectorCell.swift; sourceTree = "<group>"; };
+		B96E6B21298458B700A25457 /* SwitchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchCell.xib; sourceTree = "<group>"; };
+		B96E6B22298458B700A25457 /* BasicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BasicCell.xib; sourceTree = "<group>"; };
+		B96E6B23298458B700A25457 /* ThemeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeCell.xib; sourceTree = "<group>"; };
+		B96E6B24298458B700A25457 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
+		B96E6B25298458B700A25457 /* SegmentedControlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlCell.swift; sourceTree = "<group>"; };
+		B96E6B26298458B700A25457 /* ThemeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeCell.swift; sourceTree = "<group>"; };
+		B96E6B27298458B800A25457 /* LogoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoCell.swift; sourceTree = "<group>"; };
+		B96E6B28298458B800A25457 /* LabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
+		B96E6B29298458B800A25457 /* TimePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerCell.swift; sourceTree = "<group>"; };
+		B96E6B2A298458B800A25457 /* LogoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoCell.xib; sourceTree = "<group>"; };
+		B96E6B2B298458B800A25457 /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
+		B96E6B2C298458B800A25457 /* ColorPickerCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerCell2.swift; sourceTree = "<group>"; };
+		B96E6B2D298458B800A25457 /* PickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerCell.xib; sourceTree = "<group>"; };
+		B96E6B2E298458B800A25457 /* TextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
+		B96E6B2F298458B800A25457 /* BasicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,7 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8EA8423C30C2F3F29DA0025 /* Pods_Studium.framework in Frameworks */,
+				B7810C2AA5191938B2C9F9FF /* Pods_Studium.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +306,8 @@
 		1693E72F247A3DC4003D4702 /* Studium */ = {
 			isa = PBXGroup;
 			children = (
-				B939A89B28ADB74000FB2728 /* Utilities */,
+				B96E6A5D2983464900A25457 /* Utility */,
+				B96E6A5A298323CC00A25457 /* Repository */,
 				1693E730247A3DC4003D4702 /* AppDelegate.swift */,
 				1693E732247A3DC4003D4702 /* SceneDelegate.swift */,
 				1693E74C247A463D003D4702 /* Models */,
@@ -313,7 +316,10 @@
 				1693E739247A3DC6003D4702 /* Assets.xcassets */,
 				1693E73E247A3DC6003D4702 /* Info.plist */,
 				16C445AE26646C75006076C1 /* credentials.plist */,
-				16B498CF25CE2CE6005E9C26 /* Secret.swift */,
+				168EE1C42659F899009A8001 /* Autoschedule.swift */,
+				168EE1C62659FA10009A8001 /* RealmCRUD.swift */,
+				B96E6A9D298456C700A25457 /* Secret.swift */,
+				B96E6A9B298456A500A25457 /* K.swift */,
 			);
 			path = Studium;
 			sourceTree = "<group>";
@@ -336,13 +342,13 @@
 		1693E74B247A4634003D4702 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B96E6ADB2984582900A25457 /* Basic TableView Cells */,
 				164905B827E18793002DE61D /* Custom Views */,
 				16C05CF1264F36DC004C9629 /* New Event Cells */,
 				16B2837925C25BA50039043E /* Event Cells */,
 				1665FF1E250EA98300485F3D /* Fonts */,
 				1693E736247A3DC4003D4702 /* Main.storyboard */,
 				1693E73B247A3DC6003D4702 /* LaunchScreen.storyboard */,
-				16E2514524838676000494DE /* Basic TableView Form Cells */,
 				1649A46827DEAD1900B75481 /* HeaderView.swift */,
 			);
 			path = Views;
@@ -358,6 +364,7 @@
 				16A63B8024AA8059003A30D3 /* OtherEvent.swift */,
 				16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */,
 				168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */,
+				B96E6A9F2984572A00A25457 /* Extensions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -418,40 +425,6 @@
 			path = "New Event Cells";
 			sourceTree = "<group>";
 		};
-		16E2514524838676000494DE /* Basic TableView Form Cells */ = {
-			isa = PBXGroup;
-			children = (
-				1686DB5A24812BCE00FA99DB /* TextFieldCell.swift */,
-				1686DB5B24812BCE00FA99DB /* TextFieldCell.xib */,
-				1686DB5E24812C4000FA99DB /* SwitchCell.swift */,
-				1686DB5F24812C4000FA99DB /* SwitchCell.xib */,
-				1686DB6224812CE000FA99DB /* LabelCell.swift */,
-				1686DB6324812CE000FA99DB /* LabelCell.xib */,
-				1686DB662482622800FA99DB /* TimeCell.swift */,
-				1686DB672482622800FA99DB /* TimeCell.xib */,
-				1686DB7C24827B8900FA99DB /* TimePickerCell.swift */,
-				1686DB7D24827B8900FA99DB /* TimePickerCell.xib */,
-				1686DB802482A0A400FA99DB /* DaySelectorCell.swift */,
-				1686DB812482A0A400FA99DB /* DaySelectorCell.xib */,
-				16E251462485190E000494DE /* SegmentedControlCell.swift */,
-				16E251472485190E000494DE /* SegmentedControlCell.xib */,
-				165A6C7B248D9AF3004279B0 /* ColorPickerCell.swift */,
-				165A6C7C248D9AF3004279B0 /* ColorPickerCell.xib */,
-				1641822924AD9D0800960F86 /* PickerCell.swift */,
-				1641822A24AD9D0800960F86 /* PickerCell.xib */,
-				164F62FA24E4DF4800DC8169 /* LogoCollectionViewCell.swift */,
-				164F62FB24E4DF4800DC8169 /* LogoCollectionViewCell.xib */,
-				1638CB7E24EC374100D3D93E /* ThemeCell.swift */,
-				1638CB7F24EC374100D3D93E /* ThemeCell.xib */,
-				164F62F424E4D1D500DC8169 /* LogoCell.swift */,
-				164F62F524E4D1D500DC8169 /* LogoCell.xib */,
-				16C445AA266433D1006076C1 /* BasicCell.swift */,
-				1649A46227DC7B3B00B75481 /* ColorPickerCell2.swift */,
-				1649A46327DC7B3B00B75481 /* ColorPickerCell2.xib */,
-			);
-			path = "Basic TableView Form Cells";
-			sourceTree = "<group>";
-		};
 		8E6006EE7CC6D255D05E9EBF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,17 +442,55 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B939A89B28ADB74000FB2728 /* Utilities */ = {
+		B96E6A5A298323CC00A25457 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				168EE1C62659FA10009A8001 /* RealmCRUD.swift */,
-				168EE1C42659F899009A8001 /* Autoschedule.swift */,
-				1693E754247A4B64003D4702 /* K.swift */,
-				16429CFD247D20F90052E47C /* Extensions.swift */,
-				B939A89728ADB61300FB2728 /* StudiumState.swift */,
-				B939A89C28ADB78300FB2728 /* NotificationHandler.swift */,
+				B96E6A5B298323DD00A25457 /* DatabaseService.swift */,
 			);
-			path = Utilities;
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		B96E6A5D2983464900A25457 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				B96E6A5E2983465D00A25457 /* SystemIcon.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		B96E6ADB2984582900A25457 /* Basic TableView Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B96E6B2F298458B800A25457 /* BasicCell.swift */,
+				B96E6B22298458B700A25457 /* BasicCell.xib */,
+				B96E6B1D298458B700A25457 /* ColorPickerCell.swift */,
+				B96E6B1C298458B700A25457 /* ColorPickerCell.xib */,
+				B96E6B2C298458B800A25457 /* ColorPickerCell2.swift */,
+				B96E6B18298458B700A25457 /* ColorPickerCell2.xib */,
+				B96E6B20298458B700A25457 /* DaySelectorCell.swift */,
+				B96E6B17298458B700A25457 /* DaySelectorCell.xib */,
+				B96E6B2B298458B800A25457 /* LabelCell.swift */,
+				B96E6B28298458B800A25457 /* LabelCell.xib */,
+				B96E6B27298458B800A25457 /* LogoCell.swift */,
+				B96E6B2A298458B800A25457 /* LogoCell.xib */,
+				B96E6B14298458B700A25457 /* LogoCollectionViewCell.swift */,
+				B96E6B16298458B700A25457 /* LogoCollectionViewCell.xib */,
+				B96E6B1E298458B700A25457 /* PickerCell.swift */,
+				B96E6B2D298458B800A25457 /* PickerCell.xib */,
+				B96E6B25298458B700A25457 /* SegmentedControlCell.swift */,
+				B96E6B15298458B700A25457 /* SegmentedControlCell.xib */,
+				B96E6B24298458B700A25457 /* SwitchCell.swift */,
+				B96E6B21298458B700A25457 /* SwitchCell.xib */,
+				B96E6B19298458B700A25457 /* TextFieldCell.swift */,
+				B96E6B2E298458B800A25457 /* TextFieldCell.xib */,
+				B96E6B26298458B700A25457 /* ThemeCell.swift */,
+				B96E6B23298458B700A25457 /* ThemeCell.xib */,
+				B96E6B1F298458B700A25457 /* TimeCell.swift */,
+				B96E6B1A298458B700A25457 /* TimeCell.xib */,
+				B96E6B29298458B800A25457 /* TimePickerCell.swift */,
+				B96E6B1B298458B700A25457 /* TimePickerCell.xib */,
+			);
+			path = "Basic TableView Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -544,31 +555,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				1693E73D247A3DC6003D4702 /* LaunchScreen.storyboard in Resources */,
-				1686DB5D24812BCE00FA99DB /* TextFieldCell.xib in Resources */,
 				1693E73A247A3DC6003D4702 /* Assets.xcassets in Resources */,
-				1649A46527DC7B3B00B75481 /* ColorPickerCell2.xib in Resources */,
+				B96E6B3E298458B800A25457 /* BasicCell.xib in Resources */,
+				B96E6B34298458B800A25457 /* ColorPickerCell2.xib in Resources */,
 				16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */,
-				164F62FD24E4DF4800DC8169 /* LogoCollectionViewCell.xib in Resources */,
-				1641822C24AD9D0800960F86 /* PickerCell.xib in Resources */,
+				B96E6B33298458B800A25457 /* DaySelectorCell.xib in Resources */,
 				16C05CF5264F37B8004C9629 /* RecurringEventCell.xib in Resources */,
-				1686DB692482622800FA99DB /* TimeCell.xib in Resources */,
+				B96E6B44298458B800A25457 /* LabelCell.xib in Resources */,
 				16A63B7D24A01289003A30D3 /* HabitCell.xib in Resources */,
+				B96E6B36298458B800A25457 /* TimeCell.xib in Resources */,
 				16C607EC250E985000983C3D /* GlacialIndifference-Regular.otf in Resources */,
+				B96E6B37298458B800A25457 /* TimePickerCell.xib in Resources */,
 				16C607ED250E985000983C3D /* GlacialIndifference-Bold.otf in Resources */,
+				B96E6B3F298458B800A25457 /* ThemeCell.xib in Resources */,
+				B96E6B31298458B800A25457 /* SegmentedControlCell.xib in Resources */,
+				B96E6B3D298458B800A25457 /* SwitchCell.xib in Resources */,
 				1693E738247A3DC4003D4702 /* Main.storyboard in Resources */,
-				1686DB6524812CE000FA99DB /* LabelCell.xib in Resources */,
-				164F62F724E4D1D500DC8169 /* LogoCell.xib in Resources */,
-				1686DB7F24827B8900FA99DB /* TimePickerCell.xib in Resources */,
-				1638CB8124EC374100D3D93E /* ThemeCell.xib in Resources */,
+				B96E6B38298458B800A25457 /* ColorPickerCell.xib in Resources */,
 				165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */,
+				B96E6B49298458B800A25457 /* PickerCell.xib in Resources */,
 				16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */,
-				1686DB6124812C4000FA99DB /* SwitchCell.xib in Resources */,
-				165A6C7E248D9AF3004279B0 /* ColorPickerCell.xib in Resources */,
 				16C05CFB264F5ABC004C9629 /* AssignmentCell1.xib in Resources */,
 				16A63B8524AA85A7003A30D3 /* OtherEventCell.xib in Resources */,
-				1686DB832482A0A500FA99DB /* DaySelectorCell.xib in Resources */,
-				16E251492485190F000494DE /* SegmentedControlCell.xib in Resources */,
+				B96E6B4A298458B800A25457 /* TextFieldCell.xib in Resources */,
 				16C445AF26646C75006076C1 /* credentials.plist in Resources */,
+				B96E6B32298458B800A25457 /* LogoCollectionViewCell.xib in Resources */,
+				B96E6B46298458B800A25457 /* LogoCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,69 +652,69 @@
 			files = (
 				1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */,
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
-				1693E755247A4B64003D4702 /* K.swift in Sources */,
-				1638CB8024EC374100D3D93E /* ThemeCell.swift in Sources */,
+				B96E6B3C298458B800A25457 /* DaySelectorCell.swift in Sources */,
+				B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */,
 				164F62FF24E7D41400DC8169 /* AlertTableViewController.swift in Sources */,
-				165A6C7D248D9AF3004279B0 /* ColorPickerCell.swift in Sources */,
+				B96E6B35298458B800A25457 /* TextFieldCell.swift in Sources */,
+				B96E6B3B298458B800A25457 /* TimeCell.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
+				B96E6B39298458B800A25457 /* ColorPickerCell.swift in Sources */,
 				168EE1C72659FA10009A8001 /* RealmCRUD.swift in Sources */,
+				B96E6B47298458B800A25457 /* LabelCell.swift in Sources */,
+				B96E6B41298458B800A25457 /* SegmentedControlCell.swift in Sources */,
 				1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
 				16827D1A27F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift in Sources */,
-				16B498D025CE2CE6005E9C26 /* Secret.swift in Sources */,
+				B96E6B45298458B800A25457 /* TimePickerCell.swift in Sources */,
 				16A63B8924AD4161003A30D3 /* MasterForm.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
 				16C05CF4264F37B8004C9629 /* RecurringEventCell.swift in Sources */,
-				164F62F624E4D1D500DC8169 /* LogoCell.swift in Sources */,
 				16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */,
 				16C05CF7264F3AF3004C9629 /* TestViewController.swift in Sources */,
 				16B51916247BD216005ED8E4 /* AddAssignmentViewController.swift in Sources */,
-				1686DB6424812CE000FA99DB /* LabelCell.swift in Sources */,
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
 				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
-				B939A89D28ADB78300FB2728 /* NotificationHandler.swift in Sources */,
+				B96E6B40298458B800A25457 /* SwitchCell.swift in Sources */,
 				1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */,
-				1686DB7E24827B8900FA99DB /* TimePickerCell.swift in Sources */,
 				164F62F924E4D54200DC8169 /* LogoSelectorViewController.swift in Sources */,
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
 				16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
 				16C60FB225C5F7FB006D0FFC /* StudiumEvent.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
-				1686DB682482622800FA99DB /* TimeCell.swift in Sources */,
 				168EE1C52659F899009A8001 /* Autoschedule.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
+				B96E6A9E298456C700A25457 /* Secret.swift in Sources */,
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
-				1649A46427DC7B3B00B75481 /* ColorPickerCell2.swift in Sources */,
+				B96E6A9C298456A500A25457 /* K.swift in Sources */,
 				164F62F324DF7BFC00DC8169 /* NotificationsController.swift in Sources */,
-				1686DB5C24812BCE00FA99DB /* TextFieldCell.swift in Sources */,
+				B96E6B42298458B800A25457 /* ThemeCell.swift in Sources */,
 				16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */,
-				1641822B24AD9D0800960F86 /* PickerCell.swift in Sources */,
-				16E251482485190E000494DE /* SegmentedControlCell.swift in Sources */,
-				16429CFE247D20F90052E47C /* Extensions.swift in Sources */,
-				1686DB6024812C4000FA99DB /* SwitchCell.swift in Sources */,
 				164905B727E18732002DE61D /* LoginViewController.swift in Sources */,
-				B939A89828ADB61300FB2728 /* StudiumState.swift in Sources */,
+				B96E6B4B298458B800A25457 /* BasicCell.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
+				B96E6B43298458B800A25457 /* LogoCell.swift in Sources */,
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				16C60FE825C76C51006D0FFC /* LoginViewController1.swift in Sources */,
 				164F630124EA2E0900DC8169 /* FirstScreenViewController.swift in Sources */,
 				16A63B7F24A6D1C4003A30D3 /* AddToDoListEventViewController.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
-				164F62FC24E4DF4800DC8169 /* LogoCollectionViewCell.swift in Sources */,
+				B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */,
 				16A63B8F24AD43DF003A30D3 /* AddHabitViewController.swift in Sources */,
-				16C445AB266433D1006076C1 /* BasicCell.swift in Sources */,
+				B96E6B48298458B800A25457 /* ColorPickerCell2.swift in Sources */,
 				1693E75D247B56E8003D4702 /* AddCourseViewController.swift in Sources */,
 				165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */,
-				1686DB822482A0A500FA99DB /* DaySelectorCell.swift in Sources */,
+				B96E6AA02984572A00A25457 /* Extensions.swift in Sources */,
 				1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */,
 				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,
 				1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */,
+				B96E6B30298458B800A25457 /* LogoCollectionViewCell.swift in Sources */,
+				B96E6B3A298458B800A25457 /* PickerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -848,12 +860,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 590DED44F57011227F29B5F9 /* Pods-Studium.debug.xcconfig */;
 			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VJUSE27PV3;
-				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = Studium/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -861,7 +870,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vikramsingh.Studium;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -873,12 +881,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AD48365168FB43F6F74E35B6 /* Pods-Studium.release.xcconfig */;
 			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VJUSE27PV3;
-				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = Studium/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -886,7 +891,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vikramsingh.Studium;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

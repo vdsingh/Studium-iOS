@@ -15,19 +15,19 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
     let defaults = UserDefaults.standard
 
     //Specifies whether or not the Assignment object is marked as complete or not. This determines where it lies in a tableView and whether or not it's crossed out.
-    @objc dynamic var complete: Bool = false
+    @Persisted var complete: Bool = false
 
     //This is a link to the Course that the Assignment object is categorized under.
     var parentCourses = LinkingObjects(fromType: Course.self, property: "assignments")
     var parentCourse: Course? {return parentCourses.first}
         
     //variables that track information about scheduling work time.
-    @objc dynamic var autoschedule: Bool = false //in this case, autoschedule refers to scheduling work time.
+    @Persisted var autoschedule: Bool = false //in this case, autoschedule refers to scheduling work time.
     
     //was this an autoscheduled assignment?
-    @objc dynamic var isAutoscheduled: Bool = false
-//    @objc dynamic var autoLengthHours: Int = 1
-    @objc dynamic var autoLengthMinutes: Int = 60
+    @Persisted var isAutoscheduled: Bool = false
+//    @Persisted var autoLengthHours: Int = 1
+    @Persisted var autoLengthMinutes: Int = 60
     
 //    var autoDays: [Int] = []
     var scheduledEvents: List<Assignment> = List<Assignment>()
