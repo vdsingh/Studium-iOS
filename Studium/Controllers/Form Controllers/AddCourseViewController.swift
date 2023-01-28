@@ -5,8 +5,8 @@ import RealmSwift
 import FlexColorPicker
 import EventKit
 
-//makes sure that the course list can refresh when a new course is added
-protocol CourseRefreshProtocol{
+/// Makes sure that the course list can refresh when a new course is added
+protocol CourseRefreshProtocol {
     func loadCourses()
 }
 
@@ -29,7 +29,6 @@ class AddCourseViewController: MasterForm {
     var location: String = ""
     var daysSelected: [Int] = []
     var logoString: String = "pencil"
-        
     var partitionKey: String = ""
     
     @IBOutlet weak var navButton: UIBarButtonItem!
@@ -94,7 +93,7 @@ class AddCourseViewController: MasterForm {
         }
         
         if errors.count == 0 {
-            if let course = self.course {
+            if var course = self.course {
                 // TODO: Move deleteNotifications to NotificationHandler
                 
 //                course.deleteNotifications()
@@ -108,18 +107,24 @@ class AddCourseViewController: MasterForm {
                 do {
                     // TODO: Abstract away realm to state
                     try DatabaseService.shared.realm.write {
-                        course.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
+//                        course = Co
+                        course = Course(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
                     }
                 } catch {
                     print("$ ERROR: error updating course data: \(error)")
                 }
             } else {
-                let newCourse = Course()
-//                if let user = app.currentUser {
-//                    partitionKey = user.id
-//                }
-                
-                newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: DatabaseService.shared.user?.id ?? "")
+                let newCourse = Course (
+                    name: name,
+                    colorHex: colorValue,
+                    location: location,
+                    additionalDetails: additionalDetails,
+                    startDate: startDate,
+                    endDate: endDate,
+                    days: daysSelected,
+                    systemImageString: systemImageString,
+                    notificationAlertTimes: alertTimes,
+                    partitionKey: DatabaseService.shared.user?.id ?? "")
                 //scheduling the appropriate notifications
 //                NotificationHandler.scheduleNotificationsForCourse(course: newCourse)
                 RealmCRUD.saveCourse(course: newCourse)

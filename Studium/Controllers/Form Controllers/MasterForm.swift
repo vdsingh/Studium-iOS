@@ -22,6 +22,8 @@ public enum FormCell: Equatable {
     case switchCell(cellText: String, switchDelegate: CanHandleSwitch?, infoDelegate: CanHandleInfoDisplay?)
     case labelCell(cellText: String, textColor: UIColor = .label, backgroundColor: UIColor = kCellBackgroundColor, cellAccessoryType: UITableViewCell.AccessoryType = .none, onClick: (() -> Void)? = nil)
     case timeCell(cellText: String, date: Date?, dateFormat: String?, timePickerMode: UIDatePicker.Mode? = .time, timeLabelText: String? = nil, id: FormCellID.TimeCell, onClick: ((IndexPath) -> Void)? = nil)
+    
+    //TODO: make dateFormat an enum
     case timePickerCell(date: Date, dateFormat: String, timePickerMode: UIDatePicker.Mode, id: FormCellID.TimePickerCell, delegate: UITimePickerDelegate)
     case daySelectorCell(delegate: DaySelectorDelegate)
     case segmentedControlCell(firstTitle: String, secondTitle: String, delegate: SegmentedControlDelegate)
@@ -32,6 +34,7 @@ public enum FormCell: Equatable {
 
 /// IDs for FormCells that we can use instead of hardcoded strings
 public enum FormCellID {
+    
     // TextField Cells
     public enum TextFieldCell {
         case nameTextField
@@ -76,27 +79,15 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     
     var totalLengthHours = 1
     var totalLengthMinutes = 0
-    
-//    var alertTimes: [Int] = []
-    
+        
     var cells: [[FormCell]] = [[]]
     
-    //reference to the realm database.
-//    let app = App(id: Secret.appID)
-    
-//    var realm: Realm!
     
     private var idCounter = 0
     
     override func viewDidLoad() {
-//        guard let user = app.currentUser else {
-//            print("$ ERROR: Error getting user in MasterForm")
-//            return
-//        }
-//
-//        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         
-        /// registering the necessary cells for the form.
+        // registering the necessary cells for the form.
         tableView.register(UINib(nibName: TextFieldCell.id, bundle: nil), forCellReuseIdentifier: TextFieldCell.id)
         tableView.register(UINib(nibName: TimeCell.id, bundle: nil), forCellReuseIdentifier: TimeCell.id)
         tableView.register(UINib(nibName: PickerCell.id, bundle: nil), forCellReuseIdentifier: PickerCell.id)

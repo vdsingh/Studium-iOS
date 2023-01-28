@@ -17,7 +17,7 @@ class Course: RecurringStudiumEvent {
 //    @objc dynamic var testVar: String = "TEST"
 
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(
+    convenience init (
         name: String,
         colorHex: String,
         location: String,
@@ -29,7 +29,7 @@ class Course: RecurringStudiumEvent {
         notificationAlertTimes: [AlertOption],
         partitionKey: String
     ) {
-        
+        self.init()
         self.name = name
         self.color = colorHex
         self.location = location
