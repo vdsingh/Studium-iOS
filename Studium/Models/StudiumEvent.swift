@@ -9,33 +9,40 @@
 
 import Foundation
 import EventKit
-import CalendarKit
 import RealmSwift
 
 class StudiumEvent: Object {
 
     /// id of the StudiumEvent
-    @objc dynamic var _id: ObjectId = ObjectId.generate()
+    @Persisted var _id: ObjectId = ObjectId.generate()
     
     /// partition key of the StudiumEvent
-    @objc dynamic var _partitionKey: String = ""
+    @Persisted var _partitionKey: String = ""
     
-    @objc dynamic var name: String = ""
-    @objc dynamic var location: String = ""
-    @objc dynamic var additionalDetails: String = ""
+    @Persisted var name: String = ""
+    @Persisted var location: String = ""
+    @Persisted var additionalDetails: String = ""
 
     
-    @objc dynamic var startDate: Date = Date()
-    @objc dynamic var endDate: Date = Date()
+    @Persisted var startDate: Date = Date()
+    @Persisted var endDate: Date = Date()
     
-    @objc dynamic var color: String = "ffffff"
+    @Persisted var color: String = "ffffff"
     
-    var notificationAlertTimes: List<Int> = List<Int>()
-    var notificationIdentifiers: List<String> = List<String>()
-    
+    @Persisted private var alertTimesRaw = List<AlertOption.RawValue>()
+    var alertTimes: [AlertOption] {
+        get { return self.alertTimesRaw.compactMap { AlertOption(rawValue: $0) } }
+        set {
+            alertTimesRaw = List<AlertOption.RawValue>()
+            alertTimesRaw.append(objectsIn: newValue.compactMap { $0.rawValue })
+        }
+    }
+
     override static func primaryKey() -> String? {
         return "_id"
     }
+    
+    //TODO: Move to different layer
     
     func addToAppleCalendar(){
         func addToAppleCalendar(){
@@ -57,19 +64,20 @@ class StudiumEvent: Object {
             do{
                 try store.save(event, span: EKSpan.futureEvents, commit: true)
             }catch let error as NSError{
-                print("Failed to save event. Error: \(error)")
+                print("$Error: Failed to save event. Error: \(error)")
             }
         }
     }
     
-    func deleteNotifications(){
-        var identifiers: [String] = []
-        for id in notificationIdentifiers{
-            identifiers.append(id)
-        }
-        notificationIdentifiers.removeAll()
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
-    }
+    //TODO: Fix and abstract to a notification Layer
+//    func deleteNotifications(){
+//        var identifiers: [String] = []
+//        for id in notificationIdentifiers{
+//            identifiers.append(id)
+//        }
+//        notificationIdentifiers.removeAll()
+//        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+//    }
 }
 
 

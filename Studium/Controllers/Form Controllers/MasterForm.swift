@@ -67,6 +67,8 @@ let kLargeCellHeight: CGFloat = 150
 let kMediumCellHeight: CGFloat = 60
 let kNormalCellHeight: CGFloat = 50
 class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, AlertInfoStorer, LogoStorer, UITimePickerDelegate {
+    var alertTimes: [AlertOption] = []
+    
     
     var systemImageString: String = "book.fill"
     var startDate: Date = Date()
@@ -75,24 +77,24 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     var totalLengthHours = 1
     var totalLengthMinutes = 0
     
-    var alertTimes: [Int] = []
+//    var alertTimes: [Int] = []
     
     var cells: [[FormCell]] = [[]]
     
     //reference to the realm database.
-    let app = App(id: Secret.appID)
+//    let app = App(id: Secret.appID)
     
-    var realm: Realm!
+//    var realm: Realm!
     
     private var idCounter = 0
     
     override func viewDidLoad() {
-        guard let user = app.currentUser else {
-            print("$ ERROR: Error getting user in MasterForm")
-            return
-        }
-        
-        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+//        guard let user = app.currentUser else {
+//            print("$ ERROR: Error getting user in MasterForm")
+//            return
+//        }
+//
+//        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         
         /// registering the necessary cells for the form.
         tableView.register(UINib(nibName: TextFieldCell.id, bundle: nil), forCellReuseIdentifier: TextFieldCell.id)
@@ -105,6 +107,14 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
         tableView.register(UINib(nibName: LogoCell.id, bundle: nil), forCellReuseIdentifier: LogoCell.id)
         tableView.register(UINib(nibName: ColorPickerCell.id, bundle: nil), forCellReuseIdentifier: ColorPickerCell.id)
         tableView.register(UINib(nibName: SegmentedControlCell.id, bundle: nil), forCellReuseIdentifier: SegmentedControlCell.id)
+        
+        //TODO: move to separate function
+        let defaults = UserDefaults.standard
+
+        if let times = defaults.value(forKey: K.defaultNotificationTimesKey) as? [Int] {
+            self.alertTimes = times.compactMap { AlertOption(rawValue: $0) }
+        }
+
         
     }
     

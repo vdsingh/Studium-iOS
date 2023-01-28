@@ -24,8 +24,7 @@ final class DatabaseService {
         return user
     }
     
-    //TODO: Make this private once all instances using it have been removed
-    
+    //TODO: Make private
     var realm: Realm {
         if let user = self.user {
             do {
@@ -45,20 +44,4 @@ final class DatabaseService {
     public func getStudiumObjects <T: Object> (expecting type: T.Type) -> [T] {
         return [T](self.realm.objects(type))
     }
-    
-//    public func getCourses() -> [Course] {
-//        return [Course](self.realm.objects(Course.self))
-//    }
-//    
-//    public func getHabits() -> [Habit] {
-//        return [Habit](self.realm.objects(Habit.self))
-//    }
-//    
-//    public func getAssignments() -> [Assignment] {
-//        return [Assignment](self.realm.objects(Assignment.self))
-//    }
-//    
-//    public func getOtherEvents() -> [OtherEvent] {
-//        return [Assignment](self.realm.objects(Assignment.self))
-//    }
 }

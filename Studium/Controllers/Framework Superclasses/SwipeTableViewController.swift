@@ -11,7 +11,8 @@ import SwipeCellKit
 import RealmSwift
 
 
-class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate{
+class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
+    //TODO: Remove realm and app references
     var realm: Realm!
     let app = App(id: Secret.appID)
     

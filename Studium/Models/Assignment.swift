@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Assignment: RecurringStudiumEvent, Autoscheduleable{
+class Assignment: RecurringStudiumEvent, Autoscheduleable {
     
     
     let defaults = UserDefaults.standard
@@ -34,7 +34,18 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
 
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date, notificationAlertTimes: [Int], autoschedule: Bool, autoLengthMinutes: Int, autoDays: [Int], partitionKey: String) {
+    func initializeData(
+        name: String,
+        additionalDetails: String,
+        complete: Bool,
+        startDate: Date,
+        endDate: Date,
+        notificationAlertTimes: [AlertOption],
+        autoschedule: Bool,
+        autoLengthMinutes: Int,
+        autoDays: [Int],
+        partitionKey: String
+    ) {
 
         self.name = name
         self.additionalDetails = additionalDetails
@@ -47,10 +58,11 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
         
         self._partitionKey = partitionKey
                 
-        self.notificationAlertTimes.removeAll()
-        for alertTime in notificationAlertTimes{
-            self.notificationAlertTimes.append(alertTime)
-        }
+        self.alertTimes = alertTimes
+//        self.notificationAlertTimes.removeAll()
+//        for alertTime in notificationAlertTimes{
+//            self.notificationAlertTimes.append(alertTime)
+//        }
         
         self.days.removeAll()
         for day in autoDays{
@@ -67,23 +79,25 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable{
     }
     
     
+    //TODO: Fix and move to different layer
+    
     ///update the notifications for the Assignment. Removes all previous notification alerts, and replaces them with new alert times.
     ///
     /// - Parameters:
     ///     - newAlertTimes: array of integers that provide the new alert times
     func updateNotifications(with newAlertTimes: [Int]){
-        var identifiersForRemoval: [String] = []
-        for time in notificationAlertTimes{
-            if !newAlertTimes.contains(time){ //remove the old alert time.
-                print("\(time) was removed from notifications.")
-                let index = notificationAlertTimes.firstIndex(of: time)!
-                notificationAlertTimes.remove(at: index)
-                identifiersForRemoval.append(notificationIdentifiers[index])
-                notificationIdentifiers.remove(at: index)
-            }
-        }
-        print("identifiers to be removed: \(identifiersForRemoval)")
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiersForRemoval)
+//        var identifiersForRemoval: [String] = []
+//        for time in notificationAlertTimes{
+//            if !newAlertTimes.contains(time){ //remove the old alert time.
+//                print("\(time) was removed from notifications.")
+//                let index = notificationAlertTimes.firstIndex(of: time)!
+//                notificationAlertTimes.remove(at: index)
+//                identifiersForRemoval.append(notificationIdentifiers[index])
+//                notificationIdentifiers.remove(at: index)
+//            }
+//        }
+//        print("identifiers to be removed: \(identifiersForRemoval)")
+//        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiersForRemoval)
     }
     
     func initiateAutoSchedule(){

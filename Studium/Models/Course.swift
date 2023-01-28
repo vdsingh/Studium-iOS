@@ -26,7 +26,7 @@ class Course: RecurringStudiumEvent {
         endDate: Date,
         days: [Int],
         systemImageString: SystemIcon.RawValue,
-        notificationAlertTimes: [Int],
+        notificationAlertTimes: [AlertOption],
         partitionKey: String
     ) {
         
@@ -38,11 +38,12 @@ class Course: RecurringStudiumEvent {
         self.endDate = endDate
         self.systemImageString = systemImageString
         self._partitionKey = partitionKey
-        //        self.notificationAlertTimes = notificationAlertTimes
-        self.notificationAlertTimes.removeAll()
-        for time in notificationAlertTimes{
-            self.notificationAlertTimes.append(time)
-        }
+//        self.
+        self.alertTimes = notificationAlertTimes
+//        self.notificationAlertTimes.removeAll()
+//        for time in notificationAlertTimes{
+//            self.notificationAlertTimes.append(time)
+//        }
         
         self.days.removeAll()
         for day in days{

@@ -24,7 +24,7 @@ protocol Autoscheduleable: StudiumEvent {
     
 }
 
-class RecurringStudiumEvent: StudiumEvent{
+class RecurringStudiumEvent: StudiumEvent {
     var days: List<Int> = List<Int>()
     
     ///Adds the event to Apple calendar

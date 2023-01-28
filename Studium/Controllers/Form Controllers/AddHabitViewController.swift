@@ -124,10 +124,10 @@ class AddHabitViewController: MasterForm {
             fillForm(with: habit)
         } else {
             //We are creating a new habit
-            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
-                print("$ LOG: Loading User's Default Notification Times for Habit Form.")
-                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
-            }
+//            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
+//                print("$ LOG: Loading User's Default Notification Times for Habit Form.")
+//                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
+//            }
         }
     }
     
@@ -161,12 +161,12 @@ class AddHabitViewController: MasterForm {
         
         if errors.count == 0 { //if there are no errors.
             if habit == nil {
-                guard let user = app.currentUser else {
-                    print("ERROR: error getting user in MasterForm")
-                    return
-                }
+//                guard let user = app.currentUser else {
+//                    print("ERROR: error getting user in MasterForm")
+//                    return
+//                }
                 let newHabit = Habit()
-                newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthHours * 60 + totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: user.id)
+                newHabit.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthHours * 60 + totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: DatabaseService.shared.user?.id ?? "")
                 if !autoschedule {
                     for alertTime in alertTimes {
                         for day in daysSelected {
@@ -181,7 +181,7 @@ class AddHabitViewController: MasterForm {
                             
                             alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
                             
-                            alertDate -= (60 * Double(alertTime))
+                            alertDate -= (60 * Double(alertTime.rawValue))
                             //                    alertDate = startDate - (60 * Double(alertTime))
                             //consider how subtracting time from alertDate will affect the weekday component.
                             let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
@@ -189,24 +189,24 @@ class AddHabitViewController: MasterForm {
                             
                             //adjust title as appropriate
                             var title = ""
-                            if alertTime < 60{
+                            if alertTime.rawValue < 60 {
                                 title = "\(name) starts in \(alertTime) minutes."
-                            }else if alertTime == 60{
+                            } else if alertTime.rawValue == 60 {
                                 title = "\(name) starts in 1 hour"
-                            }else{
-                                title = "\(name) starts in \(alertTime / 60) hours"
+                            } else {
+                                title = "\(name) starts in \(alertTime.rawValue / 60) hours"
                             }
                             let timeFormat = self.startDate.format(with: "h:mm a")
                             
                             let identifier = UUID().uuidString
-                            newHabit.notificationIdentifiers.append(identifier)
-                            newHabit.notificationAlertTimes.append(alertTime)
-                            NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
+//                            newHabit.notificationIdentifiers.append(identifier)
+                            newHabit.alertTimes.append(alertTime)
+//                            NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                         }
                     }
                 } else {
                     for alertTime in alertTimes {
-                        newHabit.notificationAlertTimes.append(alertTime)
+                        newHabit.alertTimes.append(alertTime)
                     }
                 }
                 RealmCRUD.saveHabit(habit: newHabit)
@@ -214,10 +214,11 @@ class AddHabitViewController: MasterForm {
                 
             } else {
                 do {
-                    try realm.write {
+                    
+                    try DatabaseService.shared.realm.write {
                         if !autoschedule {
                             // TODO: FIX FORCE UNWRAP
-                            habit!.deleteNotifications()
+//                            habit!.deleteNotifications()
                             for alertTime in alertTimes {
                                 for day in daysSelected {
                                     
@@ -231,41 +232,41 @@ class AddHabitViewController: MasterForm {
                                     
                                     alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
                                     
-                                    alertDate -= (60 * Double(alertTime))
+                                    alertDate -= (60 * Double(alertTime.rawValue))
                                     //consider how subtracting time from alertDate will affect the weekday component.
                                     let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
                                     //                    print(courseComponents)
                                     
                                     //adjust title as appropriate
                                     var title = ""
-                                    if alertTime < 60 {
+                                    if alertTime.rawValue < 60 {
                                         title = "\(name) starts in \(alertTime) minutes."
-                                    } else if alertTime == 60 {
+                                    } else if alertTime.rawValue == 60 {
                                         title = "\(name) starts in 1 hour"
                                     } else {
-                                        title = "\(name) starts in \(alertTime / 60) hours"
+                                        title = "\(name) starts in \(alertTime.rawValue / 60) hours"
                                     }
                                     let timeFormat = startDate.format(with: "h:mm a")
                                     
                                     let identifier = UUID().uuidString
-                                    habit!.notificationIdentifiers.append(identifier)
-                                    habit!.notificationAlertTimes.append(alertTime)
-                                    NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
+//                                    habit!.notificationIdentifiers.append(identifier)
+                                    habit!.alertTimes.append(alertTime)
+//                                    NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                                 }
                             }
                         } else {
-                            habit!.deleteNotifications()
+//                            habit!.deleteNotifications()
                             for alertTime in alertTimes{
-                                habit!.notificationAlertTimes.append(alertTime)
+                                habit!.alertTimes.append(alertTime)
                             }
                         }
-                        guard let user = app.currentUser else {
-                            print("$ ERROR: error getting user in MasterForm")
-                            return
-                        }
+//                        guard let user = app.currentUser else {
+//                            print("$ ERROR: error getting user in MasterForm")
+//                            return
+//                        }
                         
                         
-                        habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: user.id)
+                        habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: DatabaseService.shared.user?.id ?? "")
                         print("editing habit with length hour \(totalLengthHours) segmented control: \(earlier)")
                     }
                 } catch {
@@ -446,10 +447,10 @@ extension AddHabitViewController{
             daysSelected.append(day)
         }
         
-        alertTimes = []
-        for alert in habit.notificationAlertTimes{
-            alertTimes.append(alert)
-        }
+        alertTimes = habit.alertTimes
+//        for alert in habit.notificationAlertTimes{
+//            alertTimes.append(alert)
+//        }
         
         let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
         logoCell.logoImageView.image = UIImage(systemName: habit.systemImageString)

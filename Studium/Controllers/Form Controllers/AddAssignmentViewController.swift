@@ -6,7 +6,7 @@ protocol AssignmentRefreshProtocol{
     func loadAssignments()
 }
 
-class AddAssignmentViewController: MasterForm{
+class AddAssignmentViewController: MasterForm {
     var codeLocationString: String = "Add Assignment Form"
     
     //holds the assignment being edited if an assignment is being edited.
@@ -17,7 +17,7 @@ class AddAssignmentViewController: MasterForm{
     //String field data from todo form. [name, data]
     var todoFormData: [String] = ["", ""]
     //alert times data from todo form.
-    var todoAlertTimes: [Int] = []
+//    var todoAlertTimes: [Int] = []
     var todoDueDate: Date = Date()
     
     //variables that hold the total length of the habit.
@@ -28,7 +28,7 @@ class AddAssignmentViewController: MasterForm{
     
     
     //a list of courses so that the user can pick which course the assignment is attached to
-    var courses: Results<Course>? = nil
+    var courses: [Course] = []
     
     //link to the main list of assignments, so it can refresh when we add a new one
     var delegate: AssignmentRefreshProtocol?
@@ -74,43 +74,66 @@ class AddAssignmentViewController: MasterForm{
         tableView.backgroundColor = .systemBackground
         
         //getting all courses from realm to populate the course picker.
-        guard let user = app.currentUser else {
-            print("$ ERROR: error getting user in MasterForm")
-            return
-        }
+//        guard let user = app.currentUser else {
+//            print("$ ERROR: error getting user in MasterForm")
+//            return
+//        }
 
-        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-        courses = realm.objects(Course.self)
+//        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+//        courses = realm.objects(Course.self)
+        courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
         
         // TODO: Fix force unwrap
         self.endDate = Calendar.current.date(bySetting: .hour, value: 23, of: self.endDate)!
         self.endDate = Calendar.current.date(bySetting: .minute, value: 59, of: self.endDate)!
         
         if let assignment = assignment {
-            alertTimes = []
-            for alert in assignment.notificationAlertTimes {
-                alertTimes.append(alert)
-            }
+//            alertTimes = []
+//            for alert in assignment.notificationAlertTimes {
+//                alertTimes.append(alert)
+//            }
+            
+//            alertTimes = [AlertOption](assignment.notificationAlertTimes.map { AlertOption(rawValue: $0) })
             
             for day in assignment.days {
                 workDaysSelected.append(day)
             }
+            
             guard let course = assignment.parentCourse else{
-                print("$ ERROR: error accessing parent course in AssignmentCell1")
+                print("$Error: error accessing parent course")
                 return
             }
-            fillForm(name: assignment.name, additionalDetails: assignment.additionalDetails, alertTimes: alertTimes, dueDate: assignment.endDate, selectedCourse: course, scheduleWorkTime: assignment.autoschedule, workTimeMinutes: assignment.autoLengthMinutes, workDays: workDaysSelected)
+            
+            fillForm (
+                name: assignment.name,
+                additionalDetails: assignment.additionalDetails,
+                alertTimes: self.alertTimes,
+                dueDate: assignment.endDate,
+                selectedCourse: course,
+                scheduleWorkTime: assignment.autoschedule,
+                workTimeMinutes: assignment.autoLengthMinutes,
+                workDays: workDaysSelected
+            )
         } else if fromTodoForm {
-            //THIS IS BROKEN PLEASE FIX. ASSIGNMENT IS NIL, SO THERE IS NO PARENT COURSE. FIX LATER
-            fillForm(name: todoFormData[0], additionalDetails: todoFormData[1], alertTimes: todoAlertTimes, dueDate: todoDueDate, selectedCourse: nil, scheduleWorkTime: false, workTimeMinutes: 0, workDays: [])
+            //TODO: THIS IS BROKEN PLEASE FIX. ASSIGNMENT IS NIL, SO THERE IS NO PARENT COURSE. FIX LATER
+            fillForm (
+                name: todoFormData[0],
+                additionalDetails: todoFormData[1],
+                alertTimes: self.alertTimes,
+                dueDate: todoDueDate,
+                selectedCourse: nil,
+                scheduleWorkTime: false,
+                workTimeMinutes: 0,
+                workDays: []
+            )
         } else {
             //we are creating a new assignment.
             
             //get the user's default notification times if they exist and fill them in!
-            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
-                print("$ LOG: Loading User's Default Notification Times for Assignment Form.")
-                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
-            }
+//            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
+//                print("$ LOG: Loading User's Default Notification Times for Assignment Form.")
+//                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
+//            }
             navButton.image = UIImage(systemName: "plus")
         }
     }
@@ -124,16 +147,26 @@ class AddAssignmentViewController: MasterForm{
         
         if errors == "" {
             if assignment == nil {
-                print("$ LOG: adding assignment for the first time")
-                guard let user = app.currentUser else {
-                    print("$ ERROR: error getting user")
-                    return
-                }
+                print("$Log: adding assignment for the first time")
+//                guard let user = app.currentUser else {
+//                    print("$ ERROR: error getting user")
+//                    return
+//                }
 
                 let newAssignment = Assignment()
-                newAssignment.initializeData(name: name, additionalDetails: additionalDetails, complete: false, startDate: self.endDate - (60*60), endDate: self.endDate, notificationAlertTimes: alertTimes, autoschedule: scheduleWorkTime, autoLengthMinutes: self.totalLengthMinutes + (self.totalLengthHours * 60), autoDays: workDaysSelected, partitionKey: user.id)
-                
-                NotificationHandler.scheduleNotificationsForAssignment(assignment: newAssignment)
+                newAssignment.initializeData(
+                    name: name,
+                    additionalDetails: additionalDetails,
+                    complete: false,
+                    startDate: self.endDate - (60*60),
+                    endDate: self.endDate,
+                    notificationAlertTimes: self.alertTimes,
+                    autoschedule: scheduleWorkTime,
+                    autoLengthMinutes: self.totalLengthMinutes + (self.totalLengthHours * 60),
+                    autoDays: workDaysSelected, partitionKey: DatabaseService.shared.user?.id ?? ""
+                )
+                //TODO: Notifications
+//                NotificationHandler.scheduleNotificationsForAssignment(assignment: newAssignment)
                 RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse!)
             } else {
                 // TODO: Implement assignment notification updates here
@@ -159,22 +192,18 @@ class AddAssignmentViewController: MasterForm{
             return
         }
 
-        if let coursesArr = courses {
-            for course in coursesArr {
-                if course.name == selectedCourse.name {
-                    picker.selectRow(row, inComponent: 0, animated: true)
-                    break
-                }
-                row += 1
+        for course in courses {
+            if course.name == selectedCourse.name {
+                picker.selectRow(row, inComponent: 0, animated: true)
+                break
             }
-        }else{
-            print("$ ERROR: courses in AddAssignment is nil.")
+            row += 1
         }
     }
     
     func fillForm(name: String,
                   additionalDetails: String,
-                  alertTimes: [Int],
+                  alertTimes: [AlertOption],
                   dueDate: Date,
                   selectedCourse: Course?,
                   scheduleWorkTime: Bool,
@@ -196,6 +225,11 @@ class AddAssignmentViewController: MasterForm{
         dueDateCell.date = dueDate
         
         self.alertTimes = alertTimes
+//        self.alertTimes = alertTimes.map { alertTime in
+//            if let alert = AlertOption(rawValue: alertTime) {
+//                return alert
+//            }
+//        }
         
         self.scheduleWorkTime = scheduleWorkTime
         if scheduleWorkTime == true{

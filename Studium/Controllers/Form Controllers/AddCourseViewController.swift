@@ -70,10 +70,10 @@ class AddCourseViewController: MasterForm {
             // TODO: Update course notification times
         } else {
             //we are creating a new course
-            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
+//            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
 //                Logs.Notifications.loadingDefaultNotificationTimes(logLocation: self.codeLocationString).printLog()
-                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
-            }
+//                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
+//            }
         }
     }
     
@@ -100,14 +100,14 @@ class AddCourseViewController: MasterForm {
 //                course.deleteNotifications()
 //                NotificationHandler.scheduleNotificationsForCourse(course: course)
                 
-                if let user = app.currentUser {
-                    partitionKey = user.id
-                } else {
-                    print("$ ERROR: user is nil")
-                }
+//                if let user = app.currentUser {
+//                    partitionKey = user.id
+//                } else {
+//                    print("$ ERROR: user is nil")
+//                }
                 do {
                     // TODO: Abstract away realm to state
-                    try realm.write {
+                    try DatabaseService.shared.realm.write {
                         course.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
                     }
                 } catch {
@@ -115,13 +115,13 @@ class AddCourseViewController: MasterForm {
                 }
             } else {
                 let newCourse = Course()
-                if let user = app.currentUser {
-                    partitionKey = user.id
-                }
+//                if let user = app.currentUser {
+//                    partitionKey = user.id
+//                }
                 
-                newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
+                newCourse.initializeData(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: DatabaseService.shared.user?.id ?? "")
                 //scheduling the appropriate notifications
-                NotificationHandler.scheduleNotificationsForCourse(course: newCourse)
+//                NotificationHandler.scheduleNotificationsForCourse(course: newCourse)
                 RealmCRUD.saveCourse(course: newCourse)
                 newCourse.addToAppleCalendar()
             }
@@ -198,7 +198,7 @@ extension AddCourseViewController: ColorDelegate{
     
 }
 
-extension AddCourseViewController{
+extension AddCourseViewController {
     func fillForm(with course: Course){
         tableView.reloadData()
         
@@ -221,10 +221,12 @@ extension AddCourseViewController{
             daysSelected.append(day)
         }
         
-        alertTimes = []
-        for alert in course.notificationAlertTimes{
-            alertTimes.append(alert)
-        }
+        alertTimes = course.alertTimes
+        
+//        alertTimes = []
+//        for alert in course.notificationAlertTimes{
+//            alertTimes.append(alert)
+//        }
         
         let startCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TimeCell
         startDate = course.startDate

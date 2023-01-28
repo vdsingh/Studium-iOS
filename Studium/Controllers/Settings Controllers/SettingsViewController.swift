@@ -12,10 +12,8 @@ import UIKit
 import EventKit
 import GoogleSignIn
 
-class SettingsViewController: UITableViewController, AlertInfoStorer{
-    
-    var alertTimes: [Int] = []
-    
+class SettingsViewController: UITableViewController, AlertInfoStorer {
+    var alertTimes: [AlertOption] = []
     
     var realm: Realm! //Link to the realm where we are storing information
     let app = App(id: Secret.appID)
@@ -40,17 +38,19 @@ class SettingsViewController: UITableViewController, AlertInfoStorer{
     
     override func viewDidLoad() {
         tableView.tableFooterView = UIView()
-        guard let user = app.currentUser else {
-            print("Error getting user in MasterForm")
-            return
-        }
-        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+//        guard let user = app.currentUser else {
+//            print("Error getting user in MasterForm")
+//            return
+//        }
+//        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         
         //the key for default notification times doesn't exist in UserDefaults
         if defaults.object(forKey: K.defaultNotificationTimesKey) == nil {
             defaults.setValue(alertTimes, forKey: K.defaultNotificationTimesKey)
-        }else{
-            alertTimes = defaults.value(forKey: K.defaultNotificationTimesKey) as! [Int]
+        } else {
+            if let times = defaults.value(forKey: K.defaultNotificationTimesKey) as? [Int] {
+                self.alertTimes = times.compactMap { AlertOption(rawValue: $0) }
+            }
         }
 
     }
@@ -59,7 +59,7 @@ class SettingsViewController: UITableViewController, AlertInfoStorer{
     }
     
     func processAlertTimes() {
-        print("LOG: Setting values for default notification times")
+        print("$Log: Setting values for default notification times")
         defaults.setValue(alertTimes, forKey: K.defaultNotificationTimesKey)
     }
     

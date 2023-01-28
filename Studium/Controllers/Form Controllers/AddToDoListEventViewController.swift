@@ -64,10 +64,10 @@ class AddToDoListEventViewController: MasterForm {
         } else {
             navButton.image = UIImage(systemName: "plus")
             //we are creating a new ToDoEvent
-            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
-                print("LOG: Loading User's Default Notification Times for ToDoEvent Form.")
-                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
-            }
+//            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
+//                print("LOG: Loading User's Default Notification Times for ToDoEvent Form.")
+//                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
+//            }
         }
     }
     
@@ -88,63 +88,71 @@ class AddToDoListEventViewController: MasterForm {
         //there are no errors
         if errors == "" {
             if otherEvent == nil {
-                guard let user = app.currentUser else {
-                    print("$ ERROR: error getting user in MasterForm")
-                    return
-                }
+//                guard let user = app.currentUser else {
+//                    print("$ ERROR: error getting user in MasterForm")
+//                    return
+//                }
+                
+                //TODO: Fix
                 let newEvent = OtherEvent()
-                newEvent.initializeData(startDate: self.startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes, partitionKey: user.id)
-                for alertTime in alertTimes{
-                    let alertDate = self.startDate - (Double(alertTime) * 60)
-                    var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
-                    components.second = 0
-                    
-                    let identifier = UUID().uuidString
-                    newEvent.notificationIdentifiers.append(identifier)
-                    NotificationHandler.scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(self.startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
-                }
+//                newEvent.initializeData(startDate: self.startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes, partitionKey: user.id)
+//                for alertTime in alertTimes{
+//                    let alertDate = self.startDate - (Double(alertTime.rawValue) * 60)
+//                    var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
+//                    components.second = 0
+//
+                //TODO: Fix and abstract to diff layer
+//                    let identifier = UUID().uuidString
+//                    newEvent.notificationIdentifiers.append(identifier)
+//                    NotificationHandler.scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(self.startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
+//                }
                 RealmCRUD.saveOtherEvent(otherEvent: newEvent)
             } else {
                 do {
-                    try realm.write{
-                        // TODO: FIX FORCE UNWRAP
-                        otherEvent!.updateNotifications(with: alertTimes)
-                    }
-                    for alertTime in alertTimes{
-                        if !otherEvent!.notificationAlertTimes.contains(alertTime){
-                            let alertDate = self.startDate - (Double(alertTime) * 60)
-                            var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
-                            components.second = 0
-                            print("alertDate: \(alertDate). Start Date: \(self.startDate)")
-                            let identifier = UUID().uuidString
-                            try realm.write{
-                                print("scheduling new notification for alertTime: \(alertTime)")
-                                otherEvent!.notificationIdentifiers.append(identifier)
-                                otherEvent!.notificationAlertTimes.append(alertTime)
-                            }
-                            NotificationHandler.scheduleNotification(components: components,
-                                                                     body: "Don't be late!",
-                                                                     titles: "\(name) at \(startDate.format(with: "h:mm a"))",
-                                                                     repeatNotif: false,
-                                                                     identifier: identifier)
-                        }
+                    //TODO: Fix
+//                    try realm.write {
+//                        // TODO: FIX FORCE UNWRAP
+//                        otherEvent!.updateNotifications(with: alertTimes)
+//                    }
+                    //TODO: Fix and abstract
+//                    for alertTime in alertTimes {
+//                        if !otherEvent!.notificationAlertTimes.contains(alertTime.rawValue) {
+//                            let alertDate = self.startDate - (Double(alertTime.rawValue) * 60)
+//                            var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
+//                            components.second = 0
+//                            print("alertDate: \(alertDate). Start Date: \(self.startDate)")
+//                            let identifier = UUID().uuidString
+//                            //TODO: Fix
+////                            try realm.write{
+////                                print("scheduling new notification for alertTime: \(alertTime)")
+////                                otherEvent!.notificationIdentifiers.append(identifier)
+////                                otherEvent!.notificationAlertTimes.append(alertTime)
+////                            }
+//                            NotificationHandler.scheduleNotification(components: components,
+//                                                                     body: "Don't be late!",
+//                                                                     titles: "\(name) at \(startDate.format(with: "h:mm a"))",
+//                                                                     repeatNotif: false,
+//                                                                     identifier: identifier)
+//                        }
 
                     }
-                    try realm.write {
-                        otherEvent!.initializeData(startDate: self.startDate, endDate: self.endDate, name: name, location: location, additionalDetails: additionalDetails)
-                    }
-                } catch {
-                    print("there was an error: \(error)")
-                }
+                    
+                    //TODO: Fix
+//                    try realm.write {
+//                        otherEvent!.initializeData(startDate: self.startDate, endDate: self.endDate, name: name, location: location, additionalDetails: additionalDetails)
+//                    }
+//                } catch {
+//                    print("there was an error: \(error)")
+//                }
             }
             guard let delegate = delegate else {
-                print("$ ERROR: delegate is nil in AddToDoListEventViewController.")
+                print("$Error: delegate is nil in AddToDoListEventViewController.")
                 return
             }
 
             delegate.refreshData()
             dismiss(animated: true, completion: nil)
-        }else{
+        } else {
             //update the errors cell to show all of the errors with the form
             self.replaceLabelText(text: errors, section: 3, row: 1)
             tableView.reloadData()
@@ -169,6 +177,7 @@ extension AddToDoListEventViewController: UITextFieldDelegateExt{
             print("$ ERROR: sender's text was nil. \nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
+        
         switch textFieldID {
         case .nameTextField:
             self.name = text
@@ -198,10 +207,14 @@ extension AddToDoListEventViewController{
         additionalDetailsCell.textField.text = otherEvent.additionalDetails
         additionalDetails = otherEvent.additionalDetails
         
-        alertTimes = []
-        for alert in otherEvent.notificationAlertTimes{
-            alertTimes.append(alert)
-        }
+        self.alertTimes = otherEvent.alertTimes
+//        for alertOption in otherEvent.alertTimes {
+//            if let alertOption = AlertOption(rawValue: alert) {
+//                alertTimes.append(alertOption)
+//            } else {
+//                print("$Error: Couldn't construct AlertOption from stored time.")
+//            }
+//        }
         
         let startCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TimeCell
         startDate = otherEvent.startDate
@@ -217,7 +230,8 @@ extension AddToDoListEventViewController{
 
 extension AddToDoListEventViewController {
     private func isAssignmentClicked() {
-        let courses = realm.objects(Course.self)
+//        let courses = realm.objects(Course.self)
+        let courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
         if courses.count != 0 {
             
             // TODO: Fix force typing
@@ -228,7 +242,13 @@ extension AddToDoListEventViewController {
 //                    self.retrieveDataFromCells()
                 
                 //go to the assignment form instead of todo item form. Also provide the assignment form the information from the current form.
-                del.openAssignmentForm(name: self.name, location: self.location, additionalDetails: self.additionalDetails, alertTimes: self.alertTimes, dueDate: self.endDate)
+                del.openAssignmentForm (
+                    name: self.name,
+                    location: self.location,
+                    additionalDetails: self.additionalDetails,
+                    alertTimes: self.alertTimes,
+                    dueDate: self.endDate
+                )
             }
         } else {
             let alert = UIAlertController(title: "No Courses Available", message: "You haven't added any Courses yet. To add an Assignment, please add a Course first.", preferredStyle: .alert)
