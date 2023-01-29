@@ -25,8 +25,21 @@ class Habit: RecurringStudiumEvent, Autoscheduleable{
 
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, autoschedule: Bool, startEarlier: Bool, autoLengthMinutes: Int, days: [Int], systemImageString: String, colorHex: String, partitionKey: String) {
-
+    convenience init(
+        name: String,
+        location: String,
+        additionalDetails: String,
+        startDate: Date,
+        endDate: Date,
+        autoschedule: Bool,
+        startEarlier: Bool,
+        autoLengthMinutes: Int,
+        days: [Int],
+        systemImageString: String,
+        colorHex: String,
+        partitionKey: String
+    ) {
+        self.init()
         self.name = name
         self.location = location
         self.additionalDetails = additionalDetails
@@ -39,9 +52,7 @@ class Habit: RecurringStudiumEvent, Autoscheduleable{
         self.color = colorHex
         
         self._partitionKey = partitionKey
-        
-        //handles days
-        for day in days{
+        for day in days {
             self.days.append(day)
         }
     }
