@@ -152,7 +152,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         let eventForEdit = deletableEventCell.event! as! Assignment
         let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
         addAssignmentViewController.delegate = self
-        addAssignmentViewController.assignment = eventForEdit
+        addAssignmentViewController.assignmentEditing = eventForEdit
         addAssignmentViewController.title = "View/Edit Assignment"
         let navController = UINavigationController(rootViewController: addAssignmentViewController)
         self.present(navController, animated:true, completion: nil)
