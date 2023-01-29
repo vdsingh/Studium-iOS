@@ -9,20 +9,20 @@
 import Foundation
 import RealmSwift
 
+/// Represents Course Assignments
 class Assignment: RecurringStudiumEvent, Autoscheduleable {
-    
-    
-    let defaults = UserDefaults.standard
 
-    //Specifies whether or not the Assignment object is marked as complete or not. This determines where it lies in a tableView and whether or not it's crossed out.
+    /// Specifies whether or not the Assignment object is marked as complete or not..
     @Persisted var complete: Bool = false
 
-    //This is a link to the Course that the Assignment object is categorized under.
+    /// This is a link to the Course that the Assignment object is categorized under.
     var parentCourses = LinkingObjects(fromType: Course.self, property: "assignments")
-    var parentCourse: Course? {return parentCourses.first}
+    var parentCourse: Course? { return parentCourses.first }
         
     //variables that track information about scheduling work time.
-    @Persisted var autoschedule: Bool = false //in this case, autoschedule refers to scheduling work time.
+    
+    /// Whether or not scheduling work time is enabled
+    @Persisted var autoschedule: Bool = false
     
     //was this an autoscheduled assignment?
     @Persisted var isAutoscheduled: Bool = false
@@ -34,7 +34,7 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable {
 
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(
+    convenience init(
         name: String,
         additionalDetails: String,
         complete: Bool,
@@ -46,7 +46,7 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable {
         autoDays: [Int],
         partitionKey: String
     ) {
-
+        self.init()
         self.name = name
         self.additionalDetails = additionalDetails
         self.complete = complete
@@ -70,7 +70,15 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable {
         }
     }
     
-    func initializeData(name: String, additionalDetails: String, complete: Bool, startDate: Date, endDate: Date) {
+    convenience init(
+        name: String,
+        additionalDetails: String,
+        complete: Bool,
+        startDate: Date,
+        endDate: Date
+    )
+    {
+        self.init()
         self.name = name
         self.additionalDetails = additionalDetails
         self.complete = complete
@@ -126,7 +134,7 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable {
                 //if the weekday of the currentDate is a weekday that we want to autoschedule on...
             if (autoDays.contains(currentDate.weekday)){
                 //autoschedule on the currentDate
-                let wakeUpTime = defaults.array(forKey: K.wakeUpKeyDict[currentDate.weekday]!)![0] as! Date
+                let wakeUpTime = UserDefaults.standard.array(forKey: K.wakeUpKeyDict[currentDate.weekday]!)![0] as! Date
                 
                 let startBound = Date(year: currentDate.year, month: currentDate.month, day: currentDate.day, hour: wakeUpTime.hour, minute: wakeUpTime.minute, second: 0)
                 var endBound = Date(year: currentDate.year, month: currentDate.month, day: currentDate.day, hour: 23, minute: 59, second: 0)
@@ -184,13 +192,19 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable {
             
             print("startAndEnd: \(startAndEnd ?? [])")
 
-            let newAssignment = Assignment()
-//            newAssignment.initializeData(name: "Work on \(name)", additionalDetails: "This is an automatically scheduled event to work on \(name).", complete: false, startDate: assignmentStart, endDate: assignmentEnd)
-            guard let user = K.app.currentUser else {
-                print("Error getting user when Autoscheduling Assignments")
-                return nil
-            }
-            newAssignment.initializeData(name: "Work on \(name)", additionalDetails: "This is an automatically scheduled event to work on \(name).", complete: false, startDate: assignmentStart, endDate: assignmentEnd, notificationAlertTimes: [], autoschedule: false, autoLengthMinutes: autoLengthMinutes, autoDays: [], partitionKey: user.id)
+            let newAssignment = Assignment(
+                name: "Work on \(name)",
+                additionalDetails: "This is an automatically scheduled event to work on \(name).",
+                complete: false,
+                startDate: assignmentStart,
+                endDate: assignmentEnd,
+                notificationAlertTimes: [],
+                autoschedule: false,
+                autoLengthMinutes: autoLengthMinutes,
+                autoDays: [],
+                partitionKey: DatabaseService.shared.user?.id ?? ""
+            )
+            
             newAssignment.isAutoscheduled = true
             
             RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: parentCourse!)
