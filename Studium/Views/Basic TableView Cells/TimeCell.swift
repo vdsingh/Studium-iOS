@@ -14,22 +14,54 @@ class TimeCell: BasicCell {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
-    var date: Date?
-    var dateFormat: String = "h:mm a"
+    private var date: Date
+    private var dateFormat: DateFormat
     
-    var timePickerMode: UIDatePicker.Mode?
+    private var timePickerMode: UIDatePicker.Mode
     
+
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.timeLabel.text = date.format(with: self.dateFormat.rawValue)
         self.backgroundColor = defaultBackgroundColor
-
-        // Initialization code
     }
+    
+    func configure(
+        cellLabelText: String,
+        formCellID: FormCellID.TimeCell?,
+        date: Date,
+        dateFormat: DateFormat,
+        timePickerMode: UIDatePicker.Mode
+    ) {
+        self.label.text = cellLabelText
+        self.formCellID = formCellID
+        self.date = date
+        self.dateFormat = dateFormat
+        self.timePickerMode = timePickerMode
+    }
+    
+    // MARK: - Getters
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func getDate() -> Date {
+        return self.date
+    }
+    
+    func getDateFormat() -> DateFormat{
+        return self.dateFormat
+    }
+    
+    func getTimePickerMode() -> UIDatePicker.Mode {
+        return self.timePickerMode
+    }
+    
+    // MARK: - Setters
+    func setDate(_ date: Date) {
+        self.date = date
+        self.timeLabel.text = date.format(with: self.dateFormat.rawValue)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }
