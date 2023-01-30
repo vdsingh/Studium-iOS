@@ -44,4 +44,8 @@ final class DatabaseService {
     public func getStudiumObjects <T: Object> (expecting type: T.Type) -> [T] {
         return [T](self.realm.objects(type))
     }
+    
+    public func getAssignments(forCourse course: Course) -> [Assignment]{
+        return [Assignment](course.assignments)
+    }
 }
