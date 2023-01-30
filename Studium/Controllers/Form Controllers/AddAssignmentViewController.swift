@@ -72,7 +72,7 @@ class AddAssignmentViewController: MasterForm {
         self.cells = [
             [
                 .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
-                .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: "MMM d, h:mm a", timePickerMode: .dateAndTime, id: .endTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: .endTimeCell, onClick: self.timeCellClicked),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
@@ -217,7 +217,7 @@ class AddAssignmentViewController: MasterForm {
         
         let dueDateCell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
         self.endDate = assignment.endDate
-        dueDateCell.date = assignment.endDate
+        dueDateCell.setDate(assignment.endDate)
         
         self.alertTimes = assignment.alertTimes
         

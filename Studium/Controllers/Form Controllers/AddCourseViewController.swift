@@ -42,8 +42,8 @@ class AddCourseViewController: MasterForm {
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
-                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: "h:mm a", id: FormCellID.TimeCell.startTimeCell, onClick: timeCellClicked),
-                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: "h:mm a", id: FormCellID.TimeCell.endTimeCell, onClick: timeCellClicked)
+                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCell.startTimeCell, onClick: timeCellClicked),
+                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCell.endTimeCell, onClick: timeCellClicked)
             ],
             [
                 .logoCell(imageString: self.systemImageString, onClick: self.navigateToLogoSelection),
@@ -235,13 +235,11 @@ extension AddCourseViewController {
         
         let startCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TimeCell
         startDate = course.startDate
-        startCell.timeLabel.text = startDate.format(with: "h:mm a")
-        startCell.date = startDate
+        startCell.setDate(startDate)
         
         let endCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TimeCell
         endDate = course.endDate
-        endCell.timeLabel.text = endDate.format(with: "h:mm a")
-        endCell.date = endDate
+        endCell.setDate(endDate)
         
         let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
         logoCell.logoImageView.image = UIImage(systemName: course.systemImageString)

@@ -75,8 +75,8 @@ class AddHabitViewController: MasterForm {
             ],
             [
                 .switchCell(cellText: "Autoschedule", switchDelegate: self, infoDelegate: self),
-                .timeCell(cellText: "Start", date: Date(), dateFormat: "h:mm a", id: .startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Finish", date: Date(), dateFormat: "h:mm a", id: .endTimeCell, onClick: self.timeCellClicked)
+                .timeCell(cellText: "Start", date: Date(), dateFormat: .standardTime, timePickerMode: .time, id: .startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Finish", date: Date(), dateFormat: .standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked)
             ],
             [
                 .logoCell(imageString: "pencil", onClick: self.navigateToLogoSelection),
@@ -98,9 +98,11 @@ class AddHabitViewController: MasterForm {
             ],
             [
                 .switchCell(cellText: "Autoschedule", switchDelegate: self, infoDelegate: self),
-                .timeCell(cellText: "Between", date: Date(), dateFormat: "h:mm a", id: .startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "And", date: Date(), dateFormat: "h:mm a", id: .endTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Length of Habit", date: nil, dateFormat: nil, timeLabelText: "\(self.totalLengthHours) hours \(self.totalLengthMinutes) mins", id: .lengthTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Between", date: Date(), dateFormat: .standardTime, timePickerMode: .time, id: .startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "And", date: Date(), dateFormat: .standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked),
+                
+                //TODO: Fix this
+                .timeCell(cellText: "Length of Habit", date: Date(), dateFormat: .standardTime, timePickerMode: .dateAndTime, id: .lengthTimeCell, onClick: self.timeCellClicked),
                 .segmentedControlCell(firstTitle: "Earlier", secondTitle: "Later", delegate: self)
             ],
             [
@@ -479,13 +481,11 @@ extension AddHabitViewController{
         
         let startCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TimeCell
         startDate = habit.startDate
-        startCell.timeLabel.text = startDate.format(with: "h:mm a")
-        startCell.date = startDate
+        startCell.setDate(startDate)
         
         let endCell = tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! TimeCell
         endDate = habit.endDate
-        endCell.timeLabel.text = endDate.format(with: "h:mm a")
-        endCell.date = endDate
+        endCell.setDate(endDate)
         
         if habit.autoschedule {
             let autoscheduleCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell

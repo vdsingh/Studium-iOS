@@ -46,8 +46,8 @@ class AddToDoListEventViewController: MasterForm {
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
-                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: "h:mm a", id: FormCellID.TimeCell.startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: "h:mm a", id: FormCellID.TimeCell.endTimeCell, onClick: self.timeCellClicked)
+                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .standardTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCell.startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCell.endTimeCell, onClick: self.timeCellClicked)
             ],
             [
                 .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
@@ -218,13 +218,15 @@ extension AddToDoListEventViewController{
         
         let startCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TimeCell
         startDate = otherEvent.startDate
-        startCell.timeLabel.text = startDate.format(with: "MMM d, h:mm a")
-        startCell.date = startDate
+//        startCell.timeLabel.text = startDate.format(with: "MMM d, h:mm a")
+//        startCell.date = startDate
+        startCell.setDate(startDate)
         
         let endCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! TimeCell
         endDate = otherEvent.endDate
-        endCell.timeLabel.text = endDate.format(with: "MMM d, h:mm a")
-        endCell.date = endDate
+//        endCell.timeLabel.text = endDate.format(with: "MMM d, h:mm a")
+//        endCell.date = endDate
+        endCell.setDate(endDate)
     }
 }
 
