@@ -75,8 +75,8 @@ struct K {
     
     static var wakeUpKeyDict: [Int: String] = [1: "sunWakeUp", 2: "monWakeUp", 3: "tueWakeUp", 4: "wedWakeUp", 5: "thuWakeUp", 6: "friWakeUp", 7: "satWakeUp"]
     
-    static var weekdayDict: [String: Int] = ["Sun": 1, "Mon": 2, "Tue": 3, "Wed": 4, "Thu": 5, "Fri": 6, "Sat": 7]
-    static var IntToWeekdayDict: [Int: String] = [1:"Sun", 2:"Mon", 3:"Tue", 4:"Wed", 5:"Thu", 6:"Fri", 7:"Sat"]
+//    static var weekdayDict: [String: Int] = ["Sun": 1, "Mon": 2, "Tue": 3, "Wed": 4, "Thu": 5, "Fri": 6, "Sat": 7]
+//    static var IntToWeekdayDict: [Int: String] = [1:"Sun", 2:"Mon", 3:"Tue", 4:"Wed", 5:"Thu", 6:"Fri", 7:"Sat"]
 
     static var defaultNotificationTimesKey: String = "defaultNotificationTimes"
     
