@@ -16,20 +16,18 @@ class AddCourseViewController: MasterForm {
     
     var course: Course?
     
-    //link to the list that is to be refreshed when a new course is added.
+    /// reference to the list that is to be refreshed when a new course is added.
     var delegate: CourseRefreshProtocol?
 
-    //error string that is displayed when there are errors
-    var errors: String = ""
+    /// error string that is displayed when there are errors
+    var errors: [FormError] = []
     
-    //basic course elements
+    /// basic course elements
     var name: String = ""
     var colorValue: String = "ffffff"
     var additionalDetails: String = ""
     var location: String = ""
     var daysSelected: [Int] = []
-    var logoString: String = "pencil"
-    var partitionKey: String = ""
     
     @IBOutlet weak var navButton: UIBarButtonItem!
 
@@ -56,7 +54,7 @@ class AddCourseViewController: MasterForm {
         ]
     
         super.viewDidLoad()
-        navButton.image = UIImage(systemName: "plus")
+        navButton.image = SystemIcon.plus.createImage()
         
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
@@ -78,40 +76,46 @@ class AddCourseViewController: MasterForm {
     
     //final step that occurs when the user has filled out the form and wants to add the new course
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        errors = ""
+        errors = []
         endDate = Calendar.current.date(bySettingHour: endDate.hour, minute: endDate.minute, second: endDate.second, of: startDate)!
         if name == "" {
-            errors.append(" Please specify a course name.")
+            errors.append(.nameNotSpecified)
         }
         
         if daysSelected == [] {
-            errors.append(" Please specify at least one day.")
+            errors.append(.oneDayNotSpecified)
         }
         
         if endDate.isEarlier(than: startDate){
-            errors.append(" End time cannot occur before start time.")
+            errors.append(.endTimeOccursBeforeStartTime)
         }
         
-        if errors.count == 0 {
+        if errors.isEmpty {
             if var course = self.course {
                 // TODO: Move deleteNotifications to NotificationHandler
                 
 //                course.deleteNotifications()
 //                NotificationHandler.scheduleNotificationsForCourse(course: course)
                 
-//                if let user = app.currentUser {
-//                    partitionKey = user.id
-//                } else {
-//                    print("$ ERROR: user is nil")
-//                }
                 do {
                     // TODO: Abstract away realm to state
                     try DatabaseService.shared.realm.write {
 //                        course = Co
-                        course = Course(name: name, colorHex: colorValue, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, days: daysSelected, systemImageString: systemImageString, notificationAlertTimes: alertTimes, partitionKey: partitionKey)
+                        course = Course(
+                            name: name,
+                            colorHex: colorValue,
+                            location: location,
+                            additionalDetails: additionalDetails,
+                            startDate: startDate,
+                            endDate: endDate,
+                            days: daysSelected,
+                            systemImageString: systemImageString,
+                            notificationAlertTimes: alertTimes,
+                            partitionKey: DatabaseService.shared.user?.id ?? ""
+                        )
                     }
                 } catch {
-                    print("$ ERROR: error updating course data: \(error)")
+                    print("$Error: error updating course data: \(error)")
                 }
             } else {
                 let newCourse = Course (
@@ -132,11 +136,15 @@ class AddCourseViewController: MasterForm {
             }
 //            dismiss(animated: true, completion: StudiumState.state.updateCourses)
             if delegate == nil {
-                print("$ LOG: Course refresh delegate is nil.")
+                print("$Log: Course refresh delegate is nil.")
             }
             dismiss(animated: true, completion: delegate?.loadCourses)
-        }else{
-            self.replaceLabelText(text: errors, section: 3, row: 0)
+        } else {
+            
+            let errorsString: String = self.errors
+                .compactMap({ $0.rawValue })
+                .joined(separator: ". ")
+            self.replaceLabelText(text: errorsString, section: 3, row: 0)
             tableView.reloadData()
         }
     }
@@ -187,11 +195,14 @@ extension AddCourseViewController: DaySelectorDelegate{
                 }
             }
         } else {
-            //day was not selected, and we are now selecting it.
-            sender.isSelected = true
-            
-            // TODO: Fix force unwrap
-            daysSelected.append(K.weekdayDict[sender.titleLabel!.text!]!)
+            // day was not selected, and we are now selecting it.
+            if let titleLabel = sender.titleLabel,
+               let text = titleLabel.text {
+                sender.isSelected = true
+                
+                // TODO: Fix force unwrap
+                daysSelected.append(K.weekdayDict[sender.titleLabel!.text!]!)
+            }
         }
     }
 }
@@ -200,7 +211,6 @@ extension AddCourseViewController: ColorDelegate{
     func colorPickerValueChanged(sender: RadialPaletteControl) {
         colorValue = sender.selectedColor.hexValue()
     }
-    
 }
 
 extension AddCourseViewController {
@@ -210,47 +220,50 @@ extension AddCourseViewController {
         navButton.image = .none
         navButton.title = "Done"
         
-        // TODO: Fix force typing 
+        // TODO: Fix force typing
         
-        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-        nameCell.textField.text = course.name
-        name = course.name
+        if let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell {
+            nameCell.textField.text = course.name
+            name = course.name
+        }
         
-        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
-        locationCell.textField.text = course.location
-        location = course.location
+        if let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? TextFieldCell {
+            locationCell.textField.text = course.location
+            location = course.location
+        }
         
-        let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
-        daysCell.selectDays(days: course.days)
-        for day in course.days{
-            daysSelected.append(day)
+        if let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? DaySelectorCell {
+            daysCell.selectDays(days: course.days)
+            for day in course.days{
+                daysSelected.append(day)
+            }
         }
         
         alertTimes = course.alertTimes
         
-//        alertTimes = []
-//        for alert in course.notificationAlertTimes{
-//            alertTimes.append(alert)
-//        }
+        if let startCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? TimeCell {
+            startDate = course.startDate
+            startCell.setDate(startDate)
+        }
         
-        let startCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TimeCell
-        startDate = course.startDate
-        startCell.setDate(startDate)
+        if let endCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as? TimeCell {
+            endDate = course.endDate
+            endCell.setDate(endDate)
+        }
         
-        let endCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TimeCell
-        endDate = course.endDate
-        endCell.setDate(endDate)
+        if let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? LogoCell {
+            logoCell.logoImageView.image = UIImage(systemName: course.systemImageString)
+            systemImageString = course.systemImageString
+        }
         
-        let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
-        logoCell.logoImageView.image = UIImage(systemName: course.systemImageString)
-        systemImageString = course.systemImageString
-        
-        let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
-        colorCell.colorPreview.backgroundColor = UIColor(hexString: course.color)!
-        colorValue = course.color
-        
-        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
-        additionalDetailsCell.textField.text = course.additionalDetails
-        additionalDetails = course.additionalDetails
+        if let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as? ColorPickerCell {
+            colorCell.colorPreview.backgroundColor = UIColor(hexString: course.color)!
+            colorValue = course.color
+        }
+            
+        if let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as? TextFieldCell {
+            additionalDetailsCell.textField.text = course.additionalDetails
+            additionalDetails = course.additionalDetails
+        }
     }
 }

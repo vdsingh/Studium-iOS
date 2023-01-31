@@ -11,10 +11,7 @@ import UIKit
 import RealmSwift
 
 //TODO: Move to separate file
-public enum DateFormat: String {
-    case standardTime = "h:mm a"
-    case fullDateWithTime = "MMM d, h:mm a"
-}
+
 
 public let kCellBackgroundColor = UIColor.secondarySystemBackground
 
@@ -39,8 +36,8 @@ public enum FormCell: Equatable {
     
     case labelCell(
         cellText: String,
-                   textColor: UIColor = .label,
-                   backgroundColor: UIColor = kCellBackgroundColor,
+        textColor: UIColor = .label,
+        backgroundColor: UIColor = kCellBackgroundColor,
         cellAccessoryType: UITableViewCell.AccessoryType = .none,
         onClick: (() -> Void)? = nil
     )
@@ -54,7 +51,6 @@ public enum FormCell: Equatable {
         onClick: ((IndexPath) -> Void)?
     )
     
-    //TODO: make dateFormat an enum
     case timePickerCell(
         date: Date,
         dateFormat: DateFormat,
@@ -132,7 +128,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     
     var totalLengthHours = 1
     var totalLengthMinutes = 0
-        
+    
     var cells: [[FormCell]] = [[]]
     
     
@@ -154,11 +150,11 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
         
         //TODO: move to separate function
         let defaults = UserDefaults.standard
-
+        
         if let times = defaults.value(forKey: K.defaultNotificationTimesKey) as? [Int] {
             self.alertTimes = times.compactMap { AlertOption(rawValue: $0) }
         }
-
+        
         
     }
     
@@ -391,14 +387,14 @@ extension MasterFormClass {
     
     func timeCellClicked(indexPath: IndexPath) {
         guard let timeCell = tableView.cellForRow(at: indexPath) as? TimeCell else {
-            print("$ ERROR: Time Cell Mismatch.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            print("$Error: Time Cell Mismatch.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
         
         var timeCellIndex = indexPath.row
         tableView.beginUpdates()
         
-        /// Find the first time picker (if there is one) and remove it
+        // Find the first time picker (if there is one) and remove it
         if let indexOfFirstTimePicker = self.findFirstPickerCellIndex(section: indexPath.section) {
             cells[indexPath.section].remove(at: indexOfFirstTimePicker)
             tableView.deleteRows(at: [IndexPath(row: indexOfFirstTimePicker, section: indexPath.section)], with: .right)
@@ -406,9 +402,9 @@ extension MasterFormClass {
             if indexOfFirstTimePicker == indexPath.row + 1 {
                 tableView.endUpdates()
                 return
-                /// Clicked on time cell while above timepicker is expanded
+                // Clicked on time cell while above timepicker is expanded
             } else if indexOfFirstTimePicker == indexPath.row - 1 {
-                /// Remove one from the index since we removed a cell above
+                // Remove one from the index since we removed a cell above
                 timeCellIndex -= 1
             }
         }
@@ -469,11 +465,11 @@ extension MasterFormClass {
             if pickerDate! < Date() {
                 components.year = Date().year + 1
                 pickerDate = Calendar.current.date(from: components)
-
+                
             }
-    
-//            correspondingTimeCell.timeLabel.text = pickerDate!.format(with: correspondingTimeCell.getDateFormat())
-//            correspondingTimeCell.setDateFormat()
+            
+            //            correspondingTimeCell.timeLabel.text = pickerDate!.format(with: correspondingTimeCell.getDateFormat())
+            //            correspondingTimeCell.setDateFormat()
         } else {
             print("$ ERROR: date is nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
         }
@@ -508,63 +504,65 @@ extension UIViewController: UITextFieldDelegate{
 }
 
 extension MasterFormClass: UIPickerViewDelegate {
-//    extension AddHabitViewController: UIPickerViewDelegate{
-        
-        //determines the text in each row, given the row and component
-        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-            switch pickerView.tag {
-            case FormCellID.PickerCell.coursePickerCell.rawValue:
-                return StudiumState.state.getCourses()[row].name
-            case FormCellID.PickerCell.lengthPickerCell.rawValue:
-                if component == 0 {
-                    return "\(row) hours"
-                } else {
-                    return "\(row) min"
-                }
-            default:
-                print("$ ERROR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
-                return nil
+    //    extension AddHabitViewController: UIPickerViewDelegate{
+    
+    //determines the text in each row, given the row and component
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch pickerView.tag {
+        case FormCellID.PickerCell.coursePickerCell.rawValue:
+            return StudiumState.state.getCourses()[row].name
+        case FormCellID.PickerCell.lengthPickerCell.rawValue:
+            if component == 0 {
+                return "\(row) hours"
+            } else {
+                return "\(row) min"
             }
+        default:
+            print("$ ERROR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            return nil
         }
-        
-        func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//            switch pickerView.tag {
-//            case FormCellID.PickerCell.lengthPickerCell:
-//
-//            }
-//            let lengthIndex = cellText[1].lastIndex(of: "Length of Habit")
-            switch pickerView.tag {
-            case FormCellID.PickerCell.lengthPickerCell.rawValue:
-                guard let lengthIndex = self.findFirstTimeCellWithID(id: FormCellID.TimeCell.lengthTimeCell) else {
-                    print("$ ERROR: Couldn't find associated TimeCell.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
-                    return
-                }
-                let timeCell = tableView.cellForRow(at: lengthIndex) as! TimeCell
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        //            switch pickerView.tag {
+        //            case FormCellID.PickerCell.lengthPickerCell:
+        //
+        //            }
+        //            let lengthIndex = cellText[1].lastIndex(of: "Length of Habit")
+        switch pickerView.tag {
+        case FormCellID.PickerCell.lengthPickerCell.rawValue:
+            guard let lengthIndex = self.findFirstTimeCellWithID(id: FormCellID.TimeCell.lengthTimeCell) else {
+                print("$ ERROR: Couldn't find associated TimeCell.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+                return
+            }
+            
+            if let timeCell = tableView.cellForRow(at: lengthIndex) as? TimeCell {
                 totalLengthHours = pickerView.selectedRow(inComponent: 0)
                 totalLengthMinutes = pickerView.selectedRow(inComponent: 1)
                 timeCell.timeLabel.text = "\(totalLengthHours) hours \(totalLengthMinutes) mins"
-//            case FormCellID.PickerCell.coursePickerCell.rawValue:
-//                coursePickerRowSelected()
-            default:
-                return
             }
+            //            case FormCellID.PickerCell.coursePickerCell.rawValue:
+            //                coursePickerRowSelected()
+        default:
+            return
         }
+    }
     
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-//        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
-//            // Course selection
-//            let selectedRow = pickerView.selectedRow(inComponent: 0)
-//            selectedCourse = courses![selectedRow]
-//        } else if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
-//            if component == 0 {
-//                workTimeHours = row
-//            } else {
-//                workTimeMinutes = row
-//            }
-//        }
-//    }
-//    }
+    //    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    //        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
+    //            // Course selection
+    //            let selectedRow = pickerView.selectedRow(inComponent: 0)
+    //            selectedCourse = courses![selectedRow]
+    //        } else if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
+    //            if component == 0 {
+    //                workTimeHours = row
+    //            } else {
+    //                workTimeMinutes = row
+    //            }
+    //        }
+    //    }
 }
+
 
 extension MasterFormClass: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -582,7 +580,6 @@ extension MasterFormClass: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView.tag {
         case FormCellID.PickerCell.lengthPickerCell.rawValue:
-            print("LENGTH")
             if component == 0 {
                 return 24
             } else {
@@ -590,22 +587,22 @@ extension MasterFormClass: UIPickerViewDataSource {
             }
         case FormCellID.PickerCell.coursePickerCell.rawValue:
             return StudiumState.state.getCourses().count
-//            break
+            //            break
         default:
-            print("$ ERROR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            print("$Error: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return 0
         }
     }
     
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//           if pickerView.tag == 1{
-//               return courses?.count ?? 1
-//           }else if pickerView.tag == 0{
-//               if component == 0{
-//                   return 24
-//               }
-//               return 60
-//           }
-//           return 0
-//       }
+    //    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    //           if pickerView.tag == 1{
+    //               return courses?.count ?? 1
+    //           }else if pickerView.tag == 0{
+    //               if component == 0{
+    //                   return 24
+    //               }
+    //               return 60
+    //           }
+    //           return 0
+    //       }
 }

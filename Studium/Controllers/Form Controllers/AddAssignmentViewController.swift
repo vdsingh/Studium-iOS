@@ -3,20 +3,6 @@ import UIKit
 import RealmSwift
 
 
-/// Errors for this form
-enum AddAssignmentFormError: String {
-    case assignmentNameNotSpecified
-    
-    /// A readable string to present to users
-    var errorString: String {
-        switch self {
-        case .assignmentNameNotSpecified:
-            return "Please specify a name"
-        }
-    }
-}
-
-
 protocol AssignmentRefreshProtocol {
     func loadAssignments()
 }
@@ -54,7 +40,7 @@ class AddAssignmentViewController: MasterForm {
     var delegate: AssignmentRefreshProtocol?
     
     /// Errors string that is displayed if there are any issues (e.g: user didnt enter a name)
-    var errors: [AddAssignmentFormError] = []
+    var errors: [FormError] = []
     
     /// The course that the user selected for this assignment
     var selectedCourse: Course? = nil
@@ -141,7 +127,7 @@ class AddAssignmentViewController: MasterForm {
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         errors = []
         if name.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            errors.append(.assignmentNameNotSpecified)
+            errors.append(.nameNotSpecified)
         }
         
         if errors.isEmpty {

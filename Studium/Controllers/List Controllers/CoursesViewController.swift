@@ -61,16 +61,19 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         //build the cells
         //let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! RecurringEventCell
-        let course = eventsArray[indexPath.section][indexPath.row] as! Course
-        cell.event = course
-        cell.loadData(courseName: course.name,
-                      location: course.location,
-                      startTime: course.startDate,
-                      endTime: course.endDate,
-                      days: course.days,
-                      colorHex: course.color,
-                      recurringEvent: course,
-                      systemImageString: course.systemImageString)
+        if let course = eventsArray[indexPath.section][indexPath.row] as? Course {
+            cell.event = course
+            cell.loadData(
+                courseName: course.name,
+                location: course.location,
+                startTime: course.startDate,
+                endTime: course.endDate,
+                days: course.days,
+                colorHex: course.color,
+                recurringEvent: course,
+                systemImageString: course.systemImageString
+            )
+        }
     
         return cell
     }
