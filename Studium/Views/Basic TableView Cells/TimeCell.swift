@@ -14,15 +14,14 @@ class TimeCell: BasicCell {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
-    private var date: Date
-    private var dateFormat: DateFormat
+    private var date: Date!
+    private var dateFormat: DateFormat!
     
-    private var timePickerMode: UIDatePicker.Mode
+    private var timePickerMode: UIDatePicker.Mode!
     
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.timeLabel.text = date.format(with: self.dateFormat.rawValue)
         self.backgroundColor = defaultBackgroundColor
     }
     
@@ -36,6 +35,7 @@ class TimeCell: BasicCell {
         self.label.text = cellLabelText
         self.formCellID = formCellID
         self.date = date
+        self.timeLabel.text = date.format(with: dateFormat.rawValue)
         self.dateFormat = dateFormat
         self.timePickerMode = timePickerMode
     }
@@ -59,11 +59,6 @@ class TimeCell: BasicCell {
         self.date = date
         self.timeLabel.text = date.format(with: self.dateFormat.rawValue)
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }
 
 extension TimeCell: FormCellProtocol {

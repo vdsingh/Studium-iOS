@@ -9,7 +9,7 @@
 import Foundation
 import ChameleonFramework
 
-class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, AssignmentRefreshProtocol{
+class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, AssignmentRefreshProtocol {
     var assignments: [Assignment] = []
 
     @IBOutlet weak var searchBar: UISearchBar!

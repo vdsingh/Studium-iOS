@@ -11,7 +11,7 @@ import RealmSwift
 import UIKit
 
 class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
-    var habits: Results<Habit>?
+    var habits: [Habit] = []
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -45,9 +45,9 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     }
     
     func loadHabits(){
-        habits = realm.objects(Habit.self)
+        self.habits = DatabaseService.shared.getStudiumObjects(expecting: Habit.self)
         eventsArray = [[],[]]
-        for habit in habits!{
+        for habit in self.habits {
             if habit.days.contains(Date().week){
                 eventsArray[0].append(habit)
             }else{
