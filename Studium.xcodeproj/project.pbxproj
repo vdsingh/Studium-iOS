@@ -97,6 +97,9 @@
 		B90D1439298461EB0093EB0C /* StudiumState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1437298461EB0093EB0C /* StudiumState.swift */; };
 		B90D143A298461EB0093EB0C /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1438298461EB0093EB0C /* NotificationHandler.swift */; };
 		B90D143C298461FB0093EB0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D143B298461FB0093EB0C /* Extensions.swift */; };
+		B90D143E298999630093EB0C /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D143D298999630093EB0C /* DateFormat.swift */; };
+		B90D1440298999AB0093EB0C /* FormError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D143F298999AB0093EB0C /* FormError.swift */; };
+		B90D144229899C310093EB0C /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D144129899C310093EB0C /* Weekday.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5E2983465D00A25457 /* SystemIcon.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
@@ -197,6 +200,9 @@
 		B90D1437298461EB0093EB0C /* StudiumState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudiumState.swift; sourceTree = "<group>"; };
 		B90D1438298461EB0093EB0C /* NotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		B90D143B298461FB0093EB0C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B90D143D298999630093EB0C /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
+		B90D143F298999AB0093EB0C /* FormError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormError.swift; sourceTree = "<group>"; };
+		B90D144129899C310093EB0C /* Weekday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B96E6A5E2983465D00A25457 /* SystemIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcon.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
@@ -443,6 +449,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		B90D144329899C3C0093EB0C /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				B90D143D298999630093EB0C /* DateFormat.swift */,
+				B90D143F298999AB0093EB0C /* FormError.swift */,
+				B90D144129899C310093EB0C /* Weekday.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		B96E6A5A298323CC00A25457 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
@@ -458,6 +474,7 @@
 				B90D1438298461EB0093EB0C /* NotificationHandler.swift */,
 				B90D1437298461EB0093EB0C /* StudiumState.swift */,
 				B96E6A5E2983465D00A25457 /* SystemIcon.swift */,
+				B90D144329899C3C0093EB0C /* Enums */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -674,6 +691,7 @@
 				B90D141C298461AD0093EB0C /* ColorPickerCell.swift in Sources */,
 				16827D1A27F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
+				B90D143E298999630093EB0C /* DateFormat.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
 				16C05CF4264F37B8004C9629 /* RecurringEventCell.swift in Sources */,
 				16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */,
@@ -687,6 +705,7 @@
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
 				16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
+				B90D144229899C310093EB0C /* Weekday.swift in Sources */,
 				16C60FB225C5F7FB006D0FFC /* StudiumEvent.swift in Sources */,
 				B90D141E298461AD0093EB0C /* BasicCell.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
@@ -709,6 +728,7 @@
 				B90D1436298461AD0093EB0C /* DaySelectorCell.swift in Sources */,
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
+				B90D1440298999AB0093EB0C /* FormError.swift in Sources */,
 				16C60FE825C76C51006D0FFC /* LoginViewController1.swift in Sources */,
 				164F630124EA2E0900DC8169 /* FirstScreenViewController.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,

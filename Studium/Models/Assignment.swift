@@ -43,7 +43,7 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable {
         notificationAlertTimes: [AlertOption],
         autoschedule: Bool,
         autoLengthMinutes: Int,
-        autoDays: [Int],
+        autoDays: [Weekday],
         partitionKey: String
     ) {
         self.init()
@@ -64,10 +64,12 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable {
 //            self.notificationAlertTimes.append(alertTime)
 //        }
         
-        self.days.removeAll()
-        for day in autoDays{
-            self.days.append(day)
-        }
+        let newDaysList = List<Int>().append(objectsIn: autoDays)
+        self.daysList = newDaysList
+//        self.days.removeAll()
+//        for day in autoDays {
+//            self.days.append(day)
+//        }
     }
     
     convenience init(
@@ -109,8 +111,8 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable {
     }
     
     func initiateAutoSchedule(){
-        if autoschedule{
-            var autoDays: [Int] = []
+        if autoschedule {
+            var autoDays: [Weekday] = []
             for day in days{
                 autoDays.append(day)
             }
@@ -124,43 +126,41 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable {
     ///     - endDate: the date in which we will stop scheduling work time (this is generally the due date of the assignment)
     ///     - autoDays: the days of the week that we want to schedule work time (specified by user). Ex: ["Mon", "Wed", "Fri"]
     ///     - autoLengthMinutes: the amount of minutes to work for any given work time.
-    func autoscheduleTime(endDate: Date, autoDays: [Int], autoLengthMinutes: Int){
-        print("\nattempting to autoschedule work time for \(name)")
+    func autoscheduleTime(endDate: Date, autoDays: [Weekday], autoLengthMinutes: Int) {
+        print("$Log: attempting to autoschedule work time for \(name)")
         
         //IMPORTANT NOTES:
         // 1) when autoscheduling on the day that it's due, make sure not to go over the dueDate. The finishing bound should be the dueDate
         var currentDate = Date()
-        while(currentDate < endDate){
-                //if the weekday of the currentDate is a weekday that we want to autoschedule on...
-            if (autoDays.contains(currentDate.weekday)){
-                //autoschedule on the currentDate
+        while(currentDate < endDate) {
+                // if the weekday of the currentDate is a weekday that we want to autoschedule on...
+            let autoDayRawValues = autoDays.compactMap({ $0.rawValue })
+            if (autoDayRawValues.contains(currentDate.weekday)) {
+                // autoschedule on the currentDate
                 let wakeUpTime = UserDefaults.standard.array(forKey: K.wakeUpKeyDict[currentDate.weekday]!)![0] as! Date
                 
                 let startBound = Date(year: currentDate.year, month: currentDate.month, day: currentDate.day, hour: wakeUpTime.hour, minute: wakeUpTime.minute, second: 0)
                 var endBound = Date(year: currentDate.year, month: currentDate.month, day: currentDate.day, hour: 23, minute: 59, second: 0)
                 
-                //if the currentDate is the dueDate of the assignment
+                // if the currentDate is the dueDate of the assignment
                 if (currentDate.day == endDate.day){
                     endBound = endDate
                 }
                 
-                if let event = autoscheduleOnDate(date: currentDate, startBound: startBound, endBound: endBound){
-                    guard let user = K.app.currentUser else {
-                        print("Error getting user when")
-                        return
-                    }
-                    let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-                    do{ //adding the assignment to the courses list of assignments
+                if let event = autoscheduleOnDate(date: currentDate, startBound: startBound, endBound: endBound) {
+//                    let user = DatabaseService.shared.user
+                    let realm = DatabaseService.shared.realm
+                    do { //adding the assignment to the courses list of assignments
                         try realm.write{
                             self.scheduledEvents.append(event)
                         }
-                    }catch{
-                        print("error appending assignment")
+                    } catch {
+                        print("$Error: error appending assignment")
                     }
-                    print("added an event to scheduledEvents. scheduledEvents count: \(scheduledEvents.count)")
+                    print("$Log: added an event to scheduledEvents. scheduledEvents count: \(scheduledEvents.count)")
 
                 }else{
-                    print("autoscheduleOnDate returned nil")
+                    print("$Error: autoscheduleOnDate returned nil")
                 }
 
             }

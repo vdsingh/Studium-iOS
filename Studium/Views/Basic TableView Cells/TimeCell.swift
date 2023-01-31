@@ -16,9 +16,7 @@ class TimeCell: BasicCell {
     
     private var date: Date!
     private var dateFormat: DateFormat!
-    
     private var timePickerMode: UIDatePicker.Mode!
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
