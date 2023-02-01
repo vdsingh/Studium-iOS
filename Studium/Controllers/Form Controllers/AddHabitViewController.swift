@@ -13,7 +13,7 @@ import FlexColorPicker
 
 
 //guarantees that the Habit list has a method that allows it to refresh.
-protocol HabitRefreshProtocol{
+protocol HabitRefreshProtocol {
     func loadHabits()
 }
 
@@ -21,42 +21,54 @@ protocol HabitRefreshProtocol{
 class AddHabitViewController: MasterForm {
     var codeLocationString: String = "Add Habit Form"
     
+    /// The habit that we're editing (nil if we're creating a new one)
     var habit: Habit?
     
-    //variable that helps run things once that only need to run at the beginning
+    /// variable that helps run things once that only need to run at the beginning
     var resetAll: Bool = true
     
-    //variables that hold the total length of the habit.
-//    var totalLengthHours = 1
-//    var totalLengthMinutes = 0
-//
-    //reference to the Habits list, so that once complete, it can update and show the new Habit
+    /// reference to the Habits list, so that once complete, it can update and show the new Habit
     var delegate: HabitRefreshProtocol?
     
+    /// FormCells for when user wants to Autoschedule the habit
     var cellsAuto: [[FormCell]] = [[]]
+    
+    /// FormCells for when user does not want to Autoschedule the habit
     var cellsNoAuto: [[FormCell]] = [[]]
-    //These are the holders for the cellText and cellType. Basically these hold the above arrays and are used depending on whether the user chooses to use autoschedule or not.
+    
+    /// Holders for the cellText and cellType. Basically these hold the above arrays and are used depending on whether the user chooses to use autoschedule or not.
     var cellText: [[String]] = [[]]
     var cellType: [[FormCell]] = [[]]
     
     var times: [Date] = []
     var timeCounter = 0
     
-    //The errors array is populated when the user forgets to fill out a required part of the form or for any other error. if it is populated when the user tries to complete the process, it will prevent the user from moving forward
-    var errors: String = ""
-//    var errorLabel: LabelCell?
+    /// Errors that occur when the user tries to finish the form (ex: name not specified)
+//    var errors: [FormError] = []
     
-    //Basic elements of a habit. These qualities are used whenever the Habit is created.
+    /// Whether or not this habit is being autoscheduled or not
     var autoschedule = false
-    var name: String = ""
-    var additionalDetails: String = ""
-    var colorValue: String = "ffffff"
-    var location: String = ""
+    
+    /// Whether the user wants this habit to be scheduled earlier or later
     var earlier = true
-    var daysSelected = Set<Weekday>()
+    
+    /// The name of this habit
+//    var name: String = ""
+    
+    /// The additional details for this habit
+    var additionalDetails: String = ""
+    
+    /// The color value for this habit (hex string)
+    var colorValue: String = "ffffff"
+    
+    /// The location for this habit
+    var location: String = ""
+    
+    /// The days selected for this habit
+//    var daysSelected = Set<Weekday>()
     
     //array that keeps track of when the user should be sent notifications about this habit
-//    var alertTimes: [Int] = []
+    //    var alertTimes: [Int] = []
     
     @IBOutlet weak var navButton: UIBarButtonItem!
     
@@ -126,10 +138,10 @@ class AddHabitViewController: MasterForm {
             fillForm(with: habit)
         } else {
             //We are creating a new habit
-//            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
-//                print("$ LOG: Loading User's Default Notification Times for Habit Form.")
-//                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
-//            }
+            //            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
+            //                print("$ LOG: Loading User's Default Notification Times for Habit Form.")
+            //                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
+            //            }
         }
     }
     
@@ -138,35 +150,33 @@ class AddHabitViewController: MasterForm {
     //final step that occurs when the user finishes the form and adds the habit
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         resetAll = false
-        errors = ""
-//        cellText[2][cellText[2].count - 1] = ""
-//        retrieveData()
+        errors = []
+        //        cellText[2][cellText[2].count - 1] = ""
+        //        retrieveData()
         // TODO: FIX FORCE UNWRAP
         endDate = Calendar.current.date(bySettingHour: self.endDate.hour, minute: self.endDate.minute, second: self.endDate.second, of: self.startDate)!
-//        reloadData()
+        //        reloadData()
         
         
         if name == "" {
-            errors.append("Please specify a name. ")
+            errors.append(.nameNotSpecified)
         }
         
         if daysSelected == [] {
-            errors.append("Please select at least one day. ")
-        }
-        if autoschedule && totalLengthHours == 0 && totalLengthMinutes == 0 {
-            errors.append("Please specify total time. ")
-        } else if self.endDate < self.startDate {
-            errors.append("The first time bound must be before the second time bound")
-        } else if autoschedule && (self.endDate.hour - self.startDate.hour) * 60 + (self.endDate.minute - self.startDate.minute) < totalLengthHours * 60 + totalLengthMinutes {
-            errors.append("The total time exceeds the time frame. ")
+            errors.append(.oneDayNotSpecified)
         }
         
-        if errors.count == 0 { //if there are no errors.
+        if autoschedule && totalLengthHours == 0 && totalLengthMinutes == 0 {
+            errors.append(.totalTimeNotSpecified)
+        } else if self.endDate < self.startDate {
+            errors.append(.endTimeOccursBeforeStartTime)
+        } else if autoschedule && (self.endDate.hour - self.startDate.hour) * 60 + (self.endDate.minute - self.startDate.minute) < totalLengthHours * 60 + totalLengthMinutes {
+            errors.append(.totalTimeExceedsTimeFrame)
+        }
+        
+        // there are no errors.
+        if errors.isEmpty {
             if habit == nil {
-//                guard let user = app.currentUser else {
-//                    print("ERROR: error getting user in MasterForm")
-//                    return
-//                }
                 let newHabit = Habit(
                     name: name,
                     location: location,
@@ -186,13 +196,13 @@ class AddHabitViewController: MasterForm {
                     for alertTime in alertTimes {
                         for day in daysSelected {
                             
-//                            let weekday = Date.convertDayToWeekday(day: day)
-//                            let weekdayAsInt = Date.convertDayToInt(day: day)
+                            //                            let weekday = Date.convertDayToWeekday(day: day)
+                            //                            let weekdayAsInt = Date.convertDayToInt(day: day)
                             var alertDate = Date()
                             
                             if self.startDate.studiumWeekday != day {
                                 //the course doesn't occur today
-//                                alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
+                                //                                alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
                             }
                             
                             alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
@@ -215,9 +225,9 @@ class AddHabitViewController: MasterForm {
                             let timeFormat = self.startDate.format(with: "h:mm a")
                             
                             let identifier = UUID().uuidString
-//                            newHabit.notificationIdentifiers.append(identifier)
+                            //                            newHabit.notificationIdentifiers.append(identifier)
                             newHabit.alertTimes.append(alertTime)
-//                            NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
+                            //                            NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                         }
                     }
                 } else {
@@ -225,6 +235,7 @@ class AddHabitViewController: MasterForm {
                         newHabit.alertTimes.append(alertTime)
                     }
                 }
+                
                 RealmCRUD.saveHabit(habit: newHabit)
                 newHabit.addToAppleCalendar()
                 
@@ -234,17 +245,17 @@ class AddHabitViewController: MasterForm {
                     try DatabaseService.shared.realm.write {
                         if !autoschedule {
                             // TODO: FIX FORCE UNWRAP
-//                            habit!.deleteNotifications()
+                            //                            habit!.deleteNotifications()
                             for alertTime in alertTimes {
                                 for day in daysSelected {
                                     
-//                                    let weekday = Date.convertDayToWeekday(day: day)
-//                                    let weekdayAsInt = Date.convertDayToInt(day: day)
+                                    //                                    let weekday = Date.convertDayToWeekday(day: day)
+                                    //                                    let weekdayAsInt = Date.convertDayToInt(day: day)
                                     var alertDate = Date()
                                     
                                     if startDate.studiumWeekday != day {
                                         //the course doesn't occur today
-//                                        alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
+                                        //                                        alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
                                     }
                                     
                                     alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
@@ -266,31 +277,31 @@ class AddHabitViewController: MasterForm {
                                     let timeFormat = startDate.format(with: "h:mm a")
                                     
                                     let identifier = UUID().uuidString
-//                                    habit!.notificationIdentifiers.append(identifier)
+                                    //                                    habit!.notificationIdentifiers.append(identifier)
                                     habit!.alertTimes.append(alertTime)
-//                                    NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
+                                    //                                    NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
                                 }
                             }
                         } else {
-//                            habit!.deleteNotifications()
+                            //                            habit!.deleteNotifications()
                             for alertTime in alertTimes{
                                 habit!.alertTimes.append(alertTime)
                             }
                         }
-//                        guard let user = app.currentUser else {
-//                            print("$ ERROR: error getting user in MasterForm")
-//                            return
-//                        }
+                        //                        guard let user = app.currentUser else {
+                        //                            print("$ ERROR: error getting user in MasterForm")
+                        //                            return
+                        //                        }
                         
                         
-//                        habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: DatabaseService.shared.user?.id ?? "")
-                        print("editing habit with length hour \(totalLengthHours) segmented control: \(earlier)")
+                        //                        habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: DatabaseService.shared.user?.id ?? "")
+                        print("$Log: editing habit with length hour \(totalLengthHours) segmented control: \(earlier)")
                     }
                 } catch {
                     print(error)
                 }
             }
-
+            
             dismiss(animated: true) {
                 if let del = self.delegate {
                     del.loadHabits()
@@ -300,7 +311,12 @@ class AddHabitViewController: MasterForm {
             }
         } else {
             //if there are errors.
-            self.replaceLabelText(text: errors, section: 2, row: 3)
+            self.replaceLabelText(
+                text: FormError.constructErrorString(errors: self.errors),
+                section: 2,
+                row: 3
+            )
+            
             tableView.reloadData()
         }
     }
@@ -363,21 +379,21 @@ extension AddHabitViewController: DaySelectorDelegate {
         self.daysSelected = weekdays
     }
     
-//    func dayButtonPressed(sender: UIButton) {
-//        print("dayButton pressed")
-//        let dayTitle = sender.titleLabel!.text
-//        if sender.isSelected {
-//            sender.isSelected = false
-//            for day in daysSelected{
-//                if day == K.weekdayDict[dayTitle!] {//if day is already selected, and we select it again
-//                    daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
-//                }
-//            }
-//        } else {//day was not selected, and we are now selecting it.
-//            sender.isSelected = true
-//            daysSelected.append(K.weekdayDict[dayTitle!]!)
-//        }
-//    }
+    //    func dayButtonPressed(sender: UIButton) {
+    //        print("dayButton pressed")
+    //        let dayTitle = sender.titleLabel!.text
+    //        if sender.isSelected {
+    //            sender.isSelected = false
+    //            for day in daysSelected{
+    //                if day == K.weekdayDict[dayTitle!] {//if day is already selected, and we select it again
+    //                    daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
+    //                }
+    //            }
+    //        } else {//day was not selected, and we are now selecting it.
+    //            sender.isSelected = true
+    //            daysSelected.append(K.weekdayDict[dayTitle!]!)
+    //        }
+    //    }
 }
 
 
@@ -387,7 +403,7 @@ extension AddHabitViewController: UITextFieldDelegateExt {
             print("$ ERROR: sender's text is nil when editing text.")
             return
         }
-
+        
         switch textFieldID {
         case .nameTextField:
             self.name = text
@@ -439,9 +455,9 @@ extension AddHabitViewController: CanHandleInfoDisplay{
         let alert = UIAlertController(title: "Autoschedule",
                                       message: "This feature autoschedules time for you! \n\nJust specify what days the habit occurs on and how long the habit lasts. We'll find time for you to get it done! \n\nSome common uses for autoscheduling are finding time for the gym, reading, and studying.",
                                       preferredStyle: UIAlertController.Style.alert)
-
+        
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
-          }))
+        }))
         present(alert, animated: true, completion: nil)
     }
 }
@@ -469,9 +485,9 @@ extension AddHabitViewController{
         }
         
         alertTimes = habit.alertTimes
-//        for alert in habit.notificationAlertTimes{
-//            alertTimes.append(alert)
-//        }
+        //        for alert in habit.notificationAlertTimes{
+        //            alertTimes.append(alert)
+        //        }
         
         let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
         logoCell.logoImageView.image = UIImage(systemName: habit.systemImageString)

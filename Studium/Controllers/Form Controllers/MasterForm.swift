@@ -25,7 +25,19 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     var alertTimes: [AlertOption] = []
     
     
+    /// The name for the StudiumEvent being added/edited
+    var name: String = ""
+    
+    /// The errors that can occur with adding/editing the StudiumEvent
+    var errors: [FormError] = []
+    
+    /// The days selected for this StudiumEvent
+    var daysSelected = Set<Weekday>()
+
+    
     var systemImageString: String = "book.fill"
+    
+    
     var startDate: Date = Date()
     var endDate: Date = Date() + (60*60)
     
@@ -66,6 +78,26 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
         headerView.backgroundColor = UIColor.systemBackground
         
         return headerView
+    }
+    
+    internal func noErrors() -> Bool {
+        self.errors = []
+        if self.name.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            self.errors.append(.nameNotSpecified)
+        }
+        if self.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            self.errors.append(.nameNotSpecified)
+        }
+        
+        if self.daysSelected.isEmpty {
+            self.errors.append(.oneDayNotSpecified)
+        }
+        
+        if self.endDate.isEarlier(than: startDate){
+            self.errors.append(.endTimeOccursBeforeStartTime)
+        }
+        
+        return self.errors.isEmpty
     }
     
     func processAlertTimes() {
@@ -421,7 +453,7 @@ extension MasterFormClass: UIPickerViewDelegate {
                 return "\(row) min"
             }
         default:
-            print("$ ERROR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            print("$Error: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return nil
         }
     }
@@ -435,7 +467,7 @@ extension MasterFormClass: UIPickerViewDelegate {
         switch pickerView.tag {
         case FormCellID.PickerCell.lengthPickerCell.rawValue:
             guard let lengthIndex = self.findFirstTimeCellWithID(id: FormCellID.TimeCell.lengthTimeCell) else {
-                print("$ ERROR: Couldn't find associated TimeCell.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+                print("$Error: Couldn't find associated TimeCell.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
                 return
             }
             

@@ -19,15 +19,14 @@ class AddCourseViewController: MasterForm {
     /// reference to the list that is to be refreshed when a new course is added.
     var delegate: CourseRefreshProtocol?
 
-    /// error string that is displayed when there are errors
-    var errors: [FormError] = []
+//    / error  that is displayed when there are errors
+//    var errors: [FormError] = []
     
     /// basic course elements
-    var name: String = ""
+//    var name: String = ""
     var colorValue: String = "ffffff"
     var additionalDetails: String = ""
     var location: String = ""
-    var daysSelected = Set<Weekday>()
     
     @IBOutlet weak var navButton: UIBarButtonItem!
 
@@ -76,19 +75,9 @@ class AddCourseViewController: MasterForm {
     
     //final step that occurs when the user has filled out the form and wants to add the new course
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        errors = []
+//        errors = []
         endDate = Calendar.current.date(bySettingHour: endDate.hour, minute: endDate.minute, second: endDate.second, of: startDate)!
-        if name == "" {
-            errors.append(.nameNotSpecified)
-        }
-        
-        if daysSelected == [] {
-            errors.append(.oneDayNotSpecified)
-        }
-        
-        if endDate.isEarlier(than: startDate){
-            errors.append(.endTimeOccursBeforeStartTime)
-        }
+
         
         if errors.isEmpty {
             if var course = self.course {
@@ -141,10 +130,11 @@ class AddCourseViewController: MasterForm {
             dismiss(animated: true, completion: delegate?.loadCourses)
         } else {
             
-            let errorsString: String = self.errors
-                .compactMap({ $0.rawValue })
-                .joined(separator: ". ")
-            self.replaceLabelText(text: errorsString, section: 3, row: 0)
+            self.replaceLabelText(
+                text: FormError.constructErrorString(errors: self.errors),
+                section: 3,
+                row: 0
+            )
             tableView.reloadData()
         }
     }
@@ -189,26 +179,6 @@ extension AddCourseViewController: DaySelectorDelegate{
     func updateDaysSelected(weekdays: Set<Weekday>) {
         self.daysSelected = weekdays
     }
-    
-//    func dayButtonPressed(sender: UIButton) {
-//        if sender.isSelected {
-//            sender.isSelected = false
-//            for i in 0...daysSelected.count-1 {
-//                if daysSelected[i] == K.weekdayDict[sender.titleLabel!.text!]!{
-//                    daysSelected.remove(at: i)
-//                }
-//            }
-//        } else {
-//            // day was not selected, and we are now selecting it.
-//            if let titleLabel = sender.titleLabel,
-//               let text = titleLabel.text {
-//                sender.isSelected = true
-//
-//                // TODO: Fix force unwrap
-//                daysSelected.append(K.weekdayDict[sender.titleLabel!.text!]!)
-//            }
-//        }
-//    }
 }
 
 extension AddCourseViewController: ColorDelegate{

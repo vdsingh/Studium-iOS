@@ -24,14 +24,14 @@ class AddToDoListEventViewController: MasterForm {
     var delegate: ToDoListRefreshProtocol?
     
     //Basic OtherEvent characteristics
-    var name: String = ""
+//    var name: String = ""
     var location: String = ""
     var additionalDetails: String = ""
     
 //    var alertTimes: [Int] = []
     
     //Error string that tells the user what is wrong
-    var errors: String = ""
+//    var errors: String = ""
 
     @IBOutlet weak var navButton: UIBarButtonItem!
     
@@ -73,25 +73,22 @@ class AddToDoListEventViewController: MasterForm {
     
     //function that is called when the user wants to finish editing in the form and create the new object.
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        errors = ""
+//        errors = ""
         
         //updates the characteristic variables
 //        retrieveDataFromCells()
-        if name == "" {
-            errors.append("Please specify a name.")
-        }
         
-        if self.endDate < self.startDate {
-            errors.append(" End Date cannot be before Start Date")
-        }
+//        if name == "" {
+//            errors.append("Please specify a name.")
+//        }
+//
+//        if self.endDate < self.startDate {
+//            errors.append(" End Date cannot be before Start Date")
+//        }
         
         //there are no errors
-        if errors == "" {
+        if super.noErrors() {
             if otherEvent == nil {
-//                guard let user = app.currentUser else {
-//                    print("$ ERROR: error getting user in MasterForm")
-//                    return
-//                }
                 
                 //TODO: Fix
                 let newEvent = OtherEvent()
@@ -154,7 +151,7 @@ class AddToDoListEventViewController: MasterForm {
             dismiss(animated: true, completion: nil)
         } else {
             //update the errors cell to show all of the errors with the form
-            self.replaceLabelText(text: errors, section: 3, row: 1)
+            self.replaceLabelText(text: FormError.constructErrorString(errors: self.errors), section: 3, row: 1)
             tableView.reloadData()
         }
     }

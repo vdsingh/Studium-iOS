@@ -40,13 +40,13 @@ class AddAssignmentViewController: MasterForm {
     var delegate: AssignmentRefreshProtocol?
     
     /// Errors string that is displayed if there are any issues (e.g: user didnt enter a name)
-    var errors: [FormError] = []
+//    var errors: [FormError] = []
     
     /// The course that the user selected for this assignment
     var selectedCourse: Course? = nil
     
     /// The name of the assignment
-    var name: String = ""
+//    var name: String = ""
     
     /// Additional Details associated with the assignment
     var additionalDetails: String = ""
@@ -125,10 +125,7 @@ class AddAssignmentViewController: MasterForm {
     
     //method that is triggered when the user wants to finalize the form
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        errors = []
-        if name.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            errors.append(.nameNotSpecified)
-        }
+
         
         if errors.isEmpty {
             if assignmentEditing == nil {
