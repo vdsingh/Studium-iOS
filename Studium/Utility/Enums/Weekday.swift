@@ -7,7 +7,7 @@
 //
 
 import Foundation
-enum Weekday: Int {
+public enum Weekday: Int {
     case sunday = 1
     case monday = 2
     case tuesday = 3
@@ -15,6 +15,7 @@ enum Weekday: Int {
     case thursday = 5
     case friday = 6
     case saturday = 7
+    case unknown = -1
 }
 
 //static var weekdayDict: [String: Int] = ["Sun": 1, "Mon": 2, "Tue": 3, "Wed": 4, "Thu": 5, "Fri": 6, "Sat": 7]
