@@ -34,7 +34,7 @@ class RecurringEventCell: DeletableEventCell {
         location: String,
         startTime: Date,
         endTime: Date,
-        days: [Weekday],
+        days: Set<Weekday>,
         colorHex: String,
         recurringEvent: RecurringStudiumEvent,
         systemImageString: String

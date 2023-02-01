@@ -8,19 +8,21 @@
 
 import UIKit
 import RealmSwift
-public protocol DaySelectorDelegate{
-    func dayButtonPressed(sender: UIButton)
+
+public protocol DaySelectorDelegate {
+    func updateDaysSelected(weekdays: Set<Weekday>)
 }
+
 class DaySelectorCell: BasicCell {
     var delegate: DaySelectorDelegate?
     
     @IBOutlet var dayButtons: [UIButton]!
-    var daysSelected: [String] = []
+    
+    private var daysSelected = Set<Weekday>()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         self.backgroundColor = defaultBackgroundColor
-
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -29,49 +31,59 @@ class DaySelectorCell: BasicCell {
         // Configure the view for the selected state
     }
     
-    func selectDays(days: List<Int>){
-        daysSelected = []
-        for button in dayButtons{
-            let buttonText = button.titleLabel?.text
-            if days.contains(K.weekdayDict[buttonText!]!){
-//            if days.contains(buttonText!){
-                daysSelected.append(buttonText!)
-                button.isSelected = true
-            }else{
-                button.isSelected = false
-            }
-        }
-    }
-    
-    func selectDays(days: [Int]){
-        daysSelected = []
-        for button in dayButtons{
-            let buttonText = button.titleLabel?.text
-            if days.contains(K.weekdayDict[buttonText!]!){
-                daysSelected.append(buttonText!)
-                button.isSelected = true
-            }else{
-                button.isSelected = false
-            }
-        }
-    }
-    
-    @IBAction func dayButtonPressed(_ sender: UIButton) {
-        delegate!.dayButtonPressed(sender: sender)
-        
-        
-//        let dayTitle = sender.titleLabel!.text
-//        if sender.isSelected{
-//            sender.isSelected = false
-//            for day in daysSelected{
-//                if day == dayTitle{//if day is already selected, and we select it again
-//                    daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
-//                }
+    //TODO: Finish this function
+    func selectDays(days: Set<Weekday>) {
+//        daysSelected =
+//        daysSelected = []
+//        for button in dayButtons{
+//            let buttonText = button.titleLabel?.text
+//            if days.contains(K.weekdayDict[buttonText!]!){
+////            if days.contains(buttonText!){
+//                daysSelected.append(buttonText!)
+//                button.isSelected = true
+//            }else{
+//                button.isSelected = false
 //            }
-//        }else{//day was not selected, and we are now selecting it.
-//            sender.isSelected = true
-//            daysSelected.append(dayTitle!)
 //        }
+    }
+//    
+//    func selectDays(days: [Int]){
+//        daysSelected = []
+//        for button in dayButtons{
+//            let buttonText = button.titleLabel?.text
+//            if days.contains(K.weekdayDict[buttonText!]!){
+//                daysSelected.append(buttonText!)
+//                button.isSelected = true
+//            }else{
+//                button.isSelected = false
+//            }
+//        }
+//    }
+//    
+    @IBAction func dayButtonPressed(_ sender: UIButton) {
+        
+        // Find the index of the button pressed
+        if let buttonIndex = self.dayButtons.firstIndex(of: sender),
+            let weekday = Weekday(rawValue: buttonIndex + 1) {
+            // Add 1 to the index because Sunday = 1, Monday = 2, etc.
+    
+            // Day was unselected
+            if sender.isSelected {
+                sender.isSelected = false
+                self.daysSelected.remove(weekday)
+            }
+            // Day was selected
+            else {
+                sender.isSelected = true
+                self.daysSelected.insert(weekday)
+            }
+            
+            
+            
+            delegate?.updateDaysSelected(weekdays: self.daysSelected)
+        } else {
+            print("$Error: Couldn't find the button index or construct a Weekday type")
+        }
     }
     
 }
