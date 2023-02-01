@@ -27,7 +27,7 @@ class AddCourseViewController: MasterForm {
     var colorValue: String = "ffffff"
     var additionalDetails: String = ""
     var location: String = ""
-    var daysSelected: [Int] = []
+    var daysSelected = Set<Weekday>()
     
     @IBOutlet weak var navButton: UIBarButtonItem!
 
@@ -186,25 +186,29 @@ extension AddCourseViewController: UITextFieldDelegateExt {
 }
 
 extension AddCourseViewController: DaySelectorDelegate{
-    func dayButtonPressed(sender: UIButton) {
-        if sender.isSelected {
-            sender.isSelected = false
-            for i in 0...daysSelected.count-1 {
-                if daysSelected[i] == K.weekdayDict[sender.titleLabel!.text!]!{
-                    daysSelected.remove(at: i)
-                }
-            }
-        } else {
-            // day was not selected, and we are now selecting it.
-            if let titleLabel = sender.titleLabel,
-               let text = titleLabel.text {
-                sender.isSelected = true
-                
-                // TODO: Fix force unwrap
-                daysSelected.append(K.weekdayDict[sender.titleLabel!.text!]!)
-            }
-        }
+    func updateDaysSelected(weekdays: Set<Weekday>) {
+        self.daysSelected = weekdays
     }
+    
+//    func dayButtonPressed(sender: UIButton) {
+//        if sender.isSelected {
+//            sender.isSelected = false
+//            for i in 0...daysSelected.count-1 {
+//                if daysSelected[i] == K.weekdayDict[sender.titleLabel!.text!]!{
+//                    daysSelected.remove(at: i)
+//                }
+//            }
+//        } else {
+//            // day was not selected, and we are now selecting it.
+//            if let titleLabel = sender.titleLabel,
+//               let text = titleLabel.text {
+//                sender.isSelected = true
+//
+//                // TODO: Fix force unwrap
+//                daysSelected.append(K.weekdayDict[sender.titleLabel!.text!]!)
+//            }
+//        }
+//    }
 }
 
 extension AddCourseViewController: ColorDelegate{
@@ -234,8 +238,8 @@ extension AddCourseViewController {
         
         if let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? DaySelectorCell {
             daysCell.selectDays(days: course.days)
-            for day in course.days{
-                daysSelected.append(day)
+            for day in course.days {
+                daysSelected.insert(day)
             }
         }
         

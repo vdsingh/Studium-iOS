@@ -54,7 +54,7 @@ class DayScheduleViewController: DayViewController{
         let allCourses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
 //        let allCourses = realm.objects(Course.self)
         for course in allCourses{
-            if course.days.contains(date.weekday){ //course occurs on this day.
+            if course.days.contains(date.studiumWeekday){ //course occurs on this day.
                 coursesOnDay.append(course)
             }
         }
@@ -112,7 +112,7 @@ class DayScheduleViewController: DayViewController{
         
         var habitsOnDay: [Habit] = []
         for habit in allHabits{
-            if habit.days.contains(date.weekday){ //course occurs on this day.
+            if habit.days.contains(date.studiumWeekday){ //course occurs on this day.
                 habitsOnDay.append(habit)
             }
         }
@@ -123,7 +123,8 @@ class DayScheduleViewController: DayViewController{
                 let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
                 //print(weekDay)
 //                let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
-                if habit.days.contains(date.weekday){ //habit occurs on this day
+                if habit.days.contains(date.studiumWeekday) {
+                    //habit occurs on this day
                     var components = Calendar.current.dateComponents([.hour, .minute], from: habit.startDate)
                     var usableStartDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
                     

@@ -48,7 +48,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         self.habits = DatabaseService.shared.getStudiumObjects(expecting: Habit.self)
         eventsArray = [[],[]]
         for habit in self.habits {
-            if habit.days.contains(Date().week){
+            if habit.days.contains(Date().studiumWeekday){
                 eventsArray[0].append(habit)
             } else {
                 eventsArray[1].append(habit)

@@ -28,7 +28,7 @@ class AddAssignmentViewController: MasterForm {
     var scheduleWorkTime: Bool = false
     
     
-    var workDaysSelected: [Int] = []
+    var workDaysSelected = Set<Weekday>()
     //    var workTimeHours = 1
     //    var workTimeMinutes = 0
     
@@ -88,7 +88,7 @@ class AddAssignmentViewController: MasterForm {
         if let assignment = assignmentEditing {
             
             for day in assignment.days {
-                workDaysSelected.append(day)
+                workDaysSelected.insert(day)
             }
             
             guard let course = assignment.parentCourse else{
@@ -214,8 +214,8 @@ class AddAssignmentViewController: MasterForm {
             scheduleWorkCell.tableSwitch.isOn = true
             
             let daysCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! DaySelectorCell
-            daysCell.selectDays(days: [Int](assignment.days))
-            self.workDaysSelected = [Int](assignment.days)
+            daysCell.selectDays(days: assignment.days)
+            self.workDaysSelected = assignment.days
             
             self.totalLengthHours = self.totalLengthMinutes / 60
             self.totalLengthMinutes = self.totalLengthMinutes % 60
@@ -355,18 +355,29 @@ extension AddAssignmentViewController: CanHandleInfoDisplay{
 }
 
 extension AddAssignmentViewController: DaySelectorDelegate {
-    func dayButtonPressed(sender: UIButton) {
-        let dayTitle = sender.titleLabel!.text!
-        if sender.isSelected {
-            sender.isSelected = false
-            for day in workDaysSelected {
-                if day == K.weekdayDict[dayTitle] {
-                    workDaysSelected.remove(at: workDaysSelected.firstIndex(of: day)!)
-                }
-            }
-        } else {
-            sender.isSelected = true
-            workDaysSelected.append(K.weekdayDict[dayTitle]!)
-        }
+    func updateDaysSelected(weekdays: Set<Weekday>) {
+        self.workDaysSelected = weekdays
     }
+    
+//    func dayButtonPressed(sender: UIButton) {
+//        guard let dayTitle = sender.titleLabel,
+//              let text = dayTitle.text else {
+//            print("$Error: couldn't unwrap label or text.")
+//            return
+//        }
+//
+//        if sender.isSelected {
+//            sender.isSelected = false
+//            let weekday =
+//            let index = workDaysSelected.firstIndex(of: <#T##Weekday#>)
+//            workDaysSelected.remove(at: <#T##Int#>)
+//            //            for day in workDaysSelected {
+//            //                if day == K.weekdayDict[dayTitle] {
+//            //                    workDaysSelected.remove(at: workDaysSelected.firstIndex(of: day)!)
+////                }
+////            }
+//        } else {
+//            sender.isSelected = true
+//            workDaysSelected.append(K.weekdayDict[dayTitle]!)
+//        }
 }

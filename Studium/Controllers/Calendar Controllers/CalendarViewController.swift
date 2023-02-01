@@ -83,7 +83,7 @@ class CalendarViewController: UIViewController{
 //        let weekDay = selectedDay.weekday
 //        let matchingStr = weekDay.substring(toIndex: 3)
         for course in allCourses{
-            if(course.days.contains(selectedDay.weekday)){
+            if(course.days.contains(selectedDay.studiumWeekday)){
                 allEventsInDay.append(course)
             }
 //            for day in course.days{ //day is in form "Mon"
@@ -102,7 +102,7 @@ class CalendarViewController: UIViewController{
         dateFormatter.dateFormat = "EEEE"
         
         for habit in allHabits{
-            if(habit.days.contains(selectedDay.weekday)){
+            if(habit.days.contains(selectedDay.studiumWeekday)){
                 allEventsInDay.append(habit)
             }
         }

@@ -34,7 +34,7 @@ class Habit: RecurringStudiumEvent, Autoscheduleable{
         autoschedule: Bool,
         startEarlier: Bool,
         autoLengthMinutes: Int,
-        days: [Int],
+        days: Set<Weekday>,
         systemImageString: String,
         colorHex: String,
         partitionKey: String
@@ -51,10 +51,15 @@ class Habit: RecurringStudiumEvent, Autoscheduleable{
         self.systemImageString = systemImageString
         self.color = colorHex
         
+        let newDaysList = List<Int>()
+        newDaysList.append(objectsIn: days.compactMap{ $0.rawValue })
+        self.daysList = newDaysList
+        
         self._partitionKey = partitionKey
-        for day in days {
-            self.days.append(day)
-        }
+        
+//        for day in days {
+//            self.days.append(day)
+//        }
     }
     
 }

@@ -43,7 +43,7 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable {
         notificationAlertTimes: [AlertOption],
         autoschedule: Bool,
         autoLengthMinutes: Int,
-        autoDays: [Weekday],
+        autoDays: Set<Weekday>,
         partitionKey: String
     ) {
         self.init()
@@ -64,12 +64,9 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable {
 //            self.notificationAlertTimes.append(alertTime)
 //        }
         
-        let newDaysList = List<Int>().append(objectsIn: autoDays)
+        let newDaysList = List<Int>()
+        newDaysList.append(objectsIn: autoDays.compactMap{ $0.rawValue })
         self.daysList = newDaysList
-//        self.days.removeAll()
-//        for day in autoDays {
-//            self.days.append(day)
-//        }
     }
     
     convenience init(

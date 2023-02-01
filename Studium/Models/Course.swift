@@ -24,7 +24,7 @@ class Course: RecurringStudiumEvent {
         additionalDetails: String,
         startDate: Date,
         endDate: Date,
-        days: [Int],
+        days: Set<Weekday>,
         systemImageString: SystemIcon.RawValue,
         notificationAlertTimes: [AlertOption],
         partitionKey: String
@@ -45,9 +45,9 @@ class Course: RecurringStudiumEvent {
 //            self.notificationAlertTimes.append(time)
 //        }
         
-        self.days.removeAll()
-        for day in days{
-            self.days.append(day)
-        }
+//        self.days.removeAll()
+//        for day in days{
+//            self.days.append(day)
+//        }
     }
 }

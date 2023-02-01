@@ -53,7 +53,7 @@ class AddHabitViewController: MasterForm {
     var colorValue: String = "ffffff"
     var location: String = ""
     var earlier = true
-    var daysSelected: [Int] = []
+    var daysSelected = Set<Weekday>()
     
     //array that keeps track of when the user should be sent notifications about this habit
 //    var alertTimes: [Int] = []
@@ -190,8 +190,9 @@ class AddHabitViewController: MasterForm {
 //                            let weekdayAsInt = Date.convertDayToInt(day: day)
                             var alertDate = Date()
                             
-                            if self.startDate.weekday != day{ //the course doesn't occur today
-                                alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
+                            if self.startDate.studiumWeekday != day {
+                                //the course doesn't occur today
+//                                alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
                             }
                             
                             alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
@@ -241,8 +242,9 @@ class AddHabitViewController: MasterForm {
 //                                    let weekdayAsInt = Date.convertDayToInt(day: day)
                                     var alertDate = Date()
                                     
-                                    if startDate.weekday != day { //the course doesn't occur today
-                                        alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
+                                    if startDate.studiumWeekday != day {
+                                        //the course doesn't occur today
+//                                        alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
                                     }
                                     
                                     alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
@@ -357,21 +359,25 @@ class AddHabitViewController: MasterForm {
 //}
 
 extension AddHabitViewController: DaySelectorDelegate {
-    func dayButtonPressed(sender: UIButton) {
-        print("dayButton pressed")
-        let dayTitle = sender.titleLabel!.text
-        if sender.isSelected {
-            sender.isSelected = false
-            for day in daysSelected{
-                if day == K.weekdayDict[dayTitle!] {//if day is already selected, and we select it again
-                    daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
-                }
-            }
-        } else {//day was not selected, and we are now selecting it.
-            sender.isSelected = true
-            daysSelected.append(K.weekdayDict[dayTitle!]!)
-        }
+    func updateDaysSelected(weekdays: Set<Weekday>) {
+        self.daysSelected = weekdays
     }
+    
+//    func dayButtonPressed(sender: UIButton) {
+//        print("dayButton pressed")
+//        let dayTitle = sender.titleLabel!.text
+//        if sender.isSelected {
+//            sender.isSelected = false
+//            for day in daysSelected{
+//                if day == K.weekdayDict[dayTitle!] {//if day is already selected, and we select it again
+//                    daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
+//                }
+//            }
+//        } else {//day was not selected, and we are now selecting it.
+//            sender.isSelected = true
+//            daysSelected.append(K.weekdayDict[dayTitle!]!)
+//        }
+//    }
 }
 
 
@@ -459,7 +465,7 @@ extension AddHabitViewController{
         daysCell.selectDays(days: habit.days)
         daysSelected = []
         for day in habit.days {
-            daysSelected.append(day)
+            daysSelected.insert(day)
         }
         
         alertTimes = habit.alertTimes

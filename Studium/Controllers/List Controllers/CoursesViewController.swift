@@ -97,7 +97,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         eventsArray = [[],[]]
         // TODO: Fix force unwrap
         for course in courses! {
-            if course.days.contains(Date().week){
+            if course.days.contains(Date().studiumWeekday){
                 eventsArray[0].append(course)
             } else {
                 eventsArray[1].append(course)
