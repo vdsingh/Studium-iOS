@@ -25,10 +25,10 @@ protocol Autoscheduleable: StudiumEvent {
 }
 
 class RecurringStudiumEvent: StudiumEvent {
-    private var daysList: List<Int> = List<Int>()
+    internal var daysList: List<Int> = List<Int>()
     
-    var days: [Weekday] {
-        return daysList.compactMap { Weekday(rawValue: $0) }
+    var days: Set<Weekday> {
+        return Set<Weekday>(daysList.compactMap { Weekday(rawValue: $0) })
     }
     
     
@@ -65,7 +65,19 @@ class RecurringStudiumEvent: StudiumEvent {
 //            newDays.append(daysDict[day]!)
 //        }
 //        event.addRecurrenceRule(EKRecurrenceRule(recurrenceWith: .weekly, interval: 1, end: nil))
-        event.addRecurrenceRule(EKRecurrenceRule(recurrenceWith: .weekly, interval: 1, daysOfTheWeek: newDays, daysOfTheMonth: nil, monthsOfTheYear: nil, weeksOfTheYear: nil, daysOfTheYear: nil, setPositions: nil, end: nil))
+//        event.addRecurrenceRule(
+//            EKRecurrenceRule(
+//                recurrenceWith: .weekly,
+//                interval: 1,
+//                daysOfTheWeek: newDays,
+//                daysOfTheMonth: nil,
+//                monthsOfTheYear: nil,
+//                weeksOfTheYear: nil,
+//                daysOfTheYear: nil,
+//                setPositions: nil,
+//                end: nil
+//            )
+//        )
 
         do {
             try store.save(event, span: EKSpan.futureEvents, commit: true)
