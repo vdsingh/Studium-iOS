@@ -15,6 +15,8 @@ protocol AssignmentCollapseDelegate{
 }
 
 class AssignmentCell1: DeletableEventCell {
+    static let id = "AssignmentCell1"
+    
     //the background of the cell (just a solid color)
     @IBOutlet weak var background: UIImageView!
     

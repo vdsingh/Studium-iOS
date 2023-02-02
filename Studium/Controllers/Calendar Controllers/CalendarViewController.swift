@@ -24,8 +24,8 @@ class CalendarViewController: UIViewController{
         
         
         //TableView Related Stuff:
-        tableView.register(UINib(nibName: K.otherEventCellID, bundle: nil), forCellReuseIdentifier: K.otherEventCellID)
-        tableView.register(UINib(nibName: K.assignmentCellID, bundle: nil), forCellReuseIdentifier: K.assignmentCellID)
+        tableView.register(UINib(nibName: OtherEventCell.id, bundle: nil), forCellReuseIdentifier: OtherEventCell.id)
+        tableView.register(UINib(nibName: AssignmentCell1.id, bundle: nil), forCellReuseIdentifier: AssignmentCell1.id)
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -114,13 +114,13 @@ extension CalendarViewController: UITableViewDelegate{
         let event: StudiumEvent = allEventsInDay[indexPath.row]
         print("$Log: EVENT COLOR for \(event.name): \(event.color)")
         if event is Assignment{
-            let cell = tableView.dequeueReusableCell(withIdentifier:  K.assignmentCellID, for: indexPath) as! AssignmentCell1
+            let cell = tableView.dequeueReusableCell(withIdentifier: AssignmentCell1.id, for: indexPath) as! AssignmentCell1
             cell.hideChevronButton = true
             cell.loadData(assignment: event as! Assignment)
         
             return cell
         }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier:  K.otherEventCellID, for: indexPath) as! OtherEventCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:  OtherEventCell.id, for: indexPath) as! OtherEventCell
             cell.loadDataGeneric(
                 primaryText: event.name,
                 secondaryText: event.location,

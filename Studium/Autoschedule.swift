@@ -16,12 +16,6 @@ class Autoschedule {
     /// - Returns: a 2D date Array that describes all commitments for the given date
     static func getCommitments(date: Date)->[[Date]]{
         var commitments:[[Date]] = []
-                
-        //do the courses
-        guard let user = K.app.currentUser else {
-            print("ERROR: error getting user in Autoschedule - getCommitments")
-            return [[]]
-        }
 //        let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         
         //add the courses

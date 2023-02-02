@@ -10,29 +10,22 @@ import UIKit
 import RealmSwift
 import SwiftUI
 
-protocol ToDoListRefreshProtocol{
+protocol ToDoListRefreshProtocol {
     func refreshData()
 }
 
+/// Form to add a To-Do List Event
 class AddToDoListEventViewController: MasterForm {
-    var codeLocationString: String = "Add To Do List Event Form"
     
-    //tracks the event being edited, if one is being edited.
+    /// tracks the event being edited, if one is being edited.
     var otherEvent: OtherEvent?
     
-    //link to the list of OtherEvents, so that when a new ToDo Event is created, the list refreshes.
+    /// link to the list of OtherEvents, so that when a new ToDo Event is created, the list refreshes.
     var delegate: ToDoListRefreshProtocol?
     
-    //Basic OtherEvent characteristics
-//    var name: String = ""
+    /// Location of the To-Do list event
     var location: String = ""
-//    var additionalDetails: String = ""
     
-//    var alertTimes: [Int] = []
-    
-    //Error string that tells the user what is wrong
-//    var errors: String = ""
-
     @IBOutlet weak var navButton: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -73,8 +66,6 @@ class AddToDoListEventViewController: MasterForm {
     
     //function that is called when the user wants to finish editing in the form and create the new object.
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-//        errors = ""
-        
         //updates the characteristic variables
 //        retrieveDataFromCells()
         
@@ -150,13 +141,13 @@ class AddToDoListEventViewController: MasterForm {
             delegate.refreshData()
             dismiss(animated: true, completion: nil)
         } else {
-            //update the errors cell to show all of the errors with the form
+            // update the errors cell to show all of the errors with the form
             self.replaceLabelText(text: FormError.constructErrorString(errors: self.errors), section: 3, row: 1)
             tableView.reloadData()
         }
     }
     
-    //cancel the form
+    /// cancel the form
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
@@ -205,14 +196,7 @@ extension AddToDoListEventViewController{
         additionalDetails = otherEvent.additionalDetails
         
         self.alertTimes = otherEvent.alertTimes
-//        for alertOption in otherEvent.alertTimes {
-//            if let alertOption = AlertOption(rawValue: alert) {
-//                alertTimes.append(alertOption)
-//            } else {
-//                print("$Error: Couldn't construct AlertOption from stored time.")
-//            }
-//        }
-        
+
         let startCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TimeCell
         startDate = otherEvent.startDate
 //        startCell.timeLabel.text = startDate.format(with: "MMM d, h:mm a")
@@ -221,27 +205,28 @@ extension AddToDoListEventViewController{
         
         let endCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! TimeCell
         endDate = otherEvent.endDate
-//        endCell.timeLabel.text = endDate.format(with: "MMM d, h:mm a")
-//        endCell.date = endDate
         endCell.setDate(endDate)
     }
 }
 
 extension AddToDoListEventViewController {
     private func isAssignmentClicked() {
-//        let courses = realm.objects(Course.self)
         let courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
         if courses.count != 0 {
             
             // TODO: Fix force typing
-            let del = delegate as! ToDoListViewController
+            guard let delegate = delegate as? ToDoListViewController else {
+                print("$Error: delegate is not a ToDoListViewController")
+                return
+            }
+            
             self.dismiss(animated: true) {
                 
                 //make sure that the data in our variables is updated before we transfer it to the new form.
 //                    self.retrieveDataFromCells()
                 
                 //go to the assignment form instead of todo item form. Also provide the assignment form the information from the current form.
-                del.openAssignmentForm (
+                delegate.openAssignmentForm (
                     name: self.name,
                     location: self.location,
                     additionalDetails: self.additionalDetails,

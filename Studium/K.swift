@@ -79,15 +79,8 @@ struct K {
 //    static var IntToWeekdayDict: [Int: String] = [1:"Sun", 2:"Mon", 3:"Tue", 4:"Wed", 5:"Thu", 6:"Fri", 7:"Sat"]
 
     static var defaultNotificationTimesKey: String = "defaultNotificationTimes"
+        
     
-    static let app = App(id: Secret.appID)
-    
-    
-    //CELL IDENTIFIERS
-    static let assignmentCellID = "AssignmentCell1"
-    static let genericCellID = "GenericTableViewCell"
-    static let headerCellID = "HeaderView"
-    static let otherEventCellID = "OtherEventCell"
 
 
     static func scheduleNotification(components: DateComponents, body: String, titles:String, repeatNotif: Bool, identifier: String) {
@@ -118,16 +111,4 @@ struct K {
                 }
             }
         }
-    
-    //TODO: Doesnt work and shouldn't be here.
-    static func handleLogOut() {
-//        GIDSignIn.sharedInstance.signOut()
-
-        guard let user = app.currentUser else {
-            print("ERROR: error getting user when trying to sign out")
-            return
-        }
-//        user.log
-//        let _ = user.logOut()
-    }
 }

@@ -12,6 +12,8 @@ import SwipeCellKit
 import ChameleonFramework
 
 class RecurringEventCell: DeletableEventCell {
+    
+    static let id = "RecurringEventCell"
 
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!

@@ -9,6 +9,8 @@
 import UIKit
 
 class HeaderView: UITableViewHeaderFooterView {
+    static let id = "HeaderView"
+    
     var primaryLabel: UILabel = UILabel()
     var secondaryLabel: UILabel = UILabel()
     

@@ -9,7 +9,8 @@
 import UIKit
 import SwipeCellKit
 
-class OtherEventCell: DeletableEventCell{
+class OtherEventCell: DeletableEventCell {
+    static let id = "OtherEventCell"
     
     @IBOutlet weak var primaryLabel: UILabel!
     @IBOutlet weak var subLabel: UILabel!

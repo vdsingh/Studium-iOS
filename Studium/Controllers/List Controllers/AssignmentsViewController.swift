@@ -10,7 +10,7 @@ import Foundation
 import ChameleonFramework
 
 class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, AssignmentRefreshProtocol {
-    var assignments: [Assignment] = []
+    var assignments = [Assignment]()
 
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -23,8 +23,6 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        
-        //hide for now
         searchBar.isHidden = true
 
         sectionHeaders = ["To Do:", "Completed:"]
@@ -65,7 +63,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     //MARK: - Data Source Methods
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        super.idString = K.assignmentCellID
+        super.idString = AssignmentCell1.id
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell1
         let assignment = eventsArray[indexPath.section][indexPath.row] as! Assignment
         cell.event = assignment
@@ -93,10 +91,10 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
                     assignment.complete = !assignment.complete
                 }
             } catch {
-                print("ERROR: error saving course: \(error)")
+                print("$Error: error saving course: \(error)")
             }
         } else {
-            print("ERROR: error accessing user")
+            print("$Error: error accessing user")
         }
 
         if(assignment.isAutoscheduled) {
@@ -193,7 +191,7 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
                 index += 1
             }
         }else{
-            print("$ Error: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
+            print("$Error: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
         }
         tableView.reloadData()
     }
