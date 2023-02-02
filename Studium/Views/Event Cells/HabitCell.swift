@@ -34,7 +34,7 @@ class HabitCell: DeletableEventCell {
         locationLabel.text = habit.location
         
         iconImage.image = UIImage(systemName: habit.systemImageString)
-        iconImage.tintColor = UIColor(hexString: habit.color)
+        iconImage.tintColor = habit.color
 //        habit.startDate
         
         var timeText = habit.startDate.format(with: "h:mm a")

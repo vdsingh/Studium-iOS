@@ -70,7 +70,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
                 startTime: habit.startDate,
                 endTime: habit.endDate,
                 days: habit.days,
-                colorHex: habit.color,
+                color: habit.color,
                 recurringEvent: habit,
                 systemImageString: habit.systemImageString
             )
@@ -92,7 +92,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         let addHabitViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
         addHabitViewController.delegate = self
         addHabitViewController.habit = eventForEdit
-        ColorPickerCell.color = UIColor(hexString: eventForEdit.color)
+        ColorPickerCell.color = eventForEdit.color
         addHabitViewController.title = "View/Edit Habit"
         let navController = UINavigationController(rootViewController: addHabitViewController)
         self.present(navController, animated:true, completion: nil)

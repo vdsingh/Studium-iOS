@@ -42,10 +42,7 @@ class AddHabitViewController: MasterForm {
     
     var times: [Date] = []
     var timeCounter = 0
-    
-    /// Errors that occur when the user tries to finish the form (ex: name not specified)
-//    var errors: [FormError] = []
-    
+        
     /// Whether or not this habit is being autoscheduled or not
     var autoschedule = false
     
@@ -53,14 +50,10 @@ class AddHabitViewController: MasterForm {
     var earlier = true
     
     /// The name of this habit
-//    var name: String = ""
     
     /// The additional details for this habit
-    var additionalDetails: String = ""
-    
-    /// The color value for this habit (hex string)
-    var colorValue: String = "ffffff"
-    
+//    var additionalDetails: String = ""
+        
     /// The location for this habit
     var location: String = ""
     
@@ -186,9 +179,10 @@ class AddHabitViewController: MasterForm {
                     autoschedule: autoschedule,
                     startEarlier: earlier,
                     autoLengthMinutes: totalLengthHours * 60 + totalLengthMinutes,
+                    alertTimes: self.alertTimes,
                     days: daysSelected,
                     systemImageString: systemImageString,
-                    colorHex: colorValue,
+                    color: color,
                     partitionKey: DatabaseService.shared.user?.id ?? ""
                 )
                 
@@ -378,29 +372,13 @@ extension AddHabitViewController: DaySelectorDelegate {
     func updateDaysSelected(weekdays: Set<Weekday>) {
         self.daysSelected = weekdays
     }
-    
-    //    func dayButtonPressed(sender: UIButton) {
-    //        print("dayButton pressed")
-    //        let dayTitle = sender.titleLabel!.text
-    //        if sender.isSelected {
-    //            sender.isSelected = false
-    //            for day in daysSelected{
-    //                if day == K.weekdayDict[dayTitle!] {//if day is already selected, and we select it again
-    //                    daysSelected.remove(at: daysSelected.firstIndex(of: day)!)
-    //                }
-    //            }
-    //        } else {//day was not selected, and we are now selecting it.
-    //            sender.isSelected = true
-    //            daysSelected.append(K.weekdayDict[dayTitle!]!)
-    //        }
-    //    }
 }
 
 
 extension AddHabitViewController: UITextFieldDelegateExt {
     func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
-            print("$ ERROR: sender's text is nil when editing text.")
+            print("$Error: sender's text is nil when editing text.")
             return
         }
         
@@ -413,23 +391,20 @@ extension AddHabitViewController: UITextFieldDelegateExt {
             self.additionalDetails = text
         }
     }
-    
 }
 
 extension AddHabitViewController: ColorDelegate{
     func colorPickerValueChanged(sender: RadialPaletteControl) {
-        colorValue = sender.selectedColor.hexValue()
-        print("Changed color")
+        color = sender.selectedColor
+        print("$Log: Changed color")
     }
 }
 
 extension AddHabitViewController: SegmentedControlDelegate {
     func controlValueChanged(sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            print("Earlier is true")
             earlier = true
         } else {
-            print("Earlier is false")
             earlier = false
         }
     }
@@ -462,7 +437,7 @@ extension AddHabitViewController: CanHandleInfoDisplay{
     }
 }
 
-extension AddHabitViewController{
+extension AddHabitViewController {
     func fillForm(with habit: Habit) {
         reloadData()
         
@@ -485,17 +460,15 @@ extension AddHabitViewController{
         }
         
         alertTimes = habit.alertTimes
-        //        for alert in habit.notificationAlertTimes{
-        //            alertTimes.append(alert)
-        //        }
         
         let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
         logoCell.logoImageView.image = UIImage(systemName: habit.systemImageString)
         systemImageString = habit.systemImageString
         
         let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
-        colorCell.colorPreview.backgroundColor = UIColor(hexString: habit.color)!
-        colorValue = habit.color
+        let color = habit.color
+        colorCell.colorPreview.backgroundColor = color
+        self.color = color
         
         let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
         additionalDetailsCell.textField.text = habit.additionalDetails

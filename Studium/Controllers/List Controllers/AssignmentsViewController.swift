@@ -35,19 +35,18 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let colorHex = selectedCourse?.color {
+        if let course = selectedCourse {
+            let color = course.color
             title = selectedCourse.name
-            //searchBar.barTintColor = UIColor(hexString: colorHex)
-            guard let navBar = navigationController?.navigationBar else {fatalError("nav controller doesnt exist")}
-            
-            if let navBarColor = UIColor(hexString: colorHex) {
-                navBar.barTintColor = navBarColor
-            } else {
-                print("error")
+            guard let navController = navigationController else {
+                fatalError("$Error: navigation bar doesnt exist")
             }
-        }else{
-            print("error")
+            
+            navController.navigationBar.barTintColor = color
+        } else {
+            print("$Error: course is nil")
         }
+        
         loadAssignments()
     }
     
@@ -100,11 +99,12 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
             print("ERROR: error accessing user")
         }
 
-        if(assignment.isAutoscheduled){
+        if(assignment.isAutoscheduled) {
             tableView.reloadData()
-        }else{
+        } else {
             loadAssignments()
         }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

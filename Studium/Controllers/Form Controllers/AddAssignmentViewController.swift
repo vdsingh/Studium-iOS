@@ -49,7 +49,7 @@ class AddAssignmentViewController: MasterForm {
 //    var name: String = ""
     
     /// Additional Details associated with the assignment
-    var additionalDetails: String = ""
+//    var additionalDetails: String = ""
     
     
     @IBOutlet weak var navButton: UIBarButtonItem!

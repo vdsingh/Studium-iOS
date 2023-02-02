@@ -35,20 +35,20 @@ class RecurringEventCell: DeletableEventCell {
         startTime: Date,
         endTime: Date,
         days: Set<Weekday>,
-        colorHex: String,
+        color: UIColor,
         recurringEvent: RecurringStudiumEvent,
         systemImageString: String
     ) {
         self.event = recurringEvent//just edited
         iconImage.image = UIImage(systemName: systemImageString)
-        iconImage.tintColor = UIColor(hexString: colorHex)
-        iconCircle.tintColor = UIColor(hexString: colorHex)
+        iconImage.tintColor = color
+        iconCircle.tintColor = color
         
 //        background.backgroundColor = UIColor(hexString: colorHex)
-        background.layer.borderColor = UIColor(hexString: colorHex)!.cgColor
+        background.layer.borderColor = color.cgColor
         
         nameLabel.text = courseName
-        nameLabel.textColor = UIColor(hexString: colorHex)
+        nameLabel.textColor = color
         locationLabel.text = recurringEvent.location
 
         var timeText = startTime.format(with: "h:mm a")
@@ -57,7 +57,7 @@ class RecurringEventCell: DeletableEventCell {
         
         for dayBox in dayBoxes {
             dayBox.layer.borderWidth = 2
-            dayBox.layer.borderColor = UIColor(hexString: colorHex)!.cgColor
+            dayBox.layer.borderColor = color.cgColor
             dayBox.layer.cornerRadius = 5
         }
         
@@ -70,8 +70,8 @@ class RecurringEventCell: DeletableEventCell {
         // highlight the day labels and day boxes for the selected days.
         for dayVal in days {
             let index = dayVal.rawValue - 1
-            dayBoxes[index].backgroundColor = UIColor(hexString: colorHex)
-            dayLabels[index].textColor = UIColor(contrastingBlackOrWhiteColorOn: UIColor(hexString: colorHex)!, isFlat: true)
+            dayBoxes[index].backgroundColor = color
+            dayLabels[index].textColor = UIColor(contrastingBlackOrWhiteColorOn: color, isFlat: true)
             
         }
     }

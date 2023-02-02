@@ -22,10 +22,7 @@ class AddCourseViewController: MasterForm {
 //    / error  that is displayed when there are errors
 //    var errors: [FormError] = []
     
-    /// basic course elements
-//    var name: String = ""
-    var colorValue: String = "ffffff"
-    var additionalDetails: String = ""
+//    var additionalDetails: String = ""
     var location: String = ""
     
     @IBOutlet weak var navButton: UIBarButtonItem!
@@ -89,10 +86,9 @@ class AddCourseViewController: MasterForm {
                 do {
                     // TODO: Abstract away realm to state
                     try DatabaseService.shared.realm.write {
-//                        course = Co
                         course = Course(
                             name: name,
-                            colorHex: colorValue,
+                            color: self.color,
                             location: location,
                             additionalDetails: additionalDetails,
                             startDate: startDate,
@@ -109,7 +105,7 @@ class AddCourseViewController: MasterForm {
             } else {
                 let newCourse = Course (
                     name: name,
-                    colorHex: colorValue,
+                    color: self.color,
                     location: location,
                     additionalDetails: additionalDetails,
                     startDate: startDate,
@@ -160,7 +156,7 @@ extension AddCourseViewController: UITextFieldDelegateExt {
     
     func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
-            print("$ ERROR: sender's text is nil when editing text in \(textFieldID).\n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
+            print("$Error: sender's text is nil when editing text in \(textFieldID).\n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
             return
         }
 
@@ -183,12 +179,12 @@ extension AddCourseViewController: DaySelectorDelegate{
 
 extension AddCourseViewController: ColorDelegate{
     func colorPickerValueChanged(sender: RadialPaletteControl) {
-        colorValue = sender.selectedColor.hexValue()
+        color = sender.selectedColor
     }
 }
 
 extension AddCourseViewController {
-    func fillForm(with course: Course){
+    func fillForm(with course: Course) {
         tableView.reloadData()
         
         navButton.image = .none
@@ -231,8 +227,8 @@ extension AddCourseViewController {
         }
         
         if let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as? ColorPickerCell {
-            colorCell.colorPreview.backgroundColor = UIColor(hexString: course.color)!
-            colorValue = course.color
+            colorCell.colorPreview.backgroundColor = course.color
+            self.color = course.color
         }
             
         if let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as? TextFieldCell {

@@ -69,7 +69,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
                 startTime: course.startDate,
                 endTime: course.endDate,
                 days: course.days,
-                colorHex: course.color,
+                color: course.color,
                 recurringEvent: course,
                 systemImageString: course.systemImageString
             )
@@ -128,7 +128,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
         addCourseViewController.delegate = self
         addCourseViewController.course = eventForEdit
-        ColorPickerCell.color = UIColor(hexString: eventForEdit.color)
+        ColorPickerCell.color = eventForEdit.color
         addCourseViewController.title = "View/Edit Course"
         let navController = UINavigationController(rootViewController: addCourseViewController)
         self.present(navController, animated:true, completion: nil)
