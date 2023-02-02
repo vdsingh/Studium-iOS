@@ -131,7 +131,13 @@ extension CalendarViewController: UITableViewDelegate{
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier:  K.otherEventCellID, for: indexPath) as! OtherEventCell
-            cell.loadDataGeneric(primaryText: event.name, secondaryText: event.location, startDate: event.startDate, endDate: event.endDate, cellColor: UIColor(hexString: event.color.substring(fromIndex: 1)) ?? .black)
+            cell.loadDataGeneric(
+                primaryText: event.name,
+                secondaryText: event.location,
+                startDate: event.startDate,
+                endDate: event.endDate,
+                cellColor: event.color
+            )
             return cell
         }
     }

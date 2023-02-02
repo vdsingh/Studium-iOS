@@ -63,7 +63,7 @@ class DayScheduleViewController: DayViewController{
             let courseEvent = Event()
             courseEvent.startDate = Calendar.current.date(bySettingHour: course.startDate.hour, minute: course.startDate.minute, second: 0, of: date)!
             courseEvent.endDate = Calendar.current.date(bySettingHour: course.endDate.hour, minute: course.endDate.minute, second: 0, of: date)!
-            courseEvent.color = UIColor(hexString: course.color)!
+            courseEvent.color = course.color
             
             let string = "\(course.startDate.format(with: "h:mm a")) - \(course.endDate.format(with: "h:mm a")): \(course.name)"
             let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.label]
@@ -78,7 +78,7 @@ class DayScheduleViewController: DayViewController{
         var events: [Event] = []
         
         if UserDefaults.standard.object(forKey: K.wakeUpKeyDict[date.weekday]!) == nil {
-            print("LOG: user did not specify wake times.")
+            print("$Log: user did not specify wake times.")
             return []
         }
         
@@ -88,7 +88,7 @@ class DayScheduleViewController: DayViewController{
         let minutes = calendar.component(.minute, from: timeToWake)
         let usableDate = Calendar.current.date(bySettingHour: hour, minute: minutes, second: 0, of: date)!
 
-        let anHourAgo = usableDate - (60*60)
+        let anHourAgo = usableDate - (60 * 60)
         let newEvent = Event()
         newEvent.startDate = anHourAgo
         newEvent.endDate = usableDate
@@ -181,7 +181,7 @@ class DayScheduleViewController: DayViewController{
                 let newEvent = Event()
                 newEvent.startDate = assignment.startDate
                 newEvent.endDate = assignment.endDate
-                newEvent.color = UIColor(hexString: course.color)!
+                newEvent.color = course.color
                 
                 var string = "\(assignment.endDate.format(with: "h:mm a")): \(assignment.name) due (\(course.name))"
                 

@@ -19,23 +19,55 @@ class StudiumEvent: Object {
     /// partition key of the StudiumEvent
     @Persisted var _partitionKey: String = ""
     
+    /// The name of the StudiumEvent
     @Persisted var name: String = ""
+    
+    /// The location of the StudiumEvent
     @Persisted var location: String = ""
+    
+    /// The associated additional details of the StudiumEvent
     @Persisted var additionalDetails: String = ""
 
     
     @Persisted var startDate: Date = Date()
     @Persisted var endDate: Date = Date()
     
-    @Persisted var color: String = "ffffff"
+    /// The Hex value of the associated color
+    @Persisted private var colorHex: String = "ffffff"
     
     @Persisted private var alertTimesRaw = List<AlertOption.RawValue>()
+    
     var alertTimes: [AlertOption] {
         get { return self.alertTimesRaw.compactMap { AlertOption(rawValue: $0) } }
         set {
             alertTimesRaw = List<AlertOption.RawValue>()
             alertTimesRaw.append(objectsIn: newValue.compactMap { $0.rawValue })
         }
+    }
+    
+    var color: UIColor {
+        get { return UIColor(hexString: self.colorHex) ?? .black }
+        set { self.colorHex = newValue.hexValue() }
+    }
+    
+    convenience init(
+        name: String,
+        location: String,
+        additionalDetails: String,
+        startDate: Date,
+        endDate: Date,
+        color: UIColor,
+        alertTimes: [AlertOption]
+    ) {
+        self.init()
+        
+        self.name = name
+        self.location = location
+        self.additionalDetails = additionalDetails
+        self.startDate = startDate
+        self.endDate = endDate
+        self.color = color
+        self.alertTimes = alertTimes
     }
 
     override static func primaryKey() -> String? {
