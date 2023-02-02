@@ -33,32 +33,34 @@ class HabitCell: DeletableEventCell {
         nameLabel.text = habit.name
         locationLabel.text = habit.location
         
-        iconImage.image = UIImage(systemName: habit.systemImageString)
-        iconImage.tintColor = UIColor(hexString: habit.color)
+        iconImage.image = habit.logo.createImage()
+        iconImage.tintColor = habit.color
 //        habit.startDate
         
         var timeText = habit.startDate.format(with: "h:mm a")
         timeText.append(" - \(habit.endDate.format(with: "h:mm a"))")
         if habit.autoschedule{
             timeLabel.text = "Auto: \(timeText)"
-        }else{
+        } else {
             timeLabel.text = timeText
         }
         
-        for label in dayLabels{
-            //print("label in dayLabels")
-            //print(label.text)
-            if habit.days.contains(K.weekdayDict[label.text!]!){
-
-//            if habit.days.contains(labelText){
-                //print("habit occurs on \(labelText)")
-                label.backgroundColor = UIColor(hexString: habit.color)
-                label.textColor = .white
-            }else{
-                label.textColor = UIColor(hexString: habit.color)
-                label.backgroundColor = .none
-
-            }
-        }
+        //TODO: Fix this:
+        
+//        for label in dayLabels {
+//            //print("label in dayLabels")
+//            //print(label.text)
+//            if habit.days.contains(K.weekdayDict[label.text!]!){
+//
+////            if habit.days.contains(labelText){
+//                //print("habit occurs on \(labelText)")
+//                label.backgroundColor = UIColor(hexString: habit.color)
+//                label.textColor = .white
+//            }else{
+//                label.textColor = UIColor(hexString: habit.color)
+//                label.backgroundColor = .none
+//
+//            }
+//        }
     }
 }

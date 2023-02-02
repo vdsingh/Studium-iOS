@@ -7,12 +7,10 @@
 //
 
 import UIKit
-class BasicCell: UITableViewCell{
-    
-    var defaultBackgroundColor = UIColor.secondarySystemBackground
-    override class func awakeFromNib() {
-        super.awakeFromNib()
-        
+protocol FormCellProtocol {
+    static var id: String { get }
+}
 
-    }
+class BasicCell: UITableViewCell {
+    var defaultBackgroundColor = UIColor.secondarySystemBackground
 }

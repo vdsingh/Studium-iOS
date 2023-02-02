@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Habit: RecurringStudiumEvent, Autoscheduleable{    
+class Habit: RecurringStudiumEvent, Autoscheduleable {    
     
     var scheduledEvents: [Habit] = []
     
@@ -21,29 +21,37 @@ class Habit: RecurringStudiumEvent, Autoscheduleable{
     //Time elements for a Habit object. 
     @Persisted var autoLengthMinutes: Int = 60
 
-    @Persisted var systemImageString: String = "pencil"
+//    @Persisted var systemImageString: String = "pencil"
 
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(name: String, location: String, additionalDetails: String, startDate: Date, endDate: Date, autoschedule: Bool, startEarlier: Bool, autoLengthMinutes: Int, days: [Int], systemImageString: String, colorHex: String, partitionKey: String) {
-
-        self.name = name
-        self.location = location
-        self.additionalDetails = additionalDetails
-        self.startDate = startDate
-        self.endDate = endDate
+    convenience init(
+        name: String,
+        location: String,
+        additionalDetails: String,
+        startDate: Date,
+        endDate: Date,
+        autoschedule: Bool,
+        startEarlier: Bool,
+        autoLengthMinutes: Int,
+        alertTimes: [AlertOption],
+        days: Set<Weekday>,
+        logo: SystemIcon,
+        color: UIColor,
+        partitionKey: String
+    ) {
+        self.init(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, color: color, logo: logo, alertTimes: alertTimes)
         self.autoschedule = autoschedule
         self.startEarlier = startEarlier
         self.autoLengthMinutes = autoLengthMinutes
-        self.systemImageString = systemImageString
-        self.color = colorHex
+//        self.systemImageString = systemImageString
+        
+        let newDaysList = List<Int>()
+        newDaysList.append(objectsIn: days.compactMap{ $0.rawValue })
+        self.daysList = newDaysList
         
         self._partitionKey = partitionKey
-        
-        //handles days
-        for day in days{
-            self.days.append(day)
-        }
+
     }
     
 }

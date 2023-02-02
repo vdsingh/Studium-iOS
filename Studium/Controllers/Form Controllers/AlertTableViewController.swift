@@ -28,21 +28,61 @@
 
 
 import UIKit
+
+enum AlertOption: Int, CaseIterable {
+    case atTime = 0
+    case fiveMin = 5
+    case tenMin = 10
+    case fifteenMin = 15
+    case thirtyMin = 30
+    case oneHour = 60
+    case twoHour = 120
+    case fourHour = 240
+    case eightHour = 480
+    case oneDay = 1440
+    
+    var userString: String {
+        switch self {
+        case .atTime:
+            return "At time of event"
+        case .fiveMin:
+            return "5 minutes before"
+        case .tenMin:
+            return "10 minutes before"
+        case .fifteenMin:
+            return "15 minutes before"
+        case .thirtyMin:
+            return "30 minutes before"
+        case .oneHour:
+            return "1 hour before"
+        case .twoHour:
+            return "2 hours before"
+        case .fourHour:
+            return "4 hours before"
+        case .eightHour:
+            return "8 hours before"
+        case .oneDay:
+            return "1 day before"
+        }
+    }
+}
+
 protocol AlertInfoStorer{
-    var alertTimes: [Int] {get set}
+    var alertTimes: [AlertOption] { get set }
     func processAlertTimes()
 }
+
 class AlertTableViewController: UITableViewController {
     var delegate: AlertInfoStorer?
     
     //what the user sees in the tableview
-    var tags: [String] = ["At time of event","5 minutes before","10 minutes before","15 minutes before","30 minutes before", "1 hour before", "2 hours before", "4 hours before", "8 hours before", "1 day before"]
-    
+
+    let alertOptions = AlertOption.allCases
     //the corresponding number of minutes
-    var times: [Int] = [0, 5, 10, 15, 30, 60, 120, 240, 480, 1440]
+//    var times: [Int] = [0, 5, 10, 15, 30, 60, 120, 240, 480, 1440]
     
     
-    var checked: [Bool] = [false,false,false,false,false,false,false,false,false,false]
+//    var checked: [AlertBool] = [false,false,false,false,false,false,false,false,false,false]
     
     var alertTimes: [Int] = []
     override func viewDidLoad() {
@@ -50,14 +90,14 @@ class AlertTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
         
         guard let delegate = delegate else {
-            print("$ ERROR: delegate is nil in AlertTableViewController")
+            print("$Error: delegate is nil in AlertTableViewController")
             return
         }
 
-        for time in delegate.alertTimes{
-            let index = times.firstIndex(of: time)
-            checked[index!] = true
-        }
+//        for time in delegate.alertTimes {
+//            let index = times.firstIndex(of: time)
+//            checked[index!] = true
+//        }
         
         //makes it so that there are no empty cells at the bottom
         tableView.tableFooterView = UIView()
@@ -65,15 +105,15 @@ class AlertTableViewController: UITableViewController {
     
     //when the user presses the back button we update data appropriately
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        alertTimes = []
-        for i in 0..<checked.count {
-            if checked[i] == true{
-                alertTimes.append(times[i])
-            }
-        }
-        delegate!.alertTimes = alertTimes
-        delegate!.processAlertTimes()
+//        super.viewWillDisappear(animated)
+//        alertTimes = []
+//        for i in 0..<checked.count {
+//            if checked[i] == true{
+//                alertTimes.append(times[i])
+//            }
+//        }
+//        delegate!.alertTimes = alertTimes
+//        delegate!.processAlertTimes()
     }
     
     // MARK: - Table view data source
@@ -85,27 +125,35 @@ class AlertTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return tags.count
+        return alertOptions.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
-        cell.label.text = tags[indexPath.row]
+        let alertOption = alertOptions[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: LabelCell.id, for: indexPath) as! LabelCell
+        cell.label.text = alertOptions[indexPath.row].userString
         cell.accessoryType = .none
-        if checked[indexPath.row]{
+        
+        if let delegate = delegate,
+           delegate.alertTimes.contains(alertOption) {
             cell.accessoryType = .checkmark
         }
+
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedAlertOption = self.alertOptions[indexPath.row]
         let cell = tableView.cellForRow(at: indexPath)
-        if cell?.accessoryType == UITableViewCell.AccessoryType.none{
+//        if cell?.accessoryType == UITableViewCell.AccessoryType.none {
+        if var delegate = delegate,
+           delegate.alertTimes.contains(selectedAlertOption) {
             cell?.accessoryType = .checkmark
-            checked[indexPath.row] = true
-        }else{
+            delegate.alertTimes.removeAll(where: {$0.rawValue == selectedAlertOption.rawValue})
+//            checked[indexPath.row] = true
+        } else {
             cell?.accessoryType = .none
-            checked[indexPath.row] = false
+//            checked[indexPath.row] = false
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }

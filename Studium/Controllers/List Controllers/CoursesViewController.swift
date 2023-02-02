@@ -61,16 +61,19 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         //build the cells
         //let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! RecurringEventCell
-        let course = eventsArray[indexPath.section][indexPath.row] as! Course
-        cell.event = course
-        cell.loadData(courseName: course.name,
-                      location: course.location,
-                      startTime: course.startDate,
-                      endTime: course.endDate,
-                      days: course.days,
-                      colorHex: course.color,
-                      recurringEvent: course,
-                      systemImageString: course.systemImageString)
+        if let course = eventsArray[indexPath.section][indexPath.row] as? Course {
+            cell.event = course
+            cell.loadData(
+                courseName: course.name,
+                location: course.location,
+                startTime: course.startDate,
+                endTime: course.endDate,
+                days: course.days,
+                color: course.color,
+                recurringEvent: course,
+                systemIcon: course.logo
+            )
+        }
     
         return cell
     }
@@ -94,7 +97,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         eventsArray = [[],[]]
         // TODO: Fix force unwrap
         for course in courses! {
-            if course.days.contains(Date().week){
+            if course.days.contains(Date().studiumWeekday){
                 eventsArray[0].append(course)
             } else {
                 eventsArray[1].append(course)
@@ -125,7 +128,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
         addCourseViewController.delegate = self
         addCourseViewController.course = eventForEdit
-        ColorPickerCell.color = UIColor(hexString: eventForEdit.color)
+        ColorPickerCell.color = eventForEdit.color
         addCourseViewController.title = "View/Edit Course"
         let navController = UINavigationController(rootViewController: addCourseViewController)
         self.present(navController, animated:true, completion: nil)

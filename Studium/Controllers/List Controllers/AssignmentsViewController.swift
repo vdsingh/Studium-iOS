@@ -7,15 +7,14 @@
 //
 
 import Foundation
-import RealmSwift
 import ChameleonFramework
 
-class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, AssignmentRefreshProtocol{
-    var assignments: Results<Assignment>?
+class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, AssignmentRefreshProtocol {
+    var assignments: [Assignment] = []
 
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var selectedCourse: Course? {
+    var selectedCourse: Course! {
         didSet{
             loadAssignments()
         }
@@ -36,19 +35,18 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let colorHex = selectedCourse?.color{
-            title = selectedCourse!.name
-            //searchBar.barTintColor = UIColor(hexString: colorHex)
-            guard let navBar = navigationController?.navigationBar else {fatalError("nav controller doesnt exist")}
-            
-            if let navBarColor = UIColor(hexString: colorHex) {
-                navBar.barTintColor = navBarColor
-            } else {
-                print("error")
+        if let course = selectedCourse {
+            let color = course.color
+            title = selectedCourse.name
+            guard let navController = navigationController else {
+                fatalError("$Error: navigation bar doesnt exist")
             }
-        }else{
-            print("error")
+            
+            navController.navigationBar.barTintColor = color
+        } else {
+            print("$Error: course is nil")
         }
+        
         loadAssignments()
     }
     
@@ -84,11 +82,12 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         let assignmentCell = tableView.cellForRow(at: indexPath) as! AssignmentCell1
 
         if let user = app.currentUser {
-            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+            realm = DatabaseService.shared.realm
+//            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
             do {
                 try realm.write {
                     //if the assignments autoscheduled events list is expanded, collapse it before we mark it complete and move it.
-                    if assignmentCell.autoEventsOpen{
+                    if assignmentCell.autoEventsOpen {
                         assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
                     }
                     assignment.complete = !assignment.complete
@@ -100,11 +99,12 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
             print("ERROR: error accessing user")
         }
 
-        if(assignment.isAutoscheduled){
+        if(assignment.isAutoscheduled) {
             tableView.reloadData()
-        }else{
+        } else {
             loadAssignments()
         }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -115,11 +115,16 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     //MARK: - CRUD Methods
     
     //loads all non-autoscheduled assignments by accessing the selected course.
-    func loadAssignments(){
-        assignments = selectedCourse?.assignments.sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
+    func loadAssignments() {
+        //TODO: Fix sorting
+        self.assignments = DatabaseService.shared
+            .getAssignments(forCourse: selectedCourse)
+//            .sorted(by: K.sortAssignmentsBy)
+//            .sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
+//        assignments = selectedCourse?.assignments.
         eventsArray = [[],[]]
         // TODO: Fix force unwrap
-        for assignment in assignments! {
+        for assignment in assignments {
             //skip the autoscheduled events.
             if assignment.isAutoscheduled {
                 continue
@@ -152,7 +157,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         let eventForEdit = deletableEventCell.event! as! Assignment
         let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
         addAssignmentViewController.delegate = self
-        addAssignmentViewController.assignment = eventForEdit
+        addAssignmentViewController.assignmentEditing = eventForEdit
         addAssignmentViewController.title = "View/Edit Assignment"
         let navController = UINavigationController(rootViewController: addAssignmentViewController)
         self.present(navController, animated:true, completion: nil)
@@ -164,11 +169,15 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        assignments = selectedCourse?.assignments.sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
-        
+//        assignments = selectedCourse?.assignments.sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
+        self.assignments = DatabaseService.shared.getAssignments(forCourse: selectedCourse)
+        //TODO: Fix filter and sorting
         if searchBar.text?.count != 0 {
-            assignments = assignments?.filter("\(K.sortAssignmentsBy) CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
+//            self.assignments = self.assignments
+//                .filter("\(K.sortAssignmentsBy) CONTAINS[cd] %@", searchBar.text!)
+//                .sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
         }
+        
         tableView.reloadData()
     }
 }
@@ -184,7 +193,7 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
                 index += 1
             }
         }else{
-            print("$ ERROR: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
+            print("$ Error: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
         }
         tableView.reloadData()
     }

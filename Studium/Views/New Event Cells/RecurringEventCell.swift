@@ -12,7 +12,6 @@ import SwipeCellKit
 import ChameleonFramework
 
 class RecurringEventCell: DeletableEventCell {
-//    var recurringEvent: RecurringStudiumEvent?
 
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -21,10 +20,8 @@ class RecurringEventCell: DeletableEventCell {
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var iconCircle: UIImageView!
 
-    
     @IBOutlet var dayLabels: [UILabel]!
     @IBOutlet var dayBoxes: [UIImageView]!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,39 +29,50 @@ class RecurringEventCell: DeletableEventCell {
         background.layer.borderWidth = 4
     }
 
-    func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<Int>, colorHex: String, recurringEvent: RecurringStudiumEvent, systemImageString: String){
+    func loadData(
+        courseName: String,
+        location: String,
+        startTime: Date,
+        endTime: Date,
+        days: Set<Weekday>,
+        color: UIColor,
+        recurringEvent: RecurringStudiumEvent,
+        systemIcon: SystemIcon
+    ) {
         self.event = recurringEvent//just edited
-        iconImage.image = UIImage(systemName: systemImageString)
-        iconImage.tintColor = UIColor(hexString: colorHex)
-        iconCircle.tintColor = UIColor(hexString: colorHex)
+        iconImage.image = systemIcon.createImage()
+        iconImage.tintColor = color
+        iconCircle.tintColor = color
         
 //        background.backgroundColor = UIColor(hexString: colorHex)
-        background!.layer.borderColor = UIColor(hexString: colorHex)!.cgColor
+        background.layer.borderColor = color.cgColor
         
         nameLabel.text = courseName
-        nameLabel.textColor = UIColor(hexString: colorHex)
+        nameLabel.textColor = color
         locationLabel.text = recurringEvent.location
 
-        var timeText = startTime.format(with: "h:mm a")
-        timeText.append(" - \(endTime.format(with: "h:mm a"))")
+        var timeText = startTime.format(with: DateFormat.standardTime.rawValue)
+        timeText.append(" - \(endTime.format(with: DateFormat.standardTime.rawValue))")
         timeLabel.text = timeText
         
-        for dayBox in dayBoxes{
+        for dayBox in dayBoxes {
             dayBox.layer.borderWidth = 2
-            dayBox.layer.borderColor = UIColor(hexString: colorHex)!.cgColor
+            dayBox.layer.borderColor = color.cgColor
             dayBox.layer.cornerRadius = 5
         }
-    
-        for i in 0...dayLabels.count-1{
-            let dayLabel = dayLabels[i]
-            let dayBox = dayBoxes[i];
-            if days.contains(K.weekdayDict[dayLabel.text!]!){
-                dayBox.backgroundColor = UIColor(hexString: colorHex)
-                dayLabel.textColor = UIColor(contrastingBlackOrWhiteColorOn: UIColor(hexString: colorHex)!, isFlat: true)
-            }else{
-                dayLabel.textColor = .white
-                dayBox.backgroundColor = .none
-            }
+        
+        // Reset all of the day labels and day boxes
+        for i in 0..<dayLabels.count {
+            dayLabels[i].textColor = .white
+            dayBoxes[i].backgroundColor = .none
+        }
+        
+        // highlight the day labels and day boxes for the selected days.
+        for dayVal in days {
+            let index = dayVal.rawValue - 1
+            dayBoxes[index].backgroundColor = color
+            dayLabels[index].textColor = UIColor(contrastingBlackOrWhiteColorOn: color, isFlat: true)
+            
         }
     }
 }

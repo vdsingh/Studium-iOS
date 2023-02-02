@@ -6,35 +6,22 @@
 //  Copyright © 2020 Vikram Singh. All rights reserved.
 //
 //
-//import UIKit
-//import CalendarKit
-import RealmSwift
 import UIKit
 import CalendarKit
 import DateToolsSwift
 //
-class DayScheduleViewController: DayViewController{
-    let app = App(id: Secret.appID)
-
-    var realm: Realm!
+class DayScheduleViewController: DayViewController {
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let user = app.currentUser else {
-            print("ERROR: error getting user in DayScheduleViewController viewDidLoad")
-            return
-        }
-        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         dayView.autoScrollToFirstEvent = true
-        
-//        tabBarController?.tabBar.tintColor = K.themeColor
         tabBarController?.tabBar.backgroundColor = K.themeColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         reloadData()
-//        viewDidLoad()
         generatedEvents = []
         alreadyGeneratedSet = Set<Date>()
     }
@@ -49,20 +36,10 @@ class DayScheduleViewController: DayViewController{
     
     func addCourses(for date: Date) -> [Event]{
         var events: [Event] = []
-
-        if let user = app.currentUser{
-            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-
-        }else{
-            print("$ ERROR: error getting user when adding courses in DayScheduleViewController. Logging Out.")
-            K.handleLogOut()
-            return []
-        }
-    
         var coursesOnDay: [Course] = []
-        let allCourses = realm.objects(Course.self)
+        let allCourses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
         for course in allCourses{
-            if course.days.contains(date.weekday){ //course occurs on this day.
+            if course.days.contains(date.studiumWeekday){ //course occurs on this day.
                 coursesOnDay.append(course)
             }
         }
@@ -71,7 +48,7 @@ class DayScheduleViewController: DayViewController{
             let courseEvent = Event()
             courseEvent.startDate = Calendar.current.date(bySettingHour: course.startDate.hour, minute: course.startDate.minute, second: 0, of: date)!
             courseEvent.endDate = Calendar.current.date(bySettingHour: course.endDate.hour, minute: course.endDate.minute, second: 0, of: date)!
-            courseEvent.color = UIColor(hexString: course.color)!
+            courseEvent.color = course.color
             
             let string = "\(course.startDate.format(with: "h:mm a")) - \(course.endDate.format(with: "h:mm a")): \(course.name)"
             let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.label]
@@ -86,7 +63,7 @@ class DayScheduleViewController: DayViewController{
         var events: [Event] = []
         
         if UserDefaults.standard.object(forKey: K.wakeUpKeyDict[date.weekday]!) == nil {
-            print("LOG: user did not specify wake times.")
+            print("$Log: user did not specify wake times.")
             return []
         }
         
@@ -96,14 +73,14 @@ class DayScheduleViewController: DayViewController{
         let minutes = calendar.component(.minute, from: timeToWake)
         let usableDate = Calendar.current.date(bySettingHour: hour, minute: minutes, second: 0, of: date)!
 
-        let anHourAgo = usableDate - (60*60)
+        let anHourAgo = usableDate - (60 * 60)
         let newEvent = Event()
         newEvent.startDate = anHourAgo
         newEvent.endDate = usableDate
         newEvent.color = UIColor.yellow
         
         
-        let string = "\(usableDate.format(with: "h:mm a")): Wake Up"
+        let string = "\(usableDate.format(with: DateFormat.standardTime.rawValue)): Wake Up"
         
         let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.label]
         let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
@@ -114,12 +91,13 @@ class DayScheduleViewController: DayViewController{
     }
     
     func addHabits(for date: Date, with outsideEvents: [Event]) -> [Event]{//algorithm to find right time based on pre-existing events.
-        let allHabits = realm.objects(Habit.self)
+        let allHabits = DatabaseService.shared.getStudiumObjects(expecting: Habit.self)
+//        let allHabits = realm.objects(Habit.self)
         var events: [Event] = []
         
         var habitsOnDay: [Habit] = []
         for habit in allHabits{
-            if habit.days.contains(date.weekday){ //course occurs on this day.
+            if habit.days.contains(date.studiumWeekday){ //course occurs on this day.
                 habitsOnDay.append(habit)
             }
         }
@@ -130,7 +108,8 @@ class DayScheduleViewController: DayViewController{
                 let weekDay = dateFormatter.string(from: date) //get weekday name. ex: "Tuesday"
                 //print(weekDay)
 //                let usableString = weekDay.substring(toIndex: 3)//transform it to a usable string. ex: "Tuesday" to "Tue"
-                if habit.days.contains(date.weekday){ //habit occurs on this day
+                if habit.days.contains(date.studiumWeekday) {
+                    //habit occurs on this day
                     var components = Calendar.current.dateComponents([.hour, .minute], from: habit.startDate)
                     var usableStartDate = Calendar.current.date(bySettingHour: components.hour!, minute: components.minute!, second: 0, of: date)!
                     
@@ -159,15 +138,10 @@ class DayScheduleViewController: DayViewController{
                     let newEvent = Event()
                     newEvent.startDate = usableStartDate
                     newEvent.endDate = usableEndDate
-                    newEvent.text = "\(usableStartDate.format(with: "h:mm a")) - \(usableEndDate.format(with: "h:mm a")): \(habit.name)"
+                    newEvent.text = "\(usableStartDate.format(with: DateFormat.standardTime.rawValue)) - \(usableEndDate.format(with: DateFormat.standardTime.rawValue)): \(habit.name)"
                     events.append(newEvent)
                 }
             }
-        
-//        else{ //BASIC HABIT FUNCTIONALITY
-//
-//            }
-//        }
         return events
     }
     
@@ -175,17 +149,19 @@ class DayScheduleViewController: DayViewController{
     
     func addAssignments(for date: Date) -> [Event]{
         var events: [Event] = []
-        let allAssignments = realm.objects(Assignment.self)
-        for assignment in allAssignments{
+        let allAssignments = DatabaseService.shared.getStudiumObjects(expecting: Assignment.self)
+
+//        let allAssignments = realm.objects(Assignment.self)
+        for assignment in allAssignments {
             if assignment.endDate.year == date.year && assignment.endDate.month == date.month && assignment.endDate.day == date.day{
-                guard let course = assignment.parentCourse else{
+                guard let course = assignment.parentCourse else {
                     print("ERROR: Error accessing parent course in DayScheduleViewController")
                     continue
                 }
                 let newEvent = Event()
                 newEvent.startDate = assignment.startDate
                 newEvent.endDate = assignment.endDate
-                newEvent.color = UIColor(hexString: course.color)!
+                newEvent.color = course.color
                 
                 var string = "\(assignment.endDate.format(with: "h:mm a")): \(assignment.name) due (\(course.name))"
                 
@@ -212,7 +188,8 @@ class DayScheduleViewController: DayViewController{
     
     func addOtherEvents(for date: Date) -> [Event]{
         var events: [Event] = []
-        let allOtherEvents = realm.objects(OtherEvent.self)
+        let allOtherEvents = DatabaseService.shared.getStudiumObjects(expecting: OtherEvent.self)
+
         for otherEvent in allOtherEvents{
             if otherEvent.endDate.year == date.year && otherEvent.endDate.month == date.month && otherEvent.endDate.day == date.day{
                 let newEvent = Event()
@@ -263,6 +240,7 @@ class DayScheduleViewController: DayViewController{
         guard let descriptor = eventView.descriptor as? Event else {
             return
         }
+        
         print("Event has been selected: \(descriptor) \(String(describing: descriptor.userInfo))")
     }
     

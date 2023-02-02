@@ -9,22 +9,56 @@
 import UIKit
 
 class TimeCell: BasicCell {
+    public var formCellID: FormCellID.TimeCell?
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
-    var date: Date?
+    private var date: Date!
+    private var dateFormat: DateFormat!
+    private var timePickerMode: UIDatePicker.Mode!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = defaultBackgroundColor
-
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
+    func configure(
+        cellLabelText: String,
+        formCellID: FormCellID.TimeCell?,
+        date: Date,
+        dateFormat: DateFormat,
+        timePickerMode: UIDatePicker.Mode
+    ) {
+        self.label.text = cellLabelText
+        self.formCellID = formCellID
+        self.date = date
+        self.timeLabel.text = date.format(with: dateFormat.rawValue)
+        self.dateFormat = dateFormat
+        self.timePickerMode = timePickerMode
+    }
+    
+    // MARK: - Getters
+
+    func getDate() -> Date {
+        return self.date
+    }
+    
+    func getDateFormat() -> DateFormat{
+        return self.dateFormat
+    }
+    
+    func getTimePickerMode() -> UIDatePicker.Mode {
+        return self.timePickerMode
+    }
+    
+    // MARK: - Setters
+    func setDate(_ date: Date) {
+        self.date = date
+        self.timeLabel.text = date.format(with: self.dateFormat.rawValue)
+    }
+}
+
+extension TimeCell: FormCellProtocol {
+    public static var id: String = "TimeCell"
 }

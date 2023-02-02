@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import RealmSwift
-class Autoschedule{
+class Autoschedule {
     
     ///Returns a 2D Date Array with the commitments for a given day. Ex: [[12:00PM, 2:00PM],[4:00PM, 7:00PM]]. There are 2 commitments on the given date. 1 is from 12:00PM to 2:00PM and the other is from 4:00PM to 7:00PM
     ///
@@ -23,14 +22,15 @@ class Autoschedule{
             print("ERROR: error getting user in Autoschedule - getCommitments")
             return [[]]
         }
-        let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+//        let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         
         //add the courses
-        let courses = realm.objects(Course.self)
-        for course in courses{
+//        let courses = realm.objects(Course.self)
+        let courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
+        for course in courses {
 //            print("Checking course: \(course). for day: \(date.weekday)")
 //            date.weekday
-            if course.days.contains(date.weekday){
+            if course.days.contains(date.studiumWeekday) {
                 let courseStartDate = Date(year: date.year, month: date.month, day: date.day, hour: course.startDate.hour, minute: course.startDate.minute, second: 0)
                 let courseEndDate = Date(year: date.year, month: date.month, day: date.day, hour: course.endDate.hour, minute: course.endDate.minute, second: 0)
                 let newCourseCommitment = [courseStartDate, courseEndDate]
@@ -41,9 +41,11 @@ class Autoschedule{
         let components = Calendar.current.dateComponents([.year, .month, .day], from: date)
         let broadDate = Calendar.current.date(from: components)!
         
-        let otherEvents = realm.objects(OtherEvent.self).filter("startDate == %@", broadDate)
-        print("Retrieved otherEvents: \(otherEvents)")
-        for otherEvent in otherEvents{
+        //TODO: Fix the filtering here.
+        let otherEvents = DatabaseService.shared.getStudiumObjects(expecting: OtherEvent.self)
+//        let otherEvents = realm.objects(OtherEvent.self).filter("startDate == %@", broadDate)
+        print("$Log: Retrieved otherEvents: \(otherEvents)")
+        for otherEvent in otherEvents {
         
             let otherEventStartDate = Date(year: date.year, month: date.month, day: date.day, hour: otherEvent.startDate.hour, minute: otherEvent.startDate.minute, second: 0)
             var otherEventEndDate = Date(year: date.year, month: date.month, day: date.day, hour: otherEvent.endDate.hour, minute: otherEvent.endDate.minute, second: 0)
@@ -56,12 +58,14 @@ class Autoschedule{
         }
                 
         //add the courses
-        let habits = realm.objects(Habit.self)
-        for habit in habits{
-            if habit.autoschedule{
+//        let habits = realm.objects(Habit.self)
+        let habits = DatabaseService.shared.getStudiumObjects(expecting: Habit.self)
+        for habit in habits {
+            if habit.autoschedule {
                 continue
             }
-            if habit.days.contains(date.weekday){
+            
+            if habit.days.contains(date.studiumWeekday) {
                 let habitStartDate = Date(year: date.year, month: date.month, day: date.day, hour: habit.startDate.hour, minute: habit.startDate.minute, second: 0)
                 let habitEndDate = Date(year: date.year, month: date.month, day: date.day, hour: habit.endDate.hour, minute: habit.endDate.minute, second: 0)
                 let newCourseCommitment = [habitStartDate, habitEndDate]
@@ -84,7 +88,7 @@ class Autoschedule{
     //the available time slots. Ex: [[9:00-12:00], [16:00-20:00]]
         var openSlots: [[Date]] = [[startBound, endBound]]
         //Iterate through each commitment to remove it from open slots.
-        for commitment in commitments{
+        for commitment in commitments {
             let commitmentStartTime = commitment[0]
             let commitmentEndTime = commitment[1]
             print("Commitment: start \(commitmentStartTime.format(with: "h:mm a")) end \(commitmentEndTime.format(with: "h:mm a"))")
@@ -100,7 +104,7 @@ class Autoschedule{
                 //the commitment is completely within the slot, so we remove the chunk containing the commitment.
                 if(commitmentStartTime > slotStartTime && commitmentEndTime < slotEndTime){
                     
-                    print("The commitment is completely within the slot")
+                    print("$Log: The commitment is completely within the slot")
                     let newSlot1 = [slotStartTime, commitmentStartTime-1]
                     let newSlot2 = [commitmentEndTime+1, slotEndTime]
                     
@@ -113,7 +117,7 @@ class Autoschedule{
                     openSlots.append(newSlot2)
 
                 //the bottom portion of the commitment is within the slot.
-                }else if(commitmentStartTime < slotStartTime && commitmentEndTime > slotStartTime && commitmentEndTime < slotEndTime){
+                } else if(commitmentStartTime < slotStartTime && commitmentEndTime > slotStartTime && commitmentEndTime < slotEndTime) {
                     let newSlot = [commitmentEndTime+1, slotEndTime]
                     
                     //remove the entire old slot
@@ -124,7 +128,7 @@ class Autoschedule{
                     openSlots.append(newSlot)
                     
                 //the top portion of the commitment is within the slot.
-                }else if(commitmentStartTime < slotEndTime && commitmentStartTime > slotStartTime && commitmentEndTime > slotEndTime){
+                } else if(commitmentStartTime < slotEndTime && commitmentStartTime > slotStartTime && commitmentEndTime > slotEndTime) {
                     
                     //remove the entire old slot
                     openSlots.remove(at: i)
@@ -134,7 +138,7 @@ class Autoschedule{
                     openSlots.append(newSlot)
                     
                 //the slot is completely within the commitment
-                }else if(slotStartTime >= commitmentStartTime && slotEndTime <= commitmentEndTime){
+                } else if(slotStartTime >= commitmentStartTime && slotEndTime <= commitmentEndTime) {
                     openSlots.remove(at: i)
                     i-=1
                 }

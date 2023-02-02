@@ -10,43 +10,44 @@ import Foundation
 import RealmSwift
 
 class Course: RecurringStudiumEvent {
-    @objc dynamic var systemImageString: String = SystemIcon.pencil.rawValue
-
-    //List of the assignments for the course.
+    @Persisted var systemImageString: String = SystemIcon.pencil.rawValue
+    
+    /// List of the assignments for the course.
     let assignments = List<Assignment>()
-//    @objc dynamic var testVar: String = "TEST"
 
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(
+    convenience init (
         name: String,
-        colorHex: String,
+        color: UIColor,
         location: String,
         additionalDetails: String,
         startDate: Date,
         endDate: Date,
-        days: [Int],
-        systemImageString: SystemIcon.RawValue,
-        notificationAlertTimes: [Int],
+        days: Set<Weekday>,
+        logo: SystemIcon,
+        notificationAlertTimes: [AlertOption],
         partitionKey: String
     ) {
-        
+        self.init()
         self.name = name
-        self.color = colorHex
+        self.color = color
         self.location = location
         self.additionalDetails = additionalDetails
         self.startDate = startDate
         self.endDate = endDate
-        self.systemImageString = systemImageString
+        self.logo = logo
+//        self.systemImageString = systemImageString
         self._partitionKey = partitionKey
-        //        self.notificationAlertTimes = notificationAlertTimes
-        self.notificationAlertTimes.removeAll()
-        for time in notificationAlertTimes{
-            self.notificationAlertTimes.append(time)
-        }
+//        self.
+        self.alertTimes = notificationAlertTimes
+//        self.notificationAlertTimes.removeAll()
+//        for time in notificationAlertTimes{
+//            self.notificationAlertTimes.append(time)
+//        }
         
-        self.days.removeAll()
-        for day in days{
-            self.days.append(day)
-        }
+//        self.days.removeAll()
+//        for day in days{
+//            self.days.append(day)
+//        }
     }
 }

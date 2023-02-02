@@ -77,7 +77,7 @@ class AssignmentCell1: DeletableEventCell {
         }
         
         //the UIColor of the assignment's associated course.
-        let themeColor = UIColor(hexString: course.color) ?? .white
+        let themeColor = course.color
         
         //A contrasting color to the course's color - we don't want white text on yellow background.
         var contrastingColor = UIColor(contrastingBlackOrWhiteColorOn: themeColor, isFlat: true)

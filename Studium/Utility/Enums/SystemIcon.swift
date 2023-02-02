@@ -11,7 +11,7 @@ import RealmSwift
 import UIKit
 
 /// Represents system icons.
-enum SystemIcon: String, CaseIterable {
+public enum SystemIcon: String, CaseIterable {
     case plus
     case minus
     case multiply

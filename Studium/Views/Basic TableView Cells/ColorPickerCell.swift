@@ -5,7 +5,7 @@
 //  Created by Vikram Singh on 6/7/20.
 //  Copyright © 2020 Vikram Singh. All rights reserved.
 //
-protocol ColorDelegate {
+public protocol ColorDelegate {
     func colorPickerValueChanged(sender: RadialPaletteControl)
 }
 import UIKit
@@ -36,4 +36,8 @@ class ColorPickerCell: BasicCell {
         delegate?.colorPickerValueChanged(sender: sender)
     }
     
+}
+
+extension ColorPickerCell: FormCellProtocol {
+    static var id: String = "ColorPickerCell"
 }

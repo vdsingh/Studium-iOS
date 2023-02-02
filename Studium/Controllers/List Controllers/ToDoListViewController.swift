@@ -79,11 +79,15 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
                         print("Error accessing parent course in ToDoListViewController")
                         return
                     }
+                    
+                    //TODO: Force unwrap
                     let assignmentIndex = course.assignments.index(of: assignment)
+                    
                     course.assignments.remove(at: assignmentIndex!)
-                    assignment.deleteNotifications()
+                    //TODO: Fix
+//                    assignment.deleteNotifications()
                 }
-                cell.event!.deleteNotifications()
+//                cell.event!.deleteNotifications()
                 self.realm.delete(cell.event!)
             }
         }catch{
@@ -99,7 +103,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         if let eventForEdit = deletableEventCell.event! as? Assignment{
             let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
             addAssignmentViewController.delegate = self
-            addAssignmentViewController.assignment = eventForEdit
+            addAssignmentViewController.assignmentEditing = eventForEdit
             addAssignmentViewController.title = "View/Edit Assignment"
             let navController = UINavigationController(rootViewController: addAssignmentViewController)
             self.present(navController, animated:true, completion: nil)
@@ -126,7 +130,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         self.present(navController, animated:true, completion: nil)
     }
     
-    func openAssignmentForm(name: String, location: String, additionalDetails: String, alertTimes: [Int], dueDate: Date){
+    func openAssignmentForm(name: String, location: String, additionalDetails: String, alertTimes: [AlertOption], dueDate: Date){
         let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
         let navController = UINavigationController(rootViewController: addAssignmentViewController)
         addAssignmentViewController.delegate = self
@@ -135,7 +139,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         //providing the information from the todo form to the assignment form to be reused.
         addAssignmentViewController.todoFormData[0] = name
         addAssignmentViewController.todoFormData[1] = additionalDetails
-        addAssignmentViewController.todoAlertTimes = alertTimes
+        addAssignmentViewController.alertTimes = alertTimes
         addAssignmentViewController.todoDueDate = dueDate
         
         self.present(navController, animated:true, completion: nil)

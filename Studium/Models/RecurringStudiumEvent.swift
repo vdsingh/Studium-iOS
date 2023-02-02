@@ -12,11 +12,11 @@ import CalendarKit
 import RealmSwift
 
 protocol Autoscheduleable: StudiumEvent {
-    var autoLengthMinutes: Int {get set}
+    var autoLengthMinutes: Int { get set }
     
 //    var autoDays: List<Int> {get set}
     
-    var autoschedule: Bool {get set}
+    var autoschedule: Bool { get set }
     
 //    func autoscheduleTime(endDate: Date, autoDays: [Int], autoLengthMinutes: Int)
 //    dynamic var scheduledEvents: List<StudiumEvent> {get set}
@@ -24,8 +24,15 @@ protocol Autoscheduleable: StudiumEvent {
     
 }
 
-class RecurringStudiumEvent: StudiumEvent{
-    var days: List<Int> = List<Int>()
+class RecurringStudiumEvent: StudiumEvent {
+    internal var daysList: List<Int> = List<Int>()
+    
+    var days: Set<Weekday> {
+        return Set<Weekday>(daysList.compactMap { Weekday(rawValue: $0) })
+    }
+    
+    
+    //TODO: Fix add to apple calendar
     
     ///Adds the event to Apple calendar
     ///Todo: make sure if the event is being edited, it overwrites the previous events in Apple Calendar.
@@ -45,20 +52,32 @@ class RecurringStudiumEvent: StudiumEvent{
         event.endDate = endDate
         event.notes = additionalDetails
         
-        let daysDict: [Int: EKRecurrenceDayOfWeek] = [
-            2: EKRecurrenceDayOfWeek(EKWeekday.monday),
-            3: EKRecurrenceDayOfWeek(EKWeekday.tuesday),
-            4: EKRecurrenceDayOfWeek(EKWeekday.wednesday),
-            5: EKRecurrenceDayOfWeek(EKWeekday.thursday),
-            6: EKRecurrenceDayOfWeek(EKWeekday.friday),
-            7: EKRecurrenceDayOfWeek(EKWeekday.saturday),
-            1: EKRecurrenceDayOfWeek(EKWeekday.sunday)]
-        var newDays: [EKRecurrenceDayOfWeek] = []
-        for day in days {
-            newDays.append(daysDict[day]!)
-        }
+//        let daysDict: [Int: EKRecurrenceDayOfWeek] = [
+//            2: EKRecurrenceDayOfWeek(EKWeekday.monday),
+//            3: EKRecurrenceDayOfWeek(EKWeekday.tuesday),
+//            4: EKRecurrenceDayOfWeek(EKWeekday.wednesday),
+//            5: EKRecurrenceDayOfWeek(EKWeekday.thursday),
+//            6: EKRecurrenceDayOfWeek(EKWeekday.friday),
+//            7: EKRecurrenceDayOfWeek(EKWeekday.saturday),
+//            1: EKRecurrenceDayOfWeek(EKWeekday.sunday)]
+//        var newDays: [EKRecurrenceDayOfWeek] = []
+//        for day in days {
+//            newDays.append(daysDict[day]!)
+//        }
 //        event.addRecurrenceRule(EKRecurrenceRule(recurrenceWith: .weekly, interval: 1, end: nil))
-        event.addRecurrenceRule(EKRecurrenceRule(recurrenceWith: .weekly, interval: 1, daysOfTheWeek: newDays, daysOfTheMonth: nil, monthsOfTheYear: nil, weeksOfTheYear: nil, daysOfTheYear: nil, setPositions: nil, end: nil))
+//        event.addRecurrenceRule(
+//            EKRecurrenceRule(
+//                recurrenceWith: .weekly,
+//                interval: 1,
+//                daysOfTheWeek: newDays,
+//                daysOfTheMonth: nil,
+//                monthsOfTheYear: nil,
+//                weeksOfTheYear: nil,
+//                daysOfTheYear: nil,
+//                setPositions: nil,
+//                end: nil
+//            )
+//        )
 
         do {
             try store.save(event, span: EKSpan.futureEvents, commit: true)

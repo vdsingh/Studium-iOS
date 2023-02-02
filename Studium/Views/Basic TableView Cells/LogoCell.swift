@@ -9,7 +9,6 @@
 import UIKit
 
 class LogoCell: BasicCell {
-    static let reuseIdentifier = "LogoCell"
     @IBOutlet weak var logoImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,10 +22,14 @@ class LogoCell: BasicCell {
         // Configure the view for the selected state
     }
     
-    func setImage(_ image: UIImage){
+    func setImage(systemIcon: SystemIcon) {
 //        let image = UIImage(systemName: systemImageName)
 //        logoImageView.tintColor = .red
-        logoImageView.image = image
+        logoImageView.image = systemIcon.createImage()
     }
     
+}
+
+extension LogoCell: FormCellProtocol {
+    static var id: String = "LogoCell"
 }

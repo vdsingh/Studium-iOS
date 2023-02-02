@@ -9,15 +9,18 @@
 import UIKit
 
 class LogoCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "LogoCollectionViewCell"
 
     @IBOutlet weak var imageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    func setImage(image: UIImage, tintColor: UIColor){
+    func setImage(systemIcon: SystemIcon, tintColor: UIColor){
         imageView.tintColor = tintColor
-        imageView.image = image
+        imageView.image = systemIcon.createImage()
     }
+}
+
+extension LogoCollectionViewCell: FormCellProtocol {
+    static var id: String = "LogoCollectionViewCell"
 }

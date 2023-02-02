@@ -9,33 +9,86 @@
 
 import Foundation
 import EventKit
-import CalendarKit
 import RealmSwift
 
 class StudiumEvent: Object {
 
     /// id of the StudiumEvent
-    @objc dynamic var _id: ObjectId = ObjectId.generate()
+    @Persisted var _id: ObjectId = ObjectId.generate()
     
     /// partition key of the StudiumEvent
-    @objc dynamic var _partitionKey: String = ""
+    @Persisted var _partitionKey: String = ""
     
-    @objc dynamic var name: String = ""
-    @objc dynamic var location: String = ""
-    @objc dynamic var additionalDetails: String = ""
+    /// The name of the StudiumEvent
+    @Persisted var name: String = ""
+    
+    /// The location of the StudiumEvent
+    @Persisted var location: String = ""
+    
+    /// The associated additional details of the StudiumEvent
+    @Persisted var additionalDetails: String = ""
 
     
-    @objc dynamic var startDate: Date = Date()
-    @objc dynamic var endDate: Date = Date()
+    @Persisted var startDate: Date = Date()
+    @Persisted var endDate: Date = Date()
     
-    @objc dynamic var color: String = "ffffff"
     
-    var notificationAlertTimes: List<Int> = List<Int>()
-    var notificationIdentifiers: List<String> = List<String>()
+    // MARK: - Private Persisted Variables
     
+    /// The Hex value of the associated color
+    @Persisted private var colorHex: String = "ffffff"
+    
+    @Persisted private var logoString: String = SystemIcon.book.rawValue
+    
+    @Persisted private var alertTimesRaw = List<AlertOption.RawValue>()
+    
+    
+    // MARK: - Computed Variables
+    var alertTimes: [AlertOption] {
+        get { return self.alertTimesRaw.compactMap { AlertOption(rawValue: $0) } }
+        set {
+            alertTimesRaw = List<AlertOption.RawValue>()
+            alertTimesRaw.append(objectsIn: newValue.compactMap { $0.rawValue })
+        }
+    }
+    
+    var color: UIColor {
+        get { return UIColor(hexString: self.colorHex) ?? .black }
+        set { self.colorHex = newValue.hexValue() }
+    }
+    
+    var logo: SystemIcon {
+        get { return SystemIcon(rawValue: self.logoString) ?? .book }
+        set { self.logoString = newValue.rawValue }
+    }
+    
+    convenience init(
+        name: String,
+        location: String,
+        additionalDetails: String,
+        startDate: Date,
+        endDate: Date,
+        color: UIColor,
+        logo: SystemIcon,
+        alertTimes: [AlertOption]
+    ) {
+        self.init()
+        
+        self.name = name
+        self.location = location
+        self.additionalDetails = additionalDetails
+        self.startDate = startDate
+        self.endDate = endDate
+        self.color = color
+        self.logo = logo
+        self.alertTimes = alertTimes
+    }
+
     override static func primaryKey() -> String? {
         return "_id"
     }
+    
+    //TODO: Move to different layer
     
     func addToAppleCalendar(){
         func addToAppleCalendar(){
@@ -57,19 +110,20 @@ class StudiumEvent: Object {
             do{
                 try store.save(event, span: EKSpan.futureEvents, commit: true)
             }catch let error as NSError{
-                print("Failed to save event. Error: \(error)")
+                print("$Error: Failed to save event. Error: \(error)")
             }
         }
     }
     
-    func deleteNotifications(){
-        var identifiers: [String] = []
-        for id in notificationIdentifiers{
-            identifiers.append(id)
-        }
-        notificationIdentifiers.removeAll()
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
-    }
+    //TODO: Fix and abstract to a notification Layer
+//    func deleteNotifications(){
+//        var identifiers: [String] = []
+//        for id in notificationIdentifiers{
+//            identifiers.append(id)
+//        }
+//        notificationIdentifiers.removeAll()
+//        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+//    }
 }
 
 

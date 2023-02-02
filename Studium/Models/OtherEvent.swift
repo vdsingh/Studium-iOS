@@ -15,7 +15,15 @@ class OtherEvent: StudiumEvent {
     @Persisted var complete: Bool = false
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    func initializeData(startDate: Date, endDate: Date, name: String, location: String, additionalDetails: String, notificationAlertTimes: [Int], partitionKey: String){
+    func initializeData (
+        startDate: Date,
+        endDate: Date,
+        name: String,
+        location: String,
+        additionalDetails: String,
+        notificationAlertTimes: [AlertOption],
+        partitionKey: String)
+    {
         self.startDate = startDate
         self.endDate = endDate
         self.name = name
@@ -23,10 +31,11 @@ class OtherEvent: StudiumEvent {
         self.additionalDetails = additionalDetails
         self._partitionKey = partitionKey
         
-        self.notificationAlertTimes.removeAll()
-        for time in notificationAlertTimes{
-            self.notificationAlertTimes.append(time)
-        }
+        self.alertTimes = notificationAlertTimes
+//        self.notificationAlertTimes.removeAll()
+//        for time in notificationAlertTimes{
+//            self.notificationAlertTimes.append(time)
+//        }
     }
     
     func initializeData(startDate: Date, endDate: Date, name: String, location: String, additionalDetails: String){
@@ -38,20 +47,20 @@ class OtherEvent: StudiumEvent {
     }
     
     
-    
-    func updateNotifications(with newAlertTimes: [Int]){
-        var identifiersForRemoval: [String] = []
-        for time in notificationAlertTimes{
-            if !newAlertTimes.contains(time){ //remove the old alert time.
-                print("\(time) was removed from notifications.")
-                let index = notificationAlertTimes.firstIndex(of: time)!
-                notificationAlertTimes.remove(at: index)
-                identifiersForRemoval.append(notificationIdentifiers[index])
-                notificationIdentifiers.remove(at: index)
-            }
-        }
-        print("identifiers to be removed: \(identifiersForRemoval)")
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiersForRemoval)
-
-    }
+    //TODO: Fix and move to diff layer
+//    func updateNotifications(with newAlertTimes: [Int]){
+//        var identifiersForRemoval: [String] = []
+//        for time in notificationAlertTimes{
+//            if !newAlertTimes.contains(time){ //remove the old alert time.
+//                print("\(time) was removed from notifications.")
+//                let index = notificationAlertTimes.firstIndex(of: time)!
+//                notificationAlertTimes.remove(at: index)
+//                identifiersForRemoval.append(notificationIdentifiers[index])
+//                notificationIdentifiers.remove(at: index)
+//            }
+//        }
+//        print("identifiers to be removed: \(identifiersForRemoval)")
+//        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiersForRemoval)
+//
+//    }
 }

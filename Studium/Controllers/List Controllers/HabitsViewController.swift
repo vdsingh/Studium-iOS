@@ -11,7 +11,7 @@ import RealmSwift
 import UIKit
 
 class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
-    var habits: Results<Habit>?
+    var habits: [Habit] = []
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -44,30 +44,41 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         
     }
     
-    func loadHabits(){
-        habits = realm.objects(Habit.self)
+    func loadHabits() {
+        self.habits = DatabaseService.shared.getStudiumObjects(expecting: Habit.self)
         eventsArray = [[],[]]
-        for habit in habits!{
-            if habit.days.contains(Date().week){
+        for habit in self.habits {
+            if habit.days.contains(Date().studiumWeekday){
                 eventsArray[0].append(habit)
-            }else{
+            } else {
                 eventsArray[1].append(habit)
             }
         }
         
         //sort all the habits happening today by startTime (the ones that are first come first in the list)
-        eventsArray[0].sort(by: {$0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm")})
+        eventsArray[0].sort(by: { $0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm" )})
         tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! RecurringEventCell
-        let habit = eventsArray[indexPath.section][indexPath.row] as! Habit
-        cell.event = habit
-        cell.loadData(courseName: habit.name, location: habit.location, startTime: habit.startDate, endTime: habit.endDate, days: habit.days, colorHex: habit.color, recurringEvent: habit, systemImageString: habit.systemImageString)
+        if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? RecurringEventCell,
+           let habit = eventsArray[indexPath.section][indexPath.row] as? Habit {
+            cell.event = habit
+            cell.loadData(
+                courseName: habit.name,
+                location: habit.location,
+                startTime: habit.startDate,
+                endTime: habit.endDate,
+                days: habit.days,
+                color: habit.color,
+                recurringEvent: habit,
+                systemIcon: habit.logo
+            )
+            
+            return cell
+        }
     
-        return cell
+        return tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -81,7 +92,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         let addHabitViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
         addHabitViewController.delegate = self
         addHabitViewController.habit = eventForEdit
-        ColorPickerCell.color = UIColor(hexString: eventForEdit.color)
+        ColorPickerCell.color = eventForEdit.color
         addHabitViewController.title = "View/Edit Habit"
         let navController = UINavigationController(rootViewController: addHabitViewController)
         self.present(navController, animated:true, completion: nil)

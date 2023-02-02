@@ -7,26 +7,17 @@
 //
 
 import UIKit
-import RealmSwift
 import FSCalendar
 
 class CalendarViewController: UIViewController{
     
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var tableView: UITableView!
-    var realm: Realm!
-    let app = App(id: Secret.appID)
-
     
     var allEventsInDay: [StudiumEvent] = []
     var selectedDay: Date = Date()
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let user = app.currentUser else {
-            print("!! ERROR: error getting user in CalendarViewController")
-            return
-        }
-        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
 
         calendar.appearance.weekdayTextColor = .label
         calendar.appearance.headerTitleColor = .label
@@ -44,9 +35,8 @@ class CalendarViewController: UIViewController{
         updateInfo()
         calendar.appearance.titleDefaultColor = UIColor.white
 //        navigationItem.hidesBackButton = true
-
-        
     }
+    
     @IBAction func dayButtonPressed(_ sender: Any) {
         print("dayButtonPRessed.")
         self.navigationController?.popViewController(animated: false)
@@ -62,19 +52,19 @@ class CalendarViewController: UIViewController{
         dateFormatter.timeStyle = DateFormatter.Style.none
         dateFormatter.dateStyle = DateFormatter.Style.medium
         
-        let allAssignments = realm.objects(Assignment.self)
-        for assignment in allAssignments{
+        let allAssignments = DatabaseService.shared.getStudiumObjects(expecting: Assignment.self)
+        for assignment in allAssignments {
             
             let assignmentDate = dateFormatter.string(from: assignment.startDate)
             let selected = dateFormatter.string(from: selectedDay)
-            if assignmentDate == selected{
+            if assignmentDate == selected {
                 allEventsInDay.append(assignment)
             }
         }
     }
     
     func addCourses(){
-        let allCourses = realm.objects(Course.self)
+        let allCourses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
@@ -82,8 +72,8 @@ class CalendarViewController: UIViewController{
 //        let weekDay = dateFormatter.string(from: selectedDay)
 //        let weekDay = selectedDay.weekday
 //        let matchingStr = weekDay.substring(toIndex: 3)
-        for course in allCourses{
-            if(course.days.contains(selectedDay.weekday)){
+        for course in allCourses {
+            if(course.days.contains(selectedDay.studiumWeekday)){
                 allEventsInDay.append(course)
             }
 //            for day in course.days{ //day is in form "Mon"
@@ -96,13 +86,13 @@ class CalendarViewController: UIViewController{
     
     //This will do courses and habits at the same time.
     func addHabits(){
-        let allHabits = realm.objects(Habit.self)
+        let allHabits = DatabaseService.shared.getStudiumObjects(expecting: Habit.self)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
         
         for habit in allHabits{
-            if(habit.days.contains(selectedDay.weekday)){
+            if(habit.days.contains(selectedDay.studiumWeekday)){
                 allEventsInDay.append(habit)
             }
         }
@@ -122,7 +112,7 @@ class CalendarViewController: UIViewController{
 extension CalendarViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let event: StudiumEvent = allEventsInDay[indexPath.row]
-        print("EVENT COLOR for \(event.name): \(event.color)")
+        print("$Log: EVENT COLOR for \(event.name): \(event.color)")
         if event is Assignment{
             let cell = tableView.dequeueReusableCell(withIdentifier:  K.assignmentCellID, for: indexPath) as! AssignmentCell1
             cell.hideChevronButton = true
@@ -131,7 +121,13 @@ extension CalendarViewController: UITableViewDelegate{
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier:  K.otherEventCellID, for: indexPath) as! OtherEventCell
-            cell.loadDataGeneric(primaryText: event.name, secondaryText: event.location, startDate: event.startDate, endDate: event.endDate, cellColor: UIColor(hexString: event.color.substring(fromIndex: 1)) ?? .black)
+            cell.loadDataGeneric(
+                primaryText: event.name,
+                secondaryText: event.location,
+                startDate: event.startDate,
+                endDate: event.endDate,
+                cellColor: event.color
+            )
             return cell
         }
     }
