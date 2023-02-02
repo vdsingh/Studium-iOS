@@ -7,8 +7,8 @@
 //
 
 import UIKit
-protocol LogoStorer{
-    var systemImageString: String { get set}
+protocol LogoStorer {
+    var logo: SystemIcon { get set}
     func refreshLogoCell()
 }
 
@@ -17,16 +17,17 @@ class LogoSelectorViewController: UIViewController {
     var color: UIColor = .systemBackground
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var logos: [SystemIcon] = SystemIcon.allCases
     //logos available if OS is less than 14
-    var systemCourseLogoNames: [String] = ["plus", "minus", "multiply", "divide","function", "pencil", "folder", "book", "film", "lightbulb", "tv"]
-    
-    var systemHabitLogoNames: [String] = ["heart","envelope", "sun.max", "moon", "zzz", "sparkles", "cloud","mic", "message", "phone","paperplane","hammer", "map","gamecontroller", "headphones","car", "airplane", "bolt", "creditcard", "cart"]
-                                     
-    var letterAndNumberNames: [String] = [ "a.circle","b.circle","c.circle","d.circle","e.circle","f.circle","g.circle","h.circle","i.circle","j.circle","k.circle","l.circle","m.circle","n.circle","o.circle","p.circle","q.circle","r.circle","s.circle","t.circle","u.circle","v.circle","w.circle","x.circle","y.circle","z.circle", "1.circle","2.circle","3.circle","4.circle","5.circle","6.circle","7.circle","8.circle","9.circle","10.circle"]
-    
-    //logos available if OS is 14 or greater.
-    var iOS14SystemLogoNames: [String] = ["atom", "cross", "leaf", "lungs", "comb", "guitars", "laptopcomputer", "cpu","ipad", "ipodtouch", "wrench.and.screwdriver", "gearshape", "graduationcap",
-    ]
+//    var systemCourseLogoNames: [String] = ["plus", "minus", "multiply", "divide","function", "pencil", "folder", "book", "film", "lightbulb", "tv"]
+//
+//    var systemHabitLogoNames: [String] = ["heart","envelope", "sun.max", "moon", "zzz", "sparkles", "cloud","mic", "message", "phone","paperplane","hammer", "map","gamecontroller", "headphones","car", "airplane", "bolt", "creditcard", "cart"]
+//
+//    var letterAndNumberNames: [String] = [ "a.circle","b.circle","c.circle","d.circle","e.circle","f.circle","g.circle","h.circle","i.circle","j.circle","k.circle","l.circle","m.circle","n.circle","o.circle","p.circle","q.circle","r.circle","s.circle","t.circle","u.circle","v.circle","w.circle","x.circle","y.circle","z.circle", "1.circle","2.circle","3.circle","4.circle","5.circle","6.circle","7.circle","8.circle","9.circle","10.circle"]
+//
+//    //logos available if OS is 14 or greater.
+//    var iOS14SystemLogoNames: [String] = ["atom", "cross", "leaf", "lungs", "comb", "guitars", "laptopcomputer", "cpu","ipad", "ipodtouch", "wrench.and.screwdriver", "gearshape", "graduationcap",
+//    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,13 +39,14 @@ class LogoSelectorViewController: UIViewController {
 
 extension LogoSelectorViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var logoNames = systemCourseLogoNames + systemHabitLogoNames;
-        if #available(iOS 14.0, *) {
-            logoNames += iOS14SystemLogoNames + letterAndNumberNames
-        } else {
-            logoNames += letterAndNumberNames
-        }
-        delegate?.systemImageString = logoNames[indexPath.row]
+//        var logoNames = systemCourseLogoNames + systemHabitLogoNames;
+//        if #available(iOS 14.0, *) {
+//            logoNames += iOS14SystemLogoNames + letterAndNumberNames
+//        } else {
+//            logoNames += letterAndNumberNames
+//        }
+//        delegate?.systemImageString = logoNames[indexPath.row]
+        delegate?.logo = logos[indexPath.row]
         delegate?.refreshLogoCell()
         self.navigationController?.popViewController(animated: true)
     }
@@ -52,23 +54,27 @@ extension LogoSelectorViewController: UICollectionViewDelegate{
 
 extension LogoSelectorViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if #available(iOS 14.0, *){
-            return iOS14SystemLogoNames.count + letterAndNumberNames.count + systemCourseLogoNames.count + systemHabitLogoNames.count
-        }else{
-            return letterAndNumberNames.count + systemCourseLogoNames.count + systemHabitLogoNames.count
-        }
+//        if #available(iOS 14.0, *){
+//            return iOS14SystemLogoNames.count + letterAndNumberNames.count + systemCourseLogoNames.count + systemHabitLogoNames.count
+//        }else{
+//            return letterAndNumberNames.count + systemCourseLogoNames.count + systemHabitLogoNames.count
+//        }
+        return self.logos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var logoNames = systemCourseLogoNames + systemHabitLogoNames;
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LogoCollectionViewCell", for: indexPath) as! LogoCollectionViewCell
-        if #available(iOS 14.0, *) {
-            logoNames += iOS14SystemLogoNames + letterAndNumberNames
-        } else {
-            logoNames += letterAndNumberNames
+//        var logoNames = systemCourseLogoNames + systemHabitLogoNames;
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LogoCollectionViewCell.id, for: indexPath) as? LogoCollectionViewCell {
+            //        if #available(iOS 14.0, *) {
+            //            logoNames += iOS14SystemLogoNames + letterAndNumberNames
+            //        } else {
+            //            logoNames += letterAndNumberNames
+            //        }
+            cell.setImage(systemIcon: logos[indexPath.row], tintColor: color)
+            return cell
         }
-        cell.setImage(systemImageName: logoNames[indexPath.row], tintColor: color )
-        return cell
+        
+        fatalError("$Error: couldn't cast cell to LogoCollectionViewCell at \(indexPath)")
     }
 }
 
