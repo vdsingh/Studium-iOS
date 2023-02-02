@@ -19,7 +19,7 @@ class Course: RecurringStudiumEvent {
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
     convenience init (
         name: String,
-        colorHex: String,
+        color: UIColor,
         location: String,
         additionalDetails: String,
         startDate: Date,
@@ -31,7 +31,7 @@ class Course: RecurringStudiumEvent {
     ) {
         self.init()
         self.name = name
-        self.color = colorHex
+        self.color = color
         self.location = location
         self.additionalDetails = additionalDetails
         self.startDate = startDate

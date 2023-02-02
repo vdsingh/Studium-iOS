@@ -34,32 +34,25 @@ class Habit: RecurringStudiumEvent, Autoscheduleable{
         autoschedule: Bool,
         startEarlier: Bool,
         autoLengthMinutes: Int,
+        alertTimes: [AlertOption],
         days: Set<Weekday>,
         systemImageString: String,
-        colorHex: String,
+        color: UIColor,
         partitionKey: String
     ) {
-        self.init()
-        self.name = name
-        self.location = location
-        self.additionalDetails = additionalDetails
-        self.startDate = startDate
-        self.endDate = endDate
+//        self.init(
+        self.init(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, color: color, alertTimes: alertTimes)
         self.autoschedule = autoschedule
         self.startEarlier = startEarlier
         self.autoLengthMinutes = autoLengthMinutes
         self.systemImageString = systemImageString
-        self.color = colorHex
         
         let newDaysList = List<Int>()
         newDaysList.append(objectsIn: days.compactMap{ $0.rawValue })
         self.daysList = newDaysList
         
         self._partitionKey = partitionKey
-        
-//        for day in days {
-//            self.days.append(day)
-//        }
+
     }
     
 }
