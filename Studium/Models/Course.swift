@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 class Course: RecurringStudiumEvent {
-    @Persisted var systemImageString: String = SystemIcon.pencil.rawValue
+//    @Persisted var systemImageString: String = SystemIcon.pencil.rawValue
     
     /// List of the assignments for the course.
     let assignments = List<Assignment>()
