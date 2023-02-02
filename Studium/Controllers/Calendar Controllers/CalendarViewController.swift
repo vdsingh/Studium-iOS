@@ -7,26 +7,17 @@
 //
 
 import UIKit
-//import RealmSwift
 import FSCalendar
 
 class CalendarViewController: UIViewController{
     
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var tableView: UITableView!
-//    var realm: Realm!
-//    let app = App(id: Secret.appID)
-
     
     var allEventsInDay: [StudiumEvent] = []
     var selectedDay: Date = Date()
     override func viewDidLoad() {
         super.viewDidLoad()
-//        guard let user = app.currentUser else {
-//            print("!! ERROR: error getting user in CalendarViewController")
-//            return
-//        }
-//        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
 
         calendar.appearance.weekdayTextColor = .label
         calendar.appearance.headerTitleColor = .label
@@ -44,9 +35,8 @@ class CalendarViewController: UIViewController{
         updateInfo()
         calendar.appearance.titleDefaultColor = UIColor.white
 //        navigationItem.hidesBackButton = true
-
-        
     }
+    
     @IBAction func dayButtonPressed(_ sender: Any) {
         print("dayButtonPRessed.")
         self.navigationController?.popViewController(animated: false)
@@ -62,7 +52,6 @@ class CalendarViewController: UIViewController{
         dateFormatter.timeStyle = DateFormatter.Style.none
         dateFormatter.dateStyle = DateFormatter.Style.medium
         
-//        let allAssignments = realm.objects(Assignment.self)
         let allAssignments = DatabaseService.shared.getStudiumObjects(expecting: Assignment.self)
         for assignment in allAssignments {
             
@@ -75,7 +64,6 @@ class CalendarViewController: UIViewController{
     }
     
     func addCourses(){
-//        let allCourses = realm.objects(Course.self)
         let allCourses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
         
         let dateFormatter = DateFormatter()
@@ -98,7 +86,6 @@ class CalendarViewController: UIViewController{
     
     //This will do courses and habits at the same time.
     func addHabits(){
-//        let allHabits = realm.objects(Habit.self)
         let allHabits = DatabaseService.shared.getStudiumObjects(expecting: Habit.self)
         
         let dateFormatter = DateFormatter()
