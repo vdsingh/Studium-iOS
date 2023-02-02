@@ -28,11 +28,15 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     /// The name for the StudiumEvent being added/edited
     var name: String = ""
     
+    var additionalDetails: String = ""
+    
     /// The errors that can occur with adding/editing the StudiumEvent
     var errors: [FormError] = []
     
     /// The days selected for this StudiumEvent
     var daysSelected = Set<Weekday>()
+    
+    var color: UIColor = .black
 
     
     var systemImageString: String = "book.fill"

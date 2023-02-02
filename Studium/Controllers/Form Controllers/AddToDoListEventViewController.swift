@@ -26,7 +26,7 @@ class AddToDoListEventViewController: MasterForm {
     //Basic OtherEvent characteristics
 //    var name: String = ""
     var location: String = ""
-    var additionalDetails: String = ""
+//    var additionalDetails: String = ""
     
 //    var alertTimes: [Int] = []
     
