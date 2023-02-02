@@ -84,7 +84,7 @@ class AddHabitViewController: MasterForm {
                 .timeCell(cellText: "Finish", date: Date(), dateFormat: .standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked)
             ],
             [
-                .logoCell(imageString: "pencil", onClick: self.navigateToLogoSelection),
+                .logoCell(logo: .pencil, onClick: self.navigateToLogoSelection),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details",
                                id: FormCellID.TextFieldCell.additionalDetailsTextField,
@@ -111,7 +111,7 @@ class AddHabitViewController: MasterForm {
                 .segmentedControlCell(firstTitle: "Earlier", secondTitle: "Later", delegate: self)
             ],
             [
-                .logoCell(imageString: self.systemImageString, onClick: self.navigateToLogoSelection),
+                .logoCell(logo: self.logo, onClick: self.navigateToLogoSelection),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", id: .additionalDetailsTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "", textColor: .systemRed, backgroundColor: .systemBackground)
@@ -181,7 +181,7 @@ class AddHabitViewController: MasterForm {
                     autoLengthMinutes: totalLengthHours * 60 + totalLengthMinutes,
                     alertTimes: self.alertTimes,
                     days: daysSelected,
-                    systemImageString: systemImageString,
+                    logo: self.logo,
                     color: color,
                     partitionKey: DatabaseService.shared.user?.id ?? ""
                 )
@@ -462,8 +462,8 @@ extension AddHabitViewController {
         alertTimes = habit.alertTimes
         
         let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
-        logoCell.logoImageView.image = UIImage(systemName: habit.systemImageString)
-        systemImageString = habit.systemImageString
+        logoCell.logoImageView.image = habit.logo.createImage()
+        self.logo = habit.logo
         
         let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
         let color = habit.color

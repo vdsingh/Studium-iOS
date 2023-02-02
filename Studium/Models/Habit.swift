@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Habit: RecurringStudiumEvent, Autoscheduleable{    
+class Habit: RecurringStudiumEvent, Autoscheduleable {    
     
     var scheduledEvents: [Habit] = []
     
@@ -21,7 +21,7 @@ class Habit: RecurringStudiumEvent, Autoscheduleable{
     //Time elements for a Habit object. 
     @Persisted var autoLengthMinutes: Int = 60
 
-    @Persisted var systemImageString: String = "pencil"
+//    @Persisted var systemImageString: String = "pencil"
 
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
@@ -36,16 +36,15 @@ class Habit: RecurringStudiumEvent, Autoscheduleable{
         autoLengthMinutes: Int,
         alertTimes: [AlertOption],
         days: Set<Weekday>,
-        systemImageString: String,
+        logo: SystemIcon,
         color: UIColor,
         partitionKey: String
     ) {
-//        self.init(
-        self.init(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, color: color, alertTimes: alertTimes)
+        self.init(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, color: color, logo: logo, alertTimes: alertTimes)
         self.autoschedule = autoschedule
         self.startEarlier = startEarlier
         self.autoLengthMinutes = autoLengthMinutes
-        self.systemImageString = systemImageString
+//        self.systemImageString = systemImageString
         
         let newDaysList = List<Int>()
         newDaysList.append(objectsIn: days.compactMap{ $0.rawValue })

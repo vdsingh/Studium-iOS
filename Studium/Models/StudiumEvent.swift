@@ -32,11 +32,18 @@ class StudiumEvent: Object {
     @Persisted var startDate: Date = Date()
     @Persisted var endDate: Date = Date()
     
+    
+    // MARK: - Private Persisted Variables
+    
     /// The Hex value of the associated color
     @Persisted private var colorHex: String = "ffffff"
     
+    @Persisted private var logoString: String = SystemIcon.book.rawValue
+    
     @Persisted private var alertTimesRaw = List<AlertOption.RawValue>()
     
+    
+    // MARK: - Computed Variables
     var alertTimes: [AlertOption] {
         get { return self.alertTimesRaw.compactMap { AlertOption(rawValue: $0) } }
         set {
@@ -50,6 +57,11 @@ class StudiumEvent: Object {
         set { self.colorHex = newValue.hexValue() }
     }
     
+    var logo: SystemIcon {
+        get { return SystemIcon(rawValue: self.logoString) ?? .book }
+        set { self.logoString = newValue.rawValue }
+    }
+    
     convenience init(
         name: String,
         location: String,
@@ -57,6 +69,7 @@ class StudiumEvent: Object {
         startDate: Date,
         endDate: Date,
         color: UIColor,
+        logo: SystemIcon,
         alertTimes: [AlertOption]
     ) {
         self.init()
@@ -67,6 +80,7 @@ class StudiumEvent: Object {
         self.startDate = startDate
         self.endDate = endDate
         self.color = color
+        self.logo = logo
         self.alertTimes = alertTimes
     }
 

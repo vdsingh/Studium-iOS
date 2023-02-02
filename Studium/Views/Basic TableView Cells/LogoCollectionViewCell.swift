@@ -13,15 +13,12 @@ class LogoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
-    func setImage(systemImageName: String, tintColor: UIColor){
-        let image = UIImage(systemName: systemImageName)
+    func setImage(systemIcon: SystemIcon, tintColor: UIColor){
         imageView.tintColor = tintColor
-        imageView.image = image
+        imageView.image = systemIcon.createImage()
     }
-
 }
 
 extension LogoCollectionViewCell: FormCellProtocol {

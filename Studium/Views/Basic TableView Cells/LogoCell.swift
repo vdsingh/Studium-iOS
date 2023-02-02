@@ -22,10 +22,10 @@ class LogoCell: BasicCell {
         // Configure the view for the selected state
     }
     
-    func setImage(systemImageName: String){
-        let image = UIImage(systemName: systemImageName)
+    func setImage(systemIcon: SystemIcon) {
+//        let image = UIImage(systemName: systemImageName)
 //        logoImageView.tintColor = .red
-        logoImageView.image = image
+        logoImageView.image = systemIcon.createImage()
     }
     
 }

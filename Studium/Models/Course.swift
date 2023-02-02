@@ -12,9 +12,8 @@ import RealmSwift
 class Course: RecurringStudiumEvent {
     @Persisted var systemImageString: String = SystemIcon.pencil.rawValue
     
-    //List of the assignments for the course.
+    /// List of the assignments for the course.
     let assignments = List<Assignment>()
-//    @objc dynamic var testVar: String = "TEST"
 
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
     convenience init (
@@ -25,7 +24,7 @@ class Course: RecurringStudiumEvent {
         startDate: Date,
         endDate: Date,
         days: Set<Weekday>,
-        systemImageString: SystemIcon.RawValue,
+        logo: SystemIcon,
         notificationAlertTimes: [AlertOption],
         partitionKey: String
     ) {
@@ -36,7 +35,8 @@ class Course: RecurringStudiumEvent {
         self.additionalDetails = additionalDetails
         self.startDate = startDate
         self.endDate = endDate
-        self.systemImageString = systemImageString
+        self.logo = logo
+//        self.systemImageString = systemImageString
         self._partitionKey = partitionKey
 //        self.
         self.alertTimes = notificationAlertTimes

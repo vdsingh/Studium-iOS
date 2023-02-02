@@ -70,7 +70,7 @@ public enum FormCell: Equatable {
     )
     
     case logoCell(
-        imageString: String,
+        logo: SystemIcon,
         onClick: (() -> Void)? = nil
     )
 }

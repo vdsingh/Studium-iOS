@@ -40,7 +40,7 @@ class AddCourseViewController: MasterForm {
                 .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCell.endTimeCell, onClick: timeCellClicked)
             ],
             [
-                .logoCell(imageString: self.systemImageString, onClick: self.navigateToLogoSelection),
+                .logoCell(logo: self.logo, onClick: self.navigateToLogoSelection),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],
@@ -94,7 +94,8 @@ class AddCourseViewController: MasterForm {
                             startDate: startDate,
                             endDate: endDate,
                             days: daysSelected,
-                            systemImageString: systemImageString,
+                            logo: self.logo,
+//                            systemImageString: systemImageString,
                             notificationAlertTimes: alertTimes,
                             partitionKey: DatabaseService.shared.user?.id ?? ""
                         )
@@ -111,7 +112,7 @@ class AddCourseViewController: MasterForm {
                     startDate: startDate,
                     endDate: endDate,
                     days: daysSelected,
-                    systemImageString: systemImageString,
+                    logo: self.logo,
                     notificationAlertTimes: alertTimes,
                     partitionKey: DatabaseService.shared.user?.id ?? "")
                 //scheduling the appropriate notifications
@@ -119,10 +120,11 @@ class AddCourseViewController: MasterForm {
                 RealmCRUD.saveCourse(course: newCourse)
                 newCourse.addToAppleCalendar()
             }
-//            dismiss(animated: true, completion: StudiumState.state.updateCourses)
+
             if delegate == nil {
                 print("$Log: Course refresh delegate is nil.")
             }
+            
             dismiss(animated: true, completion: delegate?.loadCourses)
         } else {
             
@@ -223,7 +225,8 @@ extension AddCourseViewController {
         
         if let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? LogoCell {
             logoCell.logoImageView.image = UIImage(systemName: course.systemImageString)
-            systemImageString = course.systemImageString
+            self.logo = course.logo
+//            systemImageString = course.systemImageString
         }
         
         if let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as? ColorPickerCell {

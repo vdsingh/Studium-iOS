@@ -71,7 +71,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
                 days: course.days,
                 color: course.color,
                 recurringEvent: course,
-                systemImageString: course.systemImageString
+                systemIcon: course.logo
             )
         }
     

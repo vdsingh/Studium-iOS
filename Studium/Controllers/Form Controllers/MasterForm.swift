@@ -17,10 +17,11 @@ public let kCellBackgroundColor = UIColor.secondarySystemBackground
 
 typealias MasterForm = MasterFormClass
 
-//characteristics of all forms.
+/// characteristics of all forms.
 let kLargeCellHeight: CGFloat = 150
 let kMediumCellHeight: CGFloat = 60
 let kNormalCellHeight: CGFloat = 50
+
 class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, AlertInfoStorer, LogoStorer, UITimePickerDelegate {
     var alertTimes: [AlertOption] = []
     
@@ -39,7 +40,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     var color: UIColor = .black
 
     
-    var systemImageString: String = "book.fill"
+    var logo: SystemIcon = .book
     
     
     var startDate: Date = Date()
@@ -171,9 +172,9 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
             //            }
             cell.indexPath = indexPath
             return cell
-        case .logoCell(let imageString, _):
+        case .logoCell(let logo, _):
             let cell = tableView.dequeueReusableCell(withIdentifier: LogoCell.id, for: indexPath) as! LogoCell
-            cell.setImage(systemImageName: imageString)
+            cell.setImage(systemIcon: logo)
             return cell
         }
     }
@@ -249,14 +250,15 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     //when we pick a logo, this function is called to update the preview on the logo cell.
     func refreshLogoCell() {
         guard let logoCellIndexPath = self.findFirstLogoCellIndex() else {
-            print("$ ERROR: Can't locate logo cell")
+            print("$Error: Can't locate logo cell")
             return
         }
         guard let logoCell = tableView.cellForRow(at: logoCellIndexPath) as? LogoCell else {
-            print("$ ERROR: LogoCell not found")
+            print("$Error: LogoCell not found")
             return
         }
-        logoCell.setImage(systemImageName: systemImageString)
+        
+        logoCell.setImage(systemIcon: self.logo)
     }
 }
 

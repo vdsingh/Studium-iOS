@@ -72,7 +72,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
                 days: habit.days,
                 color: habit.color,
                 recurringEvent: habit,
-                systemImageString: habit.systemImageString
+                systemIcon: habit.logo
             )
             
             return cell

@@ -455,6 +455,7 @@
 		B90D144329899C3C0093EB0C /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				B96E6A5E2983465D00A25457 /* SystemIcon.swift */,
 				B90D143D298999630093EB0C /* DateFormat.swift */,
 				B90D143F298999AB0093EB0C /* FormError.swift */,
 				B90D144129899C310093EB0C /* Weekday.swift */,
@@ -476,7 +477,6 @@
 				B90D143B298461FB0093EB0C /* Extensions.swift */,
 				B90D1438298461EB0093EB0C /* NotificationHandler.swift */,
 				B90D1437298461EB0093EB0C /* StudiumState.swift */,
-				B96E6A5E2983465D00A25457 /* SystemIcon.swift */,
 				B90D144329899C3C0093EB0C /* Enums */,
 			);
 			path = Utility;

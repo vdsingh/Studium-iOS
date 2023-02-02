@@ -37,10 +37,10 @@ class RecurringEventCell: DeletableEventCell {
         days: Set<Weekday>,
         color: UIColor,
         recurringEvent: RecurringStudiumEvent,
-        systemImageString: String
+        systemIcon: SystemIcon
     ) {
         self.event = recurringEvent//just edited
-        iconImage.image = UIImage(systemName: systemImageString)
+        iconImage.image = systemIcon.createImage()
         iconImage.tintColor = color
         iconCircle.tintColor = color
         
@@ -51,8 +51,8 @@ class RecurringEventCell: DeletableEventCell {
         nameLabel.textColor = color
         locationLabel.text = recurringEvent.location
 
-        var timeText = startTime.format(with: "h:mm a")
-        timeText.append(" - \(endTime.format(with: "h:mm a"))")
+        var timeText = startTime.format(with: DateFormat.standardTime.rawValue)
+        timeText.append(" - \(endTime.format(with: DateFormat.standardTime.rawValue))")
         timeLabel.text = timeText
         
         for dayBox in dayBoxes {
