@@ -22,21 +22,20 @@ class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate {
         let email = UIDevice.current.identifierForVendor?.uuidString
         let password = "password"
         client.registerUser(email: email!, password: password) { (error) in
-            guard error == nil else {
-                print("ERROR: failed to register guest: \(error!.localizedDescription)")
-                return
+            if let error = error {
+                print("$Error: \(error.localizedDescription)")
             }
-            print("LOG: successfully registered guest.")
+            
+            print("$Log: successfully registered guest.")
         }
         
         app.login(credentials: Credentials.emailPassword(email: email!, password: password)) { (result) in
             switch result {
             case .failure(let error):
-                print("ERROR: login failed: \(error.localizedDescription)")
+                print("$Error: login failed: \(error.localizedDescription)")
             case .success(let user):
-                print("Log: successfully logged in as user \(user)")
-                let defaults = UserDefaults.standard
-                defaults.setValue(email, forKey: "email")
+                print("$Log: successfully logged in as user \(user)")
+                UserDefaults.standard.setValue(email, forKey: "email")
                 DispatchQueue.main.async {
                     self.performSegue(withIdentifier: "toWakeUp", sender: self)
                 }
@@ -56,17 +55,17 @@ class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate {
         }
         // Signed in successfully, forward credentials to MongoDB Realm.
         let credentials = Credentials.google(serverAuthCode: googleUser.serverAuthCode)
-        K.app.login(credentials: credentials) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(let error):
-                    print("Failed to log in to MongoDB Realm: \(error)")
-                case .success(let user):
-//                    Logs.Authentication.googleLoginSuccess(logLocation: self.codeLocationString, additionalInfo: "User: \(user)").printLog()
-                    self.handleGeneralLoginSuccess(email: googleUser.profile.email)
-                }
-            }
-        }
+//        K.app.login(credentials: credentials) { result in
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .failure(let error):
+//                    print("$Error: Failed to log in to MongoDB Realm: \(error)")
+//                case .success(let user):
+////                    Logs.Authentication.googleLoginSuccess(logLocation: self.codeLocationString, additionalInfo: "User: \(user)").printLog()
+//                    self.handleGeneralLoginSuccess(email: googleUser.profile.email)
+//                }
+//            }
+//        }
     }
     
     //FACEBOOK
@@ -97,21 +96,21 @@ class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate {
         if let accessToken = AccessToken.current, !accessToken.isExpired {
                 // User is logged in, do work such as go to next view controller.
             let credentials = Credentials.facebook(accessToken: accessToken.tokenString)
-            K.app.login(credentials: credentials) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .failure(let error):
-                        print("Failed to log in to MongoDB Realm: \(error)")
-                    case .success(let user):
-//                        accessToke
-                        print("Successfully logged in to MongoDB Realm using Facebook OAuth. \(user)")
-                        // Now logged in, do something with user
-                        // Remember to dispatch to main if you are doing anything on the UI thread
-//                        let email =
-                        self.handleGeneralLoginSuccess(email: nil)
-                    }
-                }
-            }
+//            K.app.login(credentials: credentials) { result in
+//                DispatchQueue.main.async {
+//                    switch result {
+//                    case .failure(let error):
+//                        print("Failed to log in to MongoDB Realm: \(error)")
+//                    case .success(let user):
+////                        accessToke
+//                        print("Successfully logged in to MongoDB Realm using Facebook OAuth. \(user)")
+//                        // Now logged in, do something with user
+//                        // Remember to dispatch to main if you are doing anything on the UI thread
+////                        let email =
+//                        self.handleGeneralLoginSuccess(email: nil)
+//                    }
+//                }
+//            }
         }else{
             print("ERROR: something is wrong with AccessToken when trying to log in with Facebook on StartViewController.")
         }
