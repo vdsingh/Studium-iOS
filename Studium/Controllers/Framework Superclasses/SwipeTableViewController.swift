@@ -25,33 +25,30 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     var idString: String = "Cell"
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let user = app.currentUser else {
-            print("ERROR: error getting user in SwipeTableViewController")
-            return
-        }
-        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
+//        guard let user = app.currentUser else {
+//            print("ERROR: error getting user in SwipeTableViewController")
+//            return
+//        }
+//        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         
-        tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: K.headerCellID)
-        tableView.register(UINib(nibName: "RecurringEventCell", bundle: nil), forCellReuseIdentifier: "Cell")
-        tableView.register(UINib(nibName: "AssignmentCell1", bundle: nil), forCellReuseIdentifier: K.assignmentCellID)
-        tableView.register(UINib(nibName: "AssignmentCell1", bundle: nil), forCellReuseIdentifier: K.assignmentCellID)
-        tableView.register(UINib(nibName: "OtherEventCell", bundle: nil), forCellReuseIdentifier: K.otherEventCellID)
+        tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderView.id)
+        tableView.register(UINib(nibName: RecurringEventCell.id, bundle: nil), forCellReuseIdentifier: RecurringEventCell.id)
+        tableView.register(UINib(nibName: AssignmentCell1.id, bundle: nil), forCellReuseIdentifier: AssignmentCell1.id)
+        tableView.register(UINib(nibName: OtherEventCell.id, bundle: nil), forCellReuseIdentifier: OtherEventCell.id)
     }
     
     //MARK: - TableView Data Source Methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier:  idString, for: indexPath) as? SwipeTableViewCell{
+        if let cell = tableView.dequeueReusableCell(withIdentifier:  idString, for: indexPath) as? SwipeTableViewCell {
             cell.delegate = self
             return cell
-        }else{
-            print("ERROR: error in SwipeTableViewController in cellForRowAt.")
-            let cell = tableView.dequeueReusableCell(withIdentifier:  "Cell", for: indexPath)
-            return cell
         }
+        
+        fatalError("$Error: Couldn't dequeue cell as SwipeTableViewCell")
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: K.headerCellID) as? HeaderView
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderView.id) as? HeaderView
         else {
             return nil
         }
