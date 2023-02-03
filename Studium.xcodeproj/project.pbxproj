@@ -94,7 +94,6 @@
 		B90D1434298461AD0093EB0C /* ThemeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D1419298461AD0093EB0C /* ThemeCell.xib */; };
 		B90D1435298461AD0093EB0C /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D141A298461AD0093EB0C /* PickerCell.swift */; };
 		B90D1436298461AD0093EB0C /* DaySelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D141B298461AD0093EB0C /* DaySelectorCell.swift */; };
-		B90D1439298461EB0093EB0C /* StudiumState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1437298461EB0093EB0C /* StudiumState.swift */; };
 		B90D143A298461EB0093EB0C /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1438298461EB0093EB0C /* NotificationHandler.swift */; };
 		B90D143C298461FB0093EB0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D143B298461FB0093EB0C /* Extensions.swift */; };
 		B90D143E298999630093EB0C /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D143D298999630093EB0C /* DateFormat.swift */; };
@@ -102,6 +101,7 @@
 		B90D144229899C310093EB0C /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D144129899C310093EB0C /* Weekday.swift */; };
 		B90D1445298AFDE00093EB0C /* FormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1444298AFDE00093EB0C /* FormCell.swift */; };
 		B90D1447298C6EA50093EB0C /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1446298C6EA50093EB0C /* AuthenticationService.swift */; };
+		B90D1449298C77B80093EB0C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1448298C77B80093EB0C /* NotificationService.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5E2983465D00A25457 /* SystemIcon.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
@@ -199,7 +199,6 @@
 		B90D1419298461AD0093EB0C /* ThemeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeCell.xib; sourceTree = "<group>"; };
 		B90D141A298461AD0093EB0C /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		B90D141B298461AD0093EB0C /* DaySelectorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DaySelectorCell.swift; sourceTree = "<group>"; };
-		B90D1437298461EB0093EB0C /* StudiumState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudiumState.swift; sourceTree = "<group>"; };
 		B90D1438298461EB0093EB0C /* NotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		B90D143B298461FB0093EB0C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B90D143D298999630093EB0C /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
@@ -207,6 +206,7 @@
 		B90D144129899C310093EB0C /* Weekday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
 		B90D1444298AFDE00093EB0C /* FormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCell.swift; sourceTree = "<group>"; };
 		B90D1446298C6EA50093EB0C /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		B90D1448298C77B80093EB0C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B96E6A5E2983465D00A25457 /* SystemIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcon.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
@@ -470,6 +470,7 @@
 			children = (
 				B96E6A5B298323DD00A25457 /* DatabaseService.swift */,
 				B90D1446298C6EA50093EB0C /* AuthenticationService.swift */,
+				B90D1448298C77B80093EB0C /* NotificationService.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -479,7 +480,6 @@
 			children = (
 				B90D143B298461FB0093EB0C /* Extensions.swift */,
 				B90D1438298461EB0093EB0C /* NotificationHandler.swift */,
-				B90D1437298461EB0093EB0C /* StudiumState.swift */,
 				B90D144329899C3C0093EB0C /* Enums */,
 			);
 			path = Utility;
@@ -681,6 +681,7 @@
 				B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */,
 				B90D1427298461AD0093EB0C /* LogoCell.swift in Sources */,
 				B90D13FD29845FE80093EB0C /* LogoSelectorViewController.swift in Sources */,
+				B90D1449298C77B80093EB0C /* NotificationService.swift in Sources */,
 				B90D13FC29845FE80093EB0C /* MasterForm.swift in Sources */,
 				B90D1424298461AD0093EB0C /* SwitchCell.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
@@ -720,7 +721,6 @@
 				168EE1C52659F899009A8001 /* Autoschedule.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
 				B90D142C298461AD0093EB0C /* LogoCollectionViewCell.swift in Sources */,
-				B90D1439298461EB0093EB0C /* StudiumState.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
 				B96E6A9E298456C700A25457 /* Secret.swift in Sources */,
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,

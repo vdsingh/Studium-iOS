@@ -8,7 +8,6 @@ protocol AssignmentRefreshProtocol {
 }
 
 class AddAssignmentViewController: MasterForm {
-    var codeLocationString: String = "Add Assignment Form"
     
     /// Holds the assignment being edited (if an assignment is being edited)
     var assignmentEditing: Assignment?
@@ -39,18 +38,8 @@ class AddAssignmentViewController: MasterForm {
     /// link to the main list of assignments, so it can refresh when we add a new one
     var delegate: AssignmentRefreshProtocol?
     
-    /// Errors string that is displayed if there are any issues (e.g: user didnt enter a name)
-//    var errors: [FormError] = []
-    
     /// The course that the user selected for this assignment
     var selectedCourse: Course? = nil
-    
-    /// The name of the assignment
-//    var name: String = ""
-    
-    /// Additional Details associated with the assignment
-//    var additionalDetails: String = ""
-    
     
     @IBOutlet weak var navButton: UIBarButtonItem!
     
@@ -145,7 +134,8 @@ class AddAssignmentViewController: MasterForm {
                 )
                 //TODO: Notifications
                 //                NotificationHandler.scheduleNotificationsForAssignment(assignment: newAssignment)
-                RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse!)
+//                RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse!)
+                DatabaseService.shared.saveStudiumObject(newAssignment)
             } else {
                 // TODO: Implement assignment notification updates here
                 
@@ -303,7 +293,7 @@ extension AddAssignmentViewController {
     override func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         switch pickerView.tag {
         case FormCellID.PickerCell.coursePickerCell.rawValue:
-            self.selectedCourse = StudiumState.state.getCourses()[pickerView.selectedRow(inComponent: component)]
+            self.selectedCourse = self.courses[pickerView.selectedRow(inComponent: component)]
         default:
             break
         }
@@ -342,11 +332,20 @@ extension AddAssignmentViewController: CanHandleSwitch{
 
 extension AddAssignmentViewController: CanHandleInfoDisplay{
     func displayInformation() {
-        let alert = UIAlertController(title: "Anti-Procrastination!",
-                                      message: "Need to schedule time to work on this? Specify what days are best and how long you want to work per day. We'll find time for you to get it done!",
-                                      preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
-        }))
+        let alert = UIAlertController(
+            title: "Anti-Procrastination!",
+            message: "Need to schedule time to work on this? Specify what days are best and how long you want to work per day. We'll find time for you to get it done!",
+            preferredStyle: UIAlertController.Style.alert
+        )
+        alert.addAction(
+            UIAlertAction(
+                title: "Ok",
+                style: .cancel,
+                handler: { (action: UIAlertAction!) in
+                    
+                }
+            )
+        )
         present(alert, animated: true, completion: nil)
     }
 }

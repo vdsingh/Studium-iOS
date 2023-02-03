@@ -456,7 +456,8 @@ extension MasterFormClass: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView.tag {
         case FormCellID.PickerCell.coursePickerCell.rawValue:
-            return StudiumState.state.getCourses()[row].name
+            let courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
+            return courses[row].name
         case FormCellID.PickerCell.lengthPickerCell.rawValue:
             if component == 0 {
                 return "\(row) hours"
@@ -532,7 +533,8 @@ extension MasterFormClass: UIPickerViewDataSource {
                 return 60
             }
         case FormCellID.PickerCell.coursePickerCell.rawValue:
-            return StudiumState.state.getCourses().count
+//            return StudiumState.state.getCourses().count
+            return DatabaseService.shared.getStudiumObjects(expecting: Course.self).count
             //            break
         default:
             print("$Error: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")

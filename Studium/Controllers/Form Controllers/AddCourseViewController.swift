@@ -117,7 +117,8 @@ class AddCourseViewController: MasterForm {
                     partitionKey: DatabaseService.shared.user?.id ?? "")
                 //scheduling the appropriate notifications
 //                NotificationHandler.scheduleNotificationsForCourse(course: newCourse)
-                RealmCRUD.saveCourse(course: newCourse)
+//                RealmCRUD.saveCourse(course: newCourse)
+                DatabaseService.shared.saveStudiumObject(newCourse)
                 newCourse.addToAppleCalendar()
             }
 
@@ -191,9 +192,7 @@ extension AddCourseViewController {
         
         navButton.image = .none
         navButton.title = "Done"
-        
-        // TODO: Fix force typing
-        
+                
         if let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell {
             nameCell.textField.text = course.name
             name = course.name
@@ -224,9 +223,8 @@ extension AddCourseViewController {
         }
         
         if let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? LogoCell {
-            logoCell.logoImageView.image = UIImage(systemName: course.systemImageString)
+            logoCell.logoImageView.image = course.logo.createImage()
             self.logo = course.logo
-//            systemImageString = course.systemImageString
         }
         
         if let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as? ColorPickerCell {

@@ -94,7 +94,8 @@ class AddToDoListEventViewController: MasterForm {
 //                    newEvent.notificationIdentifiers.append(identifier)
 //                    NotificationHandler.scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(self.startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
 //                }
-                RealmCRUD.saveOtherEvent(otherEvent: newEvent)
+                DatabaseService.shared.saveStudiumObject(newEvent)
+//                RealmCRUD.saveOtherEvent(otherEvent: newEvent)
             } else {
                 do {
                     //TODO: Fix

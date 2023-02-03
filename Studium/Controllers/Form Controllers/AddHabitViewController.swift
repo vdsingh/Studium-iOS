@@ -229,8 +229,8 @@ class AddHabitViewController: MasterForm {
                         newHabit.alertTimes.append(alertTime)
                     }
                 }
-                
-                RealmCRUD.saveHabit(habit: newHabit)
+                DatabaseService.shared.saveStudiumObject(newHabit)
+//                RealmCRUD.saveHabit(habit: newHabit)
                 newHabit.addToAppleCalendar()
                 
             } else {

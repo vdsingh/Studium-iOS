@@ -144,7 +144,10 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
     
     override func updateModelDelete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        RealmCRUD.deleteAssignment(assignment: cell.event as! Assignment)
+        if let event = cell.event {
+            DatabaseService.shared.deleteStudiumObject(event)
+        }
+//        RealmCRUD.deleteAssignment(assignment: cell.event as! Assignment)
         eventsArray[indexPath.section].remove(at: indexPath.row)
         updateHeader(section: indexPath.section)
     }

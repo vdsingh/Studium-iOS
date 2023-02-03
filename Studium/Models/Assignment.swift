@@ -203,8 +203,8 @@ class Assignment: RecurringStudiumEvent, Autoscheduleable {
             )
             
             newAssignment.isAutoscheduled = true
-            
-            RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: parentCourse!)
+            DatabaseService.shared.saveStudiumObject(newAssignment)
+//            RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: parentCourse!)
             return newAssignment
         }
     }

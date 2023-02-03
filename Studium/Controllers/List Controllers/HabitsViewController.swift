@@ -102,7 +102,9 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let habit: Habit = cell.event as! Habit
         print("LOG: attempting to delete Habit \(habit.name) at section \(indexPath.section) and row \(indexPath.row)")
-        RealmCRUD.deleteHabit(habit: habit)
+        
+//        RealmCRUD.deleteHabit(habit: habit)
+        DatabaseService.shared.deleteStudiumObject(habit)
         eventsArray[indexPath.section].remove(at: indexPath.row)
         super.updateHeader(section: indexPath.section)
     }
