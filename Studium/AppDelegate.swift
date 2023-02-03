@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         if let themeColorValue = defaults.string(forKey: "themeColor"),
-            let color = K.colorsDict[themeColorValue]{
+           let color = K.colorsDict[themeColorValue] {
             updateTheme(color: color)
         } else {
             print("$Log: no theme color saved.")
@@ -32,11 +32,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let user = app.currentUser {
             do {
-                realm = try Realm(configuration: user.configuration(partitionValue: user.id))
-                let assignments = realm.objects(Assignment.self)
+//                realm = try Realm(configuration: user.configuration(partitionValue: user.id))
+//                let assignments = realm.objects(Assignment.self)
+                let assignments = DatabaseService.shared.getStudiumObjects(expecting: Assignment.self)
                 for assignment in assignments {
                     if(assignment.isAutoscheduled && Date() > assignment.endDate) {
-                        RealmCRUD.deleteAssignment(assignment: assignment)
+                        DatabaseService.shared.deleteStudiumObject(assignment)
+//                        RealmCRUD.deleteAssignment(assignment: assignment)
                     }
                 }
             } catch {
@@ -47,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.setValue("Guest", forKey: "email")
             print("$Log: User is NOT signed in.")
         }
+        
         print("$Log: Did finish launching");
         
         //clientID must be specified for Google Authentication
