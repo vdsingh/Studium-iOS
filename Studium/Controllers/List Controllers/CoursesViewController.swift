@@ -6,11 +6,10 @@
 //  Copyright © 2020 Vikram Singh. All rights reserved.
 //
 import UIKit
-import RealmSwift
 import ChameleonFramework
 
 class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
-    var courses: Results<Course>? //Auto updating array linked to the realm
+    var courses: [Course] = [] //Auto updating array linked to the realm
 
     let defaults = UserDefaults.standard
     
@@ -93,10 +92,9 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
     
     //MARK: - CRUD Methods
     func loadCourses(){
-        courses = realm.objects(Course.self) //fetching all objects of type Course and updating array with it.
+        self.courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
         eventsArray = [[],[]]
-        // TODO: Fix force unwrap
-        for course in courses! {
+        for course in courses {
             if course.days.contains(Date().studiumWeekday){
                 eventsArray[0].append(course)
             } else {
@@ -138,7 +136,8 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let course: Course = cell.event as! Course
         print("LOG: attempting to delete course \(course.name) at section \(indexPath.section) and row \(indexPath.row)")
-        RealmCRUD.deleteCourse(course: course)
+        DatabaseService.shared.deleteStudiumObject(course)
+//        RealmCRUD.deleteCourse(course: course)
         eventsArray[indexPath.section].remove(at: indexPath.row)
         updateHeader(section: indexPath.section)
 //        tableView.deleteRows(at: [indexPath], with: .automatic)

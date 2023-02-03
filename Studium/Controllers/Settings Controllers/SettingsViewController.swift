@@ -107,7 +107,9 @@ class SettingsViewController: UITableViewController, AlertInfoStorer {
             createAlertForOtherEvents(title: alertData[3][0], message: alertData[3][1], isCompleted: true)
         }else if cellData[indexPath.section][indexPath.row] == "Sign Out"{
             
-            K.handleLogOut()
+            //TODO: handle log out
+//            K.handleLogOut()
+            
 //            self.navigationController?.popToRootViewController(animated: true)
 //            guard let vc = self.presentingViewController else { return }
 //
