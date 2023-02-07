@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import UIKit
 
-class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
+class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol {
     var habits: [Habit] = []
     let defaults = UserDefaults.standard
     
@@ -86,7 +86,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
     }
 
     
-    override func updateModelEdit(at indexPath: IndexPath) {
+    override func edit(at indexPath: IndexPath) {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let eventForEdit = deletableEventCell.event! as! Habit
         let addHabitViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
@@ -98,7 +98,7 @@ class HabitsViewController: SwipeTableViewController, HabitRefreshProtocol {
         self.present(navController, animated:true, completion: nil)
     }
     
-    override func updateModelDelete(at indexPath: IndexPath) {
+    override func delete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let habit: Habit = cell.event as! Habit
         print("LOG: attempting to delete Habit \(habit.name) at section \(indexPath.section) and row \(indexPath.row)")

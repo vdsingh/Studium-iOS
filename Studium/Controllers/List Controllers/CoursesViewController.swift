@@ -8,7 +8,7 @@
 import UIKit
 import ChameleonFramework
 
-class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
+class CoursesViewController: StudiumEventListViewController, CourseRefreshProtocol {
     var courses: [Course] = [] //Auto updating array linked to the realm
 
     let defaults = UserDefaults.standard
@@ -119,7 +119,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
 //        eventsArray[0].sort(by: { $0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm") })
 //    }
     
-    override func updateModelEdit(at indexPath: IndexPath) {
+    override func edit(at indexPath: IndexPath) {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         
         let eventForEdit = deletableEventCell.event! as! Course
@@ -132,7 +132,7 @@ class CoursesViewController: SwipeTableViewController, CourseRefreshProtocol {
         self.present(navController, animated:true, completion: nil)
     }
     
-    override func updateModelDelete(at indexPath: IndexPath) {
+    override func delete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let course: Course = cell.event as! Course
         print("LOG: attempting to delete course \(course.name) at section \(indexPath.section) and row \(indexPath.row)")

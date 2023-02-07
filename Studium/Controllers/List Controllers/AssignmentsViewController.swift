@@ -9,7 +9,7 @@
 import Foundation
 import ChameleonFramework
 
-class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, AssignmentRefreshProtocol {
+class AssignmentsViewController: StudiumEventListViewController, UISearchBarDelegate, AssignmentRefreshProtocol {
     var assignments = [Assignment]()
 
     @IBOutlet weak var searchBar: UISearchBar!
@@ -142,7 +142,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         tableView.reloadData()
     }
     
-    override func updateModelDelete(at indexPath: IndexPath) {
+    override func delete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         if let event = cell.event {
             DatabaseService.shared.deleteStudiumObject(event)
@@ -152,7 +152,7 @@ class AssignmentsViewController: SwipeTableViewController, UISearchBarDelegate, 
         updateHeader(section: indexPath.section)
     }
     
-    override func updateModelEdit(at indexPath: IndexPath) {
+    override func edit(at indexPath: IndexPath) {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         
         let eventForEdit = deletableEventCell.event! as! Assignment
