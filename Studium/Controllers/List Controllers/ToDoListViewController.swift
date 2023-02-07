@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import ChameleonFramework
 
-class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
+class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshProtocol{
         
     var assignments: Results<Assignment>? //Auto updating array linked to the realm
     var otherEvents: Results<OtherEvent>?
@@ -38,24 +38,25 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         //eventsArray will contain the information in assignmentsArr. The reason that we need to fill up assignmentsArr is so that the super class, AssignmentHolderList, can handle the expansion and collapse of autoscheduled events around certain assignments.
         eventsArray = [[],[]]
 
-        let assignments = getAssignments()
-        let otherEvents = getOtherEvents()
+        let assignments = DatabaseService.shared.getStudiumObjects(expecting: Assignment.self)
+        let otherEvents = DatabaseService.shared.getStudiumObjects(expecting: OtherEvent.self)
         
-        for assignment in assignments{
-            if assignment.isAutoscheduled{
+        for assignment in assignments {
+            if assignment.isAutoscheduled {
                 continue
             }
-            if assignment.complete{
+            
+            if assignment.complete {
                 eventsArray[1].append(assignment)
-            }else{
+            } else {
                 eventsArray[0].append(assignment)
             }
         }
         
-        for otherEvent in otherEvents{
-            if otherEvent.complete{
+        for otherEvent in otherEvents {
+            if otherEvent.complete {
                 eventsArray[1].append(otherEvent)
-            }else{
+            } else {
                 eventsArray[0].append(otherEvent)
             }
         }
@@ -64,40 +65,8 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
 
         tableView.reloadData()
     }
-
-    func getAssignments() -> Results<Assignment>{
-        assignments = realm.objects(Assignment.self) //fetching all objects of type Course and updating array with it.
-        return assignments!
-    }
     
-    override func updateModelDelete(at indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        do{
-            try self.realm.write{
-                if let assignment = cell.event as? Assignment{
-                    guard let course = assignment.parentCourse else{
-                        print("Error accessing parent course in ToDoListViewController")
-                        return
-                    }
-                    
-                    //TODO: Force unwrap
-                    let assignmentIndex = course.assignments.index(of: assignment)
-                    
-                    course.assignments.remove(at: assignmentIndex!)
-                    //TODO: Fix
-//                    assignment.deleteNotifications()
-                }
-//                cell.event!.deleteNotifications()
-                self.realm.delete(cell.event!)
-            }
-        }catch{
-            print("Error deleting OtherEvent")
-        }
-        eventsArray[indexPath.section].remove(at: indexPath.row)
-        updateHeader(section: indexPath.section)
-    }
-    
-    override func updateModelEdit(at indexPath: IndexPath) {
+    override func edit(at indexPath: IndexPath) {
         print("edit called")
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         if let eventForEdit = deletableEventCell.event! as? Assignment{
@@ -107,7 +76,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
             addAssignmentViewController.title = "View/Edit Assignment"
             let navController = UINavigationController(rootViewController: addAssignmentViewController)
             self.present(navController, animated:true, completion: nil)
-        }else if let eventForEdit = deletableEventCell.event! as? OtherEvent{
+        } else if let eventForEdit = deletableEventCell.event! as? OtherEvent {
             print("event is otherevent.")
             let addToDoListEventViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddToDoListEventViewController") as! AddToDoListEventViewController
             addToDoListEventViewController.delegate = self
@@ -118,11 +87,6 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         }
     }
     
-    func getOtherEvents() -> Results<OtherEvent>{
-        otherEvents = realm.objects(OtherEvent.self)
-        return otherEvents!
-    }
-    
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addToDoListEventViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddToDoListEventViewController") as! AddToDoListEventViewController
         addToDoListEventViewController.delegate = self
@@ -130,7 +94,7 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
         self.present(navController, animated:true, completion: nil)
     }
     
-    func openAssignmentForm(name: String, location: String, additionalDetails: String, alertTimes: [AlertOption], dueDate: Date){
+    func openAssignmentForm(name: String, location: String, additionalDetails: String, alertTimes: [AlertOption], dueDate: Date) {
         let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
         let navController = UINavigationController(rootViewController: addAssignmentViewController)
         addAssignmentViewController.delegate = self
@@ -185,23 +149,29 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
 //    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1{
-            if let assignment = assignmentCell.event as? Assignment{
-                if let user = app.currentUser {
-                    realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-                    do{
-                        try realm.write{
-                            if assignmentCell.autoEventsOpen{
-                                assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
-                            }
-                            assignment.complete = !assignment.complete
-                        }
-                    }catch{
-                        print("ERROR: error marking assignment complete")
-                    }
-                }else{
-                    print("ERROR: error accessing user")
+        if let eventCell = tableView.cellForRow(at: indexPath) as? DeletableEventCell {
+            if let event = eventCell.event as? CompletableStudiumEvent {
+                DatabaseService.shared.markComplete(event, !event.complete)
+                
+                if let assigment = event as? Assignment, assigment.isAutoscheduled {
+                    tableView.reloadData()
+                } else {
+                    refreshData()
                 }
+                
+            } else {
+                print("$Error: event is not completable")
+            }
+        } else {
+            print("$Error: Event is not deletable")
+        }
+        
+        if let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1 {
+            if let assignment = assignmentCell.event as? Assignment {
+                if assignmentCell.autoEventsOpen {
+                    assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
+                }
+                DatabaseService.shared.markComplete(assignment, !assignment.complete)
                 
                 //if the assignment is autoscheduled, we don't want to call loadAssignments() because all autoscheduled events will be removed from the data, and thus the tableView. We'll have index and UI issues.
                 if(assignment.isAutoscheduled){
@@ -211,18 +181,12 @@ class ToDoListViewController: SwipeTableViewController, ToDoListRefreshProtocol{
                     refreshData()
                 }
             }
-        }else if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell{
-            print("Selected an otherEventCell")
-            if let otherEvent = cell.otherEvent{
-                do{
-                    try realm.write{
-                        otherEvent.complete = !otherEvent.complete
-                    }
-                }catch{
-                    print(error)
-                }
+        } else if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell {
+            print("$Log: Selected an otherEventCell")
+            if let otherEvent = cell.otherEvent {
+                DatabaseService.shared.markComplete(otherEvent, !otherEvent.complete)
             }else{
-                print("ERROR: otherEvent from otherEventCell was not assigned - is nil")
+                print("$Error: otherEvent from otherEventCell was not assigned - is nil")
             }
             tableView.reloadData()
             refreshData()
