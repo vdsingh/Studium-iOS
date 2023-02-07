@@ -18,7 +18,7 @@ class OtherEventCell: DeletableEventCell {
     @IBOutlet weak var endTimeLabel: UILabel!
     
     @IBOutlet weak var latenessIndicator: UIImageView!
-    var otherEvent: OtherEvent?
+    var otherEvent: OtherEvent!
         
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,7 +41,7 @@ class OtherEventCell: DeletableEventCell {
             
             latenessIndicator.tintColor = .gray
 
-        }else{
+        } else {
             attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
             primaryLabel.attributedText = attributeString
             
