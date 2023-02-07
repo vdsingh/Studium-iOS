@@ -106,6 +106,8 @@
 		B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5E2983465D00A25457 /* SystemIcon.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
 		B96E6A9E298456C700A25457 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9D298456C700A25457 /* Secret.swift */; };
+		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
+		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -211,6 +213,8 @@
 		B96E6A5E2983465D00A25457 /* SystemIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcon.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		B96E6A9D298456C700A25457 /* Secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Secret.swift; path = ../../../Secret.swift; sourceTree = "<group>"; };
+		B995493B2992EDD000442968 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
+		B995493E2992F0D400442968 /* StudiumEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventListViewController.swift; sourceTree = "<group>"; };
 		FD108DE721EFFA5F65BC9E17 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -377,6 +381,7 @@
 				16A63B8024AA8059003A30D3 /* OtherEvent.swift */,
 				16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */,
 				168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */,
+				B995493D2992EEA300442968 /* Protocols */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -397,6 +402,7 @@
 				1693E758247A59B2003D4702 /* ToDoListViewController.swift */,
 				1693E747247A417B003D4702 /* HabitsViewController.swift */,
 				16C05CF6264F3AF3004C9629 /* TestViewController.swift */,
+				B995493E2992F0D400442968 /* StudiumEventListViewController.swift */,
 			);
 			path = "List Controllers";
 			sourceTree = "<group>";
@@ -517,6 +523,14 @@
 				B90D1414298461AD0093EB0C /* TimePickerCell.xib */,
 			);
 			path = "Basic TableView Cells";
+			sourceTree = "<group>";
+		};
+		B995493D2992EEA300442968 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B995493B2992EDD000442968 /* Completable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -707,6 +721,7 @@
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
 				B90D1445298AFDE00093EB0C /* FormCell.swift in Sources */,
 				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
+				B995493C2992EDD000442968 /* Completable.swift in Sources */,
 				1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */,
 				B90D1422298461AD0093EB0C /* TextFieldCell.swift in Sources */,
 				B90D143C298461FB0093EB0C /* Extensions.swift in Sources */,
@@ -717,6 +732,7 @@
 				16C60FB225C5F7FB006D0FFC /* StudiumEvent.swift in Sources */,
 				B90D1447298C6EA50093EB0C /* AuthenticationService.swift in Sources */,
 				B90D141E298461AD0093EB0C /* BasicCell.swift in Sources */,
+				B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
 				168EE1C52659F899009A8001 /* Autoschedule.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
