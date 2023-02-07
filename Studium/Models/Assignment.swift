@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 /// Represents Course Assignments
-class Assignment: RecurringStudiumEvent, Autoscheduleable {
+class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleable {
 
     /// Specifies whether or not the Assignment object is marked as complete or not..
     @Persisted var complete: Bool = false

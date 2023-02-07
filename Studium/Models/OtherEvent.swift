@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class OtherEvent: StudiumEvent {
+class OtherEvent: StudiumEvent, CompletableStudiumEvent {
     
     //Specifies whether or not the OtherEvent object is marked as complete or not. This determines where it lies in a tableView and whether or not it's crossed out.
     @Persisted var complete: Bool = false
