@@ -17,38 +17,32 @@ import FBSDKLoginKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var realm: Realm!
-    let defaults = UserDefaults.standard
-    let app = App(id: Secret.appID)
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        if let themeColorValue = defaults.string(forKey: "themeColor"),
+        if let themeColorValue = UserDefaults.standard.string(forKey: "themeColor"),
            let color = K.colorsDict[themeColorValue] {
             updateTheme(color: color)
         } else {
             print("$Log: no theme color saved.")
         }
         
-        if let user = app.currentUser {
-            do {
-//                realm = try Realm(configuration: user.configuration(partitionValue: user.id))
-//                let assignments = realm.objects(Assignment.self)
-                let assignments = DatabaseService.shared.getStudiumObjects(expecting: Assignment.self)
-                for assignment in assignments {
-                    if(assignment.isAutoscheduled && Date() > assignment.endDate) {
-                        DatabaseService.shared.deleteStudiumObject(assignment)
-//                        RealmCRUD.deleteAssignment(assignment: assignment)
-                    }
+        //        if let user = DatabaseService.shared.user {
+        do {
+            let assignments = DatabaseService.shared.getStudiumObjects(expecting: Assignment.self)
+            for assignment in assignments {
+                if(assignment.isAutoscheduled && Date() > assignment.endDate) {
+                    DatabaseService.shared.deleteStudiumObject(assignment)
                 }
-            } catch {
-                print("$Error: issue accessing assignments in Realm.")
             }
-            print("User IS signed in.")
-        } else {
-            defaults.setValue("Guest", forKey: "email")
-            print("$Log: User is NOT signed in.")
+            //            } catch {
+            //                print("$Error: issue accessing assignments in Realm.")
+            //            }
+            //            print("User IS signed in.")
         }
+        //        else {
+//            UserDefaults.standard.setValue("Guest", forKey: "email")
+//            print("$Log: User is NOT signed in.")
+//        }
         
         print("$Log: Did finish launching");
         
@@ -86,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func changeTheme(colorKey: String){
-        defaults.setValue(colorKey, forKey: "themeColor")
+        UserDefaults.standard.setValue(colorKey, forKey: "themeColor")
         updateTheme(color: K.colorsDict[colorKey] ?? UIColor.black)
     }
     
