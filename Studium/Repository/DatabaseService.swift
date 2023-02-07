@@ -41,35 +41,34 @@ final class DatabaseService {
         }
     }
     
+    //MARK: - Create
+    public func saveStudiumObject(_ studiumEvent: StudiumEvent) {
+        do {
+            try self.realm.write {
+                self.realm.add(studiumEvent)
+            }
+        } catch {
+            print("$Error: error deleting studium object.")
+        }
+    }
+    
+    // MARK: - Read
+    
     public func getStudiumObjects <T: StudiumEvent> (expecting type: T.Type) -> [T] {
         return [T](self.realm.objects(type))
     }
     
+    public func getAssignments(forCourse course: Course) -> [Assignment]{
+        return [Assignment](course.assignments)
+    }
     
-//    static func deleteAssignment(assignment: Assignment){
-//        guard let user = K.app.currentUser else {
-//            print("Error getting user when deleting Assignment")
-//            return
-//        }
-//
-//        do{
-//            let realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-//            try realm.write{
-//                guard let course = assignment.parentCourse else{
-//                    print("Error accessing parent course in AssignmentViewController")
-//                    return
-//                }
-//                let assignmentIndex = course.assignments.index(of: assignment)
-//                course.assignments.remove(at: assignmentIndex!)
-////                assignment.deleteNotifications()
-////                cell.event!.deleteNotifications()
-////                realm.delete(cell.event!)
-//                realm.delete(assignment)
-//            }
-//        }catch{
-//            print("Error deleting OtherEvent")
-//        }
-//    }
+    // MARK: - Update
+    
+    public func markComplete(_ completableEvent: CompletableStudiumEvent, _ complete: Bool) {
+        
+    }
+    
+    // MARK: - Delete
     public func deleteStudiumObject(_ studiumEvent: StudiumEvent) {
         do {
             try self.realm.write {
@@ -85,23 +84,10 @@ final class DatabaseService {
         }
     }
     
-    public func saveStudiumObject(_ studiumEvent: StudiumEvent) {
-        do {
-            try self.realm.write {
-                self.realm.add(studiumEvent)
-            }
-        } catch {
-            print("$Error: error deleting studium object.")
-        }
-    }
     
     public func deleteAssignmentsForCourse(course: Course) {
         for assignment in course.assignments {
             deleteStudiumObject(assignment)
         }
-    }
-    
-    public func getAssignments(forCourse course: Course) -> [Assignment]{
-        return [Assignment](course.assignments)
     }
 }
