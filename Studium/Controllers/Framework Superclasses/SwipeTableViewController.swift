@@ -16,7 +16,8 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     //TODO: Remove realm and app references
 //    var realm: Realm!
 //    let app = App(id: Secret.appID)
-    
+    var rightActions = [SwipeAction]()
+    var leftActions = [SwipeAction]()
 
 
     var idString: String = "Cell"
@@ -42,33 +43,21 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     
     //MARK: - Swipe Cell Delegate
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        //guard orientation == .right else{return nil}
-        
-        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            self.delete(at: indexPath)
-        }
-        deleteAction.image = UIImage(named: "delete")
-        
-        let editAction = SwipeAction(style: .default, title: "View/Edit"){ (action, indexPath) in
-            self.edit(at: indexPath)
-        }
-        editAction.image = UIImage(named: "edit")
         if orientation == .right{
-            return [deleteAction]
-        }else{
-            return [editAction]
+            return self.rightActions
+        } else {
+            return self.leftActions
         }
     }
     
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
         var options = SwipeTableOptions()
-        if orientation == .right{
+        if orientation == .right {
             options.expansionStyle = .destructive
-        }else{
+        } else {
             options.expansionStyle = .selection
         }
         options.transitionStyle = .border
-        
         
         return options
     }

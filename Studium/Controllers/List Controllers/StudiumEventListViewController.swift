@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwipeCellKit
 import UIKit
 
 class StudiumEventListViewController: SwipeTableViewController {
@@ -22,6 +23,28 @@ class StudiumEventListViewController: SwipeTableViewController {
         tableView.register(UINib(nibName: RecurringEventCell.id, bundle: nil), forCellReuseIdentifier: RecurringEventCell.id)
         tableView.register(UINib(nibName: AssignmentCell1.id, bundle: nil), forCellReuseIdentifier: AssignmentCell1.id)
         tableView.register(UINib(nibName: OtherEventCell.id, bundle: nil), forCellReuseIdentifier: OtherEventCell.id)
+        
+        //        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
+        //            self.delete(at: indexPath)
+        //        }
+        //        deleteAction.image = UIImage(named: "delete")
+        //
+        //        let editAction = SwipeAction(style: .default, title: "View/Edit"){ (action, indexPath) in
+        //            self.edit(at: indexPath)
+        //        }
+        //        editAction.image = UIImage(named: "edit")
+        
+        self.rightActions = [
+            SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
+                self.delete(at: indexPath)
+            }
+        ]
+        
+        self.leftActions = [
+            SwipeAction(style: .default, title: "View/Edit"){ (action, indexPath) in
+                self.edit(at: indexPath)
+            }
+        ]
     }
     
     func updateHeader(section: Int){
@@ -86,6 +109,23 @@ extension StudiumEventListViewController {
         headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(eventsArray[section].count) \(eventTypeString)")
 
         return headerView
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let eventCell = tableView.cellForRow(at: indexPath) as? DeletableEventCell {
+            if let event = eventCell.event as? CompletableStudiumEvent {
+                DatabaseService.shared.markComplete(event, !event.complete)
+//                if let assigment = event as? Assignment, assigment.isAutoscheduled {
+//                    tableView.reloadData()
+//                } else {
+//                    refreshData()
+//                }
+            } else {
+                print("$Log: event is not completable")
+            }
+        } else {
+            print("$Error: Event is not deletable")
+        }
     }
 }
 
