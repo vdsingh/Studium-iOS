@@ -10,10 +10,12 @@ import Foundation
 import RealmSwift
 import ChameleonFramework
 
-class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshProtocol{
+class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshProtocol {
         
-    var assignments: Results<Assignment>? //Auto updating array linked to the realm
-    var otherEvents: Results<OtherEvent>?
+    let assignments = [Assignment]()
+    let otherEvents = [OtherEvent]()
+//    var assignments: Results<Assignment>? //Auto updating array linked to the realm
+//    var otherEvents: Results<OtherEvent>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +37,6 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
     }
     
     func refreshData(){
-        //eventsArray will contain the information in assignmentsArr. The reason that we need to fill up assignmentsArr is so that the super class, AssignmentHolderList, can handle the expansion and collapse of autoscheduled events around certain assignments.
         eventsArray = [[],[]]
 
         let assignments = DatabaseService.shared.getStudiumObjects(expecting: Assignment.self)
@@ -60,6 +61,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
                 eventsArray[0].append(otherEvent)
             }
         }
+        
         eventsArray[0] = eventsArray[0].sorted(by: { $0.startDate.compare($1.startDate) == .orderedAscending })
         eventsArray[1] = eventsArray[1].sorted(by: { $0.startDate.compare($1.startDate) == .orderedDescending })
 
@@ -67,20 +69,18 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
     }
     
     override func edit(at indexPath: IndexPath) {
-        print("edit called")
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        if let eventForEdit = deletableEventCell.event! as? Assignment{
-            let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
+        if let assignment = deletableEventCell.event! as? Assignment,
+           let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as? AddAssignmentViewController {
             addAssignmentViewController.delegate = self
-            addAssignmentViewController.assignmentEditing = eventForEdit
+            addAssignmentViewController.assignmentEditing = assignment
             addAssignmentViewController.title = "View/Edit Assignment"
             let navController = UINavigationController(rootViewController: addAssignmentViewController)
             self.present(navController, animated:true, completion: nil)
-        } else if let eventForEdit = deletableEventCell.event! as? OtherEvent {
-            print("event is otherevent.")
-            let addToDoListEventViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddToDoListEventViewController") as! AddToDoListEventViewController
+        } else if let otherEvent = deletableEventCell.event! as? OtherEvent,
+                  let addToDoListEventViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddToDoListEventViewController") as? AddToDoListEventViewController {
             addToDoListEventViewController.delegate = self
-            addToDoListEventViewController.otherEvent = eventForEdit
+            addToDoListEventViewController.otherEvent = otherEvent
             addToDoListEventViewController.title = "View/Edit To-Do Event"
             let navController = UINavigationController(rootViewController: addToDoListEventViewController)
             self.present(navController, animated:true, completion: nil)
@@ -94,13 +94,19 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
         self.present(navController, animated:true, completion: nil)
     }
     
-    func openAssignmentForm(name: String, location: String, additionalDetails: String, alertTimes: [AlertOption], dueDate: Date) {
+    func openAssignmentForm(
+        name: String,
+        location: String,
+        additionalDetails: String,
+        alertTimes: [AlertOption],
+        dueDate: Date
+    ) {
         let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
         let navController = UINavigationController(rootViewController: addAssignmentViewController)
         addAssignmentViewController.delegate = self
         addAssignmentViewController.fromTodoForm = true
         
-        //providing the information from the todo form to the assignment form to be reused.
+        // providing the information from the todo form to the assignment form to be reused.
         addAssignmentViewController.todoFormData[0] = name
         addAssignmentViewController.todoFormData[1] = additionalDetails
         addAssignmentViewController.alertTimes = alertTimes
@@ -111,7 +117,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if eventsArray[indexPath.section][indexPath.row] is Assignment {
-            super.idString = "AssignmentCell1"
+//            super.idString = "AssignmentCell1"
             let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell1
             let assignment = eventsArray[indexPath.section][indexPath.row] as! Assignment
             
@@ -120,7 +126,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
 
             return cell
         }else if eventsArray[indexPath.section][indexPath.row] is OtherEvent{
-            super.idString = "OtherEventCell"
+//            super.idString = "OtherEventCell"
             let cell = super.tableView(tableView, cellForRowAt: indexPath) as! OtherEventCell
             let otherEvent = eventsArray[indexPath.section][indexPath.row] as! OtherEvent
             cell.loadData(from: otherEvent)
@@ -186,14 +192,14 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
     func handleOpenAutoEvents(assignment: Assignment) {
         let arrayIndex = assignment.complete ? 1 : 0
         
-        if let ind = eventsArray[arrayIndex].firstIndex(of: assignment){
+        if let ind = eventsArray[arrayIndex].firstIndex(of: assignment) {
             var index = ind + 1
             for auto in assignment.scheduledEvents{
                 eventsArray[arrayIndex].insert(auto, at: index)
                 index += 1
             }
-        }else{
-            print("ERROR: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
+        } else {
+            print("$Error: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
         }
 
         tableView.reloadData()
@@ -213,9 +219,8 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
     //this function just collapses all assignmentCells whose autoscheduled events are expanded. We call this when we are leaving the ToDoList screen, to avoid issues when coming back and loading in data.
     func collapseAllExpandedAssignments(){
         for cell in tableView.visibleCells{
-            if let assignmentCell = cell as? AssignmentCell1{
-
-                if assignmentCell.autoEventsOpen{
+            if let assignmentCell = cell as? AssignmentCell1 {
+                if assignmentCell.autoEventsOpen {
                     assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
                 }
             }
