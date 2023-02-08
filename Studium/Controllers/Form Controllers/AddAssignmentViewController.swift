@@ -39,7 +39,7 @@ class AddAssignmentViewController: MasterForm {
     var delegate: AssignmentRefreshProtocol?
     
     /// The course that the user selected for this assignment
-    var selectedCourse: Course? = nil
+    var selectedCourse: Course!
     
     @IBOutlet weak var navButton: UIBarButtonItem!
     
@@ -80,10 +80,10 @@ class AddAssignmentViewController: MasterForm {
                 workDaysSelected.insert(day)
             }
             
-            guard let course = assignment.parentCourse else{
-                print("$Error: error accessing parent course")
-                return
-            }
+//            guard let course = assignment.parentCourse else{
+//                print("$Error: error accessing parent course")
+//                return
+//            }
             
             fillForm (
                 assignment: assignment
@@ -114,8 +114,6 @@ class AddAssignmentViewController: MasterForm {
     
     //method that is triggered when the user wants to finalize the form
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-
-        
         if errors.isEmpty {
             if assignmentEditing == nil {
                 print("$Log: adding assignment for the first time")
@@ -130,7 +128,8 @@ class AddAssignmentViewController: MasterForm {
                     autoschedule: self.scheduleWorkTime,
                     autoLengthMinutes: self.totalLengthMinutes + (self.totalLengthHours * 60),
                     autoDays: self.workDaysSelected,
-                    partitionKey: DatabaseService.shared.user?.id ?? ""
+                    partitionKey: DatabaseService.shared.user?.id ?? "",
+                    parentCourse: self.selectedCourse
                 )
                 //TODO: Notifications
                 //                NotificationHandler.scheduleNotificationsForAssignment(assignment: newAssignment)
@@ -231,6 +230,7 @@ extension AddAssignmentViewController{
 }
 
 //MARK: - Cell DataSource and Delegates
+
 extension AddAssignmentViewController: UITextFieldDelegateExt {
     
     //TODO: Implement IDs here
@@ -346,6 +346,7 @@ extension AddAssignmentViewController: CanHandleInfoDisplay{
                 }
             )
         )
+        
         present(alert, animated: true, completion: nil)
     }
 }
