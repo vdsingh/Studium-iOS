@@ -9,7 +9,7 @@ import UIKit
 import ChameleonFramework
 
 class CoursesViewController: StudiumEventListViewController, CourseRefreshProtocol {
-    var courses: [Course] = [] //Auto updating array linked to the realm
+    var courses = [Course]()
 
     let defaults = UserDefaults.standard
     
@@ -59,8 +59,10 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //build the cells
         //let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
-        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! RecurringEventCell
-        if let course = eventsArray[indexPath.section][indexPath.row] as? Course {
+        super.swipeCellId = RecurringEventCell.id
+        print("$Log: will try to dequeue cell in CoursesViewController with id: \(self.swipeCellId)")
+        if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? RecurringEventCell,
+           let course = eventsArray[indexPath.section][indexPath.row] as? Course {
             cell.event = course
             cell.loadData(
                 courseName: course.name,
@@ -72,9 +74,10 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
                 recurringEvent: course,
                 systemIcon: course.logo
             )
+            return cell
         }
-    
-        return cell
+        
+        fatalError("$Error: Couldn't dequeue cell for Course List")
     }
     
     //MARK: - Delegate Methods
@@ -95,7 +98,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         self.courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
         eventsArray = [[],[]]
         for course in courses {
-            if course.days.contains(Date().studiumWeekday){
+            if course.days.contains(Date().studiumWeekday) {
                 eventsArray[0].append(course)
             } else {
                 eventsArray[1].append(course)
@@ -133,18 +136,21 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     }
     
     override func delete(at indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        let course: Course = cell.event as! Course
-        print("LOG: attempting to delete course \(course.name) at section \(indexPath.section) and row \(indexPath.row)")
-        DatabaseService.shared.deleteStudiumObject(course)
-//        RealmCRUD.deleteCourse(course: course)
-        eventsArray[indexPath.section].remove(at: indexPath.row)
-        updateHeader(section: indexPath.section)
-//        tableView.deleteRows(at: [indexPath], with: .automatic)
-        
-//        tableView.headerView(forSection: indexPath.section)?.contentConfiguration = config
+        if let cell = tableView.cellForRow(at: indexPath) as? DeletableEventCell,
+           let course = cell.event as? Course {
+            print("$Log: attempting to delete course \(course.name) at section \(indexPath.section) and row \(indexPath.row)")
+            DatabaseService.shared.deleteStudiumObject(course)
+            //        RealmCRUD.deleteCourse(course: course)
+            eventsArray[indexPath.section].remove(at: indexPath.row)
+            updateHeader(section: indexPath.section)
+            //        tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            //        tableView.headerView(forSection: indexPath.section)?.contentConfiguration = config
+        } else {
+            print("$Error: cell event wasn't course or cell wasn't deletable event cell.")
+        }
     }
-    
+        
     //MARK: - UI Actions
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
