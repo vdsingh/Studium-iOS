@@ -24,16 +24,6 @@ class StudiumEventListViewController: SwipeTableViewController {
         tableView.register(UINib(nibName: AssignmentCell1.id, bundle: nil), forCellReuseIdentifier: AssignmentCell1.id)
         tableView.register(UINib(nibName: OtherEventCell.id, bundle: nil), forCellReuseIdentifier: OtherEventCell.id)
         
-        //        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
-        //            self.delete(at: indexPath)
-        //        }
-        //        deleteAction.image = UIImage(named: "delete")
-        //
-        //        let editAction = SwipeAction(style: .default, title: "View/Edit"){ (action, indexPath) in
-        //            self.edit(at: indexPath)
-        //        }
-        //        editAction.image = UIImage(named: "edit")
-        
         self.rightActions = [
             SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
                 self.delete(at: indexPath)
@@ -57,43 +47,19 @@ class StudiumEventListViewController: SwipeTableViewController {
     
     // MARK: - Delete
     func delete(at indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? DeletableEventCell {
-            let event = cell.event
-            DatabaseService.shared.deleteStudiumObject(event!)
+        print("$Log: will attempt to delete at \(indexPath)")
+        if let cell = tableView.cellForRow(at: indexPath) as? DeletableEventCell,
+           let event = cell.event {
+            DatabaseService.shared.deleteStudiumObject(event)
         }
+        
         eventsArray[indexPath.section].remove(at: indexPath.row)
         updateHeader(section: indexPath.section)
     }
     
     // MARK: - Edit
     func edit(at indexPath: IndexPath){
-        print("$Log: edit called")
-        if let deletableEventCell = tableView.cellForRow(at: indexPath) as? DeletableEventCell {
-            if let assignment = deletableEventCell.event as? Assignment {
-                let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
-//                if let self = self as? AssignmentsViewController {
-//                    addAssignmentViewController.delegate = self
-//                } else {
-//                  print("$Error: Self is ")
-//                }
-                addAssignmentViewController.assignmentEditing = assignment
-                addAssignmentViewController.title = "View/Edit Assignment"
-                let navController = UINavigationController(rootViewController: addAssignmentViewController)
-                self.present(navController, animated:true, completion: nil)
-            } else if let otherEvent = deletableEventCell.event! as? OtherEvent {
-                print("event is otherevent.")
-                let addToDoListEventViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddToDoListEventViewController") as! AddToDoListEventViewController
-//                if let self = self as? ToDoListViewController {
-//                    addToDoListEventViewController.delegate = self
-//                } else {
-//                    print("$Log: self is not ToDoListViewController")
-//                }
-                addToDoListEventViewController.otherEvent = otherEvent
-                addToDoListEventViewController.title = "View/Edit To-Do Event"
-                let navController = UINavigationController(rootViewController: addToDoListEventViewController)
-                self.present(navController, animated:true, completion: nil)
-            }
-        }
+       
     }
 }
 
@@ -107,7 +73,6 @@ extension StudiumEventListViewController {
         }
         
         headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(eventsArray[section].count) \(eventTypeString)")
-
         return headerView
     }
     
@@ -115,11 +80,6 @@ extension StudiumEventListViewController {
         if let eventCell = tableView.cellForRow(at: indexPath) as? DeletableEventCell {
             if let event = eventCell.event as? CompletableStudiumEvent {
                 DatabaseService.shared.markComplete(event, !event.complete)
-//                if let assigment = event as? Assignment, assigment.isAutoscheduled {
-//                    tableView.reloadData()
-//                } else {
-//                    refreshData()
-//                }
             } else {
                 print("$Log: event is not completable")
             }
@@ -130,6 +90,7 @@ extension StudiumEventListViewController {
 }
 
 // MARK: - TableView DataSource
+
 extension StudiumEventListViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return eventsArray.count

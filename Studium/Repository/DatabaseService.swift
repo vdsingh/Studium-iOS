@@ -43,6 +43,7 @@ final class DatabaseService {
     
     //MARK: - Create
     public func saveStudiumObject(_ studiumEvent: StudiumEvent) {
+        print("$Log: saving event \(studiumEvent.name)")
         do {
             try self.realm.write {
                 self.realm.add(studiumEvent)
