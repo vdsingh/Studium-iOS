@@ -16,8 +16,14 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
     @Persisted var complete: Bool = false
 
     /// This is a link to the Course that the Assignment object is categorized under.
-    var parentCourses = LinkingObjects(fromType: Course.self, property: "assignments")
-    var parentCourse: Course? { return parentCourses.first }
+    private var parentCourses = LinkingObjects(fromType: Course.self, property: "assignments")
+    var parentCourse: Course {
+        guard let parentCourse = parentCourses.first else {
+            fatalError("$Error: assignment \(name) parent course is nil.")
+        }
+        
+        return parentCourse
+    }
         
     //variables that track information about scheduling work time.
     
@@ -44,7 +50,8 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         autoschedule: Bool,
         autoLengthMinutes: Int,
         autoDays: Set<Weekday>,
-        partitionKey: String
+        partitionKey: String,
+        parentCourse: Course
     ) {
         self.init()
         self.name = name
@@ -67,6 +74,8 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         let newDaysList = List<Int>()
         newDaysList.append(objectsIn: autoDays.compactMap{ $0.rawValue })
         self.daysList = newDaysList
+        
+        self.parentCourse.assignments.append(self)
     }
     
     convenience init(
@@ -173,7 +182,7 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         ///     - endBound: the end bound time for when to autoschedule the assignment
         ///     - earlier: true if we want to schedule work time earlier. false if later.
         /// - Returns: a 2D date Array that describes all open time slots
-        func autoscheduleOnDate(date: Date, startBound: Date, endBound: Date) -> Assignment?{
+        func autoscheduleOnDate(date: Date, startBound: Date, endBound: Date) -> Assignment? {
             let commitments = Autoschedule.getCommitments(date: date)
             let openTimeSlots = Autoschedule.getOpenTimeSlots(startBound: startBound, endBound: endBound, commitments: commitments)
             if openTimeSlots.count == 0{
@@ -199,7 +208,8 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
                 autoschedule: false,
                 autoLengthMinutes: autoLengthMinutes,
                 autoDays: [],
-                partitionKey: DatabaseService.shared.user?.id ?? ""
+                partitionKey: DatabaseService.shared.user?.id ?? "",
+                parentCourse: self.parentCourse
             )
             
             newAssignment.isAutoscheduled = true

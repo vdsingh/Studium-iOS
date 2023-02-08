@@ -154,10 +154,8 @@ class DayScheduleViewController: DayViewController {
 //        let allAssignments = realm.objects(Assignment.self)
         for assignment in allAssignments {
             if assignment.endDate.year == date.year && assignment.endDate.month == date.month && assignment.endDate.day == date.day{
-                guard let course = assignment.parentCourse else {
-                    print("ERROR: Error accessing parent course in DayScheduleViewController")
-                    continue
-                }
+                let course = assignment.parentCourse
+                
                 let newEvent = Event()
                 newEvent.startDate = assignment.startDate
                 newEvent.endDate = assignment.endDate

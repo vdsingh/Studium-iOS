@@ -73,10 +73,7 @@ class AssignmentCell1: DeletableEventCell {
         primaryTextAttributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, primaryTextAttributeString.length))
         
         //Safely get the associated course for this assignment
-        guard let course = assignment.parentCourse else{
-            print("ERROR: error accessing parent course in AssignmentCell1")
-            return
-        }
+        let course = assignment.parentCourse
         
         //the UIColor of the assignment's associated course.
         let themeColor = course.color
