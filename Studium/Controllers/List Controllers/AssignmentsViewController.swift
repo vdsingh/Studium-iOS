@@ -25,8 +25,8 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
         searchBar.delegate = self
         searchBar.isHidden = true
 
-        sectionHeaders = ["To Do:", "Completed:"]
-        eventTypeString = "Assignments"
+        self.sectionHeaders = ["To Do:", "Completed:"]
+        self.eventTypeString = "Assignments"
         
         self.tabBarController?.tabBar.barTintColor = K.themeColor
 
@@ -63,7 +63,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     //MARK: - Data Source Methods
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        super.idString = AssignmentCell1.id
+//        super.idString = AssignmentCell1.id
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell1
         let assignment = eventsArray[indexPath.section][indexPath.row] as! Assignment
         cell.event = assignment
@@ -79,23 +79,9 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
         let assignment = eventsArray[indexPath.section][indexPath.row] as! Assignment
         let assignmentCell = tableView.cellForRow(at: indexPath) as! AssignmentCell1
 
-//        if let user = app.currentUser {
-//            realm = DatabaseService.shared.realm
-//            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-//            do {
-//                try realm.write {
-                    //if the assignments autoscheduled events list is expanded, collapse it before we mark it complete and move it.
         if assignmentCell.autoEventsOpen {
             assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
         }
-//                    assignment.complete = !assignment.complete
-//                }
-//            } catch {
-//                print("$Error: error saving course: \(error)")
-//            }
-//        } else {
-//            print("$Error: error accessing user")
-//        }
 
         if(assignment.isAutoscheduled) {
             tableView.reloadData()
