@@ -79,23 +79,23 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
         let assignment = eventsArray[indexPath.section][indexPath.row] as! Assignment
         let assignmentCell = tableView.cellForRow(at: indexPath) as! AssignmentCell1
 
-        if let user = app.currentUser {
-            realm = DatabaseService.shared.realm
+//        if let user = app.currentUser {
+//            realm = DatabaseService.shared.realm
 //            realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-            do {
-                try realm.write {
+//            do {
+//                try realm.write {
                     //if the assignments autoscheduled events list is expanded, collapse it before we mark it complete and move it.
-                    if assignmentCell.autoEventsOpen {
-                        assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
-                    }
-                    assignment.complete = !assignment.complete
-                }
-            } catch {
-                print("$Error: error saving course: \(error)")
-            }
-        } else {
-            print("$Error: error accessing user")
+        if assignmentCell.autoEventsOpen {
+            assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
         }
+//                    assignment.complete = !assignment.complete
+//                }
+//            } catch {
+//                print("$Error: error saving course: \(error)")
+//            }
+//        } else {
+//            print("$Error: error accessing user")
+//        }
 
         if(assignment.isAutoscheduled) {
             tableView.reloadData()

@@ -149,45 +149,25 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
 //    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let eventCell = tableView.cellForRow(at: indexPath) as? DeletableEventCell {
-            if let event = eventCell.event as? CompletableStudiumEvent {
-                DatabaseService.shared.markComplete(event, !event.complete)
-                
-                if let assigment = event as? Assignment, assigment.isAutoscheduled {
-                    tableView.reloadData()
-                } else {
-                    refreshData()
-                }
-                
-            } else {
-                print("$Error: event is not completable")
-            }
-        } else {
-            print("$Error: Event is not deletable")
-        }
+        // super didSelectRow handles marking events complete (in Realm)
+        super.tableView(tableView, didSelectRowAt: indexPath)
         
         if let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1 {
             if let assignment = assignmentCell.event as? Assignment {
                 if assignmentCell.autoEventsOpen {
                     assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
                 }
-                DatabaseService.shared.markComplete(assignment, !assignment.complete)
                 
                 //if the assignment is autoscheduled, we don't want to call loadAssignments() because all autoscheduled events will be removed from the data, and thus the tableView. We'll have index and UI issues.
-                if(assignment.isAutoscheduled){
+                if(assignment.isAutoscheduled) {
                     tableView.reloadData()
-                }else{
+                } else {
 //                    loadAssignments()
                     refreshData()
                 }
             }
         } else if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell {
             print("$Log: Selected an otherEventCell")
-            if let otherEvent = cell.otherEvent {
-                DatabaseService.shared.markComplete(otherEvent, !otherEvent.complete)
-            }else{
-                print("$Error: otherEvent from otherEventCell was not assigned - is nil")
-            }
             tableView.reloadData()
             refreshData()
         }
@@ -196,7 +176,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
     }
 }
 
-extension ToDoListViewController: AssignmentRefreshProtocol{
+extension ToDoListViewController: AssignmentRefreshProtocol {
     func loadAssignments() {
         refreshData()
     }
