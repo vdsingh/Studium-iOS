@@ -12,15 +12,11 @@ import RealmSwift
 
 
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
-    
-    //TODO: Remove realm and app references
-//    var realm: Realm!
-//    let app = App(id: Secret.appID)
     var rightActions = [SwipeAction]()
     var leftActions = [SwipeAction]()
 
 
-    var idString: String = "Cell"
+    var swipeCellId: String = "SwipeCell"
     
     override func viewDidLoad() {
 
@@ -28,7 +24,8 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     
     //MARK: - TableView Data Source Methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier:  idString, for: indexPath) as? SwipeTableViewCell {
+        print("$Log: will try to dequeue a SwipeTableViewCell with id: \(self.swipeCellId)")
+        if let cell = tableView.dequeueReusableCell(withIdentifier:  self.swipeCellId, for: indexPath) as? SwipeTableViewCell {
             cell.delegate = self
             return cell
         }
