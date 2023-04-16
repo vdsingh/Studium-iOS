@@ -28,13 +28,11 @@ class DayScheduleViewController: DayViewController{
         realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
         dayView.autoScrollToFirstEvent = true
         
-//        tabBarController?.tabBar.tintColor = K.themeColor
         tabBarController?.tabBar.backgroundColor = K.themeColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
         reloadData()
-//        viewDidLoad()
         generatedEvents = []
         alreadyGeneratedSet = Set<Date>()
     }

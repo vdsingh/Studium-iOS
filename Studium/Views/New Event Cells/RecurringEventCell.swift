@@ -39,7 +39,8 @@ class RecurringEventCell: DeletableEventCell {
         iconCircle.tintColor = UIColor(hexString: colorHex)
         
 //        background.backgroundColor = UIColor(hexString: colorHex)
-        background!.layer.borderColor = UIColor(hexString: colorHex)!.cgColor
+        let borderColor = UIColor(hexString: colorHex) ?? .black
+        background!.layer.borderColor = borderColor.cgColor
         
         nameLabel.text = courseName
         nameLabel.textColor = UIColor(hexString: colorHex)
@@ -49,9 +50,10 @@ class RecurringEventCell: DeletableEventCell {
         timeText.append(" - \(endTime.format(with: "h:mm a"))")
         timeLabel.text = timeText
         
-        for dayBox in dayBoxes{
+        for dayBox in dayBoxes {
             dayBox.layer.borderWidth = 2
-            dayBox.layer.borderColor = UIColor(hexString: colorHex)!.cgColor
+            let borderColor = UIColor(hexString: colorHex) ?? .black
+            dayBox.layer.borderColor = borderColor.cgColor
             dayBox.layer.cornerRadius = 5
         }
     
@@ -61,7 +63,7 @@ class RecurringEventCell: DeletableEventCell {
             if days.contains(K.weekdayDict[dayLabel.text!]!){
                 dayBox.backgroundColor = UIColor(hexString: colorHex)
                 dayLabel.textColor = UIColor(contrastingBlackOrWhiteColorOn: UIColor(hexString: colorHex)!, isFlat: true)
-            }else{
+            } else {
                 dayLabel.textColor = .white
                 dayBox.backgroundColor = .none
             }
