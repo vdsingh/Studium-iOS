@@ -28,8 +28,10 @@ class StudiumEvent: Object {
     /// The associated additional details of the StudiumEvent
     @Persisted var additionalDetails: String = ""
 
-    
+    //TODO: Docstrings
     @Persisted var startDate: Date = Date()
+    
+    
     @Persisted var endDate: Date = Date()
     
     
@@ -44,6 +46,7 @@ class StudiumEvent: Object {
     
     
     // MARK: - Computed Variables
+    
     var alertTimes: [AlertOption] {
         get { return self.alertTimesRaw.compactMap { AlertOption(rawValue: $0) } }
         set {
@@ -113,6 +116,10 @@ class StudiumEvent: Object {
                 print("$Error: Failed to save event. Error: \(error)")
             }
         }
+    }
+    
+    func setID(_ newID: ObjectId) {
+        self._id = newID
     }
     
     //TODO: Fix and abstract to a notification Layer

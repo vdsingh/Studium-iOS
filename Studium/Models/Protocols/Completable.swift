@@ -10,5 +10,5 @@ import Foundation
 
 /// This protocol is used for any StudiumEvents that can be marked as "Complete" or "Incomplete"
 protocol CompletableStudiumEvent: StudiumEvent {
-    var complete: Bool { get }
+    var complete: Bool { get set }
 }
