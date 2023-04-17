@@ -26,6 +26,7 @@ class RecurringEventCell: DeletableEventCell {
     @IBOutlet var dayBoxes: [UIImageView]!
     
     override func awakeFromNib() {
+        self.debug = true
         super.awakeFromNib()
         background.layer.cornerRadius = 15
         background.layer.borderWidth = 4
@@ -41,6 +42,8 @@ class RecurringEventCell: DeletableEventCell {
         recurringEvent: RecurringStudiumEvent,
         systemIcon: SystemIcon
     ) {
+        printDebug("Loading data for event: \(recurringEvent)")
+//        recurringEvent.day
         self.event = recurringEvent//just edited
         iconImage.image = systemIcon.createImage()
         iconImage.tintColor = color
@@ -74,7 +77,6 @@ class RecurringEventCell: DeletableEventCell {
             let index = dayVal.rawValue - 1
             dayBoxes[index].backgroundColor = color
             dayLabels[index].textColor = UIColor(contrastingBlackOrWhiteColorOn: color, isFlat: true)
-            
         }
     }
 }

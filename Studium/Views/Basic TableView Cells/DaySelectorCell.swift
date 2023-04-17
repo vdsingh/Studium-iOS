@@ -31,20 +31,16 @@ class DaySelectorCell: BasicCell {
         // Configure the view for the selected state
     }
     
-    //TODO: Finish this function
     func selectDays(days: Set<Weekday>) {
-//        daysSelected =
-//        daysSelected = []
-//        for button in dayButtons{
-//            let buttonText = button.titleLabel?.text
-//            if days.contains(K.weekdayDict[buttonText!]!){
-////            if days.contains(buttonText!){
-//                daysSelected.append(buttonText!)
-//                button.isSelected = true
-//            }else{
-//                button.isSelected = false
-//            }
-//        }
+        for day in days {
+            if let button = self.dayButtons.first(where: { $0.titleLabel?.text == day.buttonText }) {
+                self.daysSelected.insert(day)
+                button.isSelected = true
+            } else {
+                print("$ERR (DaySelectorCell): No Day Button could be found for day \(day) aka \(day.buttonText)")
+            }
+        }
+
     }
 //    
 //    func selectDays(days: [Int]){
@@ -63,10 +59,13 @@ class DaySelectorCell: BasicCell {
     @IBAction func dayButtonPressed(_ sender: UIButton) {
         
         // Find the index of the button pressed
-        if let buttonIndex = self.dayButtons.firstIndex(of: sender),
-            let weekday = Weekday(rawValue: buttonIndex + 1) {
+        //        if let buttonIndex = self.dayButtons.firstIndex(of: sender),
+        if let titleLabel = sender.titleLabel,
+           let text = titleLabel.text {
+            let weekday = Weekday(buttonText: text)
+            //            let weekday = Weekday(rawValue: buttonIndex + 1) {
             // Add 1 to the index because Sunday = 1, Monday = 2, etc.
-    
+            
             // Day was unselected
             if sender.isSelected {
                 sender.isSelected = false
@@ -77,8 +76,6 @@ class DaySelectorCell: BasicCell {
                 sender.isSelected = true
                 self.daysSelected.insert(weekday)
             }
-            
-            
             
             delegate?.updateDaysSelected(weekdays: self.daysSelected)
         } else {

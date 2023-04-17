@@ -64,7 +64,7 @@ class AssignmentCell1: DeletableEventCell {
     }
     
 
-    func loadData(assignment: Assignment){
+    func loadData(assignment: Assignment) {
         //store the assignment here - we'll know what to delete if necessary
         event = assignment
         
@@ -73,7 +73,10 @@ class AssignmentCell1: DeletableEventCell {
         primaryTextAttributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, primaryTextAttributeString.length))
         
         //Safely get the associated course for this assignment
-        let course = assignment.parentCourse
+        guard let course = assignment.parentCourse else {
+            print("$Error (AssignmentCell1): parent course was nil when loading assignment data")
+            return
+        }
         
         //the UIColor of the assignment's associated course.
         let themeColor = course.color
