@@ -9,7 +9,7 @@
 import UIKit
 import FSCalendar
 
-class CalendarViewController: UIViewController{
+class CalendarViewController: UIViewController {
     
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var tableView: UITableView!

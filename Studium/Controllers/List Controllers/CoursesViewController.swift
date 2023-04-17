@@ -14,10 +14,11 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
+        self.eventTypeString = "Courses"
+
         super.viewDidLoad()
         
         sectionHeaders = ["Today:", "Not Today:"]
-        eventTypeString = "Courses"
 
         navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -56,11 +57,12 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     
     
     //MARK: - Data Source Methods
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //build the cells
         //let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
         super.swipeCellId = RecurringEventCell.id
-        print("$Log: will try to dequeue cell in CoursesViewController with id: \(self.swipeCellId)")
+        printDebug("will try to dequeue cell in CoursesViewController with id: \(self.swipeCellId)")
         if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? RecurringEventCell,
            let course = eventsArray[indexPath.section][indexPath.row] as? Course {
             cell.event = course
@@ -87,7 +89,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? AssignmentsViewController {
-            if let indexPath = tableView.indexPathForSelectedRow{
+            if let indexPath = tableView.indexPathForSelectedRow {
                 destinationVC.selectedCourse = eventsArray[indexPath.section][indexPath.row] as? Course
             }
         }
@@ -160,3 +162,15 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         self.present(navController, animated:true, completion: nil)
     }
 }
+
+//extension UIViewController: Debuggable {
+//    var debug: Bool {
+//        true
+//    }
+//    
+//    func printDebug(_ message: String) {
+//        if self.debug {
+//            print("$LOG (\(String(describing: self)): \(message)")
+//        }
+//    }
+//}

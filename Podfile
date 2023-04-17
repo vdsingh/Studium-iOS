@@ -9,23 +9,21 @@ target 'Studium' do
 pod 'RealmSwift'
 
 #Google Authentication
-pod 'GoogleSignIn', '~> 5.0.2'
+pod 'GoogleSignIn'
 
 #Facebook Authentication
 pod 'FBSDKLoginKit'
 
 # Pods for UI Elements
 pod 'SwipeCellKit'
-pod 'CalendarKit', '~> 1.0.6'
-pod 'FSCalendar'
+pod 'CalendarKit'
 pod 'ChameleonFramework/Swift', :git => 'https://github.com/wowansm/Chameleon.git', :branch => 'swift5'
 pod 'Colorful'
-pod 'FlexColorPicker', '~> 1.4.2'
+pod 'FlexColorPicker'
 
 #Custom Tab Bar
 pod 'RAMAnimatedTabBarController'
 
-
+pod 'FSCalendar'
 pod 'DateToolsSwift'
-
 end

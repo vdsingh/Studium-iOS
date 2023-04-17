@@ -13,7 +13,11 @@ class Course: RecurringStudiumEvent {
 //    @Persisted var systemImageString: String = SystemIcon.pencil.rawValue
     
     /// List of the assignments for the course.
-    let assignments = List<Assignment>()
+    private let assignmentsList = List<Assignment>()
+    
+    var assignments: [Assignment] {
+        return [Assignment](assignmentsList)
+    }
 
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
     convenience init (
@@ -29,6 +33,7 @@ class Course: RecurringStudiumEvent {
         partitionKey: String
     ) {
         self.init()
+//        super.i
         self.name = name
         self.color = color
         self.location = location
@@ -40,6 +45,8 @@ class Course: RecurringStudiumEvent {
         self._partitionKey = partitionKey
 //        self.
         self.alertTimes = notificationAlertTimes
+        
+        self.days = days
 //        self.notificationAlertTimes.removeAll()
 //        for time in notificationAlertTimes{
 //            self.notificationAlertTimes.append(time)
@@ -49,5 +56,24 @@ class Course: RecurringStudiumEvent {
 //        for day in days{
 //            self.days.append(day)
 //        }
+    }
+    
+    // MARK: - Public Functions
+    
+    func appendAssignment(_ assignment: Assignment) {
+        self.assignmentsList.append(assignment)
+    }
+    
+    func setValues(
+        name: String? = nil,
+        color: UIColor? = nil,
+        location: String? = nil,
+        additionalDetails: String? = nil
+    ) {
+        if let name = name { self.name = name }
+        if let color = color { self.color = color }
+        if let location = location { self.location = location }
+        if let additionalDetails = additionalDetails { self.name = additionalDetails }
+
     }
 }

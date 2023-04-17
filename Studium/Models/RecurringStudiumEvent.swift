@@ -28,7 +28,15 @@ class RecurringStudiumEvent: StudiumEvent {
     internal var daysList: List<Int> = List<Int>()
     
     var days: Set<Weekday> {
-        return Set<Weekday>(daysList.compactMap { Weekday(rawValue: $0) })
+        get {
+            return Set<Weekday>( daysList.compactMap { Weekday(rawValue: $0) })
+        }
+        
+        set {
+            let list = List<Int>()
+            list.append(objectsIn: newValue.compactMap({ $0.rawValue }))
+            self.daysList = list
+        }
     }
     
     

@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftUI
 
 protocol ToDoListRefreshProtocol {
-    func refreshData()
+    func reloadData()
 }
 
 /// Form to add a To-Do List Event
@@ -139,7 +139,7 @@ class AddToDoListEventViewController: MasterForm {
                 return
             }
 
-            delegate.refreshData()
+            delegate.reloadData()
             dismiss(animated: true, completion: nil)
         } else {
             // update the errors cell to show all of the errors with the form

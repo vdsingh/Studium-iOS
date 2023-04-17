@@ -16,7 +16,7 @@ class DayScheduleViewController: DayViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dayView.autoScrollToFirstEvent = true
-        tabBarController?.tabBar.backgroundColor = K.themeColor
+//        tabBarController?.tabBar.backgroundColor = K.themeColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -154,7 +154,10 @@ class DayScheduleViewController: DayViewController {
 //        let allAssignments = realm.objects(Assignment.self)
         for assignment in allAssignments {
             if assignment.endDate.year == date.year && assignment.endDate.month == date.month && assignment.endDate.day == date.day{
-                let course = assignment.parentCourse
+                guard let course = assignment.parentCourse else {
+                    print("$Error (DayScheduleViewController): Parent course was nil when adding assignments")
+                    continue
+                }
                 
                 let newEvent = Event()
                 newEvent.startDate = assignment.startDate

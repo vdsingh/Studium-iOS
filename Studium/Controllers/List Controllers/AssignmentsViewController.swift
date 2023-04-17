@@ -10,17 +10,22 @@ import Foundation
 import ChameleonFramework
 
 class AssignmentsViewController: StudiumEventListViewController, UISearchBarDelegate, AssignmentRefreshProtocol {
-    var assignments = [Assignment]()
+    
+    
+//    var assignments = [Assignment]()
 
     @IBOutlet weak var searchBar: UISearchBar!
     
     var selectedCourse: Course! {
         didSet{
-            loadAssignments()
+            reloadData()
+//            loadAssignments()
         }
     }
     
     override func viewDidLoad() {
+        self.debug = true
+        
         super.viewDidLoad()
         searchBar.delegate = self
         searchBar.isHidden = true
@@ -33,6 +38,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        printDebug("viewWillAppear")
         if let course = selectedCourse {
             let color = course.color
             title = selectedCourse.name
@@ -45,7 +51,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
             print("$Error: course is nil")
         }
         
-        loadAssignments()
+        reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -63,33 +69,47 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     //MARK: - Data Source Methods
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        super.idString = AssignmentCell1.id
-        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell1
-        let assignment = eventsArray[indexPath.section][indexPath.row] as! Assignment
-        cell.event = assignment
-        cell.assignmentCollapseDelegate = self
-        cell.loadData(assignment: assignment)
+
+        super.swipeCellId = AssignmentCell1.id
+        if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? AssignmentCell1,
+           let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment {
+            cell.event = assignment
+            cell.assignmentCollapseDelegate = self
+            cell.loadData(assignment: assignment)
+            
+            return cell
+        }
         
-        return cell
+        fatalError("$Error: Couldn't dequeue cell for Course List")
     }
     
     //MARK: - Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let assignment = eventsArray[indexPath.section][indexPath.row] as! Assignment
-        let assignmentCell = tableView.cellForRow(at: indexPath) as! AssignmentCell1
+        printDebug("Selected row \(indexPath.row)")
+        if let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment,
+           let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1 {
+            
+            if assignmentCell.autoEventsOpen {
+                assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
+            }
+            
+            DatabaseService.shared.markComplete(assignment, !assignment.complete)
 
-        if assignmentCell.autoEventsOpen {
-            assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
-        }
-
-        if(assignment.isAutoscheduled) {
-            tableView.reloadData()
+            
+            if(assignment.isAutoscheduled) {
+                tableView.reloadData()
+            } else {
+//                loadAssignments()
+                reloadData()
+            }
+            
+            
+            tableView.deselectRow(at: indexPath, animated: true)
+//            tableView.reloadData()
         } else {
-            loadAssignments()
+            print("$Error (AssignmentsViewController): couldn't safely cast assignment or its cell")
         }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -101,13 +121,15 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     //loads all non-autoscheduled assignments by accessing the selected course.
     func loadAssignments() {
         //TODO: Fix sorting
-        self.assignments = DatabaseService.shared
-            .getAssignments(forCourse: selectedCourse)
+//        let assignments = selectedCourse.assignments
+        let assignments = DatabaseService.shared.getAssignments(forCourse: selectedCourse)
+        printDebug("Loaded assignments: \(assignments.map({ $0.name }))")
+//        let assignments = DatabaseService.shared
+//            .getAssignments(forCourse: self.selectedCourse)
 //            .sorted(by: K.sortAssignmentsBy)
 //            .sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
 //        assignments = selectedCourse?.assignments.
-        eventsArray = [[],[]]
-        // TODO: Fix force unwrap
+        self.eventsArray = [[],[]]
         for assignment in assignments {
             //skip the autoscheduled events.
             if assignment.isAutoscheduled {
@@ -119,10 +141,11 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
                 eventsArray[0].append(assignment)
             }
         }
-        reloadData()
+//        reloadData()
     }
     
     func reloadData() {
+        self.loadAssignments()
         eventsArray[0].sort(by: {$0.endDate < $1.endDate})
         eventsArray[1].sort(by: {$0.endDate > $1.endDate})
         tableView.reloadData()
@@ -157,7 +180,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 //        assignments = selectedCourse?.assignments.sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
-        self.assignments = DatabaseService.shared.getAssignments(forCourse: selectedCourse)
+//        self.assignments = DatabaseService.shared.getAssignments(forCourse: selectedCourse)
         //TODO: Fix filter and sorting
         if searchBar.text?.count != 0 {
 //            self.assignments = self.assignments
@@ -206,4 +229,3 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
         }
     }
 }
-

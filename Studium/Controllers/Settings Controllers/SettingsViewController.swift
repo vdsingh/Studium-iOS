@@ -148,13 +148,13 @@ class SettingsViewController: UITableViewController, AlertInfoStorer {
                     print("error syncing to apple calendar: \(String(describing: error))")
                 }
             }
-        }else if cellData[indexPath.section][indexPath.row] == "Set Default Notifications"{
+        } else if cellData[indexPath.section][indexPath.row] == "Set Default Notifications" {
             
         }
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = UIColor.secondarySystemBackground
+//        cell.backgroundColor = UIColor.secondarySystemBackground
     }
     
     //edit the background color of section headers

@@ -3,8 +3,9 @@ import UIKit
 import RealmSwift
 
 
+//TODO: Docstring
 protocol AssignmentRefreshProtocol {
-    func loadAssignments()
+    func reloadData()
 }
 
 class AddAssignmentViewController: MasterForm {
@@ -133,13 +134,13 @@ class AddAssignmentViewController: MasterForm {
                 )
                 //TODO: Notifications
                 //                NotificationHandler.scheduleNotificationsForAssignment(assignment: newAssignment)
-//                RealmCRUD.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse!)
-                DatabaseService.shared.saveStudiumObject(newAssignment)
+
+                DatabaseService.shared.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse)
             } else {
                 // TODO: Implement assignment notification updates here
                 
             }
-            delegate?.loadAssignments()
+            delegate?.reloadData()
             dismiss(animated: true, completion: nil)
         } else {
             let errorsString: String = self.errors

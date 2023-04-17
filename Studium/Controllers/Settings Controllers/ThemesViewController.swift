@@ -44,11 +44,12 @@ extension ThemesViewController: UITableViewDelegate{
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let color: UIColor = K.colorsDict[colors[indexPath.section][indexPath.row]] ?? UIColor.black
         
-        appDelegate.changeTheme(colorKey: colors[indexPath.section][indexPath.row])
+//        appDelegate.changeTheme(colorKey: colors[indexPath.section][indexPath.row])
         //hide and unhide the navbar to basically refresh it
-        self.navigationController?.isNavigationBarHidden = true
-        self.navigationController?.isNavigationBarHidden = false
+//        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = false
         self.tabBarController!.tabBar.barTintColor = color
+        self.navigationController?.navigationBar.barTintColor = color
         
         
         tableView.deselectRow(at: indexPath, animated: true)

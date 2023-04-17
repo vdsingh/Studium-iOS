@@ -23,9 +23,17 @@ class AddCourseViewController: MasterForm {
 //    var errors: [FormError] = []
     
 //    var additionalDetails: String = ""
+    override var debug: Bool {
+        true
+    }
+    
     var location: String = ""
     
     @IBOutlet weak var navButton: UIBarButtonItem!
+    
+    override func viewWillAppear(_ animated: Bool) {
+//        self.debug = true
+    }
 
     override func viewDidLoad() {
         self.cells = [
@@ -59,7 +67,7 @@ class AddCourseViewController: MasterForm {
         tableView.tableFooterView = UIView()
         
         if let course = self.course {
-            fillForm(with: course)
+            self.fillForm(with: course)
             // TODO: Update course notification times
         } else {
             //we are creating a new course
@@ -85,21 +93,36 @@ class AddCourseViewController: MasterForm {
                 
                 do {
                     // TODO: Abstract away realm to state
-                    try DatabaseService.shared.realm.write {
-                        course = Course(
+                    DatabaseService.shared.editStudiumEvent(
+                        oldEvent: course,
+                        newEvent: Course(
                             name: name,
                             color: self.color,
                             location: location,
                             additionalDetails: additionalDetails,
                             startDate: startDate,
                             endDate: endDate,
-                            days: daysSelected,
+                            days: self.daysSelected,
                             logo: self.logo,
-//                            systemImageString: systemImageString,
                             notificationAlertTimes: alertTimes,
                             partitionKey: DatabaseService.shared.user?.id ?? ""
                         )
-                    }
+                    )
+//                    try DatabaseService.shared.realm.write {
+//                        course = Course(
+//                            name: name,
+//                            color: self.color,
+//                            location: location,
+//                            additionalDetails: additionalDetails,
+//                            startDate: startDate,
+//                            endDate: endDate,
+//                            days: self.daysSelected,
+//                            logo: self.logo,
+////                            systemImageString: systemImageString,
+//                            notificationAlertTimes: alertTimes,
+//                            partitionKey: DatabaseService.shared.user?.id ?? ""
+//                        )
+//                    }
                 } catch {
                     print("$Error: error updating course data: \(error)")
                 }
@@ -111,7 +134,7 @@ class AddCourseViewController: MasterForm {
                     additionalDetails: additionalDetails,
                     startDate: startDate,
                     endDate: endDate,
-                    days: daysSelected,
+                    days: self.daysSelected,
                     logo: self.logo,
                     notificationAlertTimes: alertTimes,
                     partitionKey: DatabaseService.shared.user?.id ?? "")
@@ -174,9 +197,10 @@ extension AddCourseViewController: UITextFieldDelegateExt {
     }
 }
 
-extension AddCourseViewController: DaySelectorDelegate{
+extension AddCourseViewController: DaySelectorDelegate {
     func updateDaysSelected(weekdays: Set<Weekday>) {
         self.daysSelected = weekdays
+        printDebug("Updated Selected Days: \(self.daysSelected)")
     }
 }
 
@@ -188,6 +212,7 @@ extension AddCourseViewController: ColorDelegate{
 
 extension AddCourseViewController {
     func fillForm(with course: Course) {
+        printDebug("Filling Add Course form with course: \(course)")
         tableView.reloadData()
         
         navButton.image = .none
@@ -206,7 +231,7 @@ extension AddCourseViewController {
         if let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? DaySelectorCell {
             daysCell.selectDays(days: course.days)
             for day in course.days {
-                daysSelected.insert(day)
+                self.daysSelected.insert(day)
             }
         }
         

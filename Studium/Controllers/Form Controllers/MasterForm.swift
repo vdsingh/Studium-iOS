@@ -23,8 +23,12 @@ let kMediumCellHeight: CGFloat = 60
 let kNormalCellHeight: CGFloat = 50
 
 class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, AlertInfoStorer, LogoStorer, UITimePickerDelegate {
-    var alertTimes: [AlertOption] = []
     
+    var debug: Bool {
+        false
+    }
+    
+    var alertTimes: [AlertOption] = []
     
     /// The name for the StudiumEvent being added/edited
     var name: String = ""
@@ -80,7 +84,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.view.backgroundColor = .systemBackground
+//        self.view.backgroundColor = .systemBackground
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -268,6 +272,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
 }
 
 // MARK: - FormCell Searching
+
 extension MasterFormClass {
     func findFirstLogoCellIndex() -> IndexPath? {
         for i in 0..<cells.count {
@@ -315,6 +320,7 @@ extension MasterFormClass {
 }
 
 // MARK: - FormCell Mutations
+
 extension MasterFormClass {
     func replaceLabelText(text: String, section: Int, row: Int) {
         let oldCell = cells[section][row]
@@ -386,7 +392,7 @@ extension MasterFormClass {
                 .pickerCell(cellText: "Length of Habit", tag: .lengthPickerCell, delegate: self, dataSource: self),
                 at: timeCellIndex + 1)
         default:
-            print("$ ERROR: unexpected cell ID.\nFile: \(#file)\nFunction:\(#function)\nLine:\(#line)")
+            print("$ERR: unexpected cell ID.\nFile: \(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
         
@@ -401,7 +407,7 @@ extension MasterFormClass {
             return
         }
         
-        print("$Log: SENDER DATE: \(sender.date)")
+        printDebug("SENDER DATE: \(sender.date)")
         
         var components = Calendar.current.dateComponents([.month, .day, .hour, .minute], from: sender.date)
         components.year = Date().year
@@ -553,4 +559,12 @@ extension MasterFormClass: UIPickerViewDataSource {
     //           }
     //           return 0
     //       }
+}
+
+extension MasterFormClass: Debuggable {
+    func printDebug(_ message: String) {
+        if self.debug {
+            print("$LOG (\(String(describing: self)): \(message)")
+        }
+    }
 }
