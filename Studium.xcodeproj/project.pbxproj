@@ -105,9 +105,11 @@
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5E2983465D00A25457 /* SystemIcon.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
-		B96E6A9E298456C700A25457 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9D298456C700A25457 /* Secret.swift */; };
 		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
+		B9A98C2729ECA67D00D866A9 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2629ECA67D00D866A9 /* Secret.swift */; };
+		B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */; };
+		B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -212,9 +214,12 @@
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B96E6A5E2983465D00A25457 /* SystemIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcon.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
-		B96E6A9D298456C700A25457 /* Secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Secret.swift; path = ../../../Secret.swift; sourceTree = "<group>"; };
 		B995493B2992EDD000442968 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
 		B995493E2992F0D400442968 /* StudiumEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventListViewController.swift; sourceTree = "<group>"; };
+		B9A98C2629ECA67D00D866A9 /* Secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = SOURCE_ROOT; };
+		B9A98C2929ECA96E00D866A9 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = Pods/GoogleSignIn/Frameworks/GoogleSignIn.framework; sourceTree = "<group>"; };
+		B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
+		B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumColor.swift; sourceTree = "<group>"; };
 		FD108DE721EFFA5F65BC9E17 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -335,7 +340,7 @@
 				16C445AE26646C75006076C1 /* credentials.plist */,
 				168EE1C42659F899009A8001 /* Autoschedule.swift */,
 				168EE1C62659FA10009A8001 /* RealmCRUD.swift */,
-				B96E6A9D298456C700A25457 /* Secret.swift */,
+				B9A98C2629ECA67D00D866A9 /* Secret.swift */,
 				B96E6A9B298456A500A25457 /* K.swift */,
 			);
 			path = Studium;
@@ -446,6 +451,7 @@
 		6FB44260C022218BAA798CDC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B9A98C2929ECA96E00D866A9 /* GoogleSignIn.framework */,
 				3CDE7A6B2623F1D791D27BAD /* Pods_Studium.framework */,
 			);
 			name = Frameworks;
@@ -467,6 +473,7 @@
 				B90D143D298999630093EB0C /* DateFormat.swift */,
 				B90D143F298999AB0093EB0C /* FormError.swift */,
 				B90D144129899C310093EB0C /* Weekday.swift */,
+				B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -477,6 +484,7 @@
 				B96E6A5B298323DD00A25457 /* DatabaseService.swift */,
 				B90D1446298C6EA50093EB0C /* AuthenticationService.swift */,
 				B90D1448298C77B80093EB0C /* NotificationService.swift */,
+				B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -545,7 +553,6 @@
 				1693E72A247A3DC4003D4702 /* Frameworks */,
 				1693E72B247A3DC4003D4702 /* Resources */,
 				E4F465B928E2E9E890816BA9 /* [CP] Embed Pods Frameworks */,
-				4F12C7D2A25F2BDE8EA0A839 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -648,23 +655,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4F12C7D2A25F2BDE8EA0A839 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Studium/Pods-Studium-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Studium/Pods-Studium-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Studium/Pods-Studium-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		E4F465B928E2E9E890816BA9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -690,6 +680,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1693E757247A4BCB003D4702 /* AssignmentsViewController.swift in Sources */,
+				B9A98C2729ECA67D00D866A9 /* Secret.swift in Sources */,
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
 				B90D143A298461EB0093EB0C /* NotificationHandler.swift in Sources */,
 				B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */,
@@ -738,7 +729,6 @@
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
 				B90D142C298461AD0093EB0C /* LogoCollectionViewCell.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
-				B96E6A9E298456C700A25457 /* Secret.swift in Sources */,
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
 				B96E6A9C298456A500A25457 /* K.swift in Sources */,
 				B90D13FB29845FE80093EB0C /* AddCourseViewController.swift in Sources */,
@@ -746,6 +736,7 @@
 				164F62F324DF7BFC00DC8169 /* NotificationsController.swift in Sources */,
 				16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */,
 				B90D13FA29845FE80093EB0C /* AddHabitViewController.swift in Sources */,
+				B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */,
 				B90D142E298461AD0093EB0C /* SegmentedControlCell.swift in Sources */,
 				164905B727E18732002DE61D /* LoginViewController.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
@@ -759,6 +750,7 @@
 				B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */,
 				165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */,
 				1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */,
+				B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */,
 				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,
 				1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */,
 				B90D1426298461AD0093EB0C /* ColorPickerCell2.swift in Sources */,
@@ -911,6 +903,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VJUSE27PV3;
+				EXCLUDED_ARCHS = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleSignIn/Frameworks",
+				);
 				INFOPLIST_FILE = Studium/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -932,6 +929,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VJUSE27PV3;
+				EXCLUDED_ARCHS = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleSignIn/Frameworks",
+				);
 				INFOPLIST_FILE = Studium/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

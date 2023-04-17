@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cyD-fh-4az">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cyD-fh-4az">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -17,11 +17,11 @@
             <objects>
                 <viewController id="TFg-b8-3jm" customClass="ThemesViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g8n-UN-wUG">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hV2-V9-z8I">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -49,7 +49,7 @@
             <objects>
                 <tableViewController id="h1T-2i-xfg" customClass="SettingsViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="PsL-KN-qhy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="847"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -88,16 +88,16 @@
             </objects>
             <point key="canvasLocation" x="-71" y="-1574"/>
         </scene>
-        <!--Day View-->
+        <!--Day-->
         <scene sceneID="qp6-ef-PCF">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="fig-EF-Ixi" customClass="DayScheduleViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tHq-qj-nrK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="847"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAY SCHEDULE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y3h-ko-qtv">
-                                <rect key="frame" x="29.5" y="376.5" width="355" height="60"/>
+                                <rect key="frame" x="29.5" y="393.5" width="355" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -111,7 +111,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Day" id="p9Z-Jx-73L"/>
-                    <navigationItem key="navigationItem" title="Day View" id="Qm6-Xz-fwH">
+                    <navigationItem key="navigationItem" id="Qm6-Xz-fwH">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="gear" catalog="system" id="wNO-Zk-2cN">
                             <connections>
                                 <action selector="settingsButtonPressed:" destination="fig-EF-Ixi" id="arE-3b-5rq"/>
@@ -138,20 +138,20 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="okE-Gd-bqh" customClass="CalendarViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pQ0-qA-v5r">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="847"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="O4H-iH-3Aw">
-                                <rect key="frame" x="0.0" y="92" width="414" height="721"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="803"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uwi-Wp-5Zq" customClass="FSCalendar">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="418"/>
                                         <connections>
                                             <outlet property="delegate" destination="okE-Gd-bqh" id="VaJ-Lg-g4k"/>
                                         </connections>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="h1K-Ld-nWw">
-                                        <rect key="frame" x="0.0" y="336" width="414" height="385"/>
+                                        <rect key="frame" x="0.0" y="418" width="414" height="385"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="385" id="90x-Da-Hxh"/>
@@ -201,7 +201,7 @@
             <objects>
                 <tableViewController id="R0z-hi-CKK" customClass="ToDoListViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="yLz-Gg-S9H">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="755"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="837"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" name="Studium System Background Color"/>
@@ -240,7 +240,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="AddToDoListEventViewController" id="hpd-53-o9w" customClass="AddToDoListEventViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Wjx-zM-4dA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="847"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" name="Studium System Background Color"/>
@@ -276,7 +276,7 @@
                 <navigationController id="8p6-Of-ykq" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="S7u-1x-KRZ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="agL-ZN-feG">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -292,7 +292,7 @@
             <objects>
                 <tableViewController id="Ict-Kx-JgS" customClass="CoursesViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DR8-J6-sLa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="721"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="803"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" name="Studium System Background Color"/>
@@ -323,7 +323,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="AddCourseViewController" modalPresentationStyle="formSheet" id="M1C-h5-JQR" customClass="AddCourseViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sGU-hP-VAq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="847"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <connections>
@@ -359,7 +359,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="AddAssignmentViewController" id="TXL-10-fwd" customClass="AddAssignmentViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="eZE-By-r2D">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="847"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <connections>
@@ -393,7 +393,7 @@
             <objects>
                 <tableViewController id="0Vi-ec-NIi" customClass="AssignmentsViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="N4Z-hX-3Od">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="721"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="803"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" name="Studium System Background Color"/>
@@ -444,7 +444,7 @@
                     </tabBarItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pUJ-1y-edv">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -456,7 +456,7 @@
             </objects>
             <point key="canvasLocation" x="-71" y="-767"/>
         </scene>
-        <!--Courses-->
+        <!--Test View Controller-->
         <scene sceneID="49f-g0-zem">
             <objects>
                 <tableViewController id="JuE-Ep-OxN" customClass="TestViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
@@ -479,7 +479,7 @@
                             <outlet property="delegate" destination="JuE-Ep-OxN" id="DQ3-Xk-ud3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Courses" id="KlT-a2-aFB"/>
+                    <navigationItem key="navigationItem" id="KlT-a2-aFB"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m61-vt-ao1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -511,8 +511,6 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" itemPositioning="fill" id="28G-v3-gEK">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" systemColor="systemCyanColor"/>
-                        <color key="barTintColor" systemColor="systemOrangeColor"/>
                         <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
@@ -543,19 +541,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Big-Jz-Zze">
-                                <rect key="frame" x="20" y="88" width="374" height="734"/>
+                                <rect key="frame" x="20" y="40" width="374" height="816"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="W6V-nj-3lM">
-                                        <rect key="frame" x="10" y="50" width="354" height="674"/>
+                                        <rect key="frame" x="10" y="50" width="354" height="756"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When do you wake up?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwb-l7-dZL">
-                                                <rect key="frame" x="11" y="0.0" width="332.5" height="52.5"/>
+                                                <rect key="frame" x="11" y="0.0" width="332.5" height="95.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
                                                 <color key="textColor" name="Studium Label Color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yOK-kj-lpp">
-                                                <rect key="frame" x="0.0" y="82.5" width="354" height="51"/>
+                                                <rect key="frame" x="0.0" y="125.5" width="354" height="51"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="oue-Vc-zGP"/>
                                                 </constraints>
@@ -569,7 +567,7 @@
                                                 </connections>
                                             </segmentedControl>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="lvA-nu-ynG">
-                                                <rect key="frame" x="11" y="162.5" width="332" height="30"/>
+                                                <rect key="frame" x="11" y="205.5" width="332" height="30"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="TZa-Wx-7FK">
                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -650,7 +648,7 @@
                                                 </subviews>
                                             </stackView>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="gT5-b6-OX2">
-                                                <rect key="frame" x="0.0" y="222.5" width="354" height="120"/>
+                                                <rect key="frame" x="0.0" y="265.5" width="354" height="120"/>
                                                 <color key="tintColor" name="Studium Label Color"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="120" id="oGs-F0-Fe8"/>
@@ -660,10 +658,10 @@
                                                 </connections>
                                             </datePicker>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="wR4-sE-vpc">
-                                                <rect key="frame" x="62.5" y="372.5" width="229" height="221.5"/>
+                                                <rect key="frame" x="62.5" y="415.5" width="229" height="260.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="13" id="gVI-71-EoW">
-                                                        <rect key="frame" x="0.0" y="0.0" width="89.5" height="221.5"/>
+                                                        <rect key="frame" x="0.0" y="19.5" width="89.5" height="221.5"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L9s-UE-Bxo">
@@ -719,7 +717,7 @@
                                                         <viewLayoutGuide key="safeArea" id="Htg-bq-w3L"/>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="F3Z-cF-IGp">
-                                                        <rect key="frame" x="139.5" y="0.0" width="89.5" height="221.5"/>
+                                                        <rect key="frame" x="139.5" y="19.5" width="89.5" height="221.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:30 AM" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8e-qc-t7o">
                                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="20.5"/>
@@ -774,7 +772,7 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFf-Jg-AzX">
-                                                <rect key="frame" x="0.0" y="624" width="354" height="50"/>
+                                                <rect key="frame" x="0.0" y="706" width="354" height="50"/>
                                                 <color key="backgroundColor" name="Studium Button Color"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="fQm-oc-Czb"/>
@@ -855,12 +853,12 @@
             </objects>
             <point key="canvasLocation" x="2386.9565217391305" y="2222.5446428571427"/>
         </scene>
-        <!--Habits-->
+        <!--Habits View Controller-->
         <scene sceneID="oxt-Lb-e6L">
             <objects>
                 <tableViewController modalPresentationStyle="fullScreen" id="zhP-oF-OCd" customClass="HabitsViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="57m-7X-YXG">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="847"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -878,7 +876,7 @@
                             <outlet property="delegate" destination="zhP-oF-OCd" id="GpD-19-o4G"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Habits" largeTitleDisplayMode="always" id="AUz-T0-hXe">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="AUz-T0-hXe">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="U0L-GT-yHU">
                             <connections>
                                 <action selector="addButtonPressed:" destination="zhP-oF-OCd" id="B17-dl-4rK"/>
@@ -898,7 +896,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="AddHabitViewController" modalPresentationStyle="formSheet" id="XMv-UY-9Fa" customClass="AddHabitViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Gqm-fk-UrT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -959,11 +957,8 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="fAE-Rp-paA">
-                        <rect key="frame" x="0.0" y="48" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -994,8 +989,8 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="r7b-Ge-P1f">
-                        <rect key="frame" x="0.0" y="48" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="r7b-Ge-P1f">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1020,7 +1015,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="02A-QW-iyc">
-                        <rect key="frame" x="0.0" y="755" width="414" height="49"/>
+                        <rect key="frame" x="0.0" y="842" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -1036,14 +1031,14 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="Ttg-AT-mA7" customClass="LoginViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Owl-yc-DWL">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-4" translatesAutoresizingMaskIntoConstraints="NO" id="6re-cS-Wrl">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="bTa-ur-DO6">
-                                <rect key="frame" x="20" y="182.5" width="168" height="96"/>
+                                <rect key="frame" x="20" y="134.5" width="168" height="96"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ao2-3b-gl8">
                                         <rect key="frame" x="0.0" y="0.0" width="168" height="48"/>
@@ -1060,14 +1055,14 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="2" translatesAutoresizingMaskIntoConstraints="NO" id="rIb-tP-Vqc">
-                                <rect key="frame" x="244" y="147.5" width="150" height="150"/>
+                                <rect key="frame" x="244" y="99.5" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="5gE-1S-4Cm"/>
                                     <constraint firstAttribute="height" constant="150" id="M7o-cZ-mq6"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Xu3-hd-GyR">
-                                <rect key="frame" x="20" y="337.5" width="374" height="120"/>
+                                <rect key="frame" x="20" y="289.5" width="374" height="120"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yrm-lj-XNH">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -1098,7 +1093,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="foU-dt-8wm">
-                                <rect key="frame" x="20" y="478.5" width="374" height="50"/>
+                                <rect key="frame" x="20" y="430.5" width="374" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="243-cg-s31"/>
                                 </constraints>
@@ -1110,7 +1105,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ief-Cj-hfS">
-                                <rect key="frame" x="20" y="83" width="87" height="34.5"/>
+                                <rect key="frame" x="20" y="35" width="87" height="34.5"/>
                                 <color key="tintColor" name="Studium Secondary Theme Color"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="  Back">
@@ -1122,7 +1117,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4zg-wr-65h">
-                                <rect key="frame" x="229.5" y="548.5" width="164.5" height="32.5"/>
+                                <rect key="frame" x="229.5" y="500.5" width="164.5" height="32.5"/>
                                 <color key="tintColor" name="Studium Secondary Theme Color"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
@@ -1136,7 +1131,7 @@
                                 </buttonConfiguration>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FtF-uU-aKj">
-                                <rect key="frame" x="124.5" y="720.5" width="165.5" height="32.5"/>
+                                <rect key="frame" x="124.5" y="803.5" width="165.5" height="32.5"/>
                                 <color key="tintColor" name="Studium Secondary Theme Color"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
@@ -1150,14 +1145,14 @@
                                 </buttonConfiguration>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bcx-Xz-NHD" customClass="GIDSignInButton">
-                                <rect key="frame" x="20" y="590.5" width="374" height="40"/>
+                                <rect key="frame" x="20" y="673.5" width="374" height="40"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="jCL-MQ-Uas"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rpD-TP-K2o" userLabel="Facebook Sign In Button">
-                                <rect key="frame" x="20" y="650.5" width="374" height="50"/>
+                                <rect key="frame" x="20" y="733.5" width="374" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DYj-ec-gjn">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -1280,7 +1275,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="k4Y-7Q-nC7"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4BM-cb-Shc">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1297,11 +1292,11 @@
             <objects>
                 <viewController id="wNK-sA-8dN" customClass="LogoSelectorViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6xu-Tp-4yp">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nSd-gX-n00">
-                                <rect key="frame" x="20" y="76" width="374" height="733"/>
+                                <rect key="frame" x="20" y="76" width="374" height="781"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lHV-zF-EF2">
                                     <size key="itemSize" width="128" height="128"/>
@@ -1335,7 +1330,7 @@
             <objects>
                 <tableViewController id="hFo-id-GNg" customClass="AlertTableViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="0f3-qI-arm">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <connections>
@@ -1356,7 +1351,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="kNc-rq-AZR"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gu5-VH-JhW">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1417,14 +1412,14 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="kab-UP-nRT" customClass="StartViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2oM-j4-aJ3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ven-L6-pCu">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="gkR-Na-vUZ">
-                                <rect key="frame" x="20" y="148" width="374" height="80"/>
+                                <rect key="frame" x="20" y="100" width="374" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Studium" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YhC-yW-Rqe">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="52.5"/>
@@ -1444,13 +1439,13 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="idv-E1-lOR">
-                                <rect key="frame" x="20" y="248" width="374" height="415"/>
+                                <rect key="frame" x="20" y="200" width="374" height="546"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="under-tree-2" translatesAutoresizingMaskIntoConstraints="NO" id="5ad-Mp-wbe">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="235"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="366"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="lIP-uA-glR">
-                                        <rect key="frame" x="0.0" y="245" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="376" width="374" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UF8-fU-utZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="183" height="50"/>
@@ -1480,14 +1475,14 @@
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQ1-Zc-OCF" customClass="GIDSignInButton">
-                                        <rect key="frame" x="0.0" y="305" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="436" width="374" height="50"/>
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="NcN-4W-uaJ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZF-lm-o0a" userLabel="Facebook Sign In Button">
-                                        <rect key="frame" x="0.0" y="365" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="496" width="374" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UUR-Rf-c4S">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -1527,7 +1522,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3IZ-Wv-vRg">
-                                <rect key="frame" x="136" y="722.5" width="142" height="30.5"/>
+                                <rect key="frame" x="136" y="805.5" width="142" height="30.5"/>
                                 <color key="tintColor" name="Studium Secondary Theme Color"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
@@ -1587,7 +1582,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="nYy-Nl-45g">
-                                <rect key="frame" x="20" y="182.5" width="151.5" height="96"/>
+                                <rect key="frame" x="20" y="134.5" width="151.5" height="96"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X1e-id-e7U">
                                         <rect key="frame" x="0.0" y="0.0" width="121" height="48"/>
@@ -1604,14 +1599,14 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="2" translatesAutoresizingMaskIntoConstraints="NO" id="nhl-6F-OC7">
-                                <rect key="frame" x="244" y="147.5" width="150" height="150"/>
+                                <rect key="frame" x="244" y="99.5" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="js0-Ba-ADm"/>
                                     <constraint firstAttribute="height" constant="150" id="mNU-gi-QhJ"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="SXw-eR-3kO">
-                                <rect key="frame" x="20" y="337.5" width="374" height="120"/>
+                                <rect key="frame" x="20" y="289.5" width="374" height="120"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8hq-AP-3ps">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -1642,7 +1637,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wc2-8N-fie">
-                                <rect key="frame" x="20" y="478.5" width="374" height="50"/>
+                                <rect key="frame" x="20" y="430.5" width="374" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="FcM-p5-ca8"/>
                                 </constraints>
@@ -1668,7 +1663,7 @@
                                 </buttonConfiguration>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81E-Ap-oY8">
-                                <rect key="frame" x="20" y="83" width="87" height="34.5"/>
+                                <rect key="frame" x="20" y="35" width="87" height="34.5"/>
                                 <color key="tintColor" name="Studium Secondary Theme Color"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="  Back">
@@ -1778,9 +1773,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="h8J-RB-4SC"/>
+        <segue reference="dgf-qv-Fcf"/>
         <segue reference="sMc-gW-Ufz"/>
-        <segue reference="J7L-Rc-yCL"/>
+        <segue reference="5zV-Mg-OtU"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="2" width="300" height="300"/>
@@ -1818,17 +1813,11 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemCyanColor">
-            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
