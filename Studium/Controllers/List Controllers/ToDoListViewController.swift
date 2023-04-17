@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import ChameleonFramework
 
-class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshProtocol {
+class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshProtocol, AssignmentRefreshProtocol {
         
     let assignments = [Assignment]()
     let otherEvents = [OtherEvent]()
@@ -18,10 +18,10 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
 //    var otherEvents: Results<OtherEvent>?
 
     override func viewDidLoad() {
+        self.eventTypeString = "Events"
         super.viewDidLoad()
                 
         sectionHeaders = ["To Do:", "Completed:"]
-        eventTypeString = "Events"
 
         
         self.tabBarController?.tabBar.barTintColor = K.themeColor
@@ -29,17 +29,19 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        refreshData()
+        self.debug = true
+        self.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        collapseAllExpandedAssignments()
+        self.collapseAllExpandedAssignments()
     }
     
-    func refreshData(){
+    func reloadData(){
         eventsArray = [[],[]]
 
         let assignments = DatabaseService.shared.getStudiumObjects(expecting: Assignment.self)
+        printDebug("ASSIGNMENTS: \(assignments)")
         let otherEvents = DatabaseService.shared.getStudiumObjects(expecting: OtherEvent.self)
         
         for assignment in assignments {
@@ -116,23 +118,31 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if eventsArray[indexPath.section][indexPath.row] is Assignment {
-//            super.idString = "AssignmentCell1"
-            let cell = super.tableView(tableView, cellForRowAt: indexPath) as! AssignmentCell1
-            let assignment = eventsArray[indexPath.section][indexPath.row] as! Assignment
+        
+        if let event = eventsArray[indexPath.section][indexPath.row] as? Assignment {
+            super.swipeCellId = AssignmentCell1.id
+            if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? AssignmentCell1,
+               let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment {
+                
+                cell.assignmentCollapseDelegate = self
+                cell.loadData(assignment: assignment)
+                
+                return cell
+            }
             
-            cell.assignmentCollapseDelegate = self
-            cell.loadData(assignment: assignment)
+            fatalError("$Error: Couldn't dequeue cell for assignment \(event.name)")
+        } else if let event = eventsArray[indexPath.section][indexPath.row] as? OtherEvent {
+            super.swipeCellId = OtherEventCell.id
+            if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? OtherEventCell,
+               let otherEvent = eventsArray[indexPath.section][indexPath.row] as? OtherEvent {
+                cell.loadData(from: otherEvent)
+                return cell
+            }
+            
+            fatalError("$Error: Couldn't dequeue cell for other event \(event.name)")
 
-            return cell
-        }else if eventsArray[indexPath.section][indexPath.row] is OtherEvent{
-//            super.idString = "OtherEventCell"
-            let cell = super.tableView(tableView, cellForRowAt: indexPath) as! OtherEventCell
-            let otherEvent = eventsArray[indexPath.section][indexPath.row] as! OtherEvent
-            cell.loadData(from: otherEvent)
-            return cell
         }else{
-            print("created poo cell")
+            print("$Error: created poo cell")
             let cell = super.tableView(tableView, cellForRowAt: indexPath)
             return cell
         }
@@ -155,6 +165,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
 //    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         // super didSelectRow handles marking events complete (in Realm)
         super.tableView(tableView, didSelectRowAt: indexPath)
         
@@ -169,22 +180,16 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
                     tableView.reloadData()
                 } else {
 //                    loadAssignments()
-                    refreshData()
+                    reloadData()
                 }
             }
         } else if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell {
             print("$Log: Selected an otherEventCell")
             tableView.reloadData()
-            refreshData()
+            reloadData()
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-extension ToDoListViewController: AssignmentRefreshProtocol {
-    func loadAssignments() {
-        refreshData()
     }
 }
 

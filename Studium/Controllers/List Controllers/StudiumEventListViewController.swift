@@ -11,6 +11,8 @@ import SwipeCellKit
 import UIKit
 
 class StudiumEventListViewController: SwipeTableViewController {
+    var debug = false
+    
     var eventsArray: [[StudiumEvent]] = [[],[]]
     
     var sectionHeaders: [String] = ["Section 1", "Section 2"]
@@ -18,6 +20,8 @@ class StudiumEventListViewController: SwipeTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = eventTypeString
         
         tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderView.id)
         tableView.register(UINib(nibName: RecurringEventCell.id, bundle: nil), forCellReuseIdentifier: RecurringEventCell.id)
@@ -98,5 +102,13 @@ extension StudiumEventListViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return eventsArray[section].count
+    }
+}
+
+extension StudiumEventListViewController: Debuggable {
+    func printDebug(_ message: String) {
+        if self.debug {
+            print("$LOG (\(String(describing: self)): \(message)")
+        }
     }
 }

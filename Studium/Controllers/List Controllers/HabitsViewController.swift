@@ -15,15 +15,16 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
+        self.eventTypeString = "Habits"
+
         super.viewDidLoad()
 
         tableView.separatorStyle = .none //gets rid of dividers between cells.
         tableView.rowHeight = 140
         
         sectionHeaders = ["Today:", "Not Today:"]
-        eventTypeString = "Habits"
         
-        self.tabBarController?.tabBar.backgroundColor = K.themeColor
+//        self.tabBarController?.tabBar.backgroundColor = K.themeColor
         
     }
     override func viewWillAppear(_ animated: Bool) {
