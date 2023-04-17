@@ -32,8 +32,8 @@ class StartViewController: FBAndGoogleAuthViewController{
         googleSignInButton.style = GIDSignInButtonStyle.wide
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
         
-        GIDSignIn.sharedInstance()?.presentingViewController = self
-        GIDSignIn.sharedInstance().delegate = self
+//        GIDSignIn.sharedInstance()?.presentingViewController = self
+//        GIDSignIn.sharedInstance().delegate = self
         
         sender = self
         facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)

@@ -11,7 +11,12 @@ import UIKit
 import FBSDKLoginKit
 import GoogleSignIn
 import RealmSwift
-class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate {
+
+class FBAndGoogleAuthViewController: UIViewController
+//,
+//                                        GIDSignInDelegate
+
+{
     var codeLocationString: String = "FBAndGoogleAuthViewController"
     
     var sender: Any? = FBAndGoogleAuthViewController.self
@@ -46,7 +51,8 @@ class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate {
     //GOOGLE
     func sign(_ signIn: GIDSignIn!, didSignInFor googleUser: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
-            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
+//            GIDSignInError.Code
+            if (error as NSError).code == GIDSignInError.Code.hasNoAuthInKeychain.rawValue {
                 print("The user has not signed in before or they have since signed out.")
             } else {
                 print("\(error.localizedDescription)")
@@ -54,7 +60,8 @@ class FBAndGoogleAuthViewController: UIViewController, GIDSignInDelegate {
             return
         }
         // Signed in successfully, forward credentials to MongoDB Realm.
-        let credentials = Credentials.google(serverAuthCode: googleUser.serverAuthCode)
+//        googleUser.
+//        let credentials = Credentials.google(serverAuthCode: googleUser.serverAuthCode)
 //        K.app.login(credentials: credentials) { result in
 //            DispatchQueue.main.async {
 //                switch result {

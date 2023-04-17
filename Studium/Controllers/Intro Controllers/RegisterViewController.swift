@@ -49,8 +49,9 @@ class RegisterViewController: FBAndGoogleAuthViewController, UIGestureRecognizer
         //Google Sign In Button Code
         googleSignInButton.style = GIDSignInButtonStyle.wide
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
-        GIDSignIn.sharedInstance()?.presentingViewController = self
-        GIDSignIn.sharedInstance().delegate = self
+        
+//        GIDSignIn.sharedInstance()?.presentingViewController = self
+//        GIDSignIn.sharedInstance().delegate = self
         
         sender = self
         facebookSignInButton.layer.cornerRadius = 10
