@@ -7,8 +7,26 @@
 //
 
 import Foundation
+import GoogleSignIn
 
 //TODO: Implement
 class AuthenticationService {
+    static let shared = AuthenticationService()
     
+    private init() {}
+    
+    func attemptRestorePreviousSignIn(completion: @escaping (SignInStatus) -> Void) {
+        GoogleAuthenticationService.shared.attemptRestorePreviousSignIn { authStatus in
+            switch authStatus {
+            case .signedIn:
+                completion(.signedIn)
+            case .signedOut:
+                completion(.signedOut)
+                //TODO: Facebook Service:
+//                FacebookAuthenticationService.shared.attemptRestorePreviousSignIn {
+//
+//                }
+            }
+        }
+    }
 }
