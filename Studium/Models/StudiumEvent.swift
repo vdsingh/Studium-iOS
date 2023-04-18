@@ -44,16 +44,10 @@ class StudiumEvent: Object {
     
     @Persisted private var alertTimesRaw = List<AlertOption.RawValue>()
     
+    @Persisted var notificationIdentifiersList = List<String>()
+    
     
     // MARK: - Computed Variables
-    
-    var alertTimes: [AlertOption] {
-        get { return self.alertTimesRaw.compactMap { AlertOption(rawValue: $0) } }
-        set {
-            alertTimesRaw = List<AlertOption.RawValue>()
-            alertTimesRaw.append(objectsIn: newValue.compactMap { $0.rawValue })
-        }
-    }
     
     var color: UIColor {
         get { return UIColor(hexString: self.colorHex) ?? .black }
@@ -63,6 +57,22 @@ class StudiumEvent: Object {
     var logo: SystemIcon {
         get { return SystemIcon(rawValue: self.logoString) ?? .book }
         set { self.logoString = newValue.rawValue }
+    }
+    
+    var alertTimes: [AlertOption] {
+        get { return self.alertTimesRaw.compactMap { AlertOption(rawValue: $0) } }
+        set {
+            alertTimesRaw = List<AlertOption.RawValue>()
+            alertTimesRaw.append(objectsIn: newValue.compactMap { $0.rawValue })
+        }
+    }
+    
+    var notificationIdentifiers: [String] {
+        get { return [String](self.notificationIdentifiersList) }
+        set {
+            self.notificationIdentifiersList = List<String>()
+            self.notificationIdentifiersList.append(objectsIn: newValue)
+        }
     }
     
     convenience init(

@@ -51,8 +51,9 @@ final class DatabaseService {
     
     //MARK: - Create
     public func saveStudiumObject(_ studiumEvent: StudiumEvent) {
-        if studiumEvent is Assignment {
-            print("$Error: attempted to save assignment through saveStudiumObject function. Use saveAssignment instead")
+        if let event = studiumEvent as? Assignment,
+           let parentCourse = event.parentCourse {
+            self.saveAssignment(assignment: event, parentCourse: parentCourse)
             return
         }
         
@@ -64,6 +65,9 @@ final class DatabaseService {
         } catch {
             print("$Error: error deleting studium object.")
         }
+        
+        NotificationService.shared.scheduleNotificationsFor(event: studiumEvent)
+
     }
     
     public func saveAssignment(assignment: Assignment, parentCourse: Course){
@@ -77,6 +81,8 @@ final class DatabaseService {
         } catch {
             print("error appending assignment")
         }
+        
+        NotificationService.shared.scheduleNotificationsFor(event: assignment)
     }
     
     // MARK: - Read
@@ -92,6 +98,7 @@ final class DatabaseService {
     // MARK: - Update
     
     public func markComplete(_ completableEvent: CompletableStudiumEvent, _ complete: Bool) {
+        //TODO: Delete assignment notifications when complete, add when incomplete.
         do {
             try realm.write{
                 completableEvent.complete = !completableEvent.complete
@@ -102,12 +109,8 @@ final class DatabaseService {
     }
     
     public func editStudiumEvent(oldEvent: StudiumEvent, newEvent: StudiumEvent) {
-        printDebug("editing StudiumEvent")
-//        if(oldEvent._id != newEvent._id) {
-//            print("$ERR (DatabaseService): tried to update an event but the id did not match. Old Event: \(oldEvent._id) != \(newEvent._id)")
-//            return
-//        }
-        
+        printDebug("editing StudiumEvent. \nOld Event: \(oldEvent). \nNew Event: \(newEvent)")
+        NotificationService.shared.deleteAllPendingNotifications(for: oldEvent)
         newEvent.setID(oldEvent._id)
         
         do {
@@ -117,6 +120,8 @@ final class DatabaseService {
         } catch {
             print("$Error: editing event: \(error)")
         }
+        
+        NotificationService.shared.scheduleNotificationsFor(event: newEvent)
     }
     
     // MARK: - Delete
@@ -135,6 +140,8 @@ final class DatabaseService {
         } catch {
             print("$Error: error deleting studium object.")
         }
+        
+        NotificationService.shared.deleteAllPendingNotifications(for: studiumEvent)
     }
     
     
