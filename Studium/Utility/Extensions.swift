@@ -88,14 +88,31 @@ extension Date {
     //        return date!
     //    }
     
-}
+
 
 // MARK: Helper methods
-extension Date {
+//extension Date {
     func getWeekDaysInEnglish() -> [String] {
         var calendar = Calendar(identifier: .gregorian)
         calendar.locale = Locale(identifier: "en_US_POSIX")
         return calendar.weekdaySymbols
+    }
+    
+    func setTime(hour: Int, minute: Int, second: Int) -> Date? {
+        let calendar = Calendar(identifier: .gregorian)
+        var dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self)
+        dateComponents.hour = hour
+        dateComponents.minute = minute
+        dateComponents.second = second
+        return calendar.date(from: dateComponents)
+    }
+    
+    func subtract(minutes: Int) -> Date {
+        return Calendar.current.date(byAdding: .minute, value: -minutes, to: self)!
+    }
+    
+    func add(minutes: Int) -> Date {
+        return Calendar.current.date(byAdding: .minute, value: minutes, to: self)!
     }
     
     enum SearchDirection {
