@@ -20,8 +20,20 @@ class StudiumEventListViewController: SwipeTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = StudiumColor.background.uiColor
         
-        self.title = eventTypeString
+        // Set the color of the navigation bar title text
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
+
+
+        // Set the color of the navigation bar button text
+        self.navigationController?.navigationBar.tintColor = StudiumColor.primaryAccent.uiColor
+        
+        self.navigationController?.navigationBar.barTintColor = StudiumColor.background.uiColor
+
+        self.navigationItem.title = eventTypeString
+//        self.title = eventTypeString
         
         tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderView.id)
         tableView.register(UINib(nibName: RecurringEventCell.id, bundle: nil), forCellReuseIdentifier: RecurringEventCell.id)
@@ -76,6 +88,12 @@ extension StudiumEventListViewController {
             return nil
         }
         
+        headerView.tintColor = StudiumColor.secondaryBackground.uiColor
+        headerView.primaryLabel.textColor = StudiumColor.primaryLabel.uiColor
+        headerView.secondaryLabel.textColor = StudiumColor.primaryLabel.uiColor
+
+//        headerView.color
+//        headerView.backgroundColor =
         headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(eventsArray[section].count) \(eventTypeString)")
         return headerView
     }

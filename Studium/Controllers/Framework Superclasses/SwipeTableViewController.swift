@@ -34,7 +34,7 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return K.headerHeight
+        return K.populatedHeaderHeight
     }
 
     

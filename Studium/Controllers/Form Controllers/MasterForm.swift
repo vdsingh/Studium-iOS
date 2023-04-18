@@ -59,6 +59,15 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     private var idCounter = 0
     
     override func viewDidLoad() {
+        self.view.backgroundColor = StudiumColor.background.uiColor
+        
+        // Set the color of the navigation bar title text
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
+        
+        // Set the color of the navigation bar button text
+        self.navigationController?.navigationBar.tintColor = StudiumColor.primaryLabel.uiColor
+        self.navigationController?.navigationBar.backgroundColor = StudiumColor.primaryAccent.uiColor
         
         // registering the necessary cells for the form.
         tableView.register(UINib(nibName: TextFieldCell.id, bundle: nil), forCellReuseIdentifier: TextFieldCell.id)
@@ -84,15 +93,14 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.view.backgroundColor = .systemBackground
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
-        headerView.backgroundColor = UIColor.systemBackground
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: K.emptyHeaderHeight))
         
         return headerView
     }
+
     
     internal func noErrors() -> Bool {
         self.errors = []
@@ -231,7 +239,11 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        if section == 0 {
+            return 0
+        }
+        
+        return K.emptyHeaderHeight
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -249,7 +261,7 @@ class MasterFormClass: UITableViewController, UNUserNotificationCenterDelegate, 
             guard let colorCell = tableView.cellForRow(at: IndexPath(row: colorCellRow, section: 2)) as? ColorPickerCell else {
                 return
             }
-            destinationVC.color = colorCell.colorPreview.backgroundColor ?? .white
+            destinationVC.color = colorCell.colorPreview.backgroundColor ?? StudiumColor.primaryLabel.uiColor
         }else if let destinationVC = segue.destination as? AlertTableViewController{
             destinationVC.delegate = self
         }

@@ -14,7 +14,7 @@ class ThemeCell: BasicCell {
     @IBOutlet weak var label: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = defaultBackgroundColor
+        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
 
         // Initialization code
     }

@@ -20,7 +20,9 @@ class TimeCell: BasicCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = defaultBackgroundColor
+        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+        self.label.textColor = StudiumColor.primaryLabel.uiColor
+        self.timeLabel.textColor = StudiumColor.primaryLabel.uiColor
     }
     
     func configure(

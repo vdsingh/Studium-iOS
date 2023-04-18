@@ -10,10 +10,13 @@ import UIKit
 
 class LogoCell: BasicCell {
     @IBOutlet weak var logoImageView: UIImageView!
+    
+    @IBOutlet weak var label: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = defaultBackgroundColor
-        // Initialization code
+        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+        self.label.textColor = StudiumColor.primaryLabel.uiColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

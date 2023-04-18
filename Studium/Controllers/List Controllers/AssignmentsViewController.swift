@@ -32,9 +32,6 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
 
         self.sectionHeaders = ["To Do:", "Completed:"]
         self.eventTypeString = "Assignments"
-        
-        self.tabBarController?.tabBar.barTintColor = K.themeColor
-
     }
     
     override func viewWillAppear(_ animated: Bool) {

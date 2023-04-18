@@ -28,8 +28,10 @@ class RecurringEventCell: DeletableEventCell {
     override func awakeFromNib() {
         self.debug = true
         super.awakeFromNib()
-        background.layer.cornerRadius = 15
-        background.layer.borderWidth = 4
+        self.background.layer.cornerRadius = 15
+//        self.background.layer.borderWidth = 4
+        self.background.backgroundColor = StudiumColor.secondaryBackground.uiColor
+//        self.backgroundColor =
     }
 
     func loadData(
@@ -68,7 +70,7 @@ class RecurringEventCell: DeletableEventCell {
         
         // Reset all of the day labels and day boxes
         for i in 0..<dayLabels.count {
-            dayLabels[i].textColor = .white
+            dayLabels[i].textColor = StudiumColor.primaryLabel.uiColor
             dayBoxes[i].backgroundColor = .none
         }
         

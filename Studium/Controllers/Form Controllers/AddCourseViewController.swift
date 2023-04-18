@@ -30,10 +30,6 @@ class AddCourseViewController: MasterForm {
     var location: String = ""
     
     @IBOutlet weak var navButton: UIBarButtonItem!
-    
-    override func viewWillAppear(_ animated: Bool) {
-//        self.debug = true
-    }
 
     override func viewDidLoad() {
         self.cells = [
@@ -53,15 +49,16 @@ class AddCourseViewController: MasterForm {
                 .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],
             [
-                .labelCell(cellText: "", textColor: .systemRed, backgroundColor: .systemBackground)
+                .labelCell(cellText: "", textColor: .systemRed)
             ]
         ]
+        
     
         super.viewDidLoad()
         navButton.image = SystemIcon.plus.createImage()
         
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        
+//        self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
         
         // gets rid of empty cells at the bottom
         tableView.tableFooterView = UIView()

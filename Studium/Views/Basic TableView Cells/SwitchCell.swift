@@ -19,14 +19,18 @@ class SwitchCell: BasicCell {
     
     @IBOutlet weak var tableSwitch: UISwitch!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var infoButton: UIButton!
     
     var on: Bool = false
     
     var switchDelegate: CanHandleSwitch?
     var infoDelegate: CanHandleInfoDisplay?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = defaultBackgroundColor
+        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+        self.label.textColor = StudiumColor.primaryLabel.uiColor
+        self.infoButton.backgroundColor = StudiumColor.secondaryBackground.uiColor
 
         // Initialization code
     }
@@ -45,9 +49,9 @@ class SwitchCell: BasicCell {
     }
 
     @IBAction func infoButtonPressed(_ sender: UIButton) {
-        if let del = infoDelegate{
+        if let del = infoDelegate {
             del.displayInformation()
-        }else{
+        } else {
            print("error accessing infoDelegate")
         }
     }

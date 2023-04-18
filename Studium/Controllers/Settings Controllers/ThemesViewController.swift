@@ -48,7 +48,6 @@ extension ThemesViewController: UITableViewDelegate{
         //hide and unhide the navbar to basically refresh it
 //        self.navigationController?.isNavigationBarHidden = true
 //        self.navigationController?.isNavigationBarHidden = false
-        self.tabBarController!.tabBar.barTintColor = color
         self.navigationController?.navigationBar.barTintColor = color
         
         

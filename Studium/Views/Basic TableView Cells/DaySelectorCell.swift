@@ -22,7 +22,11 @@ class DaySelectorCell: BasicCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = defaultBackgroundColor
+        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+        
+        for button in self.dayButtons {
+            button.tintColor = StudiumColor.primaryAccent.uiColor
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

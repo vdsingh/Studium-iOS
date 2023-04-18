@@ -13,7 +13,8 @@ class LabelCell: BasicCell {
     @IBOutlet weak var label: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = defaultBackgroundColor
+        self.label.textColor = StudiumColor.primaryLabel.uiColor
+        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
 
         // Initialization code
     }

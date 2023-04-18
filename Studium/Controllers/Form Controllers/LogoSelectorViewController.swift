@@ -14,7 +14,7 @@ protocol LogoStorer {
 
 class LogoSelectorViewController: UIViewController {
     var delegate: LogoStorer?
-    var color: UIColor = .systemBackground
+    var color: UIColor = StudiumColor.background.uiColor
     @IBOutlet weak var collectionView: UICollectionView!
     
     var logos: [SystemIcon] = SystemIcon.allCases

@@ -31,7 +31,7 @@ class TimePickerCell: BasicCell {
             picker.preferredDatePickerStyle = UIDatePickerStyle.wheels
         }
 
-        self.backgroundColor = defaultBackgroundColor
+        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

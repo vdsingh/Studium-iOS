@@ -25,7 +25,7 @@ protocol Autoscheduleable: StudiumEvent {
 }
 
 class RecurringStudiumEvent: StudiumEvent {
-    internal var daysList: List<Int> = List<Int>()
+    internal var daysList = List<Int>()
     
     var days: Set<Weekday> {
         get {

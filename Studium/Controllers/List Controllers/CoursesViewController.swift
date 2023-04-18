@@ -27,22 +27,12 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         
         tableView.rowHeight = 140
         tableView.separatorStyle = .none //gets rid of dividers between cells.
-        
-        tabBarController?.tabBar.isTranslucent = false
-        self.tabBarController?.tabBar.barTintColor = K.themeColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let gradient = CAGradientLayer()
         let sizeLength = UIScreen.main.bounds.size.height * 2
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: sizeLength, height: 64)
 
-        gradient.frame = defaultNavigationBarFrame
-
-        gradient.colors = [UIColor.white.cgColor, UIColor.black.cgColor]
-
-        UINavigationBar.appearance().setBackgroundImage(self.image(fromLayer: gradient), for: .default)
-//        sortCourses()
         loadCourses()
         
     }

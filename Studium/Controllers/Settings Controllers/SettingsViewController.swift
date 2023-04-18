@@ -52,11 +52,23 @@ class SettingsViewController: UITableViewController, AlertInfoStorer {
                 self.alertTimes = times.compactMap { AlertOption(rawValue: $0) }
             }
         }
-
-    }
-    override func viewWillAppear(_ animated: Bool){
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
+        self.navigationController?.navigationBar.tintColor = StudiumColor.primaryAccent.uiColor
+        
         navigationController?.navigationBar.prefersLargeTitles = true
+
+        
+        self.view.backgroundColor = StudiumColor.background.uiColor
+        self.navigationController?.navigationBar.barTintColor = StudiumColor.background.uiColor
+        
+//        UITabBar.appearance().tintColor = StudiumColor.primaryAccent.darken()
+//        
+//        UITabBar.appearance().backgroundColor = StudiumColor.primaryAccent.uiColor
+    
     }
+
     
     func processAlertTimes() {
         print("$Log: Setting values for default notification times")
@@ -65,6 +77,8 @@ class SettingsViewController: UITableViewController, AlertInfoStorer {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+        cell?.backgroundColor = StudiumColor.secondaryBackground.uiColor
+        cell?.textLabel?.textColor = StudiumColor.primaryLabel.uiColor
         cell?.textLabel?.text = cellData[indexPath.section][indexPath.row]
         if defaults.value(forKey: "email") != nil && cellData[indexPath.section][indexPath.row] == "Email"{
             cell?.textLabel?.text = defaults.string(forKey: "email")
@@ -84,7 +98,11 @@ class SettingsViewController: UITableViewController, AlertInfoStorer {
         return 60
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return K.headerHeight
+        if section == 0 {
+            return 0
+        }
+        
+        return K.emptyHeaderHeight
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -119,7 +137,7 @@ class SettingsViewController: UITableViewController, AlertInfoStorer {
 //            vc.dismiss(animated: true, completion: nil)
 
 //            performSegue(withIdentifier: "toLoginScreen", sender: self)
-        }else if cellData[indexPath.section][indexPath.row] == "Sync to Apple Calendar"{
+        } else if cellData[indexPath.section][indexPath.row] == "Sync to Apple Calendar" {
             // Initialize the store.
             let store = EKEventStore()
 
@@ -159,8 +177,8 @@ class SettingsViewController: UITableViewController, AlertInfoStorer {
     
     //edit the background color of section headers
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
-        headerView.backgroundColor = UIColor.black
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: K.emptyHeaderHeight))
+        headerView.backgroundColor = StudiumColor.background.uiColor
         return headerView
     }
 //    221406332443-he18tqfi4jbg40mbgpgmaaebenekh208.apps.googleusercontent.com

@@ -19,14 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        if let themeColorValue = UserDefaults.standard.string(forKey: "themeColor"),
-//           let color = K.colorsDict[themeColorValue] {
-//            updateTheme(color: color)
-//        } else {
-//            print("$Log: no theme color saved.")
-//        }
-        
-        //        if let user = DatabaseService.shared.user {
         do {
             let assignments = DatabaseService.shared.getStudiumObjects(expecting: Assignment.self)
             for assignment in assignments {
@@ -34,15 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     DatabaseService.shared.deleteStudiumObject(assignment)
                 }
             }
-            //            } catch {
-            //                print("$Error: issue accessing assignments in Realm.")
-            //            }
-            //            print("User IS signed in.")
         }
-        //        else {
-//            UserDefaults.standard.setValue("Guest", forKey: "email")
-//            print("$Log: User is NOT signed in.")
-//        }
         
         print("$Log: Did finish launching");
         
@@ -62,31 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-    
-    
-    //updates the theme color of the app.
-    func updateTheme(color: UIColor){
-//        let navAppearance = UINavigationBarAppearance()
-//        navAppearance.backgroundColor = color
-//        
-//        navAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-//        navAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-//
-//        UINavigationBar.appearance().tintColor = .white
-//        UINavigationBar.appearance().standardAppearance = navAppearance
-//        UINavigationBar.appearance().compactAppearance = navAppearance
-//        UINavigationBar.appearance().scrollEdgeAppearance = navAppearance
-//        
-//        let tabAppearance = UITabBarAppearance()
-//        tabAppearance.backgroundColor = color
-//    
-//        UITabBar.appearance().standardAppearance = tabAppearance
-    }
-    
-//    func changeTheme(colorKey: String){
-//        UserDefaults.standard.setValue(colorKey, forKey: "themeColor")
-//        updateTheme(color: K.colorsDict[colorKey] ?? UIColor.black)
-//    }
     
     
     // MARK: UISceneSession Lifecycle

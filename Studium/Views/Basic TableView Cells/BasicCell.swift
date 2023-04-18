@@ -12,5 +12,4 @@ protocol FormCellProtocol {
 }
 
 class BasicCell: UITableViewCell {
-    var defaultBackgroundColor = UIColor.secondarySystemBackground
 }

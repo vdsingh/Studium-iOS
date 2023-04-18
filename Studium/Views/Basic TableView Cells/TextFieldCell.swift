@@ -32,7 +32,11 @@ class TextFieldCell: BasicCell {
         super.awakeFromNib()
         self.textField.returnKeyType = UIReturnKeyType.done
         
-        self.backgroundColor = defaultBackgroundColor
+        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+        
+//        self.textField.placeholder
+        self.textField.attributedPlaceholder = NSAttributedString(string: "Enter Text", attributes: [NSAttributedString.Key.foregroundColor: StudiumColor.secondaryLabel.uiColor])
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

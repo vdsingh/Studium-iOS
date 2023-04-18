@@ -30,8 +30,8 @@ public enum FormCell: Equatable {
     
     case labelCell(
         cellText: String,
-        textColor: UIColor = .label,
-        backgroundColor: UIColor = kCellBackgroundColor,
+        textColor: UIColor = StudiumColor.primaryLabel.uiColor,
+        backgroundColor: UIColor = StudiumColor.secondaryBackground.uiColor,
         cellAccessoryType: UITableViewCell.AccessoryType = .none,
         onClick: (() -> Void)? = nil
     )

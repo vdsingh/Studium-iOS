@@ -33,7 +33,7 @@ class LoginViewController: FBAndGoogleAuthViewController, UIGestureRecognizerDel
     let textFieldIconSize = 30
     let tintColor: UIColor = UIColor(named: "Studium Secondary Theme Color") ?? .black
     let placeHolderColor: UIColor = .placeholderText
-    let backgroundColor: UIColor =  UIColor(named: "Studium System Background Color") ?? .systemBackground
+    let backgroundColor: UIColor =  UIColor(named: "Studium System Background Color") ?? StudiumColor.background.uiColor
     
     
     let textFieldBorderWidth: CGFloat = 2
@@ -179,7 +179,7 @@ class LoginViewController: FBAndGoogleAuthViewController, UIGestureRecognizerDel
         
         signInButton.backgroundColor = tintColor
         signInButton.layer.cornerRadius = 10
-        signInButton.setTitleColor(.white, for: .normal)
+        signInButton.setTitleColor(StudiumColor.primaryLabel.uiColor, for: .normal)
     
 //        continueAsGuestButton.tintColor = tintColor
     }

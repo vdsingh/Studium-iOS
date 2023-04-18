@@ -22,10 +22,6 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
         super.viewDidLoad()
                 
         sectionHeaders = ["To Do:", "Completed:"]
-
-        
-        self.tabBarController?.tabBar.barTintColor = K.themeColor
-
     }
     
     override func viewWillAppear(_ animated: Bool) {

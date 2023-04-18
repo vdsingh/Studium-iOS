@@ -90,7 +90,7 @@ class AddHabitViewController: MasterForm {
                                id: FormCellID.TextFieldCell.additionalDetailsTextField,
                                textFieldDelegate: self,
                                delegate: self),
-                .labelCell(cellText: "", textColor: .systemRed, backgroundColor: .systemBackground)
+                .labelCell(cellText: "", textColor: .systemRed)
             ]
         ]
         
@@ -114,7 +114,7 @@ class AddHabitViewController: MasterForm {
                 .logoCell(logo: self.logo, onClick: self.navigateToLogoSelection),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", id: .additionalDetailsTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "", textColor: .systemRed, backgroundColor: .systemBackground)
+                .labelCell(cellText: "", textColor: .systemRed)
             ]
         ]
         

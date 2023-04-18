@@ -67,7 +67,6 @@ class AddAssignmentViewController: MasterForm {
         
         tableView.tableFooterView = UIView()
         
-        tableView.backgroundColor = .systemBackground
         
         courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
         

@@ -44,7 +44,7 @@ class AddToDoListEventViewController: MasterForm {
             ],
             [
                 .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "", textColor: .systemRed, backgroundColor: .systemBackground)
+                .labelCell(cellText: "", textColor: .systemRed)
             ]
         ]
         super.viewDidLoad()

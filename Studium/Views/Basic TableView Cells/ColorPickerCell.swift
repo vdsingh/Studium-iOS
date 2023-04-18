@@ -11,6 +11,10 @@ public protocol ColorDelegate {
 import UIKit
 import FlexColorPicker
 class ColorPickerCell: BasicCell {
+    
+    
+    @IBOutlet weak var label: UILabel!
+    
     @IBOutlet weak var colorPreview: UIImageView!
     @IBOutlet weak var colorPicker: RadialPaletteControl!
     
@@ -23,8 +27,10 @@ class ColorPickerCell: BasicCell {
             colorPreview.backgroundColor = ColorPickerCell.color!
         }
         print(colorPicker.selectedColor.hexValue())
-        self.backgroundColor = defaultBackgroundColor
-        colorPicker.backgroundColor = defaultBackgroundColor
+        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+        self.colorPicker.backgroundColor = StudiumColor.secondaryBackground.uiColor
+        
+        self.label.textColor = StudiumColor.primaryLabel.uiColor
 
     }
 
