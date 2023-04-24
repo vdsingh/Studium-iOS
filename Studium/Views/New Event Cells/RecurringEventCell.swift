@@ -26,7 +26,7 @@ class RecurringEventCell: DeletableEventCell {
     @IBOutlet var dayBoxes: [UIImageView]!
     
     override func awakeFromNib() {
-        self.debug = true
+        self.debug = false
         super.awakeFromNib()
         self.background.layer.cornerRadius = 15
 //        self.background.layer.borderWidth = 4

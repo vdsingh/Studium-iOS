@@ -17,7 +17,7 @@ class SegmentedControlCell: BasicCell {
     var delegate: SegmentedControlDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+//        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
 
         // Initialization code
     }

@@ -292,7 +292,7 @@
             <objects>
                 <tableViewController id="Ict-Kx-JgS" customClass="CoursesViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DR8-J6-sLa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="804"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" name="Studium System Background Color"/>
@@ -308,7 +308,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <segue destination="0Vi-ec-NIi" kind="show" identifier="coursesToAssignments" id="bsw-Cx-eUz"/>
                         <segue destination="L6g-9f-aKF" kind="show" identifier="toAddCourseForm" id="640-Y5-PwP"/>
@@ -393,13 +392,15 @@
             <objects>
                 <tableViewController id="0Vi-ec-NIi" customClass="AssignmentsViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="N4Z-hX-3Od">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="804"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" name="Studium System Background Color"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="iXA-jG-3Nd">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="barTintColor" red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <connections>
@@ -530,14 +531,14 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="W6V-nj-3lM">
                                         <rect key="frame" x="10" y="50" width="354" height="756"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When do you wake up?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwb-l7-dZL">
-                                                <rect key="frame" x="11" y="0.0" width="332.5" height="95.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When do you wake up?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwb-l7-dZL">
+                                                <rect key="frame" x="11" y="0.0" width="332.5" height="134.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
-                                                <color key="textColor" name="Studium Label Color"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yOK-kj-lpp">
-                                                <rect key="frame" x="0.0" y="125.5" width="354" height="51"/>
+                                                <rect key="frame" x="0.0" y="164.5" width="354" height="51"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="oue-Vc-zGP"/>
                                                 </constraints>
@@ -547,16 +548,16 @@
                                                 </segments>
                                                 <color key="selectedSegmentTintColor" name="Studium Purple"/>
                                                 <connections>
-                                                    <action selector="habitChanged:" destination="13W-JO-cIR" eventType="valueChanged" id="DSW-mP-Odr"/>
+                                                    <action selector="timeSelectionTypeChanged:" destination="13W-JO-cIR" eventType="valueChanged" id="DSW-mP-Odr"/>
                                                 </connections>
                                             </segmentedControl>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="lvA-nu-ynG">
-                                                <rect key="frame" x="11" y="205.5" width="332" height="30"/>
+                                                <rect key="frame" x="11" y="244.5" width="332" height="30"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="TZa-Wx-7FK">
                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="tintColor" name="Studium Button Color"/>
+                                                        <color key="tintColor" name="Studium Purple"/>
                                                         <state key="normal" title="Sun">
                                                             <color key="titleColor" name="Studium Purple"/>
                                                         </state>
@@ -566,7 +567,7 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7P-7Y-z1l">
                                                         <rect key="frame" x="50" y="0.0" width="31" height="30"/>
-                                                        <color key="tintColor" name="Studium Button Color"/>
+                                                        <color key="tintColor" name="Studium Purple"/>
                                                         <state key="normal" title="Mon">
                                                             <color key="titleColor" name="Studium Purple"/>
                                                         </state>
@@ -577,7 +578,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="aYj-Ep-44S">
                                                         <rect key="frame" x="101" y="0.0" width="30" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="tintColor" name="Studium Button Color"/>
+                                                        <color key="tintColor" name="Studium Purple"/>
                                                         <state key="normal" title="Tue">
                                                             <color key="titleColor" name="Studium Purple"/>
                                                         </state>
@@ -588,7 +589,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="1nv-lV-dXL">
                                                         <rect key="frame" x="151" y="0.0" width="31" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="tintColor" name="Studium Button Color"/>
+                                                        <color key="tintColor" name="Studium Purple"/>
                                                         <state key="normal" title="Wed">
                                                             <color key="titleColor" name="Studium Purple"/>
                                                         </state>
@@ -599,7 +600,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="wbw-Jv-AwL">
                                                         <rect key="frame" x="202" y="0.0" width="30" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="tintColor" name="Studium Button Color"/>
+                                                        <color key="tintColor" name="Studium Purple"/>
                                                         <state key="normal" title="Thu">
                                                             <color key="titleColor" name="Studium Purple"/>
                                                         </state>
@@ -610,7 +611,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="q9I-As-Q7g">
                                                         <rect key="frame" x="252" y="0.0" width="30" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="tintColor" name="Studium Button Color"/>
+                                                        <color key="tintColor" name="Studium Purple"/>
                                                         <state key="normal" title="Fri">
                                                             <color key="titleColor" name="Studium Purple"/>
                                                         </state>
@@ -621,7 +622,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="ceD-z6-mLH">
                                                         <rect key="frame" x="302" y="0.0" width="30" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="tintColor" name="Studium Button Color"/>
+                                                        <color key="tintColor" name="Studium Purple"/>
                                                         <state key="normal" title="Sat">
                                                             <color key="titleColor" name="Studium Purple"/>
                                                         </state>
@@ -631,21 +632,31 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
-                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="gT5-b6-OX2">
-                                                <rect key="frame" x="0.0" y="265.5" width="354" height="120"/>
-                                                <color key="tintColor" name="Studium Label Color"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2oG-WV-LG6">
+                                                <rect key="frame" x="17" y="304.5" width="320" height="120"/>
+                                                <subviews>
+                                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="gT5-b6-OX2">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                                                        <color key="tintColor" name="Studium Label Color"/>
+                                                        <connections>
+                                                            <action selector="timePickerChanged:" destination="13W-JO-cIR" eventType="valueChanged" id="fW1-HO-0ey"/>
+                                                        </connections>
+                                                    </datePicker>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="120" id="oGs-F0-Fe8"/>
+                                                    <constraint firstAttribute="height" constant="120" id="a4D-1G-qrV"/>
+                                                    <constraint firstItem="gT5-b6-OX2" firstAttribute="top" secondItem="2oG-WV-LG6" secondAttribute="top" id="eGF-p0-Fet"/>
+                                                    <constraint firstItem="gT5-b6-OX2" firstAttribute="leading" secondItem="2oG-WV-LG6" secondAttribute="leading" id="hsr-AP-xKu"/>
+                                                    <constraint firstAttribute="bottom" secondItem="gT5-b6-OX2" secondAttribute="bottom" id="v62-Pv-1NQ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="gT5-b6-OX2" secondAttribute="trailing" id="z5R-Ye-FuK"/>
                                                 </constraints>
-                                                <connections>
-                                                    <action selector="timePickerChanged:" destination="13W-JO-cIR" eventType="valueChanged" id="fW1-HO-0ey"/>
-                                                </connections>
-                                            </datePicker>
+                                            </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="wR4-sE-vpc">
-                                                <rect key="frame" x="62.5" y="415.5" width="229" height="260.5"/>
+                                                <rect key="frame" x="62.5" y="454.5" width="229" height="221.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="13" id="gVI-71-EoW">
-                                                        <rect key="frame" x="0.0" y="19.5" width="89.5" height="221.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="89.5" height="221.5"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L9s-UE-Bxo">
@@ -701,7 +712,7 @@
                                                         <viewLayoutGuide key="safeArea" id="Htg-bq-w3L"/>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="F3Z-cF-IGp">
-                                                        <rect key="frame" x="139.5" y="19.5" width="89.5" height="221.5"/>
+                                                        <rect key="frame" x="139.5" y="0.0" width="89.5" height="221.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:30 AM" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8e-qc-t7o">
                                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="20.5"/>
@@ -771,9 +782,7 @@
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="gT5-b6-OX2" secondAttribute="trailing" id="1a9-8G-1yU"/>
                                             <constraint firstItem="VFf-Jg-AzX" firstAttribute="leading" secondItem="W6V-nj-3lM" secondAttribute="leading" id="LRH-jN-8FL"/>
-                                            <constraint firstItem="gT5-b6-OX2" firstAttribute="leading" secondItem="W6V-nj-3lM" secondAttribute="leading" id="S0e-8m-Rab"/>
                                             <constraint firstItem="yOK-kj-lpp" firstAttribute="leading" secondItem="W6V-nj-3lM" secondAttribute="leading" id="WuR-zR-P1b"/>
                                             <constraint firstAttribute="trailing" secondItem="VFf-Jg-AzX" secondAttribute="trailing" id="trH-rD-8xa"/>
                                             <constraint firstAttribute="trailing" secondItem="yOK-kj-lpp" secondAttribute="trailing" id="yyZ-nB-f5r"/>
@@ -811,18 +820,20 @@
                         <outlet property="nextButton" destination="VFf-Jg-AzX" id="J7c-WN-iuD"/>
                         <outlet property="satLabel" destination="byh-pb-3U5" id="Te4-Dw-H0B"/>
                         <outlet property="secondaryBackground" destination="Big-Jz-Zze" id="BjS-if-qg8"/>
+                        <outlet property="segmentedControl" destination="yOK-kj-lpp" id="83I-0Q-9o4"/>
                         <outlet property="sunLabel" destination="J8e-qc-t7o" id="euX-KY-Ijz"/>
                         <outlet property="thuLabel" destination="6eG-a9-kN7" id="lbl-2v-XxT"/>
                         <outlet property="timePicker" destination="gT5-b6-OX2" id="BAt-zv-Gd5"/>
+                        <outlet property="timePickerContainer" destination="2oG-WV-LG6" id="sbg-Aw-Wlw"/>
                         <outlet property="tueLabel" destination="GHj-Dv-Kqe" id="U1j-Ae-fe1"/>
                         <outlet property="wedLabel" destination="Mgn-OS-X0z" id="fGG-Cc-0pb"/>
-                        <outletCollection property="days" destination="V7P-7Y-z1l" collectionClass="NSMutableArray" id="eZZ-xs-32k"/>
-                        <outletCollection property="days" destination="ceD-z6-mLH" collectionClass="NSMutableArray" id="75T-6d-bse"/>
-                        <outletCollection property="days" destination="1nv-lV-dXL" collectionClass="NSMutableArray" id="HdW-UR-y2W"/>
-                        <outletCollection property="days" destination="TZa-Wx-7FK" collectionClass="NSMutableArray" id="LPZ-Wz-3wM"/>
-                        <outletCollection property="days" destination="aYj-Ep-44S" collectionClass="NSMutableArray" id="Z5J-yz-NBL"/>
-                        <outletCollection property="days" destination="q9I-As-Q7g" collectionClass="NSMutableArray" id="xdg-rm-Uiv"/>
-                        <outletCollection property="days" destination="wbw-Jv-AwL" collectionClass="NSMutableArray" id="hMG-zm-uhV"/>
+                        <outletCollection property="dayButtons" destination="V7P-7Y-z1l" collectionClass="NSMutableArray" id="eZZ-xs-32k"/>
+                        <outletCollection property="dayButtons" destination="ceD-z6-mLH" collectionClass="NSMutableArray" id="75T-6d-bse"/>
+                        <outletCollection property="dayButtons" destination="1nv-lV-dXL" collectionClass="NSMutableArray" id="HdW-UR-y2W"/>
+                        <outletCollection property="dayButtons" destination="TZa-Wx-7FK" collectionClass="NSMutableArray" id="LPZ-Wz-3wM"/>
+                        <outletCollection property="dayButtons" destination="aYj-Ep-44S" collectionClass="NSMutableArray" id="Z5J-yz-NBL"/>
+                        <outletCollection property="dayButtons" destination="q9I-As-Q7g" collectionClass="NSMutableArray" id="xdg-rm-Uiv"/>
+                        <outletCollection property="dayButtons" destination="wbw-Jv-AwL" collectionClass="NSMutableArray" id="hMG-zm-uhV"/>
                         <outletCollection property="weekdayLabels" destination="L9s-UE-Bxo" collectionClass="NSMutableArray" id="UsI-kb-VzJ"/>
                         <outletCollection property="weekdayLabels" destination="TSN-ZT-N1b" collectionClass="NSMutableArray" id="hFx-wC-hb5"/>
                         <outletCollection property="weekdayLabels" destination="EUn-cs-yaf" collectionClass="NSMutableArray" id="goy-AF-maU"/>
@@ -1739,7 +1750,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="d6r-wA-WW0"/>
         <segue reference="T8N-JJ-KKU"/>
-        <segue reference="5zV-Mg-OtU"/>
+        <segue reference="QsE-hI-Cdf"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="2" width="300" height="300"/>
@@ -1766,7 +1777,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Studium Purple">
-            <color red="0.27799999713897705" green="0.31799998879432678" blue="0.9179999828338623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.27450980392156865" green="0.31764705882352939" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Studium Secondary Theme Color">
             <color red="0.98400002717971802" green="0.44299998879432678" blue="0.41999998688697815" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

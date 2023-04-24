@@ -33,18 +33,11 @@ class TextFieldCell: BasicCell {
         self.textField.returnKeyType = UIReturnKeyType.done
         
         self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+        self.textField.textColor = StudiumColor.primaryLabel.uiColor
         
 //        self.textField.placeholder
         self.textField.attributedPlaceholder = NSAttributedString(string: "Enter Text", attributes: [NSAttributedString.Key.foregroundColor: StudiumColor.secondaryLabel.uiColor])
 
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
     }
 
     @IBAction func finishedEditingText(_ sender: UITextField) {

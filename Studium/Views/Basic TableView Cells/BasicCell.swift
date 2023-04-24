@@ -12,4 +12,8 @@ protocol FormCellProtocol {
 }
 
 class BasicCell: UITableViewCell {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+    }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -113,6 +113,7 @@
             <connections>
                 <outlet property="endTimeLabel" destination="lH7-rB-8Sv" id="uNz-s2-nLc"/>
                 <outlet property="latenessIndicator" destination="HId-8I-2Gm" id="ZrU-Hf-cMC"/>
+                <outlet property="latenessIndicatorContainer" destination="e08-rA-NjX" id="wno-Dp-4nu"/>
                 <outlet property="primaryLabel" destination="lKT-1X-Amo" id="19o-Zx-7sp"/>
                 <outlet property="startTimeLabel" destination="hp7-Ju-s4c" id="h7d-It-LjU"/>
                 <outlet property="subLabel" destination="VOW-C5-XvW" id="C8D-Bg-hHU"/>
@@ -121,7 +122,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="circle.fill" catalog="system" width="128" height="123"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
     </resources>
 </document>

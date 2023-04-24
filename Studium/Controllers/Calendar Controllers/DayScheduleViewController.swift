@@ -11,12 +11,50 @@ import CalendarKit
 import DateToolsSwift
 //
 class DayScheduleViewController: DayViewController {
+    
+    let debug = false
+    
     let defaults = UserDefaults.standard
     
+//    var generatedEvents = [Event]()
+    
     override func viewDidLoad() {
+        printDebug("View Did Load")
         super.viewDidLoad()
         dayView.autoScrollToFirstEvent = true
-//        tabBarController?.tabBar.backgroundColor = K.themeColor
+        
+        
+        var style = CalendarStyle()
+        style.header.backgroundColor = StudiumColor.secondaryBackground.uiColor
+        
+        style.header.daySelector.activeTextColor = StudiumColor.primaryLabel.uiColor
+        style.header.daySelector.inactiveTextColor = StudiumColor.primaryLabel.uiColor
+        style.header.daySelector.selectedBackgroundColor = StudiumColor.primaryAccent.uiColor
+        
+        style.header.daySelector.todayActiveTextColor = StudiumColor.primaryLabel.uiColor
+        style.header.daySelector.todayInactiveTextColor = StudiumColor.primaryAccent.uiColor
+        
+        style.header.daySelector.todayActiveBackgroundColor = StudiumColor.primaryAccent.uiColor
+
+        style.header.swipeLabel.textColor = StudiumColor.primaryLabel.uiColor
+        
+        style.header.daySymbols.weekDayColor = StudiumColor.primaryLabel.uiColor
+        style.header.daySymbols.weekendColor = StudiumColor.secondaryLabel.uiColor
+
+        
+        
+        style.timeline.backgroundColor = StudiumColor.secondaryBackground.uiColor
+        style.timeline.separatorColor = StudiumColor.secondaryLabel.uiColor
+        style.timeline.timeColor = StudiumColor.secondaryLabel.uiColor
+        
+        
+        dayView.updateStyle(style)
+        
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
+        self.navigationController?.navigationBar.tintColor = StudiumColor.primaryAccent.uiColor
+        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -269,7 +307,7 @@ class DayScheduleViewController: DayViewController {
     }
     
     override func dayView(dayView: DayView, didMoveTo date: Date) {
-//        print("DayView = \(dayView) did move to: \(date)")
+        self.updateTitle(selectedDate: date)
     }
     
     override func dayView(dayView: DayView, didLongPressTimelineAt date: Date) {
@@ -288,213 +326,18 @@ class DayScheduleViewController: DayViewController {
         reloadData()
     }
     
-}
-extension TimeChunk {
-    static func dateComponents(seconds: Int = 0,
-                               minutes: Int = 0,
-                               hours: Int = 0,
-                               days: Int = 0,
-                               weeks: Int = 0,
-                               months: Int = 0,
-                               years: Int = 0) -> TimeChunk {
-        return TimeChunk(seconds: seconds,
-                         minutes: minutes,
-                         hours: hours,
-                         days: days,
-                         weeks: weeks,
-                         months: months,
-                         years: years)
+    func updateTitle(selectedDate: Date) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM YYYY"
+        let monthString = dateFormatter.string(from: selectedDate)
+        self.navigationItem.title = "\(monthString)"
     }
 }
 
-
-
-//func isEventBetween(time1: Date, time2: Date, events: [Event]) -> Bool{
-//    for event in events{
-//        if event.startDate <= time1 && event.startDate >= time2{ //the event completely overlaps the space
-//            return true
-//        }
-//
-//        if event.startDate >= time1 && event.startDate <= time2{ //the event starts within the space
-//            return true
-//        }
-//
-//        if event.endDate >= time1 && event.endDate <= time2{ //the event ends within the space
-//            return true
-//        }
-//    }
-//    return false
-//}
-//
-//func getEventBetween(time1: Date, time2: Date, events: [Event]) -> Event?{
-//    for event in events{
-//        if event.startDate <= time1 && event.startDate >= time2{ //the event completely overlaps the space
-//            return event
-//        }
-//
-//        if event.startDate >= time1 && event.startDate <= time2{ //the event starts within the space
-//            return event
-//        }
-//
-//        if event.endDate >= time1 && event.endDate <= time2{ //the event ends within the space
-//            return event
-//        }
-//    }
-//    return nil
-//}
-
-//    func autoschedule(for date: Date, earlier: Bool, finalStartBound: Date, finalEndBound: Date, autoEvent: Autoscheduleable, with outsideEvents: [Event], events: [Event]) -> Event{
-//        if earlier{
-//            var endHour = finalStartBound.hour + autoEvent.autoLengthHours;
-//            var endMin = finalStartBound.minute + autoEvent.autoLengthMinutes;
-//            if endMin >= 60{
-//                endHour += 1
-//                endMin -= 60
-//            }
-//            var startBound = Calendar.current.date(bySettingHour: finalStartBound.hour, minute: finalStartBound.minute, second: 0, of: date)!
-//            var endBound = Calendar.current.date(bySettingHour: endHour, minute: endMin, second: 0, of: date)!
-//            var counter = 0
-//            while true {
-//                counter+=1
-//                if endBound.hour >= finalEndBound.hour && endBound.minute > finalEndBound.minute{
-//                    print("there was no time to schedule this habit.")
-//                    break
-//                }
-//                if isEventBetween(time1: startBound, time2: endBound, events: outsideEvents){
-//                    let event = getEventBetween(time1: startBound, time2: endBound, events: outsideEvents)
-//                    //                                   print("The event between \(startBound) and \(endBound) was \(event?.text)")
-//                    startBound = event!.endDate + 1
-//                    //print("end of event = \(event!.endDate). new start bound = \(startBound)")
-//                    var newHour = startBound.hour + autoEvent.autoLengthHours
-//                    var newMin = startBound.minute + autoEvent.autoLengthMinutes
-//                    if(newMin >= 60){
-//                        newHour += 1;
-//                        newMin -= 60;
-//                    }
-//                    endBound = Calendar.current.date(bySettingHour: newHour, minute: newMin, second: 0, of: date)!
-//
-//                }else{
-//                    //let newEvent = CalendarEvent(startDate: startBound, endDate: endBound, title: habit.name, location: habit.location)
-//                    let newEvent = Event()
-//                    newEvent.startDate = startBound
-//                    newEvent.endDate = endBound
-//                    newEvent.color = UIColor(hexString: autoEvent.color)!
-//
-//                    let string = "\(autoEvent.name) at \(startBound.format(with: "h:mm a"))"
-//                    let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.label]
-//                    let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
-//                    newEvent.attributedText = attributedString
-//
-//                    //schedule notification here.
-//                    if date.year == Date().year && date.month == Date().day && date.day == Date().day{
-//                        do{
-//                            try realm.write{
-//
-//                                autoEvent.deleteNotifications()
-//                                for alertTime in autoEvent.notificationAlertTimes{
-//                                    var title = ""
-//                                    if alertTime < 60{
-//                                        title = "\(autoEvent.name) starts in \(alertTime) minutes."
-//                                    }else if alertTime == 60{
-//                                        title = "\(autoEvent.name) starts in 1 hour"
-//                                    }else{
-//                                        title = "\(autoEvent.name) starts in \(alertTime / 60) hours"
-//                                    }
-//
-//                                    let timeFormat = autoEvent.startDate.format(with: "H:MM a")
-//                                    let notificationDate = startBound - (60 * Double(alertTime))
-//                                    let identifier = UUID().uuidString
-//                                    autoEvent.notificationIdentifiers.append(identifier)
-//                                    K.scheduleNotification(components: calendar.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate), body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
-//                                }
-//                            }
-//                        }catch{
-//                            print("error scheduling autoschedulable habit.")
-//                        }
-//                    }
-////                    events.append(newEvent)
-////                    break
-//                    return newEvent
-//                }
-//            }
-//        }else{ //schedule the habit later rather than earlier
-//            var startHour = finalEndBound.hour - autoEvent.autoLengthHours
-//            var startMin = finalEndBound.minute - autoEvent.autoLengthMinutes
-//            if startMin < 0{
-//                startMin += 60
-//                startHour -= 1
-//            }
-//            var startBound = Calendar.current.date(bySettingHour: startHour, minute: startMin, second: 0, of: date)!
-//            var endBound = Calendar.current.date(bySettingHour: finalEndBound.hour, minute: startBound.minute, second: 0, of: date)!
-//
-//            var counter = 0
-//            while true {
-//                counter+=1
-//                if startBound.hour <= finalStartBound.hour && startBound.minute < finalStartBound.minute{
-//                    print("there was no time to schedule this habit.")
-//                    break
-//                }
-//                if isEventBetween(time1: startBound, time2: endBound, events: outsideEvents){
-//                    let event = getEventBetween(time1: startBound, time2: endBound, events: outsideEvents)
-//
-//                    endBound = event!.startDate - 1
-//                    var startHour = endBound.hour - autoEvent.autoLengthHours
-//                    var startMin = endBound.minute - autoEvent.autoLengthMinutes
-//                    if startMin < 0{
-//                        startMin += 60
-//                        startHour -= 1
-//                    }
-//
-//                    startBound = Calendar.current.date(bySettingHour: startHour, minute: startMin, second: 0, of: date)!
-//
-//                }else{
-//
-//                    let newEvent = Event()
-//                    newEvent.startDate = startBound
-//                    newEvent.endDate = endBound
-//                    newEvent.color = UIColor(hexString: autoEvent.color)!
-//
-//                    let string = "\(autoEvent.name) at \(startBound.format(with: "h:mm a"))"
-//                    let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.label]
-//                    let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
-//                    newEvent.attributedText = attributedString
-//
-//                    //schedule notification here.
-//                    if date.year == Date().year && date.month == Date().day && date.day == Date().day{
-//                        do{
-//                            try realm.write{
-//                                autoEvent.deleteNotifications()
-//                                for alertTime in autoEvent.notificationAlertTimes{
-//                                    var title = ""
-//                                    if alertTime < 60{
-//                                        title = "\(autoEvent.name) starts in \(alertTime) minutes."
-//                                    }else if alertTime == 60{
-//                                        title = "\(autoEvent.name) starts in 1 hour"
-//                                    }else{
-//                                        title = "\(autoEvent.name) starts in \(alertTime / 60) hours"
-//                                    }
-//
-//                                    let timeFormat = autoEvent.startDate.format(with: "H:MM a")
-//                                    let notificationDate = startBound - (60 * Double(alertTime))
-//                                    let identifier = UUID().uuidString
-//                                    autoEvent.notificationIdentifiers.append(identifier)
-//                                    K.scheduleNotification(components: calendar.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate), body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
-//                                }
-//                            }
-//                        }catch{
-//                            print("error scheduling autoschedulable habit.")
-//                        }
-//                    }
-//                    events.append(newEvent)
-//                    break
-//                    return newEvent
-//                }
-//            }
-//        }
-//        let newEvent = Event()
-//        newEvent.startDate = autoEvent.startDate
-//        newEvent.endDate = autoEvent.startDate + (autoEvent.autoLengthHours * 360) + (autoEvent.autoLengthMinutes * 60)
-//        newEvent.color = UIColor(hexString: autoEvent.color)!
-//        newEvent.text = "\(autoEvent.name) at \(autoEvent.startDate.format(with: "h:mm a"))"
-//        return newEvent
-//    }
+extension DayScheduleViewController: Debuggable {
+    func printDebug(_ message: String) {
+        if self.debug {
+            print("$LOG (DayScheduleViewController): \(message)")
+        }
+    }
+}

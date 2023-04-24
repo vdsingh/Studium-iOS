@@ -15,6 +15,8 @@ public protocol CanHandleInfoDisplay: UIViewController{
     func displayInformation()
 }
 
+//TODO: dostrings
+
 class SwitchCell: BasicCell {
     
     @IBOutlet weak var tableSwitch: UISwitch!
@@ -42,7 +44,7 @@ class SwitchCell: BasicCell {
     }
     
     @IBAction func switchValueChanged(_ sender: UISwitch) {
-        on = sender.isOn
+        self.on = sender.isOn
         if let del = switchDelegate{
             del.switchValueChanged(sender: sender)
         }

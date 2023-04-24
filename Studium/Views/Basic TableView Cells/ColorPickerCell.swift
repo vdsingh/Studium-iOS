@@ -27,7 +27,7 @@ class ColorPickerCell: BasicCell {
             colorPreview.backgroundColor = ColorPickerCell.color!
         }
         print(colorPicker.selectedColor.hexValue())
-        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+//        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
         self.colorPicker.backgroundColor = StudiumColor.secondaryBackground.uiColor
         
         self.label.textColor = StudiumColor.primaryLabel.uiColor

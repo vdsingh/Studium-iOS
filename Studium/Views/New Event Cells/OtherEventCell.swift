@@ -18,6 +18,7 @@ class OtherEventCell: DeletableEventCell {
     @IBOutlet weak var endTimeLabel: UILabel!
     
     @IBOutlet weak var latenessIndicator: UIImageView!
+    @IBOutlet weak var latenessIndicatorContainer: UIView!
     var otherEvent: OtherEvent!
         
     override func awakeFromNib() {
@@ -94,4 +95,7 @@ class OtherEventCell: DeletableEventCell {
         latenessIndicator.isHidden = true
     }
     
+    func hideLatenessIndicator(hide: Bool) {
+        self.latenessIndicatorContainer.isHidden = hide
+    }
 }

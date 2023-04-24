@@ -18,20 +18,26 @@ class TimePickerCell: BasicCell {
     @IBOutlet weak var picker: UIDatePicker!
     
     var delegate: UITimePickerDelegate?
-//    var timePickerMode: UIDatePicker.Mode?
     var indexPath : IndexPath?
     var pickerID: Int?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        picker.timeZone = NSTimeZone.local
+        
+        self.picker.setValue(UIColor.white, forKeyPath: "textColor")
+//        self.picker.color
+
+//        self.picker.setValue(StudiumColor.primaryLabel.uiColor, forKeyPath: "textColor")
+//        self.picker.setValue(1, forKeyPath: "alpha")
+        
+        self.picker.timeZone = NSTimeZone.local
 //        picker.datePickerMode = self.timePickerMode ?? .time
 //        picker.datePickerMode = .dateAndTime
         if #available(iOS 13.4, *) {
             picker.preferredDatePickerStyle = UIDatePickerStyle.wheels
         }
 
-        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+//        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -40,12 +46,12 @@ class TimePickerCell: BasicCell {
     
     @IBAction func pickerValueChanged(_ sender: UIDatePicker) {
         guard let indexPath = self.indexPath, let formCellID = self.formCellID else {
-            print("$ ERROR: indexPath or formCellID were nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            print("$ERR (TimePickerCell): indexPath or formCellID were nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
         
         guard let delegate = self.delegate else {
-            print("$ ERROR: delegate is nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            print("$ERR (TimePickerCell): delegate is nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
         

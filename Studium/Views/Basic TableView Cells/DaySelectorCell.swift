@@ -22,7 +22,7 @@ class DaySelectorCell: BasicCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+//        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
         
         for button in self.dayButtons {
             button.tintColor = StudiumColor.primaryAccent.uiColor
@@ -83,7 +83,7 @@ class DaySelectorCell: BasicCell {
             
             delegate?.updateDaysSelected(weekdays: self.daysSelected)
         } else {
-            print("$Error: Couldn't find the button index or construct a Weekday type")
+            print("$ERR: Couldn't find the button index or construct a Weekday type")
         }
     }
     

@@ -74,7 +74,7 @@ class AssignmentCell1: DeletableEventCell {
         
         //Safely get the associated course for this assignment
         guard let course = assignment.parentCourse else {
-            print("$Error (AssignmentCell1): parent course was nil when loading assignment data")
+            print("$ERR (AssignmentCell1): parent course was nil when loading assignment data")
             return
         }
         
@@ -170,5 +170,9 @@ class AssignmentCell1: DeletableEventCell {
         } else {
             print("ERROR: delegate was nil or assignment was nil.")
         }
+    }
+    
+    func hideLatenessIndicator(hide: Bool) {
+        self.latenessIndicator.isHidden = hide
     }
 }

@@ -15,8 +15,9 @@ class LogoCell: BasicCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+//        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
         self.label.textColor = StudiumColor.primaryLabel.uiColor
+        self.logoImageView.tintColor = StudiumColor.primaryAccent.uiColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -18,9 +18,11 @@ class PickerCell: BasicCell {
     override func awakeFromNib() {
 //        picker.delegate = self
         super.awakeFromNib()
-        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
+//        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
         
+        self.picker.setValue(StudiumColor.primaryLabel.uiColor, forKeyPath: "textColor")
 
+//        self.picker.attributedtitle
     
         // Initialization code
     }
