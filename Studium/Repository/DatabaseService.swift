@@ -15,17 +15,17 @@ protocol Debuggable {
 }
 
 final class DatabaseService {
-    let debug = true
+    let debug = false
     
     static let shared = DatabaseService()
     
-    private init() {}
+    private init() { }
     
     let app = App(id: Secret.appID)
     
     var user: User? {
         guard let user = app.currentUser else {
-            print("$Error: Current User is nil")
+            print("$ERR: Current User is nil")
             return nil
         }
         
@@ -37,14 +37,14 @@ final class DatabaseService {
         if let user = self.user {
             do {
                 return try Realm(configuration: user.configuration(partitionValue: user.id))
-            } catch {
-                fatalError("$Error: issue accessing Realm.")
+            } catch let error {
+                fatalError("$ERR: issue accessing Realm: \(String(describing: error))")
             }
         } else {
             do {
                 return try Realm()
             } catch {
-                fatalError("$Error: issue accessing Realm.")
+                fatalError("$ERR: issue accessing Realm.")
             }
         }
     }()
@@ -63,7 +63,7 @@ final class DatabaseService {
                 self.realm.add(studiumEvent)
             }
         } catch {
-            print("$Error: error deleting studium object.")
+            print("$ERR: error deleting studium object.")
         }
         
         NotificationService.shared.scheduleNotificationsFor(event: studiumEvent)
@@ -79,7 +79,7 @@ final class DatabaseService {
             //TODO: Autoschedule assignments
 //            assignment.initiateAutoSchedule()
         } catch {
-            print("error appending assignment")
+            print("$ERR: error appending assignment")
         }
         
         NotificationService.shared.scheduleNotificationsFor(event: assignment)
@@ -91,8 +91,44 @@ final class DatabaseService {
         return [T](self.realm.objects(type))
     }
     
+    public func getAllStudiumObjects() -> [StudiumEvent] {
+        let courses = self.getStudiumObjects(expecting: Course.self)
+        let habits = self.getStudiumObjects(expecting: Habit.self)
+        let assignments = self.getStudiumObjects(expecting: Assignment.self)
+        let otherEvents = self.getStudiumObjects(expecting: OtherEvent.self)
+        
+        var allEvents = [StudiumEvent]()
+        allEvents.append(contentsOf: courses)
+        allEvents.append(contentsOf: habits)
+        allEvents.append(contentsOf: assignments)
+        allEvents.append(contentsOf: otherEvents)
+
+        return allEvents
+    }
+    
     public func getAssignments(forCourse course: Course) -> [Assignment] {
         return [Assignment](course.assignments)
+    }
+    
+    public func getUserSettings() -> UserSettings {
+        let settings = [UserSettings](self.realm.objects(UserSettings.self))
+
+        do {
+            if let first = settings.first {
+                return first
+            } else {
+                let settings = UserSettings(weekdayCases: [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday])
+                try self.realm.write {
+                    self.realm.add(settings)
+                }
+                return settings
+            }
+        } catch let error {
+            // Error handling
+            print("$ERR (DatabaseService): \(error.localizedDescription)")
+        }
+        
+        return UserSettings()
     }
     
     // MARK: - Update
@@ -100,11 +136,11 @@ final class DatabaseService {
     public func markComplete(_ completableEvent: CompletableStudiumEvent, _ complete: Bool) {
         //TODO: Delete assignment notifications when complete, add when incomplete.
         do {
-            try realm.write{
+            try self.realm.write {
                 completableEvent.complete = !completableEvent.complete
             }
         } catch {
-            print("$Error: marking complete: \(error)")
+            print("$ERR: marking complete: \(error)")
         }
     }
     
@@ -114,34 +150,46 @@ final class DatabaseService {
         newEvent.setID(oldEvent._id)
         
         do {
-            try self.realm.write{
-                realm.add(newEvent, update: .modified)
+            try self.realm.write {
+                self.realm.add(newEvent, update: .modified)
             }
         } catch {
-            print("$Error: editing event: \(error)")
+            print("$ERR: editing event: \(error)")
         }
         
         NotificationService.shared.scheduleNotificationsFor(event: newEvent)
+    }
+    
+    public func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date?) {
+        let settings = self.getUserSettings()
+        do {
+            try self.realm.write {
+                settings.setWakeUpTime(for: weekday, wakeUpTime: wakeUpTime)
+            }
+        } catch let error {
+            print("$ERR: couldn't set wake time: \(String(describing: error))")
+        }
     }
     
     // MARK: - Delete
     public func deleteStudiumObject(_ studiumEvent: StudiumEvent) {
         printDebug("Deleting studiumEvent \(studiumEvent.name)")
         
+        
         // if we're deleting a course, delete all the assignments in the course
         if let course = studiumEvent as? Course {
             self.deleteAssignmentsForCourse(course: course)
         }
+        
+        NotificationService.shared.deleteAllPendingNotifications(for: studiumEvent)
 
         do {
             try self.realm.write {
                 self.realm.delete(studiumEvent)
             }
         } catch {
-            print("$Error: error deleting studium object.")
+            print("$ERR (DatabaseServicd): error deleting studium object.")
         }
-        
-        NotificationService.shared.deleteAllPendingNotifications(for: studiumEvent)
     }
     
     
@@ -150,13 +198,6 @@ final class DatabaseService {
         for assignment in course.assignments {
             printDebug("Deleting assignment: \(assignment.name)")
             self.deleteStudiumObject(assignment)
-//            do {
-//                try self.realm.write {
-//                    self.realm.delete(assignment)
-//                }
-//            } catch {
-//                print("$Error: error deleting assignment object.")
-//            }
         }
     }
 }
