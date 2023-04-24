@@ -12,7 +12,7 @@ import FBSDKLoginKit
 import RealmSwift
 import GoogleSignIn
 
-class RegisterViewController: FBAndGoogleAuthViewController, UIGestureRecognizerDelegate {
+class RegisterViewController: AuthViewController, UIGestureRecognizerDelegate {
     
     
 //    let firestoreDB = Firestore.firestore()

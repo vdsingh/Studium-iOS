@@ -15,7 +15,7 @@ import GoogleSignIn
 import FBSDKLoginKit
 
 
-class LoginViewController: FBAndGoogleAuthViewController, UIGestureRecognizerDelegate{
+class LoginViewController: AuthViewController, UIGestureRecognizerDelegate{
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!

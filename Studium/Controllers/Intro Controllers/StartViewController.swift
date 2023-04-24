@@ -13,7 +13,7 @@ import GoogleSignIn
 import RealmSwift
 import FBSDKLoginKit
 
-class StartViewController: FBAndGoogleAuthViewController{
+class StartViewController: AuthViewController {
     
     let app = App(id: Secret.appID)
 
@@ -32,10 +32,13 @@ class StartViewController: FBAndGoogleAuthViewController{
         googleSignInButton.style = GIDSignInButtonStyle.wide
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
         
+//        GIDSignIn.sharedInstance.
+//        
 //        GIDSignIn.sharedInstance()?.presentingViewController = self
 //        GIDSignIn.sharedInstance().delegate = self
         
         sender = self
+        googleSignInButton.addTarget(self, action: #selector(googleSignInClicked), for: .touchUpInside)
         facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
         facebookSignInButton.layer.cornerRadius = 10
         guestSignInButton.addTarget(self, action: #selector(handleLoginAsGuest), for: .touchUpInside)
@@ -69,6 +72,11 @@ class StartViewController: FBAndGoogleAuthViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         print("StartViewController viewwillappear")
+    }
+
+    
+    func didSignIn() {
+        
     }
     
 
