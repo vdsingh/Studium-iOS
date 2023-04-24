@@ -18,9 +18,24 @@ class CalendarViewController: UIViewController {
     var selectedDay: Date = Date()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = StudiumColor.background.uiColor
+        
+        self.calendar.backgroundColor = StudiumColor.background.uiColor
+        self.tableView.backgroundColor = StudiumColor.secondaryBackground.uiColor
 
-        calendar.appearance.weekdayTextColor = .label
-        calendar.appearance.headerTitleColor = .label
+        self.calendar.appearance.weekdayTextColor = StudiumColor.primaryLabel.uiColor
+        self.calendar.appearance.headerTitleColor = StudiumColor.primaryLabel.uiColor
+        
+        self.calendar.appearance.titleTodayColor = StudiumColor.primaryAccent.uiColor
+        self.calendar.appearance.selectionColor = StudiumColor.primaryAccent.uiColor
+        self.calendar.appearance.todayColor = self.calendar.backgroundColor
+        
+//        self.calendar.appearance.titleTodayColor
+        
+        self.navigationController?.navigationBar.tintColor = StudiumColor.primaryAccent.uiColor
+        self.navigationController?.navigationBar.backgroundColor = StudiumColor.background.uiColor
+        
         
         
         //TableView Related Stuff:
@@ -33,8 +48,8 @@ class CalendarViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         updateInfo()
-        calendar.appearance.titleDefaultColor = UIColor.white
-//        navigationItem.hidesBackButton = true
+        calendar.appearance.titleDefaultColor = StudiumColor.primaryLabel.uiColor
+        navigationItem.hidesBackButton = true
     }
     
     @IBAction func dayButtonPressed(_ sender: Any) {
@@ -112,12 +127,12 @@ class CalendarViewController: UIViewController {
 extension CalendarViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let event: StudiumEvent = allEventsInDay[indexPath.row]
-        print("$Log: EVENT COLOR for \(event.name): \(event.color)")
+        print("$LOG: EVENT COLOR for \(event.name): \(event.color)")
         if event is Assignment{
             let cell = tableView.dequeueReusableCell(withIdentifier: AssignmentCell1.id, for: indexPath) as! AssignmentCell1
             cell.hideChevronButton = true
             cell.loadData(assignment: event as! Assignment)
-        
+            cell.hideLatenessIndicator(hide: true)
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier:  OtherEventCell.id, for: indexPath) as! OtherEventCell
@@ -128,6 +143,8 @@ extension CalendarViewController: UITableViewDelegate{
                 endDate: event.endDate,
                 cellColor: event.color
             )
+            cell.hideLatenessIndicator(hide: true)
+
             return cell
         }
     }

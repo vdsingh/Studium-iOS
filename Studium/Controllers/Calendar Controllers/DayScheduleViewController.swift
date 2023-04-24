@@ -58,10 +58,20 @@ class DayScheduleViewController: DayViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        printDebug("View Will Appear")
         super.viewWillAppear(animated)
         reloadData()
-        generatedEvents = []
-        alreadyGeneratedSet = Set<Date>()
+        self.generatedEvents = []
+//        alreadyGeneratedSet = Set<Date>()
+        
+        if let state = dayView.state {
+            self.updateTitle(selectedDate: state.selectedDate)
+        } else {
+            self.updateTitle(selectedDate: Date())
+        }
+        
+        navigationController?.navigationBar.prefersLargeTitles = false
+
     }
     
     @IBAction func settingsButtonPressed(_ sender: UIBarButtonItem) {
