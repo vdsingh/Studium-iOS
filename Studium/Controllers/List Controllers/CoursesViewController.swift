@@ -69,7 +69,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
             return cell
         }
         
-        fatalError("$Error: Couldn't dequeue cell for Course List")
+        fatalError("$ERR: Couldn't dequeue cell for Course List")
     }
     
     //MARK: - Delegate Methods
@@ -130,7 +130,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     override func delete(at indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? DeletableEventCell,
            let course = cell.event as? Course {
-            print("$Log: attempting to delete course \(course.name) at section \(indexPath.section) and row \(indexPath.row)")
+            print("$LOG: attempting to delete course \(course.name) at section \(indexPath.section) and row \(indexPath.row)")
             DatabaseService.shared.deleteStudiumObject(course)
             //        RealmCRUD.deleteCourse(course: course)
             eventsArray[indexPath.section].remove(at: indexPath.row)
@@ -139,7 +139,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
             
             //        tableView.headerView(forSection: indexPath.section)?.contentConfiguration = config
         } else {
-            print("$Error: cell event wasn't course or cell wasn't deletable event cell.")
+            print("$ERR: cell event wasn't course or cell wasn't deletable event cell.")
         }
     }
         

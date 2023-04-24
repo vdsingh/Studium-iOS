@@ -24,9 +24,11 @@ protocol Autoscheduleable: StudiumEvent {
     
 }
 
+//TODO: Docstrings
 class RecurringStudiumEvent: StudiumEvent {
     internal var daysList = List<Int>()
     
+    //TODO: Docstring
     var days: Set<Weekday> {
         get {
             return Set<Weekday>( daysList.compactMap { Weekday(rawValue: $0) })
@@ -39,6 +41,15 @@ class RecurringStudiumEvent: StudiumEvent {
         }
     }
     
+    //TODO: Docstring
+    var occursToday: Bool {
+        return self.days.contains(Date().studiumWeekday)
+    }
+    
+    //TODO: Docstring
+    func occursOn(date: Date) -> Bool {
+        return self.days.contains(date.studiumWeekday)
+    }
     
     //TODO: Fix add to apple calendar
     
@@ -90,7 +101,7 @@ class RecurringStudiumEvent: StudiumEvent {
         do {
             try store.save(event, span: EKSpan.futureEvents, commit: true)
         } catch let error as NSError {
-            print("$Error: Failed to save event. Error: \(error)")
+            print("$ERR: Failed to save event. Error: \(error)")
         }
     }
     

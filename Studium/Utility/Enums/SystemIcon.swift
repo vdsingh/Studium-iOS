@@ -96,7 +96,7 @@ public enum SystemIcon: String, CaseIterable {
     
     func createImage() -> UIImage {
         guard let image = UIImage(systemName: self.rawValue) else {
-            fatalError("$Error: couldn't create image from systemName String: \(self.rawValue)")
+            fatalError("$ERR: couldn't create image from systemName String: \(self.rawValue)")
         }
         
         return image

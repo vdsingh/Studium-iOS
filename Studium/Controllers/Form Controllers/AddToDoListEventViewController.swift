@@ -217,7 +217,7 @@ extension AddToDoListEventViewController {
             
             // TODO: Fix force typing
             guard let delegate = delegate as? ToDoListViewController else {
-                print("$Error: delegate is not a ToDoListViewController")
+                print("$ERR: delegate is not a ToDoListViewController")
                 return
             }
             

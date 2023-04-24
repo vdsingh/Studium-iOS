@@ -74,7 +74,7 @@ extension LogoSelectorViewController: UICollectionViewDataSource{
             return cell
         }
         
-        fatalError("$Error: couldn't cast cell to LogoCollectionViewCell at \(indexPath)")
+        fatalError("$ERR: couldn't cast cell to LogoCollectionViewCell at \(indexPath)")
     }
 }
 

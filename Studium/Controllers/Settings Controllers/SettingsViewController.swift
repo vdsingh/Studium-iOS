@@ -71,7 +71,7 @@ class SettingsViewController: UITableViewController, AlertInfoStorer {
 
     
     func processAlertTimes() {
-        print("$Log: Setting values for default notification times")
+        print("$LOG (SettingsViewController): Setting values for default notification times")
         defaults.setValue(alertTimes, forKey: K.defaultNotificationTimesKey)
     }
     

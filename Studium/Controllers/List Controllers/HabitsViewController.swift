@@ -59,9 +59,13 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         //sort all the habits happening today by startTime (the ones that are first come first in the list)
         eventsArray[0].sort(by: { $0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm" )})
         tableView.reloadData()
+        
     }
     
+
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        super.swipeCellId = RecurringEventCell.id
         if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? RecurringEventCell,
            let habit = eventsArray[indexPath.section][indexPath.row] as? Habit {
             cell.event = habit

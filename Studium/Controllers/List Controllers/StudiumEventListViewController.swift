@@ -11,7 +11,9 @@ import SwipeCellKit
 import UIKit
 
 class StudiumEventListViewController: SwipeTableViewController {
-    var debug = false
+    override var debug: Bool {
+        false
+    }
     
     var eventsArray: [[StudiumEvent]] = [[],[]]
     
@@ -63,7 +65,7 @@ class StudiumEventListViewController: SwipeTableViewController {
     
     // MARK: - Delete
     func delete(at indexPath: IndexPath) {
-        print("$Log: will attempt to delete at \(indexPath)")
+        print("$LOG: will attempt to delete at \(indexPath)")
         if let cell = tableView.cellForRow(at: indexPath) as? DeletableEventCell,
            let event = cell.event {
             DatabaseService.shared.deleteStudiumObject(event)
@@ -103,10 +105,10 @@ extension StudiumEventListViewController {
             if let event = eventCell.event as? CompletableStudiumEvent {
                 DatabaseService.shared.markComplete(event, !event.complete)
             } else {
-                print("$Log: event is not completable")
+                print("$LOG: event is not completable")
             }
         } else {
-            print("$Error: Event is not deletable")
+            print("$ERR: Event is not deletable")
         }
     }
 }
@@ -120,13 +122,5 @@ extension StudiumEventListViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return eventsArray[section].count
-    }
-}
-
-extension StudiumEventListViewController: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG (\(String(describing: self)): \(message)")
-        }
     }
 }

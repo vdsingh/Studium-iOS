@@ -90,7 +90,7 @@ class AlertTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
         
         guard let delegate = delegate else {
-            print("$Error: delegate is nil in AlertTableViewController")
+            print("$ERR: delegate is nil in AlertTableViewController")
             return
         }
 

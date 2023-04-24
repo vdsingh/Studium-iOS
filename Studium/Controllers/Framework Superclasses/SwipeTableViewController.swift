@@ -12,6 +12,8 @@ import RealmSwift
 
 
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
+    var debug: Bool {false}
+    
     var rightActions = [SwipeAction]()
     var leftActions = [SwipeAction]()
 
@@ -24,13 +26,13 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     
     //MARK: - TableView Data Source Methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("$Log: will try to dequeue a SwipeTableViewCell with id: \(self.swipeCellId)")
+        printDebug("will try to dequeue a SwipeTableViewCell with id: \(self.swipeCellId)")
         if let cell = tableView.dequeueReusableCell(withIdentifier:  self.swipeCellId, for: indexPath) as? SwipeTableViewCell {
             cell.delegate = self
             return cell
         }
         
-        fatalError("$Error: Couldn't dequeue cell as SwipeTableViewCell")
+        fatalError("$ERR: Couldn't dequeue cell as SwipeTableViewCell")
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -57,5 +59,13 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         options.transitionStyle = .border
         
         return options
+    }
+}
+
+extension SwipeTableViewController: Debuggable {
+    func printDebug(_ message: String) {
+        if self.debug {
+            print("$LOG (\(String(describing: self)): \(message)")
+        }
     }
 }

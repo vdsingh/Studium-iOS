@@ -11,7 +11,10 @@ import RealmSwift
 import ChameleonFramework
 
 class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshProtocol, AssignmentRefreshProtocol {
-        
+    override var debug: Bool {
+        return false
+    }
+    
     let assignments = [Assignment]()
     let otherEvents = [OtherEvent]()
 //    var assignments: Results<Assignment>? //Auto updating array linked to the realm
@@ -25,7 +28,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.debug = true
+//        self.debug = false
         self.reloadData()
     }
     
@@ -108,7 +111,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
         addAssignmentViewController.todoFormData[0] = name
         addAssignmentViewController.todoFormData[1] = additionalDetails
         addAssignmentViewController.alertTimes = alertTimes
-        addAssignmentViewController.todoDueDate = dueDate
+        addAssignmentViewController.endDate = dueDate
         
         self.present(navController, animated:true, completion: nil)
     }
@@ -126,7 +129,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
                 return cell
             }
             
-            fatalError("$Error: Couldn't dequeue cell for assignment \(event.name)")
+            fatalError("$ERR: Couldn't dequeue cell for assignment \(event.name)")
         } else if let event = eventsArray[indexPath.section][indexPath.row] as? OtherEvent {
             super.swipeCellId = OtherEventCell.id
             if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? OtherEventCell,
@@ -135,10 +138,10 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
                 return cell
             }
             
-            fatalError("$Error: Couldn't dequeue cell for other event \(event.name)")
+            fatalError("$ERR: Couldn't dequeue cell for other event \(event.name)")
 
         }else{
-            print("$Error: created poo cell")
+            print("$ERR: created poo cell")
             let cell = super.tableView(tableView, cellForRowAt: indexPath)
             return cell
         }
@@ -180,7 +183,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
                 }
             }
         } else if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell {
-            print("$Log: Selected an otherEventCell")
+            print("$LOG: Selected an otherEventCell")
             tableView.reloadData()
             reloadData()
         }
@@ -200,7 +203,7 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
                 index += 1
             }
         } else {
-            print("$Error: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
+            print("$ERR: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
         }
 
         tableView.reloadData()

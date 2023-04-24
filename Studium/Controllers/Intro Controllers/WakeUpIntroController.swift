@@ -10,13 +10,16 @@ import Foundation
 import UIKit
 
 //this controls the page that the user sees in the beginning, when they must enter what times they wake up at.
-class WakeUpIntroController: UIViewController{
+class WakeUpIntroController: UIViewController {
+    
+    let debug = true
     
     //reference to defaults - that is where we will be storing the time data for when the user wakes up
     let defaults = UserDefaults.standard
     
     //reference to certain UIKit elements that we need access to.
-    @IBOutlet var days: Array<UIButton>?
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet var dayButtons: Array<UIButton>?
     
     @IBOutlet weak var sunLabel: UILabel!
     @IBOutlet weak var monLabel: UILabel!
@@ -28,7 +31,9 @@ class WakeUpIntroController: UIViewController{
     
     @IBOutlet var weekdayLabels: Array<UILabel>?
     
+    @IBOutlet weak var timePickerContainer: UIView!
     @IBOutlet weak var timePicker: UIDatePicker!
+    
     @IBOutlet weak var nextButton: UIButton!
     
     var selectedDay: UIButton?
@@ -47,11 +52,17 @@ class WakeUpIntroController: UIViewController{
     //boolean that tells whether the user wakes up at different times depending on the day.
     var differentTimes: Bool = true
     
-    let tintColor: UIColor = UIColor(named: "Studium Secondary Theme Color") ?? .label
-    let labelColor: UIColor = UIColor(named: "Studium Label Color") ?? .label
+    let tintColor: UIColor = StudiumColor.primaryAccent.uiColor
+    let labelColor: UIColor = StudiumColor.primaryLabel.uiColor
 
     
     override func viewDidLoad() {
+        
+        self.view.backgroundColor = StudiumColor.background.uiColor
+        self.secondaryBackground.backgroundColor = StudiumColor.background.uiColor
+        self.segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
+        self.segmentedControl.backgroundColor = StudiumColor.secondaryBackground.uiColor
+        
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             if error != nil{
@@ -64,6 +75,16 @@ class WakeUpIntroController: UIViewController{
         nextButton.layer.cornerRadius = 10
         
         secondaryBackground.layer.cornerRadius = 10
+        
+        self.timePicker.backgroundColor = .clear
+        self.timePickerContainer.backgroundColor = StudiumColor.secondaryBackground.uiColor
+        self.timePickerContainer.layer.cornerRadius = 15
+//        self.timePicker.back
+//        self.timePicker.tintColor = StudiumColor.primaryLabel.uiColor
+//        self.timePicker.textInputContextIdentifier
+        
+        timePicker.setValue(UIColor.white, forKeyPath: "textColor")
+        timePicker.setValue(1, forKeyPath: "alpha")
 
         //selects sunday by default
         
@@ -86,7 +107,7 @@ class WakeUpIntroController: UIViewController{
     @IBAction func habitChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0{ //different times
             differentTimes = true
-            for day in days!{
+            for day in dayButtons!{
                 day.isSelected = false
                 day.isEnabled = true
             }
@@ -94,7 +115,7 @@ class WakeUpIntroController: UIViewController{
             
         }else{ //same time everyday
             differentTimes = false
-            for day in days!{
+            for day in dayButtons!{
                 day.setTitleColor(.lightGray, for: .disabled)
                 day.isSelected = false
                 day.isEnabled = false
@@ -118,7 +139,7 @@ class WakeUpIntroController: UIViewController{
     //function that is called when the user selects a day button
     @IBAction func dayButtonPressed(_ sender: UIButton) {
         selectedDay = sender
-        for day in days!{
+        for day in dayButtons!{
             day.isSelected = false
             labels[day.titleLabel!.text!]?.textColor = labelColor
             dayLabels[day.titleLabel!.text!]?.textColor = labelColor
@@ -156,7 +177,7 @@ class WakeUpIntroController: UIViewController{
     
     //selects Sunday
     func selectSunday(){
-        for day in days!{ //select sunday at start
+        for day in dayButtons!{ //select sunday at start
 //            day.setTitleColor(.label, for: .selected)
             if day.titleLabel?.text == "Sun"{
                 labels["Sun"]!.textColor = tintColor
@@ -178,12 +199,22 @@ class WakeUpIntroController: UIViewController{
     
     //function that stores the data in UserDefaults
     func storeData(){
-        defaults.set([times["Sun"]], forKey: "sunWakeUp")
-        defaults.set([times["Mon"]], forKey: "monWakeUp")
-        defaults.set([times["Tue"]], forKey: "tueWakeUp")
-        defaults.set([times["Wed"]], forKey: "wedWakeUp")
-        defaults.set([times["Thu"]], forKey: "thuWakeUp")
-        defaults.set([times["Fri"]], forKey: "friWakeUp")
-        defaults.set([times["Sat"]], forKey: "satWakeUp")
+        printDebug("Storing data for Wake Up Times")
+//        defaults.set([times["Sun"]], forKey: "sunWakeUp")
+//        defaults.set([times["Mon"]], forKey: "monWakeUp")
+//        defaults.set([times["Tue"]], forKey: "tueWakeUp")
+//        defaults.set([times["Wed"]], forKey: "wedWakeUp")
+//        defaults.set([times["Thu"]], forKey: "thuWakeUp")
+//        defaults.set([times["Fri"]], forKey: "friWakeUp")
+//        defaults.set([times["Sat"]], forKey: "satWakeUp")
+        DatabaseService.shared.setWakeUpTime(for: .sunday, wakeUpTime: self.times["Sun"])
+    }
+}
+
+extension WakeUpIntroController: Debuggable {
+    func printDebug(_ message: String) {
+        if self.debug {
+            print("$LOG (WakeUpIntroController): \(message)")
+        }
     }
 }

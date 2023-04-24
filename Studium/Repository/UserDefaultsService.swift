@@ -10,5 +10,18 @@ import Foundation
 
 //TODO: Docstring
 final class UserDefaultsService {
+    static let shared = UserDefaultsService()
     
+    private init() { }
+    
+    private let defaults = UserDefaults.standard
+    
+//    func wakeUpTime(for day: Date) {
+//        if let
+//        return day.setTime(hour: <#T##Int#>, minute: <#T##Int#>, second: <#T##Int#>)
+//    }
+    
+//    let wakeUpTime = UserDefaults.standard.array(forKey: K.wakeUpKeyDict[date.weekday]!)![0] as! Date
+//    let startBound = date.setTime(hour: wakeUpTime.hour, minute: wakeUpTime.minute, second: 0) ?? Date()
+//    let endBound = date.setTime(hour: 23, minute: 59, second: 0) ?? Date()
 }

@@ -13,6 +13,10 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     
     
 //    var assignments = [Assignment]()
+    override var debug: Bool {
+        return false
+    }
+    
 
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -24,7 +28,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     }
     
     override func viewDidLoad() {
-        self.debug = true
+//        self.debug = false
         
         super.viewDidLoad()
         searchBar.delegate = self
@@ -40,12 +44,12 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
             let color = course.color
             title = selectedCourse.name
             guard let navController = navigationController else {
-                fatalError("$Error: navigation bar doesnt exist")
+                fatalError("$ERR: navigation bar doesnt exist")
             }
             
             navController.navigationBar.barTintColor = color
         } else {
-            print("$Error: course is nil")
+            print("$ERR: course is nil")
         }
         
         reloadData()
@@ -77,7 +81,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
             return cell
         }
         
-        fatalError("$Error: Couldn't dequeue cell for Course List")
+        fatalError("$ERR: Couldn't dequeue cell for Course List")
     }
     
     //MARK: - Delegate Methods
@@ -105,7 +109,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
             tableView.deselectRow(at: indexPath, animated: true)
 //            tableView.reloadData()
         } else {
-            print("$Error (AssignmentsViewController): couldn't safely cast assignment or its cell")
+            print("$ERR (AssignmentsViewController): couldn't safely cast assignment or its cell")
         }
     }
     
@@ -200,7 +204,7 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
                 index += 1
             }
         }else{
-            print("$Error: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
+            print("$ERR (AssignmentsViewController): problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
         }
         tableView.reloadData()
     }
@@ -217,7 +221,7 @@ extension AssignmentsViewController: AssignmentCollapseDelegate{
     
     //this function just collapses all assignmentCells whose autoscheduled events are expanded. We call this when we are leaving the ToDoList screen, to avoid issues when coming back and loading in data.
     func collapseAllExpandedAssignments(){
-        for cell in tableView.visibleCells{
+        for cell in tableView.visibleCells {
             if let assignmentCell = cell as? AssignmentCell1 {
                 if assignmentCell.autoEventsOpen {
                     assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
