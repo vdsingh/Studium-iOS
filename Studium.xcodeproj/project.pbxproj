@@ -18,11 +18,9 @@
 		165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C77248A6F5C004279B0 /* CourseCell.swift */; };
 		165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C78248A6F5C004279B0 /* CourseCell.xib */; };
 		166F53D125BC93320065963D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166F53D025BC93320065963D /* TabBarController.swift */; };
-		16827D1A27F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16827D1927F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift */; };
+		16827D1A27F58B9A0001D1EF /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16827D1927F58B9A0001D1EF /* AuthViewController.swift */; };
 		1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DB6A248267EC00FA99DB /* PickerTest.swift */; };
 		168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */; };
-		168EE1C52659F899009A8001 /* Autoschedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168EE1C42659F899009A8001 /* Autoschedule.swift */; };
-		168EE1C72659FA10009A8001 /* RealmCRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168EE1C62659FA10009A8001 /* RealmCRUD.swift */; };
 		1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E730247A3DC4003D4702 /* AppDelegate.swift */; };
 		1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E732247A3DC4003D4702 /* SceneDelegate.swift */; };
 		1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E734247A3DC4003D4702 /* CalendarViewController.swift */; };
@@ -103,11 +101,14 @@
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5E2983465D00A25457 /* SystemIcon.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
+		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
 		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
 		B9A98C2729ECA67D00D866A9 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2629ECA67D00D866A9 /* Secret.swift */; };
 		B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */; };
 		B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */; };
+		B9A98C3029EE2FC500D866A9 /* GoogleAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2F29EE2FC500D866A9 /* GoogleAuthenticationService.swift */; };
+		B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,11 +123,9 @@
 		165A6C77248A6F5C004279B0 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		165A6C78248A6F5C004279B0 /* CourseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell.xib; sourceTree = "<group>"; };
 		166F53D025BC93320065963D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		16827D1927F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBAndGoogleAuthViewController.swift; sourceTree = "<group>"; };
+		16827D1927F58B9A0001D1EF /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		1686DB6A248267EC00FA99DB /* PickerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTest.swift; sourceTree = "<group>"; };
 		168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringStudiumEvent.swift; sourceTree = "<group>"; };
-		168EE1C42659F899009A8001 /* Autoschedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autoschedule.swift; sourceTree = "<group>"; };
-		168EE1C62659FA10009A8001 /* RealmCRUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCRUD.swift; sourceTree = "<group>"; };
 		1693E72D247A3DC4003D4702 /* Studium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1693E730247A3DC4003D4702 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1693E732247A3DC4003D4702 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -210,12 +209,15 @@
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B96E6A5E2983465D00A25457 /* SystemIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcon.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		B97BB08129F7006E008F1A5B /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B995493B2992EDD000442968 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
 		B995493E2992F0D400442968 /* StudiumEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventListViewController.swift; sourceTree = "<group>"; };
 		B9A98C2629ECA67D00D866A9 /* Secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = SOURCE_ROOT; };
 		B9A98C2929ECA96E00D866A9 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = Pods/GoogleSignIn/Frameworks/GoogleSignIn.framework; sourceTree = "<group>"; };
 		B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumColor.swift; sourceTree = "<group>"; };
+		B9A98C2F29EE2FC500D866A9 /* GoogleAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthenticationService.swift; sourceTree = "<group>"; };
+		B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoscheduleService.swift; sourceTree = "<group>"; };
 		FD108DE721EFFA5F65BC9E17 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -243,13 +245,14 @@
 		16429D05247E81500052E47C /* Intro Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				16827D1927F58B9A0001D1EF /* AuthViewController.swift */,
+				1697F7EF266C6B6D0064AB28 /* StartViewController.swift */,
 				16429D06247E81630052E47C /* WakeUpIntroController.swift */,
 				164F62F224DF7BFC00DC8169 /* NotificationsController.swift */,
 				164F630024EA2E0900DC8169 /* FirstScreenViewController.swift */,
 				16C60FE725C76C51006D0FFC /* LoginViewController1.swift */,
 				164905B627E18732002DE61D /* LoginViewController.swift */,
 				16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */,
-				1697F7EF266C6B6D0064AB28 /* StartViewController.swift */,
 			);
 			path = "Intro Controllers";
 			sourceTree = "<group>";
@@ -334,8 +337,6 @@
 				1693E739247A3DC6003D4702 /* Assets.xcassets */,
 				1693E73E247A3DC6003D4702 /* Info.plist */,
 				16C445AE26646C75006076C1 /* credentials.plist */,
-				168EE1C42659F899009A8001 /* Autoschedule.swift */,
-				168EE1C62659FA10009A8001 /* RealmCRUD.swift */,
 				B9A98C2629ECA67D00D866A9 /* Secret.swift */,
 				B96E6A9B298456A500A25457 /* K.swift */,
 			);
@@ -383,6 +384,7 @@
 				16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */,
 				168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */,
 				B995493D2992EEA300442968 /* Protocols */,
+				B97BB08129F7006E008F1A5B /* UserSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -412,7 +414,6 @@
 			isa = PBXGroup;
 			children = (
 				1693E751247A487C003D4702 /* SwipeTableViewController.swift */,
-				16827D1927F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift */,
 			);
 			path = "Framework Superclasses";
 			sourceTree = "<group>";
@@ -481,6 +482,8 @@
 				B90D1446298C6EA50093EB0C /* AuthenticationService.swift */,
 				B90D1448298C77B80093EB0C /* NotificationService.swift */,
 				B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */,
+				B9A98C2F29EE2FC500D866A9 /* GoogleAuthenticationService.swift */,
+				B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -681,6 +684,7 @@
 				B90D13FD29845FE80093EB0C /* LogoSelectorViewController.swift in Sources */,
 				B90D1449298C77B80093EB0C /* NotificationService.swift in Sources */,
 				B90D13FC29845FE80093EB0C /* MasterForm.swift in Sources */,
+				B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */,
 				B90D1424298461AD0093EB0C /* SwitchCell.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				B90D13FE29845FE80093EB0C /* AddToDoListEventViewController.swift in Sources */,
@@ -690,11 +694,10 @@
 				B90D140029845FE80093EB0C /* AddAssignmentViewController.swift in Sources */,
 				B90D1432298461AD0093EB0C /* TimePickerCell.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
-				168EE1C72659FA10009A8001 /* RealmCRUD.swift in Sources */,
 				1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
 				B90D141C298461AD0093EB0C /* ColorPickerCell.swift in Sources */,
-				16827D1A27F58B9A0001D1EF /* FBAndGoogleAuthViewController.swift in Sources */,
+				16827D1A27F58B9A0001D1EF /* AuthViewController.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				B90D143E298999630093EB0C /* DateFormat.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
@@ -705,6 +708,7 @@
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
 				B90D1445298AFDE00093EB0C /* FormCell.swift in Sources */,
 				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
+				B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */,
 				B995493C2992EDD000442968 /* Completable.swift in Sources */,
 				1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */,
 				B90D1422298461AD0093EB0C /* TextFieldCell.swift in Sources */,
@@ -718,7 +722,6 @@
 				B90D141E298461AD0093EB0C /* BasicCell.swift in Sources */,
 				B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
-				168EE1C52659F899009A8001 /* Autoschedule.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
 				B90D142C298461AD0093EB0C /* LogoCollectionViewCell.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
@@ -738,6 +741,7 @@
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				B90D1440298999AB0093EB0C /* FormError.swift in Sources */,
 				16C60FE825C76C51006D0FFC /* LoginViewController1.swift in Sources */,
+				B9A98C3029EE2FC500D866A9 /* GoogleAuthenticationService.swift in Sources */,
 				164F630124EA2E0900DC8169 /* FirstScreenViewController.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
 				B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */,
