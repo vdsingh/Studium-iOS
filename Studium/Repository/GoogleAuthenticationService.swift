@@ -78,7 +78,7 @@ class GoogleAuthenticationService {
 //            DispatchQueue.main.async {
 //                switch result {
 //                case .failure(let error):
-//                    print("$Error: Failed to log in to MongoDB Realm: \(error)")
+//                    print("$ERR: Failed to log in to MongoDB Realm: \(error)")
 //                case .success(let user):
 ////                    Logs.Authentication.googleLoginSuccess(logLocation: self.codeLocationString, additionalInfo: "User: \(user)").printLog()
 //                    self.handleGeneralLoginSuccess(email: googleUser.profile.email)
