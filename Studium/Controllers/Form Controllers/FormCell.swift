@@ -17,6 +17,7 @@ public enum FormCell: Equatable {
     
     case textFieldCell(
         placeholderText: String,
+        text: String?,
         id: FormCellID.TextFieldCell,
         textFieldDelegate: UITextFieldDelegate,
         delegate: UITextFieldDelegateExt
@@ -24,6 +25,7 @@ public enum FormCell: Equatable {
     
     case switchCell(
         cellText: String,
+        isOn: Bool,
         switchDelegate: CanHandleSwitch?,
         infoDelegate: CanHandleInfoDisplay?
     )
@@ -53,7 +55,10 @@ public enum FormCell: Equatable {
         delegate: UITimePickerDelegate
     )
     
-    case daySelectorCell(delegate: DaySelectorDelegate)
+    case daySelectorCell(
+        daysSelected: Set<Weekday>,
+        delegate: DaySelectorDelegate
+    )
     
     case segmentedControlCell(
         firstTitle: String,
@@ -62,8 +67,10 @@ public enum FormCell: Equatable {
     )
     
     case colorPickerCell(delegate: ColorDelegate)
+    
     case pickerCell(
         cellText: String,
+        indices: [Int],
         tag: FormCellID.PickerCell,
         delegate: UIPickerViewDelegate,
         dataSource: UIPickerViewDataSource

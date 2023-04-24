@@ -23,30 +23,10 @@ class AddToDoListEventViewController: MasterForm {
     /// link to the list of OtherEvents, so that when a new ToDo Event is created, the list refreshes.
     var delegate: ToDoListRefreshProtocol?
     
-    /// Location of the To-Do list event
-    var location: String = ""
-    
     @IBOutlet weak var navButton: UIBarButtonItem!
     
     override func viewDidLoad() {
-        self.cells = [
-            [
-                .labelCell(cellText: "This Event is a Course Assignment", onClick: self.isAssignmentClicked)
-            ],
-            [
-                .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", id: FormCellID.TextFieldCell.locationTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
-            ],
-            [
-                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .standardTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCell.startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCell.endTimeCell, onClick: self.timeCellClicked)
-            ],
-            [
-                .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "", textColor: .systemRed)
-            ]
-        ]
+        self.setCells()
         super.viewDidLoad()
         
         //makes it so that the form doesn't have a bunch of empty cells at the bottom
@@ -64,78 +44,43 @@ class AddToDoListEventViewController: MasterForm {
         }
     }
     
+    func setCells() {
+        self.cells = [
+            [
+                .labelCell(cellText: "This Event is a Course Assignment", onClick: self.isAssignmentClicked)
+            ],
+            [
+                .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCell.locationTextField, textFieldDelegate: self, delegate: self),
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
+            ],
+            [
+                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .standardTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCell.startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCell.endTimeCell, onClick: self.timeCellClicked)
+            ],
+            [
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
+                .labelCell(cellText: "", textColor: .systemRed)
+            ]
+        ]
+    }
+    
     //function that is called when the user wants to finish editing in the form and create the new object.
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        //updates the characteristic variables
-//        retrieveDataFromCells()
-        
-//        if name == "" {
-//            errors.append("Please specify a name.")
-//        }
-//
-//        if self.endDate < self.startDate {
-//            errors.append(" End Date cannot be before Start Date")
-//        }
-        
-        //there are no errors
-        if super.noErrors() {
-            if otherEvent == nil {
-                
-                //TODO: Fix
-                let newEvent = OtherEvent()
-//                newEvent.initializeData(startDate: self.startDate, endDate: endDate, name: name, location: location, additionalDetails: additionalDetails, notificationAlertTimes: alertTimes, partitionKey: user.id)
-//                for alertTime in alertTimes{
-//                    let alertDate = self.startDate - (Double(alertTime.rawValue) * 60)
-//                    var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
-//                    components.second = 0
-//
-                //TODO: Fix and abstract to diff layer
-//                    let identifier = UUID().uuidString
-//                    newEvent.notificationIdentifiers.append(identifier)
-//                    NotificationHandler.scheduleNotification(components: components, body: "Don't be late!", titles: "\(name) at \(self.startDate.format(with: "h:mm a"))", repeatNotif: false, identifier: identifier)
-//                }
-                DatabaseService.shared.saveStudiumObject(newEvent)
-//                RealmCRUD.saveOtherEvent(otherEvent: newEvent)
+        self.errors = self.findErrors()
+        if self.errors.isEmpty {
+            let newEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: self.additionalDetails, startDate: self.startDate, endDate: self.endDate, color: self.color, logo: self.logo, alertTimes: self.alertTimes)
+            if let otherEvent = self.otherEvent {
+                // We are editing
+                DatabaseService.shared.editStudiumEvent(oldEvent: otherEvent, newEvent: newEvent)
+            
             } else {
-                do {
-                    //TODO: Fix
-//                    try realm.write {
-//                        // TODO: FIX FORCE UNWRAP
-//                        otherEvent!.updateNotifications(with: alertTimes)
-//                    }
-                    //TODO: Fix and abstract
-//                    for alertTime in alertTimes {
-//                        if !otherEvent!.notificationAlertTimes.contains(alertTime.rawValue) {
-//                            let alertDate = self.startDate - (Double(alertTime.rawValue) * 60)
-//                            var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: alertDate)
-//                            components.second = 0
-//                            print("alertDate: \(alertDate). Start Date: \(self.startDate)")
-//                            let identifier = UUID().uuidString
-//                            //TODO: Fix
-////                            try realm.write{
-////                                print("scheduling new notification for alertTime: \(alertTime)")
-////                                otherEvent!.notificationIdentifiers.append(identifier)
-////                                otherEvent!.notificationAlertTimes.append(alertTime)
-////                            }
-//                            NotificationHandler.scheduleNotification(components: components,
-//                                                                     body: "Don't be late!",
-//                                                                     titles: "\(name) at \(startDate.format(with: "h:mm a"))",
-//                                                                     repeatNotif: false,
-//                                                                     identifier: identifier)
-//                        }
-
-                    }
-                    
-                    //TODO: Fix
-//                    try realm.write {
-//                        otherEvent!.initializeData(startDate: self.startDate, endDate: self.endDate, name: name, location: location, additionalDetails: additionalDetails)
-//                    }
-//                } catch {
-//                    print("there was an error: \(error)")
-//                }
+                // We are creating new
+                DatabaseService.shared.saveStudiumObject(newEvent)
             }
+            
             guard let delegate = delegate else {
-                print("$Error: delegate is nil in AddToDoListEventViewController.")
+                print("$ERR (AddToDoListEventViewController): delegate is nil in AddToDoListEventViewController.")
                 return
             }
 
@@ -143,9 +88,24 @@ class AddToDoListEventViewController: MasterForm {
             dismiss(animated: true, completion: nil)
         } else {
             // update the errors cell to show all of the errors with the form
+            self.setCells()
             self.replaceLabelText(text: FormError.constructErrorString(errors: self.errors), section: 3, row: 1)
             tableView.reloadData()
         }
+    }
+    
+    //TODO: Docstring
+    func findErrors() -> [FormError] {
+        var errors = [FormError]()
+        if self.name == "" {
+            errors.append(.nameNotSpecified)
+        }
+        
+        if startDate > endDate {
+            errors.append(.endTimeOccursBeforeStartTime)
+        }
+        
+        return errors
     }
     
     /// cancel the form

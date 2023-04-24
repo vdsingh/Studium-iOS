@@ -23,10 +23,7 @@ class AddHabitViewController: MasterForm {
     
     /// The habit that we're editing (nil if we're creating a new one)
     var habit: Habit?
-    
-    /// variable that helps run things once that only need to run at the beginning
-    var resetAll: Bool = true
-    
+        
     /// reference to the Habits list, so that once complete, it can update and show the new Habit
     var delegate: HabitRefreshProtocol?
     
@@ -40,53 +37,60 @@ class AddHabitViewController: MasterForm {
     var cellText: [[String]] = [[]]
     var cellType: [[FormCell]] = [[]]
     
-    var times: [Date] = []
-    var timeCounter = 0
+//    var times: [Date] = []
+//    var timeCounter = 0
         
     /// Whether or not this habit is being autoscheduled or not
     var autoschedule = false
     
     /// Whether the user wants this habit to be scheduled earlier or later
     var earlier = true
-    
-    /// The name of this habit
-    
-    /// The additional details for this habit
-//    var additionalDetails: String = ""
-        
-    /// The location for this habit
-    var location: String = ""
-    
-    /// The days selected for this habit
-//    var daysSelected = Set<Weekday>()
-    
-    //array that keeps track of when the user should be sent notifications about this habit
-    //    var alertTimes: [Int] = []
+
     
     @IBOutlet weak var navButton: UIBarButtonItem!
     
     override func viewDidLoad() {
+        self.setCells()
+        
         super.viewDidLoad()
         
         //used to decipher which TimeCell should have which dates
-        times = [self.startDate, self.endDate]
+//        times = [self.startDate, self.endDate]
         
+//        self.cells = self.cellsNoAuto
+        
+        //makes it so that the form doesn't have a bunch of empty cells at the bottom
+        tableView.tableFooterView = UIView()
+        
+        navButton.image = UIImage(systemName: "plus")
+        if let habit = habit {
+//            if habit.autoschedule {
+//                self.cells = self.cellsAuto
+//                self.reloadData()
+//            }
+            
+            fillForm(with: habit)
+        }
+    }
+    
+    func setCells() {
         self.cellsNoAuto = [
             [
-                .textFieldCell(placeholderText: "Name", id: .nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", id: .locationTextField, textFieldDelegate: self, delegate: self),
-                .daySelectorCell(delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, id: .nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", text: self.location, id: .locationTextField, textFieldDelegate: self, delegate: self),
+                .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
-                .switchCell(cellText: "Autoschedule", switchDelegate: self, infoDelegate: self),
-                .timeCell(cellText: "Start", date: Date(), dateFormat: .standardTime, timePickerMode: .time, id: .startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Finish", date: Date(), dateFormat: .standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked)
+                .switchCell(cellText: "Autoschedule", isOn: false, switchDelegate: self, infoDelegate: self),
+                .timeCell(cellText: "Start", date: self.startDate, dateFormat: .standardTime, timePickerMode: .time, id: .startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Finish", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked)
             ],
             [
-                .logoCell(logo: .pencil, onClick: self.navigateToLogoSelection),
+                .logoCell(logo: self.logo, onClick: self.navigateToLogoSelection),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details",
+                               text: self.additionalDetails,
                                id: FormCellID.TextFieldCell.additionalDetailsTextField,
                                textFieldDelegate: self,
                                delegate: self),
@@ -96,223 +100,100 @@ class AddHabitViewController: MasterForm {
         
         self.cellsAuto = [
             [
-                .textFieldCell(placeholderText: "Name", id: .nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", id: .locationTextField, textFieldDelegate: self, delegate: self),
-                .daySelectorCell(delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, id: .nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", text: self.location, id: .locationTextField, textFieldDelegate: self, delegate: self),
+                .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
             ],
             [
-                .switchCell(cellText: "Autoschedule", switchDelegate: self, infoDelegate: self),
-                .timeCell(cellText: "Between", date: Date(), dateFormat: .standardTime, timePickerMode: .time, id: .startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "And", date: Date(), dateFormat: .standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked),
-                
-                //TODO: Fix this
-                .timeCell(cellText: "Length of Habit", date: Date(), dateFormat: .standardTime, timePickerMode: .dateAndTime, id: .lengthTimeCell, onClick: self.timeCellClicked),
-                .segmentedControlCell(firstTitle: "Earlier", secondTitle: "Later", delegate: self)
+                .switchCell(cellText: "Autoschedule", isOn: true, switchDelegate: self, infoDelegate: self),
+                .timeCell(cellText: "Between", date: self.startDate, dateFormat: .standardTime, timePickerMode: .time, id: .startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "And", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked),
+                .pickerCell(cellText: "Length of Habit", indices: self.lengthPickerIndices, tag: .lengthPickerCell, delegate: self, dataSource: self)
             ],
             [
                 .logoCell(logo: self.logo, onClick: self.navigateToLogoSelection),
                 .colorPickerCell(delegate: self),
-                .textFieldCell(placeholderText: "Additional Details", id: .additionalDetailsTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: .additionalDetailsTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "", textColor: .systemRed)
             ]
         ]
         
-        self.cells = self.cellsNoAuto
-        
-        //makes it so that the form doesn't have a bunch of empty cells at the bottom
-        tableView.tableFooterView = UIView()
-        
-        navButton.image = UIImage(systemName: "plus")
-        if let habit = habit {
-            if habit.autoschedule {
-                tableView.reloadData()
-            }
-            fillForm(with: habit)
-        } else {
-            //We are creating a new habit
-            //            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
-            //                print("$ LOG: Loading User's Default Notification Times for Habit Form.")
-            //                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
-            //            }
-        }
+        self.cells = self.autoschedule ? self.cellsAuto : self.cellsNoAuto
     }
     
     //MARK: - UIElement IBActions
     
     //final step that occurs when the user finishes the form and adds the habit
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        resetAll = false
-        errors = []
-        //        cellText[2][cellText[2].count - 1] = ""
-        //        retrieveData()
+        self.errors = self.findErrors()
+
         // TODO: FIX FORCE UNWRAP
-        endDate = Calendar.current.date(bySettingHour: self.endDate.hour, minute: self.endDate.minute, second: self.endDate.second, of: self.startDate)!
-        //        reloadData()
+        self.endDate = Calendar.current.date(bySettingHour: self.endDate.hour, minute: self.endDate.minute, second: self.endDate.second, of: self.startDate)!
         
-        
-        if name == "" {
-            errors.append(.nameNotSpecified)
-        }
-        
-        if daysSelected == [] {
-            errors.append(.oneDayNotSpecified)
-        }
-        
-        if autoschedule && totalLengthHours == 0 && totalLengthMinutes == 0 {
-            errors.append(.totalTimeNotSpecified)
-        } else if self.endDate < self.startDate {
-            errors.append(.endTimeOccursBeforeStartTime)
-        } else if autoschedule && (self.endDate.hour - self.startDate.hour) * 60 + (self.endDate.minute - self.startDate.minute) < totalLengthHours * 60 + totalLengthMinutes {
-            errors.append(.totalTimeExceedsTimeFrame)
-        }
         
         // there are no errors.
-        if errors.isEmpty {
-            if habit == nil {
-                let newHabit = Habit(
-                    name: name,
-                    location: location,
-                    additionalDetails: additionalDetails,
-                    startDate: startDate,
-                    endDate: endDate,
-                    autoschedule: autoschedule,
-                    startEarlier: earlier,
-                    autoLengthMinutes: totalLengthHours * 60 + totalLengthMinutes,
-                    alertTimes: self.alertTimes,
-                    days: daysSelected,
-                    logo: self.logo,
-                    color: color,
-                    partitionKey: DatabaseService.shared.user?.id ?? ""
-                )
-                
-                if !autoschedule {
-                    for alertTime in alertTimes {
-                        for day in daysSelected {
-                            
-                            //                            let weekday = Date.convertDayToWeekday(day: day)
-                            //                            let weekdayAsInt = Date.convertDayToInt(day: day)
-                            var alertDate = Date()
-                            
-                            if self.startDate.studiumWeekday != day {
-                                //the course doesn't occur today
-                                //                                alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
-                            }
-                            
-                            alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
-                            
-                            alertDate -= (60 * Double(alertTime.rawValue))
-                            //                    alertDate = startDate - (60 * Double(alertTime))
-                            //consider how subtracting time from alertDate will affect the weekday component.
-                            let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
-                            //                    print(courseComponents)
-                            
-                            //adjust title as appropriate
-                            var title = ""
-                            if alertTime.rawValue < 60 {
-                                title = "\(name) starts in \(alertTime) minutes."
-                            } else if alertTime.rawValue == 60 {
-                                title = "\(name) starts in 1 hour"
-                            } else {
-                                title = "\(name) starts in \(alertTime.rawValue / 60) hours"
-                            }
-                            let timeFormat = self.startDate.format(with: "h:mm a")
-                            
-                            let identifier = UUID().uuidString
-                            //                            newHabit.notificationIdentifiers.append(identifier)
-                            newHabit.alertTimes.append(alertTime)
-                            //                            NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
-                        }
-                    }
-                } else {
-                    for alertTime in alertTimes {
-                        newHabit.alertTimes.append(alertTime)
-                    }
-                }
-                DatabaseService.shared.saveStudiumObject(newHabit)
-//                RealmCRUD.saveHabit(habit: newHabit)
-                newHabit.addToAppleCalendar()
-                
+        if self.errors.isEmpty {
+            let newHabit = Habit(
+                name: name,
+                location: location,
+                additionalDetails: additionalDetails,
+                startDate: startDate,
+                endDate: startDate.add(minutes: totalLengthMinutes),
+                autoschedule: autoschedule,
+                startEarlier: earlier,
+                autoLengthMinutes: totalLengthMinutes,
+                alertTimes: self.alertTimes,
+                days: daysSelected,
+                logo: self.logo,
+                color: color,
+                partitionKey: DatabaseService.shared.user?.id ?? ""
+            )
+            
+            if let editingHabit = self.habit {
+                DatabaseService.shared.editStudiumEvent(oldEvent: editingHabit, newEvent: newHabit)
             } else {
-                do {
-                    
-                    try DatabaseService.shared.realm.write {
-                        if !autoschedule {
-                            // TODO: FIX FORCE UNWRAP
-                            //                            habit!.deleteNotifications()
-                            for alertTime in alertTimes {
-                                for day in daysSelected {
-                                    
-                                    //                                    let weekday = Date.convertDayToWeekday(day: day)
-                                    //                                    let weekdayAsInt = Date.convertDayToInt(day: day)
-                                    var alertDate = Date()
-                                    
-                                    if startDate.studiumWeekday != day {
-                                        //the course doesn't occur today
-                                        //                                        alertDate = Date.today().next(Date.convertDayToWeekday(day: day))
-                                    }
-                                    
-                                    alertDate = Calendar.current.date(bySettingHour: startDate.hour, minute: startDate.minute, second: 0, of: alertDate)!
-                                    
-                                    alertDate -= (60 * Double(alertTime.rawValue))
-                                    //consider how subtracting time from alertDate will affect the weekday component.
-                                    let courseComponents = DateComponents(hour: alertDate.hour, minute: alertDate.minute, second: 0, weekday: alertDate.weekday)
-                                    //                    print(courseComponents)
-                                    
-                                    //adjust title as appropriate
-                                    var title = ""
-                                    if alertTime.rawValue < 60 {
-                                        title = "\(name) starts in \(alertTime) minutes."
-                                    } else if alertTime.rawValue == 60 {
-                                        title = "\(name) starts in 1 hour"
-                                    } else {
-                                        title = "\(name) starts in \(alertTime.rawValue / 60) hours"
-                                    }
-                                    let timeFormat = startDate.format(with: "h:mm a")
-                                    
-                                    let identifier = UUID().uuidString
-                                    //                                    habit!.notificationIdentifiers.append(identifier)
-                                    habit!.alertTimes.append(alertTime)
-                                    //                                    NotificationHandler.scheduleNotification(components: courseComponents, body: "Be there by \(timeFormat). Don't be late!", titles: title, repeatNotif: true, identifier: identifier)
-                                }
-                            }
-                        } else {
-                            //                            habit!.deleteNotifications()
-                            for alertTime in alertTimes{
-                                habit!.alertTimes.append(alertTime)
-                            }
-                        }
-                        //                        guard let user = app.currentUser else {
-                        //                            print("$ ERROR: error getting user in MasterForm")
-                        //                            return
-                        //                        }
-                        
-                        
-                        //                        habit!.initializeData(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, autoschedule: autoschedule, startEarlier: earlier, autoLengthMinutes: totalLengthMinutes, days: daysSelected, systemImageString: systemImageString, colorHex: colorValue, partitionKey: DatabaseService.shared.user?.id ?? "")
-                        print("$Log: editing habit with length hour \(totalLengthHours) segmented control: \(earlier)")
-                    }
-                } catch {
-                    print(error)
-                }
+                DatabaseService.shared.saveStudiumObject(newHabit)
             }
             
             dismiss(animated: true) {
                 if let del = self.delegate {
                     del.loadHabits()
                 } else {
-                    print("$ ERROR: delegate was not defined.")
+                    print("$ERR (AddHabitViewController): delegate was not defined.")
                 }
             }
         } else {
-            //if there are errors.
+            self.reloadData()
             self.replaceLabelText(
                 text: FormError.constructErrorString(errors: self.errors),
                 section: 2,
                 row: 3
             )
-            
-            tableView.reloadData()
         }
+    }
+    
+    //TODO: Docstring
+    func findErrors() -> [FormError] {
+        var errors = [FormError]()
+        
+        if self.name == "" {
+            errors.append(.nameNotSpecified)
+        }
+        
+        if  self.daysSelected == [] {
+            errors.append(.oneDayNotSpecified)
+        }
+        
+        if self.autoschedule && self.totalLengthMinutes == 0 {
+            errors.append(.totalTimeNotSpecified)
+        } else if self.endDate < self.startDate {
+            errors.append(.endTimeOccursBeforeStartTime)
+        } else if self.autoschedule && (self.endDate.hour - self.startDate.hour) * 60 + (self.endDate.minute - self.startDate.minute) < self.totalLengthMinutes {
+            errors.append(.totalTimeExceedsTimeFrame)
+        }
+        
+        return errors
     }
     
     //Handles whenever the user decides to cancel.
@@ -324,8 +205,8 @@ class AddHabitViewController: MasterForm {
     
     //reset data and reloads tableView
     func reloadData(){
-        times = [startDate, endDate]
-        timeCounter = 0
+        self.setCells()
+//        self.cells = self.autoschedule ? self.cellsAuto : self.cellsNoAuto
         tableView.reloadData()
     }
 }
@@ -378,7 +259,7 @@ extension AddHabitViewController: DaySelectorDelegate {
 extension AddHabitViewController: UITextFieldDelegateExt {
     func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
-            print("$Error: sender's text is nil when editing text.")
+            print("$ERR: sender's text is nil when editing text.")
             return
         }
         
@@ -396,7 +277,7 @@ extension AddHabitViewController: UITextFieldDelegateExt {
 extension AddHabitViewController: ColorDelegate{
     func colorPickerValueChanged(sender: RadialPaletteControl) {
         color = sender.selectedColor
-        print("$Log: Changed color")
+        print("$LOG: Changed color")
     }
 }
 
@@ -414,13 +295,15 @@ extension AddHabitViewController: SegmentedControlDelegate {
 extension AddHabitViewController: CanHandleSwitch {
     //method triggered when the autoschedule switch is triggered
     func switchValueChanged(sender: UISwitch) {
-        if sender.isOn {//auto schedule
+        if sender.isOn { //auto schedule
             self.cells = self.cellsAuto
             autoschedule = true
         } else {
             self.cells = self.cellsNoAuto
             autoschedule = false
         }
+        
+        
         reloadData()
     }
 }
@@ -439,64 +322,70 @@ extension AddHabitViewController: CanHandleInfoDisplay{
 
 extension AddHabitViewController {
     func fillForm(with habit: Habit) {
-        reloadData()
+        printDebug("Filling form for habit: \(habit.name)")
         
         navButton.image = .none
         navButton.title = "Done"
         
-        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-        nameCell.textField.text = habit.name
-        name = habit.name
+//        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
+//        nameCell.textField.text = habit.name
+        self.name = habit.name
         
-        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
-        locationCell.textField.text = habit.location
-        location = habit.location
+//        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
+//        locationCell.textField.text = habit.location
+        self.location = habit.location
         
-        let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
-        daysCell.selectDays(days: habit.days)
-        daysSelected = []
-        for day in habit.days {
-            daysSelected.insert(day)
-        }
+//        let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
+//        daysCell.selectDays(days: habit.days)
+//        self.daysSelected = []
+        self.daysSelected = habit.days
+//        for day in habit.days {
+//            daysSelected.insert(day)
+//        }
         
-        alertTimes = habit.alertTimes
+        self.alertTimes = habit.alertTimes
         
-        let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
-        logoCell.logoImageView.image = habit.logo.createImage()
+//        let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
+//        logoCell.logoImageView.image = habit.logo.createImage()
         self.logo = habit.logo
         
-        let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
-        let color = habit.color
-        colorCell.colorPreview.backgroundColor = color
-        self.color = color
+//        let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
+//        let color = habit.color
+//        colorCell.colorPreview.backgroundColor = color
+        self.color = habit.color
         
-        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
-        additionalDetailsCell.textField.text = habit.additionalDetails
-        additionalDetails = habit.additionalDetails
+//        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
+//        additionalDetailsCell.textField.text = habit.additionalDetails
+        self.additionalDetails = habit.additionalDetails
         
-        let startCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TimeCell
-        startDate = habit.startDate
-        startCell.setDate(startDate)
+//        let startCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TimeCell
+        self.startDate = habit.startDate
+//        startCell.setDate(startDate)
         
-        let endCell = tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! TimeCell
-        endDate = habit.endDate
-        endCell.setDate(endDate)
+//        let endCell = tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! TimeCell
+        self.endDate = habit.endDate
+//        endCell.setDate(endDate)
         
-        if habit.autoschedule {
-            let autoscheduleCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell
-            autoscheduleCell.tableSwitch.isOn = true
-            autoschedule = true
-            
-            let lengthCell = tableView.cellForRow(at: IndexPath(row: 3, section: 1)) as! TimeCell
-            lengthCell.timeLabel.text = "\(totalLengthHours) hours \(totalLengthMinutes) mins"
-            
-            let earlierLaterCell = tableView.cellForRow(at: IndexPath(row: 4, section: 1)) as! SegmentedControlCell
-            earlier = habit.startEarlier
-            if earlier{
-                earlierLaterCell.segmentedControl.selectedSegmentIndex = 0
-            }else{
-                earlierLaterCell.segmentedControl.selectedSegmentIndex = 1
-            }
-        }
+        self.autoschedule = habit.autoschedule
+        
+        self.totalLengthMinutes = habit.autoLengthMinutes
+        
+        
+        self.setCells()
+        self.tableView.reloadData()
+//        self.setCells()
+        
+//        if habit.autoschedule {
+//            let autoscheduleCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell
+//            autoscheduleCell.tableSwitch.isOn = true
+//            self.autoschedule = true
+
+//            let timePickerCell = tableView.cellForRow(at: IndexPath(row: 3, section: 1)) as! PickerCell
+//            let hours = habit.autoLengthMinutes / 60
+//            timePickerCell.picker.selectRow(hours, inComponent: 0, animated: true)
+//
+//            let minutes =  habit.autoLengthMinutes % 60
+//            timePickerCell.picker.selectRow(minutes, inComponent: 1, animated: true)
+//        }
     }
 }

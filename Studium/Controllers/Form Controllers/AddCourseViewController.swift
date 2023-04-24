@@ -18,41 +18,16 @@ class AddCourseViewController: MasterForm {
     
     /// reference to the list that is to be refreshed when a new course is added.
     var delegate: CourseRefreshProtocol?
-
-//    / error  that is displayed when there are errors
-//    var errors: [FormError] = []
     
-//    var additionalDetails: String = ""
     override var debug: Bool {
         true
     }
-    
-    var location: String = ""
-    
+        
     @IBOutlet weak var navButton: UIBarButtonItem!
 
     override func viewDidLoad() {
-        self.cells = [
-            [
-                .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", id: FormCellID.TextFieldCell.locationTextField, textFieldDelegate: self, delegate: self),
-                .daySelectorCell(delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
-            ],
-            [
-                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCell.startTimeCell, onClick: timeCellClicked),
-                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCell.endTimeCell, onClick: timeCellClicked)
-            ],
-            [
-                .logoCell(logo: self.logo, onClick: self.navigateToLogoSelection),
-                .colorPickerCell(delegate: self),
-                .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
-            ],
-            [
-                .labelCell(cellText: "", textColor: .systemRed)
-            ]
-        ]
-        
+       
+        self.setCells()
     
         super.viewDidLoad()
         navButton.image = SystemIcon.plus.createImage()
@@ -75,80 +50,65 @@ class AddCourseViewController: MasterForm {
         }
     }
     
+    func setCells() {
+        self.cells = [
+            [
+                .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCell.locationTextField, textFieldDelegate: self, delegate: self),
+                .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
+            ],
+            [
+                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCell.startTimeCell, onClick: timeCellClicked),
+                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCell.endTimeCell, onClick: timeCellClicked)
+            ],
+            [
+                .logoCell(logo: self.logo, onClick: self.navigateToLogoSelection),
+                .colorPickerCell(delegate: self),
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
+            ],
+            [
+                .labelCell(cellText: "", textColor: .systemRed)
+            ]
+        ]
+    }
+    
     //final step that occurs when the user has filled out the form and wants to add the new course
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-//        errors = []
-        endDate = Calendar.current.date(bySettingHour: endDate.hour, minute: endDate.minute, second: endDate.second, of: startDate)!
-
         
-        if errors.isEmpty {
-            if var course = self.course {
-                // TODO: Move deleteNotifications to NotificationHandler
-                
-//                course.deleteNotifications()
-//                NotificationHandler.scheduleNotificationsForCourse(course: course)
-                
-                do {
-                    // TODO: Abstract away realm to state
-                    DatabaseService.shared.editStudiumEvent(
-                        oldEvent: course,
-                        newEvent: Course(
-                            name: name,
-                            color: self.color,
-                            location: location,
-                            additionalDetails: additionalDetails,
-                            startDate: startDate,
-                            endDate: endDate,
-                            days: self.daysSelected,
-                            logo: self.logo,
-                            notificationAlertTimes: alertTimes,
-                            partitionKey: DatabaseService.shared.user?.id ?? ""
-                        )
-                    )
-//                    try DatabaseService.shared.realm.write {
-//                        course = Course(
-//                            name: name,
-//                            color: self.color,
-//                            location: location,
-//                            additionalDetails: additionalDetails,
-//                            startDate: startDate,
-//                            endDate: endDate,
-//                            days: self.daysSelected,
-//                            logo: self.logo,
-////                            systemImageString: systemImageString,
-//                            notificationAlertTimes: alertTimes,
-//                            partitionKey: DatabaseService.shared.user?.id ?? ""
-//                        )
-//                    }
-                } catch {
-                    print("$Error: error updating course data: \(error)")
-                }
+        self.errors = self.findErrors()
+        endDate = Calendar.current.date(bySettingHour: endDate.hour, minute: endDate.minute, second: endDate.second, of: startDate)!
+        
+        
+        if self.errors.isEmpty {
+            let newCourse = Course (
+                name: name,
+                color: self.color,
+                location: location,
+                additionalDetails: additionalDetails,
+                startDate: startDate,
+                endDate: endDate,
+                days: self.daysSelected,
+                logo: self.logo,
+                notificationAlertTimes: alertTimes,
+                partitionKey: DatabaseService.shared.user?.id ?? ""
+            )
+            if let course = self.course {
+                DatabaseService.shared.editStudiumEvent(
+                    oldEvent: course,
+                    newEvent: newCourse
+                )
             } else {
-                let newCourse = Course (
-                    name: name,
-                    color: self.color,
-                    location: location,
-                    additionalDetails: additionalDetails,
-                    startDate: startDate,
-                    endDate: endDate,
-                    days: self.daysSelected,
-                    logo: self.logo,
-                    notificationAlertTimes: alertTimes,
-                    partitionKey: DatabaseService.shared.user?.id ?? "")
-                //scheduling the appropriate notifications
-//                NotificationHandler.scheduleNotificationsForCourse(course: newCourse)
-//                RealmCRUD.saveCourse(course: newCourse)
                 DatabaseService.shared.saveStudiumObject(newCourse)
-                newCourse.addToAppleCalendar()
             }
 
             if delegate == nil {
-                print("$Log: Course refresh delegate is nil.")
+                printDebug("Course refresh delegate is nil.")
             }
             
             dismiss(animated: true, completion: delegate?.loadCourses)
         } else {
-            
+            self.setCells()
             self.replaceLabelText(
                 text: FormError.constructErrorString(errors: self.errors),
                 section: 3,
@@ -156,6 +116,24 @@ class AddCourseViewController: MasterForm {
             )
             tableView.reloadData()
         }
+    }
+    
+    //TODO: Docstring
+    func findErrors() -> [FormError] {
+        var errors = [FormError]()
+        if name == "" {
+            errors.append(.nameNotSpecified)
+        }
+        
+        if daysSelected == [] {
+            errors.append(.oneDayNotSpecified)
+        }
+        
+        if startDate > endDate {
+            errors.append(.endTimeOccursBeforeStartTime)
+        }
+        
+        return errors
     }
     
     //handles when the user wants to cancel their form
@@ -179,7 +157,7 @@ extension AddCourseViewController: UITextFieldDelegateExt {
     
     func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
-            print("$Error: sender's text is nil when editing text in \(textFieldID).\n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
+            print("$ERR: sender's text is nil when editing text in \(textFieldID).\n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
             return
         }
 

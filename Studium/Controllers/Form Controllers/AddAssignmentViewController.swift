@@ -10,6 +10,10 @@ protocol AssignmentRefreshProtocol {
 
 class AddAssignmentViewController: MasterForm {
     
+    override var debug: Bool {
+        return true
+    }
+    
     /// Holds the assignment being edited (if an assignment is being edited)
     var assignmentEditing: Assignment?
     
@@ -20,7 +24,7 @@ class AddAssignmentViewController: MasterForm {
     var todoFormData: [String] = ["", ""]
     //alert times data from todo form.
     //    var todoAlertTimes: [Int] = []
-    var todoDueDate: Date = Date()
+//    var todoDueDate: Date = Date().setTime(hour: 23, minute: 59, second: 0) ?? Date()
     
     //variables that hold the total length of the habit.
     
@@ -45,23 +49,6 @@ class AddAssignmentViewController: MasterForm {
     @IBOutlet weak var navButton: UIBarButtonItem!
     
     override func viewDidLoad() {
-        self.cells = [
-            [
-                .textFieldCell(placeholderText: "Name", id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
-                .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: .endTimeCell, onClick: self.timeCellClicked),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
-            ],
-            [
-                .switchCell(cellText: "Schedule Time to Work", switchDelegate: self, infoDelegate: self)
-            ],
-            [
-                .pickerCell(cellText: "Course", tag: FormCellID.PickerCell.coursePickerCell, delegate: self, dataSource: self)
-            ],
-            [
-                .textFieldCell(placeholderText: "Additional Details", id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "", textColor: .systemRed)
-            ]
-        ]
         
         super.viewDidLoad()
         
@@ -74,6 +61,9 @@ class AddAssignmentViewController: MasterForm {
         self.endDate = Calendar.current.date(bySetting: .hour, value: 23, of: self.endDate)!
         self.endDate = Calendar.current.date(bySetting: .minute, value: 59, of: self.endDate)!
         
+        self.setCells()
+
+        
         if let assignment = assignmentEditing {
             
             for day in assignment.days {
@@ -81,7 +71,7 @@ class AddAssignmentViewController: MasterForm {
             }
             
 //            guard let course = assignment.parentCourse else{
-//                print("$Error: error accessing parent course")
+//                print("$ERR: error accessing parent course")
 //                return
 //            }
             
@@ -112,42 +102,75 @@ class AddAssignmentViewController: MasterForm {
         }
     }
     
+    func setCells() {
+        self.cells = [
+            [
+                .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
+                .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: .endTimeCell, onClick: self.timeCellClicked),
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
+            ],
+            [
+                .switchCell(cellText: "Schedule Time to Work", isOn: self.scheduleWorkTime, switchDelegate: self, infoDelegate: self)
+            ],
+//            [
+//                //TODO: Indices
+//                .pickerCell(cellText: "Course", indices: [], tag: FormCellID.PickerCell.coursePickerCell, delegate: self, dataSource: self)
+//            ],
+            [
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
+                .labelCell(cellText: "", textColor: .systemRed)
+            ]
+        ]
+    }
+    
     //method that is triggered when the user wants to finalize the form
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        if errors.isEmpty {
-            if assignmentEditing == nil {
-                print("$Log: adding assignment for the first time")
-                
-                let newAssignment = Assignment(
-                    name: name,
-                    additionalDetails: additionalDetails,
-                    complete: false,
-                    startDate: self.endDate - (60 * 60),
-                    endDate: self.endDate,
-                    notificationAlertTimes: self.alertTimes,
-                    autoschedule: self.scheduleWorkTime,
-                    autoLengthMinutes: self.totalLengthMinutes + (self.totalLengthHours * 60),
-                    autoDays: self.workDaysSelected,
-                    partitionKey: DatabaseService.shared.user?.id ?? "",
-                    parentCourse: self.selectedCourse
+        self.errors = self.findErrors()
+        if self.errors.isEmpty {
+            let newAssignment = Assignment(
+                name: name,
+                additionalDetails: additionalDetails,
+                complete: false,
+                startDate: self.endDate - (60 * 60),
+                endDate: self.endDate,
+                notificationAlertTimes: self.alertTimes,
+                autoschedule: self.scheduleWorkTime,
+                autoLengthMinutes: self.totalLengthMinutes,
+                autoDays: self.workDaysSelected,
+                partitionKey: DatabaseService.shared.user?.id ?? "",
+                parentCourse: self.selectedCourse
+            )
+            
+            if let assignmentEditing = self.assignmentEditing {
+                DatabaseService.shared.editStudiumEvent(
+                    oldEvent: assignmentEditing,
+                    newEvent: newAssignment
                 )
-                //TODO: Notifications
-                //                NotificationHandler.scheduleNotificationsForAssignment(assignment: newAssignment)
-
-                DatabaseService.shared.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse)
-            } else {
-                // TODO: Implement assignment notification updates here
                 
+            } else {
+                DatabaseService.shared.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse)
             }
+
             delegate?.reloadData()
             dismiss(animated: true, completion: nil)
         } else {
             let errorsString: String = self.errors
                 .compactMap({ $0.rawValue })
                 .joined(separator: ". ")
+            self.setCells()
             self.replaceLabelText(text: errorsString, section: 3, row: 1)
             tableView.reloadData()
         }
+    }
+    
+    //TODO: Docstring
+    func findErrors() -> [FormError] {
+        var errors = [FormError]()
+        if self.name == "" {
+            errors.append(.nameNotSpecified)
+        }
+        
+        return errors
     }
     
     /// Called when user clicks the cancel button
@@ -180,44 +203,51 @@ class AddAssignmentViewController: MasterForm {
         navButton.image = .none
         navButton.title = "Done"
         
-        print("$Log: attempting to fillForm with \(assignment)")
+        printDebug("attempting to fillForm with \(assignment)")
         
-        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-        nameCell.textField.text = assignment.name
+//        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
+//        nameCell.textField.text = assignment.name
         self.name = assignment.name
         
         
-        let dueDateCell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
+//        let dueDateCell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
         self.endDate = assignment.endDate
-        dueDateCell.setDate(assignment.endDate)
+//        dueDateCell.setDate(assignment.endDate)
         
         self.alertTimes = assignment.alertTimes
         
         self.scheduleWorkTime = assignment.autoschedule
         if self.scheduleWorkTime {
             
-            let scheduleWorkCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell
-            scheduleWorkCell.tableSwitch.isOn = true
+//            let scheduleWorkCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell
+//            scheduleWorkCell.tableSwitch.isOn = true
             
-            let daysCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! DaySelectorCell
-            daysCell.selectDays(days: assignment.days)
+//            let daysCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! DaySelectorCell
+//            daysCell.selectDays(days: assignment.days)
             self.workDaysSelected = assignment.days
             
-            self.totalLengthHours = self.totalLengthMinutes / 60
-            self.totalLengthMinutes = self.totalLengthMinutes % 60
+            self.totalLengthMinutes = assignment.autoLengthMinutes
             
-            let workTimePickerCell = tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! PickerCell
-            workTimePickerCell.picker.selectRow(self.totalLengthHours, inComponent: 0, animated: true)
-            workTimePickerCell.picker.selectRow(self.totalLengthMinutes, inComponent: 1, animated: true)
+            
+            
+//            let lengthHours = self.totalLengthMinutes / 60
+//            let lengthMinutes = self.totalLengthMinutes % 60
+            
+            
+//            let workTimePickerCell = tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! PickerCell
+//            workTimePickerCell.picker.selectRow(lengthHours, inComponent: 0, animated: true)
+//            workTimePickerCell.picker.selectRow(lengthMinutes, inComponent: 1, animated: true)
         }
         
         if (selectedCourse != nil) {
             self.selectedCourse = assignment.parentCourse
         }
         
-        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! TextFieldCell
-        additionalDetailsCell.textField.text = assignment.additionalDetails
+//        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! TextFieldCell
+//        additionalDetailsCell.textField.text = assignment.additionalDetails
         self.additionalDetails = assignment.additionalDetails
+        
+        self.setCells()
     }
 }
 
@@ -236,7 +266,7 @@ extension AddAssignmentViewController: UITextFieldDelegateExt {
     //TODO: Implement IDs here
     func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
-            print("$Error: sender's text was nil. File: \(#file), Function: \(#function), Line: \(#line)")
+            print("$ERR (AddAssignmentViewController): sender's text was nil. File: \(#file), Function: \(#function), Line: \(#line)")
             return
         }
         
@@ -246,7 +276,7 @@ extension AddAssignmentViewController: UITextFieldDelegateExt {
         case .additionalDetailsTextField:
             self.additionalDetails = text
         default:
-            print("$Error: edited text for non-existent field. File: \(#file), Function: \(#function), Line: \(#line)")
+            print("$ERR (AddAssignmentViewController): edited text for non-existent field. File: \(#file), Function: \(#function), Line: \(#line)")
             break
         }
     }
@@ -312,29 +342,30 @@ extension AddAssignmentViewController {
     }
 }
 
-extension AddAssignmentViewController: CanHandleSwitch{
+extension AddAssignmentViewController: CanHandleSwitch {
     func switchValueChanged(sender: UISwitch) {
-        print("$Log: Switch value changed")
+        printDebug("Switch value changed")
+        self.scheduleWorkTime = sender.isOn
+        self.setCells()
+
         // TODO: Use tableview updates so these actions are animated.
         if sender.isOn {
-            scheduleWorkTime = true
-            cells[1].append(.daySelectorCell(delegate: self))
-            cells[1].append(.pickerCell(cellText: "Length", tag: FormCellID.PickerCell.lengthPickerCell, delegate: self, dataSource: self))
-            tableView.reloadData()
+            cells[1].append(.daySelectorCell(daysSelected: self.daysSelected, delegate: self))
+            cells[1].append(.pickerCell(cellText: "Length", indices: self.lengthPickerIndices, tag: FormCellID.PickerCell.lengthPickerCell, delegate: self, dataSource: self))
         } else {
-            scheduleWorkTime = false
             cells[1].removeAll()
-            cells[1].append(.switchCell(cellText: "Schedule Time to Work", switchDelegate: self, infoDelegate: self))
-            tableView.reloadData()
+            cells[1].append(.switchCell(cellText: "Schedule Time to Work", isOn: false, switchDelegate: self, infoDelegate: self))
         }
+        
+        tableView.reloadData()
     }
 }
 
 extension AddAssignmentViewController: CanHandleInfoDisplay{
     func displayInformation() {
         let alert = UIAlertController(
-            title: "Anti-Procrastination!",
-            message: "Need to schedule time to work on this? Specify what days are best and how long you want to work per day. We'll find time for you to get it done!",
+            title: "Autoscheduling",
+            message: "Specify what days you'd like to study and how long you want to work per day. We'll schedule time for you to get it done.",
             preferredStyle: UIAlertController.Style.alert
         )
         alert.addAction(
@@ -355,26 +386,4 @@ extension AddAssignmentViewController: DaySelectorDelegate {
     func updateDaysSelected(weekdays: Set<Weekday>) {
         self.workDaysSelected = weekdays
     }
-    
-//    func dayButtonPressed(sender: UIButton) {
-//        guard let dayTitle = sender.titleLabel,
-//              let text = dayTitle.text else {
-//            print("$Error: couldn't unwrap label or text.")
-//            return
-//        }
-//
-//        if sender.isSelected {
-//            sender.isSelected = false
-//            let weekday =
-//            let index = workDaysSelected.firstIndex(of: <#T##Weekday#>)
-//            workDaysSelected.remove(at: <#T##Int#>)
-//            //            for day in workDaysSelected {
-//            //                if day == K.weekdayDict[dayTitle] {
-//            //                    workDaysSelected.remove(at: workDaysSelected.firstIndex(of: day)!)
-////                }
-////            }
-//        } else {
-//            sender.isSelected = true
-//            workDaysSelected.append(K.weekdayDict[dayTitle]!)
-//        }
 }
