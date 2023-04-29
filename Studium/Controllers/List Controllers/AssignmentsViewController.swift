@@ -188,38 +188,67 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
 }
 
 //This extension ensures that the view controller can handle what happens when user wants to collapsed autoscheduled events.
-extension AssignmentsViewController: AssignmentCollapseDelegate{
+extension AssignmentsViewController: AssignmentCollapseDelegate {
+    
+    func collapseButtonClicked(assignment: Assignment) {
+        
+        // The assignment is expanded
+        if self.assignmentsExpandedSet.contains(assignment) {
+            self.handleCloseAutoEvents(assignment: assignment)
+            self.assignmentsExpandedSet.remove(assignment)
+        } else {
+            self.handleOpenAutoEvents(assignment: assignment)
+            self.assignmentsExpandedSet.insert(assignment)
+        }
+    }
+    
     func handleOpenAutoEvents(assignment: Assignment) {
-        let arrayIndex = assignment.complete ? 1 : 0
-        if let ind = eventsArray[arrayIndex].firstIndex(of: assignment){
-            var index = ind + 1
-            for auto in assignment.scheduledEvents{
-                eventsArray[arrayIndex].insert(auto, at: index)
+        let assignmentSection = assignment.complete ? 1 : 0
+        if let assignmentRow = eventsArray[assignmentSection].firstIndex(of: assignment) {
+            printDebug("Handling opening auto events for assignment at index (\(assignmentSection), \(assignmentRow))")
+            var index = assignmentRow + 1
+            for auto in assignment.scheduledEvents {
+                eventsArray[assignmentSection].insert(auto, at: index)
                 index += 1
             }
-        }else{
+        } else {
             print("$ERR (AssignmentsViewController): problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
         }
+        
         tableView.reloadData()
     }
 
     func handleCloseAutoEvents(assignment: Assignment) {
-        let arrayIndex = assignment.complete ? 1 : 0
-        let index = eventsArray[arrayIndex].firstIndex(of: assignment)!
-
-        for _ in assignment.scheduledEvents{
-            eventsArray[arrayIndex].remove(at: index + 1)
+        // assignment is not expanded
+        if !self.assignmentsExpandedSet.contains(assignment) {
+            return
         }
+        
+        let assignmentSection = assignment.complete ? 1 : 0
+        if let assignmentRow = eventsArray[assignmentSection].firstIndex(of: assignment) {
+            printDebug("Handling closing auto events for assignment at index (\(assignmentSection), \(assignmentRow))")
+            for _ in assignment.scheduledEvents {
+                eventsArray[assignmentSection].remove(at: assignmentRow + 1)
+            }
+        } else {
+            print("$ERR (AssignmentsViewController): problem accessing assignment when closing auto list events. \(assignment.name) is not in the assignments array.")
+        }
+        
+        self.assignmentsExpandedSet.remove(assignment)
+        
         tableView.reloadData()
     }
     
-    //this function just collapses all assignmentCells whose autoscheduled events are expanded. We call this when we are leaving the ToDoList screen, to avoid issues when coming back and loading in data.
+    //collapses all assignmentCells whose autoscheduled events are expanded. We call this when we are leaving the ToDoList screen, to avoid issues when coming back and loading in data.
     func collapseAllExpandedAssignments(){
         for cell in tableView.visibleCells {
             if let assignmentCell = cell as? AssignmentCell1 {
-                if assignmentCell.autoEventsOpen {
-                    assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
+                guard let assignment = assignmentCell.event as? Assignment else {
+                    print("$ERR (AssignmentsViewController): tried to unwrap cell event as assignment but failed. Event: \(String(describing: assignmentCell.event))")
+                    continue
                 }
+                
+                self.handleCloseAutoEvents(assignment: assignment)
             }
         }
     }
