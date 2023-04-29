@@ -51,6 +51,20 @@ class RecurringStudiumEvent: StudiumEvent {
         return self.days.contains(date.studiumWeekday)
     }
     
+    //TODO: Docstring
+    func timeChunkForDate(date: Date) -> TimeChunk? {
+        // This event doesn't occur on the date. return nil.
+        if !self.occursOn(date: date) {
+            return nil
+        }
+        
+        let startDate = Calendar.current.date(bySettingHour: self.startDate.hour, minute: self.startDate.minute, second: 0, of: date)!
+        let endDate = Calendar.current.date(bySettingHour: self.endDate.hour, minute: self.endDate.minute, second: 0, of: date)!
+        
+        return TimeChunk(startDate: startDate, endDate: endDate)
+    }
+    
+    
     //TODO: Fix add to apple calendar
     
     ///Adds the event to Apple calendar

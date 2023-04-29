@@ -11,7 +11,13 @@ import Foundation
 import EventKit
 import RealmSwift
 
-class StudiumEvent: Object {
+// TODO: Docstrings, move
+protocol DaySchedulable {
+    var scheduleDisplayString: String { get }
+    var scheduleDisplayColor: UIColor { get }
+}
+
+class StudiumEvent: Object, DaySchedulable {
 
     /// id of the StudiumEvent
     @Persisted var _id: ObjectId = ObjectId.generate()
@@ -75,6 +81,11 @@ class StudiumEvent: Object {
         }
     }
     
+    var totalLengthMinutes: Int {
+        let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: self.startDate, to: self.endDate)
+        return diffComponents.minute ?? 0
+    }
+    
     convenience init(
         name: String,
         location: String,
@@ -123,9 +134,14 @@ class StudiumEvent: Object {
             do{
                 try store.save(event, span: EKSpan.futureEvents, commit: true)
             }catch let error as NSError{
-                print("$Error: Failed to save event. Error: \(error)")
+                print("$ERR: Failed to save event. Error: \(error)")
             }
         }
+    }
+    
+    func setDates(startDate: Date, endDate: Date) {
+        self.startDate = startDate
+        self.endDate = endDate
     }
     
     func setID(_ newID: ObjectId) {
@@ -141,7 +157,12 @@ class StudiumEvent: Object {
 //        notificationIdentifiers.removeAll()
 //        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
 //    }
+    
+    var scheduleDisplayString: String {
+        return "\(self.startDate.format(with: "h:mm a")) - \(self.endDate.format(with: "h:mm a")): \(self.name)"
+    }
+    
+    var scheduleDisplayColor: UIColor {
+        return self.color
+    }
 }
-
-
-
