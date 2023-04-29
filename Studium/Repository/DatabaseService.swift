@@ -9,11 +9,6 @@
 import Foundation
 import RealmSwift
 
-protocol Debuggable {
-    var debug: Bool { get }
-    func printDebug(_ message: String)
-}
-
 final class DatabaseService {
     let debug = false
     
