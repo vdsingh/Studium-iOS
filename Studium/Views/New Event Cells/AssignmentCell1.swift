@@ -9,12 +9,14 @@
 import UIKit
 import SwipeCellKit
 
-protocol AssignmentCollapseDelegate{
-    func handleOpenAutoEvents(assignment: Assignment)
-    func handleCloseAutoEvents(assignment: Assignment)
+protocol AssignmentCollapseDelegate {
+    func collapseButtonClicked(assignment: Assignment)
 }
 
 class AssignmentCell1: DeletableEventCell {
+    
+    let debug = true
+    
     static let id = "AssignmentCell1"
     
     //the background of the cell (just a solid color)
@@ -39,13 +41,10 @@ class AssignmentCell1: DeletableEventCell {
     @IBOutlet weak var dueDateLabel: UILabel!
     
     //button that allows user to expand list of autoscheduled events (if there are any)
-    @IBOutlet weak var chevronButton: UIButton!
+    @IBOutlet weak var expandEventsButton: UIButton!
     
     //a delegate that allows us to expand assignment cells that have autoscheduled events
     var assignmentCollapseDelegate: AssignmentCollapseDelegate?
-    
-    //boolean that tells us whether the autoscheduled events list for this cell has been expanded.
-    var autoEventsOpen: Bool = false
     
     //boolean that allows us to override the chevron button if we don't want it to appear even if applicable
     var hideChevronButton: Bool = false
@@ -56,7 +55,7 @@ class AssignmentCell1: DeletableEventCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         let chevDownImage = UIImage(systemName: "chevron.down", withConfiguration: largeConfig)
-        chevronButton.setImage(chevDownImage, for: .normal)
+        expandEventsButton.setImage(chevDownImage, for: .normal)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -64,46 +63,48 @@ class AssignmentCell1: DeletableEventCell {
     }
     
 
+    //TODO: Docstring
     func loadData(assignment: Assignment) {
-        //store the assignment here - we'll know what to delete if necessary
-        event = assignment
         
-        //Create an attributed string for the assignment's name (the main label). This is so that when the assignment is marked complete, we can put a slash through the label.
-        let primaryTextAttributeString = NSMutableAttributedString(string: event!.name)
+        // store the assignment here - we'll know what to delete if necessary
+        self.event = assignment
+        
+        // Create an attributed string for the assignment's name (the main label). This is so that when the assignment is marked complete, we can put a slash through the label.
+        let primaryTextAttributeString = NSMutableAttributedString(string: self.event!.name)
         primaryTextAttributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, primaryTextAttributeString.length))
         
-        //Safely get the associated course for this assignment
+        // Safely get the associated course for this assignment
         guard let course = assignment.parentCourse else {
             print("$ERR (AssignmentCell1): parent course was nil when loading assignment data")
             return
         }
         
-        //the UIColor of the assignment's associated course.
+        // the UIColor of the assignment's associated course.
         let themeColor = course.color
         
-        //A contrasting color to the course's color - we don't want white text on yellow background.
+        // A contrasting color to the course's color - we don't want white text on yellow background.
         var contrastingColor = UIColor(contrastingBlackOrWhiteColorOn: themeColor, isFlat: true)
-        //Black as a label color looks too intense. If the contrasting color is supposed to be black, change it to a lighter gray.
+        // Black as a label color looks too intense. If the contrasting color is supposed to be black, change it to a lighter gray.
         if contrastingColor == UIColor(contrastingBlackOrWhiteColorOn: .white, isFlat: true){
             contrastingColor = UIColor(hexString: "#4a4a4a")!
         }
         
-        //Set all of the labels' colors and chevron color to the contrasting color
+        // Set all of the labels' colors and chevron color to the contrasting color
         primaryLabel.textColor = contrastingColor
         subLabel.textColor = contrastingColor
         dueDateLabel.textColor = contrastingColor
-        chevronButton.tintColor = contrastingColor
+        expandEventsButton.tintColor = contrastingColor
 
-        //Set all of the labels' texts
+        // Set all of the labels' texts
         subLabel.text = course.name
         dueDateLabel.text = assignment.endDate.format(with: "MMM d, h:mm a")
 
         if assignment.complete {
-            //if assignment is complete, make it's background color and icon color gray
+            // if assignment is complete, make it's background color and icon color gray
             background.backgroundColor = .gray
             icon.tintColor = .gray
             
-            //make the lateness indicator gray- it's not relevant since the assignment has already been completed
+            // make the lateness indicator gray- it's not relevant since the assignment has already been completed
             latenessIndicator.tintColor = .gray
         } else {
             background.backgroundColor = themeColor
@@ -113,7 +114,7 @@ class AssignmentCell1: DeletableEventCell {
             
             //If our assignment is past due, make the lateness indicator red. If it is due soon, make the lateness indicator yellow. Otherwise, make it green.
             if Date() > assignment.endDate {
-                print("$$ LOG: assignment end date: \(assignment.endDate)")
+                printDebug("assignment end date: \(assignment.endDate)")
                 latenessIndicator.tintColor = .red
             } else if Date() + (60*60*24*3) > assignment.endDate {
                 latenessIndicator.tintColor = .yellow
@@ -126,12 +127,12 @@ class AssignmentCell1: DeletableEventCell {
         primaryLabel.attributedText = primaryTextAttributeString
 
         //this assignment has no autoscheduled events, so there is no need to have a button that drops down the autoscheduled events.
-        if assignment.scheduledEvents.count == 0 {
-            chevronButton.isHidden = true
+        if assignment.isAutoscheduled || assignment.scheduledEvents.isEmpty {
+            expandEventsButton.isHidden = true
         } else {
-            chevronButton.isHidden = false
+            expandEventsButton.isHidden = false
         }
-        
+                
         self.event = assignment
         
         //set the image of the icon to be the same as the associated course's icon.
@@ -139,40 +140,45 @@ class AssignmentCell1: DeletableEventCell {
         
         //override the chevron button.
         if hideChevronButton {
-            chevronButton.isHidden = true
+            expandEventsButton.isHidden = true
         }
     }
     
+    //TODO: Docstring
+    func setIsExpanded(isExpanded: Bool) {
+        //configuration settings for chevron button (sizing)
+        if isExpanded {
+            let chevUpImage = UIImage(systemName: "chevron.up", withConfiguration: largeConfig)
+            expandEventsButton.setImage(chevUpImage, for: .normal)
+            
+        } else {
+            let chevDownImage = UIImage(systemName: "chevron.down", withConfiguration: largeConfig)
+            expandEventsButton.setImage(chevDownImage, for: .normal)
+        }
+    }
     
+    //TODO: Docstring
     //Handle collapse button pressed for assignments that have autoscheduled events.
     @IBAction func collapseButtonPressed(_ sender: UIButton) {
-        if assignmentCollapseDelegate != nil && event != nil{
-            if let assignment = event as? Assignment{
-                //configuration settings for chevron button (sizing)
-                if autoEventsOpen {
-                    //handle closing the window
-                    assignmentCollapseDelegate?.handleCloseAutoEvents(assignment: assignment)
-                    autoEventsOpen = false
-                    let chevDownImage = UIImage(systemName: "chevron.down", withConfiguration: largeConfig)
-                    chevronButton.setImage(chevDownImage, for: .normal)
-
-                } else {
-                    //handle opening the window
-                    assignmentCollapseDelegate?.handleOpenAutoEvents(assignment: assignment)
-                    autoEventsOpen = true
-                    let chevUpImage = UIImage(systemName: "chevron.up", withConfiguration: largeConfig)
-                    chevronButton.setImage(chevUpImage, for: .normal)
-
-                }
-            } else {
-                print("ERROR: problem getting the event as an assignment when trying to expand assignment's autoscheduled events using the chevron button..")
-            }
-        } else {
-            print("ERROR: delegate was nil or assignment was nil.")
+        guard let assignmentCollapseDelegate = self.assignmentCollapseDelegate,
+              let assignment = self.event as? Assignment else {
+                  print("$ERR (AssignmentCell1): assignmentCollapseDelegate was nil: \(String(describing: self.assignmentCollapseDelegate)) or event was nil or not an assignment: \(String(describing: self.event))")
+            return
         }
+        
+        assignmentCollapseDelegate.collapseButtonClicked(assignment: assignment)
     }
     
+    //TODO: Docstring
     func hideLatenessIndicator(hide: Bool) {
         self.latenessIndicator.isHidden = hide
+    }
+}
+
+extension AssignmentCell1: Debuggable {
+    func printDebug(_ message: String) {
+        if self.debug {
+            print("$LOG (AssignmentCell1): \(message)")
+        }
     }
 }

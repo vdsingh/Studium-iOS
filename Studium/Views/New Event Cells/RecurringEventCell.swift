@@ -13,6 +13,8 @@ import ChameleonFramework
 
 class RecurringEventCell: DeletableEventCell {
     
+    let debug = false
+    
     static let id = "RecurringEventCell"
 
     @IBOutlet weak var background: UIImageView!
@@ -26,7 +28,6 @@ class RecurringEventCell: DeletableEventCell {
     @IBOutlet var dayBoxes: [UIImageView]!
     
     override func awakeFromNib() {
-        self.debug = false
         super.awakeFromNib()
         self.background.layer.cornerRadius = 15
 //        self.background.layer.borderWidth = 4
@@ -79,6 +80,14 @@ class RecurringEventCell: DeletableEventCell {
             let index = dayVal.rawValue - 1
             dayBoxes[index].backgroundColor = color
             dayLabels[index].textColor = UIColor(contrastingBlackOrWhiteColorOn: color, isFlat: true)
+        }
+    }
+}
+
+extension RecurringEventCell: Debuggable {
+    func printDebug(_ message: String) {
+        if self.debug {
+            print("$LOG(RecurringEventCell): \(message)")
         }
     }
 }

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -127,8 +126,8 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="background" destination="eJZ-Bg-Kz8" id="osO-d6-n4X"/>
-                <outlet property="chevronButton" destination="EIm-12-tok" id="y3q-Xl-kY0"/>
                 <outlet property="dueDateLabel" destination="Syo-Rz-w2J" id="XxX-1p-xFd"/>
+                <outlet property="expandEventsButton" destination="EIm-12-tok" id="y3q-Xl-kY0"/>
                 <outlet property="icon" destination="PA4-b9-1uZ" id="YY5-bY-Teo"/>
                 <outlet property="latenessIndicator" destination="WU4-W6-TQJ" id="U4k-wh-dyc"/>
                 <outlet property="primaryLabel" destination="pF6-1U-gVs" id="FeQ-6f-ykH"/>
@@ -138,8 +137,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="chevron.down" catalog="system" width="128" height="72"/>
-        <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="chevron.down" catalog="system" width="128" height="70"/>
+        <image name="circle.fill" catalog="system" width="128" height="123"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
