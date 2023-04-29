@@ -11,30 +11,38 @@ import RealmSwift
 
 /// Represents Course Assignments
 class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleable {
+    
+    let debug = true
 
-    /// Specifies whether or not the Assignment object is marked as complete or not..
+    /// Specifies whether or not the Assignment object is marked as complete or not
     @Persisted var complete: Bool = false
 
-    /// This is a link to the Course that the Assignment object is categorized under.
-//    private var parentCourses = LinkingObjects(fromType: Course.self, property: "assignments")
-    
+    /// This is a link to the Course that the Assignment object is categorized under
     @Persisted var parentCourse: Course?
+    
+    /// Link to the parent Assignment if this is an autoscheduled study time
+    @Persisted var parentAssignmentID: ObjectId?
         
-    //variables that track information about scheduling work time.
+    // MARK: - Variables that track information about scheduling work time.
     
     /// Whether or not scheduling work time is enabled
     @Persisted var autoschedule: Bool = false
-    
-    //was this an autoscheduled assignment?
-    @Persisted var isAutoscheduled: Bool = false
-    
-//    @Persisted var autoLengthHours: Int = 1
+        
+    /// The number of minutes to autoschedule study time
     @Persisted var autoLengthMinutes: Int = 60
     
-//    var autoDays: [Int] = []
-    var scheduledEvents: List<Assignment> = List<Assignment>()
-
+    //TODO: Docstring
+    @Persisted var scheduledEvents: List<Assignment> = List<Assignment>()
     
+    var scheduledEventsArr: [Assignment] {
+        return [Assignment](self.scheduledEvents)
+    }
+    
+    /// Was this an autoscheduled assignment?
+    var isAutoscheduled: Bool {
+        self.parentAssignmentID != nil
+    }
+
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
     convenience init(
         name: String,
@@ -62,11 +70,7 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         self._partitionKey = partitionKey
                 
         self.alertTimes = alertTimes
-//        self.notificationAlertTimes.removeAll()
-//        for alertTime in notificationAlertTimes{
-//            self.notificationAlertTimes.append(alertTime)
-//        }
-        
+
         let newDaysList = List<Int>()
         newDaysList.append(objectsIn: autoDays.compactMap{ $0.rawValue })
         self.daysList = newDaysList
@@ -74,55 +78,33 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         self.parentCourse = parentCourse
     }
     
-    convenience init(
-        name: String,
-        additionalDetails: String,
-        complete: Bool,
-        startDate: Date,
-        endDate: Date
-    )
-    {
+    //TODO: Docstring
+    convenience init(parentAssignment: Assignment) {
         self.init()
-        self.name = name
-        self.additionalDetails = additionalDetails
-        self.complete = complete
-        self.startDate = startDate
-        self.endDate = endDate
+        self.printDebug("Initializing assignment with parent assignment \(parentAssignment.name), which has autolength minutes \(parentAssignment.autoLengthMinutes)")
+        self.name = "Work Time: \(parentAssignment.name)"
+        self.additionalDetails = parentAssignment.additionalDetails
+        self.complete = parentAssignment.complete
+        
+        self.startDate = parentAssignment.endDate.subtract(minutes: parentAssignment.autoLengthMinutes)
+        self.endDate = parentAssignment.endDate
+
+        self.autoschedule = false
+        
+        self.autoLengthMinutes = parentAssignment.autoLengthMinutes
+        
+        self._partitionKey = parentAssignment._partitionKey
+                
+        self.alertTimes = parentAssignment.alertTimes
+        
+        self.parentCourse = parentAssignment.parentCourse
+        
+        self.parentAssignmentID = parentAssignment._id
+        self.printDebug("Initialized assignment with start and end \(parentAssignment.name)")
     }
+
     
-    
-    //TODO: Fix and move to different layer
-    
-    ///update the notifications for the Assignment. Removes all previous notification alerts, and replaces them with new alert times.
-    ///
-    /// - Parameters:
-    ///     - newAlertTimes: array of integers that provide the new alert times
-    func updateNotifications(with newAlertTimes: [Int]){
-//        var identifiersForRemoval: [String] = []
-//        for time in notificationAlertTimes{
-//            if !newAlertTimes.contains(time){ //remove the old alert time.
-//                print("\(time) was removed from notifications.")
-//                let index = notificationAlertTimes.firstIndex(of: time)!
-//                notificationAlertTimes.remove(at: index)
-//                identifiersForRemoval.append(notificationIdentifiers[index])
-//                notificationIdentifiers.remove(at: index)
-//            }
-//        }
-//        print("identifiers to be removed: \(identifiersForRemoval)")
-//        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiersForRemoval)
-    }
-    
-    //TODO: Initiate
-//    func initiateAutoSchedule(){
-//        if autoschedule {
-//            var autoDays: [Weekday] = []
-//            for day in days{
-//                autoDays.append(day)
-//            }
-//            autoscheduleTime(endDate: startDate, autoDays: autoDays, autoLengthMinutes: autoLengthMinutes)
-//        }
-//    }
-    
+    // TODO: Docstring
     override var scheduleDisplayString: String {
         if let course = self.parentCourse {
             return "\(self.endDate.format(with: "h:mm a")): \(self.name) due (\(course.name))"
@@ -130,6 +112,12 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         
         return "\(self.endDate.format(with: "h:mm a")): \(self.name) due"
     }
-    
 }
 
+extension Assignment: Debuggable {
+    func printDebug(_ message: String) {
+        if self.debug {
+            print("$LOG (Assignment): \(message)")
+        }
+    }
+}
