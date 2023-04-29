@@ -128,8 +128,8 @@ class AddAssignmentViewController: MasterForm {
         self.errors = self.findErrors()
         if self.errors.isEmpty {
             let newAssignment = Assignment(
-                name: name,
-                additionalDetails: additionalDetails,
+                name: self.name,
+                additionalDetails: self.additionalDetails,
                 complete: false,
                 startDate: self.endDate - (60 * 60),
                 endDate: self.endDate,

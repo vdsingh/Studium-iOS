@@ -23,13 +23,10 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     var selectedCourse: Course! {
         didSet{
             reloadData()
-//            loadAssignments()
         }
     }
     
     override func viewDidLoad() {
-//        self.debug = false
-        
         super.viewDidLoad()
         searchBar.delegate = self
         searchBar.isHidden = true
@@ -96,18 +93,14 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
             }
             
             DatabaseService.shared.markComplete(assignment, !assignment.complete)
-
             
             if(assignment.isAutoscheduled) {
                 tableView.reloadData()
             } else {
-//                loadAssignments()
                 reloadData()
             }
             
-            
             tableView.deselectRow(at: indexPath, animated: true)
-//            tableView.reloadData()
         } else {
             print("$ERR (AssignmentsViewController): couldn't safely cast assignment or its cell")
         }
@@ -132,17 +125,18 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
 //        assignments = selectedCourse?.assignments.
         self.eventsArray = [[],[]]
         for assignment in assignments {
+            
             //skip the autoscheduled events.
             if assignment.isAutoscheduled {
                 continue
             }
+            
             if assignment.complete == true && !assignment.isAutoscheduled {
                 eventsArray[1].append(assignment)
             }else{
                 eventsArray[0].append(assignment)
             }
         }
-//        reloadData()
     }
     
     func reloadData() {

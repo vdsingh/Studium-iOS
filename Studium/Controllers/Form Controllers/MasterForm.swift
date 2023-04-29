@@ -416,7 +416,7 @@ extension MasterForm {
             return
         }
         
-        printDebug("SENDER DATE: \(sender.date)")
+//        printDebug("SENDER DATE: \(sender.date)")
         
         var components = Calendar.current.dateComponents([.month, .day, .hour, .minute], from: sender.date)
         components.year = Date().year
@@ -489,43 +489,11 @@ extension MasterForm: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        //            switch pickerView.tag {
-        //            case FormCellID.PickerCell.lengthPickerCell:
-        //
-        //            }
-        //            let lengthIndex = cellText[1].lastIndex(of: "Length of Habit")
-//        switch pickerView.tag {
-//        case FormCellID.PickerCell.lengthPickerCell.rawValue:
-//            if let lengthIndex = self.findFirstTimeCellWithID(id: FormCellID.TimeCell.lengthTimeCell) {
-//                if let timeCell = tableView.cellForRow(at: lengthIndex) as? TimeCell {
         let lengthHours = pickerView.selectedRow(inComponent: 0)
         let lengthMinutes = pickerView.selectedRow(inComponent: 1)
         self.totalLengthMinutes = (lengthHours * 60) + lengthMinutes
-//                    timeCell.timeLabel.text = "\(totalLengthHours) hours \(totalLengthMinutes) mins"
-//            }
-            
-            
-            }
-            //            case FormCellID.PickerCell.coursePickerCell.rawValue:
-            //                coursePickerRowSelected()
-//        default:
-//            return
-//        }
-    
-    
-    //    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    //        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
-    //            // Course selection
-    //            let selectedRow = pickerView.selectedRow(inComponent: 0)
-    //            selectedCourse = courses![selectedRow]
-    //        } else if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
-    //            if component == 0 {
-    //                workTimeHours = row
-    //            } else {
-    //                workTimeMinutes = row
-    //            }
-    //        }
-    //    }
+        print("set totalLengthMinutes to \(self.totalLengthMinutes)")
+    }
 }
 
 

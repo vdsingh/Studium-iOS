@@ -293,7 +293,8 @@ extension AddHabitViewController: SegmentedControlDelegate {
 
 //MARK: - Switch Delegate
 extension AddHabitViewController: CanHandleSwitch {
-    //method triggered when the autoschedule switch is triggered
+    
+    // method triggered when the autoschedule switch is triggered
     func switchValueChanged(sender: UISwitch) {
         if sender.isOn { //auto schedule
             self.cells = self.cellsAuto
@@ -302,7 +303,6 @@ extension AddHabitViewController: CanHandleSwitch {
             self.cells = self.cellsNoAuto
             autoschedule = false
         }
-        
         
         reloadData()
     }
