@@ -9,32 +9,40 @@
 import Foundation
 import NotificationCenter
 
-//TODO: Implement
+/// Handles everything to do with scheduling notifications
 class NotificationService {
     
     let debug = false
     
+    /// The singleton
     static let shared = NotificationService()
     
+    /// Private initailzer forces singleton use
     private init() { }
     
     // MARK: - Public Functions
     
+    /// Schedules notifications for a StudiumEvent
+    /// - Parameter event: The event for which we are scheduling notifications
     func scheduleNotificationsFor(event: StudiumEvent) {
         if let event = event as? RecurringStudiumEvent {
             self.scheduleNotificationsFor(recurringEvent: event)
         }
         
-        scheduleOneTimeNotification(for: event)
+        self.scheduleNotificationsForOneTimeEvent(event)
     }
     
+    /// Deletes all of the pending notifications for an event
+    /// - Parameter event: The event for which we want to delete notifications
     func deleteAllPendingNotifications(for event: StudiumEvent) {
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: event.notificationIdentifiers)
     }
     
     // MARK: - Private Functions
-
+    
+    /// Helper function to schedule notifications for a RecurringStudiumEvent
+    /// - Parameter recurringEvent: The RecurringStudiumEvent that we want to schedule notifications for
     private func scheduleNotificationsFor(recurringEvent: RecurringStudiumEvent) {
         let alertTimes = recurringEvent.alertTimes
         let days = recurringEvent.days
@@ -79,7 +87,9 @@ class NotificationService {
         }
     }
     
-    private func scheduleOneTimeNotification(for event: StudiumEvent) {
+    /// Schedules notifications for a one time StudiumEvent
+    /// - Parameter event: The one time StudiumEvent for which we want to schedule notifications
+    private func scheduleNotificationsForOneTimeEvent(_ event: StudiumEvent) {
         let alertTimes = event.alertTimes
         let dueDate = event.endDate
         let name = event.name
@@ -100,8 +110,14 @@ class NotificationService {
             )
         }
     }
-    
-    //method to schedule Local Notifications to the User.
+
+    /// Accesses the UNNotificationCenter and schedules the notifications
+    /// - Parameters:
+    ///   - components: The DateComponents for the notification
+    ///   - body: The body text of the notification
+    ///   - titles: The titles of the notification
+    ///   - repeats: Whether the notification repeats or not
+    ///   - identifier: Unique Identifier for the notification
     private func scheduleNotification(
         components: DateComponents,
         body: String,

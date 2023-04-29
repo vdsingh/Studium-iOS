@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-//TODO: Docstrings
+/// Colors for this application
 public enum StudiumColor: String {
     
     case background = "#000000"
