@@ -9,15 +9,20 @@
 import Foundation
 import RealmSwift
 
+/// Service to interact with the Realm Database
 final class DatabaseService {
-    let debug = false
     
+    let debug = true
+    
+    /// Singleton instance
     static let shared = DatabaseService()
     
     private init() { }
     
+    /// Represents the application for Realm
     let app = App(id: Secret.appID)
     
+    /// Represents the User for Realm
     var user: User? {
         guard let user = app.currentUser else {
             print("$ERR: Current User is nil")
@@ -27,15 +32,19 @@ final class DatabaseService {
         return user
     }
     
-    //TODO: Make private
-    lazy var realm: Realm = {
+    /// The Realm database instance
+    private lazy var realm: Realm = {
+        // If the user exists, establish a connection to realm using the User's ID
         if let user = self.user {
             do {
                 return try Realm(configuration: user.configuration(partitionValue: user.id))
             } catch let error {
                 fatalError("$ERR: issue accessing Realm: \(String(describing: error))")
             }
-        } else {
+        }
+        
+        // If no user specified, create a local storage Realm Database
+        else {
             do {
                 return try Realm()
             } catch {
@@ -45,10 +54,21 @@ final class DatabaseService {
     }()
     
     //MARK: - Create
+    
+    /// Saves a StudiumEvent to the database
+    /// - Parameter studiumEvent: The StudiumEvent to save to the database
     public func saveStudiumObject(_ studiumEvent: StudiumEvent) {
-        if let event = studiumEvent as? Assignment,
-           let parentCourse = event.parentCourse {
-            self.saveAssignment(assignment: event, parentCourse: parentCourse)
+        
+        // The event is an assignment
+        if let assignment = studiumEvent as? Assignment {
+            guard let parentCourse = assignment.parentCourse else {
+                print("$ERR (DatabaseService): tried to save assignment but its parent course was nil")
+                return
+            }
+            
+            
+            self.saveAssignment(assignment: assignment, parentCourse: parentCourse)
+            
             return
         }
         
@@ -62,30 +82,44 @@ final class DatabaseService {
         }
         
         NotificationService.shared.scheduleNotificationsFor(event: studiumEvent)
-
     }
     
-    public func saveAssignment(assignment: Assignment, parentCourse: Course){
-        printDebug("Saving assignment: \(assignment)")
-        do {
-            try self.realm.write {
-                parentCourse.appendAssignment(assignment)
+    
+    /// Saves an Assignment to the Database under a specified Course
+    /// - Parameters:
+    ///   - assignment: The Assignment to save
+    ///   - parentCourse: The Course that the Assignment belongs to
+    ///   - parentAssignment: The parentAssignment for the assignment (if the assignment is autoscheduled study time)
+    public func saveAssignment(assignment: Assignment, parentCourse: Course) {
+        printDebug("Saving assignment: \(assignment.name).")
+        
+        self.realmWrite {
+            parentCourse.appendAssignment(assignment)
+            if let parentAssignmentID = assignment.parentAssignmentID {
+                if let parentAssignment = realm.object(ofType: Assignment.self, forPrimaryKey: parentAssignmentID) {
+                    parentAssignment.scheduledEvents.append(assignment)
+                } else {
+                    print("$ERR (DatabaseService): tried to save autoscheduled assignment, but couldn't retrieve the parent assignment from its primary key.")
+                }
             }
-            //TODO: Autoschedule assignments
-//            assignment.initiateAutoSchedule()
-        } catch {
-            print("$ERR: error appending assignment")
+            
         }
         
+        AutoscheduleService.shared.autoscheduleStudyTime(parentAssignment: assignment)
         NotificationService.shared.scheduleNotificationsFor(event: assignment)
     }
     
     // MARK: - Read
     
+    /// Retrieves all of the StudiumEvents of a certain type
+    /// - Parameter type: The type of StudiumEvent we want to retrieve
+    /// - Returns: All StudiumEvent objects of the specified type
     public func getStudiumObjects <T: StudiumEvent> (expecting type: T.Type) -> [T] {
         return [T](self.realm.objects(type))
     }
     
+    /// Gets all of the StudiumEvents in the database
+    /// - Returns: All of the StudiumEvents in the database
     public func getAllStudiumObjects() -> [StudiumEvent] {
         let courses = self.getStudiumObjects(expecting: Course.self)
         let habits = self.getStudiumObjects(expecting: Habit.self)
@@ -97,17 +131,22 @@ final class DatabaseService {
         allEvents.append(contentsOf: habits)
         allEvents.append(contentsOf: assignments)
         allEvents.append(contentsOf: otherEvents)
-
+        
         return allEvents
     }
     
+    /// Retrieves all of the Assignments for a given Course
+    /// - Parameter course: The Course that we want to retrieve the Assignments for
+    /// - Returns: All of the Assignments for the provided Course
     public func getAssignments(forCourse course: Course) -> [Assignment] {
         return [Assignment](course.assignments)
     }
     
+    /// Retrieves the UserSettings object from the database
+    /// - Returns: The UserSettings object from the database
     public func getUserSettings() -> UserSettings {
         let settings = [UserSettings](self.realm.objects(UserSettings.self))
-
+        
         do {
             if let first = settings.first {
                 return first
@@ -128,71 +167,87 @@ final class DatabaseService {
     
     // MARK: - Update
     
+    /// Sets the completion status of a Completable Event
+    /// - Parameters:
+    ///   - completableEvent: The event for which we want to set the completion status
+    ///   - complete: Whether or not the event should be complete or not
     public func markComplete(_ completableEvent: CompletableStudiumEvent, _ complete: Bool) {
         //TODO: Delete assignment notifications when complete, add when incomplete.
-        do {
-            try self.realm.write {
-                completableEvent.complete = !completableEvent.complete
-            }
-        } catch {
-            print("$ERR: marking complete: \(error)")
+        self.realmWrite {
+            completableEvent.complete = !completableEvent.complete
         }
     }
     
+    /// Edits a StudiumEvent
+    /// - Parameters:
+    ///   - oldEvent: The original event that we want to edit
+    ///   - newEvent: A new event with the desired changes
     public func editStudiumEvent(oldEvent: StudiumEvent, newEvent: StudiumEvent) {
         printDebug("editing StudiumEvent. \nOld Event: \(oldEvent). \nNew Event: \(newEvent)")
         NotificationService.shared.deleteAllPendingNotifications(for: oldEvent)
         newEvent.setID(oldEvent._id)
         
-        do {
-            try self.realm.write {
-                self.realm.add(newEvent, update: .modified)
-            }
-        } catch {
-            print("$ERR: editing event: \(error)")
+        self.realmWrite {
+            self.realm.add(newEvent, update: .modified)
         }
         
         NotificationService.shared.scheduleNotificationsFor(event: newEvent)
     }
     
+    /// Sets the user's wake up time for a given day
+    /// - Parameters:
+    ///   - weekday: The day for which to set the wake up time
+    ///   - wakeUpTime: The time that the user plans to wake up
     public func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date?) {
         let settings = self.getUserSettings()
-        do {
-            try self.realm.write {
-                settings.setWakeUpTime(for: weekday, wakeUpTime: wakeUpTime)
-            }
-        } catch let error {
-            print("$ERR: couldn't set wake time: \(String(describing: error))")
+        self.realmWrite {
+            settings.setWakeUpTime(for: weekday, wakeUpTime: wakeUpTime)
         }
     }
     
     // MARK: - Delete
+    
+    /// Deletes a Studium Object from the database
+    /// - Parameter studiumEvent: The StudiumEvent to delete
     public func deleteStudiumObject(_ studiumEvent: StudiumEvent) {
         printDebug("Deleting studiumEvent \(studiumEvent.name)")
-        
         
         // if we're deleting a course, delete all the assignments in the course
         if let course = studiumEvent as? Course {
             self.deleteAssignmentsForCourse(course: course)
         }
         
-        NotificationService.shared.deleteAllPendingNotifications(for: studiumEvent)
-
-        do {
-            try self.realm.write {
-                self.realm.delete(studiumEvent)
+        if let assignment = studiumEvent as? Assignment {
+            for autoscheduledEvent in assignment.scheduledEvents {
+                self.deleteStudiumObject(autoscheduledEvent)
             }
-        } catch {
-            print("$ERR (DatabaseServicd): error deleting studium object.")
+        }
+        
+        NotificationService.shared.deleteAllPendingNotifications(for: studiumEvent)
+        
+        self.realmWrite {
+            self.realm.delete(studiumEvent)
         }
     }
     
     
+    /// Deletes all of the assignments for a Course
+    /// - Parameter course: The Course that we want to delete the assignments for
     public func deleteAssignmentsForCourse(course: Course) {
         printDebug("Deleting assignments for course \(course.name)")
         for assignment in course.assignments {
             printDebug("Deleting assignment: \(assignment.name)")
             self.deleteStudiumObject(assignment)
+        }
+    }
+    
+    private func realmWrite(_ writeBlock: () -> Void) {
+        do {
+            try self.realm.write {
+                writeBlock()
+            }
+        } catch let error {
+            print("$ERR (DatabaseService): \(String(describing: error))")
         }
     }
 }

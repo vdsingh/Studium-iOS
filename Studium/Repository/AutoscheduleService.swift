@@ -9,7 +9,7 @@
 import Foundation
 final class AutoscheduleService {
     
-    let debug = false
+    let debug = true
     
     static let shared = AutoscheduleService()
     
@@ -21,8 +21,8 @@ final class AutoscheduleService {
     ///   - date: The date on which to schedule the event
     func autoScheduleEvent(event: StudiumEvent, date: Date) {
         printDebug("Autoscheduling for event \(event.name)")
-        let startBound = DatabaseService.shared.getUserSettings().getWakeUpTime(for: date) ?? Date()
-        let endBound = date.setTime(hour: 23, minute: 59, second: 0) ?? Date()
+        let startBound = DatabaseService.shared.getUserSettings().getWakeUpTime(for: date) ?? date.startOfDay
+        let endBound = date.setTime(hour: 23, minute: 59, second: 0) ?? date.endOfDay
         printDebug("Autoschedule Time Bounds: \(startBound)-\(endBound)")
         
         var timeChunk: TimeChunk? = nil
@@ -34,6 +34,7 @@ final class AutoscheduleService {
         }
         
         if let timeChunk = timeChunk {
+            printDebug("setting timechunk to \(timeChunk.startDate) - \(timeChunk.endDate) for event \(event.name) with totalLengthMinutes: \(event.totalLengthMinutes)")
             event.setDates(startDate: timeChunk.startDate, endDate: timeChunk.endDate)
         } else {
             printDebug("Tried to autoschedule event \(event.name) but timeChunk was nil.")
@@ -189,6 +190,55 @@ final class AutoscheduleService {
             return self.bestTime(openTimeSlots: openTimeSlots, totalMinutes: totalMinutes)
         }else{
             return nil
+        }
+    }
+    
+    //TODO: docstring
+    func findAllApplicableDatesBetween(startDate: Date, endDate: Date, weekdays: Set<Weekday>) -> [Date] {
+        var resultDates = [Date]()
+        let calendar = Calendar.current
+        
+        // Iterate through each day in the range
+        var currentDate = startDate
+        while currentDate <= endDate {
+            let weekday = calendar.component(.weekday, from: currentDate)
+            if let studiumWeekday = Weekday(rawValue: weekday) {
+                
+                // If the current day is a Monday, Wednesday, or Friday, add it to the result array
+                if weekdays.contains(studiumWeekday) {
+                    printDebug("findAllApplicableDatesBetween adding studiumWeekday \(studiumWeekday.buttonText) which is date \(currentDate)")
+                    resultDates.append(currentDate)
+                }
+            }
+            
+            // Move to the next day
+            currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
+        }
+        
+        return resultDates
+    }
+    
+    
+    func autoscheduleStudyTime(parentAssignment: Assignment){
+        if parentAssignment.autoschedule {
+            printDebug("autoscheduling study time for assignment: \(parentAssignment.name)")
+            let datesToAutoschedule = self.findAllApplicableDatesBetween(startDate: Date(), endDate: parentAssignment.endDate, weekdays: parentAssignment.days)
+            printDebug("the applicable dates to autoschedule study time are: \(datesToAutoschedule)")
+//            var autoDays: [Int] = []
+            for date in datesToAutoschedule {
+                let studyTimeAssignment = Assignment(parentAssignment: parentAssignment)
+                self.autoScheduleEvent(event: studyTimeAssignment, date: date)
+
+                if let course = studyTimeAssignment.parentCourse {
+//                    DatabaseService.shared.saveAssignment(assignment: studyTimeAssignment, parentCourse: course, parentAssignment: parentAssignment)
+                    DatabaseService.shared.saveStudiumObject(studyTimeAssignment)
+                } else {
+                    print("$ERR (AutoscheduleService): tried to autoschedule study time for assignment \(parentAssignment.name) but the parent course was nil. The parent assignment course is: \(String(describing: parentAssignment.parentCourse?.name))")
+                }
+
+            }
+//            autoscheduleTime(endDate: startDate, autoDays: autoDays, autoLengthMinutes: autoLengthMinutes)
+            
         }
     }
 }
