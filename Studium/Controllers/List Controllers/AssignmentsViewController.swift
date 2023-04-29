@@ -11,10 +11,12 @@ import ChameleonFramework
 
 class AssignmentsViewController: StudiumEventListViewController, UISearchBarDelegate, AssignmentRefreshProtocol {
     
+    //TODO: map that tells whether an assignment is expanded
+//    var assignmentsExpandedMap = [Assignment: Bool]()
+    var assignmentsExpandedSet = Set<Assignment>()
     
-//    var assignments = [Assignment]()
     override var debug: Bool {
-        return false
+        return true
     }
     
 
@@ -67,14 +69,13 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     //MARK: - Data Source Methods
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         super.swipeCellId = AssignmentCell1.id
         if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? AssignmentCell1,
            let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment {
             cell.event = assignment
             cell.assignmentCollapseDelegate = self
             cell.loadData(assignment: assignment)
-            
+            cell.setIsExpanded(isExpanded: self.assignmentsExpandedSet.contains(assignment))            
             return cell
         }
         
@@ -87,11 +88,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
         printDebug("Selected row \(indexPath.row)")
         if let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment,
            let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1 {
-            
-            if assignmentCell.autoEventsOpen {
-                assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
-            }
-            
+            self.handleCloseAutoEvents(assignment: assignment)
             DatabaseService.shared.markComplete(assignment, !assignment.complete)
             
             if(assignment.isAutoscheduled) {
@@ -148,10 +145,13 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     
     override func delete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        if let event = cell.event {
+        if let event = cell.event as? Assignment {
+            self.handleCloseAutoEvents(assignment: event)
             DatabaseService.shared.deleteStudiumObject(event)
+        } else {
+            print("$ERR (AssignmentsViewController): Tried to delete event at cell (\(indexPath.section), \(indexPath.row)), however its event was nil")
         }
-//        RealmCRUD.deleteAssignment(assignment: cell.event as! Assignment)
+        
         eventsArray[indexPath.section].remove(at: indexPath.row)
         updateHeader(section: indexPath.section)
     }

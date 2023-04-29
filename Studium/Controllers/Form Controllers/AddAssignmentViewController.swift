@@ -146,11 +146,10 @@ class AddAssignmentViewController: MasterForm {
                     oldEvent: assignmentEditing,
                     newEvent: newAssignment
                 )
-                
             } else {
-                DatabaseService.shared.saveAssignment(assignment: newAssignment, parentCourse: selectedCourse)
+                DatabaseService.shared.saveStudiumObject(newAssignment)
             }
-
+            
             delegate?.reloadData()
             dismiss(animated: true, completion: nil)
         } else {
@@ -324,6 +323,10 @@ extension AddAssignmentViewController {
         switch pickerView.tag {
         case FormCellID.PickerCell.coursePickerCell.rawValue:
             self.selectedCourse = self.courses[pickerView.selectedRow(inComponent: component)]
+        case FormCellID.PickerCell.lengthPickerCell.rawValue:
+            let lengthHours = pickerView.selectedRow(inComponent: 0)
+            let lengthMinutes = pickerView.selectedRow(inComponent: 1)
+            self.totalLengthMinutes = (lengthHours * 60) + lengthMinutes
         default:
             break
         }

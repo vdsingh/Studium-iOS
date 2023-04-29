@@ -102,6 +102,7 @@
 		B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5E2983465D00A25457 /* SystemIcon.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
+		B97BB08429F74628008F1A5B /* Debuggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08329F74628008F1A5B /* Debuggable.swift */; };
 		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
 		B9A98C2729ECA67D00D866A9 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2629ECA67D00D866A9 /* Secret.swift */; };
@@ -210,6 +211,7 @@
 		B96E6A5E2983465D00A25457 /* SystemIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcon.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		B97BB08129F7006E008F1A5B /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		B97BB08329F74628008F1A5B /* Debuggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debuggable.swift; sourceTree = "<group>"; };
 		B995493B2992EDD000442968 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
 		B995493E2992F0D400442968 /* StudiumEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventListViewController.swift; sourceTree = "<group>"; };
 		B9A98C2629ECA67D00D866A9 /* Secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = SOURCE_ROOT; };
@@ -494,6 +496,7 @@
 				B90D143B298461FB0093EB0C /* Extensions.swift */,
 				B90D1438298461EB0093EB0C /* NotificationHandler.swift */,
 				B90D144329899C3C0093EB0C /* Enums */,
+				B97BB08329F74628008F1A5B /* Debuggable.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -686,6 +689,7 @@
 				B90D13FC29845FE80093EB0C /* MasterForm.swift in Sources */,
 				B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */,
 				B90D1424298461AD0093EB0C /* SwitchCell.swift in Sources */,
+				B97BB08429F74628008F1A5B /* Debuggable.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				B90D13FE29845FE80093EB0C /* AddToDoListEventViewController.swift in Sources */,
 				B90D1435298461AD0093EB0C /* PickerCell.swift in Sources */,

@@ -12,32 +12,18 @@ import UIKit
 class PickerCell: BasicCell {
 
     @IBOutlet weak var picker: UIPickerView!
-//    var delegate: PickerDelegate?
+
     var formCellID: FormCellID.PickerCell?
     var indexPath: IndexPath?
-    override func awakeFromNib() {
-//        picker.delegate = self
-        super.awakeFromNib()
-//        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
-        
-        self.picker.setValue(StudiumColor.primaryLabel.uiColor, forKeyPath: "textColor")
-
-//        self.picker.attributedtitle
     
-        // Initialization code
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.picker.setValue(StudiumColor.primaryLabel.uiColor, forKeyPath: "textColor")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-    
-
-        // Configure the view for the selected state
     }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("$ LOG: PICKER VIEW CHANGED")
-    }
-    
 }
 
 extension PickerCell: FormCellProtocol {

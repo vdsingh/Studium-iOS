@@ -55,7 +55,7 @@ class StudiumEventListViewController: SwipeTableViewController {
         ]
     }
     
-    func updateHeader(section: Int){
+    func updateHeader(section: Int) {
         let headerView  = tableView.headerView(forSection: section) as? HeaderView
         headerView?.setTexts(
             primaryText: sectionHeaders[section],
@@ -71,7 +71,10 @@ class StudiumEventListViewController: SwipeTableViewController {
             DatabaseService.shared.deleteStudiumObject(event)
         }
         
+//        self.collapse
         eventsArray[indexPath.section].remove(at: indexPath.row)
+//        tableView.reloadData()
+        
         updateHeader(section: indexPath.section)
     }
     

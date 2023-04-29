@@ -13,6 +13,10 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
 
     let defaults = UserDefaults.standard
     
+    override var debug: Bool {
+        false
+    }
+    
     override func viewDidLoad() {
         self.eventTypeString = "Courses"
 

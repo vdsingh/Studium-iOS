@@ -170,9 +170,9 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
         
         if let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1 {
             if let assignment = assignmentCell.event as? Assignment {
-                if assignmentCell.autoEventsOpen {
-                    assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
-                }
+//                if assignmentCell.autoEventsOpen {
+//                    assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
+//                }
                 
                 //if the assignment is autoscheduled, we don't want to call loadAssignments() because all autoscheduled events will be removed from the data, and thus the tableView. We'll have index and UI issues.
                 if(assignment.isAutoscheduled) {
@@ -193,6 +193,17 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
 }
 
 extension ToDoListViewController: AssignmentCollapseDelegate{
+    func collapseButtonClicked(assignment: Assignment) {
+        // The assignment is expanded
+//        if self.assignmentsExpandedSet.contains(assignment) {
+//            self.handleCloseAutoEvents(assignment: assignment)
+//            self.assignmentsExpandedSet.remove(assignment)
+//        } else {
+//            self.handleOpenAutoEvents(assignment: assignment)
+//            self.assignmentsExpandedSet.insert(assignment)
+//        }
+    }
+    
     func handleOpenAutoEvents(assignment: Assignment) {
         let arrayIndex = assignment.complete ? 1 : 0
         
@@ -224,9 +235,9 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
     func collapseAllExpandedAssignments(){
         for cell in tableView.visibleCells{
             if let assignmentCell = cell as? AssignmentCell1 {
-                if assignmentCell.autoEventsOpen {
-                    assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
-                }
+//                if assignmentCell.autoEventsOpen {
+//                    assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
+//                }
             }
         }
     }
