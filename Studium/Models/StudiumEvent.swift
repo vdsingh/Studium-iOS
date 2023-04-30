@@ -82,8 +82,18 @@ class StudiumEvent: Object, DaySchedulable {
     }
     
     var totalLengthMinutes: Int {
-        let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: self.startDate, to: self.endDate)
-        return diffComponents.minute ?? 0
+        let diffComponents = Calendar.current.dateComponents([.minute], from: self.startDate, to: self.endDate)
+//        endDate.minutes(from: startDate)
+        if let minutes = diffComponents.minute {
+            if minutes < 0 {
+                fatalError("$ERR (StudiumEvent): negative minutes")
+            }
+            return minutes
+        }
+        
+        print("$ERR (StudiumEvent): Couldn't get total length minutes from start and end date. returning 0")
+        return 0
+//        startDate.minutes
     }
     
     convenience init(
