@@ -395,14 +395,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <color key="sectionIndexBackgroundColor" name="Studium System Background Color"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="iXA-jG-3Nd">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="barTintColor" red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="0Vi-ec-NIi" id="fSB-Ku-Aff"/>
                             <outlet property="delegate" destination="0Vi-ec-NIi" id="6fE-VV-sbX"/>
@@ -416,7 +409,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="searchBar" destination="iXA-jG-3Nd" id="KOH-mF-8Hh"/>
                         <segue destination="0x4-4c-qsb" kind="show" identifier="toAddAssignmentForm" id="cje-BS-oSI"/>
                     </connections>
                 </tableViewController>
