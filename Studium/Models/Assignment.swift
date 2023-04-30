@@ -88,6 +88,11 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         
         self.startDate = parentAssignment.endDate.subtract(minutes: parentAssignment.autoLengthMinutes)
         self.endDate = parentAssignment.endDate
+        
+        if self.startDate > self.endDate
+        {
+            fatalError("Start date is later than end date")
+        }
 
         self.autoschedule = false
         

@@ -9,29 +9,32 @@
 import UIKit
 import SwipeCellKit
 
+//TODO: Docstrings
 class OtherEventCell: DeletableEventCell {
     static let id = "OtherEventCell"
     
+    //TODO: Docstrings
     @IBOutlet weak var primaryLabel: UILabel!
+    
+    //TODO: Docstrings
     @IBOutlet weak var subLabel: UILabel!
+    
+    //TODO: Docstrings
     @IBOutlet weak var startTimeLabel: UILabel!
+    
+    //TODO: Docstrings
     @IBOutlet weak var endTimeLabel: UILabel!
     
+    //TODO: Docstrings
     @IBOutlet weak var latenessIndicator: UIImageView!
-    @IBOutlet weak var latenessIndicatorContainer: UIView!
-    var otherEvent: OtherEvent!
-        
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
+    //TODO: Docstrings
+    @IBOutlet weak var latenessIndicatorContainer: UIView!
+    
+    //TODO: Docstrings
+    var otherEvent: OtherEvent!
+    
+    //TODO: Docstrings
     func loadData(from otherEvent: OtherEvent){
         event = otherEvent
         
@@ -65,6 +68,7 @@ class OtherEventCell: DeletableEventCell {
 
     }
     
+    //TODO: Docstrings
     func loadDataGeneric(primaryText: String, secondaryText: String, startDate: Date, endDate: Date, cellColor: UIColor){
         var contrastingColor = UIColor(contrastingBlackOrWhiteColorOn: cellColor, isFlat: true)
         //Black as a label color looks too intense. If the contrasting color is supposed to be black, change it to a lighter gray.
@@ -86,15 +90,10 @@ class OtherEventCell: DeletableEventCell {
 
         
         backgroundColor = cellColor
-        
-//        background.backgroundColor = cellColor
-//        background.backgroundColor = cellColor
-        
-//        icon.image = iconImage
-//        icon.tintColor = cellColor
         latenessIndicator.isHidden = true
     }
     
+    //TODO: Docstrings
     func hideLatenessIndicator(hide: Bool) {
         self.latenessIndicatorContainer.isHidden = hide
     }

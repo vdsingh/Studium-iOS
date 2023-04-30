@@ -11,8 +11,7 @@ import ChameleonFramework
 
 class AssignmentsViewController: StudiumEventListViewController, UISearchBarDelegate, AssignmentRefreshProtocol {
     
-    //TODO: map that tells whether an assignment is expanded
-//    var assignmentsExpandedMap = [Assignment: Bool]()
+    /// Set that tells whether an assignment is expanded
     var assignmentsExpandedSet = Set<Assignment>()
     
     override var debug: Bool {
@@ -20,8 +19,9 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     }
     
 
-    @IBOutlet weak var searchBar: UISearchBar!
+//    @IBOutlet weak var searchBar: UISearchBar!
     
+    /// The course that was selected to reach this screen
     var selectedCourse: Course! {
         didSet{
             reloadData()
@@ -30,8 +30,8 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
-        searchBar.isHidden = true
+//        searchBar.delegate = self
+//        searchBar.isHidden = true
 
         self.sectionHeaders = ["To Do:", "Completed:"]
         self.eventTypeString = "Assignments"
@@ -40,13 +40,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     override func viewWillAppear(_ animated: Bool) {
         printDebug("viewWillAppear")
         if let course = selectedCourse {
-            let color = course.color
             title = selectedCourse.name
-            guard let navController = navigationController else {
-                fatalError("$ERR: navigation bar doesnt exist")
-            }
-            
-            navController.navigationBar.barTintColor = color
         } else {
             print("$ERR: course is nil")
         }
@@ -58,6 +52,9 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
         collapseAllExpandedAssignments()
     }
     
+    
+    /// The user pressed the '+' button to add a new assignment
+    /// - Parameter sender: The button that the user pressed
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
         addAssignmentViewController.selectedCourse = selectedCourse
@@ -136,6 +133,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
         }
     }
     
+    /// Reloads/sorts the data and refreshes the TableView
     func reloadData() {
         self.loadAssignments()
         eventsArray[0].sort(by: {$0.endDate < $1.endDate})
@@ -143,6 +141,8 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
         tableView.reloadData()
     }
     
+    /// Trigger deletion of event in cell
+    /// - Parameter indexPath: The index at which we want to delete an event
     override func delete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         if let event = cell.event as? Assignment {
@@ -156,6 +156,8 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
         updateHeader(section: indexPath.section)
     }
     
+    /// Trigger editing of event in cell
+    /// - Parameter indexPath: The index at which we want to edit an event
     override func edit(at indexPath: IndexPath) {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         
@@ -187,9 +189,11 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     }
 }
 
-//This extension ensures that the view controller can handle what happens when user wants to collapsed autoscheduled events.
+/// Handle what happens when user wants to collapsed autoscheduled events.
 extension AssignmentsViewController: AssignmentCollapseDelegate {
     
+    /// The collapse button in a cell was clicked
+    /// - Parameter assignment: The assignment associated with the cell
     func collapseButtonClicked(assignment: Assignment) {
         
         // The assignment is expanded
@@ -202,6 +206,8 @@ extension AssignmentsViewController: AssignmentCollapseDelegate {
         }
     }
     
+    /// Handles the opening of autoscheduled events for an Assignment
+    /// - Parameter assignment: The Assignment for which we want to open autoscheduled events
     func handleOpenAutoEvents(assignment: Assignment) {
         let assignmentSection = assignment.complete ? 1 : 0
         if let assignmentRow = eventsArray[assignmentSection].firstIndex(of: assignment) {
@@ -218,6 +224,8 @@ extension AssignmentsViewController: AssignmentCollapseDelegate {
         tableView.reloadData()
     }
 
+    /// Handles the closing of autoscheduled events for an Assignment
+    /// - Parameter assignment: The Assignment for which we want to close autoscheduled events
     func handleCloseAutoEvents(assignment: Assignment) {
         // assignment is not expanded
         if !self.assignmentsExpandedSet.contains(assignment) {
@@ -239,7 +247,7 @@ extension AssignmentsViewController: AssignmentCollapseDelegate {
         tableView.reloadData()
     }
     
-    //collapses all assignmentCells whose autoscheduled events are expanded. We call this when we are leaving the ToDoList screen, to avoid issues when coming back and loading in data.
+    /// collapses all assignmentCells whose autoscheduled events are expanded
     func collapseAllExpandedAssignments(){
         for cell in tableView.visibleCells {
             if let assignmentCell = cell as? AssignmentCell1 {

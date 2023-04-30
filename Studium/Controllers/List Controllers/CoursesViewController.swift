@@ -8,10 +8,13 @@
 import UIKit
 import ChameleonFramework
 
+//TODO: Docstrings
 class CoursesViewController: StudiumEventListViewController, CourseRefreshProtocol {
+    
+    //TODO: Docstrings
     var courses = [Course]()
 
-    let defaults = UserDefaults.standard
+//    let defaults = UserDefaults.standard
     
     override var debug: Bool {
         false
@@ -34,13 +37,14 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let sizeLength = UIScreen.main.bounds.size.height * 2
-        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: sizeLength, height: 64)
+//        let sizeLength = UIScreen.main.bounds.size.height * 2
+//        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: sizeLength, height: 64)
 
         loadCourses()
         
     }
     
+    //TODO: Docstrings
     func image(fromLayer layer: CALayer) -> UIImage {
         UIGraphicsBeginImageContext(layer.frame.size)
         layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -52,6 +56,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     
     //MARK: - Data Source Methods
     
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //build the cells
         //let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
@@ -77,10 +82,13 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     }
     
     //MARK: - Delegate Methods
+    
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: K.coursesToAssignmentsSegue, sender: self)
     }
     
+    //TODO: Docstrings
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? AssignmentsViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
@@ -90,6 +98,8 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     }
     
     //MARK: - CRUD Methods
+    
+    //TODO: Docstrings
     func loadCourses(){
         self.courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
         eventsArray = [[],[]]
@@ -118,6 +128,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
 //        eventsArray[0].sort(by: { $0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm") })
 //    }
     
+    //TODO: Docstrings
     override func edit(at indexPath: IndexPath) {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         
@@ -131,6 +142,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         self.present(navController, animated:true, completion: nil)
     }
     
+    //TODO: Docstrings
     override func delete(at indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? DeletableEventCell,
            let course = cell.event as? Course {
@@ -156,15 +168,3 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         self.present(navController, animated:true, completion: nil)
     }
 }
-
-//extension UIViewController: Debuggable {
-//    var debug: Bool {
-//        true
-//    }
-//    
-//    func printDebug(_ message: String) {
-//        if self.debug {
-//            print("$LOG (\(String(describing: self)): \(message)")
-//        }
-//    }
-//}

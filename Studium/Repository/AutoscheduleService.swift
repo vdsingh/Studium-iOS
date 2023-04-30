@@ -20,7 +20,7 @@ final class AutoscheduleService {
     ///   - event: The StudiumEvent that we are scheduling
     ///   - date: The date on which to schedule the event
     func autoScheduleEvent(event: StudiumEvent, date: Date) {
-        printDebug("Autoscheduling for event \(event.name)")
+        printDebug("Autoscheduling for event \(event.name), which is \(event.totalLengthMinutes) minutes long")
         let startBound = DatabaseService.shared.getUserSettings().getWakeUpTime(for: date) ?? date.startOfDay
         let endBound = date.setTime(hour: 23, minute: 59, second: 0) ?? date.endOfDay
         printDebug("Autoschedule Time Bounds: \(startBound)-\(endBound)")
@@ -224,21 +224,16 @@ final class AutoscheduleService {
             printDebug("autoscheduling study time for assignment: \(parentAssignment.name)")
             let datesToAutoschedule = self.findAllApplicableDatesBetween(startDate: Date(), endDate: parentAssignment.endDate, weekdays: parentAssignment.days)
             printDebug("the applicable dates to autoschedule study time are: \(datesToAutoschedule)")
-//            var autoDays: [Int] = []
             for date in datesToAutoschedule {
                 let studyTimeAssignment = Assignment(parentAssignment: parentAssignment)
                 self.autoScheduleEvent(event: studyTimeAssignment, date: date)
 
                 if let course = studyTimeAssignment.parentCourse {
-//                    DatabaseService.shared.saveAssignment(assignment: studyTimeAssignment, parentCourse: course, parentAssignment: parentAssignment)
                     DatabaseService.shared.saveStudiumObject(studyTimeAssignment)
                 } else {
                     print("$ERR (AutoscheduleService): tried to autoschedule study time for assignment \(parentAssignment.name) but the parent course was nil. The parent assignment course is: \(String(describing: parentAssignment.parentCourse?.name))")
                 }
-
             }
-//            autoscheduleTime(endDate: startDate, autoDays: autoDays, autoLengthMinutes: autoLengthMinutes)
-            
         }
     }
 }

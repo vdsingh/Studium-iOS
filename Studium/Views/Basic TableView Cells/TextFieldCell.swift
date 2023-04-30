@@ -7,26 +7,25 @@
 //
 
 import UIKit
+
+//TODO: Docstrings
 public protocol UITextFieldDelegateExt {
+    
+    //TODO: Docstrings
     func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell)
 }
+
+//TODO: Docstrings
 class TextFieldCell: BasicCell {
     
+    //TODO: Docstrings
     public var textFieldID: FormCellID.TextFieldCell?
 
-
+    //TODO: Docstrings
     @IBOutlet weak var textField: UITextField!
-    public var delegate: UITextFieldDelegateExt!
-            
-//    init(delegate: UITextFieldDelegateExt, style: UITableViewCell.CellStyle = .default) {
-//        self.delegate = delegate
-//        super.init(style: style, reuseIdentifier: TextFieldCell.id)
-//    }
     
-//    required init?(coder: NSCoder) {
-////        fatalError("init(coder:) has not been implemented")
-//        super.init(coder: coder)
-//    }
+    //TODO: Docstrings
+    public var delegate: UITextFieldDelegateExt!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,10 +39,12 @@ class TextFieldCell: BasicCell {
 
     }
 
+    //TODO: Docstrings
     @IBAction func finishedEditingText(_ sender: UITextField) {
         
     }
     
+    //TODO: Docstrings
     @IBAction func textEdited(_ sender: UITextField) {
         if let textFieldID = self.textFieldID {
             delegate.textEdited(sender: sender, textFieldID: textFieldID)
@@ -57,6 +58,3 @@ class TextFieldCell: BasicCell {
 extension TextFieldCell: FormCellProtocol {
     static var id: String = "TextFieldCell"
 }
-
-//extension TextFieldCell: FormCellIdentifiable {
-//}

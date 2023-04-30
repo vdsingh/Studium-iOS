@@ -10,9 +10,11 @@ import Foundation
 import RealmSwift
 import UIKit
 
+//TODO: Docstrings
 class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol {
+    
+    //TODO: Docstrings
     var habits: [Habit] = []
-    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         self.eventTypeString = "Habits"
@@ -23,14 +25,13 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         tableView.rowHeight = 140
         
         sectionHeaders = ["Today:", "Not Today:"]
-        
-//        self.tabBarController?.tabBar.backgroundColor = K.themeColor
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         loadHabits()
     }
     
+    //TODO: Docstrings
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addHabitViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
         addHabitViewController.delegate = self
@@ -45,6 +46,7 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         
     }
     
+    //TODO: Docstrings
     func loadHabits() {
         self.habits = DatabaseService.shared.getStudiumObjects(expecting: Habit.self)
         eventsArray = [[],[]]
@@ -62,8 +64,7 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         
     }
     
-
-    
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         super.swipeCellId = RecurringEventCell.id
         if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? RecurringEventCell,
@@ -86,11 +87,12 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         return tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
     }
     
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    
+    //TODO: Docstrings
     override func edit(at indexPath: IndexPath) {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let eventForEdit = deletableEventCell.event! as! Habit
@@ -103,6 +105,7 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         self.present(navController, animated:true, completion: nil)
     }
     
+    //TODO: Docstrings
     override func delete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let habit: Habit = cell.event as! Habit

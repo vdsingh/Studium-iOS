@@ -7,25 +7,40 @@
 //
 
 import UIKit
-public protocol CanHandleSwitch{
+
+//TODO: Docstrings
+public protocol CanHandleSwitch {
+    
+    //TODO: Docstrings
     func switchValueChanged(sender: UISwitch)
 }
 
-public protocol CanHandleInfoDisplay: UIViewController{
+//TODO: Docstrings
+public protocol CanHandleInfoDisplay: UIViewController {
+    
+    //TODO: Docstrings
     func displayInformation()
 }
 
-//TODO: dostrings
-
+//TODO: Docstrings
 class SwitchCell: BasicCell {
     
+    //TODO: Docstrings
     @IBOutlet weak var tableSwitch: UISwitch!
+    
+    //TODO: Docstrings
     @IBOutlet weak var label: UILabel!
+    
+    //TODO: Docstrings
     @IBOutlet weak var infoButton: UIButton!
     
+    //TODO: Docstrings
     var on: Bool = false
     
+    //TODO: Docstrings
     var switchDelegate: CanHandleSwitch?
+    
+    //TODO: Docstrings
     var infoDelegate: CanHandleInfoDisplay?
     
     override func awakeFromNib() {
@@ -33,16 +48,10 @@ class SwitchCell: BasicCell {
         self.backgroundColor = StudiumColor.secondaryBackground.uiColor
         self.label.textColor = StudiumColor.primaryLabel.uiColor
         self.infoButton.backgroundColor = StudiumColor.secondaryBackground.uiColor
-
-        // Initialization code
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
     
+    //TODO: Docstrings
     @IBAction func switchValueChanged(_ sender: UISwitch) {
         self.on = sender.isOn
         if let del = switchDelegate{
@@ -50,6 +59,7 @@ class SwitchCell: BasicCell {
         }
     }
 
+    //TODO: Docstrings
     @IBAction func infoButtonPressed(_ sender: UIButton) {
         if let del = infoDelegate {
             del.displayInformation()

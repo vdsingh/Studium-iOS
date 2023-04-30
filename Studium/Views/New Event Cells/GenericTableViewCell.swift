@@ -8,33 +8,27 @@
 
 import UIKit
 
-//This cell is meant to be used to display any StudiumEvent type. It is not meant to be deleted and is solely meant for the display of information.
+/// This cell is meant to be used to display any StudiumEvent type. It is not meant to be deleted and is solely meant for the display of information.
 class GenericTableViewCell: UITableViewCell {
 
+    //TODO: Docstrings
     @IBOutlet weak var subTextLabel: UILabel!
+    
+    //TODO: Docstrings
     @IBOutlet weak var mainTextLabel: UILabel!
+    
+    //TODO: Docstrings
     @IBOutlet weak var date1Label: UILabel!
+    
+    //TODO: Docstrings
     @IBOutlet weak var date2Label: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-//        reuseIdentifier = K.genericCellID
-    }
     
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
+    //TODO: Docstrings
     func loadData(event: StudiumEvent){
         mainTextLabel.text = event.name
         subTextLabel.text = event.location
         
-        
         date1Label.text = event.startDate.format(with: "MMM d, h:mm a")
         date2Label.text = event.endDate.format(with: "MMM d, h:mm a")
     }
-    
 }

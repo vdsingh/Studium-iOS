@@ -37,6 +37,8 @@ class StudiumEventListViewController: SwipeTableViewController {
         self.navigationItem.title = eventTypeString
 //        self.title = eventTypeString
         
+        
+        //Register all UI Elements used in the TableView
         tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderView.id)
         tableView.register(UINib(nibName: RecurringEventCell.id, bundle: nil), forCellReuseIdentifier: RecurringEventCell.id)
         tableView.register(UINib(nibName: AssignmentCell1.id, bundle: nil), forCellReuseIdentifier: AssignmentCell1.id)
@@ -55,6 +57,8 @@ class StudiumEventListViewController: SwipeTableViewController {
         ]
     }
     
+    /// Updates the header for a given section
+    /// - Parameter section: The section corresponding to the header that we wish to update
     func updateHeader(section: Int) {
         let headerView  = tableView.headerView(forSection: section) as? HeaderView
         headerView?.setTexts(

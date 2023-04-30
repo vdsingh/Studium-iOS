@@ -8,21 +8,21 @@
 
 import UIKit
 
-
+//TODO: Docstrings
 class PickerCell: BasicCell {
 
+    //TODO: Docstrings
     @IBOutlet weak var picker: UIPickerView!
 
+    //TODO: Docstrings
     var formCellID: FormCellID.PickerCell?
+    
+    //TODO: Docstrings
     var indexPath: IndexPath?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.picker.setValue(StudiumColor.primaryLabel.uiColor, forKeyPath: "textColor")
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
 }
 

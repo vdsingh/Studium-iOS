@@ -9,46 +9,51 @@
 import UIKit
 import SwipeCellKit
 
+//TODO: Docstrings
 protocol AssignmentCollapseDelegate {
+    
+    //TODO: Docstrings
     func collapseButtonClicked(assignment: Assignment)
 }
 
+//TODO: Docstrings
 class AssignmentCell1: DeletableEventCell {
     
     let debug = true
     
     static let id = "AssignmentCell1"
     
-    //the background of the cell (just a solid color)
+    /// the background of the cell (just a solid color)
     @IBOutlet weak var background: UIImageView!
     
-    //this is a circle that tells us how late or close to the deadline this assignment is - red=late, yellow=due soon, green=not due soon.
+    /// s a circle that tells us how late or close to the deadline this assignment is - red=late, yellow=due soon, green=not due soon.
     @IBOutlet weak var latenessIndicator: UIImageView!
     
-    //the icon associated with the assignment (it will be the same as the course's icon)
+    /// the icon associated with the assignment (it will be the same as the course's icon)
     @IBOutlet weak var icon: UIImageView!
     
-    //the white circle behind the icon
+    /// the white circle behind the icon
     @IBOutlet weak var iconBackground: UIImageView!
     
-    //the label that shows the assignments name. This is the primary label
+    /// the label that shows the assignments name. This is the primary label
     @IBOutlet weak var primaryLabel: UILabel!
     
-    //the label that shows the course's name.
+    /// the label that shows the course's name.
     @IBOutlet weak var subLabel: UILabel!
     
-    //the label that shows the due date of the assignment.
+    /// the label that shows the due date of the assignment.
     @IBOutlet weak var dueDateLabel: UILabel!
     
-    //button that allows user to expand list of autoscheduled events (if there are any)
+    /// button that allows user to expand list of autoscheduled events (if there are any)
     @IBOutlet weak var expandEventsButton: UIButton!
     
-    //a delegate that allows us to expand assignment cells that have autoscheduled events
+    /// a delegate that allows us to expand assignment cells that have autoscheduled events
     var assignmentCollapseDelegate: AssignmentCollapseDelegate?
     
-    //boolean that allows us to override the chevron button if we don't want it to appear even if applicable
+    /// boolean that allows us to override the chevron button if we don't want it to appear even if applicable
     var hideChevronButton: Bool = false
     
+    //TODO: Docstrings
     let largeConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .large)
 
     
@@ -57,12 +62,7 @@ class AssignmentCell1: DeletableEventCell {
         let chevDownImage = UIImage(systemName: "chevron.down", withConfiguration: largeConfig)
         expandEventsButton.setImage(chevDownImage, for: .normal)
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
-
     //TODO: Docstring
     func loadData(assignment: Assignment) {
         

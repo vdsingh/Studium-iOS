@@ -8,14 +8,25 @@
 
 import UIKit
 
+//TODO: Docstrings
 class TimeCell: BasicCell {
+    
+    //TODO: Docstrings
     public var formCellID: FormCellID.TimeCell?
 
+    //TODO: Docstrings
     @IBOutlet weak var label: UILabel!
+    
+    //TODO: Docstrings
     @IBOutlet weak var timeLabel: UILabel!
     
+    //TODO: Docstrings
     private var date: Date!
+    
+    //TODO: Docstrings
     private var dateFormat: DateFormat!
+    
+    //TODO: Docstrings
     private var timePickerMode: UIDatePicker.Mode!
 
     override func awakeFromNib() {
@@ -25,6 +36,7 @@ class TimeCell: BasicCell {
         self.timeLabel.textColor = StudiumColor.primaryLabel.uiColor
     }
     
+    //TODO: Docstrings
     func configure(
         cellLabelText: String,
         formCellID: FormCellID.TimeCell?,
@@ -42,19 +54,24 @@ class TimeCell: BasicCell {
     
     // MARK: - Getters
 
+    //TODO: Docstrings
     func getDate() -> Date {
         return self.date
     }
     
+    //TODO: Docstrings
     func getDateFormat() -> DateFormat{
         return self.dateFormat
     }
     
+    //TODO: Docstrings
     func getTimePickerMode() -> UIDatePicker.Mode {
         return self.timePickerMode
     }
     
     // MARK: - Setters
+    
+    //TODO: Docstrings
     func setDate(_ date: Date) {
         self.date = date
         self.timeLabel.text = date.format(with: self.dateFormat.rawValue)

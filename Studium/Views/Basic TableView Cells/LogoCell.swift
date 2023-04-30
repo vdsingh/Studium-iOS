@@ -8,9 +8,13 @@
 
 import UIKit
 
+//TODO: Docstrings
 class LogoCell: BasicCell {
+    
+    //TODO: Docstrings
     @IBOutlet weak var logoImageView: UIImageView!
     
+    //TODO: Docstrings
     @IBOutlet weak var label: UILabel!
     
     override func awakeFromNib() {
@@ -19,13 +23,8 @@ class LogoCell: BasicCell {
         self.label.textColor = StudiumColor.primaryLabel.uiColor
         self.logoImageView.tintColor = StudiumColor.primaryAccent.uiColor
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
+    //TODO: Docstrings
     func setImage(systemIcon: SystemIcon) {
 //        let image = UIImage(systemName: systemImageName)
 //        logoImageView.tintColor = .red

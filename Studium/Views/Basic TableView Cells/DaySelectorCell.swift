@@ -9,15 +9,21 @@
 import UIKit
 import RealmSwift
 
+//TODO: Docstrings
 public protocol DaySelectorDelegate {
     func updateDaysSelected(weekdays: Set<Weekday>)
 }
 
+//TODO: Docstrings
 class DaySelectorCell: BasicCell {
+    
+    //TODO: Docstrings
     var delegate: DaySelectorDelegate?
     
+    //TODO: Docstrings
     @IBOutlet var dayButtons: [UIButton]!
     
+    //TODO: Docstrings
     private var daysSelected = Set<Weekday>()
     
     override func awakeFromNib() {
@@ -35,6 +41,7 @@ class DaySelectorCell: BasicCell {
         // Configure the view for the selected state
     }
     
+    //TODO: Docstrings
     func selectDays(days: Set<Weekday>) {
         for day in days {
             if let button = self.dayButtons.first(where: { $0.titleLabel?.text == day.buttonText }) {
@@ -59,7 +66,8 @@ class DaySelectorCell: BasicCell {
 //            }
 //        }
 //    }
-//    
+//
+    //TODO: Docstrings
     @IBAction func dayButtonPressed(_ sender: UIButton) {
         
         // Find the index of the button pressed

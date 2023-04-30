@@ -8,12 +8,17 @@
 
 import UIKit
 
+//TODO: Docstrings
 class HeaderView: UITableViewHeaderFooterView {
     static let id = "HeaderView"
     
+    //TODO: Docstrings
     var primaryLabel: UILabel = UILabel()
+    
+    //TODO: Docstrings
     var secondaryLabel: UILabel = UILabel()
     
+    //TODO: Docstrings
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
@@ -43,13 +48,14 @@ class HeaderView: UITableViewHeaderFooterView {
         ])
         
     }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
+    //TODO: Docstrings
     func setTexts(primaryText: String, secondaryText: String){
         primaryLabel.text = primaryText
         secondaryLabel.text = secondaryText
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

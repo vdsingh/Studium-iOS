@@ -11,30 +11,44 @@ import RealmSwift
 import SwipeCellKit
 import ChameleonFramework
 
+//TODO: Docstrings
 class RecurringEventCell: DeletableEventCell {
     
     let debug = false
     
     static let id = "RecurringEventCell"
 
+    //TODO: Docstrings
     @IBOutlet weak var background: UIImageView!
+    
+    //TODO: Docstrings
     @IBOutlet weak var nameLabel: UILabel!
+    
+    //TODO: Docstrings
     @IBOutlet weak var locationLabel: UILabel!
+    
+    //TODO: Docstrings
     @IBOutlet weak var timeLabel: UILabel!
+    
+    //TODO: Docstrings
     @IBOutlet weak var iconImage: UIImageView!
+    
+    //TODO: Docstrings
     @IBOutlet weak var iconCircle: UIImageView!
 
+    //TODO: Docstrings
     @IBOutlet var dayLabels: [UILabel]!
+    
+    //TODO: Docstrings
     @IBOutlet var dayBoxes: [UIImageView]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.background.layer.cornerRadius = 15
-//        self.background.layer.borderWidth = 4
         self.background.backgroundColor = StudiumColor.secondaryBackground.uiColor
-//        self.backgroundColor =
     }
 
+    //TODO: Docstrings
     func loadData(
         courseName: String,
         location: String,
@@ -46,13 +60,10 @@ class RecurringEventCell: DeletableEventCell {
         systemIcon: SystemIcon
     ) {
         printDebug("Loading data for event: \(recurringEvent)")
-//        recurringEvent.day
         self.event = recurringEvent//just edited
         iconImage.image = systemIcon.createImage()
         iconImage.tintColor = color
         iconCircle.tintColor = color
-        
-//        background.backgroundColor = UIColor(hexString: colorHex)
         background.layer.borderColor = color.cgColor
         
         nameLabel.text = courseName

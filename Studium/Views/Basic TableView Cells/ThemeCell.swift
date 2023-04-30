@@ -8,23 +8,21 @@
 
 import UIKit
 
+//TODO: Docstrings
 class ThemeCell: BasicCell {
 
+    //TODO: Docstrings
     @IBOutlet weak var colorPreview: UIImageView!
+    
+    //TODO: Docstrings
     @IBOutlet weak var label: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = StudiumColor.secondaryBackground.uiColor
-
-        // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
+    //TODO: Docstrings
     func setColorPreviewColor(colors: [CGColor]){
         let view = UIView(frame: colorPreview.frame)
         view.layer.cornerRadius = 21
@@ -38,7 +36,6 @@ class ThemeCell: BasicCell {
         colorPreview.bringSubviewToFront(view)
         
     }
-    
 }
 
 extension ThemeCell: FormCellProtocol {

@@ -8,23 +8,17 @@
 
 import UIKit
 
+//TODO: Docstrings
 class LabelCell: BasicCell {
 
+    //TODO: Docstrings
     @IBOutlet weak var label: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.label.textColor = StudiumColor.primaryLabel.uiColor
         self.backgroundColor = StudiumColor.secondaryBackground.uiColor
-
-        // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
 }
 
 extension LabelCell: FormCellProtocol {

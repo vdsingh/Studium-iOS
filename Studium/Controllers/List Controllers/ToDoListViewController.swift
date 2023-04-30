@@ -10,12 +10,16 @@ import Foundation
 import RealmSwift
 import ChameleonFramework
 
+//TODO: Docstrings
 class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshProtocol, AssignmentRefreshProtocol {
     override var debug: Bool {
         return false
     }
     
+    //TODO: Docstrings
     let assignments = [Assignment]()
+    
+    //TODO: Docstrings
     let otherEvents = [OtherEvent]()
 //    var assignments: Results<Assignment>? //Auto updating array linked to the realm
 //    var otherEvents: Results<OtherEvent>?
@@ -36,6 +40,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
         self.collapseAllExpandedAssignments()
     }
     
+    //TODO: Docstrings
     func reloadData(){
         eventsArray = [[],[]]
 
@@ -69,6 +74,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
         tableView.reloadData()
     }
     
+    //TODO: Docstrings
     override func edit(at indexPath: IndexPath) {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         if let assignment = deletableEventCell.event! as? Assignment,
@@ -88,6 +94,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
         }
     }
     
+    //TODO: Docstrings
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         let addToDoListEventViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddToDoListEventViewController") as! AddToDoListEventViewController
         addToDoListEventViewController.delegate = self
@@ -95,6 +102,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
         self.present(navController, animated:true, completion: nil)
     }
     
+    //TODO: Docstrings
     func openAssignmentForm(
         name: String,
         location: String,
@@ -116,6 +124,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
         self.present(navController, animated:true, completion: nil)
     }
     
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let event = eventsArray[indexPath.section][indexPath.row] as? Assignment {
@@ -147,7 +156,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
         }
     }
     
-
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
 //        print("assignmetncell at section \(indexPath.section). row \(indexPath.row)")
@@ -163,6 +172,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
 //        return headerView
 //    }
     
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // super didSelectRow handles marking events complete (in Realm)
@@ -192,7 +202,10 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
     }
 }
 
+//TODO: Docstrings
 extension ToDoListViewController: AssignmentCollapseDelegate{
+    
+    //TODO: Docstrings
     func collapseButtonClicked(assignment: Assignment) {
         // The assignment is expanded
 //        if self.assignmentsExpandedSet.contains(assignment) {
@@ -204,6 +217,7 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
 //        }
     }
     
+    //TODO: Docstrings
     func handleOpenAutoEvents(assignment: Assignment) {
         let arrayIndex = assignment.complete ? 1 : 0
         
@@ -220,6 +234,7 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
         tableView.reloadData()
     }
     
+    //TODO: Docstrings
     func handleCloseAutoEvents(assignment: Assignment) {
         
         let arrayIndex = assignment.complete ? 1 : 0
@@ -231,7 +246,7 @@ extension ToDoListViewController: AssignmentCollapseDelegate{
         tableView.reloadData()
     }
     
-    //this function just collapses all assignmentCells whose autoscheduled events are expanded. We call this when we are leaving the ToDoList screen, to avoid issues when coming back and loading in data.
+    /// this function collapses all assignmentCells whose autoscheduled events are expanded. We call this when we are leaving the ToDoList screen, to avoid issues when coming back and loading in data.
     func collapseAllExpandedAssignments(){
         for cell in tableView.visibleCells{
             if let assignmentCell = cell as? AssignmentCell1 {

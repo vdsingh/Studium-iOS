@@ -9,12 +9,13 @@
 import UIKit
 import CalendarKit
 import DateToolsSwift
-//
+
+//TODO: Docstrings
 class DayScheduleViewController: DayViewController {
     
     let debug = true
     
-    let defaults = UserDefaults.standard
+//    let defaults = UserDefaults.standard
     
 //    var generatedEvents = [Event]()
     
@@ -53,8 +54,6 @@ class DayScheduleViewController: DayViewController {
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
         self.navigationController?.navigationBar.tintColor = StudiumColor.primaryAccent.uiColor
-        
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,10 +73,12 @@ class DayScheduleViewController: DayViewController {
 
     }
     
+    //TODO: Docstrings
     @IBAction func settingsButtonPressed(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "toSettings", sender: self)
     }
     
+    //TODO: Docstrings
     @IBAction func monthButtonPressed(_ sender: Any) {
         performSegue(withIdentifier: "toCalendar", sender: self)
     }
@@ -134,6 +135,7 @@ class DayScheduleViewController: DayViewController {
         return events
     }
     
+    //TODO: Docstrings
     func createWakeTimeEvent(for date: Date) -> Event? {
         printDebug("Creating Wake Time Events")
         
@@ -173,9 +175,14 @@ class DayScheduleViewController: DayViewController {
     }
     
     // MARK: EventDataSource
+    
+    //TODO: Docstrings
     var generatedEvents = [EventDescriptor]()
+    
+    //TODO: Docstrings
     var alreadyGeneratedSet = Set<Date>()
     
+    //TODO: Docstrings
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
 //        if !alreadyGeneratedSet.contains(date) {
 //            alreadyGeneratedSet.insert(date)
@@ -187,6 +194,7 @@ class DayScheduleViewController: DayViewController {
         return self.generateEventsForDate(date)
     }
     
+    //TODO: Docstrings
     func generateEventsForDate(_ date: Date) -> [EventDescriptor] {
         printDebug("generateEventsForDate called")
         var events = [Event]()
@@ -205,8 +213,10 @@ class DayScheduleViewController: DayViewController {
     }
     // MARK: DayViewDelegate
     
+    //TODO: Docstrings
     private var createdEvent: EventDescriptor?
     
+    //TODO: Docstrings
     override func dayViewDidSelectEventView(_ eventView: EventView) {
         guard let descriptor = eventView.descriptor as? Event else {
             return
@@ -215,6 +225,7 @@ class DayScheduleViewController: DayViewController {
         print("Event has been selected: \(descriptor) \(String(describing: descriptor.userInfo))")
     }
     
+    //TODO: Docstrings
     override func dayViewDidLongPressEventView(_ eventView: EventView) {
         guard let descriptor = eventView.descriptor as? Event else {
             return
@@ -225,6 +236,7 @@ class DayScheduleViewController: DayViewController {
         print(Date())
     }
     
+    //TODO: Docstrings
     override func dayView(dayView: DayView, didTapTimelineAt date: Date) {
         endEventEditing()
         print("Did Tap at date: \(date)")

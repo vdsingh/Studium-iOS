@@ -9,13 +9,21 @@
 import UIKit
 import FSCalendar
 
+//TODO: Docstrings
 class CalendarViewController: UIViewController {
     
+    //TODO: Docstrings
     @IBOutlet weak var calendar: FSCalendar!
+    
+    //TODO: Docstrings
     @IBOutlet weak var tableView: UITableView!
     
+    //TODO: Docstrings
     var allEventsInDay: [StudiumEvent] = []
+    
+    //TODO: Docstrings
     var selectedDay: Date = Date()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,8 +60,8 @@ class CalendarViewController: UIViewController {
         navigationItem.hidesBackButton = true
     }
     
+    //TODO: Docstrings
     @IBAction func dayButtonPressed(_ sender: Any) {
-        print("dayButtonPRessed.")
         self.navigationController?.popViewController(animated: false)
     }
     
@@ -62,6 +70,8 @@ class CalendarViewController: UIViewController {
 //        self.navigationController?.popViewController(animated: false)
 //
 //    }
+    
+    //TODO: Docstrings
     func addAssignments(){
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.none
@@ -78,6 +88,7 @@ class CalendarViewController: UIViewController {
         }
     }
     
+    //TODO: Docstrings
     func addCourses(){
         let allCourses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
         
@@ -99,7 +110,7 @@ class CalendarViewController: UIViewController {
         }
     }
     
-    //This will do courses and habits at the same time.
+    //TODO: Docstrings
     func addHabits(){
         let allHabits = DatabaseService.shared.getStudiumObjects(expecting: Habit.self)
         
@@ -113,6 +124,7 @@ class CalendarViewController: UIViewController {
         }
     }
     
+    //TODO: Docstrings
     func updateInfo(){
         allEventsInDay = []
         addAssignments()
@@ -124,17 +136,20 @@ class CalendarViewController: UIViewController {
     }
 }
 
-extension CalendarViewController: UITableViewDelegate{
+//TODO: Docstrings
+extension CalendarViewController: UITableViewDelegate {
+    
+    //TODO: Docstrings
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let event: StudiumEvent = allEventsInDay[indexPath.row]
         print("$LOG: EVENT COLOR for \(event.name): \(event.color)")
-        if event is Assignment{
+        if event is Assignment {
             let cell = tableView.dequeueReusableCell(withIdentifier: AssignmentCell1.id, for: indexPath) as! AssignmentCell1
             cell.hideChevronButton = true
             cell.loadData(assignment: event as! Assignment)
             cell.hideLatenessIndicator(hide: true)
             return cell
-        }else{
+        } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:  OtherEventCell.id, for: indexPath) as! OtherEventCell
             cell.loadDataGeneric(
                 primaryText: event.name,
@@ -149,10 +164,12 @@ extension CalendarViewController: UITableViewDelegate{
         }
     }
     
+    //TODO: Docstrings
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    //TODO: Docstrings
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }

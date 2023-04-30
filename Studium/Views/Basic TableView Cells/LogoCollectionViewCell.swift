@@ -8,13 +8,16 @@
 
 import UIKit
 
+//TODO: Docstrings
 class LogoCollectionViewCell: UICollectionViewCell {
 
+    //TODO: Docstrings
     @IBOutlet weak var imageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
+    //TODO: Docstrings
     func setImage(systemIcon: SystemIcon, tintColor: UIColor){
         imageView.tintColor = tintColor
         imageView.image = systemIcon.createImage()

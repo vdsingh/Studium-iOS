@@ -10,21 +10,22 @@ import UIKit
 import SwipeCellKit
 import RealmSwift
 
-
+//TODO: Docstrings
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
-    var debug: Bool {false}
+    var debug: Bool { false }
     
+    //TODO: Docstrings
     var rightActions = [SwipeAction]()
+    
+    //TODO: Docstrings
     var leftActions = [SwipeAction]()
 
 
     var swipeCellId: String = "SwipeCell"
-    
-    override func viewDidLoad() {
 
-    }
-    
     //MARK: - TableView Data Source Methods
+    
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         printDebug("will try to dequeue a SwipeTableViewCell with id: \(self.swipeCellId)")
         if let cell = tableView.dequeueReusableCell(withIdentifier:  self.swipeCellId, for: indexPath) as? SwipeTableViewCell {
@@ -35,12 +36,14 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         fatalError("$ERR: Couldn't dequeue cell as SwipeTableViewCell")
     }
     
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return K.populatedHeaderHeight
     }
-
     
     //MARK: - Swipe Cell Delegate
+    
+    //TODO: Docstrings
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         if orientation == .right{
             return self.rightActions
@@ -49,6 +52,7 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         }
     }
     
+    //TODO: Docstrings
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
         var options = SwipeTableOptions()
         if orientation == .right {

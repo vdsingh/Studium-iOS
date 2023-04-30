@@ -7,10 +7,13 @@
 //
 
 import UIKit
+
+//TODO: Docstrings
 protocol FormCellProtocol {
     static var id: String { get }
 }
 
+//TODO: Docstrings
 class BasicCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
