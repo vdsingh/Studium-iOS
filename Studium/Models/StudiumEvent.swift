@@ -17,6 +17,7 @@ protocol DaySchedulable {
     var scheduleDisplayColor: UIColor { get }
 }
 
+//TODO: Docstrings
 class StudiumEvent: Object, DaySchedulable {
 
     /// id of the StudiumEvent
@@ -33,38 +34,42 @@ class StudiumEvent: Object, DaySchedulable {
     
     /// The associated additional details of the StudiumEvent
     @Persisted var additionalDetails: String = ""
-
-    //TODO: Docstrings
+    
+    /// The start date of the event
     @Persisted var startDate: Date = Date()
     
-    
+    /// The end date of the event
     @Persisted var endDate: Date = Date()
-    
     
     // MARK: - Private Persisted Variables
     
     /// The Hex value of the associated color
     @Persisted private var colorHex: String = "ffffff"
     
+    /// A String representing the raw value of the logo associated with the event
     @Persisted private var logoString: String = SystemIcon.book.rawValue
     
+    /// Raw representation of the alert times for this event
     @Persisted private var alertTimesRaw = List<AlertOption.RawValue>()
     
-    @Persisted var notificationIdentifiersList = List<String>()
-    
+    /// Raw representation of the notification IDs for this event
+    @Persisted private var notificationIdentifiersList = List<String>()
     
     // MARK: - Computed Variables
     
+    /// The color for the event
     var color: UIColor {
         get { return UIColor(hexString: self.colorHex) ?? .black }
         set { self.colorHex = newValue.hexValue() }
     }
     
+    /// The icon for the event
     var logo: SystemIcon {
         get { return SystemIcon(rawValue: self.logoString) ?? .book }
         set { self.logoString = newValue.rawValue }
     }
     
+    /// The alert times for the event
     var alertTimes: [AlertOption] {
         get { return self.alertTimesRaw.compactMap { AlertOption(rawValue: $0) } }
         set {
@@ -73,6 +78,7 @@ class StudiumEvent: Object, DaySchedulable {
         }
     }
     
+    /// The notification IDs for the event
     var notificationIdentifiers: [String] {
         get { return [String](self.notificationIdentifiersList) }
         set {
@@ -81,21 +87,22 @@ class StudiumEvent: Object, DaySchedulable {
         }
     }
     
+    /// The total length of the event in minutes (calculated using the start and end date)
     var totalLengthMinutes: Int {
         let diffComponents = Calendar.current.dateComponents([.minute], from: self.startDate, to: self.endDate)
-//        endDate.minutes(from: startDate)
         if let minutes = diffComponents.minute {
             if minutes < 0 {
                 fatalError("$ERR (StudiumEvent): negative minutes")
             }
+            
             return minutes
         }
         
         print("$ERR (StudiumEvent): Couldn't get total length minutes from start and end date. returning 0")
         return 0
-//        startDate.minutes
     }
     
+    //TODO: Docstrings
     convenience init(
         name: String,
         location: String,
@@ -141,37 +148,35 @@ class StudiumEvent: Object, DaySchedulable {
             event.endDate = endDate
             event.notes = additionalDetails
 
-            do{
+            do {
                 try store.save(event, span: EKSpan.futureEvents, commit: true)
-            }catch let error as NSError{
+            } catch let error as NSError {
                 print("$ERR: Failed to save event. Error: \(error)")
             }
         }
     }
     
+    /// Sets the start and end dates for the event
+    /// - Parameters:
+    ///   - startDate: The start date of the event
+    ///   - endDate: The end date of the event
     func setDates(startDate: Date, endDate: Date) {
         self.startDate = startDate
         self.endDate = endDate
     }
     
+    /// Sets the ID of the event
+    /// - Parameter newID: The new ID of the event
     func setID(_ newID: ObjectId) {
         self._id = newID
     }
     
-    //TODO: Fix and abstract to a notification Layer
-//    func deleteNotifications(){
-//        var identifiers: [String] = []
-//        for id in notificationIdentifiers{
-//            identifiers.append(id)
-//        }
-//        notificationIdentifiers.removeAll()
-//        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
-//    }
-    
+    //TODO: Docstrings
     var scheduleDisplayString: String {
         return "\(self.startDate.format(with: "h:mm a")) - \(self.endDate.format(with: "h:mm a")): \(self.name)"
     }
     
+    //TODO: Docstrings
     var scheduleDisplayColor: UIColor {
         return self.color
     }

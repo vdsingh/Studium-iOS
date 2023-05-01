@@ -193,7 +193,12 @@ final class AutoscheduleService {
         }
     }
     
-    //TODO: docstring
+    /// Finds all of the dates for certain weekdays between two dates
+    /// - Parameters:
+    ///   - startDate: The start bound for the range
+    ///   - endDate: The end bound for the range
+    ///   - weekdays: The days that we're looking for
+    /// - Returns: An array of Date objects which represent applicable days
     func findAllApplicableDatesBetween(startDate: Date, endDate: Date, weekdays: Set<Weekday>) -> [Date] {
         var resultDates = [Date]()
         let calendar = Calendar.current

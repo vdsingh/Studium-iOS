@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+// TODO: Docstrings
 //this controls the page that the user sees in the beginning, when they must enter what times they wake up at.
 class WakeUpIntroController: UIViewController {
     
@@ -17,8 +18,11 @@ class WakeUpIntroController: UIViewController {
     //reference to defaults - that is where we will be storing the time data for when the user wakes up
     let defaults = UserDefaults.standard
     
+    // TODO: Docstrings
     //reference to certain UIKit elements that we need access to.
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
+    // TODO: Docstrings
     @IBOutlet var dayButtons: Array<UIButton>?
     
     @IBOutlet weak var sunLabel: UILabel!
@@ -29,32 +33,46 @@ class WakeUpIntroController: UIViewController {
     @IBOutlet weak var friLabel: UILabel!
     @IBOutlet weak var satLabel: UILabel!
     
+    // TODO: Docstrings
     @IBOutlet var weekdayLabels: Array<UILabel>?
     
+    // TODO: Docstrings
     @IBOutlet weak var timePickerContainer: UIView!
+    
+    // TODO: Docstrings
     @IBOutlet weak var timePicker: UIDatePicker!
     
+    // TODO: Docstrings
     @IBOutlet weak var nextButton: UIButton!
     
+    // TODO: Docstrings
     var selectedDay: UIButton?
     
+    // TODO: Docstrings
     @IBOutlet weak var secondaryBackground: UIView!
     
     //dictionaries that help keep the data organized
     
+    // TODO: Docstrings
     //the String is the day (e.g: "Sun") and the Date is the wake up time
     var times: [String: Date] = [:]
     
+    // TODO: Docstrings
     //the String is the day (e.g: "Sun") and the UILabel is a reference to the label that it corresponds to
     var labels: [String: UILabel] = [:]
+    
+    // TODO: Docstrings
     var dayLabels: [String: UILabel] = [:]
     
+    // TODO: Docstrings
     //boolean that tells whether the user wakes up at different times depending on the day.
     var differentTimes: Bool = true
     
+    // TODO: Docstrings
     let tintColor: UIColor = StudiumColor.primaryAccent.uiColor
+    
+    // TODO: Docstrings
     let labelColor: UIColor = StudiumColor.primaryLabel.uiColor
-
     
     override func viewDidLoad() {
         
@@ -103,6 +121,7 @@ class WakeUpIntroController: UIViewController {
         selectSunday()
     }
     
+    // TODO: Docstrings
     //function that is called when the user switches between whether they wake up at different times or at the same time.
     @IBAction func habitChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0{ //different times
@@ -136,6 +155,7 @@ class WakeUpIntroController: UIViewController {
         }
     }
     
+    // TODO: Docstrings
     //function that is called when the user selects a day button
     @IBAction func dayButtonPressed(_ sender: UIButton) {
         selectedDay = sender
@@ -153,6 +173,7 @@ class WakeUpIntroController: UIViewController {
         }
     }
     
+    // TODO: Docstrings
     //function that is called when the user edits a timePicker
     @IBAction func timePickerChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
@@ -175,6 +196,7 @@ class WakeUpIntroController: UIViewController {
         
     }
     
+    // TODO: Docstrings
     //selects Sunday
     func selectSunday(){
         for day in dayButtons!{ //select sunday at start
@@ -190,6 +212,7 @@ class WakeUpIntroController: UIViewController {
         }
     }
     
+    // TODO: Docstrings
     //function called when the user is finished and wants to move on
     @IBAction func nextPressed(_ sender: UIButton) {
         storeData()
@@ -197,6 +220,7 @@ class WakeUpIntroController: UIViewController {
         performSegue(withIdentifier: "toMain", sender: self)
     }
     
+    // TODO: Docstrings
     //function that stores the data in UserDefaults
     func storeData(){
         printDebug("Storing data for Wake Up Times")

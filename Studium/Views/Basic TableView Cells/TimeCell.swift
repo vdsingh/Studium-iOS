@@ -14,19 +14,19 @@ class TimeCell: BasicCell {
     //TODO: Docstrings
     public var formCellID: FormCellID.TimeCell?
 
-    //TODO: Docstrings
+    /// Label usually used to display what the date represents (ex: "start time")
     @IBOutlet weak var label: UILabel!
     
-    //TODO: Docstrings
+    /// Label that displays a date
     @IBOutlet weak var timeLabel: UILabel!
     
-    //TODO: Docstrings
+    /// The date that we want to display
     private var date: Date!
     
-    //TODO: Docstrings
+    /// The format that we want to use to display the date
     private var dateFormat: DateFormat!
     
-    //TODO: Docstrings
+    /// The mode of the date picker
     private var timePickerMode: UIDatePicker.Mode!
 
     override func awakeFromNib() {

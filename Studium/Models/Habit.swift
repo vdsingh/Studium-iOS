@@ -9,22 +9,21 @@
 import Foundation
 import RealmSwift
 
+//TODO: Docstrings
 class Habit: RecurringStudiumEvent, Autoscheduleable {    
     
+    //TODO: Docstrings
     var scheduledEvents: [Habit] = []
     
-    
-    //Autoschedule elements for a Habit object
-    @Persisted var autoschedule: Bool = false //will this habit be scheduled automatically
-    @Persisted var startEarlier: Bool = true //will this habit be scheduled earlier or later.
-    
-    //Time elements for a Habit object. 
+    // MARK: - Autoscheduleable Variables
+    @Persisted var autoschedule: Bool = false
     @Persisted var autoLengthMinutes: Int = 60
-
-//    @Persisted var systemImageString: String = "pencil"
-
+    @Persisted var startEarlier: Bool = true
+    
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
+    
+    //TODO: Docstrings
     convenience init(
         name: String,
         location: String,
@@ -53,5 +52,4 @@ class Habit: RecurringStudiumEvent, Autoscheduleable {
         self._partitionKey = partitionKey
 
     }
-    
 }

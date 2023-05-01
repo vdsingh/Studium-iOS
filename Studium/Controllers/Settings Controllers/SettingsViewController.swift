@@ -13,23 +13,32 @@ import EventKit
 import GoogleSignIn
 
 class SettingsViewController: UITableViewController, AlertInfoStorer {
+    
+    //TODO: Docstrings
     var alertTimes: [AlertOption] = []
     
+    //TODO: Docstrings
     var realm: Realm! //Link to the realm where we are storing information
+    
+    //TODO: Docstrings
     let app = App(id: Secret.appID)
     
-    //reference to defaults
+    /// reference to defaults
     let defaults = UserDefaults.standard
     
+    //TODO: Docstrings
     let cellData: [[String]] = [["Theme", "Set Default Notifications", "Reset Wake Up Times"],
                                 ["Sync to Apple Calendar"],
                                 ["Delete All Assignments","Delete Completed Assignments",  "Delete All Other Events", "Delete All Completed Other Events"],
                                 ["Email", "Sign Out"]]
+    
+    //TODO: Docstrings
     let cellLinks: [[String]] = [["toThemePage","toAlertSelection", "toWakeUpTimes", ""],
                                 [""],
                                 ["", "", "", ""],
                                 ["", "toLoginScreen"]]
     
+    //TODO: Docstrings
     let alertData: [[String]] = [
         ["Delete All Assignments", "Are you sure you want to delete all assignments? You can't undo this action."],
         ["Delete Completed Assignments", "Are you sure you want to delete all completed assignments? You can't undo this action."],
@@ -69,12 +78,13 @@ class SettingsViewController: UITableViewController, AlertInfoStorer {
     
     }
 
-    
+    //TODO: Docstrings
     func processAlertTimes() {
         print("$LOG (SettingsViewController): Setting values for default notification times")
         defaults.setValue(alertTimes, forKey: K.defaultNotificationTimesKey)
     }
     
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         cell?.backgroundColor = StudiumColor.secondaryBackground.uiColor
@@ -86,17 +96,22 @@ class SettingsViewController: UITableViewController, AlertInfoStorer {
         return cell!
     }
     
+    //TODO: Docstrings
     override func numberOfSections(in tableView: UITableView) -> Int {
         return cellData.count
     }
     
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellData[section].count
     }
     
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
+    
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 0
@@ -105,6 +120,7 @@ class SettingsViewController: UITableViewController, AlertInfoStorer {
         return K.emptyHeaderHeight
     }
     
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if cellLinks[indexPath.section][indexPath.row] != ""{
             performSegue(withIdentifier: cellLinks[indexPath.section][indexPath.row], sender: self)

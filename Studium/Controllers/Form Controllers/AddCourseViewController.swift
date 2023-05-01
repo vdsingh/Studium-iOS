@@ -7,24 +7,32 @@ import EventKit
 
 /// Makes sure that the course list can refresh when a new course is added
 protocol CourseRefreshProtocol {
+    
+    // TODO: Docstrings
     func loadCourses()
 }
 
+// TODO: Docstrings
 class AddCourseViewController: MasterForm {
     
+    // TODO: Docstrings
     let codeLocationString = "AddCourseViewController"
     
+    // TODO: Docstrings
     var course: Course?
     
     /// reference to the list that is to be refreshed when a new course is added.
     var delegate: CourseRefreshProtocol?
     
+    // TODO: Docstrings
     override var debug: Bool {
         true
     }
         
+    // TODO: Docstrings
     @IBOutlet weak var navButton: UIBarButtonItem!
 
+    // TODO: Docstrings
     override func viewDidLoad() {
        
         self.setCells()
@@ -50,6 +58,7 @@ class AddCourseViewController: MasterForm {
         }
     }
     
+    // TODO: Docstrings
     func setCells() {
         self.cells = [
             [
@@ -136,25 +145,33 @@ class AddCourseViewController: MasterForm {
         return errors
     }
     
-    //handles when the user wants to cancel their form
+    // TODO: Docstrings
+    /// handles when the user wants to cancel their form
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
 }
 
 //MARK: - TableView DataSource
-extension AddCourseViewController{
+
+// TODO: Docstrings
+extension AddCourseViewController {
+    
+    // TODO: Docstrings
     override func numberOfSections(in tableView: UITableView) -> Int {
         return cells.count
     }
     
+    // TODO: Docstrings
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells[section].count
     }
 }
 
+// TODO: Docstrings
 extension AddCourseViewController: UITextFieldDelegateExt {
     
+    // TODO: Docstrings
     func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
             print("$ERR: sender's text is nil when editing text in \(textFieldID).\n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
@@ -172,20 +189,29 @@ extension AddCourseViewController: UITextFieldDelegateExt {
     }
 }
 
+// TODO: Docstrings
 extension AddCourseViewController: DaySelectorDelegate {
+    
+    // TODO: Docstrings
     func updateDaysSelected(weekdays: Set<Weekday>) {
         self.daysSelected = weekdays
         printDebug("Updated Selected Days: \(self.daysSelected)")
     }
 }
 
-extension AddCourseViewController: ColorDelegate{
+// TODO: Docstrings
+extension AddCourseViewController: ColorDelegate {
+    
+    // TODO: Docstrings
     func colorPickerValueChanged(sender: RadialPaletteControl) {
         color = sender.selectedColor
     }
 }
 
+// TODO: Docstrings
 extension AddCourseViewController {
+    
+    // TODO: Docstrings
     func fillForm(with course: Course) {
         printDebug("Filling Add Course form with course: \(course)")
         tableView.reloadData()

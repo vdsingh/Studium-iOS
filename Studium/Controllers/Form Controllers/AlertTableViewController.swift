@@ -67,24 +67,34 @@ enum AlertOption: Int, CaseIterable {
     }
 }
 
-protocol AlertInfoStorer{
+// TODO: Docstrings
+protocol AlertInfoStorer {
+    
+    // TODO: Docstrings
     var alertTimes: [AlertOption] { get set }
+    
+    // TODO: Docstrings
     func processAlertTimes()
 }
 
+// TODO: Docstrings
 class AlertTableViewController: UITableViewController {
+    
+    // TODO: Docstrings
     var delegate: AlertInfoStorer?
     
     //what the user sees in the tableview
 
+    // TODO: Docstrings
     let alertOptions = AlertOption.allCases
     //the corresponding number of minutes
 //    var times: [Int] = [0, 5, 10, 15, 30, 60, 120, 240, 480, 1440]
     
     
 //    var checked: [AlertBool] = [false,false,false,false,false,false,false,false,false,false]
-    
+    // TODO: Docstrings
     var alertTimes: [Int] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
@@ -103,6 +113,7 @@ class AlertTableViewController: UITableViewController {
         tableView.tableFooterView = UIView()
     }
     
+    // TODO: Docstrings
     //when the user presses the back button we update data appropriately
     override func viewWillDisappear(_ animated: Bool) {
 //        super.viewWillDisappear(animated)
@@ -116,18 +127,21 @@ class AlertTableViewController: UITableViewController {
 //        delegate!.processAlertTimes()
     }
     
-    // MARK: - Table view data source
+    // MARK: - TableView data source
     
+    // TODO: Docstrings
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
+    // TODO: Docstrings
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return alertOptions.count
     }
     
+    // TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let alertOption = alertOptions[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: LabelCell.id, for: indexPath) as! LabelCell
@@ -142,6 +156,7 @@ class AlertTableViewController: UITableViewController {
         return cell
     }
     
+    // TODO: Docstrings
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedAlertOption = self.alertOptions[indexPath.row]
         let cell = tableView.cellForRow(at: indexPath)
@@ -158,6 +173,7 @@ class AlertTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    // TODO: Docstrings
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }

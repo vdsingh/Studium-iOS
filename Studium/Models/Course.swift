@@ -9,17 +9,20 @@
 import Foundation
 import RealmSwift
 
+// TODO: Docstrings
 class Course: RecurringStudiumEvent {
-//    @Persisted var systemImageString: String = SystemIcon.pencil.rawValue
     
     /// List of the assignments for the course.
     private let assignmentsList = List<Assignment>()
     
+    // TODO: Docstrings
     var assignments: [Assignment] {
         return [Assignment](assignmentsList)
     }
 
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
+    
+    // TODO: Docstrings
     convenience init (
         name: String,
         color: UIColor,
@@ -33,7 +36,6 @@ class Course: RecurringStudiumEvent {
         partitionKey: String
     ) {
         self.init()
-//        super.i
         self.name = name
         self.color = color
         self.location = location
@@ -41,29 +43,20 @@ class Course: RecurringStudiumEvent {
         self.startDate = startDate
         self.endDate = endDate
         self.logo = logo
-//        self.systemImageString = systemImageString
         self._partitionKey = partitionKey
-//        self.
         self.alertTimes = notificationAlertTimes
         
         self.days = days
-//        self.notificationAlertTimes.removeAll()
-//        for time in notificationAlertTimes{
-//            self.notificationAlertTimes.append(time)
-//        }
-        
-//        self.days.removeAll()
-//        for day in days{
-//            self.days.append(day)
-//        }
     }
     
     // MARK: - Public Functions
     
+    // TODO: Docstrings
     func appendAssignment(_ assignment: Assignment) {
         self.assignmentsList.append(assignment)
     }
     
+    // TODO: Docstrings
     func setValues(
         name: String? = nil,
         color: UIColor? = nil,
@@ -74,6 +67,5 @@ class Course: RecurringStudiumEvent {
         if let color = color { self.color = color }
         if let location = location { self.location = location }
         if let additionalDetails = additionalDetails { self.name = additionalDetails }
-
     }
 }

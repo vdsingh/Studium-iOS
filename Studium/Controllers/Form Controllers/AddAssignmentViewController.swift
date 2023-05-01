@@ -2,12 +2,14 @@ import Foundation
 import UIKit
 import RealmSwift
 
-
 //TODO: Docstring
 protocol AssignmentRefreshProtocol {
+    
+    // TODO: Docstrings
     func reloadData()
 }
 
+// TODO: Docstrings
 class AddAssignmentViewController: MasterForm {
     
     override var debug: Bool {
@@ -28,13 +30,11 @@ class AddAssignmentViewController: MasterForm {
     
     //variables that hold the total length of the habit.
     
-    
+    // TODO: Docstrings
     var scheduleWorkTime: Bool = false
     
-    
+    // TODO: Docstrings
     var workDaysSelected = Set<Weekday>()
-    //    var workTimeHours = 1
-    //    var workTimeMinutes = 0
     
     
     /// a list of courses so that the user can pick which course the assignment is attached to
@@ -46,6 +46,7 @@ class AddAssignmentViewController: MasterForm {
     /// The course that the user selected for this assignment
     var selectedCourse: Course!
     
+    // TODO: Docstrings
     @IBOutlet weak var navButton: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -102,6 +103,7 @@ class AddAssignmentViewController: MasterForm {
         }
     }
     
+    // TODO: Docstrings
     func setCells() {
         self.cells = [
             [
@@ -250,7 +252,10 @@ class AddAssignmentViewController: MasterForm {
     }
 }
 
-extension AddAssignmentViewController{
+// TODO: Docstrings
+extension AddAssignmentViewController {
+    
+    // TODO: Docstrings
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? AlertTableViewController {
             destinationVC.delegate = self
@@ -260,9 +265,11 @@ extension AddAssignmentViewController{
 
 //MARK: - Cell DataSource and Delegates
 
+// TODO: Docstrings
 extension AddAssignmentViewController: UITextFieldDelegateExt {
     
     //TODO: Implement IDs here
+    // TODO: Docstrings
     func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
             print("$ERR (AddAssignmentViewController): sender's text was nil. File: \(#file), Function: \(#function), Line: \(#line)")
@@ -306,6 +313,8 @@ extension AddAssignmentViewController: UITextFieldDelegateExt {
 //}
 
 //MARK: - Picker Delegate Methods
+
+// TODO: Docstrings
 extension AddAssignmentViewController {
     //helps set up information in the UIPickerView
     //    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -319,6 +328,8 @@ extension AddAssignmentViewController {
     //        }
     //        return "Unknown Picker"
     //    }
+    
+    // TODO: Docstrings
     override func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         switch pickerView.tag {
         case FormCellID.PickerCell.coursePickerCell.rawValue:
@@ -345,7 +356,10 @@ extension AddAssignmentViewController {
     }
 }
 
+// TODO: Docstrings
 extension AddAssignmentViewController: CanHandleSwitch {
+    
+    // TODO: Docstrings
     func switchValueChanged(sender: UISwitch) {
         printDebug("Switch value changed")
         self.scheduleWorkTime = sender.isOn
@@ -364,7 +378,8 @@ extension AddAssignmentViewController: CanHandleSwitch {
     }
 }
 
-extension AddAssignmentViewController: CanHandleInfoDisplay{
+// TODO: Docstrings
+extension AddAssignmentViewController: CanHandleInfoDisplay {
     func displayInformation() {
         let alert = UIAlertController(
             title: "Autoscheduling",
@@ -385,6 +400,7 @@ extension AddAssignmentViewController: CanHandleInfoDisplay{
     }
 }
 
+// TODO: Docstrings
 extension AddAssignmentViewController: DaySelectorDelegate {
     func updateDaysSelected(weekdays: Set<Weekday>) {
         self.workDaysSelected = weekdays

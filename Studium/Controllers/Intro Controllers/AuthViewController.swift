@@ -12,12 +12,16 @@ import FBSDKLoginKit
 import GoogleSignIn
 import RealmSwift
 
+// TODO: Docstrings
 class AuthViewController: UIViewController {
+    
     let debug = false
     var codeLocationString: String = "FBAndGoogleAuthViewController"
     
+    // TODO: Docstrings
     var sender: Any? = AuthViewController.self
 
+    // TODO: Docstrings
     @IBAction func handleLoginAsGuest(){
         let app = App(id: Secret.appID)
         let client = app.emailPasswordAuth

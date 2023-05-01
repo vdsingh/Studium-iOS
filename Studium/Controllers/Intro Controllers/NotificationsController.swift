@@ -15,6 +15,7 @@ class NotificationsController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         
     }
+    
     override func viewDidLoad() {
         
         

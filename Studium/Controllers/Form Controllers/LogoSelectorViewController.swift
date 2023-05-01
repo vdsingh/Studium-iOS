@@ -7,16 +7,30 @@
 //
 
 import UIKit
+
+// TODO: Docstrings
 protocol LogoStorer {
-    var logo: SystemIcon { get set}
+    
+    // TODO: Docstrings
+    var logo: SystemIcon { get set }
+    
+    // TODO: Docstrings
     func refreshLogoCell()
 }
 
+// TODO: Docstrings
 class LogoSelectorViewController: UIViewController {
+    
+    // TODO: Docstrings
     var delegate: LogoStorer?
+    
+    // TODO: Docstrings
     var color: UIColor = StudiumColor.background.uiColor
+    
+    // TODO: Docstrings
     @IBOutlet weak var collectionView: UICollectionView!
     
+    // TODO: Docstrings
     var logos: [SystemIcon] = SystemIcon.allCases
     //logos available if OS is less than 14
 //    var systemCourseLogoNames: [String] = ["plus", "minus", "multiply", "divide","function", "pencil", "folder", "book", "film", "lightbulb", "tv"]
@@ -37,7 +51,10 @@ class LogoSelectorViewController: UIViewController {
     }
 }
 
-extension LogoSelectorViewController: UICollectionViewDelegate{
+// TODO: Docstrings
+extension LogoSelectorViewController: UICollectionViewDelegate {
+    
+    // TODO: Docstrings
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        var logoNames = systemCourseLogoNames + systemHabitLogoNames;
 //        if #available(iOS 14.0, *) {
@@ -52,7 +69,10 @@ extension LogoSelectorViewController: UICollectionViewDelegate{
     }
 }
 
-extension LogoSelectorViewController: UICollectionViewDataSource{
+// TODO: Docstrings
+extension LogoSelectorViewController: UICollectionViewDataSource {
+    
+    // TODO: Docstrings
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        if #available(iOS 14.0, *){
 //            return iOS14SystemLogoNames.count + letterAndNumberNames.count + systemCourseLogoNames.count + systemHabitLogoNames.count
@@ -62,6 +82,7 @@ extension LogoSelectorViewController: UICollectionViewDataSource{
         return self.logos.count
     }
     
+    // TODO: Docstrings
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //        var logoNames = systemCourseLogoNames + systemHabitLogoNames;
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LogoCollectionViewCell.id, for: indexPath) as? LogoCollectionViewCell {
@@ -78,6 +99,7 @@ extension LogoSelectorViewController: UICollectionViewDataSource{
     }
 }
 
+// TODO: Docstrings
 extension LogoSelectorViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 60, height: 60)

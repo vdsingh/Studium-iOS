@@ -10,7 +10,6 @@ import UIKit
 import RAMAnimatedTabBarController
 
 //TODO: Delete
-//
 class TabBarController: RAMAnimatedTabBarController {
     
     override func viewDidLoad() {

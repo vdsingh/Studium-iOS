@@ -11,26 +11,23 @@ import UIKit
 //TODO: Docstrings
 class LogoCell: BasicCell {
     
-    //TODO: Docstrings
+    /// ImageView for the logo
     @IBOutlet weak var logoImageView: UIImageView!
     
-    //TODO: Docstrings
+    /// Label
     @IBOutlet weak var label: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        self.backgroundColor = StudiumColor.secondaryBackground.uiColor
         self.label.textColor = StudiumColor.primaryLabel.uiColor
         self.logoImageView.tintColor = StudiumColor.primaryAccent.uiColor
     }
     
-    //TODO: Docstrings
+    /// Sets the logo image
+    /// - Parameter systemIcon: The logo image to display
     func setImage(systemIcon: SystemIcon) {
-//        let image = UIImage(systemName: systemImageName)
-//        logoImageView.tintColor = .red
         logoImageView.image = systemIcon.createImage()
     }
-    
 }
 
 extension LogoCell: FormCellProtocol {

@@ -10,7 +10,10 @@ import UIKit
 import RealmSwift
 import SwiftUI
 
+// TODO: Docstrings
 protocol ToDoListRefreshProtocol {
+    
+    // TODO: Docstrings
     func reloadData()
 }
 
@@ -23,6 +26,7 @@ class AddToDoListEventViewController: MasterForm {
     /// link to the list of OtherEvents, so that when a new ToDo Event is created, the list refreshes.
     var delegate: ToDoListRefreshProtocol?
     
+    // TODO: Docstrings
     @IBOutlet weak var navButton: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -44,6 +48,7 @@ class AddToDoListEventViewController: MasterForm {
         }
     }
     
+    // TODO: Docstrings
     func setCells() {
         self.cells = [
             [
@@ -65,6 +70,7 @@ class AddToDoListEventViewController: MasterForm {
         ]
     }
     
+    // TODO: Docstrings
     //function that is called when the user wants to finish editing in the form and create the new object.
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         self.errors = self.findErrors()
@@ -108,11 +114,13 @@ class AddToDoListEventViewController: MasterForm {
         return errors
     }
     
+    // TODO: Docstrings
     /// cancel the form
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
     
+    // TODO: Docstrings
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? AlertTableViewController{
             destinationVC.delegate = self
@@ -120,7 +128,10 @@ class AddToDoListEventViewController: MasterForm {
     }
 }
 
-extension AddToDoListEventViewController: UITextFieldDelegateExt{
+// TODO: Docstrings
+extension AddToDoListEventViewController: UITextFieldDelegateExt {
+    
+    // TODO: Docstrings
     func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
             print("$ ERROR: sender's text was nil. \nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
@@ -138,8 +149,11 @@ extension AddToDoListEventViewController: UITextFieldDelegateExt{
     }
 }
 
-extension AddToDoListEventViewController{
-    func fillForm(with otherEvent: OtherEvent){
+// TODO: Docstrings
+extension AddToDoListEventViewController {
+    
+    // TODO: Docstrings
+    func fillForm(with otherEvent: OtherEvent) {
         print("$ LOG: fillform called in AddToDoListEventController")
         navButton.image = .none
         navButton.title = "Done"
@@ -170,7 +184,10 @@ extension AddToDoListEventViewController{
     }
 }
 
+// TODO: Docstrings
 extension AddToDoListEventViewController {
+    
+    // TODO: Docstrings
     private func isAssignmentClicked() {
         let courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
         if courses.count != 0 {

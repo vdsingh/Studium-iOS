@@ -11,24 +11,23 @@ import EventKit
 import CalendarKit
 import RealmSwift
 
+/// Protocol for StudiumEvents that can be autoscheduled
 protocol Autoscheduleable: StudiumEvent {
+    
+    /// The amount of time (in minutes) that autoscheduled events should be scheduled for
     var autoLengthMinutes: Int { get set }
     
-//    var autoDays: List<Int> {get set}
-    
+    /// Whether or not this event should be autoscheduled
     var autoschedule: Bool { get set }
-    
-//    func autoscheduleTime(endDate: Date, autoDays: [Int], autoLengthMinutes: Int)
-//    dynamic var scheduledEvents: List<StudiumEvent> {get set}
-    
-    
 }
 
-//TODO: Docstrings
+/// Represents StudiumEvents that repeat
 class RecurringStudiumEvent: StudiumEvent {
+    
+    /// Represents the days as ints for which this event occurs on
     internal var daysList = List<Int>()
     
-    //TODO: Docstring
+    /// Represents the days for which this event occurs on
     var days: Set<Weekday> {
         get {
             return Set<Weekday>( daysList.compactMap { Weekday(rawValue: $0) })
@@ -41,17 +40,21 @@ class RecurringStudiumEvent: StudiumEvent {
         }
     }
     
-    //TODO: Docstring
+    /// Whether or not the event occurs today
     var occursToday: Bool {
-        return self.days.contains(Date().studiumWeekday)
+        return self.occursOn(date: Date())
     }
     
-    //TODO: Docstring
+    /// Whether or not the event occurs on a given date
+    /// - Parameter date: The date that we're checking
+    /// - Returns: Whether or not the event occurs on the date
     func occursOn(date: Date) -> Bool {
         return self.days.contains(date.studiumWeekday)
     }
     
-    //TODO: Docstring
+    /// Returns a TimeChunk for this event on a given date
+    /// - Parameter date: The date for which we want the TimeChunk
+    /// - Returns: a TimeChunk for this event on a given date
     func timeChunkForDate(date: Date) -> TimeChunk? {
         // This event doesn't occur on the date. return nil.
         if !self.occursOn(date: date) {

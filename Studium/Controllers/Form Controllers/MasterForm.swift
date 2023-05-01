@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-//import RealmSwift
 
 //TODO: Move to separate file
 
@@ -24,16 +23,18 @@ let kNormalCellHeight: CGFloat = 50
 
 class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, AlertInfoStorer, LogoStorer, UITimePickerDelegate {
     
-    
+    // TODO: Docstrings
     var debug: Bool {
         false
     }
     
+    // TODO: Docstrings
     var alertTimes: [AlertOption] = []
     
     /// The name for the StudiumEvent being added/edited
     var name: String = ""
     
+    // TODO: Docstrings
     var additionalDetails: String = ""
     
     /// The errors that can occur with adding/editing the StudiumEvent
@@ -42,24 +43,31 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
     /// The days selected for this StudiumEvent
     var daysSelected = Set<Weekday>()
     
+    // TODO: Docstrings
     var color: UIColor = .black
 
-    
+    // TODO: Docstrings
     var logo: SystemIcon = .book
     
+    // TODO: Docstrings
     var location: String = ""
     
-    
+    // TODO: Docstrings
     var startDate: Date = Date()
+    
+    // TODO: Docstrings
     var endDate: Date = Date() + (60*60)
     
 //    var totalLengthHours = 1
+    // TODO: Docstrings
     var totalLengthMinutes = 0
     
+    // TODO: Docstrings
     var cells: [[FormCell]] = [[]]
     
 //    var lengthMinutes: Int = 0
     
+    // TODO: Docstrings
     var lengthPickerIndices: [Int] {
         let hours = self.totalLengthMinutes / 60
         //                    timePickerCell.picker.selectRow(hours, inComponent: 0, animated: true)
@@ -69,9 +77,6 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
         return [hours, minutes]
         
     }
-    
-    
-    private var idCounter = 0
     
     override func viewDidLoad() {
         self.view.backgroundColor = StudiumColor.background.uiColor
@@ -103,20 +108,21 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
         if let times = defaults.value(forKey: K.defaultNotificationTimesKey) as? [Int] {
             self.alertTimes = times.compactMap { AlertOption(rawValue: $0) }
         }
-        
-        
     }
     
+    // TODO: Docstrings
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
+    // TODO: Docstrings
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: K.emptyHeaderHeight))
         
         return headerView
     }
     
+    // TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cells[indexPath.section][indexPath.row]
         switch cell {
@@ -189,6 +195,7 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
         }
     }
     
+    // TODO: Docstrings
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         view.endEditing(true)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -211,6 +218,7 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
         }
     }
     
+    // TODO: Docstrings
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cell = cells[indexPath.section][indexPath.row]
         switch cell{
@@ -223,14 +231,17 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
         }
     }
     
+    // TODO: Docstrings
     override func numberOfSections(in tableView: UITableView) -> Int {
         return cells.count
     }
     
+    // TODO: Docstrings
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells[section].count
     }
     
+    // TODO: Docstrings
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 0
@@ -239,6 +250,7 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
         return K.emptyHeaderHeight
     }
     
+    // TODO: Docstrings
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? LogoSelectorViewController {
             destinationVC.delegate = self
@@ -260,8 +272,7 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
         }
     }
     
-    
-    //when we pick a logo, this function is called to update the preview on the logo cell.
+    /// When we pick a logo, this function is called to update the preview on the logo cell.
     func refreshLogoCell() {
         guard let logoCellIndexPath = self.findFirstLogoCellIndex() else {
             print("$ERR: Can't locate logo cell")
@@ -275,6 +286,7 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
         logoCell.setImage(systemIcon: self.logo)
     }
     
+    // TODO: Docstrings
     func processAlertTimes() {
         
     }
@@ -282,7 +294,10 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
 
 // MARK: - FormCell Searching
 
+// TODO: Docstrings
 extension MasterForm {
+    
+    // TODO: Docstrings
     func findFirstLogoCellIndex() -> IndexPath? {
         for i in 0..<cells.count {
             for j in 0..<cells[i].count {
@@ -298,6 +313,7 @@ extension MasterForm {
         return nil
     }
     
+    // TODO: Docstrings
     func findFirstTimePickerCellIndex(section: Int) -> Int? {
         for i in 0 ..< cells[section].count {
             switch cells[section][i] {
@@ -310,6 +326,7 @@ extension MasterForm {
         return nil
     }
     
+    // TODO: Docstrings
     func findFirstTimeCellWithID(id: FormCellID.TimeCell) -> IndexPath? {
         for i in 0 ..< cells.count {
             for j in 0 ..< cells[i].count {
@@ -330,7 +347,10 @@ extension MasterForm {
 
 // MARK: - FormCell Mutations
 
+// TODO: Docstrings
 extension MasterForm {
+    
+    // TODO: Docstrings
     func replaceLabelText(text: String, section: Int, row: Int) {
         let oldCell = cells[section][row]
         switch oldCell {
@@ -346,6 +366,7 @@ extension MasterForm {
         }
     }
     
+    // TODO: Docstrings
     func timeCellClicked(indexPath: IndexPath) {
         guard let timeCell = tableView.cellForRow(at: indexPath) as? TimeCell else {
             print("$ERR: Time Cell Mismatch.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
@@ -409,6 +430,7 @@ extension MasterForm {
         tableView.endUpdates()
     }
     
+    // TODO: Docstrings
     func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCell) {
         //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
         guard let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as? TimeCell else {
@@ -450,10 +472,12 @@ extension MasterForm {
         correspondingTimeCell.setDate(sender.date)
     }
     
+    // TODO: Docstrings
     func navigateToLogoSelection() {
         self.performSegue(withIdentifier: "toLogoSelection", sender: self)
     }
     
+    // TODO: Docstrings
     func navigateToAlertTimes() {
         self.performSegue(withIdentifier: "toAlertSelection", sender: self)
     }
@@ -467,9 +491,11 @@ extension UIViewController: UITextFieldDelegate{
     }
 }
 
+// TODO: Docstrings
 extension MasterForm: UIPickerViewDelegate {
     //    extension AddHabitViewController: UIPickerViewDelegate{
     
+    // TODO: Docstrings
     //determines the text in each row, given the row and component
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView.tag {
@@ -488,6 +514,7 @@ extension MasterForm: UIPickerViewDelegate {
         }
     }
     
+    // TODO: Docstrings
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let lengthHours = pickerView.selectedRow(inComponent: 0)
         let lengthMinutes = pickerView.selectedRow(inComponent: 1)
@@ -496,8 +523,10 @@ extension MasterForm: UIPickerViewDelegate {
     }
 }
 
-
+// TODO: Docstrings
 extension MasterForm: UIPickerViewDataSource {
+    
+    // TODO: Docstrings
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         switch pickerView.tag {
         case FormCellID.PickerCell.lengthPickerCell.rawValue:
@@ -510,6 +539,7 @@ extension MasterForm: UIPickerViewDataSource {
         }
     }
     
+    // TODO: Docstrings
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView.tag {
         case FormCellID.PickerCell.lengthPickerCell.rawValue:

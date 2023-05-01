@@ -11,13 +11,17 @@ import UIKit
 //TODO: Docstrings
 class LogoCollectionViewCell: UICollectionViewCell {
 
-    //TODO: Docstrings
+    /// ImageView to display the logo
     @IBOutlet weak var imageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    //TODO: Docstrings
+    /// Sets the image for the logo
+    /// - Parameters:
+    ///   - systemIcon: The image that we want to show
+    ///   - tintColor: The color of the image
     func setImage(systemIcon: SystemIcon, tintColor: UIColor){
         imageView.tintColor = tintColor
         imageView.image = systemIcon.createImage()

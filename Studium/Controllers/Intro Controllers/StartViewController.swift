@@ -13,18 +13,31 @@ import GoogleSignIn
 import RealmSwift
 import FBSDKLoginKit
 
+// TODO: Docstrings
 class StartViewController: AuthViewController {
     
+    // TODO: Docstrings
     let app = App(id: Secret.appID)
 
+    // TODO: Docstrings
     @IBOutlet weak var signUpButton: UIButton!
+    
+    // TODO: Docstrings
     @IBOutlet weak var loginButton: UIButton!
+    
+    // TODO: Docstrings
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
 //    @IBOutlet weak var fbViewHolder: UIView!
+    
+    // TODO: Docstrings
     @IBOutlet weak var facebookSignInButton: UIButton!
+    
+    // TODO: Docstrings
     @IBOutlet weak var guestSignInButton: UIButton!
     
+    // TODO: Docstrings
     @IBOutlet weak var mainStackView: UIStackView!
+    
     override func viewDidLoad() {
         signUpButton.layer.cornerRadius = 10
         loginButton.layer.cornerRadius = 10
@@ -70,6 +83,7 @@ class StartViewController: AuthViewController {
 //        mainStackView.insertSubview(loginButton, at: 2)
     }
     
+    // TODO: Docstrings
     override func viewWillAppear(_ animated: Bool) {
         print("StartViewController viewwillappear")
     }

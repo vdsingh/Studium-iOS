@@ -9,12 +9,17 @@
 import Foundation
 import RealmSwift
 
+// TODO: Docstrings
 class OtherEvent: StudiumEvent, CompletableStudiumEvent {
     
     //Specifies whether or not the OtherEvent object is marked as complete or not. This determines where it lies in a tableView and whether or not it's crossed out.
+    
+    // TODO: Docstrings
     @Persisted var complete: Bool = false
     
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
+    
+    // TODO: Docstrings
     func initializeData (
         startDate: Date,
         endDate: Date,
@@ -32,12 +37,9 @@ class OtherEvent: StudiumEvent, CompletableStudiumEvent {
         self._partitionKey = partitionKey
         
         self.alertTimes = notificationAlertTimes
-//        self.notificationAlertTimes.removeAll()
-//        for time in notificationAlertTimes{
-//            self.notificationAlertTimes.append(time)
-//        }
     }
     
+    // TODO: Docstrings
     func initializeData(startDate: Date, endDate: Date, name: String, location: String, additionalDetails: String){
         self.startDate = startDate
         self.endDate = endDate
@@ -45,22 +47,4 @@ class OtherEvent: StudiumEvent, CompletableStudiumEvent {
         self.location = location
         self.additionalDetails = additionalDetails
     }
-    
-    
-    //TODO: Fix and move to diff layer
-//    func updateNotifications(with newAlertTimes: [Int]){
-//        var identifiersForRemoval: [String] = []
-//        for time in notificationAlertTimes{
-//            if !newAlertTimes.contains(time){ //remove the old alert time.
-//                print("\(time) was removed from notifications.")
-//                let index = notificationAlertTimes.firstIndex(of: time)!
-//                notificationAlertTimes.remove(at: index)
-//                identifiersForRemoval.append(notificationIdentifiers[index])
-//                notificationIdentifiers.remove(at: index)
-//            }
-//        }
-//        print("identifiers to be removed: \(identifiersForRemoval)")
-//        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiersForRemoval)
-//
-//    }
 }

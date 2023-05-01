@@ -31,7 +31,7 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
     /// The number of minutes to autoschedule study time
     @Persisted var autoLengthMinutes: Int = 60
     
-    //TODO: Docstring
+    /// The autoscheduled assignments that belong to this assignment
     @Persisted var scheduledEvents: List<Assignment> = List<Assignment>()
     
     var scheduledEventsArr: [Assignment] {
@@ -78,7 +78,8 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         self.parentCourse = parentCourse
     }
     
-    //TODO: Docstring
+    /// Initializer for autoscheduled assignments
+    /// - Parameter parentAssignment: The parent Assignment to which the autoscheduled assignment belongs
     convenience init(parentAssignment: Assignment) {
         self.init()
         self.printDebug("Initializing assignment with parent assignment \(parentAssignment.name), which has autolength minutes \(parentAssignment.autoLengthMinutes)")
@@ -107,9 +108,8 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         self.parentAssignmentID = parentAssignment._id
         self.printDebug("Initialized assignment with start and end \(parentAssignment.name)")
     }
-
     
-    // TODO: Docstring
+    /// The String that is displayed on a schedule view
     override var scheduleDisplayString: String {
         if let course = self.parentCourse {
             return "\(self.endDate.format(with: "h:mm a")): \(self.name) due (\(course.name))"

@@ -10,35 +10,40 @@ import Foundation
 import UIKit
 import ChameleonFramework
 
+// TODO: Docstrings
 class ThemesViewController: UIViewController{
     
+    // TODO: Docstrings
     @IBOutlet weak var tableView: UITableView!
     var themeNames: [[String]] = [["Studium Purple", "Studium Orange"],["Black", "Red", "Orange", "Yellow", "Green", "Teal", "Blue", "Purple"], ["Red/Orange", "Blue", "Blue/Green", "Pink/Purple"]]
+    
+    // TODO: Docstrings
     var colors: [[String]] = [["studiumPurple", "studiumOrange"], ["black", "flatRed","flatOrange","flatYellow","flatGreen","flatTeal", "flatBlue", "flatPurple"], ["redorangeGradient", "blueGradient", "bluegreenGradient", "purplepinkGradient"]]
-    
-    
-//
-    
+
+    // TODO: Docstrings
     var sectionHeaders: [String] = ["Studium Colors", "Muted Colors", "Gradients"]
     override func viewDidLoad() {
         tableView.delegate = self
         tableView.dataSource = self
         
         tableView.register(UINib(nibName: "ThemeCell", bundle: nil), forCellReuseIdentifier: "ThemeCell")
-        
     }
     
+    // TODO: Docstrings
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.prefersLargeTitles = false
-        
     }
 }
 
-extension ThemesViewController: UITableViewDelegate{
+// TODO: Docstrings
+extension ThemesViewController: UITableViewDelegate {
+    
+    // TODO: Docstrings
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
     
+    // TODO: Docstrings
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -54,26 +59,31 @@ extension ThemesViewController: UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    // TODO: Docstrings
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
 }
 
-extension ThemesViewController: UITableViewDataSource{
+// TODO: Docstrings
+extension ThemesViewController: UITableViewDataSource {
     
-    
+    // TODO: Docstrings
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionHeaders[section]
     }
     
+    // TODO: Docstrings
     func numberOfSections(in tableView: UITableView) -> Int {
         return themeNames.count
     }
     
+    // TODO: Docstrings
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return themeNames[section].count
     }
     
+    // TODO: Docstrings
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ThemeCell", for: indexPath) as! ThemeCell
         cell.label.text = themeNames[indexPath.section][indexPath.row]

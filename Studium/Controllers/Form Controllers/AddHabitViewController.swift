@@ -11,14 +11,17 @@ import UIKit
 import RealmSwift
 import FlexColorPicker
 
-
-//guarantees that the Habit list has a method that allows it to refresh.
+/// Guarantees that the Habit list has a method that allows it to refresh.
 protocol HabitRefreshProtocol {
+    
+    // TODO: Docstrings
     func loadHabits()
 }
 
-//Class used to manage the form for adding a Habit. The form is a tableView form, similar to adding an event in
+/// Class used to manage the form for adding a Habit. The form is a tableView form, similar to adding an event in
 class AddHabitViewController: MasterForm {
+    
+    // TODO: Docstrings
     var codeLocationString: String = "Add Habit Form"
     
     /// The habit that we're editing (nil if we're creating a new one)
@@ -35,10 +38,10 @@ class AddHabitViewController: MasterForm {
     
     /// Holders for the cellText and cellType. Basically these hold the above arrays and are used depending on whether the user chooses to use autoschedule or not.
     var cellText: [[String]] = [[]]
-    var cellType: [[FormCell]] = [[]]
     
-//    var times: [Date] = []
-//    var timeCounter = 0
+    // TODO: Docstrings
+    var cellType: [[FormCell]] = [[]]
+
         
     /// Whether or not this habit is being autoscheduled or not
     var autoschedule = false
@@ -46,7 +49,7 @@ class AddHabitViewController: MasterForm {
     /// Whether the user wants this habit to be scheduled earlier or later
     var earlier = true
 
-    
+    // TODO: Docstrings
     @IBOutlet weak var navButton: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -73,6 +76,7 @@ class AddHabitViewController: MasterForm {
         }
     }
     
+    // TODO: Docstrings
     func setCells() {
         self.cellsNoAuto = [
             [
@@ -124,6 +128,7 @@ class AddHabitViewController: MasterForm {
     
     //MARK: - UIElement IBActions
     
+    // TODO: Docstrings
     //final step that occurs when the user finishes the form and adds the habit
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         self.errors = self.findErrors()
@@ -196,13 +201,15 @@ class AddHabitViewController: MasterForm {
         return errors
     }
     
+    // TODO: Docstrings
     //Handles whenever the user decides to cancel.
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
     
-    //MARK: - tableView helpers
+    //MARK: - TableView helpers
     
+    // TODO: Docstrings
     //reset data and reloads tableView
     func reloadData(){
         self.setCells()
@@ -249,14 +256,20 @@ class AddHabitViewController: MasterForm {
 //    }
 //}
 
+
+// TODO: Docstrings
 extension AddHabitViewController: DaySelectorDelegate {
+    
+    // TODO: Docstrings
     func updateDaysSelected(weekdays: Set<Weekday>) {
         self.daysSelected = weekdays
     }
 }
 
-
+// TODO: Docstrings
 extension AddHabitViewController: UITextFieldDelegateExt {
+    
+    // TODO: Docstrings
     func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
         guard let text = sender.text else {
             print("$ERR: sender's text is nil when editing text.")
@@ -274,14 +287,20 @@ extension AddHabitViewController: UITextFieldDelegateExt {
     }
 }
 
-extension AddHabitViewController: ColorDelegate{
+// TODO: Docstrings
+extension AddHabitViewController: ColorDelegate {
+    
+    // TODO: Docstrings
     func colorPickerValueChanged(sender: RadialPaletteControl) {
         color = sender.selectedColor
         print("$LOG: Changed color")
     }
 }
 
+// TODO: Docstrings
 extension AddHabitViewController: SegmentedControlDelegate {
+    
+    // TODO: Docstrings
     func controlValueChanged(sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             earlier = true
@@ -294,6 +313,7 @@ extension AddHabitViewController: SegmentedControlDelegate {
 //MARK: - Switch Delegate
 extension AddHabitViewController: CanHandleSwitch {
     
+    // TODO: Docstrings
     // method triggered when the autoschedule switch is triggered
     func switchValueChanged(sender: UISwitch) {
         if sender.isOn { //auto schedule
@@ -308,7 +328,10 @@ extension AddHabitViewController: CanHandleSwitch {
     }
 }
 
+// TODO: Docstrings
 extension AddHabitViewController: CanHandleInfoDisplay{
+    
+    // TODO: Docstrings
     func displayInformation() {
         let alert = UIAlertController(title: "Autoschedule",
                                       message: "This feature autoschedules time for you! \n\nJust specify what days the habit occurs on and how long the habit lasts. We'll find time for you to get it done! \n\nSome common uses for autoscheduling are finding time for the gym, reading, and studying.",
@@ -320,7 +343,10 @@ extension AddHabitViewController: CanHandleInfoDisplay{
     }
 }
 
+// TODO: Docstrings
 extension AddHabitViewController {
+    
+    // TODO: Docstrings
     func fillForm(with habit: Habit) {
         printDebug("Filling form for habit: \(habit.name)")
         

@@ -51,7 +51,6 @@ class TextFieldCell: BasicCell {
         } else {
             print("$ ERROR: textFieldID not supplied.")
         }
-//        delegate.textEdited(sender: sender)
     }
 }
 
