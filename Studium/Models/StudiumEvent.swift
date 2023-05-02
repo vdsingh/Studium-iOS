@@ -114,7 +114,6 @@ class StudiumEvent: Object, DaySchedulable {
         alertTimes: [AlertOption]
     ) {
         self.init()
-        
         self.name = name
         self.location = location
         self.additionalDetails = additionalDetails
@@ -169,6 +168,32 @@ class StudiumEvent: Object, DaySchedulable {
     /// - Parameter newID: The new ID of the event
     func setID(_ newID: ObjectId) {
         self._id = newID
+    }
+    
+    /// Whether or not the event occurs on a given date
+    /// - Parameter date: The date that we're checking
+    /// - Returns: Whether or not the event occurs on the date
+    func occursOn(date: Date) -> Bool {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day, .month, .year], from: self.startDate)
+        let otherComponents = calendar.dateComponents([.day, .month, .year], from: date)
+        
+        return components.day == otherComponents.day && components.month == otherComponents.month && components.year == otherComponents.year
+    }
+    
+    /// Returns a TimeChunk for this event on a given date
+    /// - Parameter date: The date for which we want the TimeChunk
+    /// - Returns: a TimeChunk for this event on a given date
+    func timeChunkForDate(date: Date) -> TimeChunk? {
+        // This event doesn't occur on the date. return nil.
+        if !self.occursOn(date: date) {
+            return nil
+        }
+        
+//        let startDate = Calendar.current.date(bySettingHour: self.startDate.hour, minute: self.startDate.minute, second: 0, of: date)!
+//        let endDate = Calendar.current.date(bySettingHour: self.endDate.hour, minute: self.endDate.minute, second: 0, of: date)!
+//
+        return TimeChunk(startDate: self.startDate, endDate: self.endDate)
     }
     
     //TODO: Docstrings

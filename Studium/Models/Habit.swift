@@ -86,6 +86,10 @@ class Habit: RecurringStudiumEvent, Autoscheduleable {
     }
     
     func appendScheduledEvent(event: StudiumEvent) {
-        self.scheduledEventsList.append(event)
+        if let event = event as? Assignment {
+            self.scheduledEventsList.append(event)
+        } else {
+            print("$ERR (Assignment): cannot add event \(event.name) to assignments autoscheduled")
+        }
     }
 }
