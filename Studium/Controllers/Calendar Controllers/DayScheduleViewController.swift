@@ -83,7 +83,6 @@ class DayScheduleViewController: DayViewController {
         performSegue(withIdentifier: "toCalendar", sender: self)
     }
     
-    
     //TODO: Docstring
     func createEventsForStudiumEvents(on date: Date) -> [Event] {
         printDebug("createEventsForStudiumEvents called")
@@ -104,7 +103,7 @@ class DayScheduleViewController: DayViewController {
             if let recurringEvent = studiumEvent as? RecurringStudiumEvent {
                 
                 if let recurringEvent = recurringEvent as? Autoscheduleable,
-                   recurringEvent.autoschedule {
+                   recurringEvent.autoscheduling {
 //                    let autoscheduleChunk = AutoscheduleService.shared.findAutoscheduleTimeChunk(dateToScheduleOn: date, startBound: <#T##Date#>, endBound: <#T##Date#>, totalMinutes: <#T##Int#>)
                 } else {
                     

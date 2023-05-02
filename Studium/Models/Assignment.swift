@@ -10,8 +10,8 @@ import Foundation
 import RealmSwift
 
 /// Represents Course Assignments
-class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleable {
-    
+class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleable {    
+        
     let debug = true
 
     /// Specifies whether or not the Assignment object is marked as complete or not
@@ -26,16 +26,34 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
     // MARK: - Variables that track information about scheduling work time.
     
     /// Whether or not scheduling work time is enabled
-    @Persisted var autoschedule: Bool = false
+    @Persisted var autoscheduling: Bool = false
+    
+    //TODO: Docstrings
+    @Persisted var autoscheduled: Bool = false
         
     /// The number of minutes to autoschedule study time
     @Persisted var autoLengthMinutes: Int = 60
     
     /// The autoscheduled assignments that belong to this assignment
-    @Persisted var scheduledEvents: List<Assignment> = List<Assignment>()
+    @Persisted private var scheduledEventsList: List<StudiumEvent> = List<StudiumEvent>()
+    
+    
+//    var scheduledEvents: [StudiumEvent]
+
+    var scheduledEvents: [StudiumEvent] {
+        return [StudiumEvent](self.scheduledEventsList)
+    }
     
     var scheduledEventsArr: [Assignment] {
-        return [Assignment](self.scheduledEvents)
+        var scheduledAssignments = [Assignment]()
+        for event in self.scheduledEventsList {
+            if let assignment = event as? Assignment {
+                scheduledAssignments.append(assignment)
+            } else {
+                print("$ERR (Assigment): A non-Assignment event was added to assignments scheduled events. Event: \(event)")
+            }
+        }
+        return scheduledAssignments
     }
     
     /// Was this an autoscheduled assignment?
@@ -64,7 +82,7 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         self.startDate = startDate
         self.endDate = endDate
         
-        self.autoschedule = autoschedule
+        self.autoscheduling = autoschedule
         self.autoLengthMinutes = autoLengthMinutes
         
         self._partitionKey = partitionKey
@@ -95,7 +113,7 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
             fatalError("Start date is later than end date")
         }
 
-        self.autoschedule = false
+        self.autoscheduling = false
         
         self.autoLengthMinutes = parentAssignment.autoLengthMinutes
         
@@ -116,6 +134,15 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         }
         
         return "\(self.endDate.format(with: "h:mm a")): \(self.name) due"
+    }
+    
+    //TODO: Docstring
+    override func occursOn(date: Date) -> Bool {
+        return self.endDate.occursOn(date: date)
+    }
+    
+    func appendScheduledEvent(event: StudiumEvent) {
+        self.scheduledEventsList.append(event)
     }
 }
 

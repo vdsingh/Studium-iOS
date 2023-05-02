@@ -392,7 +392,7 @@ extension AddHabitViewController {
         self.endDate = habit.endDate
 //        endCell.setDate(endDate)
         
-        self.autoschedule = habit.autoschedule
+        self.autoschedule = habit.autoscheduling
         
         self.totalLengthMinutes = habit.autoLengthMinutes
         

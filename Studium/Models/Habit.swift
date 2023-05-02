@@ -10,14 +10,38 @@ import Foundation
 import RealmSwift
 
 //TODO: Docstrings
-class Habit: RecurringStudiumEvent, Autoscheduleable {    
+class Habit: RecurringStudiumEvent, Autoscheduleable {
     
     //TODO: Docstrings
-    var scheduledEvents: [Habit] = []
     
     // MARK: - Autoscheduleable Variables
-    @Persisted var autoschedule: Bool = false
+    @Persisted var autoscheduling: Bool = false
     @Persisted var autoLengthMinutes: Int = 60
+    @Persisted var autoscheduled: Bool = false
+    
+    @Persisted var scheduledEventsList = List<StudiumEvent>()
+        
+    // TODO: Docstrings
+    var scheduledEvents: [StudiumEvent] {
+        return [StudiumEvent](self.scheduledEventsList)
+    }
+    
+    // TODO: Docstrings
+    var scheduledEventsArr: [Habit] {
+        var scheduledAssignments = [Habit]()
+        for event in self.scheduledEventsList {
+            if let assignment = event as? Habit {
+                scheduledAssignments.append(assignment)
+            } else {
+                print("$ERR (Assigment): A non-Assignment event was added to assignments scheduled events. Event: \(event)")
+            }
+        }
+        return scheduledAssignments
+    }
+
+    
+    
+    
     @Persisted var startEarlier: Bool = true
     
     
@@ -40,7 +64,7 @@ class Habit: RecurringStudiumEvent, Autoscheduleable {
         partitionKey: String
     ) {
         self.init(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, color: color, logo: logo, alertTimes: alertTimes)
-        self.autoschedule = autoschedule
+        self.autoscheduling = autoschedule
         self.startEarlier = startEarlier
         self.autoLengthMinutes = autoLengthMinutes
 //        self.systemImageString = systemImageString
@@ -51,5 +75,17 @@ class Habit: RecurringStudiumEvent, Autoscheduleable {
         
         self._partitionKey = partitionKey
 
+    }
+    
+    override func occursOn(date: Date) -> Bool {
+        if self.autoscheduling {
+            return false
+        } else {
+            return super.occursOn(date: date)
+        }
+    }
+    
+    func appendScheduledEvent(event: StudiumEvent) {
+        self.scheduledEventsList.append(event)
     }
 }

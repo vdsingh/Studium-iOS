@@ -217,7 +217,7 @@ class AddAssignmentViewController: MasterForm {
         
         self.alertTimes = assignment.alertTimes
         
-        self.scheduleWorkTime = assignment.autoschedule
+        self.scheduleWorkTime = assignment.autoscheduling
         if self.scheduleWorkTime {
             
 //            let scheduleWorkCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell

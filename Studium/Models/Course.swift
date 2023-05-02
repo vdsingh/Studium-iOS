@@ -45,7 +45,6 @@ class Course: RecurringStudiumEvent {
         self.logo = logo
         self._partitionKey = partitionKey
         self.alertTimes = notificationAlertTimes
-        
         self.days = days
     }
     

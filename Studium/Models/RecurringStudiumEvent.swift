@@ -17,8 +17,15 @@ protocol Autoscheduleable: StudiumEvent {
     /// The amount of time (in minutes) that autoscheduled events should be scheduled for
     var autoLengthMinutes: Int { get set }
     
-    /// Whether or not this event should be autoscheduled
-    var autoschedule: Bool { get set }
+    /// Whether or not this event is in charge of autoscheduling other events
+    var autoscheduling: Bool { get set }
+    
+    //TODO: Docstrings
+    var autoscheduled: Bool { get set }
+    
+    var scheduledEvents: [StudiumEvent] { get }
+    
+    func appendScheduledEvent(event: StudiumEvent) 
 }
 
 /// Represents StudiumEvents that repeat
@@ -48,14 +55,14 @@ class RecurringStudiumEvent: StudiumEvent {
     /// Whether or not the event occurs on a given date
     /// - Parameter date: The date that we're checking
     /// - Returns: Whether or not the event occurs on the date
-    func occursOn(date: Date) -> Bool {
+    override func occursOn(date: Date) -> Bool {
         return self.days.contains(date.studiumWeekday)
     }
     
     /// Returns a TimeChunk for this event on a given date
     /// - Parameter date: The date for which we want the TimeChunk
     /// - Returns: a TimeChunk for this event on a given date
-    func timeChunkForDate(date: Date) -> TimeChunk? {
+    override func timeChunkForDate(date: Date) -> TimeChunk? {
         // This event doesn't occur on the date. return nil.
         if !self.occursOn(date: date) {
             return nil
