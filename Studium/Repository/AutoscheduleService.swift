@@ -7,21 +7,37 @@
 //
 
 import Foundation
-final class AutoscheduleService {
+
+protocol AutoscheduleServiceProtocol {
+    func autoscheduleEvent(event: StudiumEvent, date: Date)
+    func getCommitments(for date: Date) -> [TimeChunk]
+    func getOpenTimeSlots(startBound: Date, endBound: Date, commitments: [TimeChunk]) -> [TimeChunk]
+    func bestTime(openTimeSlots: [TimeChunk], totalMinutes: Int) -> TimeChunk?
+    func findAutoscheduleTimeChunk(dateToScheduleOn: Date, startBound: Date, endBound: Date, totalMinutes: Int) -> TimeChunk?
+    func findAllApplicableDatesBetween(startDate: Date, endDate: Date, weekdays: Set<Weekday>) -> [Date]
+    func autoscheduleStudyTime(parentAssignment: Assignment)
+}
+
+final class AutoscheduleService: AutoscheduleServiceProtocol {
     
     let debug = true
     
-    static let shared = AutoscheduleService()
+    let databaseService: DatabaseServiceProtocol
     
-    private init() {}
+    static let shared = AutoscheduleService(databaseService: DatabaseService.shared)
+    
+    init(databaseService: DatabaseServiceProtocol) {
+        self.databaseService = databaseService
+         
+     }
     
     /// Autoschedules a StudiumEvent (WARNING: changes the start and end dates of the StudiumEvent object)
     /// - Parameters:
     ///   - event: The StudiumEvent that we are scheduling
     ///   - date: The date on which to schedule the event
-    func autoScheduleEvent(event: StudiumEvent, date: Date) {
+    func autoscheduleEvent(event: StudiumEvent, date: Date) {
         printDebug("Autoscheduling for event \(event.name), which is \(event.totalLengthMinutes) minutes long")
-        let startBound = DatabaseService.shared.getUserSettings().getWakeUpTime(for: date) ?? date.startOfDay
+        let startBound = self.databaseService.getUserSettings().getWakeUpTime(for: date) ?? date.startOfDay
         let endBound = date.setTime(hour: 23, minute: 59, second: 0) ?? date.endOfDay
         printDebug("Autoschedule Time Bounds: \(startBound)-\(endBound)")
         
@@ -48,7 +64,7 @@ final class AutoscheduleService {
         var commitments = [TimeChunk]()
         
         // Get all StudiumEvents
-        let studiumEvents = DatabaseService.shared.getStudiumObjects(expecting: StudiumEvent.self)
+        let studiumEvents = self.databaseService.getStudiumObjects(expecting: StudiumEvent.self)
         
         for event in studiumEvents {
             // Create a commitment for the StudiumEvent
@@ -223,18 +239,18 @@ final class AutoscheduleService {
         return resultDates
     }
     
-    
-    func autoscheduleStudyTime(parentAssignment: Assignment){
+    //TODO: Docstring
+    func autoscheduleStudyTime(parentAssignment: Assignment) {
         if parentAssignment.autoschedule {
             printDebug("autoscheduling study time for assignment: \(parentAssignment.name)")
             let datesToAutoschedule = self.findAllApplicableDatesBetween(startDate: Date(), endDate: parentAssignment.endDate, weekdays: parentAssignment.days)
             printDebug("the applicable dates to autoschedule study time are: \(datesToAutoschedule)")
             for date in datesToAutoschedule {
                 let studyTimeAssignment = Assignment(parentAssignment: parentAssignment)
-                self.autoScheduleEvent(event: studyTimeAssignment, date: date)
+                self.autoscheduleEvent(event: studyTimeAssignment, date: date)
 
-                if let course = studyTimeAssignment.parentCourse {
-                    DatabaseService.shared.saveStudiumObject(studyTimeAssignment)
+                if studyTimeAssignment.parentCourse != nil {
+                    self.databaseService.saveStudiumObject(studyTimeAssignment)
                 } else {
                     print("$ERR (AutoscheduleService): tried to autoschedule study time for assignment \(parentAssignment.name) but the parent course was nil. The parent assignment course is: \(String(describing: parentAssignment.parentCourse?.name))")
                 }
