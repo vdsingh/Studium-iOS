@@ -10,10 +10,14 @@ import Foundation
 
 //TODO: Docstring
 final class UserDefaultsService {
+    
+    //TODO: Docstrings
     static let shared = UserDefaultsService()
     
+    //TODO: Docstrings
     private init() { }
     
+    //TODO: Docstrings
     private let defaults = UserDefaults.standard
     
 //    func wakeUpTime(for day: Date) {

@@ -111,7 +111,8 @@ final class DatabaseService: DatabaseServiceProtocol {
             parentCourse.appendAssignment(assignment)
             if let parentAssignmentID = assignment.parentAssignmentID {
                 if let parentAssignment = realm.object(ofType: Assignment.self, forPrimaryKey: parentAssignmentID) {
-                    parentAssignment.scheduledEvents.append(assignment)
+//                    parentAssignment.scheduledEvents.append(assignment)
+                    parentAssignment.appendScheduledEvent(event: assignment)
                 } else {
                     print("$ERR (DatabaseService): tried to save autoscheduled assignment, but couldn't retrieve the parent assignment from its primary key.")
                 }

@@ -10,11 +10,13 @@ import Foundation
 import GoogleSignIn
 
 //TODO: Implement
+//TODO: Docstrings
 class AuthenticationService {
     static let shared = AuthenticationService()
     
     private init() {}
     
+    //TODO: Docstrings
     func attemptRestorePreviousSignIn(completion: @escaping (SignInStatus) -> Void) {
         GoogleAuthenticationService.shared.attemptRestorePreviousSignIn { authStatus in
             switch authStatus {
