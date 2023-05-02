@@ -103,6 +103,9 @@
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
 		B97BB08429F74628008F1A5B /* Debuggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08329F74628008F1A5B /* Debuggable.swift */; };
+		B97BB0972A00CBF9008F1A5B /* AutoscheduleServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0962A00CBF9008F1A5B /* AutoscheduleServiceTests.swift */; };
+		B97BB09F2A00D19D008F1A5B /* MockAutoscheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB09E2A00D19D008F1A5B /* MockAutoscheduleService.swift */; };
+		B97BB0A12A00D29A008F1A5B /* MockDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0A02A00D29A008F1A5B /* MockDatabaseService.swift */; };
 		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
 		B9A98C2729ECA67D00D866A9 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2629ECA67D00D866A9 /* Secret.swift */; };
@@ -111,6 +114,16 @@
 		B9A98C3029EE2FC500D866A9 /* GoogleAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2F29EE2FC500D866A9 /* GoogleAuthenticationService.swift */; };
 		B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B97BB0982A00CBF9008F1A5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1693E725247A3DC4003D4702 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1693E72C247A3DC4003D4702;
+			remoteInfo = Studium;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		161A69E424C7B84B00E5A5AE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -212,6 +225,10 @@
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		B97BB08129F7006E008F1A5B /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B97BB08329F74628008F1A5B /* Debuggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debuggable.swift; sourceTree = "<group>"; };
+		B97BB0942A00CBF9008F1A5B /* StudiumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudiumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B97BB0962A00CBF9008F1A5B /* AutoscheduleServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoscheduleServiceTests.swift; sourceTree = "<group>"; };
+		B97BB09E2A00D19D008F1A5B /* MockAutoscheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAutoscheduleService.swift; sourceTree = "<group>"; };
+		B97BB0A02A00D29A008F1A5B /* MockDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDatabaseService.swift; sourceTree = "<group>"; };
 		B995493B2992EDD000442968 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
 		B995493E2992F0D400442968 /* StudiumEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventListViewController.swift; sourceTree = "<group>"; };
 		B9A98C2629ECA67D00D866A9 /* Secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = SOURCE_ROOT; };
@@ -229,6 +246,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				77658A281C6CB08EA3EDC2DE /* Pods_Studium.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B97BB0912A00CBF9008F1A5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +336,7 @@
 			isa = PBXGroup;
 			children = (
 				1693E72F247A3DC4003D4702 /* Studium */,
+				B97BB0952A00CBF9008F1A5B /* StudiumTests */,
 				1693E72E247A3DC4003D4702 /* Products */,
 				93B0DD225789CBCF8381CAD6 /* Pods */,
 				6FB44260C022218BAA798CDC /* Frameworks */,
@@ -322,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				1693E72D247A3DC4003D4702 /* Studium.app */,
+				B97BB0942A00CBF9008F1A5B /* StudiumTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -480,6 +506,7 @@
 		B96E6A5A298323CC00A25457 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				B97BB09D2A00D18F008F1A5B /* Mocking */,
 				B96E6A5B298323DD00A25457 /* DatabaseService.swift */,
 				B90D1446298C6EA50093EB0C /* AuthenticationService.swift */,
 				B90D1448298C77B80093EB0C /* NotificationService.swift */,
@@ -533,6 +560,23 @@
 			path = "Basic TableView Cells";
 			sourceTree = "<group>";
 		};
+		B97BB0952A00CBF9008F1A5B /* StudiumTests */ = {
+			isa = PBXGroup;
+			children = (
+				B97BB0962A00CBF9008F1A5B /* AutoscheduleServiceTests.swift */,
+			);
+			path = StudiumTests;
+			sourceTree = "<group>";
+		};
+		B97BB09D2A00D18F008F1A5B /* Mocking */ = {
+			isa = PBXGroup;
+			children = (
+				B97BB09E2A00D19D008F1A5B /* MockAutoscheduleService.swift */,
+				B97BB0A02A00D29A008F1A5B /* MockDatabaseService.swift */,
+			);
+			path = Mocking;
+			sourceTree = "<group>";
+		};
 		B995493D2992EEA300442968 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,18 +607,40 @@
 			productReference = 1693E72D247A3DC4003D4702 /* Studium.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B97BB0932A00CBF9008F1A5B /* StudiumTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B97BB09C2A00CBF9008F1A5B /* Build configuration list for PBXNativeTarget "StudiumTests" */;
+			buildPhases = (
+				B97BB0902A00CBF9008F1A5B /* Sources */,
+				B97BB0912A00CBF9008F1A5B /* Frameworks */,
+				B97BB0922A00CBF9008F1A5B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B97BB0992A00CBF9008F1A5B /* PBXTargetDependency */,
+			);
+			name = StudiumTests;
+			productName = StudiumTests;
+			productReference = B97BB0942A00CBF9008F1A5B /* StudiumTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		1693E725247A3DC4003D4702 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1150;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Vikram Singh";
 				TargetAttributes = {
 					1693E72C247A3DC4003D4702 = {
 						CreatedOnToolsVersion = 11.5;
+					};
+					B97BB0932A00CBF9008F1A5B = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 1693E72C247A3DC4003D4702;
 					};
 				};
 			};
@@ -592,6 +658,7 @@
 			projectRoot = "";
 			targets = (
 				1693E72C247A3DC4003D4702 /* Studium */,
+				B97BB0932A00CBF9008F1A5B /* StudiumTests */,
 			);
 		};
 /* End PBXProject section */
@@ -626,6 +693,13 @@
 				B90D1431298461AD0093EB0C /* PickerCell.xib in Resources */,
 				B90D141F298461AD0093EB0C /* LabelCell.xib in Resources */,
 				16C445AF26646C75006076C1 /* credentials.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B97BB0922A00CBF9008F1A5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -739,8 +813,10 @@
 				B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */,
 				B90D142E298461AD0093EB0C /* SegmentedControlCell.swift in Sources */,
 				164905B727E18732002DE61D /* LoginViewController.swift in Sources */,
+				B97BB09F2A00D19D008F1A5B /* MockAutoscheduleService.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
 				B90D1436298461AD0093EB0C /* DaySelectorCell.swift in Sources */,
+				B97BB0A12A00D29A008F1A5B /* MockDatabaseService.swift in Sources */,
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				B90D1440298999AB0093EB0C /* FormError.swift in Sources */,
@@ -758,7 +834,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B97BB0902A00CBF9008F1A5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B97BB0972A00CBF9008F1A5B /* AutoscheduleServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B97BB0992A00CBF9008F1A5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1693E72C247A3DC4003D4702 /* Studium */;
+			targetProxy = B97BB0982A00CBF9008F1A5B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1693E736247A3DC4003D4702 /* Main.storyboard */ = {
@@ -948,6 +1040,46 @@
 			};
 			name = Release;
 		};
+		B97BB09A2A00CBF9008F1A5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VJUSE27PV3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = vikramsingh.StudiumTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Studium.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Studium";
+			};
+			name = Debug;
+		};
+		B97BB09B2A00CBF9008F1A5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VJUSE27PV3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = vikramsingh.StudiumTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Studium.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Studium";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -965,6 +1097,15 @@
 			buildConfigurations = (
 				1693E742247A3DC6003D4702 /* Debug */,
 				1693E743247A3DC6003D4702 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B97BB09C2A00CBF9008F1A5B /* Build configuration list for PBXNativeTarget "StudiumTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B97BB09A2A00CBF9008F1A5B /* Debug */,
+				B97BB09B2A00CBF9008F1A5B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
