@@ -54,6 +54,19 @@ extension Date {
         return Calendar.current.date(byAdding: components, to: startOfDay)!
     }
     
+    static var someTuesday: Date {
+        Date(year: 2023, month: 5, day: 2)
+    }
+    
+    func occursAtTheSameTimeAs(_ date: Date) -> Bool {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour, .minute], from: self)
+        let otherComponents = calendar.dateComponents([.hour, .minute], from: date)
+        
+        return components.hour == otherComponents.hour && components.minute == otherComponents.minute
+    }
+
+    
     //    static func today() -> Date {
     //        return Date()
     //    }
