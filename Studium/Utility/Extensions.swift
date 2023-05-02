@@ -11,22 +11,28 @@ import EventKit
 import RealmSwift
 
 extension String { //string extension for subscript access.
+    
+    //TODO: Docstrings
     var length: Int {
         return count
     }
     
+    //TODO: Docstrings
     subscript (i: Int) -> String {
         return self[i ..< i + 1]
     }
     
+    //TODO: Docstrings
     func substring(fromIndex: Int) -> String {
         return self[min(fromIndex, length) ..< length]
     }
     
+    //TODO: Docstrings
     func substring(toIndex: Int) -> String {
         return self[0 ..< max(0, toIndex)]
     }
     
+    //TODO: Docstrings
     subscript (r: Range<Int>) -> String {
         let range = Range(uncheckedBounds: (lower: max(0, min(length, r.lowerBound)),
                                             upper: min(length, max(0, r.upperBound))))
@@ -39,14 +45,17 @@ extension String { //string extension for subscript access.
 //date extension to get the next weekday of the week (i.e. next monday)
 extension Date {
     
+    //TODO: Docstrings
     var studiumWeekday: Weekday {
         Weekday(rawValue: self.weekday) ?? .unknown
     }
     
+    //TODO: Docstrings
     var startOfDay: Date {
         return Calendar.current.startOfDay(for: self)
     }
     
+    //TODO: Docstrings
     var endOfDay: Date {
         var components = DateComponents()
         components.day = 1
@@ -54,16 +63,77 @@ extension Date {
         return Calendar.current.date(byAdding: components, to: startOfDay)!
     }
     
+    //TODO: Docstrings
+    static var someMonday: Date {
+        Date(year: 2023, month: 5, day: 1)
+    }
+    
+    //TODO: Docstrings
     static var someTuesday: Date {
         Date(year: 2023, month: 5, day: 2)
     }
     
+    //TODO: Docstrings
+    static var someWednesday: Date {
+        Date(year: 2023, month: 5, day: 3)
+    }
+    
+    //TODO: Docstrings
+    static var someThursday: Date {
+        Date(year: 2023, month: 5, day: 4)
+    }
+    
+    //TODO: Docstrings
+    static var someFriday: Date {
+        Date(year: 2023, month: 5, day: 5)
+    }
+    
+    //TODO: Docstrings
+    static var someSaturday: Date {
+        Date(year: 2023, month: 5, day: 6)
+    }
+    
+    //TODO: Docstrings
+    static var someSunday: Date {
+        Date(year: 2023, month: 5, day: 7)
+    }
+    
+    static func random(weekday: Weekday) -> Date {
+        var currentDate = Date()
+        while currentDate.studiumWeekday != weekday {
+//            currentDate.add(minutes: <#T##Int#>)
+            currentDate = currentDate.add(days: 1)
+        }
+        
+        var randomDaysToAdd = Int.random(in: -20...20) * 7
+        currentDate = currentDate.add(days: randomDaysToAdd)
+        
+//        let calendar = Calendar.current
+//        let randomWeekday = Int.random(in: 1...7) // 1 = Sunday, 7 = Saturday
+//        let daysUntilTargetWeekday = (weekday.rawValue - randomWeekday + 7) % 7
+//        let randomDate = calendar.date(byAdding: .day, value: daysUntilTargetWeekday, to: Date())!
+//        return randomDate
+        return currentDate
+    }
+    
+    //TODO: Docstrings
     func occursAtTheSameTimeAs(_ date: Date) -> Bool {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.hour, .minute], from: self)
         let otherComponents = calendar.dateComponents([.hour, .minute], from: date)
         
         return components.hour == otherComponents.hour && components.minute == otherComponents.minute
+    }
+    
+    /// Whether or not a given date occurs on the same day, month, and year
+    /// - Parameter date: The date that we're checking
+    /// - Returns: Whether or not the event occurs on the date
+    func occursOn(date: Date) -> Bool {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day, .month, .year], from: self)
+        let otherComponents = calendar.dateComponents([.day, .month, .year], from: date)
+        
+        return components.day == otherComponents.day && components.month == otherComponents.month && components.year == otherComponents.year
     }
 
     
@@ -112,16 +182,15 @@ extension Date {
     //        return date!
     //    }
     
-
-
-// MARK: Helper methods
-//extension Date {
+    
+    //TODO: Docstrings
     func getWeekDaysInEnglish() -> [String] {
         var calendar = Calendar(identifier: .gregorian)
         calendar.locale = Locale(identifier: "en_US_POSIX")
         return calendar.weekdaySymbols
     }
     
+    //TODO: Docstrings
     func setTime(hour: Int, minute: Int, second: Int) -> Date? {
         let calendar = Calendar(identifier: .gregorian)
         var dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self)
@@ -131,31 +200,45 @@ extension Date {
         return calendar.date(from: dateComponents)
     }
     
+    //TODO: Docstrings
     func subtract(minutes: Int) -> Date {
         return Calendar.current.date(byAdding: .minute, value: -minutes, to: self)!
     }
     
+    //TODO: Docstrings
     func add(minutes: Int) -> Date {
         return Calendar.current.date(byAdding: .minute, value: minutes, to: self)!
     }
     
-    enum SearchDirection {
-        case next
-        case previous
-        
-        var calendarSearchDirection: Calendar.SearchDirection {
-            switch self {
-            case .next:
-                return .forward
-            case .previous:
-                return .backward
-            }
-        }
+    //TODO: Docstrings
+    func add(hours: Int) -> Date {
+        return Calendar.current.date(byAdding: .hour, value: hours, to: self)!
     }
+    
+    //TODO: Docstrings
+    func add(days: Int) -> Date {
+        return Calendar.current.date(byAdding: .day, value: days, to: self)!
+    }
+    
+//    enum SearchDirection {
+//        case next
+//        case previous
+//
+//        var calendarSearchDirection: Calendar.SearchDirection {
+//            switch self {
+//            case .next:
+//                return .forward
+//            case .previous:
+//                return .backward
+//            }
+//        }
+//    }
 }
 
 //allows us to parse Strings for ints.
 extension String {
+    
+    //TODO: Docstrings
     func parseToInt() -> Int? {
         return Int(self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined())
     }
@@ -163,6 +246,7 @@ extension String {
 
 extension UIColor {
     
+    //TODO: Docstrings
     convenience init(hex: String, alpha: CGFloat = 1.0) {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         var rgbValue: UInt32 = 10066329 //color #999999 if string has wrong format
@@ -183,14 +267,17 @@ extension UIColor {
         )
     }
     
+    //TODO: Docstrings
     func lighter(by percentage: CGFloat = 30.0) -> UIColor? {
         return self.adjust(by: abs(percentage) )
     }
     
+    //TODO: Docstrings
     func darker(by percentage: CGFloat = 60.0) -> UIColor? {
         return self.adjust(by: -1 * abs(percentage) )
     }
     
+    //TODO: Docstrings
     func adjust(by percentage: CGFloat = 30.0) -> UIColor? {
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
         if self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-
+//TODO: Docstrings
 class MockAutoscheduleService: AutoscheduleServiceProtocol {
     static let shared = MockAutoscheduleService()
     
@@ -18,8 +18,8 @@ class MockAutoscheduleService: AutoscheduleServiceProtocol {
         
     }
     
-    func getCommitments(for date: Date) -> [TimeChunk] {
-        return []
+    func getCommitments(for date: Date) -> [StudiumEvent: TimeChunk] {
+        return [:]
     }
     
     func getOpenTimeSlots(startBound: Date, endBound: Date, commitments: [TimeChunk]) -> [TimeChunk] {

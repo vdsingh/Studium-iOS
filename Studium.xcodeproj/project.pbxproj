@@ -106,6 +106,9 @@
 		B97BB0972A00CBF9008F1A5B /* AutoscheduleServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0962A00CBF9008F1A5B /* AutoscheduleServiceTests.swift */; };
 		B97BB09F2A00D19D008F1A5B /* MockAutoscheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB09E2A00D19D008F1A5B /* MockAutoscheduleService.swift */; };
 		B97BB0A12A00D29A008F1A5B /* MockDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0A02A00D29A008F1A5B /* MockDatabaseService.swift */; };
+		B97BB0A32A00E248008F1A5B /* DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0A22A00E248008F1A5B /* DateTests.swift */; };
+		B97BB0A72A00EA0D008F1A5B /* AppleCalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0A62A00EA0D008F1A5B /* AppleCalendarService.swift */; };
+		B97BB0A92A01B3D6008F1A5B /* Mocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0A82A01B3D6008F1A5B /* Mocking.swift */; };
 		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
 		B9A98C2729ECA67D00D866A9 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2629ECA67D00D866A9 /* Secret.swift */; };
@@ -229,6 +232,9 @@
 		B97BB0962A00CBF9008F1A5B /* AutoscheduleServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoscheduleServiceTests.swift; sourceTree = "<group>"; };
 		B97BB09E2A00D19D008F1A5B /* MockAutoscheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAutoscheduleService.swift; sourceTree = "<group>"; };
 		B97BB0A02A00D29A008F1A5B /* MockDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDatabaseService.swift; sourceTree = "<group>"; };
+		B97BB0A22A00E248008F1A5B /* DateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTests.swift; sourceTree = "<group>"; };
+		B97BB0A62A00EA0D008F1A5B /* AppleCalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleCalendarService.swift; sourceTree = "<group>"; };
+		B97BB0A82A01B3D6008F1A5B /* Mocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocking.swift; sourceTree = "<group>"; };
 		B995493B2992EDD000442968 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
 		B995493E2992F0D400442968 /* StudiumEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventListViewController.swift; sourceTree = "<group>"; };
 		B9A98C2629ECA67D00D866A9 /* Secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = SOURCE_ROOT; };
@@ -507,12 +513,11 @@
 			isa = PBXGroup;
 			children = (
 				B97BB09D2A00D18F008F1A5B /* Mocking */,
-				B96E6A5B298323DD00A25457 /* DatabaseService.swift */,
-				B90D1446298C6EA50093EB0C /* AuthenticationService.swift */,
+				B97BB0A52A00E9DD008F1A5B /* Storage */,
+				B97BB0A42A00E9D0008F1A5B /* Authentication */,
 				B90D1448298C77B80093EB0C /* NotificationService.swift */,
-				B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */,
-				B9A98C2F29EE2FC500D866A9 /* GoogleAuthenticationService.swift */,
 				B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */,
+				B97BB0A62A00EA0D008F1A5B /* AppleCalendarService.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -524,6 +529,7 @@
 				B90D1438298461EB0093EB0C /* NotificationHandler.swift */,
 				B90D144329899C3C0093EB0C /* Enums */,
 				B97BB08329F74628008F1A5B /* Debuggable.swift */,
+				B97BB0A82A01B3D6008F1A5B /* Mocking.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -564,6 +570,7 @@
 			isa = PBXGroup;
 			children = (
 				B97BB0962A00CBF9008F1A5B /* AutoscheduleServiceTests.swift */,
+				B97BB0A22A00E248008F1A5B /* DateTests.swift */,
 			);
 			path = StudiumTests;
 			sourceTree = "<group>";
@@ -575,6 +582,24 @@
 				B97BB0A02A00D29A008F1A5B /* MockDatabaseService.swift */,
 			);
 			path = Mocking;
+			sourceTree = "<group>";
+		};
+		B97BB0A42A00E9D0008F1A5B /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				B90D1446298C6EA50093EB0C /* AuthenticationService.swift */,
+				B9A98C2F29EE2FC500D866A9 /* GoogleAuthenticationService.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		B97BB0A52A00E9DD008F1A5B /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				B96E6A5B298323DD00A25457 /* DatabaseService.swift */,
+				B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		B995493D2992EEA300442968 /* Protocols */ = {
@@ -786,11 +811,13 @@
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
 				B90D1445298AFDE00093EB0C /* FormCell.swift in Sources */,
 				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
+				B97BB0A72A00EA0D008F1A5B /* AppleCalendarService.swift in Sources */,
 				B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */,
 				B995493C2992EDD000442968 /* Completable.swift in Sources */,
 				1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */,
 				B90D1422298461AD0093EB0C /* TextFieldCell.swift in Sources */,
 				B90D143C298461FB0093EB0C /* Extensions.swift in Sources */,
+				B97BB0A92A01B3D6008F1A5B /* Mocking.swift in Sources */,
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
 				16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
@@ -839,6 +866,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B97BB0972A00CBF9008F1A5B /* AutoscheduleServiceTests.swift in Sources */,
+				B97BB0A32A00E248008F1A5B /* DateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

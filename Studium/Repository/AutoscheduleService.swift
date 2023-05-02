@@ -8,9 +8,10 @@
 
 import Foundation
 
+//TODO: Docstrings
 protocol AutoscheduleServiceProtocol {
     func autoscheduleEvent(event: StudiumEvent, date: Date)
-    func getCommitments(for date: Date) -> [TimeChunk]
+    func getCommitments(for date: Date) -> [StudiumEvent: TimeChunk]
     func getOpenTimeSlots(startBound: Date, endBound: Date, commitments: [TimeChunk]) -> [TimeChunk]
     func bestTime(openTimeSlots: [TimeChunk], totalMinutes: Int) -> TimeChunk?
     func findAutoscheduleTimeChunk(dateToScheduleOn: Date, startBound: Date, endBound: Date, totalMinutes: Int) -> TimeChunk?
@@ -18,14 +19,18 @@ protocol AutoscheduleServiceProtocol {
     func autoscheduleStudyTime(parentAssignment: Assignment)
 }
 
+//TODO: Docstrings
 final class AutoscheduleService: AutoscheduleServiceProtocol {
     
     let debug = true
     
+    //TODO: Docstrings
     let databaseService: DatabaseServiceProtocol
     
+    //TODO: Docstrings
     static let shared = AutoscheduleService(databaseService: DatabaseService.shared)
     
+    //TODO: Docstrings
     init(databaseService: DatabaseServiceProtocol) {
         self.databaseService = databaseService
          
@@ -60,26 +65,21 @@ final class AutoscheduleService: AutoscheduleServiceProtocol {
     /// Returns the Commitments  for StudiumEvents for a given day.
     /// - Parameter date: The date that we are retrieving commitments for
     /// - Returns: an array of Commitment objects
-    func getCommitments(for date: Date) -> [TimeChunk] {
-        var commitments = [TimeChunk]()
+    func getCommitments(for date: Date) -> [StudiumEvent: TimeChunk] {
+        var commitments = [StudiumEvent: TimeChunk]()
         
         // Get all StudiumEvents
         let studiumEvents = self.databaseService.getStudiumObjects(expecting: StudiumEvent.self)
         
         for event in studiumEvents {
-            // Create a commitment for the StudiumEvent
-            var commitment = TimeChunk(startDate: event.startDate, endDate: event.endDate)
             
-            // If the StudiumEvent is recurring, check if it occurs on the specified date. If so, create a new commitment.
-            if let event = event as? RecurringStudiumEvent,
-               event.occursOn(date: date),
-               let startDate = date.setTime(hour: event.startDate.hour, minute: event.startDate.minute, second: event.startDate.second),
-               let endDate = date.setTime(hour: event.endDate.hour, minute: event.endDate.minute, second: event.endDate.second) {
-                commitment = TimeChunk(startDate: startDate, endDate: endDate)
+            // If the event doesn't occur on the desired date, skip it
+            if !event.occursOn(date: date) {
+                continue
             }
             
-            
-            commitments.append(commitment)
+            var commitment = event.timeChunkForDate(date: date)
+            commitments[event] = commitment
         }
         
         return commitments
@@ -95,6 +95,12 @@ final class AutoscheduleService: AutoscheduleServiceProtocol {
     /// - Returns: an Array of TimeChunk objects that represent all open time slots
     func getOpenTimeSlots(startBound: Date, endBound: Date, commitments: [TimeChunk]) -> [TimeChunk] {
         
+        // The start bound can't occur after the end bound
+        if(startBound > endBound) {
+            print("$ERR (AutoscheduleService): start bound cannot occur after end bound")
+            return []
+        }
+        
         //the available time slots
         var openSlots: [TimeChunk] = [TimeChunk(startDate: startBound, endDate: endBound)]
         
@@ -104,7 +110,7 @@ final class AutoscheduleService: AutoscheduleServiceProtocol {
             let commitmentEndTime = commitment.endDate
             
             var i = 0
-            while(i < openSlots.count){
+            while(i < openSlots.count) {
                 let slot = openSlots[i]
                 let slotStartTime = slot.startDate
                 let slotEndTime = slot.endDate
@@ -200,7 +206,7 @@ final class AutoscheduleService: AutoscheduleServiceProtocol {
     /// - Returns: A TimeChunk representing the start and end date of the autoscheduled event
     func findAutoscheduleTimeChunk(dateToScheduleOn: Date, startBound: Date, endBound: Date, totalMinutes: Int) -> TimeChunk? {
         printDebug("attempting to find autoschedule time chunk.")
-        let commitments = self.getCommitments(for: dateToScheduleOn)
+        let commitments = [TimeChunk](self.getCommitments(for: dateToScheduleOn).values)
         let openTimeSlots = self.getOpenTimeSlots(startBound: startBound, endBound: endBound, commitments: commitments)
         if !openTimeSlots.isEmpty {
             return self.bestTime(openTimeSlots: openTimeSlots, totalMinutes: totalMinutes)
@@ -241,7 +247,7 @@ final class AutoscheduleService: AutoscheduleServiceProtocol {
     
     //TODO: Docstring
     func autoscheduleStudyTime(parentAssignment: Assignment) {
-        if parentAssignment.autoschedule {
+        if parentAssignment.autoscheduling {
             printDebug("autoscheduling study time for assignment: \(parentAssignment.name)")
             let datesToAutoschedule = self.findAllApplicableDatesBetween(startDate: Date(), endDate: parentAssignment.endDate, weekdays: parentAssignment.days)
             printDebug("the applicable dates to autoschedule study time are: \(datesToAutoschedule)")
@@ -271,6 +277,8 @@ class TimeChunk {
     let startDate: Date
     let endDate: Date
     
+    let descriptor: String?
+    
     var lengthInMinutes: Int {
         let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: startDate, to: endDate)
         return diffComponents.minute ?? 0
@@ -280,8 +288,9 @@ class TimeChunk {
         return startDate.addingTimeInterval(endDate.timeIntervalSince(startDate) / 2)
     }
     
-    init(startDate: Date, endDate: Date) {
+    init(startDate: Date, endDate: Date, descriptor: String? = nil) {
         self.startDate = startDate
         self.endDate = endDate
+        self.descriptor = descriptor
     }
 }
