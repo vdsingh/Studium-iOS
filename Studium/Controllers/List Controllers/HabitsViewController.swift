@@ -48,7 +48,7 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
     
     //TODO: Docstrings
     func loadHabits() {
-        self.habits = DatabaseService.shared.getStudiumObjects(expecting: Habit.self)
+        self.habits = self.databaseService.getStudiumObjects(expecting: Habit.self)
         eventsArray = [[],[]]
         for habit in self.habits {
             if habit.days.contains(Date().studiumWeekday){
@@ -112,7 +112,7 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         print("LOG: attempting to delete Habit \(habit.name) at section \(indexPath.section) and row \(indexPath.row)")
         
 //        RealmCRUD.deleteHabit(habit: habit)
-        DatabaseService.shared.deleteStudiumObject(habit)
+        self.databaseService.deleteStudiumObject(habit)
         eventsArray[indexPath.section].remove(at: indexPath.row)
         super.updateHeader(section: indexPath.section)
     }

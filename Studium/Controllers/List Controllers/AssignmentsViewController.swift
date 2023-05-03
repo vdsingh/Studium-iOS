@@ -10,7 +10,7 @@ import Foundation
 import ChameleonFramework
 
 class AssignmentsViewController: StudiumEventListViewController, UISearchBarDelegate, AssignmentRefreshProtocol {
-    
+        
     /// Set that tells whether an assignment is expanded
     var assignmentsExpandedSet = Set<Assignment>()
     
@@ -86,7 +86,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
         if let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment,
            let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1 {
             self.handleCloseAutoEvents(assignment: assignment)
-            DatabaseService.shared.markComplete(assignment, !assignment.complete)
+            self.databaseService.markComplete(assignment, !assignment.complete)
             
             if(assignment.isAutoscheduled) {
                 tableView.reloadData()
@@ -110,7 +110,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     func loadAssignments() {
         //TODO: Fix sorting
 //        let assignments = selectedCourse.assignments
-        let assignments = DatabaseService.shared.getAssignments(forCourse: selectedCourse)
+        let assignments = self.databaseService.getAssignments(forCourse: selectedCourse)
         printDebug("Loaded assignments: \(assignments.map({ $0.name }))")
 //        let assignments = DatabaseService.shared
 //            .getAssignments(forCourse: self.selectedCourse)
@@ -147,7 +147,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         if let event = cell.event as? Assignment {
             self.handleCloseAutoEvents(assignment: event)
-            DatabaseService.shared.deleteStudiumObject(event)
+            self.databaseService.deleteStudiumObject(event)
         } else {
             print("$ERR (AssignmentsViewController): Tried to delete event at cell (\(indexPath.section), \(indexPath.row)), however its event was nil")
         }
@@ -164,6 +164,7 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
         let eventForEdit = deletableEventCell.event! as! Assignment
         let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
         addAssignmentViewController.delegate = self
+        addAssignmentViewController.selectedCourse = eventForEdit.parentCourse
         addAssignmentViewController.assignmentEditing = eventForEdit
         addAssignmentViewController.title = "View/Edit Assignment"
         let navController = UINavigationController(rootViewController: addAssignmentViewController)
@@ -171,6 +172,8 @@ class AssignmentsViewController: StudiumEventListViewController, UISearchBarDele
     }
     
     //MARK: - Search Bar
+    
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }

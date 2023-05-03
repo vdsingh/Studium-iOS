@@ -13,6 +13,7 @@ import DateToolsSwift
 //TODO: Docstrings
 class DayScheduleViewController: DayViewController {
     
+    let databaseService: DatabaseServiceProtocol! = nil
     let debug = true
     
 //    let defaults = UserDefaults.standard
@@ -86,7 +87,7 @@ class DayScheduleViewController: DayViewController {
     //TODO: Docstring
     func createEventsForStudiumEvents(on date: Date) -> [Event] {
         printDebug("createEventsForStudiumEvents called")
-        let studiumEvents = DatabaseService.shared.getAllStudiumObjects()
+        let studiumEvents = self.databaseService.getAllStudiumObjects()
         var events = [Event]()
         for studiumEvent in studiumEvents {
             printDebug("Creating StudiumEvent: \(studiumEvent.name) for Date: \(date)")
@@ -139,7 +140,7 @@ class DayScheduleViewController: DayViewController {
         printDebug("Creating Wake Time Events")
         
         // There is no wake up time for the specified date
-        guard let wakeUpTime = DatabaseService.shared.getUserSettings().getWakeUpTime(for: date) else {
+        guard let wakeUpTime = self.databaseService.getUserSettings().getWakeUpTime(for: date) else {
             printDebug("No wake up time for \(date.studiumWeekday)")
             return nil
         }

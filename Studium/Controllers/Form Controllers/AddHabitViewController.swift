@@ -152,13 +152,13 @@ class AddHabitViewController: MasterForm {
                 days: daysSelected,
                 logo: self.logo,
                 color: color,
-                partitionKey: DatabaseService.shared.user?.id ?? ""
+                partitionKey: self.databaseService.user?.id ?? ""
             )
             
             if let editingHabit = self.habit {
-                DatabaseService.shared.editStudiumEvent(oldEvent: editingHabit, newEvent: newHabit)
+                self.databaseService.editStudiumEvent(oldEvent: editingHabit, newEvent: newHabit)
             } else {
-                DatabaseService.shared.saveStudiumObject(newHabit)
+                self.databaseService.saveStudiumObject(newHabit)
             }
             
             dismiss(animated: true) {

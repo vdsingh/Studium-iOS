@@ -13,6 +13,9 @@ import UIKit
 //this controls the page that the user sees in the beginning, when they must enter what times they wake up at.
 class WakeUpIntroController: UIViewController {
     
+    //TODO: Docstrings
+    let databaseService: DatabaseServiceProtocol! = nil
+    
     let debug = true
     
     //reference to defaults - that is where we will be storing the time data for when the user wakes up
@@ -231,7 +234,7 @@ class WakeUpIntroController: UIViewController {
 //        defaults.set([times["Thu"]], forKey: "thuWakeUp")
 //        defaults.set([times["Fri"]], forKey: "friWakeUp")
 //        defaults.set([times["Sat"]], forKey: "satWakeUp")
-        DatabaseService.shared.setWakeUpTime(for: .sunday, wakeUpTime: self.times["Sun"])
+        self.databaseService.setWakeUpTime(for: .sunday, wakeUpTime: self.times["Sun"])
     }
 }
 

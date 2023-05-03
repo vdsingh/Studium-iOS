@@ -28,7 +28,7 @@ final class AutoscheduleService: AutoscheduleServiceProtocol {
     let databaseService: DatabaseServiceProtocol
     
     //TODO: Docstrings
-    static let shared = AutoscheduleService(databaseService: DatabaseService.shared)
+//    static let shared = AutoscheduleService(databaseService: DatabaseService.shared)
     
     //TODO: Docstrings
     init(databaseService: DatabaseServiceProtocol) {

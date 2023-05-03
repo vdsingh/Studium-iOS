@@ -56,7 +56,7 @@ class AddAssignmentViewController: MasterForm {
         tableView.tableFooterView = UIView()
         
         
-        courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
+        courses = self.databaseService.getStudiumObjects(expecting: Course.self)
         
         // TODO: Fix force unwrap
         self.endDate = Calendar.current.date(bySetting: .hour, value: 23, of: self.endDate)!
@@ -139,17 +139,17 @@ class AddAssignmentViewController: MasterForm {
                 autoschedule: self.scheduleWorkTime,
                 autoLengthMinutes: self.totalLengthMinutes,
                 autoDays: self.workDaysSelected,
-                partitionKey: DatabaseService.shared.user?.id ?? "",
+                partitionKey: self.databaseService.user?.id ?? "",
                 parentCourse: self.selectedCourse
             )
             
             if let assignmentEditing = self.assignmentEditing {
-                DatabaseService.shared.editStudiumEvent(
+                self.databaseService.editStudiumEvent(
                     oldEvent: assignmentEditing,
                     newEvent: newAssignment
                 )
             } else {
-                DatabaseService.shared.saveStudiumObject(newAssignment)
+                self.databaseService.saveStudiumObject(newAssignment)
             }
             
             delegate?.reloadData()

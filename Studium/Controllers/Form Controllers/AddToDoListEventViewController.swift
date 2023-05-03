@@ -78,11 +78,11 @@ class AddToDoListEventViewController: MasterForm {
             let newEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: self.additionalDetails, startDate: self.startDate, endDate: self.endDate, color: self.color, logo: self.logo, alertTimes: self.alertTimes)
             if let otherEvent = self.otherEvent {
                 // We are editing
-                DatabaseService.shared.editStudiumEvent(oldEvent: otherEvent, newEvent: newEvent)
+                self.databaseService.editStudiumEvent(oldEvent: otherEvent, newEvent: newEvent)
             
             } else {
                 // We are creating new
-                DatabaseService.shared.saveStudiumObject(newEvent)
+                self.databaseService.saveStudiumObject(newEvent)
             }
             
             guard let delegate = delegate else {
@@ -189,7 +189,7 @@ extension AddToDoListEventViewController {
     
     // TODO: Docstrings
     private func isAssignmentClicked() {
-        let courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
+        let courses = self.databaseService.getStudiumObjects(expecting: Course.self)
         if courses.count != 0 {
             
             // TODO: Fix force typing

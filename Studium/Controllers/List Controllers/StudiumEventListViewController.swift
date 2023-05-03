@@ -11,6 +11,9 @@ import SwipeCellKit
 import UIKit
 
 class StudiumEventListViewController: SwipeTableViewController {
+    
+    let databaseService: DatabaseServiceProtocol! = nil
+    
     override var debug: Bool {
         false
     }
@@ -72,10 +75,10 @@ class StudiumEventListViewController: SwipeTableViewController {
         print("$LOG: will attempt to delete at \(indexPath)")
         if let cell = tableView.cellForRow(at: indexPath) as? DeletableEventCell,
            let event = cell.event {
-            DatabaseService.shared.deleteStudiumObject(event)
+            self.databaseService.deleteStudiumObject(event)
         }
         
-//        self.collapse
+        //        self.collapse
         eventsArray[indexPath.section].remove(at: indexPath.row)
 //        tableView.reloadData()
         
@@ -110,7 +113,7 @@ extension StudiumEventListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let eventCell = tableView.cellForRow(at: indexPath) as? DeletableEventCell {
             if let event = eventCell.event as? CompletableStudiumEvent {
-                DatabaseService.shared.markComplete(event, !event.complete)
+                self.databaseService.markComplete(event, !event.complete)
             } else {
                 print("$LOG: event is not completable")
             }

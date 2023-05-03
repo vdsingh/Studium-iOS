@@ -23,6 +23,8 @@ let kNormalCellHeight: CGFloat = 50
 
 class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, AlertInfoStorer, LogoStorer, UITimePickerDelegate {
     
+    let databaseService: DatabaseServiceProtocol! = nil
+    
     // TODO: Docstrings
     var debug: Bool {
         false
@@ -500,7 +502,7 @@ extension MasterForm: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView.tag {
         case FormCellID.PickerCell.coursePickerCell.rawValue:
-            let courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
+            let courses = self.databaseService.getStudiumObjects(expecting: Course.self)
             return courses[row].name
         case FormCellID.PickerCell.lengthPickerCell.rawValue:
             if component == 0 {
@@ -550,7 +552,7 @@ extension MasterForm: UIPickerViewDataSource {
             }
         case FormCellID.PickerCell.coursePickerCell.rawValue:
 //            return StudiumState.state.getCourses().count
-            return DatabaseService.shared.getStudiumObjects(expecting: Course.self).count
+            return self.databaseService.getStudiumObjects(expecting: Course.self).count
             //            break
         default:
             print("$ERR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")

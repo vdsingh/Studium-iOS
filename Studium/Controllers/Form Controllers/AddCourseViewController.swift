@@ -100,15 +100,16 @@ class AddCourseViewController: MasterForm {
                 days: self.daysSelected,
                 logo: self.logo,
                 notificationAlertTimes: alertTimes,
-                partitionKey: DatabaseService.shared.user?.id ?? ""
+                partitionKey: self.databaseService.user?.id ?? ""
             )
+            
             if let course = self.course {
-                DatabaseService.shared.editStudiumEvent(
+                self.databaseService.editStudiumEvent(
                     oldEvent: course,
                     newEvent: newCourse
                 )
             } else {
-                DatabaseService.shared.saveStudiumObject(newCourse)
+                self.databaseService.saveStudiumObject(newCourse)
             }
 
             if delegate == nil {

@@ -12,6 +12,8 @@ import FSCalendar
 //TODO: Docstrings
 class CalendarViewController: UIViewController {
     
+    let databaseService: DatabaseServiceProtocol! = nil
+    
     //TODO: Docstrings
     @IBOutlet weak var calendar: FSCalendar!
     
@@ -77,7 +79,7 @@ class CalendarViewController: UIViewController {
         dateFormatter.timeStyle = DateFormatter.Style.none
         dateFormatter.dateStyle = DateFormatter.Style.medium
         
-        let allAssignments = DatabaseService.shared.getStudiumObjects(expecting: Assignment.self)
+        let allAssignments = self.databaseService.getStudiumObjects(expecting: Assignment.self)
         for assignment in allAssignments {
             
             let assignmentDate = dateFormatter.string(from: assignment.startDate)
@@ -90,7 +92,7 @@ class CalendarViewController: UIViewController {
     
     //TODO: Docstrings
     func addCourses(){
-        let allCourses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
+        let allCourses = self.databaseService.getStudiumObjects(expecting: Course.self)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
@@ -112,7 +114,7 @@ class CalendarViewController: UIViewController {
     
     //TODO: Docstrings
     func addHabits(){
-        let allHabits = DatabaseService.shared.getStudiumObjects(expecting: Habit.self)
+        let allHabits = self.databaseService.getStudiumObjects(expecting: Habit.self)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"

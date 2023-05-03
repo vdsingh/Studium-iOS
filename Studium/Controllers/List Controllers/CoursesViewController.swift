@@ -101,7 +101,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     
     //TODO: Docstrings
     func loadCourses(){
-        self.courses = DatabaseService.shared.getStudiumObjects(expecting: Course.self)
+        self.courses = self.databaseService.getStudiumObjects(expecting: Course.self)
         eventsArray = [[],[]]
         for course in courses {
             if course.days.contains(Date().studiumWeekday) {
@@ -147,7 +147,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         if let cell = tableView.cellForRow(at: indexPath) as? DeletableEventCell,
            let course = cell.event as? Course {
             print("$LOG: attempting to delete course \(course.name) at section \(indexPath.section) and row \(indexPath.row)")
-            DatabaseService.shared.deleteStudiumObject(course)
+            self.databaseService.deleteStudiumObject(course)
             //        RealmCRUD.deleteCourse(course: course)
             eventsArray[indexPath.section].remove(at: indexPath.row)
             updateHeader(section: indexPath.section)

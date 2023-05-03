@@ -12,6 +12,7 @@ import ChameleonFramework
 
 //TODO: Docstrings
 class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshProtocol, AssignmentRefreshProtocol {
+    
     override var debug: Bool {
         return false
     }
@@ -44,9 +45,9 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
     func reloadData(){
         eventsArray = [[],[]]
 
-        let assignments = DatabaseService.shared.getStudiumObjects(expecting: Assignment.self)
+        let assignments = self.databaseService.getStudiumObjects(expecting: Assignment.self)
         printDebug("ASSIGNMENTS: \(assignments)")
-        let otherEvents = DatabaseService.shared.getStudiumObjects(expecting: OtherEvent.self)
+        let otherEvents = self.databaseService.getStudiumObjects(expecting: OtherEvent.self)
         
         for assignment in assignments {
             if assignment.isAutoscheduled {

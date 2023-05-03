@@ -17,14 +17,17 @@ import FBSDKLoginKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let debug = false
+    
+    let databaseService: DatabaseServiceProtocol! = nil
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        
         do {
-            let assignments = DatabaseService.shared.getStudiumObjects(expecting: Assignment.self)
+            let assignments = self.databaseService.getStudiumObjects(expecting: Assignment.self)
             for assignment in assignments {
                 if(assignment.isAutoscheduled && Date() > assignment.endDate) {
-                    DatabaseService.shared.deleteStudiumObject(assignment)
+                    self.databaseService.deleteStudiumObject(assignment)
                 }
             }
         }
