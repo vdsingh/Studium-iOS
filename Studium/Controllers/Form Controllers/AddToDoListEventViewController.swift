@@ -114,15 +114,18 @@ class AddToDoListEventViewController: MasterForm {
         return errors
     }
     
-    // TODO: Docstrings
-    /// cancel the form
+    /// Cancel the form
+    /// - Parameter sender: The UIBarButtonItem used to cancel the form
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
     
-    // TODO: Docstrings
+    /// Prepare to segue
+    /// - Parameters:
+    ///   - segue: The segue
+    ///   - sender: The sender
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? AlertTableViewController{
+        if let destinationVC = segue.destination as? AlertTableViewController {
             destinationVC.delegate = self
         }
     }

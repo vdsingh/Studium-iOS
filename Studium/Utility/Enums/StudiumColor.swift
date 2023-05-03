@@ -18,10 +18,12 @@ public enum StudiumColor: String {
     case primaryLabel = "#FFFFFF"
     case secondaryLabel = "#79787f"
     
+    //TODO: Docstrings
     public var uiColor: UIColor {
         UIColor(hex: self.rawValue)
     }
 
+    //TODO: Docstrings
     func darken(by factor: CGFloat = 60) -> UIColor {
         return self.uiColor.darker(by: factor) ?? .black
     }

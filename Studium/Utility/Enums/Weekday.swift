@@ -7,7 +7,10 @@
 //
 
 import Foundation
+
+//TODO: Docstrings
 public enum Weekday: Int, CaseIterable {
+    
     case sunday = 1
     case monday = 2
     case tuesday = 3
@@ -17,10 +20,12 @@ public enum Weekday: Int, CaseIterable {
     case saturday = 7
     case unknown = -1
     
+    //TODO: Docstrings
     static var buttonTextMap: [String: Int] {
         return ["Sun": 1, "Mon": 2, "Tue": 3, "Wed": 4, "Thu": 5, "Fri": 6, "Sat": 7]
     }
     
+    //TODO: Docstrings
     var buttonText: String {
         switch self {
         case .sunday:
@@ -42,6 +47,7 @@ public enum Weekday: Int, CaseIterable {
         }
     }
     
+    //TODO: Docstrings
     init(buttonText: String) {
         if Weekday.buttonTextMap.keys.contains(buttonText) {
             self.init(rawValue: Weekday.buttonTextMap[buttonText]!)!
@@ -51,6 +57,3 @@ public enum Weekday: Int, CaseIterable {
         }
     }
 }
-
-//static var weekdayDict: [String: Int] = ["Sun": 1, "Mon": 2, "Tue": 3, "Wed": 4, "Thu": 5, "Fri": 6, "Sat": 7]
-

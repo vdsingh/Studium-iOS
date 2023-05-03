@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import RealmSwift
 
 class MockDatabaseService: DatabaseServiceProtocol {
+    
+    var user: User? = nil
     
     static let shared = MockDatabaseService()
     

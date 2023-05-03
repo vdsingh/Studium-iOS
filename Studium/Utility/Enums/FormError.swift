@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+//TODO: Docstrings
 enum FormError: String {
     case nameNotSpecified = "Please specify a name"
     case oneDayNotSpecified = "Please specify at least one day"

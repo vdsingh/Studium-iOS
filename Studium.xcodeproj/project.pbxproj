@@ -91,7 +91,6 @@
 		B90D1435298461AD0093EB0C /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D141A298461AD0093EB0C /* PickerCell.swift */; };
 		B90D1436298461AD0093EB0C /* DaySelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D141B298461AD0093EB0C /* DaySelectorCell.swift */; };
 		B90D143A298461EB0093EB0C /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1438298461EB0093EB0C /* NotificationHandler.swift */; };
-		B90D143C298461FB0093EB0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D143B298461FB0093EB0C /* Extensions.swift */; };
 		B90D143E298999630093EB0C /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D143D298999630093EB0C /* DateFormat.swift */; };
 		B90D1440298999AB0093EB0C /* FormError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D143F298999AB0093EB0C /* FormError.swift */; };
 		B90D144229899C310093EB0C /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D144129899C310093EB0C /* Weekday.swift */; };
@@ -109,6 +108,9 @@
 		B97BB0A32A00E248008F1A5B /* DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0A22A00E248008F1A5B /* DateTests.swift */; };
 		B97BB0A72A00EA0D008F1A5B /* AppleCalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0A62A00EA0D008F1A5B /* AppleCalendarService.swift */; };
 		B97BB0A92A01B3D6008F1A5B /* Mocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0A82A01B3D6008F1A5B /* Mocking.swift */; };
+		B97BB0AC2A022B30008F1A5B /* String_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0AB2A022B30008F1A5B /* String_Extension.swift */; };
+		B97BB0AE2A022B37008F1A5B /* Date_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0AD2A022B37008F1A5B /* Date_Extension.swift */; };
+		B97BB0B02A022B5C008F1A5B /* UIColor_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0AF2A022B5C008F1A5B /* UIColor_Extension.swift */; };
 		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
 		B9A98C2729ECA67D00D866A9 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2629ECA67D00D866A9 /* Secret.swift */; };
@@ -216,7 +218,6 @@
 		B90D141A298461AD0093EB0C /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		B90D141B298461AD0093EB0C /* DaySelectorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DaySelectorCell.swift; sourceTree = "<group>"; };
 		B90D1438298461EB0093EB0C /* NotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
-		B90D143B298461FB0093EB0C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B90D143D298999630093EB0C /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		B90D143F298999AB0093EB0C /* FormError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormError.swift; sourceTree = "<group>"; };
 		B90D144129899C310093EB0C /* Weekday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
@@ -235,6 +236,9 @@
 		B97BB0A22A00E248008F1A5B /* DateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTests.swift; sourceTree = "<group>"; };
 		B97BB0A62A00EA0D008F1A5B /* AppleCalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleCalendarService.swift; sourceTree = "<group>"; };
 		B97BB0A82A01B3D6008F1A5B /* Mocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocking.swift; sourceTree = "<group>"; };
+		B97BB0AB2A022B30008F1A5B /* String_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String_Extension.swift; sourceTree = "<group>"; };
+		B97BB0AD2A022B37008F1A5B /* Date_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date_Extension.swift; sourceTree = "<group>"; };
+		B97BB0AF2A022B5C008F1A5B /* UIColor_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor_Extension.swift; sourceTree = "<group>"; };
 		B995493B2992EDD000442968 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
 		B995493E2992F0D400442968 /* StudiumEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventListViewController.swift; sourceTree = "<group>"; };
 		B9A98C2629ECA67D00D866A9 /* Secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = SOURCE_ROOT; };
@@ -525,7 +529,7 @@
 		B96E6A5D2983464900A25457 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				B90D143B298461FB0093EB0C /* Extensions.swift */,
+				B97BB0AA2A022B20008F1A5B /* Extensions */,
 				B90D1438298461EB0093EB0C /* NotificationHandler.swift */,
 				B90D144329899C3C0093EB0C /* Enums */,
 				B97BB08329F74628008F1A5B /* Debuggable.swift */,
@@ -600,6 +604,16 @@
 				B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		B97BB0AA2A022B20008F1A5B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B97BB0AB2A022B30008F1A5B /* String_Extension.swift */,
+				B97BB0AD2A022B37008F1A5B /* Date_Extension.swift */,
+				B97BB0AF2A022B5C008F1A5B /* UIColor_Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		B995493D2992EEA300442968 /* Protocols */ = {
@@ -793,6 +807,7 @@
 				B90D13FE29845FE80093EB0C /* AddToDoListEventViewController.swift in Sources */,
 				B90D1435298461AD0093EB0C /* PickerCell.swift in Sources */,
 				1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */,
+				B97BB0AC2A022B30008F1A5B /* String_Extension.swift in Sources */,
 				B90D1423298461AD0093EB0C /* TimeCell.swift in Sources */,
 				B90D140029845FE80093EB0C /* AddAssignmentViewController.swift in Sources */,
 				B90D1432298461AD0093EB0C /* TimePickerCell.swift in Sources */,
@@ -816,10 +831,10 @@
 				B995493C2992EDD000442968 /* Completable.swift in Sources */,
 				1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */,
 				B90D1422298461AD0093EB0C /* TextFieldCell.swift in Sources */,
-				B90D143C298461FB0093EB0C /* Extensions.swift in Sources */,
 				B97BB0A92A01B3D6008F1A5B /* Mocking.swift in Sources */,
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
 				16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */,
+				B97BB0AE2A022B37008F1A5B /* Date_Extension.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
 				B90D144229899C310093EB0C /* Weekday.swift in Sources */,
 				16C60FB225C5F7FB006D0FFC /* StudiumEvent.swift in Sources */,
@@ -834,6 +849,7 @@
 				B96E6A9C298456A500A25457 /* K.swift in Sources */,
 				B90D13FB29845FE80093EB0C /* AddCourseViewController.swift in Sources */,
 				B90D142B298461AD0093EB0C /* ThemeCell.swift in Sources */,
+				B97BB0B02A022B5C008F1A5B /* UIColor_Extension.swift in Sources */,
 				164F62F324DF7BFC00DC8169 /* NotificationsController.swift in Sources */,
 				16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */,
 				B90D13FA29845FE80093EB0C /* AddHabitViewController.swift in Sources */,
