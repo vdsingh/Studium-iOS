@@ -118,7 +118,7 @@ final class AutoscheduleServiceTests: XCTestCase {
         commitmentTests(Date.random(weekday: .wednesday), 1, [self.mockNonAutoscheduleHabit])
         
         // There should be 3 commitments on Date.someMonday, which are the auto/non-auto assignments, and the non-auto habit
-        commitmentTests(Date.random(weekday: .tuesday), 3, [self.autoscheduleAssignment, self.nonAutoscheduleAssignment, self.mockNonAutoscheduleHabit])
+        commitmentTests(Date.someMonday, 3, [self.autoscheduleAssignment, self.nonAutoscheduleAssignment, self.mockNonAutoscheduleHabit])
 
         // There should be 1 commitment on a random Monday, which is non-auto habit
         commitmentTests(Date.random(weekday: .monday), 1, [self.mockNonAutoscheduleHabit])
@@ -136,7 +136,7 @@ final class AutoscheduleServiceTests: XCTestCase {
         ) {
             let commitments = self.autoscheduleService.getCommitments(for: desiredDate)
             for event in expectedEvents {
-                assert(event.occursOn(date: desiredDate), "The event \(event) does not occur on \(desiredDate)")
+                assert(event.occursOn(date: desiredDate), "The event \(event.name) does not occur on \(desiredDate)")
                 
                 // Make sure that the event is a commitment on the date
                 if let commitmentTimeChunk = commitments[event] {
@@ -177,8 +177,29 @@ final class AutoscheduleServiceTests: XCTestCase {
     
     //TODO: Docstrings
     func testFindAllApplicableDatesBetween() {
+        
         // Test start date occurs after end date
-
+        var applicableDates = self.autoscheduleService.findAllApplicableDatesBetween(startDate: Date.someFriday, endDate: Date.someMonday, weekdays: Set<Weekday>())
+        assert(applicableDates.count == 0)
+        
+        // Find Wednesday between Monday and Friday
+        var weekdays = Set<Weekday>()
+        weekdays.insert(.wednesday)
+        applicableDates = self.autoscheduleService.findAllApplicableDatesBetween(startDate: Date.someMonday, endDate: Date.someFriday, weekdays: weekdays)
+        assert(applicableDates.count == 1, "Expected one applicable date but found \(applicableDates.count). Applicable Dates: \(applicableDates)")
+        
+        if let date = applicableDates.first {
+            assert(date.occursOn(date: Date.someWednesday))
+        } else {
+            assertionFailure("Expected there to be at least one applicable date, but first returned nil.")
+        }
+        
+        // Monday -> Monday -> Monday
+        applicableDates = self.autoscheduleService.findAllApplicableDatesBetween(startDate: Date.someMonday, endDate: Date.someMonday.add(days: 14), weekdays: weekdays)
+        assert(applicableDates.count == 2, "Expected two applicable dates but found \(applicableDates.count). Applicable Dates: \(applicableDates)")
+        assert(applicableDates.first!.occursOn(date: Date.someWednesday))
+        assert(applicableDates[1].occursOn(date: Date.someWednesday.add(days: 7)))
+        
     }
     
     //TODO: Docstrings
