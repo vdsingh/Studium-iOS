@@ -20,6 +20,14 @@ final class UserSettings: Object {
     @Persisted private var wakeUpTimes: List<WakeUpTime>
     
     //TODO: Docstrings
+    @Persisted private var defaultAlertOptionRawValues: List<Int>
+    
+    //TODO: Docstrings
+    var defaultAlertOptions: [AlertOption] {
+        return self.defaultAlertOptionRawValues.compactMap({ AlertOption(rawValue: $0) })
+    }
+    
+    //TODO: Docstrings
     convenience init(weekdayCases: [Weekday]) {
         self.init()
         
@@ -39,6 +47,14 @@ final class UserSettings: Object {
         if let wakeUpTime = wakeUpTime,
            let wakeUpObject = self.wakeUpTimes.first(where: { $0.weekday.rawValue == weekday.rawValue }) {
             wakeUpObject.setWakeUpTime(wakeUpTime: wakeUpTime)
+        }
+    }
+    
+    //TODO: Docstrings
+    func setDefaultAlertOptions(alertOptions: [AlertOption]) {
+        self.defaultAlertOptionRawValues = List<Int>()
+        for option in alertOptions {
+            self.defaultAlertOptionRawValues.append(option.rawValue)
         }
     }
     

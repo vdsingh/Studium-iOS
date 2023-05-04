@@ -237,7 +237,7 @@ extension AddCourseViewController {
             }
         }
         
-        alertTimes = course.alertTimes
+        self.alertTimes = course.alertTimes
         
         if let startCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? TimeCell {
             startDate = course.startDate

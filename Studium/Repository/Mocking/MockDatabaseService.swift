@@ -10,6 +10,8 @@ import Foundation
 import RealmSwift
 
 class MockDatabaseService: DatabaseServiceProtocol {
+
+    
     
     var user: User? = nil
     
@@ -68,6 +70,14 @@ class MockDatabaseService: DatabaseServiceProtocol {
     }
     
     func deleteAssignmentsForCourse(course: Course) {
-//        course.assignments.remove
+        //        course.assignments.remove
+    }
+    
+    func setDefaultAlertOptions(alertOptions: [AlertOption]) {
+        
+    }
+    
+    func getDefaultAlertOptions() -> [AlertOption] {
+        return []
     }
 }

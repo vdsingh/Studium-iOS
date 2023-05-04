@@ -23,6 +23,8 @@ protocol DatabaseServiceProtocol {
     func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date?)
     func deleteStudiumObject(_ studiumEvent: StudiumEvent)
     func deleteAssignmentsForCourse(course: Course)
+    func setDefaultAlertOptions(alertOptions: [AlertOption])
+    func getDefaultAlertOptions() -> [AlertOption]
 }
 
 /// Service to interact with the Realm Database
@@ -183,6 +185,11 @@ final class DatabaseService: DatabaseServiceProtocol {
         return UserSettings()
     }
     
+    public func getDefaultAlertOptions() -> [AlertOption] {
+        let settings = self.getUserSettings()
+        return settings.defaultAlertOptions
+    }
+    
     // MARK: - Update
     
     /// Sets the completion status of a Completable Event
@@ -220,6 +227,13 @@ final class DatabaseService: DatabaseServiceProtocol {
         let settings = self.getUserSettings()
         self.realmWrite {
             settings.setWakeUpTime(for: weekday, wakeUpTime: wakeUpTime)
+        }
+    }
+    
+    public func setDefaultAlertOptions(alertOptions: [AlertOption]) {
+        let settings = self.getUserSettings()
+        self.realmWrite {
+            settings.setDefaultAlertOptions(alertOptions: alertOptions)
         }
     }
     

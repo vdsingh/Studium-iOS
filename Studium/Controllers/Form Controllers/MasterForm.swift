@@ -21,7 +21,7 @@ let kLargeCellHeight: CGFloat = 150
 let kMediumCellHeight: CGFloat = 60
 let kNormalCellHeight: CGFloat = 50
 
-class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, AlertInfoStorer, LogoStorer, UITimePickerDelegate {
+class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, LogoStorer, UITimePickerDelegate {
     
     let databaseService: DatabaseServiceProtocol! = nil
     
@@ -31,7 +31,9 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
     }
     
     // TODO: Docstrings
-    var alertTimes: [AlertOption] = []
+    lazy var alertTimes: [AlertOption] = {
+        return self.databaseService.getDefaultAlertOptions()
+    }()
     
     /// The name for the StudiumEvent being added/edited
     var name: String = ""
@@ -269,8 +271,9 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
                 return
             }
             destinationVC.color = colorCell.colorPreview.backgroundColor ?? StudiumColor.primaryLabel.uiColor
-        }else if let destinationVC = segue.destination as? AlertTableViewController{
+        } else if let destinationVC = segue.destination as? AlertTableViewController {
             destinationVC.delegate = self
+            destinationVC.setSelectedAlertOptions(alertOptions: self.alertTimes)
         }
     }
     
@@ -286,11 +289,6 @@ class MasterForm: UITableViewController, UNUserNotificationCenterDelegate, Alert
         }
         
         logoCell.setImage(systemIcon: self.logo)
-    }
-    
-    // TODO: Docstrings
-    func processAlertTimes() {
-        
     }
 }
 
@@ -571,6 +569,13 @@ extension MasterForm: UIPickerViewDataSource {
     //           }
     //           return 0
     //       }
+}
+
+extension MasterForm: AlertTimeHandler {
+    func alertTimesWereUpdated(selectedAlertOptions: [AlertOption]) {
+        self.alertTimes = selectedAlertOptions
+        self.printDebug("Selected alert times updated to \(selectedAlertOptions)")
+    }
 }
 
 extension MasterForm: Debuggable {

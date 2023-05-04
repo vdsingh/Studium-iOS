@@ -12,10 +12,13 @@ import UIKit
 import EventKit
 import GoogleSignIn
 
-class SettingsViewController: UITableViewController, AlertInfoStorer {
+class SettingsViewController: UITableViewController, AlertTimeHandler {
+    func alertTimesWereUpdated(selectedAlertOptions: [AlertOption]) {
+        self.databaseService.setDefaultAlertOptions(alertOptions: selectedAlertOptions)
+    }
     
     //TODO: Docstrings
-    var alertTimes: [AlertOption] = []
+//    var alertTimes: [AlertOption] = []
     
     //TODO: Docstrings
     var realm: Realm! //Link to the realm where we are storing information
@@ -257,10 +260,11 @@ class SettingsViewController: UITableViewController, AlertInfoStorer {
         present(refreshAlert, animated: true, completion: nil)
     }
     
-    
+    //TODO: Docstrings
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? AlertTableViewController{
+        if let destinationVC = segue.destination as? AlertTableViewController {
             destinationVC.delegate = self
+            destinationVC.setSelectedAlertOptions(alertOptions: self.databaseService.getDefaultAlertOptions())
         }
     }
 }
