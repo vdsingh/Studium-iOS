@@ -24,41 +24,9 @@ class GoogleAuthenticationService {
         case signInResultWasNil
     }
     
-    func attemptRestorePreviousSignIn(completion: @escaping (SignInStatus) -> Void) {
-        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-            if let error = error {
-                print("$ERR (GoogleAuthenticationService): error trying to restore google sign in: \(String(describing: error))")
-                completion(.signedOut)
-            } else if user == nil {
-                // Show the app's signed-out state.
-                completion(.signedOut)
-            } else {
-                // Show the app's signed-in state.
-                completion(.signedIn)
-            }
-        }
-    }
-    
-    func handleSignIn(rootViewController: UIViewController, completion: @escaping (Result<GIDSignInResult, Error>) -> Void) {
-        GIDSignIn.sharedInstance.signIn(
-            withPresenting: rootViewController
-        ) { signInResult, error in
-            if let error = error {
-                completion(.failure(error))
-            }
-            
-            guard let result = signInResult else {
-                // Inspect error
-                completion(.failure(GoogleAuthenticationServiceError.signInResultWasNil))
-                return
-            }
-            
-            // If sign in succeeded, display the app's main content View.
-            DispatchQueue.main.async {
-                completion(.success(result))
-            }
-        }
-    }
+//    func attemptRestorePreviousSignIn(completion: @escaping (SignInStatus) -> Void) {
+//
+//    }
     
     //GOOGLE
 //    func sign(_ signIn: GIDSignIn!, didSignInFor googleUser: GIDGoogleUser!, withError error: Error!) {

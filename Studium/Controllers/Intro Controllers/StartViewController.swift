@@ -11,7 +11,9 @@ import UIKit
 
 import GoogleSignIn
 import RealmSwift
+
 import FBSDKLoginKit
+import FBSDKCoreKit
 
 // TODO: Docstrings
 class StartViewController: AuthViewController {
@@ -30,7 +32,7 @@ class StartViewController: AuthViewController {
 //    @IBOutlet weak var fbViewHolder: UIView!
     
     // TODO: Docstrings
-    @IBOutlet weak var facebookSignInButton: UIButton!
+    @IBOutlet weak var facebookSignInButton: FBLoginButton!
     
     // TODO: Docstrings
     @IBOutlet weak var guestSignInButton: UIButton!
@@ -52,8 +54,10 @@ class StartViewController: AuthViewController {
         
         sender = self
         googleSignInButton.addTarget(self, action: #selector(googleSignInClicked), for: .touchUpInside)
+        
         facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
         facebookSignInButton.layer.cornerRadius = 10
+        
         guestSignInButton.addTarget(self, action: #selector(handleLoginAsGuest), for: .touchUpInside)
 
         navigationItem.hidesBackButton = false
