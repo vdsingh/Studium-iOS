@@ -111,6 +111,7 @@
 		B97BB0AC2A022B30008F1A5B /* String_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0AB2A022B30008F1A5B /* String_Extension.swift */; };
 		B97BB0AE2A022B37008F1A5B /* Date_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0AD2A022B37008F1A5B /* Date_Extension.swift */; };
 		B97BB0B02A022B5C008F1A5B /* UIColor_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0AF2A022B5C008F1A5B /* UIColor_Extension.swift */; };
+		B97BB0B22A0399FB008F1A5B /* UIViewController_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0B12A0399FB008F1A5B /* UIViewController_Extension.swift */; };
 		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
 		B9A98C2729ECA67D00D866A9 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2629ECA67D00D866A9 /* Secret.swift */; };
@@ -239,6 +240,7 @@
 		B97BB0AB2A022B30008F1A5B /* String_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String_Extension.swift; sourceTree = "<group>"; };
 		B97BB0AD2A022B37008F1A5B /* Date_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date_Extension.swift; sourceTree = "<group>"; };
 		B97BB0AF2A022B5C008F1A5B /* UIColor_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor_Extension.swift; sourceTree = "<group>"; };
+		B97BB0B12A0399FB008F1A5B /* UIViewController_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_Extension.swift; sourceTree = "<group>"; };
 		B995493B2992EDD000442968 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
 		B995493E2992F0D400442968 /* StudiumEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventListViewController.swift; sourceTree = "<group>"; };
 		B9A98C2629ECA67D00D866A9 /* Secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = SOURCE_ROOT; };
@@ -612,6 +614,7 @@
 				B97BB0AB2A022B30008F1A5B /* String_Extension.swift */,
 				B97BB0AD2A022B37008F1A5B /* Date_Extension.swift */,
 				B97BB0AF2A022B5C008F1A5B /* UIColor_Extension.swift */,
+				B97BB0B12A0399FB008F1A5B /* UIViewController_Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -823,6 +826,7 @@
 				16B5191E247C80B7005ED8E4 /* CalendarEvent.swift in Sources */,
 				B90D13FF29845FE80093EB0C /* AlertTableViewController.swift in Sources */,
 				16C05CF7264F3AF3004C9629 /* TestViewController.swift in Sources */,
+				B97BB0B22A0399FB008F1A5B /* UIViewController_Extension.swift in Sources */,
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
 				B90D1445298AFDE00093EB0C /* FormCell.swift in Sources */,
 				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
