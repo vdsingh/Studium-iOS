@@ -65,14 +65,14 @@ class AddCourseViewController: MasterForm {
                 .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCell.locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.navigateTo(.alertTimesSelection) })
             ],
             [
                 .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCell.startTimeCell, onClick: timeCellClicked),
                 .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCell.endTimeCell, onClick: timeCellClicked)
             ],
             [
-                .logoCell(logo: self.logo, onClick: self.navigateToLogoSelection),
+                .logoCell(logo: self.logo, onClick: { self.navigateTo(.logoSelection) }),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],
@@ -146,8 +146,8 @@ class AddCourseViewController: MasterForm {
         return errors
     }
     
-    // TODO: Docstrings
     /// handles when the user wants to cancel their form
+    /// - Parameter sender: The button used to cancel the form
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
@@ -158,12 +158,18 @@ class AddCourseViewController: MasterForm {
 // TODO: Docstrings
 extension AddCourseViewController {
     
-    // TODO: Docstrings
+    /// The number of sections in the TableView
+    /// - Parameter tableView: The TableView
+    /// - Returns: The number of sections in the TableView
     override func numberOfSections(in tableView: UITableView) -> Int {
         return cells.count
     }
     
-    // TODO: Docstrings
+    /// The number of rows in a given section of a TableView
+    /// - Parameters:
+    ///   - tableView: The TableView
+    ///   - section: The section for which we are providing the number of rows
+    /// - Returns: The number of rows in a given section of a TableView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells[section].count
     }

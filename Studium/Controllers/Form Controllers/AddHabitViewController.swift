@@ -83,7 +83,7 @@ class AddHabitViewController: MasterForm {
                 .textFieldCell(placeholderText: "Name", text: self.name, id: .nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", text: self.location, id: .locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.navigateTo(.alertTimesSelection) })
             ],
             [
                 .switchCell(cellText: "Autoschedule", isOn: false, switchDelegate: self, infoDelegate: self),
@@ -91,7 +91,7 @@ class AddHabitViewController: MasterForm {
                 .timeCell(cellText: "Finish", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked)
             ],
             [
-                .logoCell(logo: self.logo, onClick: self.navigateToLogoSelection),
+                .logoCell(logo: self.logo, onClick: { self.navigateTo(.logoSelection) }),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details",
                                text: self.additionalDetails,
@@ -107,7 +107,7 @@ class AddHabitViewController: MasterForm {
                 .textFieldCell(placeholderText: "Name", text: self.name, id: .nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", text: self.location, id: .locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: self.navigateToAlertTimes)
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.navigateTo(.alertTimesSelection) })
             ],
             [
                 .switchCell(cellText: "Autoschedule", isOn: true, switchDelegate: self, infoDelegate: self),
@@ -116,7 +116,7 @@ class AddHabitViewController: MasterForm {
                 .pickerCell(cellText: "Length of Habit", indices: self.lengthPickerIndices, tag: .lengthPickerCell, delegate: self, dataSource: self)
             ],
             [
-                .logoCell(logo: self.logo, onClick: self.navigateToLogoSelection),
+                .logoCell(logo: self.logo, onClick: { self.navigateTo(.logoSelection) }),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: .additionalDetailsTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "", textColor: .systemRed)

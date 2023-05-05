@@ -9,20 +9,22 @@
 import UIKit
 
 // TODO: Docstrings
-protocol LogoStorer {
+protocol LogoSelectionHandler {
     
     // TODO: Docstrings
-    var logo: SystemIcon { get set }
+//    var logo: SystemIcon { get set }
     
     // TODO: Docstrings
-    func refreshLogoCell()
+//    func refreshLogoCell()
+    
+    func logoWasUpdated(logo: SystemIcon)
 }
 
 // TODO: Docstrings
 class LogoSelectorViewController: UIViewController {
     
     // TODO: Docstrings
-    var delegate: LogoStorer?
+    var delegate: LogoSelectionHandler?
     
     // TODO: Docstrings
     var color: UIColor = StudiumColor.background.uiColor
@@ -63,8 +65,9 @@ extension LogoSelectorViewController: UICollectionViewDelegate {
 //            logoNames += letterAndNumberNames
 //        }
 //        delegate?.systemImageString = logoNames[indexPath.row]
-        delegate?.logo = logos[indexPath.row]
-        delegate?.refreshLogoCell()
+//        delegate?.logo = logos[indexPath.row]
+//        delegate?.refreshLogoCell()
+        delegate?.logoWasUpdated(logo: logos[indexPath.row])
         self.navigationController?.popViewController(animated: true)
     }
 }
