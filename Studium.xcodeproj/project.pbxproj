@@ -51,7 +51,6 @@
 		16C607EC250E985000983C3D /* GlacialIndifference-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */; };
 		16C607ED250E985000983C3D /* GlacialIndifference-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607EA250E985000983C3D /* GlacialIndifference-Bold.otf */; };
 		16C60FB225C5F7FB006D0FFC /* StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */; };
-		16C60FE825C76C51006D0FFC /* LoginViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FE725C76C51006D0FFC /* LoginViewController1.swift */; };
 		16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */; };
 		16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E7B22E27D1EF8D00AAE756 /* GenericTableViewCell.swift */; };
 		16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E7B22F27D1EF8D00AAE756 /* GenericTableViewCell.xib */; };
@@ -113,7 +112,6 @@
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
 		B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */; };
 		B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */; };
-		B9A98C3029EE2FC500D866A9 /* GoogleAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2F29EE2FC500D866A9 /* GoogleAuthenticationService.swift */; };
 		B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */; };
 /* End PBXBuildFile section */
 
@@ -174,7 +172,6 @@
 		16C607E9250E985000983C3D /* GlacialIndifference-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Regular.otf"; sourceTree = "<group>"; };
 		16C607EA250E985000983C3D /* GlacialIndifference-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Bold.otf"; sourceTree = "<group>"; };
 		16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEvent.swift; sourceTree = "<group>"; };
-		16C60FE725C76C51006D0FFC /* LoginViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController1.swift; sourceTree = "<group>"; };
 		16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		16E7B22E27D1EF8D00AAE756 /* GenericTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewCell.swift; sourceTree = "<group>"; };
 		16E7B22F27D1EF8D00AAE756 /* GenericTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenericTableViewCell.xib; sourceTree = "<group>"; };
@@ -240,7 +237,6 @@
 		B9A98C2929ECA96E00D866A9 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = Pods/GoogleSignIn/Frameworks/GoogleSignIn.framework; sourceTree = "<group>"; };
 		B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumColor.swift; sourceTree = "<group>"; };
-		B9A98C2F29EE2FC500D866A9 /* GoogleAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthenticationService.swift; sourceTree = "<group>"; };
 		B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoscheduleService.swift; sourceTree = "<group>"; };
 		FD108DE721EFFA5F65BC9E17 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -281,7 +277,6 @@
 				16429D06247E81630052E47C /* WakeUpIntroController.swift */,
 				164F62F224DF7BFC00DC8169 /* NotificationsController.swift */,
 				164F630024EA2E0900DC8169 /* FirstScreenViewController.swift */,
-				16C60FE725C76C51006D0FFC /* LoginViewController1.swift */,
 				164905B627E18732002DE61D /* LoginViewController.swift */,
 				16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */,
 			);
@@ -583,7 +578,6 @@
 			isa = PBXGroup;
 			children = (
 				B90D1446298C6EA50093EB0C /* AuthenticationService.swift */,
-				B9A98C2F29EE2FC500D866A9 /* GoogleAuthenticationService.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -853,8 +847,6 @@
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				B90D1440298999AB0093EB0C /* FormError.swift in Sources */,
-				16C60FE825C76C51006D0FFC /* LoginViewController1.swift in Sources */,
-				B9A98C3029EE2FC500D866A9 /* GoogleAuthenticationService.swift in Sources */,
 				164F630124EA2E0900DC8169 /* FirstScreenViewController.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
 				B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */,
