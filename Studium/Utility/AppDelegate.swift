@@ -18,19 +18,21 @@ import FBSDKLoginKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let debug = false
     
-    let databaseService: DatabaseServiceProtocol! = nil
+    let databaseService = DatabaseService()
+    
+    lazy var autoscheduleService: AutoscheduleServiceProtocol = {
+        return AutoscheduleService(databaseService: self.databaseService)
+    }()
+
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        
-        do {
-            let assignments = self.databaseService.getStudiumObjects(expecting: Assignment.self)
-            for assignment in assignments {
-                if(assignment.isAutoscheduled && Date() > assignment.endDate) {
-                    self.databaseService.deleteStudiumObject(assignment)
-                }
-            }
-        }
+//        let assignments = self.databaseService.getStudiumObjects(expecting: Assignment.self)
+//        for assignment in assignments {
+//            if(assignment.isAutoscheduled && Date() > assignment.endDate) {
+//                self.databaseService.deleteStudiumObject(assignment)
+//            }
+//        }
 
         printDebug("Did finish launching");
         
@@ -39,14 +41,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        GIDSignIn.sharedInstance.configuration?.clientID =
         
         //TODO: Fix google sign in.
+//        GIDSignIn.sharedInstance.
+//        GIDSignIn.sharedInstance().cli
 //        GIDSignIn.sharedInstance.configuration?.clientID = Secret.clientID
 //        GIDSignIn.sharedInstance.configuration?.serverClientID = Secret.serverClientID
         
         // TODO: Implement
-        AuthenticationService.shared.attemptRestorePreviousSignIn(completion: { status in
-            
-            
-        })
+//        AuthenticationService.shared.attemptRestorePreviousSignIn(completion: { status in
+//            
+//            
+//        })
 //        return true
         
         // Initialize Facebook SDK
@@ -82,6 +86,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Handle other custom URL types.
         
         // If not handled by this app, return false.
+        
+        ApplicationDelegate.shared.application(
+            app,
+            open: url,
+            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
+        )
+        
         return false
     }
     

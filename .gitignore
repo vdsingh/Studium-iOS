@@ -1,6 +1,7 @@
 Pods/
 Assets/
-Secret.swift
+Secrets.xcconfig
+
 
 # Xcode
 #

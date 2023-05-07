@@ -27,7 +27,7 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
 //    var realm: Realm! //Link to the realm where we are storing information
     
     //TODO: Docstrings
-    let app = App(id: Secret.appID)
+//    let app = App(id: Secret.appID)
     
     /// reference to defaults
     let defaults = UserDefaults.standard

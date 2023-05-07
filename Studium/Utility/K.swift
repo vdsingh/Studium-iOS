@@ -13,12 +13,6 @@ import RealmSwift
 import GoogleSignIn
 
 struct K {
-    
-//    static let app = App(id: Secret.appID)
-
-    //GOOGLE SIGN IN STUFF
-//    static let signInConfig = GIDConfiguration.init(clientID: Secret.clientID)
-    
     static let emptyHeaderHeight: CGFloat = 12
     static let populatedHeaderHeight: CGFloat = 32
     
@@ -33,9 +27,7 @@ struct K {
     static let toCalendarSegue = "toCalendar"
     
     static let sortAssignmentsBy = "name"
-//    static var assignmentNum = 0
-//    static var defaultThemeColor: UIColor = UIColor(hexString: "#F77F49")!
-    
+
     static var themeColor: UIColor = colorsDict[UserDefaults.standard.string(forKey: "themeColor") ?? "flatRed"] ?? .black
 
     
@@ -73,43 +65,4 @@ struct K {
         "bluegreenGradient": [UIColor(hexString: "087EE1")!.cgColor, UIColor(hexString: "05E8BA")!.cgColor],
         "purplepinkGradient": [UIColor(hexString: "CB218E")!.cgColor, UIColor(hexString: "6617CB")!.cgColor]
     ]
-    
-//    static var wakeUpKeyDict: [Int: String] = [1: "sunWakeUp", 2: "monWakeUp", 3: "tueWakeUp", 4: "wedWakeUp", 5: "thuWakeUp", 6: "friWakeUp", 7: "satWakeUp"]
-    
-//    static var weekdayDict: [String: Int] = ["Sun": 1, "Mon": 2, "Tue": 3, "Wed": 4, "Thu": 5, "Fri": 6, "Sat": 7]
-//    static var IntToWeekdayDict: [Int: String] = [1:"Sun", 2:"Mon", 3:"Tue", 4:"Wed", 5:"Thu", 6:"Fri", 7:"Sat"]
-
-    static var defaultNotificationTimesKey: String = "defaultNotificationTimes"
-        
-    
-
-
-//    static func scheduleNotification(components: DateComponents, body: String, titles:String, repeatNotif: Bool, identifier: String) {
-//
-//            print("notification scheduled.")
-//
-//    //        let triggerWeekly = Calendar.current.dateComponents([.weekday,.hour,.minute], from: date)
-//            print(components)
-//            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: repeatNotif)
-//
-//
-//            let content = UNMutableNotificationContent()
-//            content.title = titles
-//            content.body = body
-//            content.sound = UNNotificationSound.default
-//    //        content.categoryIdentifier = identifier
-//
-//
-//            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-//            //identifiers for courses are stored as "courseName alertTime"
-//    //        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-//    //        print(request)
-//    //        UNUserNotificationCenter.curren///t().delegate = self
-//            //UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-//            UNUserNotificationCenter.current().add(request) {(error) in
-//                if error != nil {
-//                    print(error!)
-//                }
-//            }/
-//        }
 }

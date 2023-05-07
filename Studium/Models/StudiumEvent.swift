@@ -11,12 +11,6 @@ import Foundation
 import EventKit
 import RealmSwift
 
-// TODO: Docstrings, move
-protocol DaySchedulable {
-    var scheduleDisplayString: String { get }
-    var scheduleDisplayColor: UIColor { get }
-}
-
 //TODO: Docstrings
 class StudiumEvent: Object, DaySchedulable {
 
