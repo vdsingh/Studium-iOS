@@ -15,6 +15,7 @@ public enum StudiumColor: String {
     case background = "#000000"
     case secondaryBackground = "#1c1c1e"
     case primaryAccent = "#4651EA"
+    case secondaryAccent = "#EA7970"
     case primaryLabel = "#FFFFFF"
     case secondaryLabel = "#79787f"
     

@@ -26,7 +26,7 @@ class LoginViewController: AuthViewController, UIGestureRecognizerDelegate{
     @IBOutlet weak var facebookSignInButton: UIButton!
     //    @IBOutlet weak var fbLoginView: UIView!
 //    @IBOutlet weak var fbViewHolder: UIView!
-    let app = App(id: Secret.appID)
+//    let app = App(id: Secret.appID)
 
     
     //UI CONSTANT PARAMETERS: these parameters control elements of the UI
@@ -47,18 +47,15 @@ class LoginViewController: AuthViewController, UIGestureRecognizerDelegate{
         view.addGestureRecognizer(tap)
         
         
-        //Google Sign In Button Code
-        googleSignInButton.style = GIDSignInButtonStyle.wide
-        googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
-//        GIDSignIn.sharedInstance()?.presentingViewController = self
-//        GIDSignIn.sharedInstance().delegate = self
-        
-        sender = self
-        facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
-        facebookSignInButton.layer.cornerRadius = 10
-        guestSignInButton.addTarget(self, action: #selector(handleLoginAsGuest), for: .touchUpInside)
+        self.setSelectors()
 
 
+    }
+    
+    private func setSelectors() {
+        self.googleSignInButton.addTarget(self, action: #selector(googleLoginClicked), for: .touchUpInside)
+        self.facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
+        self.guestSignInButton.addTarget(self, action: #selector(guestLoginClicked), for: .touchUpInside)
     }
     
     @IBAction func textFieldEditingDidBegin(_ sender: UITextField) {
@@ -74,53 +71,15 @@ class LoginViewController: AuthViewController, UIGestureRecognizerDelegate{
     @IBAction func signInButtonPressed(_ sender: UIButton) {
         let email = emailTextField.text!
         let password = passwordTextField.text!
-        app.login(credentials: Credentials.emailPassword(email: email, password: password)) { (result) in
-            switch result {
-            case .failure(let error):
-                print("Login failed: \(error.localizedDescription)")
-            case .success(let user):
-                print("Successfully logged in as user \(user)")
-                let defaults = UserDefaults.standard
-                defaults.setValue(email, forKey: "email")
-                DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: "toWakeUp", sender: self)
-                }
-                // Now logged in, do something with user
-                // Remember to dispatch to main if you are doing anything on the UI thread
-            }
-        }
+        self.emailPasswordLoginClicked(email: email, password: password)
     }
-    
-//    func sign(_ signIn: GIDSignIn!, didSignInFor googleUser: GIDGoogleUser!, withError error: Error!) {
-//        if let error = error {
-//            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
-//                print("The user has not signed in before or they have since signed out.")
-//            } else {
-//                print("\(error.localizedDescription)")
-//            }
-//            return
-//        }
-//        // Signed in successfully, forward credentials to MongoDB Realm.
-//        let credentials = Credentials.google(serverAuthCode: googleUser.serverAuthCode)
-//        K.app.login(credentials: credentials) { result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .failure(let error):
-//                    print("Failed to log in to MongoDB Realm: \(error)")
-//                case .success(let user):
-//                    print("Successfully logged in to MongoDB Realm using Google OAuth.")
-//                    let defaults = UserDefaults.standard
-//                    defaults.setValue(googleUser.profile.email, forKey: "email")
-//                    DispatchQueue.main.async {
-//                        self.performSegue(withIdentifier: "toWakeUp", sender: self)
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     //this function sets up the textfields (adds the left image and right image.)
     func setupUI(){
+        
+        self.signInButton.tintColor = StudiumColor.secondaryAccent.uiColor
+        self.googleSignInButton.style = GIDSignInButtonStyle.wide
+        self.facebookSignInButton.layer.cornerRadius = 10
 
         //EMAIL TEXT FIELD SETUP:
         let emailImageView = UIImageView(frame: CGRect(x: textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))
@@ -129,20 +88,20 @@ class LoginViewController: AuthViewController, UIGestureRecognizerDelegate{
 
         let emailView = UIView(frame: CGRect(x: 0, y: 0, width: textFieldIconSize/3*4, height: textFieldIconSize/3*5))
         emailView.addSubview(emailImageView)
-        emailTextField.tintColor = .gray
-        emailTextField.leftViewMode = UITextField.ViewMode.always
-        emailTextField.leftView = emailView
-        emailTextField.layer.masksToBounds = true
-        emailTextField.layer.cornerRadius = 10
-        emailTextField.layer.masksToBounds = true
-        emailTextField.layer.borderColor = UIColor.gray.cgColor
-        emailTextField.layer.borderWidth = textFieldBorderWidth
+        self.emailTextField.tintColor = .gray
+        self.emailTextField.leftViewMode = UITextField.ViewMode.always
+        self.emailTextField.leftView = emailView
+        self.emailTextField.layer.masksToBounds = true
+        self.emailTextField.layer.cornerRadius = 10
+        self.emailTextField.layer.masksToBounds = true
+        self.emailTextField.layer.borderColor = UIColor.gray.cgColor
+        self.emailTextField.layer.borderWidth = textFieldBorderWidth
         
         let emailPlaceholderAttributedString = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: placeHolderColor])
-        emailTextField.attributedPlaceholder = emailPlaceholderAttributedString
-        emailTextField.backgroundColor = backgroundColor
-        emailTextField.returnKeyType = .done
-        emailTextField.delegate = self
+        self.emailTextField.attributedPlaceholder = emailPlaceholderAttributedString
+        self.emailTextField.backgroundColor = backgroundColor
+        self.emailTextField.returnKeyType = .done
+        self.emailTextField.delegate = self
 
 
         
@@ -153,8 +112,8 @@ class LoginViewController: AuthViewController, UIGestureRecognizerDelegate{
 
         let passwordIconView = UIView(frame: CGRect(x: 0, y: 0, width: textFieldIconSize/3*4, height: textFieldIconSize/3*5))
         passwordIconView.addSubview(passwordIconImageView)
-        passwordTextField.leftView = passwordIconView
-        passwordTextField.leftViewMode = UITextField.ViewMode.always
+        self.passwordTextField.leftView = passwordIconView
+        self.passwordTextField.leftViewMode = UITextField.ViewMode.always
         
         let passwordEyeImageView = UIImageView(frame: CGRect(x: -textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))
         passwordEyeImageView.image = UIImage(systemName: "eye")
@@ -162,33 +121,31 @@ class LoginViewController: AuthViewController, UIGestureRecognizerDelegate{
 
         let passwordEyeView = UIView(frame: CGRect(x: 0, y: 0, width: textFieldIconSize/3*4, height: textFieldIconSize/3*5))
         passwordEyeView.addSubview(passwordEyeImageView)
-        passwordTextField.tintColor = .gray
-        passwordTextField.rightViewMode = UITextField.ViewMode.always
-        passwordTextField.rightView = passwordEyeView
-        passwordTextField.layer.cornerRadius = 10
-        passwordTextField.layer.masksToBounds = true
-        passwordTextField.layer.borderColor = UIColor.gray.cgColor
-        passwordTextField.layer.borderWidth = textFieldBorderWidth
+        self.passwordTextField.tintColor = .gray
+        self.passwordTextField.rightViewMode = UITextField.ViewMode.always
+        self.passwordTextField.rightView = passwordEyeView
+        self.passwordTextField.layer.cornerRadius = 10
+        self.passwordTextField.layer.masksToBounds = true
+        self.passwordTextField.layer.borderColor = UIColor.gray.cgColor
+        self.passwordTextField.layer.borderWidth = textFieldBorderWidth
         
         let passwordPlaceholderAttributedString = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: placeHolderColor])
-        passwordTextField.attributedPlaceholder = passwordPlaceholderAttributedString
-        passwordTextField.backgroundColor = backgroundColor
-        passwordTextField.returnKeyType = .done
-        passwordTextField.delegate = self
+        self.passwordTextField.attributedPlaceholder = passwordPlaceholderAttributedString
+        self.passwordTextField.backgroundColor = backgroundColor
+        self.passwordTextField.returnKeyType = .done
+        self.passwordTextField.delegate = self
         
         
-        signInButton.backgroundColor = tintColor
-        signInButton.layer.cornerRadius = 10
-        signInButton.setTitleColor(StudiumColor.primaryLabel.uiColor, for: .normal)
-    
-//        continueAsGuestButton.tintColor = tintColor
+        self.signInButton.backgroundColor = tintColor
+        self.signInButton.layer.cornerRadius = 10
+        self.signInButton.setTitleColor(StudiumColor.primaryLabel.uiColor, for: .normal)
     }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        print("Back Button Pressed")
+        print("$LOG (LoginViewController): Back Button Pressed")
         self.navigationController?.popViewController(animated: true)
         if(navigationController == nil){
-            print("NAVIGATION CONTROLLER IS NIL")
+            print("$ERR (LoginViewController): NAVIGATION CONTROLLER IS NIL")
         }
     }
     

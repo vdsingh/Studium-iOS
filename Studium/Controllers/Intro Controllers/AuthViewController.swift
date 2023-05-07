@@ -32,8 +32,23 @@ class AuthViewController: UIViewController {
         }
     }
     
+    func showPopUp(title: String, message: String, actions: [UIAlertAction]) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        for action in actions {
+            alert.addAction(action)
+        }
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+}
+
+// MARK: - Handle Authentication Methods
+extension AuthViewController {
+    
     // TODO: Docstrings
-    @IBAction func handleLoginAsGuest(){
+    @IBAction func guestLoginClicked(){
         AuthenticationService.shared.handleLoginAsGuest { [weak self] result in
             switch result {
             case .success(let user):
@@ -43,10 +58,8 @@ class AuthViewController: UIViewController {
             }
         }
     }
-
-    //FACEBOOK
     
-    // Once the button is clicked, show the login dialog
+    // TODO: Docstrings
     @IBAction func fbLoginButtonClicked() {
         AuthenticationService.shared.handleLoginWithFacebook(presentingViewController: self) { [weak self] result in
             switch result {
@@ -58,15 +71,8 @@ class AuthViewController: UIViewController {
         }
     }
     
-    //this function just does what all authentication methods do upon success (Google, Facebook, Email, etc.)
-    @objc func handleLoginSuccess(){
-        printDebug("Handling general login success")
-        DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "toWakeUp", sender: self.sender)
-        }
-    }
-    
-    @objc func googleSignInClicked() {
+    // TODO: Docstrings
+    @objc func googleLoginClicked() {
         AuthenticationService.shared.handleLoginWithGoogle(presentingViewController: self) { [weak self] result in
             switch result {
             case .success(let user):
@@ -74,6 +80,45 @@ class AuthViewController: UIViewController {
             case .failure(let error):
                 print("$ERR (AuthViewController): \(String(describing: error))")
             }
+        }
+    }
+    
+    // TODO: Docstrings
+    @objc func emailPasswordLoginClicked(email: String, password: String) {
+        AuthenticationService.shared.handleLoginWithEmailAndPassword(email: email, password: password) { [weak self] result in
+            switch result {
+            case .success(let user):
+                self?.handleLoginSuccess()
+            case .failure(let error):
+                print("$ERR (AuthViewController): \(String(describing: error))")
+                self?.showPopUp(title: "Couldn't Login:", message: error.localizedDescription, actions: [
+                    UIAlertAction(title: "Ok", style: .default)
+                ])
+            }
+        }
+    }
+    
+    //TODO: Docstrings
+    @objc func emailPasswordRegisterClicked(email: String, password: String) {
+        AuthenticationService.shared.handleRegisterWithEmailAndPassword(email: email, password: password) { [weak self] result in
+            switch result {
+            case .success(let user):
+                // Once we have successfully registered, attempt to log in
+                self?.emailPasswordLoginClicked(email: email, password: password)
+            case .failure(let error):
+                print("$ERR (AuthViewController): \(String(describing: error))")
+                self?.showPopUp(title: "Couldn't Register:", message: error.localizedDescription, actions: [
+                    UIAlertAction(title: "Ok", style: .default)
+                ])
+            }
+        }
+    }
+    
+    // TODO: Docstrings
+    @objc func handleLoginSuccess(){
+        printDebug("Handling general login success")
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "toWakeUp", sender: self.sender)
         }
     }
 }

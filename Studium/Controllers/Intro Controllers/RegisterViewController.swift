@@ -49,6 +49,7 @@ class RegisterViewController: AuthViewController, UIGestureRecognizerDelegate {
         //Google Sign In Button Code
         googleSignInButton.style = GIDSignInButtonStyle.wide
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
+        signUpButton.tintColor = StudiumColor.secondaryAccent.uiColor
         
 //        GIDSignIn.sharedInstance()?.presentingViewController = self
 //        GIDSignIn.sharedInstance().delegate = self
@@ -56,100 +57,39 @@ class RegisterViewController: AuthViewController, UIGestureRecognizerDelegate {
         sender = self
         facebookSignInButton.layer.cornerRadius = 10
         facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
-        
-        guestSignInButton.addTarget(self, action: #selector(handleLoginAsGuest), for: .touchUpInside)
+        guestSignInButton.addTarget(self, action: #selector(guestLoginClicked), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(self.registerButtonPressed), for: .touchUpInside)
 
         
         setupUI()
 
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //TODO: Docstrings
+    @objc func registerButtonPressed(_ sender: UIButton) {
+        let email = self.emailTextField.text!
+        let password = self.passwordTextField.text!
+        self.emailPasswordRegisterClicked(email: email, password: password)
     }
-    */
-    @IBAction func registerButtonPressed(_ sender: UIButton) {
-        let app = App(id: Secret.appID)
-        let client = app.emailPasswordAuth
-        let email = emailTextField.text!
-        let password = passwordTextField.text!
-        client.registerUser(email: email, password: password) { (error) in
-            guard error == nil else {
-                print("Failed to register: \(error!.localizedDescription)")
-                return
-            }
-            // Registering just registers. You can now log in.
-            
-            print("Successfully registered user.")
-            
-            app.login(credentials: Credentials.emailPassword(email: email, password: password)) { (result) in
-                switch result {
-                case .failure(let error):
-                    print("Login failed: \(error.localizedDescription)")
-                case .success(let user):
-                    print("Successfully logged in as user \(user)")
-                    let defaults = UserDefaults.standard
-                    defaults.setValue(email, forKey: "email")
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "toWakeUp", sender: self)
-                    }
-                    // Now logged in, do something with user
-                    // Remember to dispatch to main if you are doing anything on the UI thread
-                }
-            }
-        }
-    }
-    
-//    func sign(_ signIn: GIDSignIn!, didSignInFor googleUser: GIDGoogleUser!, withError error: Error!) {
-//        if let error = error {
-//            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
-//                print("The user has not signed in before or they have since signed out.")
-//            } else {
-//                print("\(error.localizedDescription)")
-//            }
-//            return
-//        }
-//        // Signed in successfully, forward credentials to MongoDB Realm.
-//        let credentials = Credentials.google(serverAuthCode: googleUser.serverAuthCode)
-//        K.app.login(credentials: credentials) { result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .failure(let error):
-//                    print("Failed to log in to MongoDB Realm: \(error)")
-//                case .success(let user):
-//                    print("Successfully logged in to MongoDB Realm using Google OAuth.")
-//                    let defaults = UserDefaults.standard
-//                    defaults.setValue(googleUser.profile.email, forKey: "email")
-//                    DispatchQueue.main.async {
-//                        self.performSegue(withIdentifier: "toWakeUp", sender: self)
-//                    }
-//                }
-//            }
-//        }
-//    }
-    
+
+    //TODO: Docstrings
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        print("$LOG: nav controller \(self.navigationController)")
         self.navigationController?.popViewController(animated: true)
     }
     
+    //TODO: Docstrings
     @IBAction func textFieldEditingDidBegin(_ sender: UITextField) {
         sender.tintColor = tintColor
         sender.layer.borderColor = tintColor.cgColor
     }
     
+    //TODO: Docstrings
     @IBAction func textFieldEditingDidEnd(_ sender: UITextField) {
         sender.tintColor = .gray
         sender.layer.borderColor = UIColor.gray.cgColor
     }
     
-    //this function sets up the textfields (adds the left image and right image.)
+    //TODO: Docstrings
     func setupUI(){
 //        let loginButton = FBLoginButton()
 //        loginButton.center = fbViewHolder.center
