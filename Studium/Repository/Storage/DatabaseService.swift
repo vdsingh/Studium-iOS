@@ -94,12 +94,11 @@ final class DatabaseService: DatabaseServiceProtocol {
         do {
             try self.realm.write {
                 self.realm.add(studiumEvent)
+                NotificationService.shared.scheduleNotificationsFor(event: studiumEvent)
             }
         } catch {
             print("$ERR: error deleting studium object.")
         }
-        
-        NotificationService.shared.scheduleNotificationsFor(event: studiumEvent)
     }
     
     
@@ -114,18 +113,15 @@ final class DatabaseService: DatabaseServiceProtocol {
         self.realmWrite {
             parentCourse.appendAssignment(assignment)
             if let parentAssignmentID = assignment.parentAssignmentID {
-                if let parentAssignment = realm.object(ofType: Assignment.self, forPrimaryKey: parentAssignmentID) {
+                if let parentAssignment = self.realm.object(ofType: Assignment.self, forPrimaryKey: parentAssignmentID) {
 //                    parentAssignment.scheduledEvents.append(assignment)
                     parentAssignment.appendScheduledEvent(event: assignment)
                 } else {
                     print("$ERR (DatabaseService): tried to save autoscheduled assignment, but couldn't retrieve the parent assignment from its primary key.")
                 }
             }
-            
+            NotificationService.shared.scheduleNotificationsFor(event: assignment)
         }
-        
-        self.autoscheduleService.autoscheduleStudyTime(parentAssignment: assignment)
-        NotificationService.shared.scheduleNotificationsFor(event: assignment)
     }
     
     // MARK: - Read
@@ -170,10 +166,11 @@ final class DatabaseService: DatabaseServiceProtocol {
             if let first = settings.first {
                 return first
             } else {
-                let settings = UserSettings(weekdayCases: [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday])
+                let settings = UserSettings()
                 try self.realm.write {
                     self.realm.add(settings)
                 }
+                
                 return settings
             }
         } catch let error {
@@ -208,21 +205,19 @@ final class DatabaseService: DatabaseServiceProtocol {
     ///   - newEvent: A new event with the desired changes
     public func editStudiumEvent(oldEvent: StudiumEvent, newEvent: StudiumEvent) {
         printDebug("editing StudiumEvent. \nOld Event: \(oldEvent). \nNew Event: \(newEvent)")
-        NotificationService.shared.deleteAllPendingNotifications(for: oldEvent)
         newEvent.setID(oldEvent._id)
         
         self.realmWrite {
             self.realm.add(newEvent, update: .modified)
+            NotificationService.shared.scheduleNotificationsFor(event: newEvent)
         }
-        
-        NotificationService.shared.scheduleNotificationsFor(event: newEvent)
     }
     
     /// Sets the user's wake up time for a given day
     /// - Parameters:
     ///   - weekday: The day for which to set the wake up time
     ///   - wakeUpTime: The time that the user plans to wake up
-    public func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date?) {
+    public func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date) {
         let settings = self.getUserSettings()
         self.realmWrite {
             settings.setWakeUpTime(for: weekday, wakeUpTime: wakeUpTime)
@@ -254,9 +249,8 @@ final class DatabaseService: DatabaseServiceProtocol {
             }
         }
         
-        NotificationService.shared.deleteAllPendingNotifications(for: studiumEvent)
-        
         self.realmWrite {
+            NotificationService.shared.deleteAllPendingNotifications(for: studiumEvent)
             self.realm.delete(studiumEvent)
         }
     }
