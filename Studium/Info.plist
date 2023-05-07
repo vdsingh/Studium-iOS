@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>MongoDBAppID</key>
+	<string>$(MONGODB_APP_ID)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -19,43 +21,21 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.221406332443-he18tqfi4jbg40mbgpgmaaebenekh208</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.vikramsingh.Studium</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
 				<string>fb388524089338566</string>
 			</array>
 		</dict>
 	</array>
+	<key>FacebookAppID</key>
+	<string>$(FacebookAppID)</string>
+	<key>FacebookClientToken</key>
+	<string>$(FacebookClientToken)</string>
+	<key>FacebookDisplayName</key>
+	<string>Studium</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>FacebookAppID</key>
-	<string>388524089338566</string>
-	<key>FacebookClientToken</key>
-	<string>99ee883704caf82d53d2c595f1ed145e</string>
-	<key>FacebookDisplayName</key>
-	<string>Studium - Student Planner</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-share-api</string>
-	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
@@ -98,17 +78,14 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-
 	<key>GIDClientID</key>
-	<string>221406332443-he18tqfi4jbg40mbgpgmaaebenekh208.apps.googleusercontent.com</string>
-	<key>CFBundleURLTypes</key>
+	<string>$(GIDClientID)</string>
+	<key>GIDServerClientID</key>
+	<string>$(GIDServerClientID)</string>
+	<key>LSApplicationQueriesSchemes</key>
 	<array>
-	<dict>
-		<key>CFBundleURLSchemes</key>
-		<array>
-		<string>com.googleusercontent.apps.221406332443-he18tqfi4jbg40mbgpgmaaebenekh208</string>
-		</array>
-	</dict>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
 	</array>
 </dict>
 </plist>
