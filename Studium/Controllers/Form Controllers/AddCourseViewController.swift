@@ -100,7 +100,7 @@ class AddCourseViewController: MasterForm {
                 days: self.daysSelected,
                 logo: self.logo,
                 notificationAlertTimes: alertTimes,
-                partitionKey: self.databaseService.user?.id ?? ""
+                partitionKey: AuthenticationService.shared.userID!
             )
             
             if let course = self.course {

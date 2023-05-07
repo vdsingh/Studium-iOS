@@ -139,7 +139,7 @@ class AddAssignmentViewController: MasterForm {
                 autoschedule: self.scheduleWorkTime,
                 autoLengthMinutes: self.totalLengthMinutes,
                 autoDays: self.workDaysSelected,
-                partitionKey: self.databaseService.user?.id ?? "",
+                partitionKey: AuthenticationService.shared.userID ?? "",
                 parentCourse: self.selectedCourse
             )
             

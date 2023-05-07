@@ -11,7 +11,6 @@ import RealmSwift
 
 //TODO: Docstrings
 protocol DatabaseServiceProtocol {
-    var user: User? { get }
     func saveStudiumObject(_ studiumEvent: StudiumEvent)
     func saveAssignment(assignment: Assignment, parentCourse: Course)
     func getStudiumObjects <T: StudiumEvent> (expecting type: T.Type) -> [T]
@@ -20,7 +19,7 @@ protocol DatabaseServiceProtocol {
     func getUserSettings() -> UserSettings
     func markComplete(_ completableEvent: CompletableStudiumEvent, _ complete: Bool)
     func editStudiumEvent(oldEvent: StudiumEvent, newEvent: StudiumEvent)
-    func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date?)
+    func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date)
     func deleteStudiumObject(_ studiumEvent: StudiumEvent)
     func deleteAssignmentsForCourse(course: Course)
     func setDefaultAlertOptions(alertOptions: [AlertOption])
@@ -32,45 +31,45 @@ final class DatabaseService: DatabaseServiceProtocol {
     
     let debug = true
     
-    let autoscheduleService: AutoscheduleServiceProtocol
+//    var autoscheduleService: AutoscheduleServiceProtocol!
     
-    init(autoscheduleService: AutoscheduleServiceProtocol) {
-        self.autoscheduleService = autoscheduleService
+    static let shared = DatabaseService()
+    
+    init() {
+//        self.autoscheduleService = autoscheduleService
+//        self.setAutoscheduleService(autoscheduleService: AutoscheduleService.shared)
     }
     
+//    func setAutoscheduleService(autoscheduleService: AutoscheduleServiceProtocol) {
+//        self.autoscheduleService = autoscheduleService
+//    }
+//
     /// Represents the application for Realm
-    let app = App(id: Secret.appID)
-    
-    /// Represents the User for Realm
-    var user: User? {
-        guard let user = app.currentUser else {
-            print("$ERR: Current User is nil")
-            return nil
-        }
-        
-        return user
-    }
+//    let app = App(id: Secret.appID)
+//
+//    /// Represents the User for Realm
+//    var user: User? {
+//        guard let user = app.currentUser else {
+//            print("$ERR: Current User is nil")
+//            return nil
+//        }
+//
+//        return user
+//    }
     
     /// The Realm database instance
-    private lazy var realm: Realm = {
+    private var realm: Realm {
         // If the user exists, establish a connection to realm using the User's ID
-        if let user = self.user {
+        if let user = AuthenticationService.shared.user {
             do {
                 return try Realm(configuration: user.configuration(partitionValue: user.id))
             } catch let error {
                 fatalError("$ERR: issue accessing Realm: \(String(describing: error))")
             }
+        } else {
+            fatalError("$ERR: tried to access Realm before user logged in")
         }
-        
-        // If no user specified, create a local storage Realm Database
-        else {
-            do {
-                return try Realm()
-            } catch {
-                fatalError("$ERR: issue accessing Realm.")
-            }
-        }
-    }()
+    }
     
     //MARK: - Create
     

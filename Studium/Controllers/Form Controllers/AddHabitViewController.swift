@@ -152,7 +152,7 @@ class AddHabitViewController: MasterForm {
                 days: daysSelected,
                 logo: self.logo,
                 color: color,
-                partitionKey: self.databaseService.user?.id ?? ""
+                partitionKey: AuthenticationService.shared.userID!
             )
             
             if let editingHabit = self.habit {
