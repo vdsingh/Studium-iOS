@@ -119,6 +119,17 @@ extension Date {
     }
     
     //TODO: Docstrings
+    func setDate(year: Int, month: Int, day: Int) -> Date? {
+        let calendar = Calendar(identifier: .gregorian)
+        var dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self)
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        return calendar.date(from: dateComponents)
+    }
+    
+    
+    //TODO: Docstrings
     func subtract(minutes: Int) -> Date {
         return Calendar.current.date(byAdding: .minute, value: -minutes, to: self)!
     }

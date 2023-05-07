@@ -12,7 +12,7 @@ import UIKit
 public protocol UITimePickerDelegate {
     
     //TODO: Docstrings
-    func pickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCell)
+    func timePickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCell)
 }
 
 //TODO: Docstrings
@@ -55,7 +55,7 @@ class TimePickerCell: BasicCell {
             return
         }
         
-        delegate.pickerValueChanged(sender: sender, indexPath: indexPath, pickerID: formCellID)
+        delegate.timePickerValueChanged(sender: sender, indexPath: indexPath, pickerID: formCellID)
     }
     
     //TODO: Docstrings

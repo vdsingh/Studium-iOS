@@ -12,7 +12,7 @@ import FSCalendar
 //TODO: Docstrings
 class CalendarViewController: UIViewController {
     
-    let databaseService: DatabaseServiceProtocol! = nil
+    let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
     //TODO: Docstrings
     @IBOutlet weak var calendar: FSCalendar!

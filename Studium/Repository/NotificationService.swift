@@ -22,9 +22,10 @@ class NotificationService {
     
     // MARK: - Public Functions
     
-    /// Schedules notifications for a StudiumEvent
+    /// Deletes pre-existing notifications for a StudiumEvent and Schedules new notifications
     /// - Parameter event: The event for which we are scheduling notifications
     func scheduleNotificationsFor(event: StudiumEvent) {
+        self.deleteAllPendingNotifications(for: event)
         if let event = event as? RecurringStudiumEvent {
             self.scheduleNotificationsFor(recurringEvent: event)
         }

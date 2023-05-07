@@ -14,7 +14,7 @@ import UIKit
 class WakeUpIntroController: UIViewController {
     
     //TODO: Docstrings
-    let databaseService: DatabaseServiceProtocol! = nil
+    let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
     let debug = true
     
@@ -114,8 +114,8 @@ class WakeUpIntroController: UIViewController {
         timePicker.setDate(date, animated: true)
         
         //initialize the dictionaries. The only one that will have data that changes (potentially) is the times dictionary
-        times = ["Sun": date, "Mon": date, "Tue": date, "Wed": date, "Thu": date, "Fri": date, "Sat": date]
-        labels = ["Sun": sunLabel, "Mon": monLabel, "Tue": tueLabel, "Wed": wedLabel, "Thu": thuLabel, "Fri": friLabel, "Sat": satLabel]
+        self.times = ["Sun": date, "Mon": date, "Tue": date, "Wed": date, "Thu": date, "Fri": date, "Sat": date]
+        self.labels = ["Sun": sunLabel, "Mon": monLabel, "Tue": tueLabel, "Wed": wedLabel, "Thu": thuLabel, "Fri": friLabel, "Sat": satLabel]
         
         if weekdayLabels != nil{
             dayLabels = ["Sun": weekdayLabels![0], "Mon": weekdayLabels![1], "Tue": weekdayLabels![2], "Wed": weekdayLabels![3], "Thu": weekdayLabels![4], "Fri": weekdayLabels![5], "Sat": weekdayLabels![6]]
@@ -135,7 +135,7 @@ class WakeUpIntroController: UIViewController {
             }
             selectSunday()
             
-        }else{ //same time everyday
+        } else { //same time everyday
             differentTimes = false
             for day in dayButtons!{
                 day.setTitleColor(.lightGray, for: .disabled)
@@ -226,15 +226,25 @@ class WakeUpIntroController: UIViewController {
     // TODO: Docstrings
     //function that stores the data in UserDefaults
     func storeData(){
-        printDebug("Storing data for Wake Up Times")
-//        defaults.set([times["Sun"]], forKey: "sunWakeUp")
-//        defaults.set([times["Mon"]], forKey: "monWakeUp")
-//        defaults.set([times["Tue"]], forKey: "tueWakeUp")
-//        defaults.set([times["Wed"]], forKey: "wedWakeUp")
-//        defaults.set([times["Thu"]], forKey: "thuWakeUp")
-//        defaults.set([times["Fri"]], forKey: "friWakeUp")
-//        defaults.set([times["Sat"]], forKey: "satWakeUp")
-        self.databaseService.setWakeUpTime(for: .sunday, wakeUpTime: self.times["Sun"])
+        printDebug("Storing data for Wake Up Times: \(self.times)")
+        guard let sunTime = self.times["Sun"],
+              let monTime = self.times["Mon"],
+              let tueTime = self.times["Tue"],
+              let wedTime = self.times["Wed"],
+              let thuTime = self.times["Thu"],
+              let friTime = self.times["Fri"],
+              let satTime = self.times["Sat"] else {
+            print("$ERR (WakeUpIntroController): couldn't retrieve wake up times from map. A value was nil: \(self.times)")
+            return
+        }
+
+        self.databaseService.setWakeUpTime(for: .sunday, wakeUpTime: sunTime)
+        self.databaseService.setWakeUpTime(for: .monday, wakeUpTime: monTime)
+        self.databaseService.setWakeUpTime(for: .tuesday, wakeUpTime: tueTime)
+        self.databaseService.setWakeUpTime(for: .wednesday, wakeUpTime: wedTime)
+        self.databaseService.setWakeUpTime(for: .thursday, wakeUpTime: thuTime)
+        self.databaseService.setWakeUpTime(for: .friday, wakeUpTime: friTime)
+        self.databaseService.setWakeUpTime(for: .saturday, wakeUpTime: satTime)
     }
 }
 

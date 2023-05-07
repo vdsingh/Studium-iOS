@@ -17,11 +17,14 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
         self.databaseService.setDefaultAlertOptions(alertOptions: selectedAlertOptions)
     }
     
+    
+    var databaseService: DatabaseServiceProtocol! = DatabaseService.shared
+    
     //TODO: Docstrings
 //    var alertTimes: [AlertOption] = []
     
     //TODO: Docstrings
-    var realm: Realm! //Link to the realm where we are storing information
+//    var realm: Realm! //Link to the realm where we are storing information
     
     //TODO: Docstrings
     let app = App(id: Secret.appID)
@@ -30,14 +33,14 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
     let defaults = UserDefaults.standard
     
     //TODO: Docstrings
-    let cellData: [[String]] = [["Theme", "Set Default Notifications", "Reset Wake Up Times"],
-                                ["Sync to Apple Calendar"],
+    let cellData: [[String]] = [["Set Default Notifications", "Reset Wake Up Times"],
+//                                ["Sync to Apple Calendar"],
                                 ["Delete All Assignments","Delete Completed Assignments",  "Delete All Other Events", "Delete All Completed Other Events"],
                                 ["Email", "Sign Out"]]
     
     //TODO: Docstrings
-    let cellLinks: [[String]] = [["toThemePage","toAlertSelection", "toWakeUpTimes", ""],
-                                [""],
+    let cellLinks: [[String]] = [["toAlertSelection", "toWakeUpTimes", ""],
+//                                [""],
                                 ["", "", "", ""],
                                 ["", "toLoginScreen"]]
     
@@ -49,21 +52,16 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
         ["Delete All Completed Other Events", "Are you sure you want to delete all completed other events? You can't undo this action."]]
     
     override func viewDidLoad() {
-        tableView.tableFooterView = UIView()
-//        guard let user = app.currentUser else {
-//            print("Error getting user in MasterForm")
-//            return
-//        }
-//        realm = try! Realm(configuration: user.configuration(partitionValue: user.id))
-        
+        self.tableView.tableFooterView = UIView()
+
         //the key for default notification times doesn't exist in UserDefaults
-        if defaults.object(forKey: K.defaultNotificationTimesKey) == nil {
-            defaults.setValue(alertTimes, forKey: K.defaultNotificationTimesKey)
-        } else {
-            if let times = defaults.value(forKey: K.defaultNotificationTimesKey) as? [Int] {
-                self.alertTimes = times.compactMap { AlertOption(rawValue: $0) }
-            }
-        }
+//        if defaults.object(forKey: K.defaultNotificationTimesKey) == nil {
+//            defaults.setValue(alertTimes, forKey: K.defaultNotificationTimesKey)
+//        } else {
+//            if let times = defaults.value(forKey: K.defaultNotificationTimesKey) as? [Int] {
+//                self.alertTimes = times.compactMap { AlertOption(rawValue: $0) }
+//            }
+//        }
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
@@ -74,17 +72,6 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
         
         self.view.backgroundColor = StudiumColor.background.uiColor
         self.navigationController?.navigationBar.barTintColor = StudiumColor.background.uiColor
-        
-//        UITabBar.appearance().tintColor = StudiumColor.primaryAccent.darken()
-//        
-//        UITabBar.appearance().backgroundColor = StudiumColor.primaryAccent.uiColor
-    
-    }
-
-    //TODO: Docstrings
-    func processAlertTimes() {
-        print("$LOG (SettingsViewController): Setting values for default notification times")
-        defaults.setValue(alertTimes, forKey: K.defaultNotificationTimesKey)
     }
     
     //TODO: Docstrings
@@ -93,9 +80,18 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
         cell?.backgroundColor = StudiumColor.secondaryBackground.uiColor
         cell?.textLabel?.textColor = StudiumColor.primaryLabel.uiColor
         cell?.textLabel?.text = cellData[indexPath.section][indexPath.row]
-        if defaults.value(forKey: "email") != nil && cellData[indexPath.section][indexPath.row] == "Email"{
-            cell?.textLabel?.text = defaults.string(forKey: "email")
+        
+        
+//        if defaults.value(forKey: "email") != nil && cellData[indexPath.section][indexPath.row] == "Email"{
+//            cell?.textLabel?.text = defaults.string(forKey: "email")
+//        }
+        
+        let id = AuthenticationService.shared.userID
+        if cellData[indexPath.section][indexPath.row] == "Email" {
+            cell?.textLabel?.text = id
         }
+        
+        
         return cell!
     }
     
@@ -125,7 +121,7 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
     
     //TODO: Docstrings
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if cellLinks[indexPath.section][indexPath.row] != ""{
+        if cellLinks[indexPath.section][indexPath.row] != "" {
             performSegue(withIdentifier: cellLinks[indexPath.section][indexPath.row], sender: self)
         }
         
@@ -142,7 +138,7 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
             createAlertForOtherEvents(title: alertData[2][0], message: alertData[2][1], isCompleted: false)
         }else if cellData[indexPath.section][indexPath.row] == "Delete All Completed Other Events"{
             createAlertForOtherEvents(title: alertData[3][0], message: alertData[3][1], isCompleted: true)
-        }else if cellData[indexPath.section][indexPath.row] == "Sign Out"{
+        }else if cellData[indexPath.section][indexPath.row] == "Sign Out" {
             
             //TODO: handle log out
 //            K.handleLogOut()
@@ -156,6 +152,11 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
 //            vc.dismiss(animated: true, completion: nil)
 
 //            performSegue(withIdentifier: "toLoginScreen", sender: self)
+            AuthenticationService.shared.handleLogOut { error in
+                if let error = error {
+                    print("$ERR (SettingsViewController): \(String(describing: error))")
+                }
+            }
         } else if cellData[indexPath.section][indexPath.row] == "Sync to Apple Calendar" {
             // Initialize the store.
             let store = EKEventStore()
@@ -201,39 +202,28 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
         return headerView
     }
 //    221406332443-he18tqfi4jbg40mbgpgmaaebenekh208.apps.googleusercontent.com
-    //
-    func deleteAllAssignments(isCompleted:Bool){
-        let assignments: Results<Assignment>? = realm.objects(Assignment.self)
-        
-        for assignment in assignments!{
-            do{
-                if((isCompleted && assignment.complete) || (!isCompleted)){
-                    try realm.write{
-                        realm.delete(assignment)
-                    }
-                }
-            }catch{
-                print(error)
+    
+    //TODO: Docstrings
+    func deleteAllAssignments(isCompleted: Bool) {
+        let assignments = self.databaseService.getStudiumObjects(expecting: Assignment.self)
+        for assignment in assignments {
+            if (isCompleted && assignment.complete) || !isCompleted {
+                self.databaseService.deleteStudiumObject(assignment)
             }
         }
     }
     
-    func deleteAllOtherEvents(isCompleted:Bool){
-        let otherEvents: Results<OtherEvent>? = realm.objects(OtherEvent.self)
-        
-        for event in otherEvents!{
-            do{
-                if((isCompleted && event.complete) || (!isCompleted)){
-                    try realm.write{
-                        realm.delete(event)
-                    }
-                }
-            }catch{
-                print(error)
+    //TODO: Docstrings
+    func deleteAllOtherEvents(isCompleted: Bool) {
+        let otherEvents = self.databaseService.getStudiumObjects(expecting: OtherEvent.self)
+        for event in otherEvents {
+            if (isCompleted && event.complete) || !isCompleted {
+                self.databaseService.deleteStudiumObject(event)
             }
         }
     }
     
+    //TODO: Docstrings
     func createAlertForAssignments(title: String, message: String, isCompleted: Bool){
         let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
 
@@ -247,6 +237,7 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
         present(refreshAlert, animated: true, completion: nil)
     }
     
+    //TODO: Docstrings
     func createAlertForOtherEvents(title: String, message: String, isCompleted: Bool){
         let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
 

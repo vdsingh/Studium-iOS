@@ -91,7 +91,7 @@
         <!--Day-->
         <scene sceneID="qp6-ef-PCF">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="fig-EF-Ixi" customClass="DayScheduleViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DayScheduleViewController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fig-EF-Ixi" customClass="DayScheduleViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tHq-qj-nrK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1742,7 +1742,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="d6r-wA-WW0"/>
         <segue reference="T8N-JJ-KKU"/>
-        <segue reference="QsE-hI-Cdf"/>
+        <segue reference="J7L-Rc-yCL"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="2" width="300" height="300"/>

@@ -51,7 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            }
 //        }
         
-        if (app.currentUser != nil && app.currentUser!.isLoggedIn){
+        if AuthenticationService.shared.userIsLoggedIn {
             window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
         }else{
             window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "StartViewControllerNavigation")
@@ -69,6 +69,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             open: url,
             sourceApplication: nil,
             annotation: [UIApplication.OpenURLOptionsKey.annotation]
+            
+            
         )
     }
 

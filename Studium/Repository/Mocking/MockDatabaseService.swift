@@ -10,8 +10,6 @@ import Foundation
 import RealmSwift
 
 class MockDatabaseService: DatabaseServiceProtocol {
-
-    
     
     var user: User? = nil
     
@@ -50,7 +48,7 @@ class MockDatabaseService: DatabaseServiceProtocol {
     }
     
     func getUserSettings() -> UserSettings {
-        return UserSettings(weekdayCases: [])
+        return UserSettings()
     }
     
     func markComplete(_ completableEvent: CompletableStudiumEvent, _ complete: Bool) {
@@ -58,10 +56,9 @@ class MockDatabaseService: DatabaseServiceProtocol {
     }
     
     func editStudiumEvent(oldEvent: StudiumEvent, newEvent: StudiumEvent) {
-//        oldEvent
     }
     
-    func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date?) {
+    func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date) {
         
     }
     

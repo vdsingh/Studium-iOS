@@ -13,18 +13,14 @@ import DateToolsSwift
 //TODO: Docstrings
 class DayScheduleViewController: DayViewController {
     
-    let databaseService: DatabaseServiceProtocol! = nil
     let debug = true
-    
-//    let defaults = UserDefaults.standard
-    
-//    var generatedEvents = [Event]()
+
+    //TODO: Docstring
+    let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
     override func viewDidLoad() {
-        printDebug("View Did Load")
         super.viewDidLoad()
         dayView.autoScrollToFirstEvent = true
-        
         
         var style = CalendarStyle()
         style.header.backgroundColor = StudiumColor.secondaryBackground.uiColor
@@ -62,7 +58,6 @@ class DayScheduleViewController: DayViewController {
         super.viewWillAppear(animated)
         reloadData()
         self.generatedEvents = []
-//        alreadyGeneratedSet = Set<Date>()
         
         if let state = dayView.state {
             self.updateTitle(selectedDate: state.selectedDate)
@@ -71,7 +66,6 @@ class DayScheduleViewController: DayViewController {
         }
         
         navigationController?.navigationBar.prefersLargeTitles = false
-
     }
     
     //TODO: Docstrings
@@ -131,7 +125,6 @@ class DayScheduleViewController: DayViewController {
             events.append(newEvent)
         }
         
-        
         return events
     }
     
@@ -140,21 +133,11 @@ class DayScheduleViewController: DayViewController {
         printDebug("Creating Wake Time Events")
         
         // There is no wake up time for the specified date
-        guard let wakeUpTime = self.databaseService.getUserSettings().getWakeUpTime(for: date) else {
-            printDebug("No wake up time for \(date.studiumWeekday)")
+        guard let wakeUpTime = self.databaseService.getUserSettings().getWakeUpTime(for: date),
+              wakeUpTime.occursOn(date: date) else {
+            printDebug("Wake up time for \(date.studiumWeekday) was nil or mismatched the requested date. Wake Up Time: \(String(describing: self.databaseService.getUserSettings().getWakeUpTime(for: date))), Requested: \(date)")
             return nil
         }
-        
-//        if UserDefaults.standard.object(forKey: K.wakeUpKeyDict[date.weekday]!) == nil {
-//            printDebug("user did not specify wake times.")
-//            return []
-//        }
-        
-//        let timeToWake = defaults.array(forKey: K.wakeUpKeyDict[date.weekday]!)![0] as! Date
-        
-//        let hour = calendar.component(.hour, from: timeToWake)
-//        let minutes = calendar.component(.minute, from: timeToWake)
-//        let usableDate = Calendar.current.date(bySettingHour: hour, minute: minutes, second: 0, of: date)!
 
         let anHourAgo = wakeUpTime - (60 * 60)
         let newEvent = Event()

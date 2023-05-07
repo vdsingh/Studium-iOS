@@ -12,7 +12,7 @@ import UIKit
 
 class StudiumEventListViewController: SwipeTableViewController {
     
-    let databaseService: DatabaseServiceProtocol! = nil
+    let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
     override var debug: Bool {
         false
