@@ -22,8 +22,8 @@
                         <rect key="frame" x="123.5" y="46.5" width="130" height="130"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="130" id="Kmy-mB-kfA"/>
-                            <constraint firstAttribute="height" constant="130" id="Sog-gY-1s4"/>
+                            <constraint firstAttribute="height" constant="130" id="KaL-yI-cyj"/>
+                            <constraint firstAttribute="width" constant="130" id="RhZ-Vh-RUj"/>
                         </constraints>
                         <connections>
                             <action selector="colorValueChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="63o-Fe-dzK"/>
@@ -45,10 +45,11 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="FqG-qS-3nl" firstAttribute="leading" secondItem="vXq-Nr-7VW" secondAttribute="trailing" constant="20" id="0ly-tC-6UA"/>
-                    <constraint firstItem="FqG-qS-3nl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="3hR-rs-PhU"/>
                     <constraint firstItem="FqG-qS-3nl" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="3te-wv-Haw"/>
+                    <constraint firstItem="FqG-qS-3nl" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="CsZ-GP-zla"/>
                     <constraint firstItem="3BT-Dd-hVR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="MxQ-TT-6HP"/>
                     <constraint firstItem="vXq-Nr-7VW" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="YZ5-4g-y5X"/>
+                    <constraint firstItem="FqG-qS-3nl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rSM-cL-dS4"/>
                     <constraint firstItem="3BT-Dd-hVR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="w6D-w9-b8h"/>
                 </constraints>
             </tableViewCellContentView>
