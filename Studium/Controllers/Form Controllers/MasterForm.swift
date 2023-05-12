@@ -14,7 +14,7 @@ let kLargeCellHeight: CGFloat = 150
 let kMediumCellHeight: CGFloat = 60
 let kNormalCellHeight: CGFloat = 50
 
-class MasterForm: UITableViewController, UNUserNotificationCenterDelegate {
+class MasterForm: UITableViewController {
     
     enum OutgoingSegues: String {
         case logoSelection = "toLogoSelection"
@@ -335,7 +335,7 @@ extension MasterForm: UITimePickerDelegate {
 extension MasterForm: AlertTimeHandler {
     func alertTimesWereUpdated(selectedAlertOptions: [AlertOption]) {
         self.alertTimes = selectedAlertOptions
-        self.printDebug("Selected alert times updated to \(selectedAlertOptions)")
+        self.printDebug("Selected alert times updated to \(self.alertTimes)")
     }
 }
 

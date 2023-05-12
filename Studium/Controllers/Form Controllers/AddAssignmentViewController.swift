@@ -20,14 +20,11 @@ class AddAssignmentViewController: MasterForm {
     var assignmentEditing: Assignment?
     
     /// Whether the user came from the TodoEvent form. This is so that we can fill already existing data from that form (can't use edit feature because that requires an existing assignment)
-    var fromTodoForm: Bool = false;
+//    var fromTodoForm: Bool = false;
     
     /// String field data from todo form. [name, data]
-    var todoFormData: [String] = ["", ""]
-    //alert times data from todo form.
-    //    var todoAlertTimes: [Int] = []
-//    var todoDueDate: Date = Date().setTime(hour: 23, minute: 59, second: 0) ?? Date()
-    
+//    var todoFormData: [String] = ["", ""]
+
     //variables that hold the total length of the habit.
     
     // TODO: Docstrings
@@ -63,7 +60,7 @@ class AddAssignmentViewController: MasterForm {
         self.endDate = Calendar.current.date(bySetting: .minute, value: 59, of: self.endDate)!
         
         self.setCells()
-
+        
         
         if let assignment = assignmentEditing {
             
@@ -71,35 +68,11 @@ class AddAssignmentViewController: MasterForm {
                 workDaysSelected.insert(day)
             }
             
-//            guard let course = assignment.parentCourse else{
-//                print("$ERR: error accessing parent course")
-//                return
-//            }
-            
+            navButton.image = .none
+            navButton.title = "Done"
             fillForm (
                 assignment: assignment
             )
-        } else if fromTodoForm {
-            //TODO: THIS IS BROKEN PLEASE FIX. ASSIGNMENT IS NIL, SO THERE IS NO PARENT COURSE. FIX LATER
-            //            fillForm (
-            //                name: todoFormData[0],
-            //                additionalDetails: todoFormData[1],
-            //                alertTimes: self.alertTimes,
-            //                dueDate: todoDueDate,
-            //                selectedCourse: nil,
-            //                scheduleWorkTime: false,
-            //                workTimeMinutes: 0,
-            //                workDays: []
-            //            )
-        } else {
-            //we are creating a new assignment.
-            
-            //get the user's default notification times if they exist and fill them in!
-            //            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
-            //                print("$ LOG: Loading User's Default Notification Times for Assignment Form.")
-            //                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
-            //            }
-            navButton.image = UIImage(systemName: "plus")
         }
     }
     
@@ -114,10 +87,6 @@ class AddAssignmentViewController: MasterForm {
             [
                 .switchCell(cellText: "Schedule Time to Work", isOn: self.scheduleWorkTime, switchDelegate: self, infoDelegate: self)
             ],
-//            [
-//                //TODO: Indices
-//                .pickerCell(cellText: "Course", indices: [], tag: FormCellID.PickerCell.coursePickerCell, delegate: self, dataSource: self)
-//            ],
             [
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "", textColor: .systemRed)
@@ -142,6 +111,9 @@ class AddAssignmentViewController: MasterForm {
                 partitionKey: AuthenticationService.shared.userID ?? "",
                 parentCourse: self.selectedCourse
             )
+            
+            print("SELF ALERT TIEMES: \(self.alertTimes)")
+            print("NEW ASSIGNMENT HAS ALERT TIEMS: \(newAssignment.alertTimes)")
             
             if let assignmentEditing = self.assignmentEditing {
                 self.databaseService.editStudiumEvent(
@@ -201,65 +173,21 @@ class AddAssignmentViewController: MasterForm {
     func fillForm(
         assignment: Assignment
     ) {
-        navButton.image = .none
-        navButton.title = "Done"
         
         printDebug("attempting to fillForm with \(assignment)")
         
-//        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-//        nameCell.textField.text = assignment.name
+        self.selectedCourse = assignment.parentCourse
         self.name = assignment.name
-        
-        
-//        let dueDateCell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TimeCell
         self.endDate = assignment.endDate
-//        dueDateCell.setDate(assignment.endDate)
-        
-        self.alertTimes = assignment.alertTimes
-        
-        self.scheduleWorkTime = assignment.autoscheduling
-        if self.scheduleWorkTime {
-            
-//            let scheduleWorkCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell
-//            scheduleWorkCell.tableSwitch.isOn = true
-            
-//            let daysCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! DaySelectorCell
-//            daysCell.selectDays(days: assignment.days)
-            self.workDaysSelected = assignment.days
-            
-            self.totalLengthMinutes = assignment.autoLengthMinutes
-            
-            
-            
-//            let lengthHours = self.totalLengthMinutes / 60
-//            let lengthMinutes = self.totalLengthMinutes % 60
-            
-            
-//            let workTimePickerCell = tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! PickerCell
-//            workTimePickerCell.picker.selectRow(lengthHours, inComponent: 0, animated: true)
-//            workTimePickerCell.picker.selectRow(lengthMinutes, inComponent: 1, animated: true)
-        }
-        
-        if (selectedCourse != nil) {
-            self.selectedCourse = assignment.parentCourse
-        }
-        
-//        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! TextFieldCell
-//        additionalDetailsCell.textField.text = assignment.additionalDetails
         self.additionalDetails = assignment.additionalDetails
+        self.alertTimes = assignment.alertTimes
+        print("ALERT TIEMS: \(self.alertTimes)")
+        self.scheduleWorkTime = assignment.autoscheduling
+        self.workDaysSelected = assignment.days
+        self.totalLengthMinutes = assignment.autoLengthMinutes
         
         self.setCells()
-    }
-}
-
-// TODO: Docstrings
-extension AddAssignmentViewController {
-    
-    // TODO: Docstrings
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? AlertTableViewController {
-            destinationVC.delegate = self
-        }
+        self.refreshAutoscheduleSection()
     }
 }
 
@@ -288,47 +216,10 @@ extension AddAssignmentViewController: UITextFieldDelegateExt {
     }
 }
 
-//MARK: - TimerPicker DataSource Methods
-//extension AddAssignmentViewController: UIPickerViewDataSource{
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue{
-//            return courses?.count ?? 1
-//        } else if pickerView.tag == FormCellID.PickerCell.lengthPickerCell.rawValue {
-//            if component == 0{
-//                return 24
-//            }
-//            return 60
-//        }
-//        return 0
-//    }
-//
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
-//            return 1
-//        }else if pickerView.tag == FormCellID.PickerCell.lengthPickerCell.rawValue {
-//            return 2
-//        }
-//        return 0
-//    }
-//}
-
 //MARK: - Picker Delegate Methods
 
 // TODO: Docstrings
 extension AddAssignmentViewController {
-    //helps set up information in the UIPickerView
-    //    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    //        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
-    //            return courses![row].name
-    //        } else if pickerView.tag == FormCellID.PickerCell.lengthPickerCell.rawValue {
-    //            if component == 0{
-    //                return "\(row) hours"
-    //            }
-    //            return "\(row) min"
-    //        }
-    //        return "Unknown Picker"
-    //    }
-    
     // TODO: Docstrings
     override func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         switch pickerView.tag {
@@ -341,18 +232,6 @@ extension AddAssignmentViewController {
         default:
             break
         }
-        
-        //        if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
-        //            // Course selection
-        //            let selectedRow = pickerView.selectedRow(inComponent: 0)
-        //            selectedCourse = courses![selectedRow]
-        //        } else if pickerView.tag == FormCellID.PickerCell.coursePickerCell.rawValue {
-        //            if component == 0 {
-        //                workTimeHours = row
-        //            } else {
-        //                workTimeMinutes = row
-        //            }
-        //        }
     }
 }
 
@@ -364,14 +243,20 @@ extension AddAssignmentViewController: CanHandleSwitch {
         printDebug("Switch value changed")
         self.scheduleWorkTime = sender.isOn
         self.setCells()
-
+        
+        self.refreshAutoscheduleSection()
+        
+    }
+    
+    // TODO: Docstrings
+    func refreshAutoscheduleSection() {
         // TODO: Use tableview updates so these actions are animated.
-        if sender.isOn {
-            cells[1].append(.daySelectorCell(daysSelected: self.daysSelected, delegate: self))
-            cells[1].append(.pickerCell(cellText: "Length", indices: self.lengthPickerIndices, tag: FormCellID.PickerCell.lengthPickerCell, delegate: self, dataSource: self))
+        if self.scheduleWorkTime {
+            self.cells[1].append(.daySelectorCell(daysSelected: self.daysSelected, delegate: self))
+            self.cells[1].append(.pickerCell(cellText: "Length", indices: self.lengthPickerIndices, tag: FormCellID.PickerCell.lengthPickerCell, delegate: self, dataSource: self))
         } else {
-            cells[1].removeAll()
-            cells[1].append(.switchCell(cellText: "Schedule Time to Work", isOn: false, switchDelegate: self, infoDelegate: self))
+            self.cells[1].removeAll()
+            self.cells[1].append(.switchCell(cellText: "Schedule Time to Work", isOn: false, switchDelegate: self, infoDelegate: self))
         }
         
         tableView.reloadData()

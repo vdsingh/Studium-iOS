@@ -38,13 +38,10 @@ class AddToDoListEventViewController: MasterForm {
         
         if let otherEvent = otherEvent {
             fillForm(with: otherEvent)
+            navButton.image = .none
+            navButton.title = "Done"
         } else {
             navButton.image = UIImage(systemName: "plus")
-            //we are creating a new ToDoEvent
-//            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
-//                print("LOG: Loading User's Default Notification Times for ToDoEvent Form.")
-//                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
-//            }
         }
     }
     
@@ -52,16 +49,14 @@ class AddToDoListEventViewController: MasterForm {
     func setCells() {
         self.cells = [
             [
-                .labelCell(cellText: "This Event is a Course Assignment", onClick: self.isAssignmentClicked)
-            ],
-            [
                 .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCell.locationTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.navigateTo(.alertTimesSelection) })
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.navigateTo(.alertTimesSelection)
+                })
             ],
             [
-                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .standardTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCell.startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCell.endTimeCell, onClick: self.timeCellClicked)
+                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCell.startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCell.endTimeCell, onClick: self.timeCellClicked)
             ],
             [
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
