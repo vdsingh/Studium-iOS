@@ -18,24 +18,9 @@ class AddAssignmentViewController: MasterForm {
     
     /// Holds the assignment being edited (if an assignment is being edited)
     var assignmentEditing: Assignment?
-    
-    /// Whether the user came from the TodoEvent form. This is so that we can fill already existing data from that form (can't use edit feature because that requires an existing assignment)
-//    var fromTodoForm: Bool = false;
-    
-    /// String field data from todo form. [name, data]
-//    var todoFormData: [String] = ["", ""]
-
-    //variables that hold the total length of the habit.
-    
+ 
     // TODO: Docstrings
     var scheduleWorkTime: Bool = false
-    
-    // TODO: Docstrings
-    var workDaysSelected = Set<Weekday>()
-    
-    
-    /// a list of courses so that the user can pick which course the assignment is attached to
-    var courses: [Course] = []
     
     /// link to the main list of assignments, so it can refresh when we add a new one
     var delegate: AssignmentRefreshProtocol?
@@ -49,25 +34,14 @@ class AddAssignmentViewController: MasterForm {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        tableView.tableFooterView = UIView()
-        
-        
-        courses = self.databaseService.getStudiumObjects(expecting: Course.self)
-        
+                
         // TODO: Fix force unwrap
         self.endDate = Calendar.current.date(bySetting: .hour, value: 23, of: self.endDate)!
         self.endDate = Calendar.current.date(bySetting: .minute, value: 59, of: self.endDate)!
         
         self.setCells()
         
-        
         if let assignment = assignmentEditing {
-            
-            for day in assignment.days {
-                workDaysSelected.insert(day)
-            }
-            
             navButton.image = .none
             navButton.title = "Done"
             fillForm (
@@ -107,7 +81,7 @@ class AddAssignmentViewController: MasterForm {
                 notificationAlertTimes: self.alertTimes,
                 autoschedule: self.scheduleWorkTime,
                 autoLengthMinutes: self.totalLengthMinutes,
-                autoDays: self.workDaysSelected,
+                autoDays: self.daysSelected,
                 partitionKey: AuthenticationService.shared.userID ?? "",
                 parentCourse: self.selectedCourse
             )
@@ -124,6 +98,7 @@ class AddAssignmentViewController: MasterForm {
                 self.databaseService.saveStudiumObject(newAssignment)
             }
             
+            self.autoscheduleService.autoscheduleStudyTime(parentAssignment: newAssignment)
             delegate?.reloadData()
             dismiss(animated: true, completion: nil)
         } else {
@@ -152,22 +127,6 @@ class AddAssignmentViewController: MasterForm {
         dismiss(animated: true)
     }
     
-    /// set the course picker to whatever course was originally selected, if any
-    func setDefaultRow(picker: UIPickerView){
-        var row = 0
-        guard let selectedCourse = self.selectedCourse else {
-            return
-        }
-        
-        for course in courses {
-            if course.name == selectedCourse.name {
-                picker.selectRow(row, inComponent: 0, animated: true)
-                break
-            }
-            row += 1
-        }
-    }
-    
     /// Fills the form with information from an Assignment
     /// - Parameter assignment: the Assignment whose data we are filling the form with
     func fillForm(
@@ -175,7 +134,6 @@ class AddAssignmentViewController: MasterForm {
     ) {
         
         printDebug("attempting to fillForm with \(assignment)")
-        
         self.selectedCourse = assignment.parentCourse
         self.name = assignment.name
         self.endDate = assignment.endDate
@@ -183,7 +141,7 @@ class AddAssignmentViewController: MasterForm {
         self.alertTimes = assignment.alertTimes
         print("ALERT TIEMS: \(self.alertTimes)")
         self.scheduleWorkTime = assignment.autoscheduling
-        self.workDaysSelected = assignment.days
+        self.daysSelected = assignment.days
         self.totalLengthMinutes = assignment.autoLengthMinutes
         
         self.setCells()
@@ -223,8 +181,6 @@ extension AddAssignmentViewController {
     // TODO: Docstrings
     override func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         switch pickerView.tag {
-        case FormCellID.PickerCell.coursePickerCell.rawValue:
-            self.selectedCourse = self.courses[pickerView.selectedRow(inComponent: component)]
         case FormCellID.PickerCell.lengthPickerCell.rawValue:
             let lengthHours = pickerView.selectedRow(inComponent: 0)
             let lengthMinutes = pickerView.selectedRow(inComponent: 1)
@@ -288,6 +244,6 @@ extension AddAssignmentViewController: CanHandleInfoDisplay {
 // TODO: Docstrings
 extension AddAssignmentViewController: DaySelectorDelegate {
     func updateDaysSelected(weekdays: Set<Weekday>) {
-        self.workDaysSelected = weekdays
+        self.daysSelected = weekdays
     }
 }

@@ -145,7 +145,7 @@ class AddHabitViewController: MasterForm {
                 additionalDetails: additionalDetails,
                 startDate: startDate,
                 endDate: startDate.add(minutes: totalLengthMinutes),
-                autoschedule: autoschedule,
+                autoscheduling: autoschedule,
                 startEarlier: earlier,
                 autoLengthMinutes: totalLengthMinutes,
                 alertTimes: self.alertTimes,

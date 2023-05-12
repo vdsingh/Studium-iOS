@@ -47,14 +47,10 @@ class AddCourseViewController: MasterForm {
         tableView.tableFooterView = UIView()
         
         if let course = self.course {
+            navButton.image = .none
+            navButton.title = "Done"
             self.fillForm(with: course)
             // TODO: Update course notification times
-        } else {
-            //we are creating a new course
-//            if UserDefaults.standard.object(forKey: K.defaultNotificationTimesKey) != nil {
-//                Logs.Notifications.loadingDefaultNotificationTimes(logLocation: self.codeLocationString).printLog()
-//                alertTimes = UserDefaults.standard.value(forKey: K.defaultNotificationTimesKey) as! [Int]
-//            }
         }
     }
     
@@ -65,7 +61,8 @@ class AddCourseViewController: MasterForm {
                 .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCell.locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.navigateTo(.alertTimesSelection) })
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.navigateTo(.alertTimesSelection)
+                })
             ],
             [
                 .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCell.startTimeCell, onClick: timeCellClicked),
@@ -222,9 +219,6 @@ extension AddCourseViewController {
     func fillForm(with course: Course) {
         printDebug("Filling Add Course form with course: \(course)")
         tableView.reloadData()
-        
-        navButton.image = .none
-        navButton.title = "Done"
                 
         if let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell {
             nameCell.textField.text = course.name

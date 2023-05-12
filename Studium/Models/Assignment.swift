@@ -35,25 +35,25 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
     @Persisted var autoLengthMinutes: Int = 60
     
     /// The autoscheduled assignments that belong to this assignment
-    @Persisted private var scheduledEventsList: List<StudiumEvent> = List<StudiumEvent>()
+    @Persisted private var scheduledEventsList: List<Assignment> = List<Assignment>()
     
-    
-//    var scheduledEvents: [StudiumEvent]
-
-    var scheduledEvents: [StudiumEvent] {
-        return [StudiumEvent](self.scheduledEventsList)
-    }
-    
-    var scheduledEventsArr: [Assignment] {
+    // TODO: Docstrings
+//    var scheduledEvents: [StudiumEvent] {
+//        return [StudiumEvent](self.scheduledEventsList)
+//    }
+//
+    // TODO: Docstrings
+    var scheduledEvents: [Assignment] {
+        return [Assignment](self.scheduledEventsList)
         var scheduledAssignments = [Assignment]()
-        for event in self.scheduledEventsList {
-            if let assignment = event as? Assignment {
-                scheduledAssignments.append(assignment)
-            } else {
-                print("$ERR (Assigment): A non-Assignment event was added to assignments scheduled events. Event: \(event)")
-            }
-        }
-        return scheduledAssignments
+//        for event in self.scheduledEventsList {
+//            if let assignment = event as? Assignment {
+//                scheduledAssignments.append(assignment)
+//            } else {
+//                print("$ERR (Assigment): A non-Assignment event was added to assignments scheduled events. Event: \(event)")
+//            }
+//        }
+//        return scheduledAssignments
     }
     
     /// Was this an autoscheduled assignment?
@@ -87,7 +87,7 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         
         self._partitionKey = partitionKey
                 
-        self.alertTimes = alertTimes
+        self.alertTimes = notificationAlertTimes
 
         let newDaysList = List<Int>()
         newDaysList.append(objectsIn: autoDays.compactMap{ $0.rawValue })

@@ -152,70 +152,13 @@ extension AddToDoListEventViewController {
     
     // TODO: Docstrings
     func fillForm(with otherEvent: OtherEvent) {
-        print("$ LOG: fillform called in AddToDoListEventController")
-        navButton.image = .none
-        navButton.title = "Done"
-        
-        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TextFieldCell
-        nameCell.textField.text = otherEvent.name
-        name = otherEvent.name
-        
-        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TextFieldCell
-        locationCell.textField.text = otherEvent.location
-        location = otherEvent.location
-        
-        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! TextFieldCell
-        additionalDetailsCell.textField.text = otherEvent.additionalDetails
-        additionalDetails = otherEvent.additionalDetails
-        
+        printDebug("fillform called in AddToDoListEventController")
+        self.name = otherEvent.name
+        self.location = otherEvent.location
+        self.additionalDetails = otherEvent.additionalDetails
         self.alertTimes = otherEvent.alertTimes
-
-        let startCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TimeCell
-        startDate = otherEvent.startDate
-//        startCell.timeLabel.text = startDate.format(with: "MMM d, h:mm a")
-//        startCell.date = startDate
-        startCell.setDate(startDate)
-        
-        let endCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! TimeCell
-        endDate = otherEvent.endDate
-        endCell.setDate(endDate)
-    }
-}
-
-// TODO: Docstrings
-extension AddToDoListEventViewController {
-    
-    // TODO: Docstrings
-    private func isAssignmentClicked() {
-        let courses = self.databaseService.getStudiumObjects(expecting: Course.self)
-        if courses.count != 0 {
-            
-            // TODO: Fix force typing
-            guard let delegate = delegate as? ToDoListViewController else {
-                print("$ERR: delegate is not a ToDoListViewController")
-                return
-            }
-            
-            self.dismiss(animated: true) {
-                
-                //make sure that the data in our variables is updated before we transfer it to the new form.
-//                    self.retrieveDataFromCells()
-                
-                //go to the assignment form instead of todo item form. Also provide the assignment form the information from the current form.
-                delegate.openAssignmentForm (
-                    name: self.name,
-                    location: self.location,
-                    additionalDetails: self.additionalDetails,
-                    alertTimes: self.alertTimes,
-                    dueDate: self.endDate
-                )
-            }
-        } else {
-            let alert = UIAlertController(title: "No Courses Available", message: "You haven't added any Courses yet. To add an Assignment, please add a Course first.", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            
-            self.present(alert, animated: true)
-        }
+        self.startDate = otherEvent.startDate
+        self.endDate = otherEvent.endDate
+        self.setCells()
     }
 }
