@@ -11,6 +11,10 @@ import ChameleonFramework
 //TODO: Docstrings
 class CoursesViewController: StudiumEventListViewController, CourseRefreshProtocol {
     
+    private enum SegueIdentifiers: String {
+        case coursesToAssignments = "coursesToAssignments"
+    }
+    
     //TODO: Docstrings
     var courses = [Course]()
 
@@ -85,7 +89,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     
     //TODO: Docstrings
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: K.coursesToAssignmentsSegue, sender: self)
+        performSegue(withIdentifier: SegueIdentifiers.coursesToAssignments.rawValue, sender: self)
     }
     
     //TODO: Docstrings

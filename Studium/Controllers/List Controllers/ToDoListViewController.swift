@@ -104,27 +104,27 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
     }
     
     //TODO: Docstrings
-    func openAssignmentForm(
-        name: String,
-        location: String,
-        additionalDetails: String,
-        alertTimes: [AlertOption],
-        dueDate: Date
-    ) {
-        let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
-        let navController = UINavigationController(rootViewController: addAssignmentViewController)
-        addAssignmentViewController.delegate = self
-        addAssignmentViewController.fromTodoForm = true
-        
-        // providing the information from the todo form to the assignment form to be reused.
-        addAssignmentViewController.todoFormData[0] = name
-        addAssignmentViewController.todoFormData[1] = additionalDetails
-        addAssignmentViewController.alertTimes = alertTimes
-        addAssignmentViewController.endDate = dueDate
-        
-        self.present(navController, animated:true, completion: nil)
-    }
-    
+//    func openAssignmentForm(
+//        name: String,
+//        location: String,
+//        additionalDetails: String,
+//        alertTimes: [AlertOption],
+//        dueDate: Date
+//    ) {
+//        let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
+//        let navController = UINavigationController(rootViewController: addAssignmentViewController)
+//        addAssignmentViewController.delegate = self
+//        addAssignmentViewController.fromTodoForm = true
+//        
+//        // providing the information from the todo form to the assignment form to be reused.
+//        addAssignmentViewController.todoFormData[0] = name
+//        addAssignmentViewController.todoFormData[1] = additionalDetails
+//        addAssignmentViewController.alertTimes = alertTimes
+//        addAssignmentViewController.endDate = dueDate
+//        
+//        self.present(navController, animated:true, completion: nil)
+//    }
+//    
     //TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

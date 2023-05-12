@@ -5,38 +5,58 @@
 //  Created by Vikram Singh on 3/15/22.
 //  Copyright © 2022 Vikram Singh. All rights reserved.
 //
+
 import Foundation
 import UIKit
-
-//AUTHENTICATION
-import RealmSwift
 import GoogleSignIn
-//import FacebookLogin
-import FBSDKLoginKit
 
-
-class LoginViewController: AuthViewController, UIGestureRecognizerDelegate{
+//TODO: Docstrings
+class LoginViewController: AuthViewController, UIGestureRecognizerDelegate {
+    
+    //TODO: Docstrings
     @IBOutlet weak var emailTextField: UITextField!
     
+    //TODO: Docstrings
     @IBOutlet weak var passwordTextField: UITextField!
+    
+    //TODO: Docstrings
     @IBOutlet weak var signInButton: UIButton!
+    
+    //TODO: Docstrings
     @IBOutlet weak var guestSignInButton: UIButton!
     
+    //TODO: Docstrings
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
-    @IBOutlet weak var facebookSignInButton: UIButton!
-    //    @IBOutlet weak var fbLoginView: UIView!
-//    @IBOutlet weak var fbViewHolder: UIView!
-//    let app = App(id: Secret.appID)
-
     
-    //UI CONSTANT PARAMETERS: these parameters control elements of the UI
+    //TODO: Docstrings
+    @IBOutlet weak var facebookSignInButton: UIButton!
+
+
+    //TODO: Docstrings
     let textFieldIconSize = 30
+    
+    //TODO: Docstrings
     let tintColor: UIColor = UIColor(named: "Studium Secondary Theme Color") ?? .black
+    
+    //TODO: Docstrings
     let placeHolderColor: UIColor = .placeholderText
+    
+    //TODO: Docstrings
     let backgroundColor: UIColor =  UIColor(named: "Studium System Background Color") ?? StudiumColor.background.uiColor
     
-    
+    //TODO: Docstrings
     let textFieldBorderWidth: CGFloat = 2
+    
+    //TODO: Docstrings
+    var email: String {
+        return self.emailTextField.text!
+    }
+    
+    //TODO: Docstrings
+    var password: String {
+        return self.passwordTextField.text!
+    }
+
     
     override func viewDidLoad() {
         setupUI()
@@ -48,36 +68,48 @@ class LoginViewController: AuthViewController, UIGestureRecognizerDelegate{
         
         
         self.setSelectors()
-
-
+        
+        self.textFieldWasEdited()
     }
     
+    //TODO: Docstrings
     private func setSelectors() {
         self.googleSignInButton.addTarget(self, action: #selector(googleLoginClicked), for: .touchUpInside)
         self.facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
         self.guestSignInButton.addTarget(self, action: #selector(guestLoginClicked), for: .touchUpInside)
+        
+        self.emailTextField.addTarget(self, action: #selector(self.textFieldWasEdited), for: .editingChanged)
+        self.passwordTextField.addTarget(self, action: #selector(self.textFieldWasEdited), for: .editingChanged)
     }
     
+    //TODO: Docstrings
     @IBAction func textFieldEditingDidBegin(_ sender: UITextField) {
         sender.tintColor = tintColor
         sender.layer.borderColor = tintColor.cgColor
     }
     
+    //TODO: Docstrings
     @IBAction func textFieldEditingDidEnd(_ sender: UITextField) {
         sender.tintColor = .gray
         sender.layer.borderColor = UIColor.gray.cgColor
     }
     
+    //TODO: Docstrings
+    @objc func textFieldWasEdited() {
+        self.signInButton.isEnabled = !self.email.isEmpty && !self.password.isEmpty && self.email.contains("@")
+        self.signInButton.backgroundColor = self.signInButton.isEnabled ? StudiumColor.secondaryAccent.uiColor : .gray
+    }
+    
+    //TODO: Docstrings
     @IBAction func signInButtonPressed(_ sender: UIButton) {
         let email = emailTextField.text!
         let password = passwordTextField.text!
         self.emailPasswordLoginClicked(email: email, password: password)
     }
     
-    //this function sets up the textfields (adds the left image and right image.)
+    //TODO: Docstrings
     func setupUI(){
-        
-        self.signInButton.tintColor = StudiumColor.secondaryAccent.uiColor
+        self.googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
         self.googleSignInButton.style = GIDSignInButtonStyle.wide
         self.facebookSignInButton.layer.cornerRadius = 10
 
@@ -136,11 +168,12 @@ class LoginViewController: AuthViewController, UIGestureRecognizerDelegate{
         self.passwordTextField.delegate = self
         
         
-        self.signInButton.backgroundColor = tintColor
+        self.signInButton.tintColor = StudiumColor.secondaryAccent.uiColor
         self.signInButton.layer.cornerRadius = 10
         self.signInButton.setTitleColor(StudiumColor.primaryLabel.uiColor, for: .normal)
     }
     
+    //TODO: Docstrings
     @IBAction func backButtonPressed(_ sender: UIButton) {
         print("$LOG (LoginViewController): Back Button Pressed")
         self.navigationController?.popViewController(animated: true)
@@ -149,7 +182,7 @@ class LoginViewController: AuthViewController, UIGestureRecognizerDelegate{
         }
     }
     
-    //close the keyboard - do nothing
+    //TODO: Docstrings
     func textFieldShouldReturn(textField: UITextField!) -> Bool // called when 'return' key pressed. return NO to ignore.
     {
         return true;

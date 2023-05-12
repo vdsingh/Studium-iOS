@@ -51,22 +51,8 @@ class DaySelectorCell: BasicCell {
                 print("$ERR (DaySelectorCell): No Day Button could be found for day \(day) aka \(day.buttonText)")
             }
         }
-
     }
-//    
-//    func selectDays(days: [Int]){
-//        daysSelected = []
-//        for button in dayButtons{
-//            let buttonText = button.titleLabel?.text
-//            if days.contains(K.weekdayDict[buttonText!]!){
-//                daysSelected.append(buttonText!)
-//                button.isSelected = true
-//            }else{
-//                button.isSelected = false
-//            }
-//        }
-//    }
-//
+
     //TODO: Docstrings
     @IBAction func dayButtonPressed(_ sender: UIButton) {
         

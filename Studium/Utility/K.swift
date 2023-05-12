@@ -17,16 +17,16 @@ struct K {
     static let populatedHeaderHeight: CGFloat = 32
     
     //SEGUES
-    static let coursesToAssignmentsSegue = "coursesToAssignments"
-    static let coursesToAllSegue = "coursesToAll"
-    static let toAddCourseSegue = "toAddCourse"
-    static let toCoursesSegue = "toCourses"
-    static let toMainSegue = "toMain"
-    static let toLoginSegue = "toLogin"
-    static let toRegisterSegue = "toRegister"
-    static let toCalendarSegue = "toCalendar"
-    
-    static let sortAssignmentsBy = "name"
+//    static let coursesToAssignmentsSegue = "coursesToAssignments"
+//    static let coursesToAllSegue = "coursesToAll"
+//    static let toAddCourseSegue = "toAddCourse"
+//    static let toCoursesSegue = "toCourses"
+//    static let toMainSegue = "toMain"
+//    static let toLoginSegue = "toLogin"
+//    static let toRegisterSegue = "toRegister"
+//    static let toCalendarSegue = "toCalendar"
+//    
+//    static let sortAssignmentsBy = "name"
 
     static var themeColor: UIColor = colorsDict[UserDefaults.standard.string(forKey: "themeColor") ?? "flatRed"] ?? .black
 

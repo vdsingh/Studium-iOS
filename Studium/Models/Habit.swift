@@ -12,14 +12,22 @@ import RealmSwift
 //TODO: Docstrings
 class Habit: RecurringStudiumEvent, Autoscheduleable {
     
-    //TODO: Docstrings
-    
     // MARK: - Autoscheduleable Variables
+    
+    //TODO: Docstrings
     @Persisted var autoscheduling: Bool = false
+    
+    //TODO: Docstrings
     @Persisted var autoLengthMinutes: Int = 60
+    
+    //TODO: Docstrings
     @Persisted var autoscheduled: Bool = false
     
+    //TODO: Docstrings
     @Persisted var scheduledEventsList = List<StudiumEvent>()
+    
+    //TODO: Docstrings
+    @Persisted var startEarlier: Bool = true
         
     // TODO: Docstrings
     var scheduledEvents: [StudiumEvent] {
@@ -38,14 +46,6 @@ class Habit: RecurringStudiumEvent, Autoscheduleable {
         }
         return scheduledAssignments
     }
-
-    
-    
-    
-    @Persisted var startEarlier: Bool = true
-    
-    
-    //Basically an init that must be called manually because Realm doesn't allow init for some reason.
     
     //TODO: Docstrings
     convenience init(
@@ -54,7 +54,7 @@ class Habit: RecurringStudiumEvent, Autoscheduleable {
         additionalDetails: String,
         startDate: Date,
         endDate: Date,
-        autoschedule: Bool,
+        autoscheduling: Bool,
         startEarlier: Bool,
         autoLengthMinutes: Int,
         alertTimes: [AlertOption],
@@ -64,19 +64,16 @@ class Habit: RecurringStudiumEvent, Autoscheduleable {
         partitionKey: String
     ) {
         self.init(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, color: color, logo: logo, alertTimes: alertTimes)
-        self.autoscheduling = autoschedule
         self.startEarlier = startEarlier
+        self.autoscheduling = autoscheduling
         self.autoLengthMinutes = autoLengthMinutes
-//        self.systemImageString = systemImageString
-        
         let newDaysList = List<Int>()
         newDaysList.append(objectsIn: days.compactMap{ $0.rawValue })
         self.daysList = newDaysList
-        
         self._partitionKey = partitionKey
-
     }
     
+    //TODO: Docstrings
     override func occursOn(date: Date) -> Bool {
         if self.autoscheduling {
             return false
@@ -85,6 +82,7 @@ class Habit: RecurringStudiumEvent, Autoscheduleable {
         }
     }
     
+    //TODO: Docstrings
     func appendScheduledEvent(event: StudiumEvent) {
         if let event = event as? Assignment {
             self.scheduledEventsList.append(event)

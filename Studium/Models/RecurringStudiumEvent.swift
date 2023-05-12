@@ -23,8 +23,10 @@ protocol Autoscheduleable: StudiumEvent {
     //TODO: Docstrings
     var autoscheduled: Bool { get set }
     
+    //TODO: Docstrings
     var scheduledEvents: [StudiumEvent] { get }
     
+    //TODO: Docstrings
     func appendScheduledEvent(event: StudiumEvent) 
 }
 
