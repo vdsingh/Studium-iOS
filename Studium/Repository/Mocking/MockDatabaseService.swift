@@ -77,4 +77,8 @@ class MockDatabaseService: DatabaseServiceProtocol {
     func getDefaultAlertOptions() -> [AlertOption] {
         return []
     }
+    
+    func removeAllStudiumEvents() {
+        self.events = [StudiumEvent]()
+    }
 }

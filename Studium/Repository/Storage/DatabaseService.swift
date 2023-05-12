@@ -84,9 +84,7 @@ final class DatabaseService: DatabaseServiceProtocol {
                 return
             }
             
-            
             self.saveAssignment(assignment: assignment, parentCourse: parentCourse)
-            
             return
         }
         

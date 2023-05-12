@@ -22,6 +22,7 @@ class MasterForm: UITableViewController {
     }
     
     let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
+    let autoscheduleService: AutoscheduleServiceProtocol = AutoscheduleService.shared
     
     // TODO: Docstrings
     var debug: Bool {
