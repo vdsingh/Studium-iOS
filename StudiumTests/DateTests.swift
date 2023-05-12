@@ -54,9 +54,9 @@ final class DateTests: XCTestCase {
         
         self.autoscheduledAssignment = Assignment(parentAssignment: self.autoschedulingAssignment)
         
-        self.nonAutoHabit = Habit(name: "Non Auto Habit", location: "", additionalDetails: "", startDate: Date.someMonday, endDate: Date.someMonday.add(hours: 1), autoschedule: false, startEarlier: false, autoLengthMinutes: 0, alertTimes: [], days: monWedDays, logo: .a, color: .gray, partitionKey: "")
+        self.nonAutoHabit = Habit(name: "Non Auto Habit", location: "", additionalDetails: "", startDate: Date.someMonday, endDate: Date.someMonday.add(hours: 1), autoscheduling: false, startEarlier: false, autoLengthMinutes: 0, alertTimes: [], days: monWedDays, logo: .a, color: .gray, partitionKey: "")
         
-        self.autoHabit = Habit(name: "Auto Habit", location: "", additionalDetails: "", startDate: Date.someMonday, endDate: Date.someMonday.add(hours: 1), autoschedule: true, startEarlier: false, autoLengthMinutes: 60, alertTimes: [], days: monWedDays, logo: .a, color: .black, partitionKey: "")
+        self.autoHabit = Habit(name: "Auto Habit", location: "", additionalDetails: "", startDate: Date.someMonday, endDate: Date.someMonday.add(hours: 1), autoscheduling: true, startEarlier: false, autoLengthMinutes: 60, alertTimes: [], days: monWedDays, logo: .a, color: .black, partitionKey: "")
         
     }
     
