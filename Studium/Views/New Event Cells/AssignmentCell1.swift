@@ -56,18 +56,22 @@ class AssignmentCell1: DeletableEventCell {
     //TODO: Docstrings
     let largeConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .large)
 
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        let chevDownImage = UIImage(systemName: "chevron.down", withConfiguration: largeConfig)
-        expandEventsButton.setImage(chevDownImage, for: .normal)
+        let chevDownImage = SystemIcon.chevronDown.createImage()
+        
+//        UIImage(systemName: "chevron.down", withConfiguration: largeConfig)
+//        expandEventsButton.setImage(chevDownImage, for: .normal)
+        self.setIsExpanded(isExpanded: false)
     }
     
     //TODO: Docstring
-    func loadData(assignment: Assignment) {
+    func loadData(assignment: Assignment, assignmentCollapseDelegate: AssignmentCollapseDelegate?) {
         
         // store the assignment here - we'll know what to delete if necessary
         self.event = assignment
+        
+        self.assignmentCollapseDelegate = assignmentCollapseDelegate
         
         // Create an attributed string for the assignment's name (the main label). This is so that when the assignment is marked complete, we can put a slash through the label.
         let primaryTextAttributeString = NSMutableAttributedString(string: self.event!.name)
@@ -146,13 +150,15 @@ class AssignmentCell1: DeletableEventCell {
     
     //TODO: Docstring
     func setIsExpanded(isExpanded: Bool) {
+        
+        
         //configuration settings for chevron button (sizing)
         if isExpanded {
-            let chevUpImage = UIImage(systemName: "chevron.up", withConfiguration: largeConfig)
+            let chevUpImage = SystemIcon.chevronUp.createImage()
             expandEventsButton.setImage(chevUpImage, for: .normal)
             
         } else {
-            let chevDownImage = UIImage(systemName: "chevron.down", withConfiguration: largeConfig)
+            let chevDownImage = SystemIcon.chevronDown.createImage()
             expandEventsButton.setImage(chevDownImage, for: .normal)
         }
     }
