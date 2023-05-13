@@ -126,7 +126,7 @@ class WakeUpIntroController: UIViewController {
     
     // TODO: Docstrings
     //function that is called when the user switches between whether they wake up at different times or at the same time.
-    @IBAction func habitChanged(_ sender: UISegmentedControl) {
+    @IBAction func timeSelectionTypeChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0{ //different times
             differentTimes = true
             for day in dayButtons!{

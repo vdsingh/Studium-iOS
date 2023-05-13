@@ -38,10 +38,10 @@ class CourseCell: DeletableEventCell{
 //        }
 //    }
     
-    func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<String>, colorHex: String, course: Course, systemImageString: String){
+    func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<String>, colorHex: String, course: Course, systemIcon: SystemIcon){
         self.course = course
         event = course
-        iconImage.image = UIImage(systemName: systemImageString)
+        iconImage.image = systemIcon.createImage()
         iconImage.tintColor = UIColor(hexString: colorHex)
         nameLabel.text = courseName
         locationLabel.text = location

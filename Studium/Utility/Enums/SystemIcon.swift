@@ -20,11 +20,13 @@ public enum SystemIcon: String, CaseIterable {
     case pencil
     case folder
     case book
+    case eye
     case film
     case lightbulb
     case tv
     case heart
     case envelope
+    case lock
     case sunMax = "sun.max"
     case moon
     case zzz

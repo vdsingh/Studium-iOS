@@ -115,7 +115,7 @@ class LoginViewController: AuthViewController, UIGestureRecognizerDelegate {
 
         //EMAIL TEXT FIELD SETUP:
         let emailImageView = UIImageView(frame: CGRect(x: textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))
-        emailImageView.image = UIImage(systemName: "envelope")
+        emailImageView.image = SystemIcon.envelope.createImage()
         emailImageView.contentMode = .scaleAspectFit
 
         let emailView = UIView(frame: CGRect(x: 0, y: 0, width: textFieldIconSize/3*4, height: textFieldIconSize/3*5))
@@ -139,7 +139,7 @@ class LoginViewController: AuthViewController, UIGestureRecognizerDelegate {
         
         //PASSWORD TEXT FIELD SETUP:
         let passwordIconImageView = UIImageView(frame: CGRect(x: textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))
-        passwordIconImageView.image = UIImage(systemName: "lock")
+        passwordIconImageView.image = SystemIcon.lock.createImage()
         passwordIconImageView.contentMode = .scaleAspectFit
 
         let passwordIconView = UIView(frame: CGRect(x: 0, y: 0, width: textFieldIconSize/3*4, height: textFieldIconSize/3*5))
@@ -148,7 +148,7 @@ class LoginViewController: AuthViewController, UIGestureRecognizerDelegate {
         self.passwordTextField.leftViewMode = UITextField.ViewMode.always
         
         let passwordEyeImageView = UIImageView(frame: CGRect(x: -textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))
-        passwordEyeImageView.image = UIImage(systemName: "eye")
+        passwordEyeImageView.image = SystemIcon.eye.createImage()
         passwordEyeImageView.contentMode = .scaleAspectFit
 
         let passwordEyeView = UIView(frame: CGRect(x: 0, y: 0, width: textFieldIconSize/3*4, height: textFieldIconSize/3*5))

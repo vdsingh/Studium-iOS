@@ -41,7 +41,7 @@ class AddToDoListEventViewController: MasterForm {
             navButton.image = .none
             navButton.title = "Done"
         } else {
-            navButton.image = UIImage(systemName: "plus")
+            navButton.image = SystemIcon.plus.createImage()
         }
     }
     

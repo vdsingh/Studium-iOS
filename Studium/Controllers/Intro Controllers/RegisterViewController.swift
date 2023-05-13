@@ -130,7 +130,7 @@ class RegisterViewController: AuthViewController, UIGestureRecognizerDelegate {
         
         //EMAIL TEXT FIELD SETUP:
         let emailImageView = UIImageView(frame: CGRect(x: iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
-        emailImageView.image = UIImage(systemName: "envelope")
+        emailImageView.image = SystemIcon.envelope.createImage()
         emailImageView.contentMode = .scaleAspectFit
 
         let emailView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize/3*4, height: iconSize/3*5))
@@ -154,7 +154,7 @@ class RegisterViewController: AuthViewController, UIGestureRecognizerDelegate {
         
         //PASSWORD TEXT FIELD SETUP:
         let passwordIconImageView = UIImageView(frame: CGRect(x: iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
-        passwordIconImageView.image = UIImage(systemName: "lock")
+        passwordIconImageView.image = SystemIcon.lock.createImage()
         passwordIconImageView.contentMode = .scaleAspectFit
 
         let passwordIconView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize/3*4, height: iconSize/3*5))
@@ -163,7 +163,7 @@ class RegisterViewController: AuthViewController, UIGestureRecognizerDelegate {
         passwordTextField.leftViewMode = UITextField.ViewMode.always
         
         let passwordEyeImageView = UIImageView(frame: CGRect(x: -iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
-        passwordEyeImageView.image = UIImage(systemName: "eye")
+        passwordEyeImageView.image = SystemIcon.eye.createImage()
         passwordEyeImageView.contentMode = .scaleAspectFit
 
         let passwordEyeView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize/3*4, height: iconSize/3*5))
