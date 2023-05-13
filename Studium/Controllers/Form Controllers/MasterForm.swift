@@ -47,7 +47,7 @@ class MasterForm: UITableViewController {
     var daysSelected = Set<Weekday>()
     
     // TODO: Docstrings
-    var color: UIColor = .black
+    var color: UIColor = .white
 
     // TODO: Docstrings
     var logo: SystemIcon = .book
@@ -194,23 +194,20 @@ extension MasterForm {
 extension MasterForm {
     
     // TODO: Docstrings
-    func replaceLabelText(text: String, section: Int, row: Int) {
-        let oldCell = cells[section][row]
-        switch oldCell {
-        case .labelCell(_, let textColor, let backgroundColor, let cellAccessoryType, let onClick):
-            cells[section][row] = .labelCell(cellText: text,
-                                             textColor: textColor,
-                                             backgroundColor: backgroundColor,
-                                             cellAccessoryType: cellAccessoryType,
-                                             onClick: onClick)
-            tableView.reloadData()
-        default:
-            return
-        }
-    }
-    
-    
-    
+//    func replaceLabelText(text: String, section: Int, row: Int) {
+//        let oldCell = cells[section][row]
+//        switch oldCell {
+//        case .labelCell(_, let textColor, let backgroundColor, let cellAccessoryType, let onClick):
+//            cells[section][row] = .labelCell(cellText: text,
+//                                             textColor: textColor,
+//                                             backgroundColor: backgroundColor,
+//                                             cellAccessoryType: cellAccessoryType,
+//                                             onClick: onClick)
+//            tableView.reloadData()
+//        default:
+//            return
+//        }
+//    }
     
     // TODO: Docstrings
     func navigateTo(_ segue: OutgoingSegues) {
@@ -462,6 +459,14 @@ extension MasterForm {
             cell.backgroundColor = backgroundColor
             cell.accessoryType = cellAccessoryType
             return cell
+        case .errorCell(let errors):
+            let cell = tableView.dequeueReusableCell(withIdentifier: LabelCell.id, for: indexPath) as! LabelCell
+            cell.label.text = FormError.constructErrorString(errors: errors)
+            cell.label.textColor = StudiumColor.failure.uiColor
+            cell.label.numberOfLines = 0
+            cell.backgroundColor = StudiumColor.background.uiColor
+            cell.accessoryType = .none
+            return cell
         case .timeCell(let cellText, let date, let dateFormat, let timePickerMode, let id, _):
             let cell = tableView.dequeueReusableCell(withIdentifier: TimeCell.id, for: indexPath) as! TimeCell
             cell.configure(cellLabelText: cellText, formCellID: id, date: date, dateFormat: dateFormat, timePickerMode: timePickerMode)
@@ -536,7 +541,7 @@ extension MasterForm {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cell = cells[indexPath.section][indexPath.row]
         switch cell{
-        case .pickerCell, .timePickerCell, .colorPickerCell:
+        case .pickerCell, .timePickerCell, .colorPickerCell, .errorCell:
             return kLargeCellHeight
         case .logoCell:
             return kMediumCellHeight
@@ -562,6 +567,13 @@ extension MasterForm {
         }
         
         return K.emptyHeaderHeight
+    }
+    
+    func scrollToBottomOfTableView() {
+        let lastSectionIndex = self.tableView.numberOfSections - 1
+        let lastIndexPath = IndexPath(row: tableView.numberOfRows(inSection: lastSectionIndex) - 1, section: lastSectionIndex)
+        
+        self.tableView.scrollToRow(at: lastIndexPath, at: .bottom, animated: true)
     }
 }
 

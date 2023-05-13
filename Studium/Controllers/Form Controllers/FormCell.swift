@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /// Form cells and all their necessary information to build a form
-public enum FormCell: Equatable {
+enum FormCell: Equatable {
     public static func == (lhs: FormCell, rhs: FormCell) -> Bool {
         return "\(lhs)" == "\(rhs)"
     }
@@ -36,6 +36,10 @@ public enum FormCell: Equatable {
         backgroundColor: UIColor = StudiumColor.secondaryBackground.uiColor,
         cellAccessoryType: UITableViewCell.AccessoryType = .none,
         onClick: (() -> Void)? = nil
+    )
+    
+    case errorCell(
+        errors: [FormError]
     )
     
     case timeCell(

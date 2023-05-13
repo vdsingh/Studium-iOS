@@ -60,7 +60,9 @@ class AddToDoListEventViewController: MasterForm {
             ],
             [
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "", textColor: .systemRed)
+            ],
+            [
+                .errorCell(errors: self.errors)
             ]
         ]
     }
@@ -90,7 +92,7 @@ class AddToDoListEventViewController: MasterForm {
         } else {
             // update the errors cell to show all of the errors with the form
             self.setCells()
-            self.replaceLabelText(text: FormError.constructErrorString(errors: self.errors), section: 3, row: 1)
+            self.scrollToBottomOfTableView()
             tableView.reloadData()
         }
     }

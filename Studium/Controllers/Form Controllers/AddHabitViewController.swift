@@ -65,7 +65,7 @@ class AddHabitViewController: MasterForm {
         //makes it so that the form doesn't have a bunch of empty cells at the bottom
         tableView.tableFooterView = UIView()
         
-        navButton.image = UIImage(systemName: "plus")
+        navButton.image = SystemIcon.plus.createImage()
         if let habit = habit {
 //            if habit.autoschedule {
 //                self.cells = self.cellsAuto
@@ -97,8 +97,10 @@ class AddHabitViewController: MasterForm {
                                text: self.additionalDetails,
                                id: FormCellID.TextFieldCell.additionalDetailsTextField,
                                textFieldDelegate: self,
-                               delegate: self),
-                .labelCell(cellText: "", textColor: .systemRed)
+                               delegate: self)
+            ],
+            [
+                .errorCell(errors: self.errors)
             ]
         ]
         
@@ -119,7 +121,9 @@ class AddHabitViewController: MasterForm {
                 .logoCell(logo: self.logo, onClick: { self.navigateTo(.logoSelection) }),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: .additionalDetailsTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "", textColor: .systemRed)
+            ],
+            [
+                .errorCell(errors: self.errors)
             ]
         ]
         
@@ -170,11 +174,7 @@ class AddHabitViewController: MasterForm {
             }
         } else {
             self.reloadData()
-            self.replaceLabelText(
-                text: FormError.constructErrorString(errors: self.errors),
-                section: 2,
-                row: 3
-            )
+            self.scrollToBottomOfTableView()
         }
     }
     

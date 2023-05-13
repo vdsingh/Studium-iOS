@@ -74,7 +74,8 @@ class AddCourseViewController: MasterForm {
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],
             [
-                .labelCell(cellText: "", textColor: .systemRed)
+                .errorCell(errors: self.errors)
+//                .labelCell(cellText: "", textColor: StudiumColor.failure.uiColor, backgroundColor: StudiumColor.background.uiColor)
             ]
         ]
     }
@@ -116,11 +117,7 @@ class AddCourseViewController: MasterForm {
             dismiss(animated: true, completion: delegate?.loadCourses)
         } else {
             self.setCells()
-            self.replaceLabelText(
-                text: FormError.constructErrorString(errors: self.errors),
-                section: 3,
-                row: 0
-            )
+            self.scrollToBottomOfTableView()
             tableView.reloadData()
         }
     }

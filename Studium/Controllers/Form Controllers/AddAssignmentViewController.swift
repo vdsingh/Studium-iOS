@@ -47,6 +47,8 @@ class AddAssignmentViewController: MasterForm {
             fillForm (
                 assignment: assignment
             )
+        } else {
+            navButton.image = SystemIcon.plus.createImage()
         }
     }
     
@@ -62,8 +64,10 @@ class AddAssignmentViewController: MasterForm {
                 .switchCell(cellText: "Schedule Time to Work", isOn: self.scheduleWorkTime, switchDelegate: self, infoDelegate: self)
             ],
             [
-                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "", textColor: .systemRed)
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
+            ],
+            [
+                .errorCell(errors: self.errors)
             ]
         ]
     }
@@ -86,9 +90,6 @@ class AddAssignmentViewController: MasterForm {
                 parentCourse: self.selectedCourse
             )
             
-            print("SELF ALERT TIEMES: \(self.alertTimes)")
-            print("NEW ASSIGNMENT HAS ALERT TIEMS: \(newAssignment.alertTimes)")
-            
             if let assignmentEditing = self.assignmentEditing {
                 self.databaseService.editStudiumEvent(
                     oldEvent: assignmentEditing,
@@ -106,7 +107,8 @@ class AddAssignmentViewController: MasterForm {
                 .compactMap({ $0.rawValue })
                 .joined(separator: ". ")
             self.setCells()
-            self.replaceLabelText(text: errorsString, section: 3, row: 1)
+            self.scrollToBottomOfTableView()
+//            self.replaceLabelText(text: errorsString, section: 3, row: 0)
             tableView.reloadData()
         }
     }
