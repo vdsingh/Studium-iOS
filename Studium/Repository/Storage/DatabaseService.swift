@@ -21,7 +21,7 @@ protocol DatabaseServiceProtocol {
     func editStudiumEvent(oldEvent: StudiumEvent, newEvent: StudiumEvent)
     func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date)
     func deleteStudiumObject(_ studiumEvent: StudiumEvent)
-    func deleteAssignmentsForCourse(course: Course)
+//    func deleteAssignmentsForCourse(course: Course)
     func setDefaultAlertOptions(alertOptions: [AlertOption])
     func getDefaultAlertOptions() -> [AlertOption]
 }
@@ -152,7 +152,7 @@ final class DatabaseService: DatabaseServiceProtocol {
     /// - Parameter course: The Course that we want to retrieve the Assignments for
     /// - Returns: All of the Assignments for the provided Course
     public func getAssignments(forCourse course: Course) -> [Assignment] {
-        return [Assignment](course.assignments)
+        return [Assignment](course.scheduledEvents)
     }
     
     /// Retrieves the UserSettings object from the database
@@ -234,35 +234,34 @@ final class DatabaseService: DatabaseServiceProtocol {
     /// Deletes a Studium Object from the database
     /// - Parameter studiumEvent: The StudiumEvent to delete
     public func deleteStudiumObject(_ studiumEvent: StudiumEvent) {
-        printDebug("Deleting studiumEvent \(studiumEvent.name)")
         
-        // if we're deleting a course, delete all the assignments in the course
-        if let course = studiumEvent as? Course {
-            self.deleteAssignmentsForCourse(course: course)
-        }
-        
-        if let assignment = studiumEvent as? Assignment {
-            for autoscheduledEvent in assignment.scheduledEvents {
-                self.deleteStudiumObject(autoscheduledEvent)
+        printDebug("attempting to delete studiumEvent \(studiumEvent.name)")
+
+        if let containerEvent = studiumEvent as? (any StudiumEventContainer) {
+            while let event = containerEvent.scheduledEvents.first {
+                self.deleteStudiumObject(event)
             }
         }
         
         self.realmWrite {
             NotificationService.shared.deleteAllPendingNotifications(for: studiumEvent)
-            self.realm.delete(studiumEvent)
+            if !studiumEvent.isInvalidated {
+                printDebug("Deleting studiumEvent \(studiumEvent.name)")
+                self.realm.delete(studiumEvent)
+            } else {
+                print("$ERR (DatabaseService): Tried to delete StudiumEvent \(studiumEvent), but it was invalidated.")
+            }
         }
     }
     
     
     /// Deletes all of the assignments for a Course
     /// - Parameter course: The Course that we want to delete the assignments for
-    public func deleteAssignmentsForCourse(course: Course) {
-        printDebug("Deleting assignments for course \(course.name)")
-        for assignment in course.assignments {
-            printDebug("Deleting assignment: \(assignment.name)")
-            self.deleteStudiumObject(assignment)
-        }
-    }
+//    public func deleteAssignmentsForCourse(course: Course) {
+//        for assignment in course.assignments {
+//            self.deleteStudiumObject(assignment)
+//        }
+//    }
     
     private func realmWrite(_ writeBlock: () -> Void) {
         do {
