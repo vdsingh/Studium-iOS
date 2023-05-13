@@ -97,7 +97,7 @@ class DayScheduleViewController: DayViewController {
             // Is the event recurring?
             if let recurringEvent = studiumEvent as? RecurringStudiumEvent {
                 
-                if let recurringEvent = recurringEvent as? Autoscheduleable,
+                if let recurringEvent = recurringEvent as? (any Autoscheduleable),
                    recurringEvent.autoscheduling {
 //                    let autoscheduleChunk = AutoscheduleService.shared.findAutoscheduleTimeChunk(dateToScheduleOn: date, startBound: <#T##Date#>, endBound: <#T##Date#>, totalMinutes: <#T##Int#>)
                 } else {

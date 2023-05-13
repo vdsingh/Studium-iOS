@@ -44,7 +44,7 @@ class MockDatabaseService: DatabaseServiceProtocol {
     }
     
     func getAssignments(forCourse course: Course) -> [Assignment] {
-        return course.assignments
+        return course.scheduledEvents
     }
     
     func getUserSettings() -> UserSettings {

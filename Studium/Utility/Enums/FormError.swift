@@ -20,7 +20,7 @@ enum FormError: String {
     static func constructErrorString(errors: [FormError]) -> String {
         let errorsString: String = errors
             .compactMap({ $0.rawValue })
-            .joined(separator: ". ")
+            .joined(separator: "\n")
         return errorsString
     }
 }

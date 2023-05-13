@@ -140,7 +140,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
         addCourseViewController.delegate = self
         addCourseViewController.course = eventForEdit
-        ColorPickerCell.color = eventForEdit.color
+//        ColorPickerCell.color = eventForEdit.color
         addCourseViewController.title = "View/Edit Course"
         let navController = UINavigationController(rootViewController: addCourseViewController)
         self.present(navController, animated:true, completion: nil)
@@ -168,7 +168,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
         addCourseViewController.delegate = self
         let navController = UINavigationController(rootViewController: addCourseViewController)
-        ColorPickerCell.color = .white
+//        ColorPickerCell.color = .white
         self.present(navController, animated:true, completion: nil)
     }
 }

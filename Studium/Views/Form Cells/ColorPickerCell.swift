@@ -32,21 +32,30 @@ class ColorPickerCell: BasicCell {
     var delegate: ColorDelegate?
     
     //TODO: Docstrings
-    static var color: UIColor?
+    var color: UIColor = .green {
+        didSet {
+            self.colorPreview.backgroundColor = self.color
+            
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        if ColorPickerCell.color != nil{
-            colorPicker.selectedColor = ColorPickerCell.color!
-            colorPreview.backgroundColor = ColorPickerCell.color!
-        }
+//        if ColorPickerCell.color != nil {
+//            colorPicker.selectedColor = ColorPickerCell.color!
+//            colorPreview.backgroundColor = ColorPickerCell.color!
+//        }
         
+        self.color = .white
+//
+        self.colorPicker.selectedColor = self.color
         self.colorPicker.backgroundColor = StudiumColor.secondaryBackground.uiColor
         self.label.textColor = StudiumColor.primaryLabel.uiColor
     }
     
     //TODO: Docstrings
     @IBAction func colorValueChanged(_ sender: RadialPaletteControl) {
-        colorPreview.backgroundColor = sender.selectedColor
+        self.color = sender.selectedColor
         delegate?.colorPickerValueChanged(sender: sender)
     }
 }
