@@ -11,8 +11,18 @@ import EventKit
 import CalendarKit
 import RealmSwift
 
+protocol StudiumEventContainer {
+    associatedtype ScheduledEventType: StudiumEvent
+    
+    //TODO: Docstrings
+    var scheduledEvents: [ScheduledEventType] { get }
+
+}
+
 /// Protocol for StudiumEvents that can be autoscheduled
-protocol Autoscheduleable: StudiumEvent {
+protocol Autoscheduleable: StudiumEvent, StudiumEventContainer {
+    
+    associatedtype EventType: StudiumEvent
     
     /// The amount of time (in minutes) that autoscheduled events should be scheduled for
     var autoLengthMinutes: Int { get set }
@@ -24,10 +34,7 @@ protocol Autoscheduleable: StudiumEvent {
     var autoscheduled: Bool { get set }
     
     //TODO: Docstrings
-//    var scheduledEvents: [StudiumEvent] { get }
-    
-    //TODO: Docstrings
-    func appendScheduledEvent(event: StudiumEvent) 
+    func appendScheduledEvent(event: EventType)
 }
 
 /// Represents StudiumEvents that repeat
