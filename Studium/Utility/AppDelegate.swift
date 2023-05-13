@@ -16,42 +16,22 @@ import FBSDKLoginKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    // TODO: Docstrings
     let debug = false
     
+    // TODO: Docstrings
     let databaseService = DatabaseService()
     
+    // TODO: Docstrings
     lazy var autoscheduleService: AutoscheduleServiceProtocol = {
         return AutoscheduleService(databaseService: self.databaseService)
     }()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-//        let assignments = self.databaseService.getStudiumObjects(expecting: Assignment.self)
-//        for assignment in assignments {
-//            if(assignment.isAutoscheduled && Date() > assignment.endDate) {
-//                self.databaseService.deleteStudiumObject(assignment)
-//            }
-//        }
 
         printDebug("Did finish launching");
-        
-        //clientID must be specified for Google Authentication
-//        GIDSignIn.sharedInstance.configuration?.clientID
-//        GIDSignIn.sharedInstance.configuration?.clientID =
-        
-        //TODO: Fix google sign in.
-//        GIDSignIn.sharedInstance.
-//        GIDSignIn.sharedInstance().cli
-//        GIDSignIn.sharedInstance.configuration?.clientID = Secret.clientID
-//        GIDSignIn.sharedInstance.configuration?.serverClientID = Secret.serverClientID
-        
-        // TODO: Implement
-//        AuthenticationService.shared.attemptRestorePreviousSignIn(completion: { status in
-//            
-//            
-//        })
-//        return true
         
         // Initialize Facebook SDK
         FBSDKCoreKit.ApplicationDelegate.shared.application(
@@ -96,8 +76,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return false
     }
-    
-    
 }
 
 extension AppDelegate: Debuggable {

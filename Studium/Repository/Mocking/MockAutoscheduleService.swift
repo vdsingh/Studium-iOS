@@ -14,8 +14,8 @@ class MockAutoscheduleService: AutoscheduleServiceProtocol {
     
     private init() { }
     
-    func autoscheduleEvent(event: StudiumEvent, date: Date) {
-        
+    func autoscheduleEvent(forEvent event: StudiumEvent, onDate date: Date) {
+
     }
     
     func getCommitments(for date: Date) -> [StudiumEvent: TimeChunk] {

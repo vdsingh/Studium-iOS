@@ -21,8 +21,9 @@ class StudiumEventListViewController: SwipeTableViewController {
     var eventsArray: [[StudiumEvent]] = [[],[]]
     
     var sectionHeaders: [String] = ["Section 1", "Section 2"]
-    var eventTypeString: String = "Events"
     
+    var eventTypeString: String = "Events"
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = StudiumColor.background.uiColor
@@ -117,8 +118,6 @@ extension StudiumEventListViewController {
             } else {
                 print("$LOG: event is not completable")
             }
-        } else {
-            print("$ERR: Event is not deletable")
         }
     }
 }

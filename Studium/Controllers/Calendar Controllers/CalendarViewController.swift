@@ -145,10 +145,10 @@ extension CalendarViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let event: StudiumEvent = allEventsInDay[indexPath.row]
         print("$LOG: EVENT COLOR for \(event.name): \(event.color)")
-        if event is Assignment {
+        if let event = event as? Assignment {
             let cell = tableView.dequeueReusableCell(withIdentifier: AssignmentCell1.id, for: indexPath) as! AssignmentCell1
             cell.hideChevronButton = true
-            cell.loadData(assignment: event as! Assignment)
+            cell.loadData(assignment: event, assignmentCollapseDelegate: nil)
             cell.hideLatenessIndicator(hide: true)
             return cell
         } else {

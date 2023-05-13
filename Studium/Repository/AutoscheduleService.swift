@@ -10,7 +10,7 @@ import Foundation
 
 //TODO: Docstrings
 protocol AutoscheduleServiceProtocol {
-    func autoscheduleEvent(event: StudiumEvent, date: Date)
+    func autoscheduleEvent(forEvent event: StudiumEvent, onDate date: Date)
     func getCommitments(for date: Date) -> [StudiumEvent: TimeChunk]
     func getOpenTimeSlots(startBound: Date, endBound: Date, commitments: [TimeChunk]) -> [TimeChunk]
     func bestTime(openTimeSlots: [TimeChunk], totalMinutes: Int) -> TimeChunk?
@@ -42,7 +42,7 @@ final class AutoscheduleService: AutoscheduleServiceProtocol {
     /// - Parameters:
     ///   - event: The StudiumEvent that we are scheduling
     ///   - date: The date on which to schedule the event
-    func autoscheduleEvent(event: StudiumEvent, date: Date) {
+    func autoscheduleEvent(forEvent event: StudiumEvent, onDate date: Date) {
         printDebug("Autoscheduling for event \(event.name), which is \(event.totalLengthMinutes) minutes long")
         let startBound = self.databaseService.getUserSettings().getWakeUpTime(for: date) ?? date.startOfDay
         let endBound = date.setTime(hour: 23, minute: 59, second: 0) ?? date.endOfDay
@@ -80,7 +80,7 @@ final class AutoscheduleService: AutoscheduleServiceProtocol {
                 continue
             }
             
-            var commitment = event.timeChunkForDate(date: date)
+            let commitment = event.timeChunkForDate(date: date)
             commitments[event] = commitment
         }
         
@@ -255,7 +255,7 @@ final class AutoscheduleService: AutoscheduleServiceProtocol {
             printDebug("the applicable dates to autoschedule study time are: \(datesToAutoschedule)")
             for date in datesToAutoschedule {
                 let studyTimeAssignment = Assignment(parentAssignment: parentAssignment)
-                self.autoscheduleEvent(event: studyTimeAssignment, date: date)
+                self.autoscheduleEvent(forEvent: studyTimeAssignment, onDate: date)
 
                 if studyTimeAssignment.parentCourse != nil {
                     self.databaseService.saveStudiumObject(studyTimeAssignment)

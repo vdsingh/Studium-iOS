@@ -139,7 +139,6 @@ class AddAssignmentViewController: MasterForm {
         self.endDate = assignment.endDate
         self.additionalDetails = assignment.additionalDetails
         self.alertTimes = assignment.alertTimes
-        print("ALERT TIEMS: \(self.alertTimes)")
         self.scheduleWorkTime = assignment.autoscheduling
         self.daysSelected = assignment.days
         self.totalLengthMinutes = assignment.autoLengthMinutes
@@ -201,7 +200,6 @@ extension AddAssignmentViewController: CanHandleSwitch {
         self.setCells()
         
         self.refreshAutoscheduleSection()
-        
     }
     
     // TODO: Docstrings
@@ -227,6 +225,7 @@ extension AddAssignmentViewController: CanHandleInfoDisplay {
             message: "Specify what days you'd like to study and how long you want to work per day. We'll schedule time for you to get it done.",
             preferredStyle: UIAlertController.Style.alert
         )
+        
         alert.addAction(
             UIAlertAction(
                 title: "Ok",
