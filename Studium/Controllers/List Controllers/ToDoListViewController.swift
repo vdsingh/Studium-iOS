@@ -11,8 +11,9 @@ import RealmSwift
 import ChameleonFramework
 
 //TODO: Docstrings
-class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshProtocol, AssignmentRefreshProtocol {
+class ToDoListViewController: AssignmentsViewController, ToDoListRefreshProtocol, AssignmentRefreshProtocol {
     
+    // TODO: Docstrings
     override var debug: Bool {
         return false
     }
@@ -22,8 +23,6 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
     
     //TODO: Docstrings
     let otherEvents = [OtherEvent]()
-//    var assignments: Results<Assignment>? //Auto updating array linked to the realm
-//    var otherEvents: Results<OtherEvent>?
 
     override func viewDidLoad() {
         self.eventTypeString = "Events"
@@ -33,7 +32,6 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        self.debug = false
         self.reloadData()
     }
     
@@ -42,7 +40,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
     }
     
     //TODO: Docstrings
-    func reloadData(){
+    override func reloadData(){
         eventsArray = [[],[]]
 
         let assignments = self.databaseService.getStudiumObjects(expecting: Assignment.self)
@@ -102,29 +100,7 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
         let navController = UINavigationController(rootViewController: addToDoListEventViewController)
         self.present(navController, animated:true, completion: nil)
     }
-    
-    //TODO: Docstrings
-//    func openAssignmentForm(
-//        name: String,
-//        location: String,
-//        additionalDetails: String,
-//        alertTimes: [AlertOption],
-//        dueDate: Date
-//    ) {
-//        let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
-//        let navController = UINavigationController(rootViewController: addAssignmentViewController)
-//        addAssignmentViewController.delegate = self
-//        addAssignmentViewController.fromTodoForm = true
-//        
-//        // providing the information from the todo form to the assignment form to be reused.
-//        addAssignmentViewController.todoFormData[0] = name
-//        addAssignmentViewController.todoFormData[1] = additionalDetails
-//        addAssignmentViewController.alertTimes = alertTimes
-//        addAssignmentViewController.endDate = dueDate
-//        
-//        self.present(navController, animated:true, completion: nil)
-//    }
-//    
+ 
     //TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -132,10 +108,8 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
             super.swipeCellId = AssignmentCell1.id
             if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? AssignmentCell1,
                let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment {
-                
-                cell.assignmentCollapseDelegate = self
-                cell.loadData(assignment: assignment)
-                
+                cell.loadData(assignment: assignment, assignmentCollapseDelegate: self)
+                cell.setIsExpanded(isExpanded: self.assignmentsExpandedSet.contains(assignment))
                 return cell
             }
             
@@ -150,8 +124,8 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
             
             fatalError("$ERR: Couldn't dequeue cell for other event \(event.name)")
 
-        }else{
-            print("$ERR: created poo cell")
+        } else {
+            print("$ERR: couldn't unwrap event as Assignment or ToDoEvent")
             let cell = super.tableView(tableView, cellForRowAt: indexPath)
             return cell
         }
@@ -179,21 +153,23 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
         // super didSelectRow handles marking events complete (in Realm)
         super.tableView(tableView, didSelectRowAt: indexPath)
         
-        if let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1 {
-            if let assignment = assignmentCell.event as? Assignment {
-//                if assignmentCell.autoEventsOpen {
-//                    assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
+//        if let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1 {
+//            if let assignment = assignmentCell.event as? Assignment {
+////                if assignmentCell.autoEventsOpen {
+////                    assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
+////                }
+//                
+//                //if the assignment is autoscheduled, we don't want to call loadAssignments() because all autoscheduled events will be removed from the data, and thus the tableView. We'll have index and UI issues.
+//                if(assignment.isAutoscheduled) {
+//                    tableView.reloadData()
+//                } else {
+////                    loadAssignments()
+//                    reloadData()
 //                }
-                
-                //if the assignment is autoscheduled, we don't want to call loadAssignments() because all autoscheduled events will be removed from the data, and thus the tableView. We'll have index and UI issues.
-                if(assignment.isAutoscheduled) {
-                    tableView.reloadData()
-                } else {
-//                    loadAssignments()
-                    reloadData()
-                }
-            }
-        } else if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell {
+//            }
+//        } else
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell {
             print("$LOG: Selected an otherEventCell")
             tableView.reloadData()
             reloadData()
@@ -204,57 +180,57 @@ class ToDoListViewController: StudiumEventListViewController, ToDoListRefreshPro
 }
 
 //TODO: Docstrings
-extension ToDoListViewController: AssignmentCollapseDelegate{
-    
-    //TODO: Docstrings
-    func collapseButtonClicked(assignment: Assignment) {
-        // The assignment is expanded
-//        if self.assignmentsExpandedSet.contains(assignment) {
-//            self.handleCloseAutoEvents(assignment: assignment)
-//            self.assignmentsExpandedSet.remove(assignment)
+//extension ToDoListViewController: AssignmentCollapseDelegate{
+//
+//    //TODO: Docstrings
+//    func collapseButtonClicked(assignment: Assignment) {
+//        // The assignment is expanded
+////        if self.assignmentsExpandedSet.contains(assignment) {
+////            self.handleCloseAutoEvents(assignment: assignment)
+////            self.assignmentsExpandedSet.remove(assignment)
+////        } else {
+////            self.handleOpenAutoEvents(assignment: assignment)
+////            self.assignmentsExpandedSet.insert(assignment)
+////        }
+//    }
+//
+//    //TODO: Docstrings
+//    func handleOpenAutoEvents(assignment: Assignment) {
+//        let arrayIndex = assignment.complete ? 1 : 0
+//
+//        if let ind = eventsArray[arrayIndex].firstIndex(of: assignment) {
+//            var index = ind + 1
+//            for auto in assignment.scheduledEvents{
+//                eventsArray[arrayIndex].insert(auto, at: index)
+//                index += 1
+//            }
 //        } else {
-//            self.handleOpenAutoEvents(assignment: assignment)
-//            self.assignmentsExpandedSet.insert(assignment)
+//            print("$ERR: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
 //        }
-    }
-    
-    //TODO: Docstrings
-    func handleOpenAutoEvents(assignment: Assignment) {
-        let arrayIndex = assignment.complete ? 1 : 0
-        
-        if let ind = eventsArray[arrayIndex].firstIndex(of: assignment) {
-            var index = ind + 1
-            for auto in assignment.scheduledEvents{
-                eventsArray[arrayIndex].insert(auto, at: index)
-                index += 1
-            }
-        } else {
-            print("$ERR: problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
-        }
-
-        tableView.reloadData()
-    }
-    
-    //TODO: Docstrings
-    func handleCloseAutoEvents(assignment: Assignment) {
-        
-        let arrayIndex = assignment.complete ? 1 : 0
-        let index = eventsArray[arrayIndex].firstIndex(of: assignment)!
-
-        for _ in assignment.scheduledEvents{
-            eventsArray[arrayIndex].remove(at: index + 1)
-        }
-        tableView.reloadData()
-    }
-    
-    /// this function collapses all assignmentCells whose autoscheduled events are expanded. We call this when we are leaving the ToDoList screen, to avoid issues when coming back and loading in data.
-    func collapseAllExpandedAssignments(){
-        for cell in tableView.visibleCells{
-            if let assignmentCell = cell as? AssignmentCell1 {
-//                if assignmentCell.autoEventsOpen {
-//                    assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
-//                }
-            }
-        }
-    }
-}
+//
+//        tableView.reloadData()
+//    }
+//
+//    //TODO: Docstrings
+//    func handleCloseAutoEvents(assignment: Assignment) {
+//
+//        let arrayIndex = assignment.complete ? 1 : 0
+//        let index = eventsArray[arrayIndex].firstIndex(of: assignment)!
+//
+//        for _ in assignment.scheduledEvents{
+//            eventsArray[arrayIndex].remove(at: index + 1)
+//        }
+//        tableView.reloadData()
+//    }
+//
+//    /// this function collapses all assignmentCells whose autoscheduled events are expanded. We call this when we are leaving the ToDoList screen, to avoid issues when coming back and loading in data.
+//    func collapseAllExpandedAssignments(){
+//        for cell in tableView.visibleCells{
+//            if let assignmentCell = cell as? AssignmentCell1 {
+////                if assignmentCell.autoEventsOpen {
+////                    assignmentCell.collapseButtonPressed(assignmentCell.chevronButton)
+////                }
+//            }
+//        }
+//    }
+//}

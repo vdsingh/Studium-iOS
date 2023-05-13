@@ -92,10 +92,13 @@ public enum SystemIcon: String, CaseIterable {
     case eight = "8.circle"
     case nine = "9.circle"
     case ten = "10.circle"
+    case chevronUp = "chevron.up"
+    case chevronDown = "chevron.down"
     
     //TODO: Docstrings
-    func createImage() -> UIImage {
-        guard let image = UIImage(systemName: self.rawValue) else {
+    func createImage(withConfiguration configuration: UIImage.Configuration = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .large)
+) -> UIImage {
+        guard let image = UIImage(systemName: self.rawValue, withConfiguration: configuration) else {
             fatalError("$ERR: couldn't create image from systemName String: \(self.rawValue)")
         }
         

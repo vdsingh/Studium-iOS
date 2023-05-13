@@ -94,7 +94,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     
     //TODO: Docstrings
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? AssignmentsViewController {
+        if let destinationVC = segue.destination as? AssignmentsOnlyViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 destinationVC.selectedCourse = eventsArray[indexPath.section][indexPath.row] as? Course
             }
