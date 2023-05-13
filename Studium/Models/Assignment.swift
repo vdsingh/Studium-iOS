@@ -10,7 +10,9 @@ import Foundation
 import RealmSwift
 
 /// Represents Course Assignments
-class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleable {    
+class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleable {
+    
+    typealias EventType = Assignment
         
     let debug = true
 
@@ -35,25 +37,11 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
     @Persisted var autoLengthMinutes: Int = 60
     
     /// The autoscheduled assignments that belong to this assignment
-    @Persisted private var scheduledEventsList: List<Assignment> = List<Assignment>()
+    @Persisted var scheduledEventsList: List<Assignment> = List<Assignment>()
     
-    // TODO: Docstrings
-//    var scheduledEvents: [StudiumEvent] {
-//        return [StudiumEvent](self.scheduledEventsList)
-//    }
-//
     // TODO: Docstrings
     var scheduledEvents: [Assignment] {
         return [Assignment](self.scheduledEventsList)
-        var scheduledAssignments = [Assignment]()
-//        for event in self.scheduledEventsList {
-//            if let assignment = event as? Assignment {
-//                scheduledAssignments.append(assignment)
-//            } else {
-//                print("$ERR (Assigment): A non-Assignment event was added to assignments scheduled events. Event: \(event)")
-//            }
-//        }
-//        return scheduledAssignments
     }
     
     /// Was this an autoscheduled assignment?
@@ -141,11 +129,17 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         return self.endDate.occursOn(date: date)
     }
     
-    func appendScheduledEvent(event: StudiumEvent) {
-        if let event = event as? Assignment {
-            self.scheduledEventsList.append(event)
+    // TODO: Docstring
+    func appendScheduledEvent(event: Assignment) {
+        self.scheduledEventsList.append(event)
+    }
+    
+    // TODO: Docstring
+    func removeScheduledEvent(event: Assignment) {
+        if let eventIndex = self.scheduledEventsList.firstIndex(where: { $0._id == event._id }) {
+            self.scheduledEventsList.remove(at: eventIndex)
         } else {
-            print("$ERR (Assignment): cannot add event \(event.name) to assignments autoscheduled")
+            print("$ERR (Assignment): Tried to remove assignment \(event.name) from scheduledEvents, but it was not in there to start.")
         }
     }
 }

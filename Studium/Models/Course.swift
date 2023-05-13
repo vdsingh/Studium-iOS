@@ -10,13 +10,13 @@ import Foundation
 import RealmSwift
 
 // TODO: Docstrings
-class Course: RecurringStudiumEvent {
+class Course: RecurringStudiumEvent, StudiumEventContainer {
     
     /// List of the assignments for the course.
     private let assignmentsList = List<Assignment>()
     
     // TODO: Docstrings
-    var assignments: [Assignment] {
+    var scheduledEvents: [Assignment] {
         return [Assignment](assignmentsList)
     }
 
