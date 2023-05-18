@@ -123,7 +123,12 @@ class DayScheduleViewController: DayViewController {
             }
 
             printDebug("Appending event with text \(newEvent.attributedText?.string) and dates \(newEvent.startDate) - \(newEvent.endDate)")
-            events.append(newEvent)
+            
+            if newEvent.startDate <= newEvent.endDate {
+                events.append(newEvent)
+            } else {
+                print("$ERR (DayScheduleViewController): Couldn't add event with text \(newEvent.attributedText?.string) because startDate occurs after endDate")
+            }
         }
         
         return events

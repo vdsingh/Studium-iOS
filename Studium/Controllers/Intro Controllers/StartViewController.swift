@@ -40,6 +40,7 @@ class StartViewController: AuthViewController {
     @IBOutlet weak var mainStackView: UIStackView!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         self.signUpButton.layer.cornerRadius = 10
         self.loginButton.layer.cornerRadius = 10
         self.facebookSignInButton.layer.cornerRadius = 10
