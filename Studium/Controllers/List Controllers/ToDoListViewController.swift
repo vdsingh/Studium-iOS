@@ -169,8 +169,10 @@ class ToDoListViewController: AssignmentsViewController, ToDoListRefreshProtocol
 //            }
 //        } else
         
-        if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell {
+        if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell,
+           let otherEvent = cell.otherEvent {
             print("$LOG: Selected an otherEventCell")
+            self.databaseService.markComplete(otherEvent, !otherEvent.complete)
             tableView.reloadData()
             reloadData()
         }
