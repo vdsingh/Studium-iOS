@@ -108,7 +108,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         self.courses = self.databaseService.getStudiumObjects(expecting: Course.self)
         eventsArray = [[],[]]
         for course in courses {
-            if course.days.contains(Date().studiumWeekday) {
+            if course.days.contains(Date().weekdayValue) {
                 eventsArray[0].append(course)
             } else {
                 eventsArray[1].append(course)

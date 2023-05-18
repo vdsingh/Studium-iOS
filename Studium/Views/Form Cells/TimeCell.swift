@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TableViewForm
 
 //TODO: Docstrings
 class TimeCell: BasicCell {

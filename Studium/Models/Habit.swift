@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import VikUtilityKit
 
 //TODO: Docstrings
 class Habit: RecurringStudiumEvent, Autoscheduleable {

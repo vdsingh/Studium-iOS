@@ -25,5 +25,5 @@ pod 'FlexColorPicker'
 pod 'RAMAnimatedTabBarController'
 
 pod 'FSCalendar'
-pod 'DateToolsSwift'
+
 end

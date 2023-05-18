@@ -62,39 +62,12 @@
 		B90D13FE29845FE80093EB0C /* AddToDoListEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F729845FE80093EB0C /* AddToDoListEventViewController.swift */; };
 		B90D13FF29845FE80093EB0C /* AlertTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F829845FE80093EB0C /* AlertTableViewController.swift */; };
 		B90D140029845FE80093EB0C /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F929845FE80093EB0C /* AddAssignmentViewController.swift */; };
-		B90D141C298461AD0093EB0C /* ColorPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1401298461AC0093EB0C /* ColorPickerCell.swift */; };
-		B90D141D298461AD0093EB0C /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1402298461AC0093EB0C /* LabelCell.swift */; };
-		B90D141E298461AD0093EB0C /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1403298461AC0093EB0C /* BasicCell.swift */; };
-		B90D141F298461AD0093EB0C /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D1404298461AC0093EB0C /* LabelCell.xib */; };
-		B90D1420298461AD0093EB0C /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D1405298461AC0093EB0C /* SegmentedControlCell.xib */; };
-		B90D1422298461AD0093EB0C /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1407298461AC0093EB0C /* TextFieldCell.swift */; };
-		B90D1423298461AD0093EB0C /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1408298461AC0093EB0C /* TimeCell.swift */; };
-		B90D1424298461AD0093EB0C /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1409298461AC0093EB0C /* SwitchCell.swift */; };
-		B90D1425298461AD0093EB0C /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D140A298461AC0093EB0C /* TextFieldCell.xib */; };
-		B90D1427298461AD0093EB0C /* LogoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D140C298461AC0093EB0C /* LogoCell.swift */; };
-		B90D1428298461AD0093EB0C /* SwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D140D298461AD0093EB0C /* SwitchCell.xib */; };
-		B90D1429298461AD0093EB0C /* ColorPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D140E298461AD0093EB0C /* ColorPickerCell.xib */; };
-		B90D142A298461AD0093EB0C /* LogoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D140F298461AD0093EB0C /* LogoCell.xib */; };
-		B90D142B298461AD0093EB0C /* ThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1410298461AD0093EB0C /* ThemeCell.swift */; };
-		B90D142C298461AD0093EB0C /* LogoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1411298461AD0093EB0C /* LogoCollectionViewCell.swift */; };
-		B90D142D298461AD0093EB0C /* TimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D1412298461AD0093EB0C /* TimeCell.xib */; };
-		B90D142E298461AD0093EB0C /* SegmentedControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1413298461AD0093EB0C /* SegmentedControlCell.swift */; };
-		B90D142F298461AD0093EB0C /* TimePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D1414298461AD0093EB0C /* TimePickerCell.xib */; };
-		B90D1430298461AD0093EB0C /* LogoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D1415298461AD0093EB0C /* LogoCollectionViewCell.xib */; };
-		B90D1431298461AD0093EB0C /* PickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D1416298461AD0093EB0C /* PickerCell.xib */; };
-		B90D1432298461AD0093EB0C /* TimePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1417298461AD0093EB0C /* TimePickerCell.swift */; };
-		B90D1433298461AD0093EB0C /* DaySelectorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D1418298461AD0093EB0C /* DaySelectorCell.xib */; };
-		B90D1434298461AD0093EB0C /* ThemeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D1419298461AD0093EB0C /* ThemeCell.xib */; };
-		B90D1435298461AD0093EB0C /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D141A298461AD0093EB0C /* PickerCell.swift */; };
-		B90D1436298461AD0093EB0C /* DaySelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D141B298461AD0093EB0C /* DaySelectorCell.swift */; };
-		B90D143E298999630093EB0C /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D143D298999630093EB0C /* DateFormat.swift */; };
-		B90D1440298999AB0093EB0C /* FormError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D143F298999AB0093EB0C /* FormError.swift */; };
+		B90D1440298999AB0093EB0C /* StudiumFormError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D143F298999AB0093EB0C /* StudiumFormError.swift */; };
 		B90D144229899C310093EB0C /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D144129899C310093EB0C /* Weekday.swift */; };
 		B90D1445298AFDE00093EB0C /* FormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1444298AFDE00093EB0C /* FormCell.swift */; };
 		B90D1447298C6EA50093EB0C /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1446298C6EA50093EB0C /* AuthenticationService.swift */; };
 		B90D1449298C77B80093EB0C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1448298C77B80093EB0C /* NotificationService.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
-		B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5E2983465D00A25457 /* SystemIcon.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
 		B97BB08429F74628008F1A5B /* Debuggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08329F74628008F1A5B /* Debuggable.swift */; };
@@ -109,6 +82,7 @@
 		B97BB0B22A0399FB008F1A5B /* UIViewController_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0B12A0399FB008F1A5B /* UIViewController_Extension.swift */; };
 		B97BB0B72A075CB4008F1A5B /* DaySchedulable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0B62A075CB4008F1A5B /* DaySchedulable.swift */; };
 		B97BB1672A0EF864008F1A5B /* AssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB1662A0EF864008F1A5B /* AssignmentsViewController.swift */; };
+		B97BB1762A11A2EB008F1A5B /* TableViewFormKit in Frameworks */ = {isa = PBXBuildFile; productRef = B97BB1752A11A2EB008F1A5B /* TableViewFormKit */; };
 		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
 		B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */; };
@@ -185,40 +159,15 @@
 		B90D13F729845FE80093EB0C /* AddToDoListEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToDoListEventViewController.swift; sourceTree = "<group>"; };
 		B90D13F829845FE80093EB0C /* AlertTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertTableViewController.swift; sourceTree = "<group>"; };
 		B90D13F929845FE80093EB0C /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
-		B90D1401298461AC0093EB0C /* ColorPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerCell.swift; sourceTree = "<group>"; };
-		B90D1402298461AC0093EB0C /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
-		B90D1403298461AC0093EB0C /* BasicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
-		B90D1404298461AC0093EB0C /* LabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
-		B90D1405298461AC0093EB0C /* SegmentedControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
-		B90D1407298461AC0093EB0C /* TextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
-		B90D1408298461AC0093EB0C /* TimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
-		B90D1409298461AC0093EB0C /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
-		B90D140A298461AC0093EB0C /* TextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
-		B90D140C298461AC0093EB0C /* LogoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoCell.swift; sourceTree = "<group>"; };
-		B90D140D298461AD0093EB0C /* SwitchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchCell.xib; sourceTree = "<group>"; };
-		B90D140E298461AD0093EB0C /* ColorPickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorPickerCell.xib; sourceTree = "<group>"; };
-		B90D140F298461AD0093EB0C /* LogoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoCell.xib; sourceTree = "<group>"; };
-		B90D1410298461AD0093EB0C /* ThemeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeCell.swift; sourceTree = "<group>"; };
-		B90D1411298461AD0093EB0C /* LogoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoCollectionViewCell.swift; sourceTree = "<group>"; };
-		B90D1412298461AD0093EB0C /* TimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeCell.xib; sourceTree = "<group>"; };
-		B90D1413298461AD0093EB0C /* SegmentedControlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlCell.swift; sourceTree = "<group>"; };
-		B90D1414298461AD0093EB0C /* TimePickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimePickerCell.xib; sourceTree = "<group>"; };
-		B90D1415298461AD0093EB0C /* LogoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoCollectionViewCell.xib; sourceTree = "<group>"; };
-		B90D1416298461AD0093EB0C /* PickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerCell.xib; sourceTree = "<group>"; };
-		B90D1417298461AD0093EB0C /* TimePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerCell.swift; sourceTree = "<group>"; };
-		B90D1418298461AD0093EB0C /* DaySelectorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DaySelectorCell.xib; sourceTree = "<group>"; };
-		B90D1419298461AD0093EB0C /* ThemeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeCell.xib; sourceTree = "<group>"; };
-		B90D141A298461AD0093EB0C /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
-		B90D141B298461AD0093EB0C /* DaySelectorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DaySelectorCell.swift; sourceTree = "<group>"; };
-		B90D143D298999630093EB0C /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
-		B90D143F298999AB0093EB0C /* FormError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormError.swift; sourceTree = "<group>"; };
+		B90D143F298999AB0093EB0C /* StudiumFormError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumFormError.swift; sourceTree = "<group>"; };
 		B90D144129899C310093EB0C /* Weekday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
 		B90D1444298AFDE00093EB0C /* FormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCell.swift; sourceTree = "<group>"; };
 		B90D1446298C6EA50093EB0C /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		B90D1448298C77B80093EB0C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
-		B96E6A5E2983465D00A25457 /* SystemIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcon.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		B9707E372A11C7EF004B63F0 /* TableViewFormKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TableViewFormKit; path = ../../Packages/TableViewFormKit; sourceTree = "<group>"; };
+		B9707E382A11C850004B63F0 /* VikUtilityKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = VikUtilityKit; path = ../../Packages/VikUtilityKit; sourceTree = "<group>"; };
 		B97BB08129F7006E008F1A5B /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B97BB08329F74628008F1A5B /* Debuggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debuggable.swift; sourceTree = "<group>"; };
 		B97BB0942A00CBF9008F1A5B /* StudiumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudiumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -249,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77658A281C6CB08EA3EDC2DE /* Pods_Studium.framework in Frameworks */,
+				B97BB1762A11A2EB008F1A5B /* TableViewFormKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +287,7 @@
 		1693E724247A3DC4003D4702 = {
 			isa = PBXGroup;
 			children = (
+				B97BB1682A119DB0008F1A5B /* Packages */,
 				1693E72F247A3DC4003D4702 /* Studium */,
 				B97BB0952A00CBF9008F1A5B /* StudiumTests */,
 				1693E72E247A3DC4003D4702 /* Products */,
@@ -491,9 +442,7 @@
 		B90D144329899C3C0093EB0C /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				B96E6A5E2983465D00A25457 /* SystemIcon.swift */,
-				B90D143D298999630093EB0C /* DateFormat.swift */,
-				B90D143F298999AB0093EB0C /* FormError.swift */,
+				B90D143F298999AB0093EB0C /* StudiumFormError.swift */,
 				B90D144129899C310093EB0C /* Weekday.swift */,
 				B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */,
 			);
@@ -530,31 +479,6 @@
 		B96E6ADB2984582900A25457 /* Form Cells */ = {
 			isa = PBXGroup;
 			children = (
-				B90D1403298461AC0093EB0C /* BasicCell.swift */,
-				B90D1401298461AC0093EB0C /* ColorPickerCell.swift */,
-				B90D140E298461AD0093EB0C /* ColorPickerCell.xib */,
-				B90D141B298461AD0093EB0C /* DaySelectorCell.swift */,
-				B90D1418298461AD0093EB0C /* DaySelectorCell.xib */,
-				B90D1402298461AC0093EB0C /* LabelCell.swift */,
-				B90D1404298461AC0093EB0C /* LabelCell.xib */,
-				B90D140C298461AC0093EB0C /* LogoCell.swift */,
-				B90D140F298461AD0093EB0C /* LogoCell.xib */,
-				B90D1411298461AD0093EB0C /* LogoCollectionViewCell.swift */,
-				B90D1415298461AD0093EB0C /* LogoCollectionViewCell.xib */,
-				B90D141A298461AD0093EB0C /* PickerCell.swift */,
-				B90D1416298461AD0093EB0C /* PickerCell.xib */,
-				B90D1413298461AD0093EB0C /* SegmentedControlCell.swift */,
-				B90D1405298461AC0093EB0C /* SegmentedControlCell.xib */,
-				B90D1409298461AC0093EB0C /* SwitchCell.swift */,
-				B90D140D298461AD0093EB0C /* SwitchCell.xib */,
-				B90D1407298461AC0093EB0C /* TextFieldCell.swift */,
-				B90D140A298461AC0093EB0C /* TextFieldCell.xib */,
-				B90D1410298461AD0093EB0C /* ThemeCell.swift */,
-				B90D1419298461AD0093EB0C /* ThemeCell.xib */,
-				B90D1408298461AC0093EB0C /* TimeCell.swift */,
-				B90D1412298461AD0093EB0C /* TimeCell.xib */,
-				B90D1417298461AD0093EB0C /* TimePickerCell.swift */,
-				B90D1414298461AD0093EB0C /* TimePickerCell.xib */,
 			);
 			path = "Form Cells";
 			sourceTree = "<group>";
@@ -605,6 +529,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		B97BB1682A119DB0008F1A5B /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				B9707E372A11C7EF004B63F0 /* TableViewFormKit */,
+				B9707E382A11C850004B63F0 /* VikUtilityKit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		B995493D2992EEA300442968 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -632,6 +565,9 @@
 			dependencies = (
 			);
 			name = Studium;
+			packageProductDependencies = (
+				B97BB1752A11A2EB008F1A5B /* TableViewFormKit */,
+			);
 			productName = Studium;
 			productReference = 1693E72D247A3DC4003D4702 /* Studium.app */;
 			productType = "com.apple.product-type.application";
@@ -697,15 +633,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B90D142D298461AD0093EB0C /* TimeCell.xib in Resources */,
-				B90D1429298461AD0093EB0C /* ColorPickerCell.xib in Resources */,
-				B90D1420298461AD0093EB0C /* SegmentedControlCell.xib in Resources */,
-				B90D1434298461AD0093EB0C /* ThemeCell.xib in Resources */,
 				1693E73D247A3DC6003D4702 /* LaunchScreen.storyboard in Resources */,
-				B90D142F298461AD0093EB0C /* TimePickerCell.xib in Resources */,
 				1693E73A247A3DC6003D4702 /* Assets.xcassets in Resources */,
 				16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */,
-				B90D1428298461AD0093EB0C /* SwitchCell.xib in Resources */,
 				16C05CF5264F37B8004C9629 /* RecurringEventCell.xib in Resources */,
 				16A63B7D24A01289003A30D3 /* HabitCell.xib in Resources */,
 				16C607EC250E985000983C3D /* GlacialIndifference-Regular.otf in Resources */,
@@ -713,14 +643,8 @@
 				1693E738247A3DC4003D4702 /* Main.storyboard in Resources */,
 				165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */,
 				16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */,
-				B90D142A298461AD0093EB0C /* LogoCell.xib in Resources */,
 				16C05CFB264F5ABC004C9629 /* AssignmentCell1.xib in Resources */,
-				B90D1425298461AD0093EB0C /* TextFieldCell.xib in Resources */,
-				B90D1430298461AD0093EB0C /* LogoCollectionViewCell.xib in Resources */,
-				B90D1433298461AD0093EB0C /* DaySelectorCell.xib in Resources */,
 				16A63B8524AA85A7003A30D3 /* OtherEventCell.xib in Resources */,
-				B90D1431298461AD0093EB0C /* PickerCell.xib in Resources */,
-				B90D141F298461AD0093EB0C /* LabelCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -783,28 +707,21 @@
 				1693E757247A4BCB003D4702 /* AssignmentsOnlyViewController.swift in Sources */,
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
 				B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */,
-				B90D1427298461AD0093EB0C /* LogoCell.swift in Sources */,
 				B90D13FD29845FE80093EB0C /* LogoSelectorViewController.swift in Sources */,
 				B90D1449298C77B80093EB0C /* NotificationService.swift in Sources */,
 				B90D13FC29845FE80093EB0C /* MasterForm.swift in Sources */,
 				B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */,
-				B90D1424298461AD0093EB0C /* SwitchCell.swift in Sources */,
 				B97BB08429F74628008F1A5B /* Debuggable.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				B90D13FE29845FE80093EB0C /* AddToDoListEventViewController.swift in Sources */,
-				B90D1435298461AD0093EB0C /* PickerCell.swift in Sources */,
 				1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */,
 				B97BB0AC2A022B30008F1A5B /* String_Extension.swift in Sources */,
-				B90D1423298461AD0093EB0C /* TimeCell.swift in Sources */,
 				B90D140029845FE80093EB0C /* AddAssignmentViewController.swift in Sources */,
-				B90D1432298461AD0093EB0C /* TimePickerCell.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
 				1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
-				B90D141C298461AD0093EB0C /* ColorPickerCell.swift in Sources */,
 				16827D1A27F58B9A0001D1EF /* AuthViewController.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
-				B90D143E298999630093EB0C /* DateFormat.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
 				16C05CF4264F37B8004C9629 /* RecurringEventCell.swift in Sources */,
 				B90D13FF29845FE80093EB0C /* AlertTableViewController.swift in Sources */,
@@ -817,7 +734,6 @@
 				B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */,
 				B995493C2992EDD000442968 /* Completable.swift in Sources */,
 				1686DB6B248267EC00FA99DB /* PickerTest.swift in Sources */,
-				B90D1422298461AD0093EB0C /* TextFieldCell.swift in Sources */,
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
 				16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */,
 				B97BB0AE2A022B37008F1A5B /* Date_Extension.swift in Sources */,
@@ -825,41 +741,34 @@
 				B90D144229899C310093EB0C /* Weekday.swift in Sources */,
 				16C60FB225C5F7FB006D0FFC /* StudiumEvent.swift in Sources */,
 				B90D1447298C6EA50093EB0C /* AuthenticationService.swift in Sources */,
-				B90D141E298461AD0093EB0C /* BasicCell.swift in Sources */,
 				B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
-				B90D142C298461AD0093EB0C /* LogoCollectionViewCell.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
 				B96E6A9C298456A500A25457 /* K.swift in Sources */,
 				B90D13FB29845FE80093EB0C /* AddCourseViewController.swift in Sources */,
-				B90D142B298461AD0093EB0C /* ThemeCell.swift in Sources */,
 				B97BB0B02A022B5C008F1A5B /* UIColor_Extension.swift in Sources */,
 				164F62F324DF7BFC00DC8169 /* NotificationsController.swift in Sources */,
 				16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */,
 				B90D13FA29845FE80093EB0C /* AddHabitViewController.swift in Sources */,
 				B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */,
-				B90D142E298461AD0093EB0C /* SegmentedControlCell.swift in Sources */,
 				164905B727E18732002DE61D /* LoginViewController.swift in Sources */,
 				B97BB09F2A00D19D008F1A5B /* MockAutoscheduleService.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
 				B97BB0B72A075CB4008F1A5B /* DaySchedulable.swift in Sources */,
-				B90D1436298461AD0093EB0C /* DaySelectorCell.swift in Sources */,
 				B97BB0A12A00D29A008F1A5B /* MockDatabaseService.swift in Sources */,
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				B97BB1672A0EF864008F1A5B /* AssignmentsViewController.swift in Sources */,
-				B90D1440298999AB0093EB0C /* FormError.swift in Sources */,
+				B90D1440298999AB0093EB0C /* StudiumFormError.swift in Sources */,
 				164F630124EA2E0900DC8169 /* FirstScreenViewController.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
-				B96E6A5F2983465D00A25457 /* SystemIcon.swift in Sources */,
 				165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */,
 				1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */,
 				B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */,
 				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,
 				1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */,
-				B90D141D298461AD0093EB0C /* LabelCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1143,6 +1052,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B97BB1752A11A2EB008F1A5B /* TableViewFormKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TableViewFormKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1693E725247A3DC4003D4702 /* Project object */;
 }

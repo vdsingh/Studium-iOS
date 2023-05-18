@@ -10,8 +10,10 @@ import Foundation
 import UIKit
 import ChameleonFramework
 
+import TableViewFormKit
+
 // TODO: Docstrings
-class ThemesViewController: UIViewController{
+class ThemesViewController: UIViewController {
     
     // TODO: Docstrings
     @IBOutlet weak var tableView: UITableView!
@@ -85,7 +87,7 @@ extension ThemesViewController: UITableViewDataSource {
     
     // TODO: Docstrings
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ThemeCell", for: indexPath) as! ThemeCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ThemeCell.id, for: indexPath) as! ThemeCell
         cell.label.text = themeNames[indexPath.section][indexPath.row]
 //        let color: UIColor = UIColor(hexString: colors[indexPath.section][indexPath.row])!
 //        cell.colorPreview.tintColor = K.colorsDict[colors[indexPath.section][indexPath.row]]

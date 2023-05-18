@@ -1,6 +1,10 @@
 import Foundation
 import UIKit
+
 import RealmSwift
+
+import TableViewFormKit
+import VikUtilityKit
 
 //TODO: Docstring
 protocol AssignmentRefreshProtocol {
@@ -56,7 +60,7 @@ class AddAssignmentViewController: MasterForm {
     func setCells() {
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
                 .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: .endTimeCell, onClick: self.timeCellClicked),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.navigateTo(.alertTimesSelection) })
             ],
@@ -64,7 +68,7 @@ class AddAssignmentViewController: MasterForm {
                 .switchCell(cellText: "Schedule Time to Work", isOn: self.scheduleWorkTime, switchDelegate: self, infoDelegate: self)
             ],
             [
-                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],
             [
                 .errorCell(errors: self.errors)
@@ -103,19 +107,15 @@ class AddAssignmentViewController: MasterForm {
             delegate?.reloadData()
             dismiss(animated: true, completion: nil)
         } else {
-            let errorsString: String = self.errors
-                .compactMap({ $0.rawValue })
-                .joined(separator: ". ")
             self.setCells()
             self.scrollToBottomOfTableView()
-//            self.replaceLabelText(text: errorsString, section: 3, row: 0)
             tableView.reloadData()
         }
     }
     
     //TODO: Docstring
-    func findErrors() -> [FormError] {
-        var errors = [FormError]()
+    func findErrors() -> [StudiumFormError] {
+        var errors = [StudiumFormError]()
         if self.name == "" {
             errors.append(.nameNotSpecified)
         }
@@ -153,11 +153,11 @@ class AddAssignmentViewController: MasterForm {
 //MARK: - Cell DataSource and Delegates
 
 // TODO: Docstrings
-extension AddAssignmentViewController: UITextFieldDelegateExt {
+extension AddAssignmentViewController: UITextFieldDelegateExtension {
     
     //TODO: Implement IDs here
     // TODO: Docstrings
-    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
+    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
         guard let text = sender.text else {
             print("$ERR (AddAssignmentViewController): sender's text was nil. File: \(#file), Function: \(#function), Line: \(#line)")
             return
@@ -182,7 +182,7 @@ extension AddAssignmentViewController {
     // TODO: Docstrings
     override func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         switch pickerView.tag {
-        case FormCellID.PickerCell.lengthPickerCell.rawValue:
+        case FormCellID.PickerCellID.lengthPickerCell.rawValue:
             let lengthHours = pickerView.selectedRow(inComponent: 0)
             let lengthMinutes = pickerView.selectedRow(inComponent: 1)
             self.totalLengthMinutes = (lengthHours * 60) + lengthMinutes
@@ -209,7 +209,7 @@ extension AddAssignmentViewController: CanHandleSwitch {
         // TODO: Use tableview updates so these actions are animated.
         if self.scheduleWorkTime {
             self.cells[1].append(.daySelectorCell(daysSelected: self.daysSelected, delegate: self))
-            self.cells[1].append(.pickerCell(cellText: "Length", indices: self.lengthPickerIndices, tag: FormCellID.PickerCell.lengthPickerCell, delegate: self, dataSource: self))
+            self.cells[1].append(.pickerCell(cellText: "Length", indices: self.lengthPickerIndices, tag: FormCellID.PickerCellID.lengthPickerCell, delegate: self, dataSource: self))
         } else {
             self.cells[1].removeAll()
             self.cells[1].append(.switchCell(cellText: "Schedule Time to Work", isOn: false, switchDelegate: self, infoDelegate: self))
@@ -224,7 +224,7 @@ extension AddAssignmentViewController: CanHandleInfoDisplay {
     func displayInformation() {
         let alert = UIAlertController(
             title: "Autoscheduling",
-            message: "Specify what days you'd like to study and how long you want to work per day. We'll schedule time for you to get it done.",
+            message: "We'll analyze your schedule and find time for you to get it done.",
             preferredStyle: UIAlertController.Style.alert
         )
         

@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import VikUtilityKit
 
 /// Represents Course Assignments
 class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleable {

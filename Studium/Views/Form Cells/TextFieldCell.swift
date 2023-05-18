@@ -8,12 +8,6 @@
 
 import UIKit
 
-//TODO: Docstrings
-public protocol UITextFieldDelegateExt {
-    
-    //TODO: Docstrings
-    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell)
-}
 
 //TODO: Docstrings
 class TextFieldCell: BasicCell {
@@ -25,7 +19,7 @@ class TextFieldCell: BasicCell {
     @IBOutlet weak var textField: UITextField!
     
     //TODO: Docstrings
-    public var delegate: UITextFieldDelegateExt!
+    public var delegate: UITextFieldDelegateExtension!
     
     override func awakeFromNib() {
         super.awakeFromNib()

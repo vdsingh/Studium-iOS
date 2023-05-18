@@ -10,7 +10,6 @@ PODS:
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
   - Colorful (3.0.0)
-  - DateToolsSwift (5.0.0)
   - FBAEMKit (16.0.1):
     - FBSDKCoreKit_Basics (= 16.0.1)
   - FBSDKCoreKit (16.0.1):
@@ -41,7 +40,6 @@ DEPENDENCIES:
   - CalendarKit
   - ChameleonFramework/Swift (from `https://github.com/wowansm/Chameleon.git`, branch `swift5`)
   - Colorful
-  - DateToolsSwift
   - FBSDKLoginKit
   - FlexColorPicker
   - FSCalendar
@@ -55,7 +53,6 @@ SPEC REPOS:
     - AppAuth
     - CalendarKit
     - Colorful
-    - DateToolsSwift
     - FBAEMKit
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
@@ -85,7 +82,6 @@ SPEC CHECKSUMS:
   CalendarKit: 9d1ca8a20e082948796ca1c7f359cee91f793317
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Colorful: 9e093edacaa9fb73512ad9da157f0707b82d2542
-  DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   FBAEMKit: daac7466b918752f020345be5c7d9787f98cfc07
   FBSDKCoreKit: 2cb033464b2134af0138f87d20b859eb3f9be359
   FBSDKCoreKit_Basics: d37280da2e65872f0e931d15f45d97ea324fec37
@@ -100,6 +96,6 @@ SPEC CHECKSUMS:
   RealmSwift: 0fc037d6c32c7c4fc9362892380f380114ecdcf0
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
-PODFILE CHECKSUM: 3d5e4391d48baee9cc8868f9abc8a18bdca0f5f5
+PODFILE CHECKSUM: f604c41358dfcc4a3f443d94788a1794b6ed89a0
 
 COCOAPODS: 1.12.0

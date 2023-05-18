@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 import ChameleonFramework
+import VikUtilityKit
 
 //TODO: Docstrings
 class RecurringEventCell: DeletableEventCell {

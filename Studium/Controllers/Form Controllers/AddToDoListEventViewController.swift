@@ -8,7 +8,10 @@
 
 import UIKit
 import RealmSwift
-import SwiftUI
+//import SwiftUI
+
+import TableViewFormKit
+import VikUtilityKit
 
 // TODO: Docstrings
 protocol ToDoListRefreshProtocol {
@@ -49,17 +52,17 @@ class AddToDoListEventViewController: MasterForm {
     func setCells() {
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCell.locationTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCellID.locationTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.navigateTo(.alertTimesSelection)
                 })
             ],
             [
-                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCell.startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCell.endTimeCell, onClick: self.timeCellClicked)
+                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCellID.startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCellID.endTimeCell, onClick: self.timeCellClicked)
             ],
             [
-                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
             ],
             [
                 .errorCell(errors: self.errors)
@@ -98,8 +101,8 @@ class AddToDoListEventViewController: MasterForm {
     }
     
     //TODO: Docstring
-    func findErrors() -> [FormError] {
-        var errors = [FormError]()
+    func findErrors() -> [StudiumFormError] {
+        var errors = [StudiumFormError]()
         if self.name == "" {
             errors.append(.nameNotSpecified)
         }
@@ -129,10 +132,10 @@ class AddToDoListEventViewController: MasterForm {
 }
 
 // TODO: Docstrings
-extension AddToDoListEventViewController: UITextFieldDelegateExt {
+extension AddToDoListEventViewController: UITextFieldDelegateExtension {
     
     // TODO: Docstrings
-    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
+    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
         guard let text = sender.text else {
             print("$ ERROR: sender's text was nil. \nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return

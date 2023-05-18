@@ -9,12 +9,22 @@
 import Foundation
 import UIKit
 
+import TableViewFormKit
+import VikUtilityKit
+
+protocol StudiumTableViewForm: TableViewForm {
+    associatedtype StudiumEventType: StudiumEvent
+    func fillForm(event: StudiumEventType)
+}
+
 /// characteristics of all forms.
 let kLargeCellHeight: CGFloat = 150
 let kMediumCellHeight: CGFloat = 60
 let kNormalCellHeight: CGFloat = 50
 
-class MasterForm: UITableViewController {
+class MasterForm: TableViewForm {
+//    typealias StudiumEventType = StudiumEvent
+    
     
     enum OutgoingSegues: String {
         case logoSelection = "toLogoSelection"
@@ -41,7 +51,7 @@ class MasterForm: UITableViewController {
     var additionalDetails: String = ""
     
     /// The errors that can occur with adding/editing the StudiumEvent
-    var errors: [FormError] = []
+    var errors: [StudiumFormError] = []
     
     /// The days selected for this StudiumEvent
     var daysSelected = Set<Weekday>()
@@ -65,8 +75,7 @@ class MasterForm: UITableViewController {
     // TODO: Docstrings
     var totalLengthMinutes = 0
     
-    // TODO: Docstrings
-    var cells: [[FormCell]] = [[]]
+
     
 //    var lengthMinutes: Int = 0
     
@@ -82,7 +91,7 @@ class MasterForm: UITableViewController {
     }
     
     override func viewDidLoad() {
-        self.view.backgroundColor = StudiumColor.background.uiColor
+        super.viewDidLoad()
         
         // Set the color of the navigation bar title text
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
@@ -92,18 +101,6 @@ class MasterForm: UITableViewController {
         self.navigationController?.navigationBar.tintColor = StudiumColor.primaryLabel.uiColor
         self.navigationController?.navigationBar.backgroundColor = StudiumColor.primaryAccent.uiColor
         self.navigationController?.navigationBar.barTintColor = StudiumColor.secondaryBackground.uiColor
-        
-        // registering the necessary cells for the form.
-        self.tableView.register(UINib(nibName: TextFieldCell.id, bundle: nil), forCellReuseIdentifier: TextFieldCell.id)
-        self.tableView.register(UINib(nibName: TimeCell.id, bundle: nil), forCellReuseIdentifier: TimeCell.id)
-        self.tableView.register(UINib(nibName: PickerCell.id, bundle: nil), forCellReuseIdentifier: PickerCell.id)
-        self.tableView.register(UINib(nibName: TimePickerCell.id, bundle: nil), forCellReuseIdentifier: TimePickerCell.id)
-        self.tableView.register(UINib(nibName: LabelCell.id, bundle: nil), forCellReuseIdentifier: LabelCell.id)
-        self.tableView.register(UINib(nibName: SwitchCell.id, bundle: nil), forCellReuseIdentifier: SwitchCell.id)
-        self.tableView.register(UINib(nibName: DaySelectorCell.id, bundle: nil), forCellReuseIdentifier: DaySelectorCell.id)
-        self.tableView.register(UINib(nibName: LogoCell.id, bundle: nil), forCellReuseIdentifier: LogoCell.id)
-        self.tableView.register(UINib(nibName: ColorPickerCell.id, bundle: nil), forCellReuseIdentifier: ColorPickerCell.id)
-        self.tableView.register(UINib(nibName: SegmentedControlCell.id, bundle: nil), forCellReuseIdentifier: SegmentedControlCell.id)
     }
     
     // TODO: Docstrings
@@ -115,7 +112,7 @@ class MasterForm: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? LogoSelectorViewController {
             destinationVC.delegate = self
-            guard let colorCellRow = cells[2].firstIndex(where: { cell in
+            guard let colorCellRow = self.cells[2].firstIndex(where: { cell in
                 if case .colorPickerCell = cell {
                     return true
                 }
@@ -170,7 +167,7 @@ extension MasterForm {
     }
     
     // TODO: Docstrings
-    func findFirstTimeCellWithID(id: FormCellID.TimeCell) -> IndexPath? {
+    func findFirstTimeCellWithID(id: FormCellID.TimeCellID) -> IndexPath? {
         for i in 0 ..< cells.count {
             for j in 0 ..< cells[i].count {
                 switch cells[i][j] {
@@ -242,10 +239,10 @@ extension MasterForm {
                 timeCellIndex -= 1
             }
         }
-        var timePickerID = FormCellID.TimePickerCell.startDateTimePicker
+        var timePickerID = FormCellID.TimePickerCellID.startDateTimePicker
         switch timeCell.formCellID {
         case .endTimeCell:
-            timePickerID = FormCellID.TimePickerCell.endDateTimePicker
+            timePickerID = FormCellID.TimePickerCellID.endDateTimePicker
             cells[indexPath.section].insert(
                 .timePickerCell(
                     date: timeCell.getDate(),
@@ -257,7 +254,7 @@ extension MasterForm {
                 at: timeCellIndex + 1
             )
         case .startTimeCell:
-            timePickerID = FormCellID.TimePickerCell.startDateTimePicker
+            timePickerID = FormCellID.TimePickerCellID.startDateTimePicker
             cells[indexPath.section].insert(
                 //                .timePickerCell(dateString: "\(timeCell.date!.format(with: timeCell.dateFormat))",
                 .timePickerCell(
@@ -269,7 +266,7 @@ extension MasterForm {
                 ),
                 at: timeCellIndex + 1)
         case .lengthTimeCell:
-            timePickerID = FormCellID.TimePickerCell.lengthTimePicker
+            timePickerID = FormCellID.TimePickerCellID.lengthTimePicker
             cells[indexPath.section].insert(
                 .pickerCell(cellText: "Length of Habit", indices: self.lengthPickerIndices, tag: .lengthPickerCell, delegate: self, dataSource: self),
                 at: timeCellIndex + 1)
@@ -288,7 +285,7 @@ extension MasterForm {
 
 extension MasterForm: UITimePickerDelegate {
     // TODO: Docstrings
-    func timePickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCell) {
+    func timePickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCellID) {
         //we are getting the timePicker's corresponding timeCell by accessing its indexPath and getting the element in the tableView right before it. This is always the timeCell it needs to update. The indexPath of the timePicker is stored in the cell's class upon creation, so that it can be passed to this function when needed.
         guard let correspondingTimeCell = tableView.cellForRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section)) as? TimeCell else {
             print("$ERR (MasterFormClass): couldn't find TimeCell when changing picker value.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
@@ -364,10 +361,10 @@ extension MasterForm: UIPickerViewDelegate {
     //determines the text in each row, given the row and component
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView.tag {
-        case FormCellID.PickerCell.coursePickerCell.rawValue:
+        case FormCellID.PickerCellID.coursePickerCell.rawValue:
             let courses = self.databaseService.getStudiumObjects(expecting: Course.self)
             return courses[row].name
-        case FormCellID.PickerCell.lengthPickerCell.rawValue:
+        case FormCellID.PickerCellID.lengthPickerCell.rawValue:
             if component == 0 {
                 return "\(row) hours"
             } else {
@@ -394,9 +391,9 @@ extension MasterForm: UIPickerViewDataSource {
     // TODO: Docstrings
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         switch pickerView.tag {
-        case FormCellID.PickerCell.lengthPickerCell.rawValue:
+        case FormCellID.PickerCellID.lengthPickerCell.rawValue:
             return 2
-        case FormCellID.PickerCell.coursePickerCell.rawValue:
+        case FormCellID.PickerCellID.coursePickerCell.rawValue:
             return 1
         default:
             print("$ERR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
@@ -407,13 +404,13 @@ extension MasterForm: UIPickerViewDataSource {
     // TODO: Docstrings
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView.tag {
-        case FormCellID.PickerCell.lengthPickerCell.rawValue:
+        case FormCellID.PickerCellID.lengthPickerCell.rawValue:
             if component == 0 {
                 return 24
             } else {
                 return 60
             }
-        case FormCellID.PickerCell.coursePickerCell.rawValue:
+        case FormCellID.PickerCellID.coursePickerCell.rawValue:
             return self.databaseService.getStudiumObjects(expecting: Course.self).count
         default:
             print("$ERR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
@@ -431,87 +428,6 @@ extension MasterForm {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: K.emptyHeaderHeight))
         
         return headerView
-    }
-    
-    // TODO: Docstrings
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = cells[indexPath.section][indexPath.row]
-        switch cell {
-        case .textFieldCell(let placeholderText, let text, let id, let textFieldDelegate, let delegate):
-            let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.id, for: indexPath) as! TextFieldCell
-            cell.textField.placeholder = placeholderText
-            cell.textField.delegate = textFieldDelegate
-            cell.delegate = delegate
-            cell.textFieldID = id
-            cell.textField.text = text
-            return cell
-        case .switchCell(let cellText, let isOn, let switchDelegate, let infoDelegate):
-            let cell = tableView.dequeueReusableCell(withIdentifier: SwitchCell.id, for: indexPath) as! SwitchCell
-            cell.switchDelegate = switchDelegate
-            cell.infoDelegate = infoDelegate
-            cell.label.text = cellText
-            cell.tableSwitch.isOn = isOn
-            return cell
-        case .labelCell(let cellText, let textColor, let backgroundColor, let cellAccessoryType, _):
-            let cell = tableView.dequeueReusableCell(withIdentifier: LabelCell.id, for: indexPath) as! LabelCell
-            cell.label.text = cellText
-            cell.label.textColor = textColor
-            cell.backgroundColor = backgroundColor
-            cell.accessoryType = cellAccessoryType
-            return cell
-        case .errorCell(let errors):
-            let cell = tableView.dequeueReusableCell(withIdentifier: LabelCell.id, for: indexPath) as! LabelCell
-            cell.label.text = FormError.constructErrorString(errors: errors)
-            cell.label.textColor = StudiumColor.failure.uiColor
-            cell.label.numberOfLines = 0
-            cell.backgroundColor = StudiumColor.background.uiColor
-            cell.accessoryType = .none
-            return cell
-        case .timeCell(let cellText, let date, let dateFormat, let timePickerMode, let id, _):
-            let cell = tableView.dequeueReusableCell(withIdentifier: TimeCell.id, for: indexPath) as! TimeCell
-            cell.configure(cellLabelText: cellText, formCellID: id, date: date, dateFormat: dateFormat, timePickerMode: timePickerMode)
-            return cell
-        case .timePickerCell(let date, let dateFormat, let timePickerMode, let formCellID, let delegate):
-            let cell = tableView.dequeueReusableCell(withIdentifier: TimePickerCell.id, for: indexPath) as! TimePickerCell
-            cell.delegate = delegate
-            cell.indexPath = indexPath
-            cell.formCellID = formCellID
-            cell.picker.datePickerMode = timePickerMode
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = dateFormat.rawValue
-            cell.picker.setDate(date, animated: true)
-            return cell
-        case .daySelectorCell(let daysSelected, let delegate):
-            let cell = tableView.dequeueReusableCell(withIdentifier: DaySelectorCell.id, for: indexPath) as! DaySelectorCell
-            cell.delegate = delegate
-            cell.selectDays(days: daysSelected)
-            return cell
-        case .segmentedControlCell(let firstTitle, let secondTitle, let delegate):
-            let cell = tableView.dequeueReusableCell(withIdentifier: SegmentedControlCell.id, for: indexPath) as! SegmentedControlCell
-            cell.segmentedControl.setTitle(firstTitle, forSegmentAt: 0)
-            cell.segmentedControl.setTitle(secondTitle, forSegmentAt: 1)
-            
-            cell.delegate = delegate
-            return cell
-        case .colorPickerCell(let delegate):
-            let cell = tableView.dequeueReusableCell(withIdentifier: ColorPickerCell.id, for: indexPath) as! ColorPickerCell
-            cell.delegate = delegate
-            return cell
-        case .pickerCell(_, let indices, let tag, let delegate, let dataSource):
-            let cell = tableView.dequeueReusableCell(withIdentifier: PickerCell.id, for: indexPath) as! PickerCell
-            cell.picker.delegate = delegate
-            cell.picker.dataSource = dataSource
-            cell.picker.tag = tag.rawValue
-            for i in 0..<indices.count {
-                cell.picker.selectRow(indices[i], inComponent: i, animated: true)
-            }
-            cell.indexPath = indexPath
-            return cell
-        case .logoCell(let logo, _):
-            let cell = tableView.dequeueReusableCell(withIdentifier: LogoCell.id, for: indexPath) as! LogoCell
-            cell.setImage(systemIcon: logo)
-            return cell
-        }
     }
     
     // TODO: Docstrings
@@ -569,6 +485,7 @@ extension MasterForm {
         return K.emptyHeaderHeight
     }
     
+    /// Scrolls the screen to the bottom of the Form
     func scrollToBottomOfTableView() {
         let lastSectionIndex = self.tableView.numberOfSections - 1
         let lastIndexPath = IndexPath(row: tableView.numberOfRows(inSection: lastSectionIndex) - 1, section: lastSectionIndex)
@@ -577,6 +494,14 @@ extension MasterForm {
     }
 }
 
+// MARK: - TableViewForm Conformance
+extension MasterForm {
+    func fillForm(event: StudiumEvent) {
+        fatalError("$ERR (MasterForm): fillForm method should be overriden by subclass.")
+    }
+}
+
+// MARK: - Debuggable Conformance
 extension MasterForm: Debuggable {
     func printDebug(_ message: String) {
         if self.debug {

@@ -8,7 +8,8 @@
 //
 import UIKit
 import CalendarKit
-import DateToolsSwift
+
+import VikUtilityKit
 
 //TODO: Docstrings
 class DayScheduleViewController: DayViewController {
@@ -135,7 +136,7 @@ class DayScheduleViewController: DayViewController {
         // There is no wake up time for the specified date
         guard let wakeUpTime = self.databaseService.getUserSettings().getWakeUpTime(for: date),
               wakeUpTime.occursOn(date: date) else {
-            printDebug("Wake up time for \(date.studiumWeekday) was nil or mismatched the requested date. Wake Up Time: \(String(describing: self.databaseService.getUserSettings().getWakeUpTime(for: date))), Requested: \(date)")
+            printDebug("Wake up time for \(date.weekdayValue) was nil or mismatched the requested date. Wake Up Time: \(String(describing: self.databaseService.getUserSettings().getWakeUpTime(for: date))), Requested: \(date)")
             return nil
         }
 

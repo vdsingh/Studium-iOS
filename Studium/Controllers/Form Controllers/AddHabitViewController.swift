@@ -8,8 +8,12 @@
 
 import Foundation
 import UIKit
+
 import RealmSwift
 import FlexColorPicker
+
+import TableViewFormKit
+import VikUtilityKit
 
 /// Guarantees that the Habit list has a method that allows it to refresh.
 protocol HabitRefreshProtocol {
@@ -95,7 +99,7 @@ class AddHabitViewController: MasterForm {
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details",
                                text: self.additionalDetails,
-                               id: FormCellID.TextFieldCell.additionalDetailsTextField,
+                               id: FormCellID.TextFieldCellID.additionalDetailsTextField,
                                textFieldDelegate: self,
                                delegate: self)
             ],
@@ -179,8 +183,8 @@ class AddHabitViewController: MasterForm {
     }
     
     //TODO: Docstring
-    func findErrors() -> [FormError] {
-        var errors = [FormError]()
+    func findErrors() -> [StudiumFormError] {
+        var errors = [StudiumFormError]()
         
         if self.name == "" {
             errors.append(.nameNotSpecified)
@@ -267,10 +271,10 @@ extension AddHabitViewController: DaySelectorDelegate {
 }
 
 // TODO: Docstrings
-extension AddHabitViewController: UITextFieldDelegateExt {
+extension AddHabitViewController: UITextFieldDelegateExtension {
     
     // TODO: Docstrings
-    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
+    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
         guard let text = sender.text else {
             print("$ERR: sender's text is nil when editing text.")
             return
@@ -313,8 +317,8 @@ extension AddHabitViewController: SegmentedControlDelegate {
 //MARK: - Switch Delegate
 extension AddHabitViewController: CanHandleSwitch {
     
-    // TODO: Docstrings
-    // method triggered when the autoschedule switch is triggered
+    /// Method triggered when the autoschedule switch is triggered
+    /// - Parameter sender: The switch used
     func switchValueChanged(sender: UISwitch) {
         if sender.isOn { //auto schedule
             self.cells = self.cellsAuto
@@ -329,13 +333,16 @@ extension AddHabitViewController: CanHandleSwitch {
 }
 
 // TODO: Docstrings
-extension AddHabitViewController: CanHandleInfoDisplay{
+extension AddHabitViewController: CanHandleInfoDisplay {
     
-    // TODO: Docstrings
+    /// Displays information via an Alert
     func displayInformation() {
-        let alert = UIAlertController(title: "Autoschedule",
-                                      message: "This feature autoschedules time for you! \n\nJust specify what days the habit occurs on and how long the habit lasts. We'll find time for you to get it done! \n\nSome common uses for autoscheduling are finding time for the gym, reading, and studying.",
-                                      preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(
+            title: "Autoscheduling",
+            message: "We'll analyze your schedule and find time for you to get it done.",
+            preferredStyle: UIAlertController.Style.alert
+        )
+        
         
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
         }))
@@ -346,7 +353,8 @@ extension AddHabitViewController: CanHandleInfoDisplay{
 // TODO: Docstrings
 extension AddHabitViewController {
     
-    // TODO: Docstrings
+    /// Fills the FormCells with information from a provided habit
+    /// - Parameter habit: The habit that we want to fill the Form with
     func fillForm(with habit: Habit) {
         printDebug("Filling form for habit: \(habit.name)")
         

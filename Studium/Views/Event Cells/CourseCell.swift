@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import SwipeCellKit
+import VikUtilityKit
 
 class CourseCell: DeletableEventCell{
     @IBOutlet weak var iconImage: UIImageView!
@@ -38,7 +39,7 @@ class CourseCell: DeletableEventCell{
 //        }
 //    }
     
-    func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<String>, colorHex: String, course: Course, systemIcon: SystemIcon){
+    func loadData(courseName: String, location: String, startTime: Date, endTime: Date, days: List<String>, colorHex: String, course: Course, systemIcon: SystemIcon) {
         self.course = course
         event = course
         iconImage.image = systemIcon.createImage()

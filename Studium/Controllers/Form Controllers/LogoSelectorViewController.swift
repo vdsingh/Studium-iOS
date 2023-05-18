@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import VikUtilityKit
+import TableViewFormKit
 
 // TODO: Docstrings
 protocol LogoSelectionHandler {

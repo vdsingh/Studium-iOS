@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import VikUtilityKit
 
 //TODO: Docstrings
 class MockAutoscheduleService: AutoscheduleServiceProtocol {

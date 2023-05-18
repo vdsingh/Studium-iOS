@@ -46,7 +46,7 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         self.habits = self.databaseService.getStudiumObjects(expecting: Habit.self)
         eventsArray = [[],[]]
         for habit in self.habits {
-            if habit.days.contains(Date().studiumWeekday){
+            if habit.days.contains(Date().weekdayValue){
                 eventsArray[0].append(habit)
             } else {
                 eventsArray[1].append(habit)

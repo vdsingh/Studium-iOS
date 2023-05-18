@@ -5,6 +5,9 @@ import RealmSwift
 import FlexColorPicker
 import EventKit
 
+import TableViewFormKit
+import VikUtilityKit
+
 /// Makes sure that the course list can refresh when a new course is added
 protocol CourseRefreshProtocol {
     
@@ -58,20 +61,20 @@ class AddCourseViewController: MasterForm {
     func setCells() {
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCell.nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCell.locationTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCellID.locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.navigateTo(.alertTimesSelection)
                 })
             ],
             [
-                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCell.startTimeCell, onClick: timeCellClicked),
-                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCell.endTimeCell, onClick: timeCellClicked)
+                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCellID.startTimeCell, onClick: timeCellClicked),
+                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCellID.endTimeCell, onClick: timeCellClicked)
             ],
             [
                 .logoCell(logo: self.logo, onClick: { self.navigateTo(.logoSelection) }),
                 .colorPickerCell(delegate: self),
-                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCell.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],
             [
                 .errorCell(errors: self.errors)
@@ -123,8 +126,8 @@ class AddCourseViewController: MasterForm {
     }
     
     //TODO: Docstring
-    func findErrors() -> [FormError] {
-        var errors = [FormError]()
+    func findErrors() -> [StudiumFormError] {
+        var errors = [StudiumFormError]()
         if name == "" {
             errors.append(.nameNotSpecified)
         }
@@ -170,10 +173,10 @@ extension AddCourseViewController {
 }
 
 // TODO: Docstrings
-extension AddCourseViewController: UITextFieldDelegateExt {
+extension AddCourseViewController: UITextFieldDelegateExtension {
     
     // TODO: Docstrings
-    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCell) {
+    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
         guard let text = sender.text else {
             print("$ERR: sender's text is nil when editing text in \(textFieldID).\n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
             return

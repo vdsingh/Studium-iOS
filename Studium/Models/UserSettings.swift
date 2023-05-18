@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import VikUtilityKit
 
 //TODO: Docstring
 final class UserSettings: Object {
@@ -57,7 +58,7 @@ final class UserSettings: Object {
 extension UserSettings {
     //TODO: Docstrings
     func getWakeUpTime(for date: Date) -> Date? {
-        let time = self.getWakeUpTime(for: date.studiumWeekday)
+        let time = self.getWakeUpTime(for: date.weekdayValue)
         return time?.setDate(year: date.year, month: date.month, day: date.day)
     }
     

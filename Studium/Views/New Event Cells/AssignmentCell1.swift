@@ -8,6 +8,7 @@
 
 import UIKit
 import SwipeCellKit
+import VikUtilityKit
 
 //TODO: Docstrings
 protocol AssignmentCollapseDelegate {

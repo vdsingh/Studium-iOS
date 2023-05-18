@@ -8,8 +8,11 @@
 
 import Foundation
 import EventKit
+
 import CalendarKit
 import RealmSwift
+
+import VikUtilityKit
 
 protocol StudiumEventContainer {
     associatedtype ScheduledEventType: StudiumEvent
@@ -65,7 +68,7 @@ class RecurringStudiumEvent: StudiumEvent {
     /// - Parameter date: The date that we're checking
     /// - Returns: Whether or not the event occurs on the date
     override func occursOn(date: Date) -> Bool {
-        return self.days.contains(date.studiumWeekday)
+        return self.days.contains(date.weekdayValue)
     }
     
     /// Returns a TimeChunk for this event on a given date
