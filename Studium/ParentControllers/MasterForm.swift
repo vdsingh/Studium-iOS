@@ -12,11 +12,6 @@ import UIKit
 import TableViewFormKit
 import VikUtilityKit
 
-protocol StudiumTableViewForm: TableViewForm {
-    associatedtype StudiumEventType: StudiumEvent
-    func fillForm(event: StudiumEventType)
-}
-
 /// characteristics of all forms.
 let kLargeCellHeight: CGFloat = 150
 let kMediumCellHeight: CGFloat = 60

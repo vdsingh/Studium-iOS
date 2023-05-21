@@ -23,7 +23,7 @@ protocol LogoSelectionHandler {
 }
 
 // TODO: Docstrings
-class LogoSelectorViewController: UIViewController {
+class LogoSelectorViewController: TableViewForm {
     
     // TODO: Docstrings
     var delegate: LogoSelectionHandler?
@@ -51,7 +51,7 @@ class LogoSelectorViewController: UIViewController {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(UINib(nibName: "LogoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "LogoCollectionViewCell")
+//        collectionView.register(UINib(nibName: "LogoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "LogoCollectionViewCell")
     }
 }
 

@@ -55,7 +55,7 @@ protocol AlertTimeHandler {
 }
 
 // TODO: Docstrings
-class AlertTableViewController: UITableViewController {
+class AlertTableViewController: TableViewForm {
     
     // TODO: Docstrings
     var delegate: AlertTimeHandler?
@@ -68,7 +68,7 @@ class AlertTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(UINib(nibName: LabelCell.id, bundle: nil), forCellReuseIdentifier: LabelCell.id)
+//        self.tableView.register(UINib(nibName: LabelCell.id, bundle: nil), forCellReuseIdentifier: LabelCell.id)
         self.tableView.tableFooterView = UIView()
     }
     

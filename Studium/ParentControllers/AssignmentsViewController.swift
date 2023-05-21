@@ -9,14 +9,17 @@
 import Foundation
 import UIKit
 
+//TODO: Docstrings
 class AssignmentsViewController: StudiumEventListViewController {
     
     override var debug: Bool {
         return true
     }
     
+    //TODO: Docstrings
     var assignmentsExpandedSet = Set<Assignment>()
     
+    //TODO: Docstrings
     func loadAssignments() { }
     
     /// Reloads/sorts the data and refreshes the TableView
@@ -24,6 +27,7 @@ class AssignmentsViewController: StudiumEventListViewController {
 }
 
 // MARK: - TableView Delegate
+
 extension AssignmentsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("Selected row \(indexPath.row)")

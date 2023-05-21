@@ -10,23 +10,6 @@ import Foundation
 import RealmSwift
 import VikUtilityKit
 
-//TODO: Docstrings
-protocol DatabaseServiceProtocol {
-    func saveStudiumObject(_ studiumEvent: StudiumEvent)
-    func saveAssignment(assignment: Assignment, parentCourse: Course)
-    func getStudiumObjects <T: StudiumEvent> (expecting type: T.Type) -> [T]
-    func getAllStudiumObjects() -> [StudiumEvent]
-    func getAssignments(forCourse course: Course) -> [Assignment]
-    func getUserSettings() -> UserSettings
-    func markComplete(_ completableEvent: CompletableStudiumEvent, _ complete: Bool)
-    func editStudiumEvent(oldEvent: StudiumEvent, newEvent: StudiumEvent)
-    func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date)
-    func deleteStudiumObject(_ studiumEvent: StudiumEvent)
-//    func deleteAssignmentsForCourse(course: Course)
-    func setDefaultAlertOptions(alertOptions: [AlertOption])
-    func getDefaultAlertOptions() -> [AlertOption]
-}
-
 /// Service to interact with the Realm Database
 final class DatabaseService: DatabaseServiceProtocol {
     

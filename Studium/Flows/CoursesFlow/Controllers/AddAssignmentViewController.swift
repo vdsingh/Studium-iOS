@@ -14,7 +14,7 @@ protocol AssignmentRefreshProtocol {
 }
 
 // TODO: Docstrings
-class AddAssignmentViewController: MasterForm {
+class AddAssignmentViewController: MasterForm, Storyboarded {
     
     override var debug: Bool {
         return true

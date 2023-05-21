@@ -10,18 +10,24 @@ import Foundation
 import SwipeCellKit
 import UIKit
 
+//TODO: Docstrings
 class StudiumEventListViewController: SwipeTableViewController {
     
+    //TODO: Docstrings
     let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
+    //TODO: Docstrings
     override var debug: Bool {
         false
     }
     
+    //TODO: Docstrings
     var eventsArray: [[StudiumEvent]] = [[],[]]
     
+    //TODO: Docstrings
     var sectionHeaders: [String] = ["Section 1", "Section 2"]
     
+    //TODO: Docstrings
     var eventTypeString: String = "Events"
         
     override func viewDidLoad() {
@@ -72,6 +78,8 @@ class StudiumEventListViewController: SwipeTableViewController {
     }
     
     // MARK: - Delete
+    
+    //TODO: Docstrings
     func delete(at indexPath: IndexPath) {
         print("$LOG: will attempt to delete at \(indexPath)")
         if let cell = tableView.cellForRow(at: indexPath) as? DeletableEventCell,
@@ -87,6 +95,8 @@ class StudiumEventListViewController: SwipeTableViewController {
     }
     
     // MARK: - Edit
+    
+    //TODO: Docstrings
     func edit(at indexPath: IndexPath){
        
     }
@@ -94,6 +104,7 @@ class StudiumEventListViewController: SwipeTableViewController {
 
 // MARK: - TableView Delegate
 
+//TODO: Docstrings
 extension StudiumEventListViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderView.id) as? HeaderView
@@ -111,6 +122,7 @@ extension StudiumEventListViewController {
         return headerView
     }
     
+    //TODO: Docstrings
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let eventCell = tableView.cellForRow(at: indexPath) as? DeletableEventCell {
             if let event = eventCell.event as? CompletableStudiumEvent {

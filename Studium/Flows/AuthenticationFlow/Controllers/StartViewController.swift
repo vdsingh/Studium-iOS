@@ -16,7 +16,7 @@ import FBSDKLoginKit
 import FBSDKCoreKit
 
 // TODO: Docstrings
-class StartViewController: AuthViewController {
+class StartViewController: AuthViewController, Storyboarded {
     
     // TODO: Docstrings
 //    let app = App(id: Secret.appID)

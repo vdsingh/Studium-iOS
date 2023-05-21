@@ -18,6 +18,8 @@ class AuthViewController: UIViewController {
     let debug = true
     var codeLocationString: String = "FBAndGoogleAuthViewController"
     
+    weak var coordinator: AuthenticationCoordinator?
+    
     let spinner: UIActivityIndicatorView = {
        let spinner = UIActivityIndicatorView()
         spinner.translatesAutoresizingMaskIntoConstraints = false
@@ -41,6 +43,7 @@ class AuthViewController: UIViewController {
             }
         }
     }
+
     
     override func viewDidLoad() {
         self.view.addSubview(self.spinner)

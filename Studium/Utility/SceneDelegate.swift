@@ -19,8 +19,9 @@ import FBSDKLoginKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    let defaults = UserDefaults.standard
 //    let app = App(id: Secret.appID)
+    var coordinator: AppCoordinator?
+
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -34,27 +35,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        window = UIWindow(windowScene: windowScene)
         
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         
-//        GIDSignIn.sharedInstance().restorePreviousSignIn{ user, error in
-//            if error != nil || user == nil {
-//              // Show the app's signed-out state.
-//                print("LOG: User is NOT signed in with Google")
-//            } else {
-//              // Show the app's signed-in state.
-//                if let email = user?.profile?.email {
-//                    print("LOG: User is signed in with Google. Restored sign-in. User Email: \(email). Going to MainTabController.")
-//                    self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
-//                }else{
-//                    print("ERROR: User is signed in with Google but their Email is nil.")
-//                }
-//            }
-//        }
+        let navigationController = UINavigationController()
+        self.coordinator = AppCoordinator(navigationController: navigationController)
+        self.coordinator?.start()
+        
+        self.window?.rootViewController = navigationController
+        self.window?.makeKeyAndVisible()
         
         if AuthenticationService.shared.userIsLoggedIn {
-            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
+            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
         }else{
-            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "StartViewControllerNavigation")
+            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "StartViewControllerNavigation")
         }
     }
     
