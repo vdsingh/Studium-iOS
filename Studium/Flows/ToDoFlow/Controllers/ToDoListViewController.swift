@@ -18,6 +18,8 @@ class ToDoListViewController: AssignmentsViewController, ToDoListRefreshProtocol
         return false
     }
     
+    weak var coordinator: ToDoCoordinator?
+    
     //TODO: Docstrings
     let assignments = [Assignment]()
     

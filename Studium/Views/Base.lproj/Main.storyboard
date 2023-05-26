@@ -1208,7 +1208,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zcl-mS-Mzg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="840.57971014492762" y="2382.5892857142858"/>
+            <point key="canvasLocation" x="841" y="2408"/>
         </scene>
         <!--To Do-->
         <scene sceneID="XIp-nw-q2n">
@@ -1423,9 +1423,6 @@
                                                 <state key="normal" title="Sign Up">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
-                                                <connections>
-                                                    <segue destination="BhP-zo-giK" kind="show" id="4FP-J5-uGy"/>
-                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKd-h2-5bY">
                                                 <rect key="frame" x="191" y="0.0" width="183" height="50"/>
@@ -1434,9 +1431,6 @@
                                                 <state key="normal" title="Log In">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
-                                                <connections>
-                                                    <segue destination="Ttg-AT-mA7" kind="show" id="IHU-hU-3cz"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -1739,7 +1733,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="d6r-wA-WW0"/>
         <segue reference="T8N-JJ-KKU"/>
-        <segue reference="327-zR-EyQ"/>
+        <segue reference="J7L-Rc-yCL"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="2" width="300" height="300"/>
