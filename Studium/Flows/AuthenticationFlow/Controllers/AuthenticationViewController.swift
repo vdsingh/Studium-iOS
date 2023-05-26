@@ -13,7 +13,7 @@ import GoogleSignIn
 import RealmSwift
 
 // TODO: Docstrings
-class AuthViewController: UIViewController {
+class AuthenticationViewController: UIViewController {
     
     let debug = true
     var codeLocationString: String = "FBAndGoogleAuthViewController"
@@ -31,7 +31,7 @@ class AuthViewController: UIViewController {
     }()
     
     // TODO: Docstrings
-    var sender: Any? = AuthViewController.self
+    var sender: Any? = AuthenticationViewController.self
     
     override func viewWillAppear(_ animated: Bool) {
         AuthenticationService.shared.attemptRestorePreviousSignIn { result in
@@ -72,10 +72,19 @@ class AuthViewController: UIViewController {
 }
 
 // MARK: - Handle Authentication Methods
-extension AuthViewController {
+extension AuthenticationViewController {
+    
+    @objc func loginButtonClicked() {
+        print("LOGIN CLICKED")
+        self.coordinator?.showLoginViewController()
+    }
+    
+    @objc func signUpButtonClicked() {
+        self.coordinator?.showSignUpViewController()
+    }
     
     // TODO: Docstrings
-    @IBAction func guestLoginClicked(){
+    @IBAction func guestLoginClicked() {
         self.spinner.startAnimating()
 
         AuthenticationService.shared.handleLoginAsGuest { [weak self] result in
@@ -137,7 +146,7 @@ extension AuthViewController {
     }
 }
 
-extension AuthViewController: Debuggable {
+extension AuthenticationViewController: Debuggable {
     func printDebug(_ message: String) {
         if self.debug {
             print("$LOG (\(String(describing: self))): \(message)")

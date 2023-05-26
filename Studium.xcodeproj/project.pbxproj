@@ -16,7 +16,7 @@
 		165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C77248A6F5C004279B0 /* CourseCell.swift */; };
 		165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C78248A6F5C004279B0 /* CourseCell.xib */; };
 		166F53D125BC93320065963D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166F53D025BC93320065963D /* TabBarController.swift */; };
-		16827D1A27F58B9A0001D1EF /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16827D1927F58B9A0001D1EF /* AuthViewController.swift */; };
+		16827D1A27F58B9A0001D1EF /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16827D1927F58B9A0001D1EF /* AuthenticationViewController.swift */; };
 		168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */; };
 		1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E730247A3DC4003D4702 /* AppDelegate.swift */; };
 		1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1693E732247A3DC4003D4702 /* SceneDelegate.swift */; };
@@ -94,6 +94,7 @@
 		B9AFCF952A19F1FE0087A0FF /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF942A19F1FE0087A0FF /* SettingsCoordinator.swift */; };
 		B9AFCF972A19F2170087A0FF /* GenericFormFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF962A19F2170087A0FF /* GenericFormFlowCoordinator.swift */; };
 		B9AFCF992A19F2430087A0FF /* DatabaseServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF982A19F2430087A0FF /* DatabaseServiceProtocol.swift */; };
+		B9F1B2DD2A1DB96C006F1462 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F1B2DC2A1DB96C006F1462 /* TabBarCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,7 +117,7 @@
 		165A6C77248A6F5C004279B0 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		165A6C78248A6F5C004279B0 /* CourseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell.xib; sourceTree = "<group>"; };
 		166F53D025BC93320065963D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		16827D1927F58B9A0001D1EF /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		16827D1927F58B9A0001D1EF /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringStudiumEvent.swift; sourceTree = "<group>"; };
 		1693E72D247A3DC4003D4702 /* Studium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1693E730247A3DC4003D4702 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -201,6 +202,7 @@
 		B9AFCF942A19F1FE0087A0FF /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		B9AFCF962A19F2170087A0FF /* GenericFormFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericFormFlowCoordinator.swift; sourceTree = "<group>"; };
 		B9AFCF982A19F2430087A0FF /* DatabaseServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseServiceProtocol.swift; sourceTree = "<group>"; };
+		B9F1B2DC2A1DB96C006F1462 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		FD108DE721EFFA5F65BC9E17 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -459,6 +461,7 @@
 				166F53D025BC93320065963D /* TabBarController.swift */,
 				B9AFCF712A19E2100087A0FF /* Coordinator.swift */,
 				B9AFCF732A19E3160087A0FF /* AppCoordinator.swift */,
+				B9F1B2DC2A1DB96C006F1462 /* TabBarCoordinator.swift */,
 				B9AFCF832A19F06B0087A0FF /* GenericFormFlow */,
 				B9AFCF812A19EF1F0087A0FF /* SettingsFlow */,
 				B9AFCF802A19EEFA0087A0FF /* UserSetupFlow */,
@@ -483,7 +486,7 @@
 		B9AFCF7B2A19EE840087A0FF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				16827D1927F58B9A0001D1EF /* AuthViewController.swift */,
+				16827D1927F58B9A0001D1EF /* AuthenticationViewController.swift */,
 				164905B627E18732002DE61D /* LoginViewController.swift */,
 				1697F7EF266C6B6D0064AB28 /* StartViewController.swift */,
 				16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */,
@@ -796,7 +799,7 @@
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
 				1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
-				16827D1A27F58B9A0001D1EF /* AuthViewController.swift in Sources */,
+				16827D1A27F58B9A0001D1EF /* AuthenticationViewController.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				B9AFCF8B2A19F1CA0087A0FF /* CalendarCoordinator.swift in Sources */,
 				B9AFCF742A19E3160087A0FF /* AppCoordinator.swift in Sources */,
@@ -828,6 +831,7 @@
 				B96E6A9C298456A500A25457 /* K.swift in Sources */,
 				B90D13FB29845FE80093EB0C /* AddCourseViewController.swift in Sources */,
 				B97BB0B02A022B5C008F1A5B /* UIColor_Extension.swift in Sources */,
+				B9F1B2DD2A1DB96C006F1462 /* TabBarCoordinator.swift in Sources */,
 				16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */,
 				B90D13FA29845FE80093EB0C /* AddHabitViewController.swift in Sources */,
 				B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */,

@@ -10,25 +10,34 @@ import Foundation
 import UIKit
 
 class AppCoordinator: Coordinator {
+    weak var parentCoordinator: Coordinator? = nil
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     
-    init(navigationController: UINavigationController) {
+    required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
-//        let vc = StartViewController.instantiate()
-//        vc.coordinator = self
-//        self.navigationController.pushViewController(vc, animated: false)
-        self.authenticate()
+        self.showAuthenticationFlow()
+////        let vc = StartViewController.instantiate()
+////        vc.coordinator = self
+////        self.navigationController.pushViewController(vc, animated: false)
+//        self.authenticate()
     }
     
-    func authenticate() {
-        let child = AuthenticationCoordinator(navigationController: self.navigationController)
+    func showAuthenticationFlow() {
+        let child = AuthenticationCoordinator(self.navigationController)
         child.parentCoordinator = self
         self.childCoordinators.append(child)
         child.start()
+    }
+    
+    func showMainFlow() {
+        let child = TabBarCoordinator(self.navigationController)
+        self.childCoordinators.append(child)
+        child.start()
+//        let child = TabBarCoordinator()
     }
     
     func childDidFinish(_ child: Coordinator?) {
