@@ -13,7 +13,7 @@ import GoogleSignIn
 import VikUtilityKit
 
 //TODO: Docstrings
-class LoginViewController: AuthViewController, UIGestureRecognizerDelegate {
+class LoginViewController: AuthenticationViewController, UIGestureRecognizerDelegate {
     
     //TODO: Docstrings
     @IBOutlet weak var emailTextField: UITextField!

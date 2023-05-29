@@ -13,12 +13,12 @@ import GoogleSignIn
 import RealmSwift
 
 // TODO: Docstrings
-class AuthenticationViewController: UIViewController {
+class AuthenticationViewController: UIViewController, Storyboarded {
     
     let debug = true
     var codeLocationString: String = "FBAndGoogleAuthViewController"
     
-    weak var coordinator: AuthenticationCoordinator?
+    weak var coordinator: AuthenticationCoordinator!
     
     let spinner: UIActivityIndicatorView = {
        let spinner = UIActivityIndicatorView()
@@ -44,7 +44,6 @@ class AuthenticationViewController: UIViewController {
         }
     }
 
-    
     override func viewDidLoad() {
         self.view.addSubview(self.spinner)
         
@@ -54,11 +53,9 @@ class AuthenticationViewController: UIViewController {
             self.spinner.heightAnchor.constraint(equalToConstant: 80),
             self.spinner.widthAnchor.constraint(equalToConstant: 80),
         ])
-        
-//        self.spinner.startAnimating()
-
     }
     
+    //TODO: Docstrings
     func showPopUp(title: String, message: String, actions: [UIAlertAction]) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         for action in actions {
@@ -74,13 +71,14 @@ class AuthenticationViewController: UIViewController {
 // MARK: - Handle Authentication Methods
 extension AuthenticationViewController {
     
+    //TODO: Docstrings
     @objc func loginButtonClicked() {
-        print("LOGIN CLICKED")
-        self.coordinator?.showLoginViewController()
+        self.coordinator?.showLoginViewController(animated: true)
     }
     
+    //TODO: Docstrings
     @objc func signUpButtonClicked() {
-        self.coordinator?.showSignUpViewController()
+        self.coordinator?.showSignUpViewController(animated: true)
     }
     
     // TODO: Docstrings

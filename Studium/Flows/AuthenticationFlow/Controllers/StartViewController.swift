@@ -16,11 +16,8 @@ import FBSDKLoginKit
 import FBSDKCoreKit
 
 // TODO: Docstrings
-class StartViewController: AuthViewController, Storyboarded {
+class StartViewController: AuthenticationViewController {
     
-    // TODO: Docstrings
-//    let app = App(id: Secret.appID)
-
     // TODO: Docstrings
     @IBOutlet weak var signUpButton: UIButton!
     
@@ -38,7 +35,7 @@ class StartViewController: AuthViewController, Storyboarded {
     
     // TODO: Docstrings
     @IBOutlet weak var mainStackView: UIStackView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.signUpButton.layer.cornerRadius = 10
@@ -55,6 +52,9 @@ class StartViewController: AuthViewController, Storyboarded {
     
     // TODO: Docstrings
     private func setSelectors() {
+        print("SETTING SELECTORS. COORDINATOR: \(self.coordinator)")
+        self.loginButton.addTarget(self, action: #selector(self.loginButtonClicked), for: .touchUpInside)
+        self.signUpButton.addTarget(self, action: #selector(self.signUpButtonClicked), for: .touchUpInside)
         self.googleSignInButton.addTarget(self, action: #selector(googleLoginClicked), for: .touchUpInside)
         self.facebookSignInButton.addTarget(self, action: #selector(fbLoginButtonClicked), for: .touchUpInside)
         self.guestSignInButton.addTarget(self, action: #selector(guestLoginClicked), for: .touchUpInside)

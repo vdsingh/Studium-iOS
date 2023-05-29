@@ -1078,7 +1078,7 @@
                                     <action selector="signInButtonPressed:" destination="Ttg-AT-mA7" eventType="touchUpInside" id="3dG-Eu-rLC"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ief-Cj-hfS">
+                            <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ief-Cj-hfS">
                                 <rect key="frame" x="0.0" y="68" width="87" height="34.5"/>
                                 <color key="tintColor" name="Studium Secondary Theme Color"/>
                                 <state key="normal" title="Button"/>
@@ -1621,7 +1621,7 @@
                                     </attributedString>
                                 </buttonConfiguration>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81E-Ap-oY8">
+                            <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81E-Ap-oY8">
                                 <rect key="frame" x="0.0" y="68" width="87" height="34.5"/>
                                 <color key="tintColor" name="Studium Secondary Theme Color"/>
                                 <state key="normal" title="Button"/>
@@ -1733,7 +1733,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="d6r-wA-WW0"/>
         <segue reference="T8N-JJ-KKU"/>
-        <segue reference="J7L-Rc-yCL"/>
+        <segue reference="327-zR-EyQ"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="2" width="300" height="300"/>

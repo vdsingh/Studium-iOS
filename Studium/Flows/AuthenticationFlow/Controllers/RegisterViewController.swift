@@ -14,7 +14,7 @@ import GoogleSignIn
 
 import VikUtilityKit
 
-class RegisterViewController: AuthViewController, UIGestureRecognizerDelegate {
+class RegisterViewController: AuthenticationViewController, UIGestureRecognizerDelegate {
     
     //TODO: Docstrings
     @IBOutlet weak var emailTextField: UITextField!

@@ -9,32 +9,65 @@
 import Foundation
 import UIKit
 
+//TODO: Docstrings
 class AuthenticationCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
-    weak var parentCoordinator: AppCoordinator?
+    
+    //TODO: Docstrings
+    weak var parentCoordinator: Coordinator?
+    
+    //TODO: Docstrings
     var childCoordinators = [Coordinator]()
     
+    //TODO: Docstrings
     var navigationController: UINavigationController
     
-    init(navigationController: UINavigationController) {
+    //TODO: Docstrings
+    required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
+    //TODO: Docstrings
     func start() {
         self.navigationController.delegate = self
+        self.showStartViewController()
     }
     
+    //TODO: Docstrings
+    func showStartViewController() {
+        let startVC = StartViewController.instantiate()
+        startVC.coordinator = self
+        self.navigationController.pushViewController(startVC, animated: false)
+    }
+    
+    func showLoginViewController(animated: Bool) {
+        DispatchQueue.main.async {
+            
+            let loginVC = LoginViewController.instantiate()
+            //        loginVC.coordinator = self
+            self.navigationController.pushViewController(loginVC, animated: animated)
+            print("PUSHED LOGIN VC")
+        }
+    }
+    
+    func showSignUpViewController(animated: Bool) {
+        let registerVC = RegisterViewController.instantiate()
+//        registerVC.coordinator = self
+        self.navigationController.pushViewController(registerVC, animated: animated)
+    }
+    
+    //TODO: Docstrings
     func didFinishAuthenticating() {
-        self.parentCoordinator?.childDidFinish(self)
+//        self.parentCoordinator?.childDidFinish(self)
     }
     
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
-            return
-        }
-        
-        if navigationController.viewControllers.contains(fromViewController) {
-            return
-        }
-        
-    }
+    //TODO: Docstrings
+//    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+//        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
+//            return
+//        }
+//
+//        if navigationController.viewControllers.contains(fromViewController) {
+//            return
+//        }
+//    }
 }

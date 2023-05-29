@@ -8,51 +8,25 @@
 
 import UIKit
 import SwiftUI
-
-//AUTHENTICATION
-import RealmSwift
-import GoogleSignIn
-//import FacebookCore
 import FBSDKLoginKit
 
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
-//    let app = App(id: Secret.appID)
     var coordinator: AppCoordinator?
 
-
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-           // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-           // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        
-        //change initial view controller depending on whether user has decided notifications
-        
-//        guard let windowScene = (scene as? UIWindowScene) else { return }
-//        window = UIWindow(windowScene: windowScene)
-        
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        
         let navigationController = UINavigationController()
-        self.coordinator = AppCoordinator(navigationController: navigationController)
-        self.coordinator?.start()
+        self.coordinator = AppCoordinator(navigationController)
+        coordinator?.start()
         
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
-        
-        if AuthenticationService.shared.userIsLoggedIn {
-            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
-        }else{
-            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "StartViewControllerNavigation")
-        }
     }
     
-    //Facebook code:
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        
+        // Required by FB:
         guard let url = URLContexts.first?.url else {
             return
         }
@@ -62,8 +36,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             open: url,
             sourceApplication: nil,
             annotation: [UIApplication.OpenURLOptionsKey.annotation]
-            
-            
         )
     }
 
@@ -94,7 +66,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
-
