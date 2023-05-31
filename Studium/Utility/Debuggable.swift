@@ -19,3 +19,11 @@ protocol Debuggable {
     /// - Parameter message: The message to print
     func printDebug(_ message: String)
 }
+
+extension Debuggable {
+    func printDebug(_ message: String) {
+        if self.debug {
+            print("$LOG \(String(describing: self)): \(message)")
+        }
+    }
+}

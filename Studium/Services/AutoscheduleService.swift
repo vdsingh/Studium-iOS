@@ -21,7 +21,7 @@ protocol AutoscheduleServiceProtocol {
 }
 
 //TODO: Docstrings
-final class AutoscheduleService: AutoscheduleServiceProtocol {
+final class AutoscheduleService: AutoscheduleServiceProtocol, Debuggable {
     
     let debug = true
     
@@ -268,9 +268,9 @@ final class AutoscheduleService: AutoscheduleServiceProtocol {
     }
 }
 
-extension AutoscheduleService: Debuggable {
+extension Debuggable where Self: AutoscheduleServiceProtocol {
     func printDebug(_ message: String) {
-        if self.debug {
+        if self.debug || DebugFlags.authentication {
             print("$LOG (AutoscheduleService): \(message)")
         }
     }
