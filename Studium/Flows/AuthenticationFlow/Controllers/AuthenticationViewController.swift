@@ -16,6 +16,7 @@ import RealmSwift
 class AuthenticationViewController: UIViewController, Storyboarded {
     
     let debug = true
+    
     var codeLocationString: String = "FBAndGoogleAuthViewController"
     
     weak var coordinator: AuthenticationCoordinator!

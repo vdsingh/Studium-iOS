@@ -14,6 +14,7 @@ import GoogleSignIn
 
 import VikUtilityKit
 
+// TODO: Docstrings
 class RegisterViewController: AuthenticationViewController, UIGestureRecognizerDelegate {
     
     //TODO: Docstrings
@@ -64,7 +65,6 @@ class RegisterViewController: AuthenticationViewController, UIGestureRecognizerD
         return self.passwordTextField.text!
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -151,8 +151,6 @@ class RegisterViewController: AuthenticationViewController, UIGestureRecognizerD
         emailTextField.backgroundColor = backgroundColor
         emailTextField.returnKeyType = .done
         emailTextField.delegate = self
-
-
         
         //PASSWORD TEXT FIELD SETUP:
         let passwordIconImageView = UIImageView(frame: CGRect(x: iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
@@ -183,7 +181,6 @@ class RegisterViewController: AuthenticationViewController, UIGestureRecognizerD
         passwordTextField.backgroundColor = backgroundColor
         passwordTextField.returnKeyType = .done
         passwordTextField.delegate = self
-        
         
         signUpButton.layer.cornerRadius = 10
         signUpButton.setTitleColor(StudiumColor.primaryLabel.uiColor, for: .normal)

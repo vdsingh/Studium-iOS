@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return AutoscheduleService(databaseService: self.databaseService)
     }()
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         printDebug("Did finish launching");

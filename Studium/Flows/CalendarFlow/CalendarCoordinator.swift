@@ -9,13 +9,21 @@
 import Foundation
 import UIKit
 
+//TODO: Docstrings
 class CalendarCoordinator: NSObject, TabItemCoordinator {
+    
+    var debug = false
+    
+    //TODO: Docstrings
     weak var parentCoordinator: Coordinator?
     
+    //TODO: Docstrings
     var childCoordinators = [Coordinator]()
     
+    //TODO: Docstrings
     var navigationController: UINavigationController
     
+    //TODO: Docstrings
     var tabItemInfo: TabItemInfo = .calendarFlow
     
     //TODO: Docstrings

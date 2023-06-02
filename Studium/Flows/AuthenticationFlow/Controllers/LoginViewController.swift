@@ -136,8 +136,6 @@ class LoginViewController: AuthenticationViewController, UIGestureRecognizerDele
         self.emailTextField.backgroundColor = backgroundColor
         self.emailTextField.returnKeyType = .done
         self.emailTextField.delegate = self
-
-
         
         //PASSWORD TEXT FIELD SETUP:
         let passwordIconImageView = UIImageView(frame: CGRect(x: textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))

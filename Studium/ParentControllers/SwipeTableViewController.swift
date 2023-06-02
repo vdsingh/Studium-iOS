@@ -19,8 +19,8 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     
     //TODO: Docstrings
     var leftActions = [SwipeAction]()
-
-
+    
+    //TODO: Docstrings
     var swipeCellId: String = "SwipeCell"
 
     //MARK: - TableView Data Source Methods
