@@ -11,7 +11,7 @@ import RealmSwift
 import VikUtilityKit
 
 /// Service to interact with the Realm Database
-final class DatabaseService: DatabaseServiceProtocol {
+final class DatabaseService: DatabaseServiceProtocol, Debuggable {
     
     let debug = true
     
@@ -43,6 +43,8 @@ final class DatabaseService: DatabaseServiceProtocol {
     
     /// The Realm database instance
     private var realm: Realm {
+        
+        
         // If the user exists, establish a connection to realm using the User's ID
         if let user = AuthenticationService.shared.user {
             do {
@@ -51,7 +53,13 @@ final class DatabaseService: DatabaseServiceProtocol {
                 fatalError("$ERR: issue accessing Realm: \(String(describing: error))")
             }
         } else {
-            fatalError("$ERR: tried to access Realm before user logged in")
+            AuthenticationService.shared.handleLogOut { error in
+                if let error = error {
+                    self.printError(error)
+                }
+            }
+            
+            fatalError("$ERR: tried to access Realm before user logged in. User Logged In: \(AuthenticationService.shared.userIsLoggedIn)")
         }
     }
     
@@ -258,10 +266,10 @@ final class DatabaseService: DatabaseServiceProtocol {
     }
 }
 
-extension DatabaseService: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG (DatabaseService): \(message)")
-        }
-    }
-}
+//extension DatabaseService: Debuggable {
+//    func printDebug(_ message: String) {
+//        if self.debug {
+//            print("$LOG (DatabaseService): \(message)")
+//        }
+//    }
+//}
