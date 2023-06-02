@@ -11,7 +11,7 @@ import RealmSwift
 import ChameleonFramework
 
 //TODO: Docstrings
-class ToDoListViewController: AssignmentsViewController, ToDoListRefreshProtocol, AssignmentRefreshProtocol {
+class ToDoListViewController: AssignmentsViewController, ToDoListRefreshProtocol, AssignmentRefreshProtocol, Storyboarded {
     
     // TODO: Docstrings
     override var debug: Bool {

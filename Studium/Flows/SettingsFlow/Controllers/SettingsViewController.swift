@@ -12,7 +12,17 @@ import UIKit
 import EventKit
 import GoogleSignIn
 
-class SettingsViewController: UITableViewController, AlertTimeHandler {
+class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboarded {
+    
+    private struct Constants {
+        static let deleteAllAssignmentsAlertInfo = (title: "Delete All Assignments", message: "Are you sure you want to delete all assignments? You can't undo this action.")
+        static let deleteCompletedAssignmentsAlertInfo = (title: "Delete Completed Assignments", message: "Are you sure you want to delete all completed assignments? You can't undo this action.")
+        static let deleteAllOtherEventsAlertInfo = (title: "Delete All Other Events", message: "Are you sure you want to delete all other events? You can't undo this action.")
+        static let deleteAllCompletedOtherEventsAlertInfo = (title: "Delete All Completed Other Events", message: "Are you sure you want to delete all completed other events? You can't undo this action.")
+    }
+    
+    weak var coordinator: SettingsCoordinator?
+    
     func alertTimesWereUpdated(selectedAlertOptions: [AlertOption]) {
         self.databaseService.setDefaultAlertOptions(alertOptions: selectedAlertOptions)
     }
@@ -20,48 +30,50 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
     
     var databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
-    //TODO: Docstrings
-//    var alertTimes: [AlertOption] = []
-    
-    //TODO: Docstrings
-//    var realm: Realm! //Link to the realm where we are storing information
-    
-    //TODO: Docstrings
-//    let app = App(id: Secret.appID)
-    
     /// reference to defaults
     let defaults = UserDefaults.standard
     
     //TODO: Docstrings
-    let cellData: [[String]] = [["Set Default Notifications", "Reset Wake Up Times"],
+    lazy var cellData: [[(text: String, didSelect: (() -> Void)?)]] = [
+        [
+            ("Set Default Notifications", nil),
+            ("Reset Wake Up Times", nil)
+        ],
 //                                ["Sync to Apple Calendar"],
-                                ["Delete All Assignments","Delete Completed Assignments",  "Delete All Other Events", "Delete All Completed Other Events"],
-                                ["Email", "Sign Out"]]
-    
-    //TODO: Docstrings
-    let cellLinks: [[String]] = [["toAlertSelection", "toWakeUpTimes", ""],
-//                                [""],
-                                ["", "", "", ""],
-                                ["", "toLoginScreen"]]
-    
-    //TODO: Docstrings
-    let alertData: [[String]] = [
-        ["Delete All Assignments", "Are you sure you want to delete all assignments? You can't undo this action."],
-        ["Delete Completed Assignments", "Are you sure you want to delete all completed assignments? You can't undo this action."],
-        ["Delete All Other Events", "Are you sure you want to delete all other events? You can't undo this action."],
-        ["Delete All Completed Other Events", "Are you sure you want to delete all completed other events? You can't undo this action."]]
+        [
+            ("Delete All Assignments", didSelect: {
+                self.createAlertForAssignments(title: Constants.deleteAllAssignmentsAlertInfo.title, message: Constants.deleteAllAssignmentsAlertInfo.message, isCompleted: false)
+
+            }),
+            ("Delete Completed Assignments", didSelect: {
+                self.createAlertForAssignments(title: Constants.deleteCompletedAssignmentsAlertInfo.title, message: Constants.deleteCompletedAssignmentsAlertInfo.message, isCompleted: true)
+            }),
+            ("Delete All Other Events", didSelect: {
+                self.createAlertForOtherEvents(title: Constants.deleteAllOtherEventsAlertInfo.title, message: Constants.deleteAllOtherEventsAlertInfo.message, isCompleted: false)
+            }),
+            ("Delete All Completed Other Events", didSelect: {
+                self.createAlertForOtherEvents(title: Constants.deleteAllCompletedOtherEventsAlertInfo.title, message: Constants.deleteAllCompletedOtherEventsAlertInfo.message, isCompleted: true)
+
+            })
+        ],
+        [
+            ("Email", nil),
+            ("Sign Out", didSelect: {
+                AuthenticationService.shared.handleLogOut { error in
+                    if let error = error {
+                        print("$ERR (SettingsViewController): \(String(describing: error))")
+                    }
+                    
+                    self.coordinator?.showAuthenticationFlow()
+                }
+            })
+            
+        ]
+    ]
     
     override func viewDidLoad() {
         self.tableView.tableFooterView = UIView()
 
-        //the key for default notification times doesn't exist in UserDefaults
-//        if defaults.object(forKey: K.defaultNotificationTimesKey) == nil {
-//            defaults.setValue(alertTimes, forKey: K.defaultNotificationTimesKey)
-//        } else {
-//            if let times = defaults.value(forKey: K.defaultNotificationTimesKey) as? [Int] {
-//                self.alertTimes = times.compactMap { AlertOption(rawValue: $0) }
-//            }
-//        }
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
@@ -79,7 +91,7 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         cell?.backgroundColor = StudiumColor.secondaryBackground.uiColor
         cell?.textLabel?.textColor = StudiumColor.primaryLabel.uiColor
-        cell?.textLabel?.text = cellData[indexPath.section][indexPath.row]
+        cell?.textLabel?.text = cellData[indexPath.section][indexPath.row].text
         
         
 //        if defaults.value(forKey: "email") != nil && cellData[indexPath.section][indexPath.row] == "Email"{
@@ -87,10 +99,9 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
 //        }
         
         let id = AuthenticationService.shared.userID
-        if cellData[indexPath.section][indexPath.row] == "Email" {
+        if cellData[indexPath.section][indexPath.row].text == "Email" {
             cell?.textLabel?.text = id
         }
-        
         
         return cell!
     }
@@ -121,25 +132,27 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
     
     //TODO: Docstrings
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if cellLinks[indexPath.section][indexPath.row] != "" {
-            performSegue(withIdentifier: cellLinks[indexPath.section][indexPath.row], sender: self)
+//        if cellLinks[indexPath.section][indexPath.row] != "" {
+//            performSegue(withIdentifier: cellLinks[indexPath.section][indexPath.row], sender: self)
+//        }
+        
+        let cellData = self.cellData[indexPath.section][indexPath.row]
+        
+        if let selectAction = cellData.didSelect {
+            selectAction()
         }
         
-        if cellData[indexPath.section][indexPath.row] == "Clear Notifs"{
-            let center = UNUserNotificationCenter.current()
-            center.removeAllDeliveredNotifications()    // to remove all delivered notifications
-            center.removeAllPendingNotificationRequests()   // to remove all pending notifications
-            UIApplication.shared.applicationIconBadgeNumber = 0 // to clear the icon notification badge
-        }else if cellData[indexPath.section][indexPath.row] == "Delete All Assignments"{
-            createAlertForAssignments(title: alertData[0][0], message: alertData[0][1], isCompleted: false)
-        }else if cellData[indexPath.section][indexPath.row] == "Delete Completed Assignments"{
-            createAlertForAssignments(title: alertData[1][0], message: alertData[1][1], isCompleted: true)
-        }else if cellData[indexPath.section][indexPath.row] == "Delete All Other Events"{
-            createAlertForOtherEvents(title: alertData[2][0], message: alertData[2][1], isCompleted: false)
-        }else if cellData[indexPath.section][indexPath.row] == "Delete All Completed Other Events"{
-            createAlertForOtherEvents(title: alertData[3][0], message: alertData[3][1], isCompleted: true)
-        }else if cellData[indexPath.section][indexPath.row] == "Sign Out" {
-            
+//        if cellData[indexPath.section][indexPath.row] == "Clear Notifs"{
+//            let center = UNUserNotificationCenter.current()
+//            center.removeAllDeliveredNotifications()    // to remove all delivered notifications
+//            center.removeAllPendingNotificationRequests()   // to remove all pending notifications
+//            UIApplication.shared.applicationIconBadgeNumber = 0 // to clear the icon notification badge
+//        } else if cellData[indexPath.section][indexPath.row] == "Delete All Assignments" {
+//        } else if cellData[indexPath.section][indexPath.row] == "Delete Completed Assignments" {
+//        } else if cellData[indexPath.section][indexPath.row] == "Delete All Other Events" {
+//        } else if cellData[indexPath.section][indexPath.row] == "Delete All Completed Other Events" {
+//        } else if cellData[indexPath.section][indexPath.row] == "Sign Out" {
+//
             //TODO: handle log out
 //            K.handleLogOut()
             
@@ -152,43 +165,39 @@ class SettingsViewController: UITableViewController, AlertTimeHandler {
 //            vc.dismiss(animated: true, completion: nil)
 
 //            performSegue(withIdentifier: "toLoginScreen", sender: self)
-            AuthenticationService.shared.handleLogOut { error in
-                if let error = error {
-                    print("$ERR (SettingsViewController): \(String(describing: error))")
-                }
-            }
-        } else if cellData[indexPath.section][indexPath.row] == "Sync to Apple Calendar" {
+
+//        } else if cellData[indexPath.section][indexPath.row] == "Sync to Apple Calendar" {
             // Initialize the store.
-            let store = EKEventStore()
-
-            // Request access to reminders.
-            store.requestAccess(to: .event) { granted, error in
-                if granted{
-                    let calendars = store.calendars(for: EKEntityType.event) as [EKCalendar]
-                    for calendar in calendars{
-                        if calendar.title == "Studium"{ // the calendar already exists.
-                            return
-                        }
-                    }
-
-                    let studiumCalendar = EKCalendar(for: EKEntityType.event, eventStore: store)
-                    studiumCalendar.title = "Studium"
-                    studiumCalendar.source = store.defaultCalendarForNewEvents?.source
-                    self.defaults.setValue(studiumCalendar.calendarIdentifier, forKey: "appleCalendarID")
-                    print("Calendar Identifier: \(studiumCalendar.calendarIdentifier)")
-                    try! store.saveCalendar(studiumCalendar, commit: true)
-
-//                    do{
-//                    }catch error as NSError{
-//                        print("Error creating Apple calendar: \(error)")
+//            let store = EKEventStore()
+//
+//            // Request access to reminders.
+//            store.requestAccess(to: .event) { granted, error in
+//                if granted{
+//                    let calendars = store.calendars(for: EKEntityType.event) as [EKCalendar]
+//                    for calendar in calendars{
+//                        if calendar.title == "Studium"{ // the calendar already exists.
+//                            return
+//                        }
 //                    }
-                }else{
-                    print("error syncing to apple calendar: \(String(describing: error))")
-                }
-            }
-        } else if cellData[indexPath.section][indexPath.row] == "Set Default Notifications" {
-            
-        }
+//
+//                    let studiumCalendar = EKCalendar(for: EKEntityType.event, eventStore: store)
+//                    studiumCalendar.title = "Studium"
+//                    studiumCalendar.source = store.defaultCalendarForNewEvents?.source
+//                    self.defaults.setValue(studiumCalendar.calendarIdentifier, forKey: "appleCalendarID")
+//                    print("Calendar Identifier: \(studiumCalendar.calendarIdentifier)")
+//                    try! store.saveCalendar(studiumCalendar, commit: true)
+//
+////                    do{
+////                    }catch error as NSError{
+////                        print("Error creating Apple calendar: \(error)")
+////                    }
+//                }else{
+//                    print("error syncing to apple calendar: \(String(describing: error))")
+//                }
+//            }
+//        } else if cellData[indexPath.section][indexPath.row] == "Set Default Notifications" {
+//
+//        }
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

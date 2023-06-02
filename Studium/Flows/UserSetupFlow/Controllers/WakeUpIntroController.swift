@@ -11,7 +11,9 @@ import UIKit
 
 // TODO: Docstrings
 //this controls the page that the user sees in the beginning, when they must enter what times they wake up at.
-class WakeUpIntroController: UIViewController {
+class WakeUpIntroController: UIViewController, ErrorShowing, Storyboarded {
+    
+    weak var coordinator: UserSetupCoordinator?
     
     //TODO: Docstrings
     let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
@@ -196,7 +198,6 @@ class WakeUpIntroController: UIViewController {
                 times[day] = timePicker.date
             }
         }
-        
     }
     
     // TODO: Docstrings
@@ -220,7 +221,11 @@ class WakeUpIntroController: UIViewController {
     @IBAction func nextPressed(_ sender: UIButton) {
         storeData()
         defaults.set(true, forKey: "didFinishIntro")
-        performSegue(withIdentifier: "toMain", sender: self)
+        if let coordinator = self.coordinator {
+            coordinator.finish()
+        } else {
+            self.showError(.nilCoordinator)
+        }
     }
     
     // TODO: Docstrings

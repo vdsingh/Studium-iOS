@@ -11,7 +11,8 @@ import RealmSwift
 import UIKit
 
 //TODO: Docstrings
-class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol {
+class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol, Storyboarded {
+    weak var coordinator: HabitsCoordinator?
     
     //TODO: Docstrings
     var habits: [Habit] = []

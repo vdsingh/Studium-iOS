@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 
 class CoursesCoordinator: NSObject, TabItemCoordinator {
+    
+    var debug = false
+    
     weak var parentCoordinator: Coordinator?
     
     var childCoordinators = [Coordinator]()
@@ -26,7 +29,7 @@ class CoursesCoordinator: NSObject, TabItemCoordinator {
     func start() {
         let rootVC = CoursesViewController.instantiate()
         rootVC.coordinator = self
-        rootVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.image, tag: self.tabItemInfo.orderNumber)
+        self.navigationController.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.image, tag: self.tabItemInfo.orderNumber)
         self.navigationController.pushViewController(rootVC, animated: false)
     }
     

@@ -11,7 +11,7 @@ import RealmSwift
 import VikUtilityKit
 
 /// Service to interact with the Realm Database
-final class DatabaseService: DatabaseServiceProtocol, Debuggable {
+final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     
     let debug = true
     
@@ -19,10 +19,10 @@ final class DatabaseService: DatabaseServiceProtocol, Debuggable {
     
     static let shared = DatabaseService()
     
-    init() {
+//    init() {
 //        self.autoscheduleService = autoscheduleService
 //        self.setAutoscheduleService(autoscheduleService: AutoscheduleService.shared)
-    }
+//    }
     
 //    func setAutoscheduleService(autoscheduleService: AutoscheduleServiceProtocol) {
 //        self.autoscheduleService = autoscheduleService

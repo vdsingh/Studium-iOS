@@ -47,7 +47,7 @@
         <!--Settings-->
         <scene sceneID="LBk-3T-r1F">
             <objects>
-                <tableViewController id="h1T-2i-xfg" customClass="SettingsViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsViewController" id="h1T-2i-xfg" customClass="SettingsViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="PsL-KN-qhy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,7 +78,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="aVA-My-ydw"/>
                     <connections>
-                        <segue destination="TFg-b8-3jm" kind="show" identifier="toThemePage" id="iaC-oC-tx9"/>
                         <segue destination="13W-JO-cIR" kind="showDetail" identifier="toWakeUpTimes" id="5zV-Mg-OtU"/>
                         <segue destination="hFo-id-GNg" kind="show" identifier="toAlertSelection" id="dgf-qv-Fcf"/>
                         <segue destination="ieh-iv-NdK" kind="showDetail" identifier="toLoginScreen" id="XTJ-Rh-8lV"/>
@@ -126,7 +125,6 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <segue destination="okE-Gd-bqh" kind="show" identifier="toCalendar" animates="NO" id="co3-c8-srN"/>
-                        <segue destination="h1T-2i-xfg" kind="show" identifier="toSettings" id="hCo-af-phb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Smx-9i-OC6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -199,7 +197,7 @@
         <!--To Do List-->
         <scene sceneID="LeD-ea-6NL">
             <objects>
-                <tableViewController id="R0z-hi-CKK" customClass="ToDoListViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ToDoListViewController" id="R0z-hi-CKK" customClass="ToDoListViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="yLz-Gg-S9H">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -290,7 +288,7 @@
         <!--Courses-->
         <scene sceneID="Vjp-gW-8rz">
             <objects>
-                <tableViewController id="Ict-Kx-JgS" customClass="CoursesViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CoursesViewController" id="Ict-Kx-JgS" customClass="CoursesViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DR8-J6-sLa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -390,7 +388,7 @@
         <!--Assignments-->
         <scene sceneID="MFE-o1-oJn">
             <objects>
-                <tableViewController id="0Vi-ec-NIi" customClass="AssignmentsOnlyViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AssignmentsOnlyViewController" id="0Vi-ec-NIi" customClass="AssignmentsOnlyViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="N4Z-hX-3Od">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -512,7 +510,7 @@
         <!--Wake Up Intro Controller-->
         <scene sceneID="b6p-2b-7Oz">
             <objects>
-                <viewController storyboardIdentifier="WakeUpController" modalPresentationStyle="fullScreen" id="13W-JO-cIR" customClass="WakeUpIntroController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WakeUpIntroController" modalPresentationStyle="fullScreen" id="13W-JO-cIR" customClass="WakeUpIntroController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jrO-jm-cGb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -834,17 +832,16 @@
                         <outletCollection property="weekdayLabels" destination="pFF-RQ-nbg" collectionClass="NSMutableArray" id="ezV-Ma-Wtx"/>
                         <outletCollection property="weekdayLabels" destination="Gqf-hj-knO" collectionClass="NSMutableArray" id="sHj-DN-TYe"/>
                         <outletCollection property="weekdayLabels" destination="xTg-8n-p3h" collectionClass="NSMutableArray" id="JyU-CY-e6V"/>
-                        <segue destination="XSg-7I-XGS" kind="show" identifier="toMain" id="Wnu-Ip-7gX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqr-GU-qGd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2386.9565217391305" y="2222.5446428571427"/>
+            <point key="canvasLocation" x="2249" y="2351"/>
         </scene>
         <!--Habits View Controller-->
         <scene sceneID="oxt-Lb-e6L">
             <objects>
-                <tableViewController modalPresentationStyle="fullScreen" id="zhP-oF-OCd" customClass="HabitsViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="HabitsViewController" modalPresentationStyle="fullScreen" id="zhP-oF-OCd" customClass="HabitsViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="57m-7X-YXG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1203,7 +1200,6 @@
                         <outlet property="guestSignInButton" destination="FtF-uU-aKj" id="ro2-Wd-zz8"/>
                         <outlet property="passwordTextField" destination="Mbc-XB-whW" id="FO3-3U-W3x"/>
                         <outlet property="signInButton" destination="foU-dt-8wm" id="gQ9-Rr-WeJ"/>
-                        <segue destination="13W-JO-cIR" kind="showDetail" identifier="toWakeUp" id="327-zR-EyQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zcl-mS-Mzg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1298,7 +1294,7 @@
             <objects>
                 <tableViewController id="hFo-id-GNg" customClass="AlertTableViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="0f3-qI-arm">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <connections>
@@ -1387,7 +1383,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="gkR-Na-vUZ">
-                                <rect key="frame" x="20" y="148" width="374" height="80"/>
+                                <rect key="frame" x="20" y="100" width="374" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Studium" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YhC-yW-Rqe">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="54"/>
@@ -1407,14 +1403,14 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="idv-E1-lOR">
-                                <rect key="frame" x="20" y="248" width="374" height="464"/>
+                                <rect key="frame" x="20" y="200" width="374" height="546"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="under-tree-2" translatesAutoresizingMaskIntoConstraints="NO" id="5ad-Mp-wbe">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="284"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="366"/>
                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="lIP-uA-glR">
-                                        <rect key="frame" x="0.0" y="294" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="376" width="374" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UF8-fU-utZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="183" height="50"/>
@@ -1438,14 +1434,14 @@
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQ1-Zc-OCF" customClass="GIDSignInButton">
-                                        <rect key="frame" x="0.0" y="354" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="436" width="374" height="50"/>
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="NcN-4W-uaJ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZF-lm-o0a" userLabel="Facebook Sign In Button">
-                                        <rect key="frame" x="0.0" y="414" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="496" width="374" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UUR-Rf-c4S">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -1526,7 +1522,6 @@
                         <outlet property="loginButton" destination="WKd-h2-5bY" id="Pht-AA-FMI"/>
                         <outlet property="mainStackView" destination="idv-E1-lOR" id="rih-1g-rrC"/>
                         <outlet property="signUpButton" destination="UF8-fU-utZ" id="Nu9-Kc-Aq0"/>
-                        <segue destination="13W-JO-cIR" kind="showDetail" identifier="toWakeUp" id="J7L-Rc-yCL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z6U-AZ-w2S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1722,7 +1717,6 @@
                         <outlet property="guestSignInButton" destination="qs8-2f-MqW" id="1kW-RQ-51K"/>
                         <outlet property="passwordTextField" destination="GmV-MU-0qA" id="Wdy-dA-pYP"/>
                         <outlet property="signUpButton" destination="wc2-8N-fie" id="PuT-Qi-EeJ"/>
-                        <segue destination="13W-JO-cIR" kind="showDetail" identifier="toWakeUp" id="QsE-hI-Cdf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z6l-at-pBr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1731,9 +1725,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="d6r-wA-WW0"/>
+        <segue reference="dgf-qv-Fcf"/>
         <segue reference="T8N-JJ-KKU"/>
-        <segue reference="327-zR-EyQ"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="2" width="300" height="300"/>

@@ -9,7 +9,9 @@ import UIKit
 import ChameleonFramework
 
 //TODO: Docstrings
-class CoursesViewController: StudiumEventListViewController, CourseRefreshProtocol {
+class CoursesViewController: StudiumEventListViewController, CourseRefreshProtocol, Storyboarded {
+    
+    weak var coordinator: CoursesCoordinator?
     
     private enum SegueIdentifiers: String {
         case coursesToAssignments = "coursesToAssignments"

@@ -21,7 +21,7 @@ protocol AutoscheduleServiceProtocol {
 }
 
 //TODO: Docstrings
-final class AutoscheduleService: AutoscheduleServiceProtocol, Debuggable {
+final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggable {
     
     let debug = true
     
@@ -273,36 +273,5 @@ extension Debuggable where Self: AutoscheduleServiceProtocol {
         if self.debug || DebugFlags.authentication {
             print("$LOG (AutoscheduleService): \(message)")
         }
-    }
-}
-
-//TODO: Docstrings
-class TimeChunk {
-    
-    //TODO: Docstrings
-    let startDate: Date
-    
-    //TODO: Docstrings
-    let endDate: Date
-    
-    //TODO: Docstrings
-    let descriptor: String?
-    
-    //TODO: Docstrings
-    var lengthInMinutes: Int {
-        let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: startDate, to: endDate)
-        return diffComponents.minute ?? 0
-    }
-    
-    //TODO: Docstrings
-    var midpoint: Date {
-        return startDate.addingTimeInterval(endDate.timeIntervalSince(startDate) / 2)
-    }
-    
-    //TODO: Docstrings
-    init(startDate: Date, endDate: Date, descriptor: String? = nil) {
-        self.startDate = startDate
-        self.endDate = endDate
-        self.descriptor = descriptor
     }
 }

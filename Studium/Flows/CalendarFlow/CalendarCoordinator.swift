@@ -31,17 +31,33 @@ class CalendarCoordinator: NSObject, TabItemCoordinator {
         self.navigationController = navigationController
     }
     
+    //TODO: Docstrings
     func start() {
-        let rootVC = DayScheduleViewController.instantiate()
-        rootVC.coordinator = self
-        rootVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.image, tag: self.tabItemInfo.orderNumber)
-        self.navigationController.pushViewController(rootVC, animated: false)
+        self.showDayScheduleViewController()
     }
     
-    func showDayScheduleFlow() {
-        
+    //TODO: Docstrings
+    func showDayScheduleViewController() {
+        let dayScheduleVC = DayScheduleViewController.instantiate()
+        dayScheduleVC.coordinator = self
+        dayScheduleVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.image, tag: self.tabItemInfo.orderNumber)
+        self.navigationController.pushViewController(dayScheduleVC, animated: false)
     }
     
+    func showMonthScheduleViewController() {
+        let monthScheduleVC = CalendarViewController.instantiate()
+        monthScheduleVC.coordinator = self
+        self.navigationController.pushViewController(monthScheduleVC, animated: true)
+    }
+    
+    func showSettingsFlow() {
+        let settingsCoordinator = SettingsCoordinator(self.navigationController)
+        self.childCoordinators.append(settingsCoordinator)
+        settingsCoordinator.parentCoordinator = self
+        settingsCoordinator.start()
+    }
+    
+    //TODO: Docstrings
     func childDidFinish(_ child: Coordinator?) {
         
     }

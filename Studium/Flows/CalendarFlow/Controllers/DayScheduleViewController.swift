@@ -12,7 +12,9 @@ import CalendarKit
 import VikUtilityKit
 
 //TODO: Docstrings
-class DayScheduleViewController: DayViewController {
+class DayScheduleViewController: DayViewController, Storyboarded {
+    
+    weak var coordinator: CalendarCoordinator?
     
     let debug = true
 
@@ -71,7 +73,8 @@ class DayScheduleViewController: DayViewController {
     
     //TODO: Docstrings
     @IBAction func settingsButtonPressed(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "toSettings", sender: self)
+//        performSegue(withIdentifier: "toSettings", sender: self)
+        self.coordinator?.showSettingsFlow()
     }
     
     //TODO: Docstrings

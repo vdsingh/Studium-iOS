@@ -94,6 +94,13 @@
 		B9AFCF952A19F1FE0087A0FF /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF942A19F1FE0087A0FF /* SettingsCoordinator.swift */; };
 		B9AFCF972A19F2170087A0FF /* GenericFormFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF962A19F2170087A0FF /* GenericFormFlowCoordinator.swift */; };
 		B9AFCF992A19F2430087A0FF /* DatabaseServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF982A19F2430087A0FF /* DatabaseServiceProtocol.swift */; };
+		B9B41CEF2A242A3D00239DD4 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B41CEE2A242A3D00239DD4 /* Storyboarded.swift */; };
+		B9B41CF12A26D2E500239DD4 /* TabItemCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B41CF02A26D2E500239DD4 /* TabItemCoordinator.swift */; };
+		B9B41CF52A26E3F500239DD4 /* DebugFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B41CF42A26E3F500239DD4 /* DebugFlags.swift */; };
+		B9B41CF72A26E5E200239DD4 /* TimeChunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B41CF62A26E5E200239DD4 /* TimeChunk.swift */; };
+		B9B41CFA2A26E82E00239DD4 /* TabItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B41CF92A26E82E00239DD4 /* TabItemInfo.swift */; };
+		B9B41CFF2A26EE6900239DD4 /* ErrorShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B41CFE2A26EE6900239DD4 /* ErrorShowing.swift */; };
+		B9B41D012A26F43900239DD4 /* NSObject_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B41D002A26F43900239DD4 /* NSObject_Extension.swift */; };
 		B9F1B2DD2A1DB96C006F1462 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F1B2DC2A1DB96C006F1462 /* TabBarCoordinator.swift */; };
 /* End PBXBuildFile section */
 
@@ -202,6 +209,13 @@
 		B9AFCF942A19F1FE0087A0FF /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		B9AFCF962A19F2170087A0FF /* GenericFormFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericFormFlowCoordinator.swift; sourceTree = "<group>"; };
 		B9AFCF982A19F2430087A0FF /* DatabaseServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseServiceProtocol.swift; sourceTree = "<group>"; };
+		B9B41CEE2A242A3D00239DD4 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
+		B9B41CF02A26D2E500239DD4 /* TabItemCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemCoordinator.swift; sourceTree = "<group>"; };
+		B9B41CF42A26E3F500239DD4 /* DebugFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugFlags.swift; sourceTree = "<group>"; };
+		B9B41CF62A26E5E200239DD4 /* TimeChunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeChunk.swift; sourceTree = "<group>"; };
+		B9B41CF92A26E82E00239DD4 /* TabItemInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemInfo.swift; sourceTree = "<group>"; };
+		B9B41CFE2A26EE6900239DD4 /* ErrorShowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorShowing.swift; sourceTree = "<group>"; };
+		B9B41D002A26F43900239DD4 /* NSObject_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject_Extension.swift; sourceTree = "<group>"; };
 		B9F1B2DC2A1DB96C006F1462 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		FD108DE721EFFA5F65BC9E17 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -380,13 +394,15 @@
 		B96E6A5D2983464900A25457 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				B9B41CFD2A26EE4F00239DD4 /* UtilityProtocols */,
+				B9B41CF82A26E5E500239DD4 /* UtilityClasses */,
 				B96E6A9B298456A500A25457 /* K.swift */,
 				1693E739247A3DC6003D4702 /* Assets.xcassets */,
 				1693E730247A3DC4003D4702 /* AppDelegate.swift */,
 				1693E732247A3DC4003D4702 /* SceneDelegate.swift */,
 				B97BB0AA2A022B20008F1A5B /* Extensions */,
 				B90D144329899C3C0093EB0C /* Enums */,
-				B97BB08329F74628008F1A5B /* Debuggable.swift */,
+				B9B41CF42A26E3F500239DD4 /* DebugFlags.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -433,6 +449,7 @@
 				B97BB0AD2A022B37008F1A5B /* Date_Extension.swift */,
 				B97BB0AF2A022B5C008F1A5B /* UIColor_Extension.swift */,
 				B97BB0B12A0399FB008F1A5B /* UIViewController_Extension.swift */,
+				B9B41D002A26F43900239DD4 /* NSObject_Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -458,17 +475,16 @@
 		B9AFCF792A19EE4E0087A0FF /* Flows */ = {
 			isa = PBXGroup;
 			children = (
-				166F53D025BC93320065963D /* TabBarController.swift */,
-				B9AFCF712A19E2100087A0FF /* Coordinator.swift */,
-				B9AFCF732A19E3160087A0FF /* AppCoordinator.swift */,
-				B9F1B2DC2A1DB96C006F1462 /* TabBarCoordinator.swift */,
-				B9AFCF832A19F06B0087A0FF /* GenericFormFlow */,
-				B9AFCF812A19EF1F0087A0FF /* SettingsFlow */,
-				B9AFCF802A19EEFA0087A0FF /* UserSetupFlow */,
-				B9AFCF7F2A19EEBA0087A0FF /* ToDoFlow */,
+				B9B41CFB2A26E83600239DD4 /* TabBarFlow */,
 				B9AFCF7E2A19EEB40087A0FF /* CoursesFlow */,
 				B9AFCF7D2A19EEAB0087A0FF /* HabitsFlow */,
 				B9AFCF7C2A19EEA70087A0FF /* CalendarFlow */,
+				B9AFCF812A19EF1F0087A0FF /* SettingsFlow */,
+				B9AFCF7F2A19EEBA0087A0FF /* ToDoFlow */,
+				B9AFCF712A19E2100087A0FF /* Coordinator.swift */,
+				B9AFCF732A19E3160087A0FF /* AppCoordinator.swift */,
+				B9AFCF832A19F06B0087A0FF /* GenericFormFlow */,
+				B9AFCF802A19EEFA0087A0FF /* UserSetupFlow */,
 				B9AFCF7A2A19EE540087A0FF /* AuthenticationFlow */,
 			);
 			path = Flows;
@@ -622,6 +638,43 @@
 				1693E747247A417B003D4702 /* HabitsViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B9B41CF82A26E5E500239DD4 /* UtilityClasses */ = {
+			isa = PBXGroup;
+			children = (
+				B9B41CF62A26E5E200239DD4 /* TimeChunk.swift */,
+			);
+			path = UtilityClasses;
+			sourceTree = "<group>";
+		};
+		B9B41CFB2A26E83600239DD4 /* TabBarFlow */ = {
+			isa = PBXGroup;
+			children = (
+				B9B41CFC2A26E84400239DD4 /* Controllers */,
+				B9F1B2DC2A1DB96C006F1462 /* TabBarCoordinator.swift */,
+				B9B41CF02A26D2E500239DD4 /* TabItemCoordinator.swift */,
+				B9B41CF92A26E82E00239DD4 /* TabItemInfo.swift */,
+			);
+			path = TabBarFlow;
+			sourceTree = "<group>";
+		};
+		B9B41CFC2A26E84400239DD4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				166F53D025BC93320065963D /* TabBarController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B9B41CFD2A26EE4F00239DD4 /* UtilityProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				B9B41CEE2A242A3D00239DD4 /* Storyboarded.swift */,
+				B97BB08329F74628008F1A5B /* Debuggable.swift */,
+				B9B41CFE2A26EE6900239DD4 /* ErrorShowing.swift */,
+			);
+			path = UtilityProtocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -797,6 +850,7 @@
 				B90D140029845FE80093EB0C /* AddAssignmentViewController.swift in Sources */,
 				B9AFCF8D2A19F1D40087A0FF /* HabitsCoordinator.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
+				B9B41CFF2A26EE6900239DD4 /* ErrorShowing.swift in Sources */,
 				1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
 				16827D1A27F58B9A0001D1EF /* AuthenticationViewController.swift in Sources */,
@@ -807,6 +861,7 @@
 				16C05CF4264F37B8004C9629 /* RecurringEventCell.swift in Sources */,
 				B90D13FF29845FE80093EB0C /* AlertTableViewController.swift in Sources */,
 				B97BB0B22A0399FB008F1A5B /* UIViewController_Extension.swift in Sources */,
+				B9B41CF72A26E5E200239DD4 /* TimeChunk.swift in Sources */,
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
 				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
 				B97BB0A72A00EA0D008F1A5B /* AppleCalendarService.swift in Sources */,
@@ -814,10 +869,12 @@
 				B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */,
 				B995493C2992EDD000442968 /* Completable.swift in Sources */,
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
+				B9B41CEF2A242A3D00239DD4 /* Storyboarded.swift in Sources */,
 				B9AFCF8F2A19F1DE0087A0FF /* CoursesCoordinator.swift in Sources */,
 				16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */,
 				B97BB0AE2A022B37008F1A5B /* Date_Extension.swift in Sources */,
 				B9AFCF952A19F1FE0087A0FF /* SettingsCoordinator.swift in Sources */,
+				B9B41D012A26F43900239DD4 /* NSObject_Extension.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
 				B90D144229899C310093EB0C /* Weekday.swift in Sources */,
 				16C60FB225C5F7FB006D0FFC /* StudiumEvent.swift in Sources */,
@@ -828,7 +885,9 @@
 				B9AFCF912A19F1EA0087A0FF /* ToDoCoordinator.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
+				B9B41CF52A26E3F500239DD4 /* DebugFlags.swift in Sources */,
 				B96E6A9C298456A500A25457 /* K.swift in Sources */,
+				B9B41CF12A26D2E500239DD4 /* TabItemCoordinator.swift in Sources */,
 				B90D13FB29845FE80093EB0C /* AddCourseViewController.swift in Sources */,
 				B97BB0B02A022B5C008F1A5B /* UIColor_Extension.swift in Sources */,
 				B9F1B2DD2A1DB96C006F1462 /* TabBarCoordinator.swift in Sources */,
@@ -841,6 +900,7 @@
 				B97BB09F2A00D19D008F1A5B /* MockAutoscheduleService.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
 				B97BB0B72A075CB4008F1A5B /* DaySchedulable.swift in Sources */,
+				B9B41CFA2A26E82E00239DD4 /* TabItemInfo.swift in Sources */,
 				B97BB0A12A00D29A008F1A5B /* MockDatabaseService.swift in Sources */,
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,

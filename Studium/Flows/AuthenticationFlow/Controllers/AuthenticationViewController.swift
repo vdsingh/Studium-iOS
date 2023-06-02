@@ -13,13 +13,13 @@ import GoogleSignIn
 import RealmSwift
 
 // TODO: Docstrings
-class AuthenticationViewController: UIViewController, Storyboarded {
+class AuthenticationViewController: UIViewController, Storyboarded, ErrorShowing, Debuggable {
     
     let debug = true
     
     var codeLocationString: String = "FBAndGoogleAuthViewController"
     
-    weak var coordinator: AuthenticationCoordinator!
+    weak var coordinator: AuthenticationCoordinator?
     
     let spinner: UIActivityIndicatorView = {
        let spinner = UIActivityIndicatorView()
@@ -72,13 +72,21 @@ class AuthenticationViewController: UIViewController, Storyboarded {
 // MARK: - Handle Authentication Methods
 extension AuthenticationViewController {
     
+    private func testCoordinator() {
+        if self.coordinator == nil {
+            self.showError(.nilCoordinator)
+        }
+    }
+    
     //TODO: Docstrings
     @objc func loginButtonClicked() {
+        self.testCoordinator()
         self.coordinator?.showLoginViewController(animated: true)
     }
     
     //TODO: Docstrings
     @objc func signUpButtonClicked() {
+        self.testCoordinator()
         self.coordinator?.showSignUpViewController(animated: true)
     }
     
@@ -132,23 +140,16 @@ extension AuthenticationViewController {
             switch result {
             case .success(_):
                 self.printDebug("Handling general login success")
-                self.performSegue(withIdentifier: "toWakeUp", sender: self.sender)
+                self.testCoordinator()
+                self.coordinator?.finish()
             case .failure(let error):
-                print("$ERR (AuthViewController): \(String(describing: error))")
+                self.printError(error)
                 self.showPopUp(title: "Couldn't Register:", message: error.localizedDescription, actions: [
                     UIAlertAction(title: "Ok", style: .default)
                 ])
             }
 
             self.spinner.stopAnimating()
-        }
-    }
-}
-
-extension AuthenticationViewController: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG (\(String(describing: self))): \(message)")
         }
     }
 }

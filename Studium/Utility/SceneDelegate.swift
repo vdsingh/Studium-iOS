@@ -16,11 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var coordinator: AppCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let navigationController = UINavigationController()
-        self.coordinator = AppCoordinator(navigationController)
+        self.coordinator = AppCoordinator(authenticationService: AuthenticationService.shared)
         coordinator?.start()
         
-        self.window?.rootViewController = navigationController
+//        self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
     }
     
@@ -37,6 +36,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             sourceApplication: nil,
             annotation: [UIApplication.OpenURLOptionsKey.annotation]
         )
+    }
+    
+    func changeRootViewController(_ viewController: UIViewController, animated: Bool = true) {
+        guard let window = self.window else {
+            printError("Tried to change root viewController, but window was nil.")
+            return
+        }
+
+        window.rootViewController = viewController
+
+        if animated {
+            // add animation
+            UIView.transition(with: window,
+                              duration: 0.5,
+                              options: [.transitionFlipFromLeft],
+                              animations: nil,
+                              completion: nil)
+        }
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
