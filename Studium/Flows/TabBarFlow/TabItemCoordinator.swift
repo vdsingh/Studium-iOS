@@ -51,7 +51,7 @@ enum TabItemInfo: Int {
 }
 
 //TODO: Docstrings
-protocol TabItemCoordinator: Coordinator {
+protocol TabItemCoordinator: NavigationCoordinator {
     
     // TODO: Docstrings
     var tabItemInfo: TabItemInfo { get set }

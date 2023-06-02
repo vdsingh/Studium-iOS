@@ -26,4 +26,8 @@ extension Debuggable {
             print("$LOG \(String(describing: self)): \(message)")
         }
     }
+    
+    func printError(_ error: Error) {
+        print("$ERR \(String(describing: self)): \(String(describing: error))")
+    }
 }

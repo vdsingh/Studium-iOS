@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 
 class HabitsCoordinator: NSObject, TabItemCoordinator {
+    
+    var debug = false
+    
     weak var parentCoordinator: Coordinator?
     
     var childCoordinators = [Coordinator]()
