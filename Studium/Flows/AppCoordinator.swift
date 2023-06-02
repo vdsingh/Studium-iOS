@@ -9,43 +9,87 @@
 import Foundation
 import UIKit
 
-class AppCoordinator: Coordinator {
+//TODO: Docstrings
+class AppCoordinator: Coordinator, Debuggable {
+    
+    var debug = false
+    
+    //TODO: Docstrings
     weak var parentCoordinator: Coordinator? = nil
+    
+    //TODO: Docstrings
     var childCoordinators = [Coordinator]()
-    var navigationController: UINavigationController
     
-    required init(_ navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    //TODO: Docstrings
+    var authenticationService: AuthenticationService
+    
+    //TODO: Docstrings
+    init(authenticationService: AuthenticationService) {
+        self.authenticationService = authenticationService
     }
     
+    //TODO: Docstrings
     func start() {
-        self.showAuthenticationFlow()
-////        let vc = StartViewController.instantiate()
-////        vc.coordinator = self
-////        self.navigationController.pushViewController(vc, animated: false)
-//        self.authenticate()
+        if self.authenticationService.userIsLoggedIn {
+            self.showMainFlow()
+        } else {
+            self.showAuthenticationFlow()
+        }
     }
     
+    //TODO: Docstrings
     func showAuthenticationFlow() {
-        let child = AuthenticationCoordinator(self.navigationController)
+        self.printDebug("showAuthenticationFlow called")
+        let child = AuthenticationCoordinator(self.setNewRootNavigationController())
         child.parentCoordinator = self
         self.childCoordinators.append(child)
         child.start()
     }
     
+    //TODO: Docstrings
     func showMainFlow() {
-        let child = TabBarCoordinator(self.navigationController)
+        self.printDebug("showMainFlow called")
+        let child = TabBarCoordinator()
+        self.setRootViewController(child.tabBarController)
+        child.parentCoordinator = self
         self.childCoordinators.append(child)
-        child.start()
-//        let child = TabBarCoordinator()
+        child.start(replaceRoot: (true, animated: true))
     }
     
+    //TODO: Docstrings
+    func showUserSetupFlow() {
+        self.printDebug("showUserSetupFlow called")
+        let child = UserSetupCoordinator(self.setNewRootNavigationController())
+        child.parentCoordinator = self
+        self.childCoordinators.append(child)
+        child.start()
+    }
+    
+    //TODO: Docstrings
     func childDidFinish(_ child: Coordinator?) {
-        for (index, coordinator) in childCoordinators.enumerated() {
-            if coordinator === child {
-                childCoordinators.remove(at: index)
-                break
-            }
+        if child is AuthenticationCoordinator {
+            self.showUserSetupFlow()
+        } else if child is UserSetupCoordinator {
+            self.showMainFlow()
         }
     }
+    
+//    private func removeAllControllersExceptLast() {
+//        let viewControllers = self.navigationController.viewControllers
+//        self.navigationController.viewControllers.remove(atOffsets: IndexSet(integersIn: 0...viewControllers.count))
+//
+//        let newVCs = [self.navigationController.viewControllers.last!]
+//
+//        self.navigationController.setViewControllers(newVCs, animated: true)
+//    }
+    
+//    private func removeAllControllersExceptLast() {
+//        var newVCs = [UIViewController]()
+//
+//        if let lastVC = self.navigationController.viewControllers.last {
+//            newVCs.append(lastVC)
+//        }
+//
+//        self.navigationController.setViewControllers(newVCs, animated: true)
+//    }
 }

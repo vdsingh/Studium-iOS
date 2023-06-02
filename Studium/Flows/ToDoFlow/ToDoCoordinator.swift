@@ -12,6 +12,8 @@ import VikUtilityKit
 
 //TODO: Docstrings
 class ToDoCoordinator: TabItemCoordinator {
+    
+    var debug = false
 
     weak var parentCoordinator: Coordinator?
         

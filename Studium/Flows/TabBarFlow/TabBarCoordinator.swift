@@ -14,20 +14,21 @@ class TabBarCoordinator: Coordinator, Debuggable {
     
     var debug: Bool = false
     
+    //TODO: Docstrings
     weak var parentCoordinator: Coordinator?
     
     //TODO: Docstrings
     var childCoordinators = [Coordinator]()
     
     //TODO: Docstrings
-    var navigationController: UINavigationController
+//    var navigationController: UINavigationController
     
     //TODO: Docstrings
     var tabBarController: TabBarController
     
     //TODO: Docstrings
-    required init(_ navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    init() {
+//        self.navigationController = navigationController
         self.childCoordinators = [
             CalendarCoordinator(UINavigationController()),
             HabitsCoordinator(UINavigationController()),
@@ -35,24 +36,27 @@ class TabBarCoordinator: Coordinator, Debuggable {
             ToDoCoordinator(UINavigationController())
         ]
         
-        self.tabBarController = TabBarController()
-        self.tabBarController.tabItemCoordinators = self.childCoordinators as! [TabItemCoordinator]
-//        self.start()
+        self.tabBarController = TabBarController(tabItemCoordinators: self.childCoordinators as! [TabItemCoordinator])
+    }
+    
+    func start() {
+        self.showTabBarController(replaceRoot: (false, animated: false))
     }
     
     //TODO: Docstrings
-    func start() {
+    func start(replaceRoot: (Bool, animated: Bool)) {
         self.printDebug("TabBarCoordinator start called")
-//        let pages: [TabBarPage] = [.calendarFlow, .habitsFlow, .coursesFlow, .toDoFlow]
-//            .sorted(by: { $0.pageOrderNumber < $1.pageOrderNumber })
-//        self.tabBarController.set
-        
-        
-//        let habitsVC = HabitsViewController.instantiate()
-//        self.tabBarController.setViewControllers([habitsVC], animated: true)
-        self.navigationController.pushViewController(self.tabBarController, animated: true)
+        self.showTabBarController(replaceRoot: replaceRoot)
         self.printDebug("TabBarCoordinator start finished")
-
+    }
+    
+    //TODO: Docstrings
+    func showTabBarController(replaceRoot: (Bool, animated: Bool)) {
+//        if replaceRoot.0 {
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(self.tabBarController)
+//        } else {
+//            self.navigationController.pushViewController(self.tabBarController, animated: replaceRoot.animated)
+//        }
     }
     
     //TODO: Implement
