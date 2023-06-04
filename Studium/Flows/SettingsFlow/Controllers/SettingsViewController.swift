@@ -12,7 +12,7 @@ import UIKit
 import EventKit
 import GoogleSignIn
 
-class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboarded {
+class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboarded, ErrorShowing {
     
     private struct Constants {
         static let deleteAllAssignmentsAlertInfo = (title: "Delete All Assignments", message: "Are you sure you want to delete all assignments? You can't undo this action.")
@@ -37,9 +37,12 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
     lazy var cellData: [[(text: String, didSelect: (() -> Void)?)]] = [
         [
             ("Set Default Notifications", nil),
-            ("Reset Wake Up Times", nil)
+            ("Reset Wake Up Times", didSelect: {
+                self.unwrapCoordinatorOrShowError()
+                self.coordinator?.showUserSetupFlow()
+            })
         ],
-//                                ["Sync to Apple Calendar"],
+        //                                ["Sync to Apple Calendar"],
         [
             ("Delete All Assignments", didSelect: {
                 self.createAlertForAssignments(title: Constants.deleteAllAssignmentsAlertInfo.title, message: Constants.deleteAllAssignmentsAlertInfo.message, isCompleted: false)
@@ -64,6 +67,7 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
                         print("$ERR (SettingsViewController): \(String(describing: error))")
                     }
                     
+                    self.unwrapCoordinatorOrShowError()
                     self.coordinator?.showAuthenticationFlow()
                 }
             })
@@ -261,10 +265,16 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
     }
     
     //TODO: Docstrings
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? AlertTableViewController {
-            destinationVC.delegate = self
-            destinationVC.setSelectedAlertOptions(alertOptions: self.databaseService.getDefaultAlertOptions())
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let destinationVC = segue.destination as? AlertTableViewController {
+//            destinationVC.delegate = self
+//            destinationVC.setSelectedAlertOptions(alertOptions: self.databaseService.getDefaultAlertOptions())
+//        }
+//    }
+    
+    private func unwrapCoordinatorOrShowError() {
+        if self.coordinator == nil {
+            self.showError(.nilCoordinator)
         }
     }
 }

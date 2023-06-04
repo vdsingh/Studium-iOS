@@ -24,20 +24,24 @@ class SettingsCoordinator: NavigationCoordinator {
     //TODO: Docstrings
     var navigationController: UINavigationController
     
+    var rootViewController: UIViewController?
+    
     //TODO: Docstrings
     required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     //TODO: Docstrings
-    func start() {
-        self.showSettingsListViewController()
+    func start(replaceRoot: Bool = false) {
+        let startViewController = self.showSettingsListViewController()
+        self.rootViewController = startViewController
     }
     
-    func showSettingsListViewController() {
+    func showSettingsListViewController() -> UIViewController {
         let settingsListVC = SettingsViewController.instantiate()
         settingsListVC.coordinator = self
         self.navigationController.pushViewController(settingsListVC, animated: true)
+        return settingsListVC
     }
     
     func showAuthenticationFlow() {
@@ -47,8 +51,29 @@ class SettingsCoordinator: NavigationCoordinator {
         authenticationCoordinator.start()
     }
     
+    func showUserSetupFlow() {
+        var userSetupCoordinator = UserSetupCoordinator(self.navigationController)
+        
+        if let rootViewController = self.rootViewController {
+            userSetupCoordinator = UserSetupCoordinator(rootViewController)
+        }
+        
+        userSetupCoordinator.parentCoordinator = self
+        self.parentCoordinator?.childCoordinators.append(userSetupCoordinator)
+        userSetupCoordinator.start()
+    }
+    
     //TODO: Docstrings
     func childDidFinish(_ child: Coordinator?) {
-        
+        if let child = child as? UserSetupCoordinator {
+//            self.showSettingsListViewController()
+//            self.setRootViewController(self.navigationController)
+            
+            if let rootViewController = self.rootViewController {
+                rootViewController.dismiss(animated: true)
+//                self.navigationController.popToViewController(rootViewController, animated: true)
+                
+            }
+        }
     }
 }

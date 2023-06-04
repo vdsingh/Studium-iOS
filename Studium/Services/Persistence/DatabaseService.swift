@@ -104,7 +104,6 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
             parentCourse.appendAssignment(assignment)
             if let parentAssignmentID = assignment.parentAssignmentID {
                 if let parentAssignment = self.realm.object(ofType: Assignment.self, forPrimaryKey: parentAssignmentID) {
-//                    parentAssignment.scheduledEvents.append(assignment)
                     parentAssignment.appendScheduledEvent(event: assignment)
                 } else {
                     print("$ERR (DatabaseService): tried to save autoscheduled assignment, but couldn't retrieve the parent assignment from its primary key.")
@@ -246,15 +245,6 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         }
     }
     
-    
-    /// Deletes all of the assignments for a Course
-    /// - Parameter course: The Course that we want to delete the assignments for
-//    public func deleteAssignmentsForCourse(course: Course) {
-//        for assignment in course.assignments {
-//            self.deleteStudiumObject(assignment)
-//        }
-//    }
-    
     private func realmWrite(_ writeBlock: () -> Void) {
         do {
             try self.realm.write {
@@ -265,11 +255,3 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         }
     }
 }
-
-//extension DatabaseService: Debuggable {
-//    func printDebug(_ message: String) {
-//        if self.debug {
-//            print("$LOG (DatabaseService): \(message)")
-//        }
-//    }
-//}
