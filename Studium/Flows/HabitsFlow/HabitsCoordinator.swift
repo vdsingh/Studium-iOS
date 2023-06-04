@@ -31,10 +31,11 @@ class HabitsCoordinator: NSObject, TabItemCoordinator {
     }
     
     func showHabitsListFlow() {
-        let rootVC = HabitsViewController.instantiate()
-        rootVC.coordinator = self
-        rootVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.image, tag: self.tabItemInfo.orderNumber)
-        self.navigationController.pushViewController(rootVC, animated: false)
+        let habitsVC = HabitsViewController.instantiate()
+        habitsVC.coordinator = self
+        habitsVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.images.unselected, tag: self.tabItemInfo.orderNumber)
+        habitsVC.tabBarItem.selectedImage = self.tabItemInfo.images.selected
+        self.navigationController.pushViewController(habitsVC, animated: false)
     }
     
     func childDidFinish(_ child: Coordinator?) {

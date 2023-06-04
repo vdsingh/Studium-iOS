@@ -29,7 +29,8 @@ class CoursesCoordinator: NSObject, TabItemCoordinator {
     func start(replaceRoot: Bool) {
         let rootVC = CoursesViewController.instantiate()
         rootVC.coordinator = self
-        self.navigationController.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.image, tag: self.tabItemInfo.orderNumber)
+        self.navigationController.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.images.unselected, tag: self.tabItemInfo.orderNumber)
+        self.navigationController.tabBarItem.selectedImage = self.tabItemInfo.images.selected
         self.navigationController.pushViewController(rootVC, animated: false)
     }
     

@@ -40,16 +40,21 @@ class CalendarCoordinator: NSObject, TabItemCoordinator {
     func showDayScheduleViewController() {
         let dayScheduleVC = DayScheduleViewController.instantiate()
         dayScheduleVC.coordinator = self
-        dayScheduleVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.image, tag: self.tabItemInfo.orderNumber)
+        dayScheduleVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.images.unselected, tag: self.tabItemInfo.orderNumber)
+        dayScheduleVC.tabBarItem.selectedImage = self.tabItemInfo.images.selected
+        
+        
         self.navigationController.pushViewController(dayScheduleVC, animated: false)
     }
     
+    //TODO: Docstrings
     func showMonthScheduleViewController() {
         let monthScheduleVC = CalendarViewController.instantiate()
         monthScheduleVC.coordinator = self
         self.navigationController.pushViewController(monthScheduleVC, animated: true)
     }
     
+    //TODO: Docstrings
     func showSettingsFlow() {
         let settingsCoordinator = SettingsCoordinator(self.navigationController)
         self.childCoordinators.append(settingsCoordinator)

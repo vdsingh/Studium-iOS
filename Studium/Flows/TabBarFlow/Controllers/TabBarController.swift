@@ -50,8 +50,23 @@ class TabBarController: UITabBarController, Debuggable {
 
         let scrollAppearance = UITabBarAppearance()
         scrollAppearance.backgroundColor = StudiumColor.primaryAccent.uiColor
-        self.tabBar.barTintColor = StudiumColor.primaryAccent.uiColor
+        
+        
+        
+        
+        
+        self.tabBar.unselectedItemTintColor = .lightGray
+//        self.tabBar.barTintColor = StudiumColor.primaryAccent.uiColor
+        
+        
+        
         self.tabBar.backgroundColor = StudiumColor.primaryAccent.uiColor
+        
+        // barTintColor is "selected color"
+        self.tabBar.tintColor = .white
+        
+        
+
 //        self.changeSelectedColor(.black, iconSelectedColor: .black)
         
         

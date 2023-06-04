@@ -38,7 +38,8 @@ class ToDoCoordinator: TabItemCoordinator {
     func showToDoListViewController() {
         let rootVC = ToDoListViewController.instantiate()
         rootVC.coordinator = self
-        rootVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.image, tag: self.tabItemInfo.orderNumber)
+        rootVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.images.unselected, tag: self.tabItemInfo.orderNumber)
+        rootVC.tabBarItem.selectedImage = self.tabItemInfo.images.selected
         self.navigationController.pushViewController(rootVC, animated: false)
     }
     
