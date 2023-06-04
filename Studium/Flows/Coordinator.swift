@@ -19,7 +19,7 @@ protocol Coordinator: AnyObject, Debuggable {
     var childCoordinators: [Coordinator] { get set }
 
     //TODO: Docstrings
-    func start()
+    func start(replaceRoot: Bool)
     
     //TODO: Docstrings
     func finish()

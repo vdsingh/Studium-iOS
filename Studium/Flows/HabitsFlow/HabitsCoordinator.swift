@@ -26,15 +26,15 @@ class HabitsCoordinator: NSObject, TabItemCoordinator {
         self.navigationController = navigationController
     }
     
-    func start() {
+    func start(replaceRoot: Bool = false) {
+        self.showHabitsListFlow()
+    }
+    
+    func showHabitsListFlow() {
         let rootVC = HabitsViewController.instantiate()
         rootVC.coordinator = self
         rootVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.image, tag: self.tabItemInfo.orderNumber)
         self.navigationController.pushViewController(rootVC, animated: false)
-    }
-    
-    func showHabitsListFlow() {
-        
     }
     
     func childDidFinish(_ child: Coordinator?) {

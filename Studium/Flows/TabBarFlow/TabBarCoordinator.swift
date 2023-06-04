@@ -39,8 +39,8 @@ class TabBarCoordinator: Coordinator, Debuggable {
         self.tabBarController = TabBarController(tabItemCoordinators: self.childCoordinators as! [TabItemCoordinator])
     }
     
-    func start() {
-        self.showTabBarController(replaceRoot: (false, animated: false))
+    func start(replaceRoot: Bool = false) {
+        self.showTabBarController(replaceRoot: (replaceRoot, animated: false))
     }
     
     //TODO: Docstrings

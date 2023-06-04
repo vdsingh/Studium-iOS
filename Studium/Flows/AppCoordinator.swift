@@ -29,7 +29,7 @@ class AppCoordinator: Coordinator, Debuggable {
     }
     
     //TODO: Docstrings
-    func start() {
+    func start(replaceRoot: Bool = true) {
         if self.authenticationService.userIsLoggedIn {
             self.showMainFlow()
         } else {

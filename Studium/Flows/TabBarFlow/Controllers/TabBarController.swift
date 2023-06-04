@@ -41,7 +41,7 @@ class TabBarController: UITabBarController, Debuggable {
 //        self.setViewControllers([vc1, vc2, vc3, vc4], animated: true)
         var tabItemViewControllers = [UIViewController]()
         for tabItemCoordinator in tabItemCoordinators {
-            tabItemCoordinator.start()
+            tabItemCoordinator.start(replaceRoot: false)
             tabItemViewControllers.append(tabItemCoordinator.navigationController)
         }
         

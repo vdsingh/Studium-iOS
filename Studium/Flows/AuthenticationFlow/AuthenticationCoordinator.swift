@@ -29,7 +29,7 @@ class AuthenticationCoordinator: NSObject, Coordinator, UINavigationControllerDe
     }
     
     //TODO: Docstrings
-    func start() {
+    func start(replaceRoot: Bool = false) {
         self.navigationController.delegate = self
         self.showStartViewController()
     }

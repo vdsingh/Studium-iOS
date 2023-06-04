@@ -31,7 +31,11 @@ class ToDoCoordinator: TabItemCoordinator {
     }
     
     //TODO: Docstrings
-    func start() {
+    func start(replaceRoot: Bool = false) {
+        self.showToDoListViewController()
+    }
+    
+    func showToDoListViewController() {
         let rootVC = ToDoListViewController.instantiate()
         rootVC.coordinator = self
         rootVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.image, tag: self.tabItemInfo.orderNumber)

@@ -26,7 +26,7 @@ class CoursesCoordinator: NSObject, TabItemCoordinator {
         self.navigationController = navigationController
     }
     
-    func start() {
+    func start(replaceRoot: Bool) {
         let rootVC = CoursesViewController.instantiate()
         rootVC.coordinator = self
         self.navigationController.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.image, tag: self.tabItemInfo.orderNumber)
