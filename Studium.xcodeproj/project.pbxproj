@@ -56,12 +56,19 @@
 		B90D13FC29845FE80093EB0C /* MasterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F529845FE80093EB0C /* MasterForm.swift */; };
 		B90D13FD29845FE80093EB0C /* LogoSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F629845FE80093EB0C /* LogoSelectorViewController.swift */; };
 		B90D13FE29845FE80093EB0C /* AddToDoListEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F729845FE80093EB0C /* AddToDoListEventViewController.swift */; };
-		B90D13FF29845FE80093EB0C /* AlertTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F829845FE80093EB0C /* AlertTableViewController.swift */; };
+		B90D13FF29845FE80093EB0C /* AlertTimeSelectionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F829845FE80093EB0C /* AlertTimeSelectionForm.swift */; };
 		B90D140029845FE80093EB0C /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F929845FE80093EB0C /* AddAssignmentViewController.swift */; };
 		B90D1440298999AB0093EB0C /* StudiumFormError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D143F298999AB0093EB0C /* StudiumFormError.swift */; };
 		B90D144229899C310093EB0C /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D144129899C310093EB0C /* Weekday.swift */; };
 		B90D1447298C6EA50093EB0C /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1446298C6EA50093EB0C /* AuthenticationService.swift */; };
 		B90D1449298C77B80093EB0C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1448298C77B80093EB0C /* NotificationService.swift */; };
+		B94CA0B72A2D435500047865 /* CourseRefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0B62A2D435500047865 /* CourseRefreshProtocol.swift */; };
+		B94CA0B92A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */; };
+		B94CA0BB2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0BA2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift */; };
+		B94CA0BD2A2D5C5700047865 /* StudiumForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0BC2A2D5C5700047865 /* StudiumForm.swift */; };
+		B94CA0C12A2D5CA800047865 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0C02A2D5CA800047865 /* Coordinator.swift */; };
+		B94CA0C32A2D5D6300047865 /* AddCourseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0C22A2D5D6300047865 /* AddCourseCoordinator.swift */; };
+		B94CA0C72A2DA12A00047865 /* LogoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0C52A2DA12A00047865 /* LogoCollectionViewCell.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
@@ -83,7 +90,6 @@
 		B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */; };
 		B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */; };
 		B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */; };
-		B9AFCF722A19E2100087A0FF /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF712A19E2100087A0FF /* Coordinator.swift */; };
 		B9AFCF742A19E3160087A0FF /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF732A19E3160087A0FF /* AppCoordinator.swift */; };
 		B9AFCF782A19E8260087A0FF /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF772A19E8260087A0FF /* AuthenticationCoordinator.swift */; };
 		B9AFCF8B2A19F1CA0087A0FF /* CalendarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF8A2A19F1CA0087A0FF /* CalendarCoordinator.swift */; };
@@ -92,7 +98,6 @@
 		B9AFCF912A19F1EA0087A0FF /* ToDoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF902A19F1EA0087A0FF /* ToDoCoordinator.swift */; };
 		B9AFCF932A19F1F50087A0FF /* UserSetupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF922A19F1F50087A0FF /* UserSetupCoordinator.swift */; };
 		B9AFCF952A19F1FE0087A0FF /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF942A19F1FE0087A0FF /* SettingsCoordinator.swift */; };
-		B9AFCF972A19F2170087A0FF /* GenericFormFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF962A19F2170087A0FF /* GenericFormFlowCoordinator.swift */; };
 		B9AFCF992A19F2430087A0FF /* DatabaseServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AFCF982A19F2430087A0FF /* DatabaseServiceProtocol.swift */; };
 		B9B41CEF2A242A3D00239DD4 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B41CEE2A242A3D00239DD4 /* Storyboarded.swift */; };
 		B9B41CF12A26D2E500239DD4 /* TabItemCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B41CF02A26D2E500239DD4 /* TabItemCoordinator.swift */; };
@@ -167,12 +172,19 @@
 		B90D13F529845FE80093EB0C /* MasterForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterForm.swift; sourceTree = "<group>"; };
 		B90D13F629845FE80093EB0C /* LogoSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoSelectorViewController.swift; sourceTree = "<group>"; };
 		B90D13F729845FE80093EB0C /* AddToDoListEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToDoListEventViewController.swift; sourceTree = "<group>"; };
-		B90D13F829845FE80093EB0C /* AlertTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertTableViewController.swift; sourceTree = "<group>"; };
+		B90D13F829845FE80093EB0C /* AlertTimeSelectionForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertTimeSelectionForm.swift; sourceTree = "<group>"; };
 		B90D13F929845FE80093EB0C /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
 		B90D143F298999AB0093EB0C /* StudiumFormError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumFormError.swift; sourceTree = "<group>"; };
 		B90D144129899C310093EB0C /* Weekday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
 		B90D1446298C6EA50093EB0C /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		B90D1448298C77B80093EB0C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		B94CA0B62A2D435500047865 /* CourseRefreshProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRefreshProtocol.swift; sourceTree = "<group>"; };
+		B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoSelectionShowingCoordinator.swift; sourceTree = "<group>"; };
+		B94CA0BA2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTimesSelectionShowingCoordinator.swift; sourceTree = "<group>"; };
+		B94CA0BC2A2D5C5700047865 /* StudiumForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumForm.swift; sourceTree = "<group>"; };
+		B94CA0C02A2D5CA800047865 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = ../../../../../Coordinator.swift; sourceTree = "<group>"; };
+		B94CA0C22A2D5D6300047865 /* AddCourseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseCoordinator.swift; sourceTree = "<group>"; };
+		B94CA0C52A2DA12A00047865 /* LogoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogoCollectionViewCell.swift; path = ../../../../../Packages/TableViewFormKit/Sources/TableViewFormKit/FormCellViews/LogoCollectionViewCell.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		B9707E372A11C7EF004B63F0 /* TableViewFormKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TableViewFormKit; path = ../../Packages/TableViewFormKit; sourceTree = "<group>"; };
@@ -198,7 +210,6 @@
 		B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumColor.swift; sourceTree = "<group>"; };
 		B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoscheduleService.swift; sourceTree = "<group>"; };
-		B9AFCF712A19E2100087A0FF /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B9AFCF732A19E3160087A0FF /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		B9AFCF772A19E8260087A0FF /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
 		B9AFCF8A2A19F1CA0087A0FF /* CalendarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCoordinator.swift; sourceTree = "<group>"; };
@@ -207,7 +218,6 @@
 		B9AFCF902A19F1EA0087A0FF /* ToDoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCoordinator.swift; sourceTree = "<group>"; };
 		B9AFCF922A19F1F50087A0FF /* UserSetupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSetupCoordinator.swift; sourceTree = "<group>"; };
 		B9AFCF942A19F1FE0087A0FF /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
-		B9AFCF962A19F2170087A0FF /* GenericFormFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericFormFlowCoordinator.swift; sourceTree = "<group>"; };
 		B9AFCF982A19F2430087A0FF /* DatabaseServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseServiceProtocol.swift; sourceTree = "<group>"; };
 		B9B41CEE2A242A3D00239DD4 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		B9B41CF02A26D2E500239DD4 /* TabItemCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemCoordinator.swift; sourceTree = "<group>"; };
@@ -283,7 +293,7 @@
 		1693E72F247A3DC4003D4702 /* Studium */ = {
 			isa = PBXGroup;
 			children = (
-				B9AFCF822A19EF590087A0FF /* ParentControllers */,
+				B9AFCF822A19EF590087A0FF /* ParentControllers+FlowUtility */,
 				B9AFCF792A19EE4E0087A0FF /* Flows */,
 				B96E6A5D2983464900A25457 /* Utility */,
 				B96E6A5A298323CC00A25457 /* Services */,
@@ -298,6 +308,7 @@
 		1693E74B247A4634003D4702 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B94CA0C42A2DA11900047865 /* CollectionViewCells */,
 				16C05CF1264F36DC004C9629 /* New Event Cells */,
 				16B2837925C25BA50039043E /* Event Cells */,
 				1665FF1E250EA98300485F3D /* Fonts */,
@@ -375,6 +386,14 @@
 				B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		B94CA0C42A2DA11900047865 /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				B94CA0C52A2DA12A00047865 /* LogoCollectionViewCell.swift */,
+			);
+			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
 		B96E6A5A298323CC00A25457 /* Services */ = {
@@ -481,9 +500,8 @@
 				B9AFCF7C2A19EEA70087A0FF /* CalendarFlow */,
 				B9AFCF812A19EF1F0087A0FF /* SettingsFlow */,
 				B9AFCF7F2A19EEBA0087A0FF /* ToDoFlow */,
-				B9AFCF712A19E2100087A0FF /* Coordinator.swift */,
 				B9AFCF732A19E3160087A0FF /* AppCoordinator.swift */,
-				B9AFCF832A19F06B0087A0FF /* GenericFormFlow */,
+				B9AFCF832A19F06B0087A0FF /* GenericFormUtility */,
 				B9AFCF802A19EEFA0087A0FF /* UserSetupFlow */,
 				B9AFCF7A2A19EE540087A0FF /* AuthenticationFlow */,
 			);
@@ -532,6 +550,7 @@
 			isa = PBXGroup;
 			children = (
 				B9AFCF8E2A19F1DE0087A0FF /* CoursesCoordinator.swift */,
+				B94CA0C22A2D5D6300047865 /* AddCourseCoordinator.swift */,
 				B9AFCF882A19F0E80087A0FF /* Controllers */,
 			);
 			path = CoursesFlow;
@@ -564,25 +583,28 @@
 			path = SettingsFlow;
 			sourceTree = "<group>";
 		};
-		B9AFCF822A19EF590087A0FF /* ParentControllers */ = {
+		B9AFCF822A19EF590087A0FF /* ParentControllers+FlowUtility */ = {
 			isa = PBXGroup;
 			children = (
 				1693E751247A487C003D4702 /* SwipeTableViewController.swift */,
 				B90D13F529845FE80093EB0C /* MasterForm.swift */,
+				B94CA0C02A2D5CA800047865 /* Coordinator.swift */,
 				B995493E2992F0D400442968 /* StudiumEventListViewController.swift */,
 				B97BB1662A0EF864008F1A5B /* AssignmentsViewController.swift */,
+				B94CA0BC2A2D5C5700047865 /* StudiumForm.swift */,
 			);
-			path = ParentControllers;
+			path = "ParentControllers+FlowUtility";
 			sourceTree = "<group>";
 		};
-		B9AFCF832A19F06B0087A0FF /* GenericFormFlow */ = {
+		B9AFCF832A19F06B0087A0FF /* GenericFormUtility */ = {
 			isa = PBXGroup;
 			children = (
-				B9AFCF962A19F2170087A0FF /* GenericFormFlowCoordinator.swift */,
 				B90D143F298999AB0093EB0C /* StudiumFormError.swift */,
+				B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */,
+				B94CA0BA2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift */,
 				B9AFCF852A19F0CB0087A0FF /* Controllers */,
 			);
-			path = GenericFormFlow;
+			path = GenericFormUtility;
 			sourceTree = "<group>";
 		};
 		B9AFCF842A19F0C50087A0FF /* Controllers */ = {
@@ -598,7 +620,7 @@
 			isa = PBXGroup;
 			children = (
 				B90D13F629845FE80093EB0C /* LogoSelectorViewController.swift */,
-				B90D13F829845FE80093EB0C /* AlertTableViewController.swift */,
+				B90D13F829845FE80093EB0C /* AlertTimeSelectionForm.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -627,6 +649,7 @@
 				B90D13F429845FE80093EB0C /* AddCourseViewController.swift */,
 				B90D13F929845FE80093EB0C /* AddAssignmentViewController.swift */,
 				1693E756247A4BCB003D4702 /* AssignmentsOnlyViewController.swift */,
+				B94CA0B62A2D435500047865 /* CourseRefreshProtocol.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -835,6 +858,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1693E757247A4BCB003D4702 /* AssignmentsOnlyViewController.swift in Sources */,
+				B94CA0B92A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift in Sources */,
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
 				B9AFCF992A19F2430087A0FF /* DatabaseServiceProtocol.swift in Sources */,
 				B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */,
@@ -859,13 +883,13 @@
 				B9AFCF742A19E3160087A0FF /* AppCoordinator.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
 				16C05CF4264F37B8004C9629 /* RecurringEventCell.swift in Sources */,
-				B90D13FF29845FE80093EB0C /* AlertTableViewController.swift in Sources */,
+				B90D13FF29845FE80093EB0C /* AlertTimeSelectionForm.swift in Sources */,
 				B97BB0B22A0399FB008F1A5B /* UIViewController_Extension.swift in Sources */,
 				B9B41CF72A26E5E200239DD4 /* TimeChunk.swift in Sources */,
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
 				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
+				B94CA0C72A2DA12A00047865 /* LogoCollectionViewCell.swift in Sources */,
 				B97BB0A72A00EA0D008F1A5B /* AppleCalendarService.swift in Sources */,
-				B9AFCF972A19F2170087A0FF /* GenericFormFlowCoordinator.swift in Sources */,
 				B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */,
 				B995493C2992EDD000442968 /* Completable.swift in Sources */,
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
@@ -874,14 +898,18 @@
 				16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */,
 				B97BB0AE2A022B37008F1A5B /* Date_Extension.swift in Sources */,
 				B9AFCF952A19F1FE0087A0FF /* SettingsCoordinator.swift in Sources */,
+				B94CA0B72A2D435500047865 /* CourseRefreshProtocol.swift in Sources */,
 				B9B41D012A26F43900239DD4 /* NSObject_Extension.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
 				B90D144229899C310093EB0C /* Weekday.swift in Sources */,
+				B94CA0BB2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift in Sources */,
 				16C60FB225C5F7FB006D0FFC /* StudiumEvent.swift in Sources */,
 				B90D1447298C6EA50093EB0C /* AuthenticationService.swift in Sources */,
 				B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
+				B94CA0C12A2D5CA800047865 /* Coordinator.swift in Sources */,
+				B94CA0BD2A2D5C5700047865 /* StudiumForm.swift in Sources */,
 				B9AFCF912A19F1EA0087A0FF /* ToDoCoordinator.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
@@ -896,7 +924,6 @@
 				B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */,
 				B9AFCF782A19E8260087A0FF /* AuthenticationCoordinator.swift in Sources */,
 				164905B727E18732002DE61D /* LoginViewController.swift in Sources */,
-				B9AFCF722A19E2100087A0FF /* Coordinator.swift in Sources */,
 				B97BB09F2A00D19D008F1A5B /* MockAutoscheduleService.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
 				B97BB0B72A075CB4008F1A5B /* DaySchedulable.swift in Sources */,
@@ -909,6 +936,7 @@
 				B9AFCF932A19F1F50087A0FF /* UserSetupCoordinator.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
 				165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */,
+				B94CA0C32A2D5D6300047865 /* AddCourseCoordinator.swift in Sources */,
 				1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */,
 				B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */,
 				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,

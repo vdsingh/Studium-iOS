@@ -8,6 +8,13 @@
 
 import Foundation
 struct DebugFlags {
-    static let coordinators = false
+    
+    //TODO: Docstrings
+    static let developerMode = true
+    
+    //TODO: Docstrings
+    static let coordinators = true
+    
+    //TODO: Docstrings
     static let authentication = false
 }

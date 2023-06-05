@@ -16,9 +16,9 @@ enum StudiumFormError: FormError {
     case oneDayNotSpecified
     case endTimeOccursBeforeStartTime
     case totalTimeNotSpecified
-    
     case totalTimeExceedsTimeFrame
     
+    //TODO: Docstrings
     var stringRepresentation: String {
         switch self {
         case .nameNotSpecified:

@@ -29,9 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         printDebug("Did finish launching");
-
         
         // Initialize Facebook SDK
         FBSDKCoreKit.ApplicationDelegate.shared.application(

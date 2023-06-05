@@ -12,12 +12,24 @@ import UIKit
 // TODO: Docstrings
 enum ErrorType {
     case nilCoordinator
+    case nonConformingCoordinator
+    
+    var defaultErrorInfo: (title: String, message: String, actions: [UIAlertAction]) {
+        return (title: "Whoops!", message: "An error occurred! Please restart the application.", actions: [UIAlertAction(title: "OK", style: .default)])
+    }
     
     // TODO: Docstrings
     var errorInfo: (title: String, message: String, actions: [UIAlertAction]) {
         switch self {
         case .nilCoordinator:
-            return (title: "Whoops!", message: "An error occurred! Please restart the application.", actions: [UIAlertAction(title: "OK", style: .default)])
+            return DebugFlags.developerMode == true ?
+            (title: "Coordinator is Nil", message: "The coordinator for this screen is nil", actions: [UIAlertAction(title: "OK", style: .default)])
+            : self.defaultErrorInfo
+            
+        case .nonConformingCoordinator:
+            return DebugFlags.developerMode == true ?
+            (title: "Coordinator does not conform to the intended protocol", message: "Tried to unwrap the coordinator as a specific type, but it did not conform", actions: [UIAlertAction(title: "OK", style: .default)])
+            : self.defaultErrorInfo
         }
     }
 }

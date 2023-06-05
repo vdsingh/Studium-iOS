@@ -21,10 +21,10 @@ class MasterForm: TableViewForm {
 //    typealias StudiumEventType = StudiumEvent
     
     
-    enum OutgoingSegues: String {
-        case logoSelection = "toLogoSelection"
-        case alertTimesSelection = "toAlertSelection"
-    }
+//    enum OutgoingSegues: String {
+//        case logoSelection = "toLogoSelection"
+//        case alertTimesSelection = "toAlertSelection"
+//    }
     
     let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     let autoscheduleService: AutoscheduleServiceProtocol = AutoscheduleService.shared
@@ -120,10 +120,12 @@ class MasterForm: TableViewForm {
                 return
             }
             destinationVC.color = colorCell.colorPreview.backgroundColor ?? StudiumColor.primaryLabel.uiColor
-        } else if let destinationVC = segue.destination as? AlertTableViewController {
-            destinationVC.delegate = self
-            destinationVC.setSelectedAlertOptions(alertOptions: self.alertTimes)
         }
+        
+//        else if let destinationVC = segue.destination as? AlertTimeSelectionForm {
+//            destinationVC.delegate = self
+//            destinationVC.setSelectedAlertOptions(alertOptions: self.alertTimes)
+//        }
     }
 }
 
@@ -202,9 +204,17 @@ extension MasterForm {
 //    }
     
     // TODO: Docstrings
-    func navigateTo(_ segue: OutgoingSegues) {
-        self.performSegue(withIdentifier: segue.rawValue, sender: self)
-    }
+//    func navigateTo(_ segue: OutgoingSegues) {
+//        self.performSegue(withIdentifier: segue.rawValue, sender: self)
+//    }
+    
+//    func showLogoSelectionForm() {
+//        fatalError("Subclass should override showLogoSelectionForm.")
+//    }
+//    
+//    func showAlertTimeSelectionForm() {
+//        fatalError("Subclass should override showAlertTimeSelectionForm.")
+//    }
 }
 
 // MARK: - TimeCell Setup
@@ -337,7 +347,7 @@ extension MasterForm: LogoSelectionHandler {
     func logoWasUpdated(logo: SystemIcon) {
         self.logo = logo
         guard let logoCellIndexPath = self.findFirstLogoCellIndex(),
-              let logoCell = tableView.cellForRow(at: logoCellIndexPath) as? LogoCell
+              let logoCell = tableView.cellForRow(at: logoCellIndexPath) as? LogoSelectionCell
         else {
             print("$ERR (MasterForm): Can't locate logo cell or cast it as a LogoCell.")
             return
