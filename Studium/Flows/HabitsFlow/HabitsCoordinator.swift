@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class HabitsCoordinator: NSObject, TabItemCoordinator {
+class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, LogoSelectionShowingCoordinator, AlertTimesSelectionShowingCoordinator {
     
     var debug = false
     
@@ -18,6 +18,8 @@ class HabitsCoordinator: NSObject, TabItemCoordinator {
     var childCoordinators = [Coordinator]()
     
     var navigationController: UINavigationController
+    
+    var formNavigationController: UINavigationController?
     
     var tabItemInfo: TabItemInfo = .habitsFlow
     

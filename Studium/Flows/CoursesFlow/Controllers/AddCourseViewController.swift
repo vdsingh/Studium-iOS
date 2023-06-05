@@ -8,15 +8,17 @@ import EventKit
 import TableViewFormKit
 import VikUtilityKit
 
-/// Makes sure that the course list can refresh when a new course is added
-protocol CourseRefreshProtocol {
-    
-    // TODO: Docstrings
-    func loadCourses()
+//TODO: Move
+protocol Coordinated {
+    associatedtype CoordinatorType: Coordinator
+    var coordinator: CoordinatorType? { get set }
 }
 
 // TODO: Docstrings
-class AddCourseViewController: MasterForm {
+class AddCourseViewController: MasterForm, StudiumForm, Storyboarded {
+    
+    // TODO: Docstrings
+    weak var coordinator: CoursesCoordinator?
     
     // TODO: Docstrings
     let codeLocationString = "AddCourseViewController"
@@ -64,15 +66,16 @@ class AddCourseViewController: MasterForm {
                 .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCellID.locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.navigateTo(.alertTimesSelection)
-                })
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: {
+                    self.showAlertTimesSelectionViewController() }
+                )
             ],
             [
                 .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCellID.startTimeCell, onClick: timeCellClicked),
                 .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCellID.endTimeCell, onClick: timeCellClicked)
             ],
             [
-                .logoCell(logo: self.logo, onClick: { self.navigateTo(.logoSelection) }),
+                .logoCell(logo: self.logo, onClick: { self.coordinator?.showLogoSelectionViewController(updateDelegate: self) }),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],
@@ -249,7 +252,7 @@ extension AddCourseViewController {
             endCell.setDate(endDate)
         }
         
-        if let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? LogoCell {
+        if let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? LogoSelectionCell {
             logoCell.logoImageView.image = course.logo.createImage()
             self.logo = course.logo
         }

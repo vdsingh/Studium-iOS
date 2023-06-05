@@ -11,7 +11,7 @@ import UIKit
 import VikUtilityKit
 
 //TODO: Docstrings
-class ToDoCoordinator: TabItemCoordinator {
+class ToDoCoordinator: TabItemCoordinator, StudiumEventFormCoordinator, LogoSelectionShowingCoordinator {
     
     var debug = false
 
@@ -22,6 +22,8 @@ class ToDoCoordinator: TabItemCoordinator {
     
     //TODO: Docstrings
     var navigationController: UINavigationController
+    
+    var formNavigationController: UINavigationController?
     
     var tabItemInfo: TabItemInfo = .toDoFlow
     

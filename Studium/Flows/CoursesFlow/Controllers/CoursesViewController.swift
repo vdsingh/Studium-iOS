@@ -167,10 +167,10 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         
     //MARK: - UI Actions
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
-        addCourseViewController.delegate = self
-        let navController = UINavigationController(rootViewController: addCourseViewController)
+//        let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
+        self.coordinator?.showAddCourseViewController(refreshDelegate: self)
+//        let navController = UINavigationController(rootViewController: addCourseViewController)
 //        ColorPickerCell.color = .white
-        self.present(navController, animated:true, completion: nil)
+//        self.present(navController, animated:true, completion: nil)
     }
 }

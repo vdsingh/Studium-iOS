@@ -55,7 +55,7 @@ protocol AlertTimeHandler {
 }
 
 // TODO: Docstrings
-class AlertTableViewController: TableViewForm {
+class AlertTimeSelectionForm: TableViewForm, Storyboarded {
     
     // TODO: Docstrings
     var delegate: AlertTimeHandler?
@@ -89,7 +89,7 @@ class AlertTableViewController: TableViewForm {
 }
 
 // MARK: - TableView Setup
-extension AlertTableViewController {
+extension AlertTimeSelectionForm {
     
     // TODO: Docstrings
     override func numberOfSections(in tableView: UITableView) -> Int {

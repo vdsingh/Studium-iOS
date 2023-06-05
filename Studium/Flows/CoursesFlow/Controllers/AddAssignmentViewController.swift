@@ -14,11 +14,13 @@ protocol AssignmentRefreshProtocol {
 }
 
 // TODO: Docstrings
-class AddAssignmentViewController: MasterForm {
+class AddAssignmentViewController: MasterForm, StudiumForm, Coordinated {
     
     override var debug: Bool {
         return true
     }
+    
+    weak var coordinator: CoursesCoordinator?
     
     /// Holds the assignment being edited (if an assignment is being edited)
     var assignmentEditing: Assignment?
@@ -62,7 +64,7 @@ class AddAssignmentViewController: MasterForm {
             [
                 .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
                 .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: .endTimeCell, onClick: self.timeCellClicked),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.navigateTo(.alertTimesSelection) })
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
             [
                 .switchCell(cellText: "Schedule Time to Work", isOn: self.scheduleWorkTime, switchDelegate: self, infoDelegate: self)
