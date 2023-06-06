@@ -11,6 +11,7 @@ import ChameleonFramework
 //TODO: Docstrings
 class CoursesViewController: StudiumEventListViewController, CourseRefreshProtocol, Storyboarded {
     
+    // TODO: Docstrings
     weak var coordinator: CoursesCoordinator?
     
     private enum SegueIdentifiers: String {
@@ -19,9 +20,8 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     
     //TODO: Docstrings
     var courses = [Course]()
-
-//    let defaults = UserDefaults.standard
     
+    // TODO: Docstrings
     override var debug: Bool {
         false
     }

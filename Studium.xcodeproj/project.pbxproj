@@ -67,8 +67,8 @@
 		B94CA0BB2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0BA2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift */; };
 		B94CA0BD2A2D5C5700047865 /* StudiumForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0BC2A2D5C5700047865 /* StudiumForm.swift */; };
 		B94CA0C12A2D5CA800047865 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0C02A2D5CA800047865 /* Coordinator.swift */; };
-		B94CA0C32A2D5D6300047865 /* AddCourseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0C22A2D5D6300047865 /* AddCourseCoordinator.swift */; };
 		B94CA0C72A2DA12A00047865 /* LogoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0C52A2DA12A00047865 /* LogoCollectionViewCell.swift */; };
+		B94CA0CA2A2DABA000047865 /* StudiumEventFormCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0C92A2DABA000047865 /* StudiumEventFormCoordinator.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
@@ -183,8 +183,8 @@
 		B94CA0BA2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTimesSelectionShowingCoordinator.swift; sourceTree = "<group>"; };
 		B94CA0BC2A2D5C5700047865 /* StudiumForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumForm.swift; sourceTree = "<group>"; };
 		B94CA0C02A2D5CA800047865 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = ../../../../../Coordinator.swift; sourceTree = "<group>"; };
-		B94CA0C22A2D5D6300047865 /* AddCourseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseCoordinator.swift; sourceTree = "<group>"; };
 		B94CA0C52A2DA12A00047865 /* LogoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogoCollectionViewCell.swift; path = ../../../../../Packages/TableViewFormKit/Sources/TableViewFormKit/FormCellViews/LogoCollectionViewCell.swift; sourceTree = "<group>"; };
+		B94CA0C92A2DABA000047865 /* StudiumEventFormCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventFormCoordinator.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		B9707E372A11C7EF004B63F0 /* TableViewFormKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TableViewFormKit; path = ../../Packages/TableViewFormKit; sourceTree = "<group>"; };
@@ -550,7 +550,6 @@
 			isa = PBXGroup;
 			children = (
 				B9AFCF8E2A19F1DE0087A0FF /* CoursesCoordinator.swift */,
-				B94CA0C22A2D5D6300047865 /* AddCourseCoordinator.swift */,
 				B9AFCF882A19F0E80087A0FF /* Controllers */,
 			);
 			path = CoursesFlow;
@@ -600,6 +599,7 @@
 			isa = PBXGroup;
 			children = (
 				B90D143F298999AB0093EB0C /* StudiumFormError.swift */,
+				B94CA0C92A2DABA000047865 /* StudiumEventFormCoordinator.swift */,
 				B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */,
 				B94CA0BA2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift */,
 				B9AFCF852A19F0CB0087A0FF /* Controllers */,
@@ -864,6 +864,7 @@
 				B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */,
 				B90D13FD29845FE80093EB0C /* LogoSelectorViewController.swift in Sources */,
 				B90D1449298C77B80093EB0C /* NotificationService.swift in Sources */,
+				B94CA0CA2A2DABA000047865 /* StudiumEventFormCoordinator.swift in Sources */,
 				B90D13FC29845FE80093EB0C /* MasterForm.swift in Sources */,
 				B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */,
 				B97BB08429F74628008F1A5B /* Debuggable.swift in Sources */,
@@ -936,7 +937,6 @@
 				B9AFCF932A19F1F50087A0FF /* UserSetupCoordinator.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
 				165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */,
-				B94CA0C32A2D5D6300047865 /* AddCourseCoordinator.swift in Sources */,
 				1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */,
 				B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */,
 				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,

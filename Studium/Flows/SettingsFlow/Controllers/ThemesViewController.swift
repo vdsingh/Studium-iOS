@@ -17,6 +17,8 @@ class ThemesViewController: UIViewController {
     
     // TODO: Docstrings
     @IBOutlet weak var tableView: UITableView!
+    
+    // TODO: Docstrings
     var themeNames: [[String]] = [["Studium Purple", "Studium Orange"],["Black", "Red", "Orange", "Yellow", "Green", "Teal", "Blue", "Purple"], ["Red/Orange", "Blue", "Blue/Green", "Pink/Purple"]]
     
     // TODO: Docstrings
@@ -24,6 +26,7 @@ class ThemesViewController: UIViewController {
 
     // TODO: Docstrings
     var sectionHeaders: [String] = ["Studium Colors", "Muted Colors", "Gradients"]
+    
     override func viewDidLoad() {
         tableView.delegate = self
         tableView.dataSource = self

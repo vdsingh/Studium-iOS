@@ -12,8 +12,10 @@ import UIKit
 import EventKit
 import GoogleSignIn
 
+// TODO: Docstrings
 class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboarded, ErrorShowing {
     
+    // TODO: Docstrings
     private struct Constants {
         static let deleteAllAssignmentsAlertInfo = (title: "Delete All Assignments", message: "Are you sure you want to delete all assignments? You can't undo this action.")
         static let deleteCompletedAssignmentsAlertInfo = (title: "Delete Completed Assignments", message: "Are you sure you want to delete all completed assignments? You can't undo this action.")
@@ -21,13 +23,15 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
         static let deleteAllCompletedOtherEventsAlertInfo = (title: "Delete All Completed Other Events", message: "Are you sure you want to delete all completed other events? You can't undo this action.")
     }
     
+    // TODO: Docstrings
     weak var coordinator: SettingsCoordinator?
     
+    // TODO: Docstrings
     func alertTimesWereUpdated(selectedAlertOptions: [AlertOption]) {
         self.databaseService.setDefaultAlertOptions(alertOptions: selectedAlertOptions)
     }
     
-    
+    // TODO: Docstrings
     var databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
     /// reference to defaults

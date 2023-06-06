@@ -21,6 +21,7 @@ protocol ToDoListRefreshProtocol {
 /// Form to add a To-Do List Event
 class AddToDoListEventViewController: MasterForm, Coordinated {
     
+    // TODO: Docstrings
     weak var coordinator: ToDoCoordinator?
     
     /// tracks the event being edited, if one is being edited.
@@ -36,7 +37,7 @@ class AddToDoListEventViewController: MasterForm, Coordinated {
         self.setCells()
         super.viewDidLoad()
         
-        //makes it so that the form doesn't have a bunch of empty cells at the bottom
+        // makes it so that the form doesn't have a bunch of empty cells at the bottom
         tableView.tableFooterView = UIView()
         
         if let otherEvent = otherEvent {

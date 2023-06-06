@@ -79,7 +79,6 @@
                     <navigationItem key="navigationItem" title="Settings" id="aVA-My-ydw"/>
                     <connections>
                         <segue destination="13W-JO-cIR" kind="showDetail" identifier="toWakeUpTimes" id="5zV-Mg-OtU"/>
-                        <segue destination="hFo-id-GNg" kind="show" identifier="toAlertSelection" id="dgf-qv-Fcf"/>
                         <segue destination="ieh-iv-NdK" kind="showDetail" identifier="toLoginScreen" id="XTJ-Rh-8lV"/>
                     </connections>
                 </tableViewController>
@@ -261,7 +260,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="navButton" destination="EN9-J2-NLp" id="6SH-bS-0UO"/>
-                        <segue destination="hFo-id-GNg" kind="show" identifier="toAlertSelection" id="U26-7i-LD2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fTf-ia-Jir" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -343,8 +341,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="navButton" destination="OAC-WM-GTj" id="fR8-dL-kpj"/>
-                        <segue destination="wNK-sA-8dN" kind="show" identifier="toLogoSelection" id="T8N-JJ-KKU"/>
-                        <segue destination="hFo-id-GNg" kind="show" identifier="toAlertSelection" id="d6r-wA-WW0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rak-ke-5FK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -378,7 +374,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="navButton" destination="lFI-er-lhR" id="CWh-uQ-XUZ"/>
-                        <segue destination="hFo-id-GNg" kind="show" identifier="toAlertSelection" id="h8J-RB-4SC"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hgo-jA-Esn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -914,8 +909,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="navButton" destination="70c-8U-u15" id="gbL-8j-nUA"/>
-                        <segue destination="wNK-sA-8dN" kind="show" identifier="toLogoSelection" id="sMc-gW-Ufz"/>
-                        <segue destination="hFo-id-GNg" kind="show" identifier="toAlertSelection" id="vzC-T2-xCs"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3MT-12-mIV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1260,7 +1253,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSd-gX-n00">
-                                <rect key="frame" x="20" y="112" width="374" height="770"/>
+                                <rect key="frame" x="20" y="68" width="374" height="814"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lHV-zF-EF2">
                                     <size key="itemSize" width="200" height="200"/>
@@ -1724,10 +1717,6 @@
             <point key="canvasLocation" x="840.57971014492762" y="3229.6875"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="d6r-wA-WW0"/>
-        <segue reference="T8N-JJ-KKU"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="2" width="300" height="300"/>
         <image name="background" width="1170" height="2532"/>

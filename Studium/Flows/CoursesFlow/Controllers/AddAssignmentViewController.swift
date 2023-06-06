@@ -16,10 +16,12 @@ protocol AssignmentRefreshProtocol {
 // TODO: Docstrings
 class AddAssignmentViewController: MasterForm, StudiumForm, Coordinated {
     
+    // TODO: Docstrings
     override var debug: Bool {
         return true
     }
     
+    // TODO: Docstrings
     weak var coordinator: CoursesCoordinator?
     
     /// Holds the assignment being edited (if an assignment is being edited)
