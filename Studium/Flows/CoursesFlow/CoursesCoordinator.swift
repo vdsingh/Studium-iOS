@@ -9,10 +9,6 @@
 import Foundation
 import UIKit
 
-protocol StudiumEventFormCoordinator: NavigationCoordinator {
-    var formNavigationController: UINavigationController? { get }
-}
-
 //TODO: Docstrings
 class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, LogoSelectionShowingCoordinator, AlertTimesSelectionShowingCoordinator {
     

@@ -24,6 +24,7 @@ class SettingsCoordinator: NavigationCoordinator {
     //TODO: Docstrings
     var navigationController: UINavigationController
     
+    // TODO: Docstrings
     var rootViewController: UIViewController?
     
     //TODO: Docstrings
@@ -37,6 +38,7 @@ class SettingsCoordinator: NavigationCoordinator {
         self.rootViewController = startViewController
     }
     
+    // TODO: Docstrings
     func showSettingsListViewController() -> UIViewController {
         let settingsListVC = SettingsViewController.instantiate()
         settingsListVC.coordinator = self
@@ -44,6 +46,7 @@ class SettingsCoordinator: NavigationCoordinator {
         return settingsListVC
     }
     
+    // TODO: Docstrings
     func showAuthenticationFlow() {
         let authenticationCoordinator = AuthenticationCoordinator(self.setNewRootNavigationController())
         authenticationCoordinator.parentCoordinator = self.parentCoordinator
@@ -51,6 +54,7 @@ class SettingsCoordinator: NavigationCoordinator {
         authenticationCoordinator.start()
     }
     
+    // TODO: Docstrings
     func showUserSetupFlow() {
         var userSetupCoordinator = UserSetupCoordinator(self.navigationController)
         

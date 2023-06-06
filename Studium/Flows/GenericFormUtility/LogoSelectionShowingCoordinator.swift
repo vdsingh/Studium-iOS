@@ -10,6 +10,8 @@ import Foundation
 
 //TODO: Docstrings
 protocol LogoSelectionShowingCoordinator: StudiumEventFormCoordinator {
+    
+    // TODO: Docstrings
     func showLogoSelectionViewController(updateDelegate: LogoSelectionHandler)
 }
 
