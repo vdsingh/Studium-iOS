@@ -13,7 +13,7 @@ import TableViewFormKit
 // TODO: Docstrings
 protocol LogoSelectionHandler {
 
-    func logoWasUpdated(logo: SystemIcon)
+    func logoWasUpdated(icon: StudiumIcon)
 }
 
 // TODO: Docstrings
@@ -29,7 +29,7 @@ class LogoSelectorViewController: UIViewController, Storyboarded {
     @IBOutlet weak var collectionView: UICollectionView!
     
     // TODO: Docstrings
-    var logos: [SystemIcon] = [.dumbbellSolid]
+    var logos: [StudiumIcon] = StudiumIcon.allCases
 
     override func loadView() {
         super.loadView()
@@ -49,7 +49,7 @@ extension LogoSelectorViewController: UICollectionViewDelegate {
     
     // TODO: Docstrings
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.logoWasUpdated(logo: logos[indexPath.row])
+        delegate?.logoWasUpdated(icon: logos[indexPath.row])
         self.navigationController?.popViewController(animated: true)
     }
 }
@@ -66,7 +66,7 @@ extension LogoSelectorViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LogoCollectionViewCell.id, for: indexPath) as? LogoCollectionViewCell {
             cell.setup()
-            cell.setImage(systemIcon: logos[indexPath.row], tintColor: .white)
+            cell.setImage(image: logos[indexPath.row].image, tintColor: .white)
             return cell
         }
         

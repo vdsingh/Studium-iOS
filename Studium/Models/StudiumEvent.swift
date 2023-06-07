@@ -42,7 +42,7 @@ class StudiumEvent: Object, DaySchedulable {
     @Persisted private var colorHex: String = "ffffff"
     
     /// A String representing the raw value of the logo associated with the event
-    @Persisted private var logoString: String = SystemIcon.book.rawValue
+    @Persisted private var iconID: String = StudiumIcon.book.rawValue
     
     /// Raw representation of the alert times for this event
     @Persisted private var alertTimesRaw = List<AlertOption.RawValue>()
@@ -59,9 +59,9 @@ class StudiumEvent: Object, DaySchedulable {
     }
     
     /// The icon for the event
-    var logo: SystemIcon {
-        get { return SystemIcon(rawValue: self.logoString) ?? .book }
-        set { self.logoString = newValue.rawValue }
+    var icon: StudiumIcon {
+        get { return StudiumIcon(rawValue: self.iconID) ?? .book }
+        set { self.iconID = newValue.rawValue }
     }
     
     /// The alert times for the event
@@ -105,7 +105,7 @@ class StudiumEvent: Object, DaySchedulable {
         startDate: Date,
         endDate: Date,
         color: UIColor,
-        logo: SystemIcon,
+        icon: StudiumIcon,
         alertTimes: [AlertOption]
     ) {
         self.init()
@@ -115,7 +115,7 @@ class StudiumEvent: Object, DaySchedulable {
         self.startDate = startDate
         self.endDate = endDate
         self.color = color
-        self.logo = logo
+        self.icon = icon
         self.alertTimes = alertTimes
     }
 

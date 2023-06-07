@@ -34,9 +34,9 @@ import UIKit
 //}
 
 // TODO: Docstrings
-enum StudiumIcon: String {
+enum StudiumIcon: String, CaseIterable {
     
-    case atom = "atom-solid"
+    case atom
     case bath
     case binoculars
     case blender

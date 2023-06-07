@@ -55,7 +55,7 @@ class MasterForm: TableViewForm {
     var color: UIColor = .white
 
     // TODO: Docstrings
-    var logo: SystemIcon = .book
+    var icon: StudiumIcon = StudiumIcon.book
     
     // TODO: Docstrings
     var location: String = ""
@@ -344,8 +344,8 @@ extension MasterForm: LogoSelectionHandler {
     
     /// Handles what happens when the user selects a logo
     /// - Parameter logo: The logo that the user selected
-    func logoWasUpdated(logo: SystemIcon) {
-        self.logo = logo
+    func logoWasUpdated(icon: StudiumIcon) {
+        self.icon = icon
         guard let logoCellIndexPath = self.findFirstLogoCellIndex(),
               let logoCell = tableView.cellForRow(at: logoCellIndexPath) as? LogoSelectionCell
         else {
@@ -353,7 +353,7 @@ extension MasterForm: LogoSelectionHandler {
             return
         }
         
-        logoCell.setImage(systemIcon: self.logo)
+        logoCell.setImage(image: icon.image)
     }
 }
 

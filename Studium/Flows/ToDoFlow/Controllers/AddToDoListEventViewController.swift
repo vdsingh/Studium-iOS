@@ -75,7 +75,7 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Coordi
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         self.errors = self.findErrors()
         if self.errors.isEmpty {
-            let newEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: self.additionalDetails, startDate: self.startDate, endDate: self.endDate, color: self.color, logo: self.logo, alertTimes: self.alertTimes)
+            let newEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: self.additionalDetails, startDate: self.startDate, endDate: self.endDate, color: self.color, icon: self.icon, alertTimes: self.alertTimes)
             if let otherEvent = self.otherEvent {
                 // We are editing
                 self.databaseService.editStudiumEvent(oldEvent: otherEvent, newEvent: newEvent)

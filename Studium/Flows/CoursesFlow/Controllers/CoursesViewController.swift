@@ -79,7 +79,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
                 days: course.days,
                 color: course.color,
                 recurringEvent: course,
-                systemIcon: course.logo
+                icon: course.icon
             )
             return cell
         }

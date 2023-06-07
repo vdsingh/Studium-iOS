@@ -98,7 +98,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
                 .timeCell(cellText: "Finish", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked)
             ],
             [
-                .logoCell(logo: self.logo, onClick: { self.showLogoSelectionViewController() }),
+                .logoCell(logo: self.icon.image, onClick: { self.showLogoSelectionViewController() }),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details",
                                text: self.additionalDetails,
@@ -125,7 +125,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
                 .pickerCell(cellText: "Length of Habit", indices: self.lengthPickerIndices, tag: .lengthPickerCell, delegate: self, dataSource: self)
             ],
             [
-                .logoCell(logo: self.logo, onClick: { self.showLogoSelectionViewController() }),
+                .logoCell(logo: self.icon.image, onClick: { self.showLogoSelectionViewController() }),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: .additionalDetailsTextField, textFieldDelegate: self, delegate: self),
             ],
@@ -161,7 +161,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
                 autoLengthMinutes: totalLengthMinutes,
                 alertTimes: self.alertTimes,
                 days: daysSelected,
-                logo: self.logo,
+                icon: self.icon,
                 color: color,
                 partitionKey: AuthenticationService.shared.userID!
             )
@@ -384,7 +384,7 @@ extension AddHabitViewController {
         
 //        let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
 //        logoCell.logoImageView.image = habit.logo.createImage()
-        self.logo = habit.logo
+        self.icon = habit.icon
         
 //        let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
 //        let color = habit.color

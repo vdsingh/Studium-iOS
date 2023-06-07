@@ -32,7 +32,7 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
         startDate: Date,
         endDate: Date,
         days: Set<Weekday>,
-        logo: SystemIcon,
+        icon: StudiumIcon,
         notificationAlertTimes: [AlertOption],
         partitionKey: String
     ) {
@@ -43,7 +43,7 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
         self.additionalDetails = additionalDetails
         self.startDate = startDate
         self.endDate = endDate
-        self.logo = logo
+        self.icon = icon
         self._partitionKey = partitionKey
         self.alertTimes = notificationAlertTimes
         self.days = days

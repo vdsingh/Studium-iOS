@@ -58,11 +58,11 @@ class RecurringEventCell: DeletableEventCell {
         days: Set<Weekday>,
         color: UIColor,
         recurringEvent: RecurringStudiumEvent,
-        systemIcon: SystemIcon
+        icon: StudiumIcon
     ) {
         printDebug("Loading data for event: \(recurringEvent)")
         self.event = recurringEvent//just edited
-        iconImage.image = systemIcon.createImage()
+        iconImage.image = icon.image
         iconImage.tintColor = color
         iconCircle.tintColor = color
         background.layer.borderColor = color.cgColor

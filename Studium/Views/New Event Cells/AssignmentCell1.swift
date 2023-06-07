@@ -141,7 +141,7 @@ class AssignmentCell1: DeletableEventCell {
         self.event = assignment
         
         //set the image of the icon to be the same as the associated course's icon.
-        icon.image = course.logo.createImage()
+        icon.image = course.icon.image
         
         //override the chevron button.
         if hideChevronButton {

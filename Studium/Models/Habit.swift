@@ -60,11 +60,11 @@ class Habit: RecurringStudiumEvent, Autoscheduleable {
         autoLengthMinutes: Int,
         alertTimes: [AlertOption],
         days: Set<Weekday>,
-        logo: SystemIcon,
+        icon: StudiumIcon,
         color: UIColor,
         partitionKey: String
     ) {
-        self.init(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, color: color, logo: logo, alertTimes: alertTimes)
+        self.init(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, color: color, icon: icon, alertTimes: alertTimes)
         self.startEarlier = startEarlier
         self.autoscheduling = autoscheduling
         self.autoLengthMinutes = autoLengthMinutes

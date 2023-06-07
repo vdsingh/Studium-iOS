@@ -69,7 +69,7 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
                 .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCellID.endTimeCell, onClick: timeCellClicked)
             ],
             [
-                .logoCell(logo: self.logo, onClick: { self.showLogoSelectionViewController() }),
+                .logoCell(logo: self.icon.image, onClick: { self.showLogoSelectionViewController() }),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],
@@ -96,7 +96,7 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
                 startDate: startDate,
                 endDate: endDate,
                 days: self.daysSelected,
-                logo: self.logo,
+                icon: self.icon,
                 notificationAlertTimes: alertTimes,
                 partitionKey: AuthenticationService.shared.userID!
             )
@@ -247,8 +247,9 @@ extension AddCourseViewController {
         }
         
         if let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? LogoSelectionCell {
-            logoCell.logoImageView.image = course.logo.createImage()
-            self.logo = course.logo
+//            logoCell.logoImageView.image = course.logo.createImage()
+            logoCell.setImage(image: course.icon.image )
+            self.icon = course.icon
         }
         
         if let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as? ColorPickerCell {
