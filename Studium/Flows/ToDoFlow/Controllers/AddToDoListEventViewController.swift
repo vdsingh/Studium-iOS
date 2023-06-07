@@ -19,7 +19,7 @@ protocol ToDoListRefreshProtocol {
 }
 
 /// Form to add a To-Do List Event
-class AddToDoListEventViewController: MasterForm, Coordinated {
+class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Coordinated {
     
     // TODO: Docstrings
     weak var coordinator: ToDoCoordinator?
@@ -55,7 +55,7 @@ class AddToDoListEventViewController: MasterForm, Coordinated {
             [
                 .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCellID.locationTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.coordinator?.showLogoSelectionViewController(updateDelegate: self) })
+                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
             [
                 .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCellID.startTimeCell, onClick: self.timeCellClicked),
@@ -125,7 +125,7 @@ class AddToDoListEventViewController: MasterForm, Coordinated {
     ///   - segue: The segue
     ///   - sender: The sender
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? AlertTimeSelectionForm {
+        if let destinationVC = segue.destination as? AlertTimeSelectionTableViewForm {
             destinationVC.delegate = self
         }
     }

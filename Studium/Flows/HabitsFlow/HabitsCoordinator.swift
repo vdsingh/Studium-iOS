@@ -9,18 +9,25 @@
 import Foundation
 import UIKit
 
+//TODO: Docstrings
 class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, LogoSelectionShowingCoordinator, AlertTimesSelectionShowingCoordinator {
     
+    // TODO: Docstrings
     var debug = false
     
+    // TODO: Docstrings
     weak var parentCoordinator: Coordinator?
     
+    // TODO: Docstrings
     var childCoordinators = [Coordinator]()
     
+    // TODO: Docstrings
     var navigationController: UINavigationController
     
+    // TODO: Docstrings
     var formNavigationController: UINavigationController?
     
+    // TODO: Docstrings
     var tabItemInfo: TabItemInfo = .habitsFlow
     
     //TODO: Docstrings
@@ -28,16 +35,29 @@ class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinat
         self.navigationController = navigationController
     }
     
+    //TODO: Docstrings
     func start(replaceRoot: Bool = false) {
         self.showHabitsListFlow()
     }
     
+    //TODO: Docstrings
     func showHabitsListFlow() {
         let habitsVC = HabitsViewController.instantiate()
         habitsVC.coordinator = self
         habitsVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.images.unselected, tag: self.tabItemInfo.orderNumber)
         habitsVC.tabBarItem.selectedImage = self.tabItemInfo.images.selected
         self.navigationController.pushViewController(habitsVC, animated: false)
+    }
+    
+    //TODO: Docstrings
+    func showAddHabitViewController(refreshDelegate: HabitRefreshProtocol) {
+        let addHabitVC = AddHabitViewController.instantiate()
+        let navController = UINavigationController(rootViewController: addHabitVC)
+        addHabitVC.delegate = refreshDelegate
+        addHabitVC.coordinator = self
+        self.navigationController.topViewController?.present(navController, animated: true)
+        
+        self.formNavigationController = navController
     }
     
     func childDidFinish(_ child: Coordinator?) {

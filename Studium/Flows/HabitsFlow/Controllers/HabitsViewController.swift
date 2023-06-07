@@ -11,7 +11,9 @@ import RealmSwift
 import UIKit
 
 //TODO: Docstrings
-class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol, Storyboarded {
+class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol, Storyboarded, Coordinated, ErrorShowing {
+    
+    //TODO: Docstrings
     weak var coordinator: HabitsCoordinator?
     
     //TODO: Docstrings
@@ -34,12 +36,8 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
     
     //TODO: Docstrings
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        let addHabitViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
-        addHabitViewController.delegate = self
-        let navController = UINavigationController(rootViewController: addHabitViewController)
-
-        self.present(navController, animated:true, completion: nil)
-        
+        self.unwrapCoordinatorOrShowError()
+        self.coordinator?.showAddHabitViewController(refreshDelegate: self)
     }
     
     //TODO: Docstrings

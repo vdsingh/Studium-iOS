@@ -11,10 +11,12 @@ import UIKit
 import VikUtilityKit
 
 //TODO: Docstrings
-class ToDoCoordinator: TabItemCoordinator, StudiumEventFormCoordinator, LogoSelectionShowingCoordinator {
+class ToDoCoordinator: TabItemCoordinator, StudiumEventFormCoordinator {
     
+    //TODO: Docstrings
     var debug = false
 
+    //TODO: Docstrings
     weak var parentCoordinator: Coordinator?
         
     //TODO: Docstrings
@@ -23,8 +25,10 @@ class ToDoCoordinator: TabItemCoordinator, StudiumEventFormCoordinator, LogoSele
     //TODO: Docstrings
     var navigationController: UINavigationController
     
+    //TODO: Docstrings
     var formNavigationController: UINavigationController?
     
+    //TODO: Docstrings
     var tabItemInfo: TabItemInfo = .toDoFlow
     
     //TODO: Docstrings
@@ -37,6 +41,7 @@ class ToDoCoordinator: TabItemCoordinator, StudiumEventFormCoordinator, LogoSele
         self.showToDoListViewController()
     }
     
+    //TODO: Docstrings
     func showToDoListViewController() {
         let rootVC = ToDoListViewController.instantiate()
         rootVC.coordinator = self

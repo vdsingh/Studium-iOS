@@ -23,8 +23,9 @@ protocol HabitRefreshProtocol {
 }
 
 /// Class used to manage the form for adding a Habit. The form is a tableView form, similar to adding an event in
-class AddHabitViewController: MasterForm, StudiumForm, Coordinated {
+class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingForm, Coordinated, Storyboarded {
     
+    // TODO: Docstrings
     weak var coordinator: HabitsCoordinator?
     
     // TODO: Docstrings
@@ -97,7 +98,7 @@ class AddHabitViewController: MasterForm, StudiumForm, Coordinated {
                 .timeCell(cellText: "Finish", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked)
             ],
             [
-                .logoCell(logo: self.logo, onClick: { self.coordinator?.showLogoSelectionViewController(updateDelegate: self) }),
+                .logoCell(logo: self.logo, onClick: { self.showLogoSelectionViewController() }),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details",
                                text: self.additionalDetails,
@@ -124,7 +125,7 @@ class AddHabitViewController: MasterForm, StudiumForm, Coordinated {
                 .pickerCell(cellText: "Length of Habit", indices: self.lengthPickerIndices, tag: .lengthPickerCell, delegate: self, dataSource: self)
             ],
             [
-                .logoCell(logo: self.logo, onClick: { self.coordinator?.showLogoSelectionViewController(updateDelegate: self) }),
+                .logoCell(logo: self.logo, onClick: { self.showLogoSelectionViewController() }),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: .additionalDetailsTextField, textFieldDelegate: self, delegate: self),
             ],
