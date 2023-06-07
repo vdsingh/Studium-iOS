@@ -8,14 +8,8 @@ import EventKit
 import TableViewFormKit
 import VikUtilityKit
 
-//TODO: Move
-protocol Coordinated {
-    associatedtype CoordinatorType: Coordinator
-    var coordinator: CoordinatorType? { get set }
-}
-
 // TODO: Docstrings
-class AddCourseViewController: MasterForm, StudiumForm, Storyboarded {
+class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingForm, Storyboarded {
     
     // TODO: Docstrings
     weak var coordinator: CoursesCoordinator?
@@ -75,7 +69,7 @@ class AddCourseViewController: MasterForm, StudiumForm, Storyboarded {
                 .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCellID.endTimeCell, onClick: timeCellClicked)
             ],
             [
-                .logoCell(logo: self.logo, onClick: { self.coordinator?.showLogoSelectionViewController(updateDelegate: self) }),
+                .logoCell(logo: self.logo, onClick: { self.showLogoSelectionViewController() }),
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],

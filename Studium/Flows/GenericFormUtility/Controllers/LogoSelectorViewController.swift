@@ -29,7 +29,7 @@ class LogoSelectorViewController: UIViewController, Storyboarded {
     @IBOutlet weak var collectionView: UICollectionView!
     
     // TODO: Docstrings
-    var logos: [SystemIcon] = SystemIcon.allCases
+    var logos: [SystemIcon] = [.dumbbellSolid]
 
     override func loadView() {
         super.loadView()

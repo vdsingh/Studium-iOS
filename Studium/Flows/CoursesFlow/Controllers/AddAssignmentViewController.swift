@@ -14,7 +14,7 @@ protocol AssignmentRefreshProtocol {
 }
 
 // TODO: Docstrings
-class AddAssignmentViewController: MasterForm, StudiumForm, Coordinated {
+class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Coordinated {
     
     // TODO: Docstrings
     override var debug: Bool {
