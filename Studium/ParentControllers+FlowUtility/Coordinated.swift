@@ -9,11 +9,16 @@
 import Foundation
 import UIKit
 
-//TODO: Move
+//TODO: Docstrings
 protocol Coordinated {
+    
+    //TODO: Docstrings
     associatedtype CoordinatorType: Coordinator
+    
+    //TODO: Docstrings
     var coordinator: CoordinatorType? { get set }
     
+    //TODO: Docstrings
     func unwrapCoordinatorOrShowError()
 }
 

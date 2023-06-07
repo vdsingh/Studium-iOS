@@ -13,5 +13,5 @@ import UIKit
 protocol StudiumEventFormCoordinator: NavigationCoordinator {
     
     // TODO: Docstrings
-    var formNavigationController: UINavigationController? { get }
+    var formNavigationController: UINavigationController? { get set }
 }

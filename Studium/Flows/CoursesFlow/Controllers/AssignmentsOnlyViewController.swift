@@ -10,7 +10,9 @@ import Foundation
 import ChameleonFramework
 
 //TODO: Docstrings
-class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDelegate, AssignmentRefreshProtocol {
+class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDelegate, AssignmentRefreshProtocol, Coordinated {
+    
+    weak var coordinator: CoursesCoordinator?
     
     override var debug: Bool {
         return true
@@ -134,12 +136,14 @@ class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDeleg
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         
         let eventForEdit = deletableEventCell.event! as! Assignment
-        let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
-        addAssignmentViewController.delegate = self
-        addAssignmentViewController.selectedCourse = eventForEdit.parentCourse
-        addAssignmentViewController.assignmentEditing = eventForEdit
-        addAssignmentViewController.title = "View/Edit Assignment"
-        let navController = UINavigationController(rootViewController: addAssignmentViewController)
-        self.present(navController, animated:true, completion: nil)
+        self.unwrapCoordinatorOrShowError()
+        self.coordinator?.showEditAssignmentViewController(refreshDelegate: self, assignmentToEdit: eventForEdit)
+//        let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
+//        addAssignmentViewController.delegate = self
+//        addAssignmentViewController.selectedCourse = eventForEdit.parentCourse
+//        addAssignmentViewController.assignmentEditing = eventForEdit
+//        addAssignmentViewController.title = "View/Edit Assignment"
+//        let navController = UINavigationController(rootViewController: addAssignmentViewController)
+//        self.present(navController, animated:true, completion: nil)
     }
 }

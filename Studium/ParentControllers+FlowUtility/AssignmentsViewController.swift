@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 //TODO: Docstrings
-class AssignmentsViewController: StudiumEventListViewController {
+class AssignmentsViewController: StudiumEventListViewController, Storyboarded {
     
     override var debug: Bool {
         return true

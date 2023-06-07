@@ -9,7 +9,7 @@ import UIKit
 import ChameleonFramework
 
 //TODO: Docstrings
-class CoursesViewController: StudiumEventListViewController, CourseRefreshProtocol, Storyboarded {
+class CoursesViewController: StudiumEventListViewController, CourseRefreshProtocol, Storyboarded, Coordinated {
     
     // TODO: Docstrings
     weak var coordinator: CoursesCoordinator?
@@ -91,17 +91,23 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     
     //TODO: Docstrings
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: SegueIdentifiers.coursesToAssignments.rawValue, sender: self)
+//        performSegue(withIdentifier: SegueIdentifiers.coursesToAssignments.rawValue, sender: self)
+        guard let course = eventsArray[indexPath.section][indexPath.row] as? Course else {
+            self.showError(.failedCast(objectString: "\(eventsArray[indexPath.section][indexPath.row])", intendedTypeString: "Course"))
+            return
+        }
+        
+        self.coordinator?.showAssignmentsListViewController(selectedCourse: course)
     }
     
     //TODO: Docstrings
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? AssignmentsOnlyViewController {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                destinationVC.selectedCourse = eventsArray[indexPath.section][indexPath.row] as? Course
-            }
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let destinationVC = segue.destination as? AssignmentsOnlyViewController {
+//            if let indexPath = tableView.indexPathForSelectedRow {
+//                destinationVC.selectedCourse = eventsArray[indexPath.section][indexPath.row] as? Course
+//            }
+//        }
+//    }
     
     //MARK: - CRUD Methods
     
@@ -137,15 +143,18 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     //TODO: Docstrings
     override func edit(at indexPath: IndexPath) {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        
         let eventForEdit = deletableEventCell.event! as! Course
-        let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
-        addCourseViewController.delegate = self
-        addCourseViewController.course = eventForEdit
+        self.unwrapCoordinatorOrShowError()
+        self.coordinator?.showEditCourseViewController(refreshDelegate: self, courseToEdit: eventForEdit)
+        
+//        let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
+//        addCourseViewController.delegate = self
+//        addCourseViewController.course = eventForEdit
 //        ColorPickerCell.color = eventForEdit.color
-        addCourseViewController.title = "View/Edit Course"
-        let navController = UINavigationController(rootViewController: addCourseViewController)
-        self.present(navController, animated:true, completion: nil)
+        
+//        addCourseViewController.title = "View/Edit Course"
+//        let navController = UINavigationController(rootViewController: addCourseViewController)
+//        self.present(navController, animated:true, completion: nil)
     }
     
     //TODO: Docstrings

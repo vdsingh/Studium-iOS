@@ -11,7 +11,7 @@ import RealmSwift
 import UIKit
 
 //TODO: Docstrings
-class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol, Storyboarded, Coordinated, ErrorShowing {
+class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol, Storyboarded, Coordinated {
     
     //TODO: Docstrings
     weak var coordinator: HabitsCoordinator?
@@ -55,7 +55,6 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         //sort all the habits happening today by startTime (the ones that are first come first in the list)
         eventsArray[0].sort(by: { $0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm" )})
         tableView.reloadData()
-        
     }
     
     //TODO: Docstrings
@@ -72,7 +71,7 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
                 days: habit.days,
                 color: habit.color,
                 recurringEvent: habit,
-                systemIcon: habit.logo
+                icon: habit.icon
             )
             
             return cell

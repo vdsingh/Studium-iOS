@@ -13,6 +13,7 @@ import UIKit
 enum ErrorType {
     case nilCoordinator
     case nonConformingCoordinator
+    case failedCast(objectString: String, intendedTypeString: String)
     
     var defaultErrorInfo: (title: String, message: String, actions: [UIAlertAction]) {
         return (title: "Whoops!", message: "An error occurred! Please restart the application.", actions: [UIAlertAction(title: "OK", style: .default)])
@@ -29,6 +30,11 @@ enum ErrorType {
         case .nonConformingCoordinator:
             return DebugFlags.developerMode == true ?
             (title: "Coordinator does not conform to the intended protocol", message: "Tried to unwrap the coordinator as a specific type, but it did not conform", actions: [UIAlertAction(title: "OK", style: .default)])
+            : self.defaultErrorInfo
+            
+        case .failedCast(let objectString, let intendedTypeString):
+            return DebugFlags.developerMode == true ?
+            (title: "Failed to cast an Object", message: "Tried to cast the object: \(objectString) as type \(intendedTypeString), but failed", actions: [UIAlertAction(title: "OK", style: .default)])
             : self.defaultErrorInfo
         }
     }

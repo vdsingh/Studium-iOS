@@ -11,7 +11,7 @@ import SwipeCellKit
 import UIKit
 
 //TODO: Docstrings
-class StudiumEventListViewController: SwipeTableViewController {
+class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
     
     //TODO: Docstrings
     let databaseService: DatabaseServiceProtocol! = DatabaseService.shared

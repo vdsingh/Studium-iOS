@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 //TODO: Docstrings
-class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, LogoSelectionShowingCoordinator, AlertTimesSelectionShowingCoordinator {
+class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, LogoSelectionShowingCoordinator, AlertTimesSelectionShowingCoordinator, AssignmentEditingCoordinator {
     
     //TODO: Docstrings
     var debug = false
@@ -58,6 +58,26 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
         self.navigationController.topViewController?.present(navController, animated: true)
         
         self.formNavigationController = navController
+    }
+    
+    //TODO: Docstrings
+    func showEditCourseViewController(refreshDelegate: CourseRefreshProtocol, courseToEdit: Course) {
+        let addCourseVC = AddCourseViewController.instantiate()
+        let navController = UINavigationController(rootViewController: addCourseVC)
+        addCourseVC.delegate = refreshDelegate
+        addCourseVC.course = courseToEdit
+        addCourseVC.title = "View/Edit Course"
+        addCourseVC.coordinator = self
+        self.navigationController.topViewController?.present(navController, animated: true)
+        
+        self.formNavigationController = navController
+    }
+    
+    func showAssignmentsListViewController(selectedCourse: Course) {
+        let assignmentsListVC = AssignmentsOnlyViewController.instantiate()
+        assignmentsListVC.coordinator = self
+        assignmentsListVC.selectedCourse = selectedCourse
+        self.navigationController.pushViewController(assignmentsListVC, animated: true)
     }
     
     //TODO: Docstrings

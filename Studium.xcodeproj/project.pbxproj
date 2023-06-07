@@ -73,6 +73,7 @@
 		B94CA0CF2A2F101E00047865 /* AlertOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0CE2A2F101E00047865 /* AlertOption.swift */; };
 		B94CA0D32A2F10F800047865 /* Coordinated.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D22A2F10F800047865 /* Coordinated.swift */; };
 		B94CA0D52A2F1BCE00047865 /* StudiumIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D42A2F1BCE00047865 /* StudiumIcon.swift */; };
+		B94CA0D72A31432400047865 /* AssignmentEditingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
@@ -193,6 +194,7 @@
 		B94CA0CE2A2F101E00047865 /* AlertOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOption.swift; sourceTree = "<group>"; };
 		B94CA0D22A2F10F800047865 /* Coordinated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinated.swift; sourceTree = "<group>"; };
 		B94CA0D42A2F1BCE00047865 /* StudiumIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumIcon.swift; sourceTree = "<group>"; };
+		B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentEditingCoordinator.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		B9707E372A11C7EF004B63F0 /* TableViewFormKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TableViewFormKit; path = ../../Packages/TableViewFormKit; sourceTree = "<group>"; };
@@ -626,6 +628,7 @@
 				B995493E2992F0D400442968 /* StudiumEventListViewController.swift */,
 				B97BB1662A0EF864008F1A5B /* AssignmentsViewController.swift */,
 				B94CA0D22A2F10F800047865 /* Coordinated.swift */,
+				B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */,
 			);
 			path = "ParentControllers+FlowUtility";
 			sourceTree = "<group>";
@@ -907,6 +910,7 @@
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				B90D13FE29845FE80093EB0C /* AddToDoListEventViewController.swift in Sources */,
 				1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */,
+				B94CA0D72A31432400047865 /* AssignmentEditingCoordinator.swift in Sources */,
 				B97BB0AC2A022B30008F1A5B /* String_Extension.swift in Sources */,
 				B90D140029845FE80093EB0C /* AddAssignmentViewController.swift in Sources */,
 				B9AFCF8D2A19F1D40087A0FF /* HabitsCoordinator.swift in Sources */,

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cyD-fh-4az">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -223,9 +224,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="8p6-Of-ykq" kind="show" identifier="toAddEventForm" id="ylH-H2-aIq"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G0D-Hv-bXL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -265,23 +263,6 @@
             </objects>
             <point key="canvasLocation" x="5588" y="-1441"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="q4c-E9-rHD">
-            <objects>
-                <navigationController id="8p6-Of-ykq" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="S7u-1x-KRZ"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="agL-ZN-feG">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="hpd-53-o9w" kind="relationship" relationship="rootViewController" id="kpf-Dz-u02"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fmh-0K-0kr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4549" y="-1441"/>
-        </scene>
         <!--Courses-->
         <scene sceneID="Vjp-gW-8rz">
             <objects>
@@ -303,10 +284,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="0Vi-ec-NIi" kind="show" identifier="coursesToAssignments" id="bsw-Cx-eUz"/>
-                        <segue destination="L6g-9f-aKF" kind="show" identifier="toAddCourseForm" id="640-Y5-PwP"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJK-uF-g8o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -400,9 +377,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="0x4-4c-qsb" kind="show" identifier="toAddAssignmentForm" id="cje-BS-oSI"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dmu-9x-W2r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -875,7 +849,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="AddHabitViewController" modalPresentationStyle="formSheet" id="XMv-UY-9Fa" customClass="AddHabitViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Gqm-fk-UrT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -939,32 +913,6 @@
                 <customObject id="Wh8-NZ-0e7" customClass="RAMBounceAnimation" customModule="RAMAnimatedTabBarController"/>
             </objects>
             <point key="canvasLocation" x="-606" y="130"/>
-        </scene>
-        <!--Courses-->
-        <scene sceneID="ACa-Z5-LiT">
-            <objects>
-                <navigationController storyboardIdentifier="CoursesNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="xDD-sh-HPi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Courses" id="U47-XU-HEI" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
-                        <imageReference key="image" image="person.circle" catalog="system" symbolScale="large"/>
-                        <imageReference key="selectedImage" image="person.circle.fill" catalog="system" symbolScale="large"/>
-                        <connections>
-                            <outlet property="animation" destination="E2I-zd-TQo" id="hmd-Hf-yfh"/>
-                        </connections>
-                    </tabBarItem>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="r7b-Ge-P1f">
-                        <rect key="frame" x="0.0" y="48" width="414" height="96"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Ict-Kx-JgS" kind="relationship" relationship="rootViewController" id="Uet-7k-NaG"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="E8v-vD-UTh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <customObject id="E2I-zd-TQo" customClass="RAMBounceAnimation" customModule="RAMAnimatedTabBarController"/>
-            </objects>
-            <point key="canvasLocation" x="3318.840579710145" y="103.79464285714285"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8k7-pE-RZZ">
@@ -1198,32 +1146,6 @@
             </objects>
             <point key="canvasLocation" x="841" y="2408"/>
         </scene>
-        <!--To Do-->
-        <scene sceneID="XIp-nw-q2n">
-            <objects>
-                <navigationController storyboardIdentifier="ToDoListNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="mRS-Kb-yvm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="To Do" id="mnh-vu-1Kj" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
-                        <imageReference key="image" image="pencil.circle" catalog="system" symbolScale="large"/>
-                        <imageReference key="selectedImage" image="pencil.circle.fill" catalog="system" symbolScale="large"/>
-                        <connections>
-                            <outlet property="animation" destination="ane-ne-0ks" id="Ml6-vp-l8W"/>
-                        </connections>
-                    </tabBarItem>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="fVz-Hk-Aub">
-                        <rect key="frame" x="0.0" y="48" width="414" height="96"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="R0z-hi-CKK" kind="relationship" relationship="rootViewController" id="5RM-NN-hog"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9NM-A3-saT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <customObject id="ane-ne-0ks" customClass="RAMBounceAnimation" customModule="RAMAnimatedTabBarController"/>
-            </objects>
-            <point key="canvasLocation" x="3624.6376811594205" y="-729.24107142857144"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="YcG-uX-NNl">
             <objects>
@@ -1353,7 +1275,6 @@
                     <navigationItem key="navigationItem" id="8La-8T-Qcy"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EE1-cY-5TN">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1728,10 +1649,6 @@
         <image name="fb_logo" width="256" height="256"/>
         <image name="gear" catalog="system" width="128" height="122"/>
         <image name="list.number" catalog="system" width="128" height="97"/>
-        <image name="pencil.circle" catalog="system" width="128" height="123"/>
-        <image name="pencil.circle.fill" catalog="system" width="128" height="123"/>
-        <image name="person.circle" catalog="system" width="128" height="123"/>
-        <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="smiley" catalog="system" width="128" height="123"/>
         <image name="smiley.fill" catalog="system" width="128" height="123"/>
         <image name="under-tree-2" width="1100" height="850"/>
