@@ -74,6 +74,8 @@
 		B94CA0D32A2F10F800047865 /* Coordinated.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D22A2F10F800047865 /* Coordinated.swift */; };
 		B94CA0D52A2F1BCE00047865 /* StudiumIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D42A2F1BCE00047865 /* StudiumIcon.swift */; };
 		B94CA0D72A31432400047865 /* AssignmentEditingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */; };
+		B94CA0D92A32C0F000047865 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D82A32C0F000047865 /* NavigationCoordinator.swift */; };
+		B94CA0E12A32C50F00047865 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B94CA0E02A32C50F00047865 /* GoogleService-Info.plist */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
@@ -195,6 +197,9 @@
 		B94CA0D22A2F10F800047865 /* Coordinated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinated.swift; sourceTree = "<group>"; };
 		B94CA0D42A2F1BCE00047865 /* StudiumIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumIcon.swift; sourceTree = "<group>"; };
 		B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentEditingCoordinator.swift; sourceTree = "<group>"; };
+		B94CA0D82A32C0F000047865 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
+		B94CA0DB2A32C0FF00047865 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		B94CA0E02A32C50F00047865 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		B9707E372A11C7EF004B63F0 /* TableViewFormKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TableViewFormKit; path = ../../Packages/TableViewFormKit; sourceTree = "<group>"; };
@@ -310,6 +315,7 @@
 				1693E74C247A463D003D4702 /* Models */,
 				1693E74B247A4634003D4702 /* Views */,
 				1693E73E247A3DC6003D4702 /* Info.plist */,
+				B94CA0E02A32C50F00047865 /* GoogleService-Info.plist */,
 				B97BB0B42A075964008F1A5B /* Secrets.xcconfig */,
 			);
 			path = Studium;
@@ -431,6 +437,17 @@
 				B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */,
 			);
 			path = LogoSelection;
+			sourceTree = "<group>";
+		};
+		B94CA0DA2A32C0FF00047865 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				B94CA0DB2A32C0FF00047865 /* Coordinator.swift */,
+				B94CA0D22A2F10F800047865 /* Coordinated.swift */,
+				B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */,
+				B94CA0D82A32C0F000047865 /* NavigationCoordinator.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		B96E6A5A298323CC00A25457 /* Services */ = {
@@ -624,11 +641,10 @@
 			children = (
 				1693E751247A487C003D4702 /* SwipeTableViewController.swift */,
 				B90D13F529845FE80093EB0C /* MasterForm.swift */,
+				B94CA0DA2A32C0FF00047865 /* Coordinators */,
 				B94CA0C02A2D5CA800047865 /* Coordinator.swift */,
 				B995493E2992F0D400442968 /* StudiumEventListViewController.swift */,
 				B97BB1662A0EF864008F1A5B /* AssignmentsViewController.swift */,
-				B94CA0D22A2F10F800047865 /* Coordinated.swift */,
-				B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */,
 			);
 			path = "ParentControllers+FlowUtility";
 			sourceTree = "<group>";
@@ -751,6 +767,7 @@
 				1693E72A247A3DC4003D4702 /* Frameworks */,
 				1693E72B247A3DC4003D4702 /* Resources */,
 				E4F465B928E2E9E890816BA9 /* [CP] Embed Pods Frameworks */,
+				B94CA0E22A32CCA900047865 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -832,6 +849,7 @@
 				16A63B7D24A01289003A30D3 /* HabitCell.xib in Resources */,
 				16C607EC250E985000983C3D /* GlacialIndifference-Regular.otf in Resources */,
 				16C607ED250E985000983C3D /* GlacialIndifference-Bold.otf in Resources */,
+				B94CA0E12A32C50F00047865 /* GoogleService-Info.plist in Resources */,
 				1693E738247A3DC4003D4702 /* Main.storyboard in Resources */,
 				165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */,
 				16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */,
@@ -871,6 +889,25 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		B94CA0E22A32CCA900047865 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		E4F465B928E2E9E890816BA9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -954,6 +991,7 @@
 				B94CA0BD2A2D5C5700047865 /* AlertTimeSelectingForm.swift in Sources */,
 				B9AFCF912A19F1EA0087A0FF /* ToDoCoordinator.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
+				B94CA0D92A32C0F000047865 /* NavigationCoordinator.swift in Sources */,
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
 				B9B41CF52A26E3F500239DD4 /* DebugFlags.swift in Sources */,
 				B96E6A9C298456A500A25457 /* K.swift in Sources */,
@@ -1079,7 +1117,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1135,7 +1173,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1151,6 +1189,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VJUSE27PV3;
 				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (

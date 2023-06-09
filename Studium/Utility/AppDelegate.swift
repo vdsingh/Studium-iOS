@@ -14,6 +14,9 @@ import RealmSwift
 import GoogleSignIn
 import FBSDKLoginKit
 
+import FirebaseAnalytics
+import FirebaseCore
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
         
@@ -27,8 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var autoscheduleService: AutoscheduleServiceProtocol = {
         return AutoscheduleService(databaseService: self.databaseService)
     }()
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         printDebug("Did finish launching");
         
         // Initialize Facebook SDK
@@ -36,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
+        
+        FirebaseApp.configure()
         
         return true
     }

@@ -5,7 +5,11 @@ target 'Studium' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Data Management
+#Analytics
+pod 'FirebaseAnalytics'
+pod 'FirebaseCrashlytics'
+
+#Data Management
 pod 'RealmSwift'
 
 #Google Authentication
@@ -14,16 +18,21 @@ pod 'GoogleSignIn'
 #Facebook Authentication
 pod 'FBSDKLoginKit'
 
-# Pods for UI Elements
+#UI Related
 pod 'SwipeCellKit'
 pod 'CalendarKit'
 pod 'ChameleonFramework/Swift', :git => 'https://github.com/wowansm/Chameleon.git', :branch => 'swift5'
 pod 'Colorful'
 pod 'FlexColorPicker'
-
-#Custom Tab Bar
+pod 'FSCalendar'
 pod 'RAMAnimatedTabBarController'
 
-pod 'FSCalendar'
+end
 
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+    end
+  end
 end
