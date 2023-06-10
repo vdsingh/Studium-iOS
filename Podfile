@@ -23,9 +23,10 @@ pod 'SwipeCellKit'
 pod 'CalendarKit'
 pod 'ChameleonFramework/Swift', :git => 'https://github.com/wowansm/Chameleon.git', :branch => 'swift5'
 pod 'Colorful'
-pod 'FlexColorPicker'
-pod 'FSCalendar'
-pod 'RAMAnimatedTabBarController'
+pod 'FlexColorPicker' # Color Picker Form Element
+pod 'FSCalendar' # Calendar View
+pod 'RAMAnimatedTabBarController' # Animated Tab Bar
+pod 'SwiftEntryKit', '2.0.0' # Banners and Pop-Ups
 
 end
 
