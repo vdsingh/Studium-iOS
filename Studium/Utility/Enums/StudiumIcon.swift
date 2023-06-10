@@ -64,7 +64,7 @@ enum StudiumIcon: String, CaseIterable {
     case display
     case dna
     case dog
-    case dollar
+    case dollarSign
     case download
     case dumbbell
     case feather
@@ -85,10 +85,10 @@ enum StudiumIcon: String, CaseIterable {
     case laptopMedical
     case leaf
     case map
-    case martini
+    case martiniGlass
     case minus
     case moneyBill
-    case moneyCheck
+    case moneyCheckDollar
     case monument
     case networkWired
     case otter
