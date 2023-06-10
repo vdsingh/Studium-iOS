@@ -23,7 +23,7 @@ protocol Debuggable {
 extension Debuggable {
     func printDebug(_ message: String) {
         if self.debug {
-            print("$LOG \(String(describing: self)): \(message)")
+            Log.d(message)
         }
     }
 }

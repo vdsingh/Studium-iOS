@@ -19,11 +19,12 @@ enum AuthenticationError: Error {
     case nilUser
     case nildeviceID
     case nilAccessToken
+    case registeredSuccessfullyButUserWasNil
 }
 
 
 //TODO: Docstrings
-class AuthenticationService: NSObject {
+class AuthenticationService: NSObject, Debuggable {
     
     let debug = true
     
@@ -79,14 +80,14 @@ class AuthenticationService: NSObject {
     //TODO: Docstrings
     func handleLogOut(completion: @escaping (Error?) -> Void) {
         guard let currentUser = self.app.currentUser else {
-            print("$ERR (AuthenticationService): tried to log out but current user is nil.")
+            Log.e(AuthenticationError.nilUser, additionalDetails: "tried to log out but current user is nil.")
             completion(AuthenticationError.nilUser)
             return
         }
         
         currentUser.logOut(completion: { error in
             if let error = error {
-                print("$ERR (AuthenticationService): error logging out: \(String(describing: error))")
+                Log.e(error, additionalDetails: "error logging out: \(String(describing: error))")
                 completion(error)
             }
             
@@ -101,7 +102,7 @@ class AuthenticationService: NSObject {
             case .success(let user):
                 completion(.success(user))
             case .failure(let error):
-                print("ERROR: \(String(describing: error))")
+                Log.v(error)
             }
         }
     }
@@ -209,13 +210,12 @@ extension AuthenticationService {
         let client = self.app.emailPasswordAuth
         client.registerUser(email: email, password: password) { (error) in
             if let error = error {
-                print("Failed to register: \(String(describing: error))")
                 completion(.failure(error))
                 return
             }
             
             guard let user = self.user else {
-                print("$ERR (): Registered without error, but user is nil")
+                Log.s(AuthenticationError.registeredSuccessfullyButUserWasNil, additionalDetails: "Registered without error, but user is nil", displayToUser: false)
                 completion(.failure(AuthenticationError.nilUser))
                 return
             }
@@ -240,7 +240,7 @@ extension AuthenticationService {
         let password = "password"
         client.registerUser(email: email, password: password) { [weak self] (error) in
             if let error = error {
-                self?.printError(error.localizedDescription)
+                Log.e(error)
             }
             
             self?.printDebug("successfully registered guest.")
@@ -258,10 +258,10 @@ extension AuthenticationService {
     }
 }
 
-extension AuthenticationService: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG (AuthenticationService): \(message)")
-        }
-    }
-}
+//extension AuthenticationService: Debuggable {
+//    func printDebug(_ message: String) {
+//        if self.debug {
+//            print("$LOG (AuthenticationService): \(message)")
+//        }
+//    }
+//}

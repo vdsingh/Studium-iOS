@@ -41,7 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func changeRootViewController(_ viewController: UIViewController, animated: Bool = true) {
         DispatchQueue.main.async {
             guard let window = self.window else {
-                self.printError("Tried to change root viewController, but window was nil.")
+                Log.s(SceneDelegateError.nilWindow, additionalDetails: "Tried to change root viewController, but window was nil.")
                 return
             }
             
@@ -86,4 +86,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
+}
+
+enum SceneDelegateError: Error {
+    case nilWindow
 }

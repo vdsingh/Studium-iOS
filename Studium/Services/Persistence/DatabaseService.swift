@@ -55,7 +55,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         } else {
             AuthenticationService.shared.handleLogOut { error in
                 if let error = error {
-                    self.printError(error)
+                    Log.e(error)
                 }
             }
             
