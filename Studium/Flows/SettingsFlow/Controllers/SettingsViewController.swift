@@ -12,8 +12,10 @@ import UIKit
 import EventKit
 import GoogleSignIn
 
+import FirebaseCrashlytics
+
 // TODO: Docstrings
-class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboarded, ErrorShowing {
+class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboarded, ErrorShowing, Coordinated {
     
     // TODO: Docstrings
     private struct Constants {
@@ -63,6 +65,12 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
 
             })
         ],
+        
+        [
+            ("Report a Problem", didSelect: {
+                self.handleReportProblem()
+            })
+        ],
         [
             ("Email", nil),
             ("Sign Out", didSelect: {
@@ -100,12 +108,7 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
         cell?.backgroundColor = StudiumColor.secondaryBackground.uiColor
         cell?.textLabel?.textColor = StudiumColor.primaryLabel.uiColor
         cell?.textLabel?.text = cellData[indexPath.section][indexPath.row].text
-        
-        
-//        if defaults.value(forKey: "email") != nil && cellData[indexPath.section][indexPath.row] == "Email"{
-//            cell?.textLabel?.text = defaults.string(forKey: "email")
-//        }
-        
+
         let id = AuthenticationService.shared.userID
         if cellData[indexPath.section][indexPath.row].text == "Email" {
             cell?.textLabel?.text = id
@@ -140,77 +143,13 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
     
     //TODO: Docstrings
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if cellLinks[indexPath.section][indexPath.row] != "" {
-//            performSegue(withIdentifier: cellLinks[indexPath.section][indexPath.row], sender: self)
-//        }
-        
         let cellData = self.cellData[indexPath.section][indexPath.row]
         
         if let selectAction = cellData.didSelect {
             selectAction()
         }
-        
-//        if cellData[indexPath.section][indexPath.row] == "Clear Notifs"{
-//            let center = UNUserNotificationCenter.current()
-//            center.removeAllDeliveredNotifications()    // to remove all delivered notifications
-//            center.removeAllPendingNotificationRequests()   // to remove all pending notifications
-//            UIApplication.shared.applicationIconBadgeNumber = 0 // to clear the icon notification badge
-//        } else if cellData[indexPath.section][indexPath.row] == "Delete All Assignments" {
-//        } else if cellData[indexPath.section][indexPath.row] == "Delete Completed Assignments" {
-//        } else if cellData[indexPath.section][indexPath.row] == "Delete All Other Events" {
-//        } else if cellData[indexPath.section][indexPath.row] == "Delete All Completed Other Events" {
-//        } else if cellData[indexPath.section][indexPath.row] == "Sign Out" {
-//
-            //TODO: handle log out
-//            K.handleLogOut()
-            
-//            self.navigationController?.popToRootViewController(animated: true)
-//            guard let vc = self.presentingViewController else { return }
-//
-//            print("Dismissing VC")
-//            vc.dismiss(animated: true, completion: nil)
-//            vc.dismiss(animated: true, completion: nil)
-//            vc.dismiss(animated: true, completion: nil)
-
-//            performSegue(withIdentifier: "toLoginScreen", sender: self)
-
-//        } else if cellData[indexPath.section][indexPath.row] == "Sync to Apple Calendar" {
-            // Initialize the store.
-//            let store = EKEventStore()
-//
-//            // Request access to reminders.
-//            store.requestAccess(to: .event) { granted, error in
-//                if granted{
-//                    let calendars = store.calendars(for: EKEntityType.event) as [EKCalendar]
-//                    for calendar in calendars{
-//                        if calendar.title == "Studium"{ // the calendar already exists.
-//                            return
-//                        }
-//                    }
-//
-//                    let studiumCalendar = EKCalendar(for: EKEntityType.event, eventStore: store)
-//                    studiumCalendar.title = "Studium"
-//                    studiumCalendar.source = store.defaultCalendarForNewEvents?.source
-//                    self.defaults.setValue(studiumCalendar.calendarIdentifier, forKey: "appleCalendarID")
-//                    print("Calendar Identifier: \(studiumCalendar.calendarIdentifier)")
-//                    try! store.saveCalendar(studiumCalendar, commit: true)
-//
-////                    do{
-////                    }catch error as NSError{
-////                        print("Error creating Apple calendar: \(error)")
-////                    }
-//                }else{
-//                    print("error syncing to apple calendar: \(String(describing: error))")
-//                }
-//            }
-//        } else if cellData[indexPath.section][indexPath.row] == "Set Default Notifications" {
-//
-//        }
     }
     
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        cell.backgroundColor = UIColor.secondarySystemBackground
-    }
     
     //edit the background color of section headers
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
@@ -218,10 +157,9 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
         headerView.backgroundColor = StudiumColor.background.uiColor
         return headerView
     }
-//    221406332443-he18tqfi4jbg40mbgpgmaaebenekh208.apps.googleusercontent.com
     
     //TODO: Docstrings
-    func deleteAllAssignments(isCompleted: Bool) {
+    private func deleteAllAssignments(isCompleted: Bool) {
         let assignments = self.databaseService.getStudiumObjects(expecting: Assignment.self)
         for assignment in assignments {
             if (isCompleted && assignment.complete) || !isCompleted {
@@ -231,7 +169,7 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
     }
     
     //TODO: Docstrings
-    func deleteAllOtherEvents(isCompleted: Bool) {
+    private func deleteAllOtherEvents(isCompleted: Bool) {
         let otherEvents = self.databaseService.getStudiumObjects(expecting: OtherEvent.self)
         for event in otherEvents {
             if (isCompleted && event.complete) || !isCompleted {
@@ -241,7 +179,7 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
     }
     
     //TODO: Docstrings
-    func createAlertForAssignments(title: String, message: String, isCompleted: Bool){
+    private func createAlertForAssignments(title: String, message: String, isCompleted: Bool){
         let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
 
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
@@ -255,7 +193,7 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
     }
     
     //TODO: Docstrings
-    func createAlertForOtherEvents(title: String, message: String, isCompleted: Bool){
+    private func createAlertForOtherEvents(title: String, message: String, isCompleted: Bool){
         let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
 
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
@@ -263,22 +201,29 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
           }))
 
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-          }))
-
+        }))
+        
         present(refreshAlert, animated: true, completion: nil)
     }
     
     //TODO: Docstrings
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let destinationVC = segue.destination as? AlertTableViewController {
-//            destinationVC.delegate = self
-//            destinationVC.setSelectedAlertOptions(alertOptions: self.databaseService.getDefaultAlertOptions())
-//        }
-//    }
-    
-    private func unwrapCoordinatorOrShowError() {
-        if self.coordinator == nil {
-            self.showError(.nilCoordinator)
-        }
+    private func handleReportProblem() {
+        let alert = UIAlertController(title: "Report a Problem", message: "Let us know how we can help.", preferredStyle: .alert)
+        alert.addTextField()
+        alert.addAction(
+            UIAlertAction(
+                title: "Send",
+                style: .default,
+                handler: { [weak alert] (_) in
+                    if let textfield = alert?.textFields?[0],
+                       let text = textfield.text,
+                       !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        Crashlytics.crashlytics().log("User Reported: \(text)")
+                        PopUpService.shared.presentToast(title: "Message Sent", description: "Thanks for the feedback!", image: .boltLightning, popUpType: .success)
+                    }
+                }
+            )
+        )
+        self.present(alert, animated: true, completion: nil)
     }
 }
