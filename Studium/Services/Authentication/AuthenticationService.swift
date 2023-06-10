@@ -23,7 +23,7 @@ enum AuthenticationError: Error {
 
 
 //TODO: Docstrings
-class AuthenticationService {
+class AuthenticationService: NSObject {
     
     let debug = true
     
@@ -62,8 +62,6 @@ class AuthenticationService {
     var user: User? {
         return self.app.currentUser
     }
-
-    private init() {}
     
     //TODO: Docstrings
     private func handleLogin(credentials: Credentials, completion: @escaping (Result<User, Error>) -> Void) {
@@ -242,7 +240,7 @@ extension AuthenticationService {
         let password = "password"
         client.registerUser(email: email, password: password) { [weak self] (error) in
             if let error = error {
-                print("$ERR (AuthViewController): \(error.localizedDescription)")
+                self?.printError(error.localizedDescription)
             }
             
             self?.printDebug("successfully registered guest.")

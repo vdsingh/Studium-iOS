@@ -91,8 +91,9 @@ class DayScheduleViewController: DayViewController, Storyboarded {
             printDebug("Creating StudiumEvent: \(studiumEvent.name) for Date: \(date)")
             
             let newEvent = Event()
-            newEvent.startDate = studiumEvent.startDate
-            newEvent.endDate = studiumEvent.endDate
+            newEvent.dateInterval = DateInterval(start: studiumEvent.startDate, end: studiumEvent.endDate)
+//            newEvent.startDate = studiumEvent.startDate
+//            newEvent.endDate = studiumEvent.endDate
             newEvent.color = studiumEvent.scheduleDisplayColor
             let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
             let attributedString = NSMutableAttributedString(string: studiumEvent.scheduleDisplayString, attributes: attributes)
@@ -108,8 +109,13 @@ class DayScheduleViewController: DayViewController, Storyboarded {
                     
                     // Does the event occur on the requested date?
                     if let timechunk = recurringEvent.timeChunkForDate(date: date) {
-                        newEvent.startDate = Calendar.current.date(bySettingHour: studiumEvent.startDate.hour, minute: studiumEvent.startDate.minute, second: 0, of: date)!
-                        newEvent.endDate = Calendar.current.date(bySettingHour: studiumEvent.endDate.hour, minute: studiumEvent.endDate.minute, second: 0, of: date)!
+                        newEvent.dateInterval = DateInterval(
+                            start: Calendar.current.date(bySettingHour: studiumEvent.startDate.hour, minute: studiumEvent.startDate.minute, second: 0, of: date)!,
+                            end: Calendar.current.date(bySettingHour: studiumEvent.endDate.hour, minute: studiumEvent.endDate.minute, second: 0, of: date)!
+                        )
+
+//                        newEvent.dateInterval.start = Calendar.current.date(bySettingHour: studiumEvent.startDate.hour, minute: studiumEvent.startDate.minute, second: 0, of: date)!
+//                        newEvent.endDate = Calendar.current.date(bySettingHour: studiumEvent.endDate.hour, minute: studiumEvent.endDate.minute, second: 0, of: date)!
                     }
                 }
             } else {
@@ -125,9 +131,9 @@ class DayScheduleViewController: DayViewController, Storyboarded {
                 }
             }
 
-            printDebug("Appending event with text \(newEvent.attributedText?.string) and dates \(newEvent.startDate) - \(newEvent.endDate)")
+            printDebug("Appending event with text \(newEvent.attributedText?.string) and dates \(newEvent.dateInterval.start) - \(newEvent.dateInterval.end)")
             
-            if newEvent.startDate <= newEvent.endDate {
+            if newEvent.dateInterval.start <= newEvent.dateInterval.end {
                 events.append(newEvent)
             } else {
                 print("$ERR (DayScheduleViewController): Couldn't add event with text \(newEvent.attributedText?.string) because startDate occurs after endDate")
@@ -150,8 +156,8 @@ class DayScheduleViewController: DayViewController, Storyboarded {
 
         let anHourAgo = wakeUpTime - (60 * 60)
         let newEvent = Event()
-        newEvent.startDate = anHourAgo
-        newEvent.endDate = wakeUpTime
+        newEvent.dateInterval.start = anHourAgo
+        newEvent.dateInterval.end = wakeUpTime
         newEvent.color = UIColor.yellow
         
         
@@ -253,7 +259,7 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     }
     override func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
         print("did finish editing lol \(event)")
-        print("new startDate: \(event.startDate) new endDate: \(event.endDate)")
+        print("new startDate: \(event.dateInterval.start) new endDate: \(event.dateInterval.end)")
         
         if let _ = event.editedEvent {
             event.commitEditing()

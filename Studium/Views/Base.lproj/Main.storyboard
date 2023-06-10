@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cyD-fh-4az">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wRo-6O-4yM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -1165,7 +1165,7 @@
             </objects>
             <point key="canvasLocation" x="5354" y="858"/>
         </scene>
-        <!--Select a Logo-->
+        <!--Select an Icon-->
         <scene sceneID="Qvg-Xe-b3u">
             <objects>
                 <viewController storyboardIdentifier="LogoSelectorViewController" id="wNK-sA-8dN" customClass="LogoSelectorViewController" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
@@ -1194,7 +1194,7 @@
                             <constraint firstAttribute="trailing" secondItem="nSd-gX-n00" secondAttribute="trailing" constant="20" id="ojb-Jf-iJg"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Select a Logo" id="KDI-Tc-tQC"/>
+                    <navigationItem key="navigationItem" title="Select an Icon" id="KDI-Tc-tQC"/>
                     <connections>
                         <outlet property="collectionView" destination="nSd-gX-n00" id="G0w-YP-qwh"/>
                     </connections>
@@ -1242,31 +1242,40 @@
             <point key="canvasLocation" x="4229" y="885"/>
         </scene>
         <!--View Controller-->
-        <scene sceneID="BqW-A8-N9p">
+        <scene sceneID="cDQ-HJ-H4x">
             <objects>
-                <viewController id="cyD-fh-4az" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="IiX-qc-Hc5">
+                <viewController id="wRo-6O-4yM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C78-oy-ah1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVa-VH-Xhr">
-                                <rect key="frame" x="186" y="437.5" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" systemColor="systemGreenColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="mXL-Fb-Ren">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="L85-4P-fkE">
+                                <rect key="frame" x="157" y="398" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="v9Q-3Y-ufq"/>
+                                    <constraint firstAttribute="height" constant="100" id="z96-qg-FXh"/>
+                                </constraints>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="5gJ-fx-LSf"/>
+                        <viewLayoutGuide key="safeArea" id="Wdn-yd-eut"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="JVa-VH-Xhr" firstAttribute="centerY" secondItem="IiX-qc-Hc5" secondAttribute="centerY" id="9dZ-Be-K2f"/>
-                            <constraint firstItem="JVa-VH-Xhr" firstAttribute="centerX" secondItem="IiX-qc-Hc5" secondAttribute="centerX" id="R4X-hi-Xbd"/>
+                            <constraint firstItem="L85-4P-fkE" firstAttribute="centerX" secondItem="C78-oy-ah1" secondAttribute="centerX" id="198-bJ-V1O"/>
+                            <constraint firstItem="L85-4P-fkE" firstAttribute="centerY" secondItem="C78-oy-ah1" secondAttribute="centerY" id="5bL-RX-ggN"/>
+                            <constraint firstAttribute="trailing" secondItem="mXL-Fb-Ren" secondAttribute="trailing" id="jk1-8H-aV2"/>
+                            <constraint firstItem="mXL-Fb-Ren" firstAttribute="top" secondItem="C78-oy-ah1" secondAttribute="top" id="nYP-lG-on3"/>
+                            <constraint firstItem="mXL-Fb-Ren" firstAttribute="leading" secondItem="C78-oy-ah1" secondAttribute="leading" id="nvc-5u-FOd"/>
+                            <constraint firstAttribute="bottom" secondItem="mXL-Fb-Ren" secondAttribute="bottom" id="q4c-JS-xmk"/>
                         </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6dd-Y7-Cav" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LsU-Pg-Lw0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2505.7971014492755" y="2653.7946428571427"/>
+            <point key="canvasLocation" x="-2563" y="2784"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6Ia-Ig-iZ9">

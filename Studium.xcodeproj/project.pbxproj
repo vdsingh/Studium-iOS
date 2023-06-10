@@ -76,6 +76,7 @@
 		B94CA0D72A31432400047865 /* AssignmentEditingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */; };
 		B94CA0D92A32C0F000047865 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D82A32C0F000047865 /* NavigationCoordinator.swift */; };
 		B94CA0E12A32C50F00047865 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B94CA0E02A32C50F00047865 /* GoogleService-Info.plist */; };
+		B94CA0E42A344B7500047865 /* PopUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0E32A344B7500047865 /* PopUpService.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
@@ -200,6 +201,7 @@
 		B94CA0D82A32C0F000047865 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
 		B94CA0DB2A32C0FF00047865 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B94CA0E02A32C50F00047865 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B94CA0E32A344B7500047865 /* PopUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpService.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		B9707E372A11C7EF004B63F0 /* TableViewFormKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TableViewFormKit; path = ../../Packages/TableViewFormKit; sourceTree = "<group>"; };
@@ -460,6 +462,7 @@
 				B97BB09E2A00D19D008F1A5B /* MockAutoscheduleService.swift */,
 				B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */,
 				B97BB0A62A00EA0D008F1A5B /* AppleCalendarService.swift */,
+				B94CA0E32A344B7500047865 /* PopUpService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -953,6 +956,7 @@
 				B9AFCF8D2A19F1D40087A0FF /* HabitsCoordinator.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
 				B9B41CFF2A26EE6900239DD4 /* ErrorShowing.swift in Sources */,
+				B94CA0E42A344B7500047865 /* PopUpService.swift in Sources */,
 				B94CA0CF2A2F101E00047865 /* AlertOption.swift in Sources */,
 				1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,

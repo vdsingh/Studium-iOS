@@ -39,20 +39,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func changeRootViewController(_ viewController: UIViewController, animated: Bool = true) {
-        guard let window = self.window else {
-            printError("Tried to change root viewController, but window was nil.")
-            return
-        }
-
-        window.rootViewController = viewController
-
-        if animated {
-            // add animation
-            UIView.transition(with: window,
-                              duration: 0.5,
-                              options: [.transitionFlipFromLeft],
-                              animations: nil,
-                              completion: nil)
+        DispatchQueue.main.async {
+            guard let window = self.window else {
+                self.printError("Tried to change root viewController, but window was nil.")
+                return
+            }
+            
+            window.rootViewController = viewController
+            
+            if animated {
+                // add animation
+                UIView.transition(with: window,
+                                  duration: 0.5,
+                                  options: [.transitionFlipFromLeft],
+                                  animations: nil,
+                                  completion: nil)
+            }
         }
 
     }

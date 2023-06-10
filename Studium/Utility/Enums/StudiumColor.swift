@@ -21,6 +21,7 @@ public enum StudiumColor: String {
     case primaryLabel = "#FFFFFF"
     case secondaryLabel = "#79787f"
     
+    case success = "#09b000"
     case failure = "#fc0303"
     
     //TODO: Docstrings

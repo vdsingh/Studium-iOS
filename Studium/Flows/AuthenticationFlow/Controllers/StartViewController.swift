@@ -50,9 +50,8 @@ class StartViewController: AuthenticationViewController {
         self.setSelectors()
     }
     
-    // TODO: Docstrings
+    /// Sets the selectors for the buttons
     private func setSelectors() {
-        print("SETTING SELECTORS. COORDINATOR: \(self.coordinator)")
         self.loginButton.addTarget(self, action: #selector(self.loginButtonClicked), for: .touchUpInside)
         self.signUpButton.addTarget(self, action: #selector(self.signUpButtonClicked), for: .touchUpInside)
         self.googleSignInButton.addTarget(self, action: #selector(googleLoginClicked), for: .touchUpInside)
