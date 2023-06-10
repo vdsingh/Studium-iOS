@@ -11,7 +11,7 @@ import UIKit
 import VikUtilityKit
 
 //TODO: Docstrings
-class ToDoCoordinator: TabItemCoordinator, StudiumEventFormCoordinator {
+class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator {
     
     //TODO: Docstrings
     var debug = false
@@ -34,6 +34,13 @@ class ToDoCoordinator: TabItemCoordinator, StudiumEventFormCoordinator {
     //TODO: Docstrings
     required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
+    }
+    
+    // TODO: Docstrings
+    required override init() {
+        self.navigationController = UINavigationController()
+        super.init()
+        self.setRootViewController(self.navigationController)
     }
     
     //TODO: Docstrings

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // TODO: Docstrings
-class UserSetupCoordinator: NavigationCoordinator {
+class UserSetupCoordinator: NSObject, NavigationCoordinator {
     
     var debug = false
     
@@ -34,6 +34,13 @@ class UserSetupCoordinator: NavigationCoordinator {
     init (_ presentingViewController: UIViewController) {
         self.navigationController = UINavigationController()
         self.presentingViewController = presentingViewController
+    }
+    
+    // TODO: Docstrings
+    required override init() {
+        self.navigationController = UINavigationController()
+        super.init()
+        self.setRootViewController(self.navigationController)
     }
     
     // TODO: Docstrings

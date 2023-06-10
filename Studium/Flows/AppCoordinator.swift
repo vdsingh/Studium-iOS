@@ -40,7 +40,7 @@ class AppCoordinator: Coordinator, Debuggable {
     //TODO: Docstrings
     func showAuthenticationFlow() {
         self.printDebug("showAuthenticationFlow called")
-        let child = AuthenticationCoordinator(self.setNewRootNavigationController())
+        let child = AuthenticationCoordinator()
         child.parentCoordinator = self
         self.childCoordinators.append(child)
         child.start()
@@ -59,7 +59,7 @@ class AppCoordinator: Coordinator, Debuggable {
     //TODO: Docstrings
     func showUserSetupFlow() {
         self.printDebug("showUserSetupFlow called")
-        let child = UserSetupCoordinator(self.setNewRootNavigationController())
+        let child = UserSetupCoordinator()
         child.parentCoordinator = self
         self.childCoordinators.append(child)
         child.start()

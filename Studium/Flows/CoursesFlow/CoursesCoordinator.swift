@@ -35,6 +35,13 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
         self.navigationController = navigationController
     }
     
+    // TODO: Docstrings
+    required override init() {
+        self.navigationController = UINavigationController()
+        super.init()
+        self.setRootViewController(self.navigationController)
+    }
+    
     //TODO: Docstrings
     func start(replaceRoot: Bool) {
         self.showCoursesListViewController()

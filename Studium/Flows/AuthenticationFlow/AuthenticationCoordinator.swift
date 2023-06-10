@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 //TODO: Docstrings
-class AuthenticationCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
+class AuthenticationCoordinator: NSObject, NavigationCoordinator, UINavigationControllerDelegate {
     
     var debug = false
     
@@ -23,15 +23,24 @@ class AuthenticationCoordinator: NSObject, Coordinator, UINavigationControllerDe
     //TODO: Docstrings
     var navigationController: UINavigationController
     
-    //TODO: Docstrings
+//    //TODO: Docstrings
     required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
+    // TODO: Docstrings
+    required override init() {
+        self.navigationController = UINavigationController()
+        super.init()
+        self.setRootViewController(self.navigationController)
+    }
+    
     //TODO: Docstrings
     func start(replaceRoot: Bool = false) {
-        self.navigationController.delegate = self
-        self.showStartViewController()
+        DispatchQueue.main.async {
+            self.navigationController.delegate = self
+            self.showStartViewController()
+        }
     }
 
     //TODO: Docstrings

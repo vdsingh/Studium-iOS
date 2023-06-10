@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 //TODO: Docstrings
-class SettingsCoordinator: NavigationCoordinator {
+class SettingsCoordinator: NSObject, NavigationCoordinator {
     
     //TODO: Docstrings
     var debug: Bool = false
@@ -32,6 +32,13 @@ class SettingsCoordinator: NavigationCoordinator {
         self.navigationController = navigationController
     }
     
+    // TODO: Docstrings
+    required override init() {
+        self.navigationController = UINavigationController()
+        super.init()
+        self.setRootViewController(self.navigationController)
+    }
+    
     //TODO: Docstrings
     func start(replaceRoot: Bool = false) {
         let startViewController = self.showSettingsListViewController()
@@ -48,7 +55,7 @@ class SettingsCoordinator: NavigationCoordinator {
     
     // TODO: Docstrings
     func showAuthenticationFlow() {
-        let authenticationCoordinator = AuthenticationCoordinator(self.setNewRootNavigationController())
+        let authenticationCoordinator = AuthenticationCoordinator()
         authenticationCoordinator.parentCoordinator = self.parentCoordinator
         self.parentCoordinator?.childCoordinators.append(authenticationCoordinator)
         authenticationCoordinator.start()
