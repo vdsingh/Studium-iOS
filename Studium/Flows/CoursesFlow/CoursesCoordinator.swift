@@ -43,7 +43,7 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
     }
     
     //TODO: Docstrings
-    func start(replaceRoot: Bool) {
+    func start() {
         self.showCoursesListViewController()
     }
     
@@ -63,7 +63,6 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
         addCourseVC.delegate = refreshDelegate
         addCourseVC.coordinator = self
         self.navigationController.topViewController?.present(navController, animated: true)
-        
         self.formNavigationController = navController
     }
     
@@ -76,7 +75,16 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
         addCourseVC.title = "View/Edit Course"
         addCourseVC.coordinator = self
         self.navigationController.topViewController?.present(navController, animated: true)
-        
+        self.formNavigationController = navController
+    }
+    
+    func showAddAssignmentViewController(refreshDelegate: AssignmentRefreshProtocol, selectedCourse: Course) {
+        let addAssignmentVC = AddAssignmentViewController.instantiate()
+        let navController = UINavigationController(rootViewController: addAssignmentVC)
+        addAssignmentVC.delegate = refreshDelegate
+        addAssignmentVC.coordinator = self
+        addAssignmentVC.selectedCourse = selectedCourse
+        self.navigationController.topViewController?.present(navController, animated: true)
         self.formNavigationController = navController
     }
     

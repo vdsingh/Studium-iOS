@@ -29,7 +29,12 @@ extension LogoSelectingForm {
             coordinator.showLogoSelectionViewController(updateDelegate: self)
         } else {
             self.showError(.nonConformingCoordinator)
-            printError("Tried to show LogoSelection Flow but the coordinator is not LogoSelectionShowingCoordinator. Coordinator: \(String(describing: self.coordinator))")
+            Log.s(LogoSelectingFormError.failedToUnwrapAsLogoSelectionShowingCoordinator, additionalDetails: "Tried to show LogoSelection Flow but the coordinator is not LogoSelectionShowingCoordinator. Coordinator: \(String(describing: self.coordinator))")
         }
     }
 }
+
+enum LogoSelectingFormError: Error {
+    case failedToUnwrapAsLogoSelectionShowingCoordinator
+}
+

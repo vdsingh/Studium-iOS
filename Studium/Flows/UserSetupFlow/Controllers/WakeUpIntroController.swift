@@ -11,7 +11,7 @@ import UIKit
 
 // TODO: Docstrings
 //this controls the page that the user sees in the beginning, when they must enter what times they wake up at.
-class WakeUpIntroController: UIViewController, ErrorShowing, Storyboarded {
+class WakeUpIntroController: UIViewController, ErrorShowing, Storyboarded, Coordinated {
     
     weak var coordinator: UserSetupCoordinator?
     
@@ -221,11 +221,8 @@ class WakeUpIntroController: UIViewController, ErrorShowing, Storyboarded {
     @IBAction func nextPressed(_ sender: UIButton) {
         storeData()
         defaults.set(true, forKey: "didFinishIntro")
-        if let coordinator = self.coordinator {
-            coordinator.finish()
-        } else {
-            self.showError(.nilCoordinator)
-        }
+        self.unwrapCoordinatorOrShowError()
+        self.coordinator?.showTabBarFlow()
     }
     
     // TODO: Docstrings

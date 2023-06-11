@@ -14,7 +14,8 @@ protocol AssignmentRefreshProtocol {
 }
 
 // TODO: Docstrings
-class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Coordinated, Storyboarded {
+class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboarded {
+    
     
     // TODO: Docstrings
     override var debug: Bool {
@@ -22,7 +23,21 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Coordinat
     }
     
     // TODO: Docstrings
-    weak var coordinator: CoursesCoordinator?
+    func showAlertTimesSelectionViewController() {
+        self.printDebug("showAlertTimesSelectionViewController called")
+//        self.unwrapCoordinatorOrShowError()
+        
+        if let coordinator = coordinator as? AlertTimesSelectionShowingCoordinator {
+            coordinator.showAlertTimesSelectionViewController(updateDelegate: self, selectedAlertOptions: self.alertTimes)
+        } else {
+            self.showError(.nonConformingCoordinator)
+            Log.s(AlertTimeSelectingFormError.failedToUnwrapCoordinatorAsAlertTimesSelectionShowingCoordinator, additionalDetails: "Tried to show AlertTimesSelection Flow but the coordinator is not AlertTimesSelectionShowingCoordinator. Coordinator: \(String(describing: self.coordinator))")
+        }
+    }
+    
+    // TODO: Docstrings
+//    weak var coordinator: CoursesCoordinator?
+    weak var coordinator: AssignmentEditingCoordinator?
     
     /// Holds the assignment being edited (if an assignment is being edited)
     var assignmentEditing: Assignment?

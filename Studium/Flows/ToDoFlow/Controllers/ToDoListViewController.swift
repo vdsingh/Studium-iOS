@@ -11,7 +11,7 @@ import RealmSwift
 import ChameleonFramework
 
 //TODO: Docstrings
-class ToDoListViewController: AssignmentsViewController, ToDoListRefreshProtocol, AssignmentRefreshProtocol {
+class ToDoListViewController: AssignmentsViewController, ToDoListRefreshProtocol, AssignmentRefreshProtocol, Coordinated {
     
     // TODO: Docstrings
     override var debug: Bool {
@@ -78,29 +78,36 @@ class ToDoListViewController: AssignmentsViewController, ToDoListRefreshProtocol
     //TODO: Docstrings
     override func edit(at indexPath: IndexPath) {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        if let assignment = deletableEventCell.event! as? Assignment,
-           let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as? AddAssignmentViewController {
-            addAssignmentViewController.delegate = self
-            addAssignmentViewController.assignmentEditing = assignment
-            addAssignmentViewController.title = "View/Edit Assignment"
-            let navController = UINavigationController(rootViewController: addAssignmentViewController)
-            self.present(navController, animated:true, completion: nil)
-        } else if let otherEvent = deletableEventCell.event! as? OtherEvent,
-                  let addToDoListEventViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddToDoListEventViewController") as? AddToDoListEventViewController {
-            addToDoListEventViewController.delegate = self
-            addToDoListEventViewController.otherEvent = otherEvent
-            addToDoListEventViewController.title = "View/Edit To-Do Event"
-            let navController = UINavigationController(rootViewController: addToDoListEventViewController)
-            self.present(navController, animated:true, completion: nil)
+        if let assignment = deletableEventCell.event! as? Assignment {
+//           let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as? AddAssignmentViewController {
+//            addAssignmentViewController.delegate = self
+//            addAssignmentViewController.assignmentEditing = assignment
+//            addAssignmentViewController.title = "View/Edit Assignment"
+//            let navController = UINavigationController(rootViewController: addAssignmentViewController)
+//            self.present(navController, animated:true, completion: nil)
+            self.unwrapCoordinatorOrShowError()
+            if let coordinator = self.coordinator {
+                self.coordinator?.showEditAssignmentViewController(refreshDelegate: self, assignmentToEdit: assignment)
+            }
+        } else if let otherEvent = deletableEventCell.event! as? OtherEvent {
+//                  let addToDoListEventViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddToDoListEventViewController") as? AddToDoListEventViewController {
+//            addToDoListEventViewController.delegate = self
+//            addToDoListEventViewController.otherEvent = otherEvent
+//            addToDoListEventViewController.title = "View/Edit To-Do Event"
+//            let navController = UINavigationController(rootViewController: addToDoListEventViewController)
+//            self.present(navController, animated:true, completion: nil)
+            self.coordinator?.showEditToDoListEventViewController(refreshDelegate: self, toDoEventToEdit: otherEvent)
         }
     }
     
     //TODO: Docstrings
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        let addToDoListEventViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddToDoListEventViewController") as! AddToDoListEventViewController
-        addToDoListEventViewController.delegate = self
-        let navController = UINavigationController(rootViewController: addToDoListEventViewController)
-        self.present(navController, animated:true, completion: nil)
+//        let addToDoListEventViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddToDoListEventViewController") as! AddToDoListEventViewController
+//        addToDoListEventViewController.delegate = self
+//        let navController = UINavigationController(rootViewController: addToDoListEventViewController)
+//        self.present(navController, animated:true, completion: nil)
+        self.unwrapCoordinatorOrShowError()
+        self.coordinator?.showAddToDoListEventViewController(refreshDelegate: self)
     }
  
     //TODO: Docstrings

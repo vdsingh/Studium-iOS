@@ -98,15 +98,17 @@ class LoginViewController: AuthenticationViewController, UIGestureRecognizerDele
     
     //TODO: Docstrings
     @objc func textFieldWasEdited() {
-        self.signInButton.isEnabled = !self.email.isEmpty && !self.password.isEmpty && self.email.contains("@")
+        self.signInButton.isEnabled = !self.email.isEmpty && !self.password.isEmpty
         self.signInButton.backgroundColor = self.signInButton.isEnabled ? StudiumColor.secondaryAccent.uiColor : .gray
     }
     
     //TODO: Docstrings
     @IBAction func signInButtonPressed(_ sender: UIButton) {
-        let email = emailTextField.text!
-        let password = passwordTextField.text!
-        self.emailPasswordLoginClicked(email: email, password: password)
+        
+        if let email = emailTextField.text,
+           let password = passwordTextField.text {
+            self.emailPasswordLoginClicked(email: email, password: password)
+        }
     }
     
     //TODO: Docstrings
@@ -175,10 +177,11 @@ class LoginViewController: AuthenticationViewController, UIGestureRecognizerDele
     
     //TODO: Docstrings
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        print("$LOG (LoginViewController): Back Button Pressed")
-        self.navigationController?.popViewController(animated: true)
-        if(navigationController == nil){
-            print("$ERR (LoginViewController): NAVIGATION CONTROLLER IS NIL")
+        printDebug("Back Button Pressed")
+        if let navigationController = self.navigationController {
+            navigationController.popViewController(animated: true)
+        } else {
+            Log.s(LoginViewControllerError.nilNavigationController, additionalDetails: "Back button was pressed in LoginViewController, but navigationController was nil.")
         }
     }
     
@@ -187,4 +190,8 @@ class LoginViewController: AuthenticationViewController, UIGestureRecognizerDele
     {
         return true;
     }
+}
+
+enum LoginViewControllerError: Error {
+    case nilNavigationController
 }

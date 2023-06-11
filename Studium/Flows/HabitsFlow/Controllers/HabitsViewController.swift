@@ -89,13 +89,7 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
     override func edit(at indexPath: IndexPath) {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let eventForEdit = deletableEventCell.event! as! Habit
-        let addHabitViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddHabitViewController") as! AddHabitViewController
-        addHabitViewController.delegate = self
-        addHabitViewController.habit = eventForEdit
-//        ColorPickerCell.color = eventForEdit.color
-        addHabitViewController.title = "View/Edit Habit"
-        let navController = UINavigationController(rootViewController: addHabitViewController)
-        self.present(navController, animated:true, completion: nil)
+        self.coordinator?.showEditHabitViewController(refreshDelegate: self, habitToEdit: eventForEdit )
     }
     
     //TODO: Docstrings
@@ -104,7 +98,6 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         let habit: Habit = cell.event as! Habit
         print("LOG: attempting to delete Habit \(habit.name) at section \(indexPath.section) and row \(indexPath.row)")
         
-//        RealmCRUD.deleteHabit(habit: habit)
         self.databaseService.deleteStudiumObject(habit)
         eventsArray[indexPath.section].remove(at: indexPath.row)
         super.updateHeader(section: indexPath.section)

@@ -11,7 +11,8 @@ import SwipeCellKit
 import RealmSwift
 
 //TODO: Docstrings
-class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
+class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate, Debuggable {
+    
     var debug: Bool { false }
     
     //TODO: Docstrings
@@ -27,7 +28,7 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     
     //TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        printDebug("will try to dequeue a SwipeTableViewCell with id: \(self.swipeCellId)")
+        self.printDebug("will try to dequeue a SwipeTableViewCell with id: \(self.swipeCellId)")
         if let cell = tableView.dequeueReusableCell(withIdentifier:  self.swipeCellId, for: indexPath) as? SwipeTableViewCell {
             cell.delegate = self
             return cell
@@ -63,13 +64,5 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         options.transitionStyle = .border
         
         return options
-    }
-}
-
-extension SwipeTableViewController: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG (\(String(describing: self)): \(message)")
-        }
     }
 }

@@ -16,22 +16,14 @@ let kLargeCellHeight: CGFloat = 150
 let kMediumCellHeight: CGFloat = 60
 let kNormalCellHeight: CGFloat = 50
 
-class MasterForm: TableViewForm {
-//    typealias StudiumEventType = StudiumEvent
+class MasterForm: TableViewForm, Debuggable {
     
-    
-//    enum OutgoingSegues: String {
-//        case logoSelection = "toLogoSelection"
-//        case alertTimesSelection = "toAlertSelection"
-//    }
-    
-    let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
-    let autoscheduleService: AutoscheduleServiceProtocol = AutoscheduleService.shared
-    
-    // TODO: Docstrings
     var debug: Bool {
         true
     }
+    
+    let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
+    let autoscheduleService: AutoscheduleServiceProtocol = AutoscheduleService.shared
     
     // TODO: Docstrings
     lazy var alertTimes: [AlertOption] = {
@@ -181,48 +173,14 @@ extension MasterForm {
     }
 }
 
-// MARK: - FormCell Mutations
-
-// TODO: Docstrings
-extension MasterForm {
-    
-    // TODO: Docstrings
-//    func replaceLabelText(text: String, section: Int, row: Int) {
-//        let oldCell = cells[section][row]
-//        switch oldCell {
-//        case .labelCell(_, let textColor, let backgroundColor, let cellAccessoryType, let onClick):
-//            cells[section][row] = .labelCell(cellText: text,
-//                                             textColor: textColor,
-//                                             backgroundColor: backgroundColor,
-//                                             cellAccessoryType: cellAccessoryType,
-//                                             onClick: onClick)
-//            tableView.reloadData()
-//        default:
-//            return
-//        }
-//    }
-    
-    // TODO: Docstrings
-//    func navigateTo(_ segue: OutgoingSegues) {
-//        self.performSegue(withIdentifier: segue.rawValue, sender: self)
-//    }
-    
-//    func showLogoSelectionForm() {
-//        fatalError("Subclass should override showLogoSelectionForm.")
-//    }
-//    
-//    func showAlertTimeSelectionForm() {
-//        fatalError("Subclass should override showAlertTimeSelectionForm.")
-//    }
-}
-
 // MARK: - TimeCell Setup
 
 extension MasterForm {
+    
     // TODO: Docstrings
     func timeCellClicked(indexPath: IndexPath) {
         guard let timeCell = tableView.cellForRow(at: indexPath) as? TimeCell else {
-            print("$ERR: Time Cell Mismatch.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            Log.s(MasterForm.StudiumError.cellTypeMismatch, additionalDetails: "timeCellClicked was called in \(String(describing: self)) at indexPath \(indexPath) however the cell at this indexPath could not be optionally unwrapped as a TimeCell. The cell: \(String(describing: tableView.cellForRow(at: indexPath)))")
             return
         }
         
@@ -498,19 +456,15 @@ extension MasterForm {
     }
 }
 
+extension MasterForm {
+    private enum StudiumError: Error {
+        case cellTypeMismatch
+    }
+}
+
 // MARK: - TableViewForm Conformance
 extension MasterForm {
     func fillForm(event: StudiumEvent) {
         fatalError("$ERR (MasterForm): fillForm method should be overriden by subclass.")
     }
 }
-
-// MARK: - Debuggable Conformance
-extension MasterForm: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG (\(String(describing: self)): \(message)")
-        }
-    }
-}
-

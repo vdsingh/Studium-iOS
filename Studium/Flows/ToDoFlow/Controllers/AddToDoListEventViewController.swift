@@ -19,7 +19,7 @@ protocol ToDoListRefreshProtocol {
 }
 
 /// Form to add a To-Do List Event
-class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Coordinated {
+class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyboarded, Coordinated {
     
     // TODO: Docstrings
     weak var coordinator: ToDoCoordinator?
@@ -38,7 +38,7 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Coordi
         super.viewDidLoad()
         
         // makes it so that the form doesn't have a bunch of empty cells at the bottom
-        tableView.tableFooterView = UIView()
+        self.tableView.tableFooterView = UIView()
         
         if let otherEvent = otherEvent {
             fillForm(with: otherEvent)
@@ -118,16 +118,6 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Coordi
     /// - Parameter sender: The UIBarButtonItem used to cancel the form
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
-    }
-    
-    /// Prepare to segue
-    /// - Parameters:
-    ///   - segue: The segue
-    ///   - sender: The sender
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? AlertTimeSelectionTableViewForm {
-            destinationVC.delegate = self
-        }
     }
 }
 

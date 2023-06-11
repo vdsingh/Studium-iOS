@@ -39,7 +39,7 @@ class CalendarCoordinator: NSObject, TabItemCoordinator {
     }
     
     //TODO: Docstrings
-    func start(replaceRoot: Bool = false) {
+    func start() {
         self.showDayScheduleViewController()
     }
     

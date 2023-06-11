@@ -50,11 +50,13 @@ class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDeleg
     /// The user pressed the '+' button to add a new assignment
     /// - Parameter sender: The button that the user pressed
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
-        addAssignmentViewController.selectedCourse = selectedCourse
-        addAssignmentViewController.delegate = self
-        let navController = UINavigationController(rootViewController: addAssignmentViewController)
-        self.present(navController, animated:true, completion: nil)
+//        let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
+//        addAssignmentViewController.selectedCourse = selectedCourse
+//        addAssignmentViewController.delegate = self
+//        let navController = UINavigationController(rootViewController: addAssignmentViewController)
+//        self.present(navController, animated:true, completion: nil)
+        self.unwrapCoordinatorOrShowError()
+        self.coordinator?.showAddAssignmentViewController(refreshDelegate: self, selectedCourse: self.selectedCourse)
     }
     
     //MARK: - Data Source Methods
