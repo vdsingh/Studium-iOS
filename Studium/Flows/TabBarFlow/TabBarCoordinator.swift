@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 //TODO: Docstrings
-class TabBarCoordinator: Coordinator, Debuggable {
+class TabBarCoordinator: NSObject, Coordinator, Debuggable {
     
     var debug: Bool = false
     
@@ -27,7 +27,7 @@ class TabBarCoordinator: Coordinator, Debuggable {
     var tabBarController: TabBarController
     
     //TODO: Docstrings
-    init() {
+    override init() {
 //        self.navigationController = navigationController
         self.childCoordinators = [
             CalendarCoordinator(UINavigationController()),
@@ -39,8 +39,8 @@ class TabBarCoordinator: Coordinator, Debuggable {
         self.tabBarController = TabBarController(tabItemCoordinators: self.childCoordinators as! [TabItemCoordinator])
     }
     
-    func start(replaceRoot: Bool = false) {
-        self.showTabBarController(replaceRoot: (replaceRoot, animated: false))
+    func start() {
+        self.showTabBarController(replaceRoot: (true, animated: false))
     }
     
     //TODO: Docstrings

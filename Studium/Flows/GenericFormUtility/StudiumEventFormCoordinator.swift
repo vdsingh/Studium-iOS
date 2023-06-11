@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // TODO: Docstrings
-protocol StudiumEventFormCoordinator: NavigationCoordinator {
+protocol StudiumEventFormCoordinator: NSObject, NavigationCoordinator {
     
     // TODO: Docstrings
     var formNavigationController: UINavigationController? { get set }

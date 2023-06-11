@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // TODO: Docstrings
-protocol AssignmentEditingCoordinator: CoursesCoordinator {
+protocol AssignmentEditingCoordinator: AlertTimesSelectionShowingCoordinator {
     
     // TODO: Docstrings
     func showEditAssignmentViewController(refreshDelegate: AssignmentRefreshProtocol, assignmentToEdit: Assignment)
@@ -19,7 +19,10 @@ protocol AssignmentEditingCoordinator: CoursesCoordinator {
 extension AssignmentEditingCoordinator {
     
     //TODO: Docstrings
-    func showEditAssignmentViewController(refreshDelegate: AssignmentRefreshProtocol, assignmentToEdit: Assignment) {
+    func showEditAssignmentViewController(
+        refreshDelegate: AssignmentRefreshProtocol,
+        assignmentToEdit: Assignment
+    ) {
         let addAssignmentVC = AddAssignmentViewController.instantiate()
         let navController = UINavigationController(rootViewController: addAssignmentVC)
         addAssignmentVC.delegate = refreshDelegate

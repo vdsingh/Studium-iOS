@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 //TODO: Docstrings
-class SettingsCoordinator: NSObject, NavigationCoordinator {
+class SettingsCoordinator: NSObject, NavigationCoordinator, AlertTimesSelectionShowingCoordinator {
     
     //TODO: Docstrings
     var debug: Bool = false
@@ -24,12 +24,19 @@ class SettingsCoordinator: NSObject, NavigationCoordinator {
     //TODO: Docstrings
     var navigationController: UINavigationController
     
+    var formNavigationController: UINavigationController?
+    
+//    var formNavigationController: UINavigationController? {
+//        return self.navigationController
+//    }
+    
     // TODO: Docstrings
     var rootViewController: UIViewController?
     
     //TODO: Docstrings
     required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.formNavigationController = navigationController
     }
     
     // TODO: Docstrings
@@ -40,7 +47,7 @@ class SettingsCoordinator: NSObject, NavigationCoordinator {
     }
     
     //TODO: Docstrings
-    func start(replaceRoot: Bool = false) {
+    func start() {
         let startViewController = self.showSettingsListViewController()
         self.rootViewController = startViewController
     }
@@ -55,10 +62,12 @@ class SettingsCoordinator: NSObject, NavigationCoordinator {
     
     // TODO: Docstrings
     func showAuthenticationFlow() {
-        let authenticationCoordinator = AuthenticationCoordinator()
-        authenticationCoordinator.parentCoordinator = self.parentCoordinator
-        self.parentCoordinator?.childCoordinators.append(authenticationCoordinator)
-        authenticationCoordinator.start()
+        DispatchQueue.main.async {
+            let authenticationCoordinator = AuthenticationCoordinator()
+            authenticationCoordinator.parentCoordinator = self.parentCoordinator
+            self.parentCoordinator?.childCoordinators.append(authenticationCoordinator)
+            authenticationCoordinator.start()
+        }
     }
     
     // TODO: Docstrings

@@ -43,7 +43,7 @@ class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinat
     }
     
     //TODO: Docstrings
-    func start(replaceRoot: Bool = false) {
+    func start() {
         self.showHabitsListFlow()
     }
     
@@ -57,13 +57,24 @@ class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinat
     }
     
     //TODO: Docstrings
+    func showEditHabitViewController(refreshDelegate: HabitRefreshProtocol, habitToEdit: Habit) {
+        let editHabitVC = AddHabitViewController.instantiate()
+        let navController = UINavigationController(rootViewController: editHabitVC)
+        editHabitVC.delegate = refreshDelegate
+        editHabitVC.habit = habitToEdit
+        editHabitVC.title = "View/Edit Habit"
+        editHabitVC.coordinator = self
+        self.navigationController.topViewController?.present(navController, animated: true)
+        self.formNavigationController = navController
+    }
+    
+    //TODO: Docstrings
     func showAddHabitViewController(refreshDelegate: HabitRefreshProtocol) {
         let addHabitVC = AddHabitViewController.instantiate()
         let navController = UINavigationController(rootViewController: addHabitVC)
         addHabitVC.delegate = refreshDelegate
         addHabitVC.coordinator = self
         self.navigationController.topViewController?.present(navController, animated: true)
-        
         self.formNavigationController = navController
     }
     

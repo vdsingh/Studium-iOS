@@ -36,7 +36,7 @@ class AuthenticationCoordinator: NSObject, NavigationCoordinator, UINavigationCo
     }
     
     //TODO: Docstrings
-    func start(replaceRoot: Bool = false) {
+    func start() {
         DispatchQueue.main.async {
             self.navigationController.delegate = self
             self.showStartViewController()
@@ -68,6 +68,26 @@ class AuthenticationCoordinator: NSObject, NavigationCoordinator, UINavigationCo
             registerVC.coordinator = self
             self.navigationController.pushViewController(registerVC, animated: animated)
         }
+    }
+    
+//    func showUserSetupFlow() {
+//
+//    }
+    
+    // TODO: Docstrings
+    func showUserSetupFlow() {
+        var userSetupCoordinator = UserSetupCoordinator()
+        userSetupCoordinator.parentCoordinator = self.parentCoordinator
+        self.parentCoordinator?.childCoordinators.append(userSetupCoordinator)
+        userSetupCoordinator.start()
+        self.finish()
+//        if let rootViewController = self.rootViewController {
+//            userSetupCoordinator = UserSetupCoordinator(rootViewController)
+//        }
+//        
+//        userSetupCoordinator.parentCoordinator = self
+//        self.parentCoordinator?.childCoordinators.append(userSetupCoordinator)
+//        userSetupCoordinator.start()
     }
     
     //TODO: Docstrings

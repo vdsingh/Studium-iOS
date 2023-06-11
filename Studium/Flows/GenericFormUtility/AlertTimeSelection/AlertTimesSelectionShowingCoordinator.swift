@@ -12,7 +12,7 @@ import Foundation
 protocol AlertTimesSelectionShowingCoordinator: StudiumEventFormCoordinator {
     
     // TODO: Docstrings
-    func showAlertTimesSelectionViewController(updateDelegate: AlertTimeHandler, selectedAlertOptions: [AlertOption])
+    func showAlertTimesSelectionViewController(updateDelegate: AlertTimeHandler, selectedAlertOptions: [AlertOption], viewControllerTitle: String)
 }
 
 
@@ -20,10 +20,11 @@ protocol AlertTimesSelectionShowingCoordinator: StudiumEventFormCoordinator {
 extension AlertTimesSelectionShowingCoordinator {
     
     //TODO: Docstrings
-    func showAlertTimesSelectionViewController(updateDelegate: AlertTimeHandler, selectedAlertOptions: [AlertOption]) {
+    func showAlertTimesSelectionViewController(updateDelegate: AlertTimeHandler, selectedAlertOptions: [AlertOption], viewControllerTitle: String = "Remind Me") {
         let alertTimesSelectionVC = AlertTimeSelectionTableViewForm.instantiate()
         alertTimesSelectionVC.delegate = updateDelegate
         alertTimesSelectionVC.setSelectedAlertOptions(alertOptions: selectedAlertOptions)
+        alertTimesSelectionVC.title = viewControllerTitle
 
         self.formNavigationController?.pushViewController(alertTimesSelectionVC, animated: true)
     }

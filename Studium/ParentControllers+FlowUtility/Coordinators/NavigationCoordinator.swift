@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol NavigationCoordinator: Coordinator, NSObject {
+protocol NavigationCoordinator: Coordinator {
     
     //TODO: Docstrings
     var navigationController: UINavigationController { get set }

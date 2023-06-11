@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 //TODO: Docstrings
-class AppCoordinator: Coordinator, Debuggable {
+class AppCoordinator: NSObject, Coordinator, Debuggable {
     
     var debug = false
     
@@ -29,7 +29,7 @@ class AppCoordinator: Coordinator, Debuggable {
     }
     
     //TODO: Docstrings
-    func start(replaceRoot: Bool = true) {
+    func start() {
         if self.authenticationService.userIsLoggedIn {
             self.showMainFlow()
         } else {
@@ -67,11 +67,11 @@ class AppCoordinator: Coordinator, Debuggable {
     
     //TODO: Docstrings
     func childDidFinish(_ child: Coordinator?) {
-        if child is AuthenticationCoordinator {
-            self.showUserSetupFlow()
-        } else if child is UserSetupCoordinator {
-            self.showMainFlow()
-        }
+//        if child is AuthenticationCoordinator {
+//            self.showUserSetupFlow()
+//        } else if child is UserSetupCoordinator {
+//            self.showMainFlow()
+//        }
     }
     
 //    private func removeAllControllersExceptLast() {

@@ -16,7 +16,7 @@ protocol Coordinated {
     associatedtype CoordinatorType: Coordinator
     
     //TODO: Docstrings
-    var coordinator: CoordinatorType? { get set }
+    var coordinator: CoordinatorType? { get }
     
     //TODO: Docstrings
     func unwrapCoordinatorOrShowError()
@@ -27,8 +27,10 @@ extension Coordinated where Self: ErrorShowing {
     // TODO: Docstrings
     func unwrapCoordinatorOrShowError() {
         if self.coordinator == nil {
+            Log.e(ErrorType.nilCoordinator, additionalDetails: "self: \(self)")
             self.showError(.nilCoordinator)
             return
         }
     }
 }
+

@@ -72,21 +72,21 @@ class AuthenticationViewController: UIViewController, Storyboarded, ErrorShowing
 // MARK: - Handle Authentication Methods
 extension AuthenticationViewController {
     
-    private func testCoordinator() {
-        if self.coordinator == nil {
-            self.showError(.nilCoordinator)
-        }
-    }
+//    private func testCoordinator() {
+//        if self.coordinator == nil {
+//            self.showError(.nilCoordinator)
+//        }
+//    }
     
     //TODO: Docstrings
     @objc func loginButtonClicked() {
-        self.testCoordinator()
+        self.unwrapCoordinatorOrShowError()
         self.coordinator?.showLoginViewController(animated: true)
     }
     
     //TODO: Docstrings
     @objc func signUpButtonClicked() {
-        self.testCoordinator()
+        self.unwrapCoordinatorOrShowError()
         self.coordinator?.showSignUpViewController(animated: true)
     }
     
@@ -140,13 +140,11 @@ extension AuthenticationViewController {
             switch result {
             case .success(_):
                 self.printDebug("Handling general login success")
-                self.testCoordinator()
-                self.coordinator?.finish()
+                self.unwrapCoordinatorOrShowError()
+                self.coordinator?.showUserSetupFlow()
             case .failure(let error):
-                self.printError(error)
-                self.showPopUp(title: "Couldn't Register:", message: error.localizedDescription, actions: [
-                    UIAlertAction(title: "Ok", style: .default)
-                ])
+                Log.e(error)
+                PopUpService.shared.presentToast(title: "Couldn't Sign In", description: error.localizedDescription, popUpType: .failure)
             }
 
             self.spinner.stopAnimating()

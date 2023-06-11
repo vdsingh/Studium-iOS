@@ -11,7 +11,7 @@ import UIKit
 import VikUtilityKit
 
 //TODO: Docstrings
-class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator {
+class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, AlertTimesSelectionShowingCoordinator, AssignmentEditingCoordinator {
     
     //TODO: Docstrings
     var debug = false
@@ -44,7 +44,7 @@ class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator
     }
     
     //TODO: Docstrings
-    func start(replaceRoot: Bool = false) {
+    func start() {
         self.showToDoListViewController()
     }
     
@@ -55,6 +55,28 @@ class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator
         rootVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.images.unselected, tag: self.tabItemInfo.orderNumber)
         rootVC.tabBarItem.selectedImage = self.tabItemInfo.images.selected
         self.navigationController.pushViewController(rootVC, animated: false)
+    }
+    
+    //TODO: Docstrings
+    func showAddToDoListEventViewController(refreshDelegate: ToDoListRefreshProtocol) {
+        let addToDoEventVC = AddToDoListEventViewController.instantiate()
+        let navController = UINavigationController(rootViewController: addToDoEventVC)
+        addToDoEventVC.delegate = refreshDelegate
+        addToDoEventVC.coordinator = self
+        self.navigationController.topViewController?.present(navController, animated: true)
+        self.formNavigationController = navController
+    }
+    
+    //TODO: Docstrings
+    func showEditToDoListEventViewController(refreshDelegate: ToDoListRefreshProtocol, toDoEventToEdit: OtherEvent) {
+        let addToDoEventVC = AddToDoListEventViewController.instantiate()
+        let navController = UINavigationController(rootViewController: addToDoEventVC)
+        addToDoEventVC.delegate = refreshDelegate
+        addToDoEventVC.otherEvent = toDoEventToEdit
+        addToDoEventVC.title = "View/Edit To-Do Event"
+        addToDoEventVC.coordinator = self
+        self.navigationController.topViewController?.present(navController, animated: true)
+        self.formNavigationController = navController
     }
     
     func childDidFinish(_ child: Coordinator?) {
