@@ -20,6 +20,7 @@ public enum StudiumColor: String {
     
     case primaryLabel = "#FFFFFF"
     case secondaryLabel = "#79787f"
+    case placeholderLabel = "#C7C7CD"
     
     case success = "#09b000"
     case failure = "#fc0303"

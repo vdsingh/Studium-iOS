@@ -50,6 +50,7 @@ enum StudiumIcon: String, CaseIterable {
     case campground
     case canadianMapleLeaf
     case cannabis
+    case checkmark
     case chessBishop
     case chessKing
     case chessKnight
@@ -67,6 +68,7 @@ enum StudiumIcon: String, CaseIterable {
     case dollarSign
     case download
     case dumbbell
+    case failureMark
     case feather
     case ferry
     case fileCode
@@ -116,16 +118,11 @@ enum StudiumIcon: String, CaseIterable {
     
     // TODO: Docstrings
     var image: UIImage {
-        return UIImage(named: self.rawValue) ?? .actions
+        if let image = UIImage(named: self.rawValue) {
+            return image
+        } else {
+            Log.e("tried to create UIImage from StudiumIcon rawValue \(self.rawValue) but failed.", logToCrashlytics: true)
+            return .actions
+        }
     }
-    
-    // TODO: Docstrings
-//    var imageTags: [StudiumIconImageTag] {
-//        switch self {
-//            
-//        case .atom:
-//            return [.chemistry, .science]
-//        }
-//    }
-    
 }
