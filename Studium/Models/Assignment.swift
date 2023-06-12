@@ -11,7 +11,7 @@ import RealmSwift
 import VikUtilityKit
 
 /// Represents Course Assignments
-class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleable {
+class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling, Autoscheduled {
     
     typealias EventType = Assignment
         
@@ -31,6 +31,8 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
     /// Whether or not scheduling work time is enabled
     @Persisted var autoscheduling: Bool = false
     
+    var autoscheduleInfinitely: Bool = false
+    
     //TODO: Docstrings
     @Persisted var autoscheduled: Bool = false
         
@@ -38,11 +40,11 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
     @Persisted var autoLengthMinutes: Int = 60
     
     /// The autoscheduled assignments that belong to this assignment
-    @Persisted var scheduledEventsList: List<Assignment> = List<Assignment>()
+    @Persisted var autoscheduledEventsList: List<Assignment> = List<Assignment>()
     
     // TODO: Docstrings
-    var scheduledEvents: [Assignment] {
-        return [Assignment](self.scheduledEventsList)
+    var autoscheduledEvents: [Assignment] {
+        return [Assignment](self.autoscheduledEventsList)
     }
     
     /// Was this an autoscheduled assignment?
@@ -58,7 +60,7 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         startDate: Date,
         endDate: Date,
         notificationAlertTimes: [AlertOption],
-        autoschedule: Bool,
+        autoscheduling: Bool,
         autoLengthMinutes: Int,
         autoDays: Set<Weekday>,
         partitionKey: String,
@@ -71,7 +73,7 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
         self.startDate = startDate
         self.endDate = endDate
         
-        self.autoscheduling = autoschedule
+        self.autoscheduling = autoscheduling
         self.autoLengthMinutes = autoLengthMinutes
         
         self._partitionKey = partitionKey
@@ -131,18 +133,26 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduleab
     }
     
     // TODO: Docstring
-    func appendScheduledEvent(event: Assignment) {
-        self.scheduledEventsList.append(event)
+    func appendAutoscheduledEvent(event: Assignment) {
+//        self.scheduledEventsList.append(event)
+        self.autoscheduledEventsList.append(event)
     }
     
     // TODO: Docstring
-    func removeScheduledEvent(event: Assignment) {
-        if let eventIndex = self.scheduledEventsList.firstIndex(where: { $0._id == event._id }) {
-            self.scheduledEventsList.remove(at: eventIndex)
-        } else {
-            print("$ERR (Assignment): Tried to remove assignment \(event.name) from scheduledEvents, but it was not in there to start.")
-        }
+//    func removeScheduledEvent(event: Assignment) {
+//        if let eventIndex = self.scheduledEventsList.firstIndex(where: { $0._id == event._id }) {
+//            self.scheduledEventsList.remove(at: eventIndex)
+//        } else {
+//            print("$ERR (Assignment): Tried to remove assignment \(event.name) from scheduledEvents, but it was not in there to start.")
+//        }
+//    }
+    
+    
+    func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> Assignment {
+//        let autoscheduledAssignment = Assignment
+        return Assignment()
     }
+    
 }
 
 extension Assignment: Debuggable {

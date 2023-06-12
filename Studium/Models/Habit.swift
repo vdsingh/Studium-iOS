@@ -11,42 +11,45 @@ import RealmSwift
 import VikUtilityKit
 
 //TODO: Docstrings
-class Habit: RecurringStudiumEvent, Autoscheduleable {
+class Habit: RecurringStudiumEvent, Autoscheduling {
     
     // MARK: - Autoscheduleable Variables
     
-    //TODO: Docstrings
+    /// Does this event autoschedule other events?
     @Persisted var autoscheduling: Bool = false
     
-    //TODO: Docstrings
+    ///If this event is autoscheduling, how long should scheduled events be?
     @Persisted var autoLengthMinutes: Int = 60
     
-    //TODO: Docstrings
-    @Persisted var autoscheduled: Bool = false
+//    /// Was this event autoscheduled by another event?
+//    @Persisted var autoscheduled: Bool = false
     
     //TODO: Docstrings
-    @Persisted var scheduledEventsList = List<StudiumEvent>()
+    @Persisted var autoscheduledEventsList = List<OtherEvent>()
     
     //TODO: Docstrings
     @Persisted var startEarlier: Bool = true
-        
-    // TODO: Docstrings
-    var scheduledEvents: [StudiumEvent] {
-        return [StudiumEvent](self.scheduledEventsList)
-    }
     
-    // TODO: Docstrings
-    var scheduledEventsArr: [Habit] {
-        var scheduledAssignments = [Habit]()
-        for event in self.scheduledEventsList {
-            if let assignment = event as? Habit {
-                scheduledAssignments.append(assignment)
-            } else {
-                print("$ERR (Assigment): A non-Assignment event was added to assignments scheduled events. Event: \(event)")
-            }
-        }
-        return scheduledAssignments
+    /// Autoscheduling Habits should autoschedule until they are deleted.
+    var autoscheduleInfinitely: Bool = true
+        
+    /// The events that this event has scheduled. We use OtherEvents as autoscheduled Habit events.
+    var autoscheduledEvents: [OtherEvent] {
+        return [OtherEvent](self.autoscheduledEventsList)
     }
+        
+    /// The events that this event has scheduled (as Habits)
+//    var scheduledEventsArr: [Habit] {
+//        var scheduledAssignments = [Habit]()
+//        for event in self.scheduledEventsList {
+//            if let assignment = event as? Habit {
+//                scheduledAssignments.append(assignment)
+//            } else {
+//                print("$ERR (Assigment): A non-Assignment event was added to assignments scheduled events. Event: \(event)")
+//            }
+//        }
+//        return scheduledAssignments
+//    }
     
     //TODO: Docstrings
     convenience init(
@@ -74,9 +77,27 @@ class Habit: RecurringStudiumEvent, Autoscheduleable {
         self._partitionKey = partitionKey
     }
     
-    
-    
-    //TODO: Docstrings
+//    private init(
+//        name: String,
+//        location: String,
+//        additionalDetails: String,
+//        startDate: Date,
+//        endDate: Date,
+//        autoscheduling: Bool,
+//        startEarlier: Bool,
+//        autoLengthMinutes: Int,
+//        alertTimes: [AlertOption],
+//        days: Set<Weekday>,
+//        icon: StudiumIcon,
+//        color: UIColor,
+//        partitionKey: String
+//    ) {
+//
+//    }
+//
+    /// Whether or not this event occurs on a specified date
+    /// - Parameter date: The specified date
+    /// - Returns: Whether or not this event occurs on the specified date
     override func occursOn(date: Date) -> Bool {
         if self.autoscheduling {
             return false
@@ -84,13 +105,38 @@ class Habit: RecurringStudiumEvent, Autoscheduleable {
             return super.occursOn(date: date)
         }
     }
-    
-    //TODO: Docstrings
-    func appendScheduledEvent(event: StudiumEvent) {
-        if let event = event as? Assignment {
-            self.scheduledEventsList.append(event)
-        } else {
-            print("$ERR (Assignment): cannot add event \(event.name) to assignments autoscheduled")
-        }
+
+    /// Adds a scheduled event to this event's scheduled events
+    /// - Parameter event: The StudiumEvent to add
+    func appendAutoscheduledEvent(event: OtherEvent) {
+        self.autoscheduledEventsList.append(event)
+//        if let event = event as? Assignment {
+//            self.scheduledEventsList.append(event)
+//        } else {
+//            print("$ERR (Assignment): cannot add event \(event.name) to assignments autoscheduled")
+//        }
+    }
+        
+    func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> OtherEvent {
+//        let autoscheduledHabit = Habit(
+//            name: self.name,
+//            location: self.location,
+//            additionalDetails: "This Habit was Autoscheduled.",
+//            startDate: timeChunk.startDate,
+//            endDate: timeChunk.endDate,
+//            autoscheduling: false,
+//            startEarlier: self.startEarlier,
+//            autoLengthMinutes: self.autoLengthMinutes,
+//            alertTimes: self.alertTimes,
+//            days: Set(),
+//            icon: <#T##StudiumIcon#>,
+//            color: <#T##UIColor#>,
+//            partitionKey: <#T##String#>
+//        )
+        
+//        return autoscheduledHabit
+        
+        let otherEvent = OtherEvent()
+        return OtherEvent()
     }
 }

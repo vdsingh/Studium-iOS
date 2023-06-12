@@ -12,13 +12,13 @@ import VikUtilityKit
 
 // TODO: Docstrings
 class Course: RecurringStudiumEvent, StudiumEventContainer {
-    
+        
     /// List of the assignments for the course.
     private let assignmentsList = List<Assignment>()
     
     // TODO: Docstrings
     var scheduledEvents: [Assignment] {
-        return [Assignment](assignmentsList)
+        return [Assignment](self.assignmentsList)
     }
 
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
@@ -52,8 +52,8 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
     // MARK: - Public Functions
     
     // TODO: Docstrings
-    func appendAssignment(_ assignment: Assignment) {
-        self.assignmentsList.append(assignment)
+    func appendScheduledEvent(scheduledEvent: Assignment) {
+        self.assignmentsList.append(scheduledEvent)
     }
     
     // TODO: Docstrings

@@ -14,32 +14,6 @@ import RealmSwift
 
 import VikUtilityKit
 
-protocol StudiumEventContainer {
-    associatedtype ScheduledEventType: StudiumEvent
-    
-    //TODO: Docstrings
-    var scheduledEvents: [ScheduledEventType] { get }
-
-}
-
-/// Protocol for StudiumEvents that can be autoscheduled
-protocol Autoscheduleable: StudiumEvent, StudiumEventContainer {
-    
-    associatedtype EventType: StudiumEvent
-    
-    /// The amount of time (in minutes) that autoscheduled events should be scheduled for
-    var autoLengthMinutes: Int { get set }
-    
-    /// Whether or not this event is in charge of autoscheduling other events
-    var autoscheduling: Bool { get set }
-    
-    //TODO: Docstrings
-    var autoscheduled: Bool { get set }
-    
-    //TODO: Docstrings
-    func appendScheduledEvent(event: EventType)
-}
-
 /// Represents StudiumEvents that repeat
 class RecurringStudiumEvent: StudiumEvent {
     

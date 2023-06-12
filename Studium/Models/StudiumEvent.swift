@@ -173,7 +173,9 @@ class StudiumEvent: Object, DaySchedulable {
         let components = calendar.dateComponents([.day, .month, .year], from: self.startDate)
         let otherComponents = calendar.dateComponents([.day, .month, .year], from: date)
         
-        return components.day == otherComponents.day && components.month == otherComponents.month && components.year == otherComponents.year
+        return components.day == otherComponents.day &&
+        components.month == otherComponents.month &&
+        components.year == otherComponents.year
     }
     
     /// Returns a TimeChunk for this event on a given date
