@@ -68,9 +68,13 @@ class Log {
     ///   - line: Line number in file from where the logging is done
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
-    class func e( _ object: Error, additionalDetails: String = "", filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
+    class func e( _ object: Any, additionalDetails: String = "", logToCrashlytics: Bool = false, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
         if isLoggingEnabled {
-            print("\(Date().toString()) \(LogEvent.e.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
+            print("\(LogEvent.e.rawValue) \(Date().toString()) [\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
+        }
+        
+        if logToCrashlytics {
+            CrashlyticsService.shared.log("\(object). Additional Details: \(additionalDetails)")
         }
     }
     
