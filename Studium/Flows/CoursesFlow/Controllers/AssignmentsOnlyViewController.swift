@@ -9,9 +9,10 @@
 import Foundation
 import ChameleonFramework
 
-//TODO: Docstrings
+/// TableViewController that only displays Assignments
 class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDelegate, AssignmentRefreshProtocol, Coordinated {
     
+    // TODO: Docstring
     weak var coordinator: CoursesCoordinator?
     
     override var debug: Bool {
@@ -27,7 +28,6 @@ class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.sectionHeaders = ["To Do:", "Completed:"]
         self.eventTypeString = "Assignments"
     }
@@ -50,11 +50,6 @@ class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDeleg
     /// The user pressed the '+' button to add a new assignment
     /// - Parameter sender: The button that the user pressed
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-//        let addAssignmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
-//        addAssignmentViewController.selectedCourse = selectedCourse
-//        addAssignmentViewController.delegate = self
-//        let navController = UINavigationController(rootViewController: addAssignmentViewController)
-//        self.present(navController, animated:true, completion: nil)
         self.unwrapCoordinatorOrShowError()
         self.coordinator?.showAddAssignmentViewController(refreshDelegate: self, selectedCourse: self.selectedCourse)
     }
@@ -75,35 +70,35 @@ class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDeleg
         fatalError("$ERR: Couldn't dequeue cell for Course List")
     }
     
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
     
     //MARK: - CRUD Methods
     
-    //loads all non-autoscheduled assignments by accessing the selected course.
+    /// Loads all non-autoscheduled assignments for the selected course.
     override func loadAssignments() {
         //TODO: Fix sorting
-//        let assignments = selectedCourse.assignments
-        let assignments = self.databaseService.getAssignments(forCourse: selectedCourse)
+        let assignments = self.databaseService.getAssignments(forCourse: self.selectedCourse)
         printDebug("Loaded assignments: \(assignments.map({ $0.name }))")
 //        let assignments = DatabaseService.shared
 //            .getAssignments(forCourse: self.selectedCourse)
 //            .sorted(by: K.sortAssignmentsBy)
 //            .sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
 //        assignments = selectedCourse?.assignments.
+        
+        // First array is incomplete events, second array is complete events
         self.eventsArray = [[],[]]
         for assignment in assignments {
             
-            //skip the autoscheduled events.
-            if assignment.isAutoscheduled {
+            // skip the autoscheduled events.
+            if assignment.autoscheduled {
                 continue
             }
             
-            if assignment.complete == true && !assignment.isAutoscheduled {
+            if assignment.complete {
                 eventsArray[1].append(assignment)
-            }else{
+            } else {
                 eventsArray[0].append(assignment)
             }
         }
@@ -112,9 +107,12 @@ class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDeleg
     /// Reloads/sorts the data and refreshes the TableView
     override func reloadData() {
         self.loadAssignments()
-        eventsArray[0].sort(by: {$0.endDate < $1.endDate})
-        eventsArray[1].sort(by: {$0.endDate > $1.endDate})
         tableView.reloadData()
+    }
+    
+    private func sortEventsArrays() {
+        self.eventsArray[0].sort(by: {$0.endDate < $1.endDate})
+        self.eventsArray[1].sort(by: {$0.endDate > $1.endDate})
     }
     
     /// Trigger deletion of event in cell

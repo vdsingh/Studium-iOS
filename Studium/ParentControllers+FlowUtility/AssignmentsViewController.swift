@@ -36,7 +36,7 @@ extension AssignmentsViewController {
             self.handleEventsClose(assignment: assignment)
             self.databaseService.markComplete(assignment, !assignment.complete)
             
-            if(assignment.isAutoscheduled) {
+            if assignment.autoscheduled {
                 tableView.reloadData()
             } else {
                 reloadData()
@@ -74,7 +74,8 @@ extension AssignmentsViewController: AssignmentCollapseDelegate {
         if let assignmentRow = eventsArray[assignmentSection].firstIndex(of: assignment) {
             printDebug("Handling opening auto events for assignment at index (\(assignmentSection), \(assignmentRow))")
             var index = assignmentRow + 1
-            for auto in assignment.scheduledEvents {
+            for auto in assignment.autoscheduledEvents {
+                // Add the autoscheduled events to the events array
                 eventsArray[assignmentSection].insert(auto, at: index)
                 index += 1
             }
@@ -96,11 +97,11 @@ extension AssignmentsViewController: AssignmentCollapseDelegate {
         let assignmentSection = assignment.complete ? 1 : 0
         if let assignmentRow = eventsArray[assignmentSection].firstIndex(of: assignment) {
             printDebug("Handling closing auto events for assignment at index (\(assignmentSection), \(assignmentRow))")
-            for _ in assignment.scheduledEvents {
+            for _ in assignment.autoscheduledEvents {
                 eventsArray[assignmentSection].remove(at: assignmentRow + 1)
             }
         } else {
-            print("$ERR (AssignmentsViewController): problem accessing assignment when closing auto list events. \(assignment.name) is not in the assignments array.")
+            Log.s(AssignmentsViewControllerError.failedToFindAssignment, additionalDetails: "problem accessing assignment when closing auto list events. \(assignment.name) is not in the assignments array.")
         }
         
         self.assignmentsExpandedSet.remove(assignment)
@@ -120,4 +121,8 @@ extension AssignmentsViewController: AssignmentCollapseDelegate {
             }
         }
     }
+}
+
+enum AssignmentsViewControllerError: Error {
+    case failedToFindAssignment
 }

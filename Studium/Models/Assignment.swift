@@ -11,7 +11,7 @@ import RealmSwift
 import VikUtilityKit
 
 /// Represents Course Assignments
-class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling, Autoscheduled {
+class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling, Autoscheduled, StudiumEventContained {
     
     typealias EventType = Assignment
         
@@ -48,9 +48,9 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling
     }
     
     /// Was this an autoscheduled assignment?
-    var isAutoscheduled: Bool {
-        self.parentAssignmentID != nil
-    }
+//    var isAutoscheduled: Bool {
+//        self.parentAssignmentID != nil
+//    }
 
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
     convenience init(
@@ -63,7 +63,7 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling
         autoscheduling: Bool,
         autoLengthMinutes: Int,
         autoDays: Set<Weekday>,
-        partitionKey: String,
+        partitionKey: String = AuthenticationService.shared.userID ?? "",
         parentCourse: Course
     ) {
         self.init()
@@ -149,10 +149,26 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling
     
     
     func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> Assignment {
-//        let autoscheduledAssignment = Assignment
-        return Assignment()
+        guard let parentCourse = self.parentCourse else {
+            Log.s(AssignmentError.nilParentCourse, additionalDetails: "tried to instantiate an autoscheduled event for assignment \(self), but the parent course for this assignment was nil.")
+            return Assignment()
+        }
+        
+        let autoscheduledAssignment = Assignment(
+            name: "Study Time",
+            additionalDetails: "This Event is Study Time for Assignment: \(self.name)",
+            complete: false,
+            startDate: timeChunk.startDate,
+            endDate: timeChunk.endDate,
+            notificationAlertTimes: self.alertTimes,
+            autoscheduling: false,
+            autoLengthMinutes: self.autoLengthMinutes,
+            autoDays: Set(),
+            parentCourse: parentCourse
+        )
+        autoscheduledAssignment.autoscheduled = true
+        return autoscheduledAssignment
     }
-    
 }
 
 extension Assignment: Debuggable {
@@ -161,4 +177,8 @@ extension Assignment: Debuggable {
             print("$LOG (Assignment): \(message)")
         }
     }
+}
+
+enum AssignmentError: Error {
+    case nilParentCourse
 }
