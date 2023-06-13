@@ -50,7 +50,7 @@ class ToDoListViewController: AssignmentsViewController, ToDoListRefreshProtocol
         let otherEvents = self.databaseService.getStudiumObjects(expecting: OtherEvent.self)
         
         for assignment in assignments {
-            if assignment.isAutoscheduled {
+            if assignment.autoscheduled {
                 continue
             }
             

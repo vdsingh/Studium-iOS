@@ -11,15 +11,15 @@ import Foundation
 
 protocol StudiumEventContainer {
     
-    associatedtype ScheduledEventType: StudiumEventContained
+    associatedtype ContainedEventType: StudiumEventContained
     
     //TODO: Docstrings
-    var scheduledEvents: [ScheduledEventType] { get }
+    var containedEvents: [ContainedEventType] { get }
     
-    func appendScheduledEvent(scheduledEvent: ScheduledEventType)
+    func appendContainedEvent(containedEvent: ContainedEventType)
 }
 
 protocol StudiumEventContained: StudiumEvent {
-    
+//    var contained: Bool { get set }
     
 }

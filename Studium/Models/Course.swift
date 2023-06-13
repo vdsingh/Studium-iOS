@@ -17,7 +17,7 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
     private let assignmentsList = List<Assignment>()
     
     // TODO: Docstrings
-    var scheduledEvents: [Assignment] {
+    var containedEvents: [Assignment] {
         return [Assignment](self.assignmentsList)
     }
 
@@ -52,8 +52,8 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
     // MARK: - Public Functions
     
     // TODO: Docstrings
-    func appendScheduledEvent(scheduledEvent: Assignment) {
-        self.assignmentsList.append(scheduledEvent)
+    func appendContainedEvent(containedEvent: Assignment) {
+        self.assignmentsList.append(containedEvent)
     }
     
     // TODO: Docstrings

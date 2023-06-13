@@ -15,7 +15,7 @@ class MockAutoscheduleService: AutoscheduleServiceProtocol {
     
     private init() { }
     
-    func autoscheduleEvent(forEvent event: StudiumEvent, onDate date: Date) {
+    func autoscheduleEvent(forAutoschedulingEvent event: any Autoscheduling, onDate date: Date) {
 
     }
     

@@ -25,7 +25,7 @@ extension AssignmentEditingCoordinator {
     ) {
         let addAssignmentVC = AddAssignmentViewController.instantiate()
         let navController = UINavigationController(rootViewController: addAssignmentVC)
-        addAssignmentVC.delegate = refreshDelegate
+        addAssignmentVC.refreshDelegate = refreshDelegate
         addAssignmentVC.selectedCourse = assignmentToEdit.parentCourse
         addAssignmentVC.assignmentEditing = assignmentToEdit
         addAssignmentVC.title = "View/Edit Assignment"

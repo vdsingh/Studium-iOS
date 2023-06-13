@@ -43,10 +43,10 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     var assignmentEditing: Assignment?
  
     // TODO: Docstrings
-    var scheduleWorkTime: Bool = false
+    var autoscheduleWorkTime: Bool = false
     
     /// link to the main list of assignments, so it can refresh when we add a new one
-    var delegate: AssignmentRefreshProtocol?
+    var refreshDelegate: AssignmentRefreshProtocol?
     
     /// The course that the user selected for this assignment
     var selectedCourse: Course!
@@ -84,7 +84,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
                 .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
             [
-                .switchCell(cellText: "Schedule Time to Work", isOn: self.scheduleWorkTime, switchDelegate: self, infoDelegate: self)
+                .switchCell(cellText: "Schedule Time to Work", isOn: self.autoscheduleWorkTime, switchDelegate: self, infoDelegate: self)
             ],
             [
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
@@ -106,10 +106,9 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
                 startDate: self.endDate - (60 * 60),
                 endDate: self.endDate,
                 notificationAlertTimes: self.alertTimes,
-                autoschedule: self.scheduleWorkTime,
+                autoscheduling: self.autoscheduleWorkTime,
                 autoLengthMinutes: self.totalLengthMinutes,
                 autoDays: self.daysSelected,
-                partitionKey: AuthenticationService.shared.userID ?? "",
                 parentCourse: self.selectedCourse
             )
             
@@ -160,7 +159,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
         self.endDate = assignment.endDate
         self.additionalDetails = assignment.additionalDetails
         self.alertTimes = assignment.alertTimes
-        self.scheduleWorkTime = assignment.autoscheduling
+        self.autoscheduleWorkTime = assignment.autoscheduling
         self.daysSelected = assignment.days
         self.totalLengthMinutes = assignment.autoLengthMinutes
         
@@ -217,7 +216,7 @@ extension AddAssignmentViewController: CanHandleSwitch {
     // TODO: Docstrings
     func switchValueChanged(sender: UISwitch) {
         printDebug("Switch value changed")
-        self.scheduleWorkTime = sender.isOn
+        self.autoscheduleWorkTime = sender.isOn
         self.setCells()
         
         self.refreshAutoscheduleSection()
@@ -226,7 +225,7 @@ extension AddAssignmentViewController: CanHandleSwitch {
     // TODO: Docstrings
     func refreshAutoscheduleSection() {
         // TODO: Use tableview updates so these actions are animated.
-        if self.scheduleWorkTime {
+        if self.autoscheduleWorkTime {
             self.cells[1].append(.daySelectorCell(daysSelected: self.daysSelected, delegate: self))
             self.cells[1].append(.pickerCell(cellText: "Length", indices: self.lengthPickerIndices, tag: FormCellID.PickerCellID.lengthPickerCell, delegate: self, dataSource: self))
         } else {

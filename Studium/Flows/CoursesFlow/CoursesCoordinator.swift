@@ -81,7 +81,7 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
     func showAddAssignmentViewController(refreshDelegate: AssignmentRefreshProtocol, selectedCourse: Course) {
         let addAssignmentVC = AddAssignmentViewController.instantiate()
         let navController = UINavigationController(rootViewController: addAssignmentVC)
-        addAssignmentVC.delegate = refreshDelegate
+        addAssignmentVC.refreshDelegate = refreshDelegate
         addAssignmentVC.coordinator = self
         addAssignmentVC.selectedCourse = selectedCourse
         self.navigationController.topViewController?.present(navController, animated: true)
