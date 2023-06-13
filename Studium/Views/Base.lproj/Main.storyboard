@@ -1206,7 +1206,7 @@
         <!--Remind Me-->
         <scene sceneID="tzx-jq-x83">
             <objects>
-                <tableViewController storyboardIdentifier="AlertTimeSelectionForm" id="hFo-id-GNg" customClass="AlertTimeSelectionTableViewForm" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AlertTimeSelectionTableViewForm" id="hFo-id-GNg" customClass="AlertTimeSelectionTableViewForm" customModule="Studium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="0f3-qI-arm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

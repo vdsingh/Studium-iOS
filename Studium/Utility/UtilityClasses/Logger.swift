@@ -101,7 +101,8 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func d( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        if isLoggingEnabled {
+        if isLoggingEnabled
+        {
             print("\(LogEvent.d.rawValue) \(Date().toString()) [\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
         }
     }
@@ -143,12 +144,21 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func s( _ error: Error, additionalDetails: String, displayToUser: Bool = true, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
+        
+        // If logging is enabled, log the error to the console
         if isLoggingEnabled {
             print("\(LogEvent.s.rawValue) \(Date().toString()) [\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(error). Additional Details: \(additionalDetails)")
         }
         
-        // Severe Issues should be reported to crashlytics.
-        CrashlyticsService.shared.recordError(error, additionalDetails: additionalDetails)
+        // If in developer mode, invoke a fatal error, otherwise, report to Crashlytics
+        if DebugFlags.developerMode {
+            fatalError(String(describing: error))
+        } else {
+            // Severe Issues should be reported to crashlytics.
+            CrashlyticsService.shared.recordError(error, additionalDetails: additionalDetails)
+        }
+        
+        // Show a toast stating that we ran into an error
         PopUpService.shared.presentToast(title: "Whoops! We ran into an Error.", description: "Please restart the app to try again.", popUpType: .failure)
     }
     

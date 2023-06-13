@@ -74,7 +74,10 @@ class AuthenticationService: NSObject, Debuggable {
             }
         }
         
-        self.app.login(credentials: credentials, completion)
+        self.app.login(credentials: credentials, { result in
+            CrashlyticsService.shared.setUserID()
+            completion(result)
+        })
     }
     
     //TODO: Docstrings
@@ -89,8 +92,10 @@ class AuthenticationService: NSObject, Debuggable {
             if let error = error {
                 Log.e(error, additionalDetails: "error logging out: \(String(describing: error))")
                 completion(error)
+                return
             }
             
+            CrashlyticsService.shared.setUserID()
             completion(nil)
         })
     }

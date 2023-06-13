@@ -8,14 +8,14 @@
 
 import Foundation
 
-// TODO: Docstring
-extension NSObject {
-    
-    func printError(_ message: String) {
-        print("$ERR \(String(describing: self)): \(message)")
-    }
-    
-    func printError(_ error: Error) {
-        print("$ERR \(String(describing: self)): \(String(describing: error))")
-    }
-}
+//// TODO: Docstring
+//extension NSObject {
+//    
+//    func printError(_ message: String) {
+//        print("$ERR \(String(describing: self)): \(message)")
+//    }
+//    
+//    func printError(_ error: Error) {
+//        print("$ERR \(String(describing: self)): \(String(describing: error))")
+//    }
+//}

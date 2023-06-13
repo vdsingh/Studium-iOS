@@ -15,7 +15,9 @@ import GoogleSignIn
 import FirebaseCrashlytics
 
 // TODO: Docstrings
-class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboarded, ErrorShowing, Coordinated {
+class SettingsViewController: UITableViewController, Storyboarded, ErrorShowing, Coordinated, Debuggable {
+    
+    let debug = true
     
     // TODO: Docstrings
     private struct Constants {
@@ -29,30 +31,30 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
     weak var coordinator: SettingsCoordinator?
     
     // TODO: Docstrings
-    func alertTimesWereUpdated(selectedAlertOptions: [AlertOption]) {
-        self.databaseService.setDefaultAlertOptions(alertOptions: selectedAlertOptions)
-    }
-    
-    // TODO: Docstrings
     var databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
     /// reference to defaults
-    let defaults = UserDefaults.standard
+//    let defaults = UserDefaults.standard
     
     //TODO: Docstrings
     lazy var cellData: [[(text: String, didSelect: (() -> Void)?)]] = [
         [
-            ("Set Default Notifications", nil),
+            ("Set Default Notifications", didSelect: {
+                self.unwrapCoordinatorOrShowError()
+                self.coordinator?.showAlertTimesSelectionViewController(
+                    updateDelegate: self,
+                    selectedAlertOptions: self.databaseService.getDefaultAlertOptions(),
+                    viewControllerTitle: "Default Notifications"
+                )
+            }),
             ("Reset Wake Up Times", didSelect: {
                 self.unwrapCoordinatorOrShowError()
                 self.coordinator?.showUserSetupFlow()
             })
         ],
-        //                                ["Sync to Apple Calendar"],
         [
             ("Delete All Assignments", didSelect: {
                 self.createAlertForAssignments(title: Constants.deleteAllAssignmentsAlertInfo.title, message: Constants.deleteAllAssignmentsAlertInfo.message, isCompleted: false)
-
             }),
             ("Delete Completed Assignments", didSelect: {
                 self.createAlertForAssignments(title: Constants.deleteCompletedAssignmentsAlertInfo.title, message: Constants.deleteCompletedAssignmentsAlertInfo.message, isCompleted: true)
@@ -62,13 +64,24 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
             }),
             ("Delete All Completed Other Events", didSelect: {
                 self.createAlertForOtherEvents(title: Constants.deleteAllCompletedOtherEventsAlertInfo.title, message: Constants.deleteAllCompletedOtherEventsAlertInfo.message, isCompleted: true)
-
+                
             })
         ],
         
         [
             ("Report a Problem", didSelect: {
-                self.handleReportProblem()
+                PopUpService.shared.showForm(formType: .reportAProblem) { textContents in
+                    if let email = textContents.first,
+                    let problemDetails = textContents.last {
+                        if problemDetails.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                            PopUpService.shared.presentToast(title: "Error Reporting Problem", description: "Please specify the problem details.", popUpType: .failure)
+                        } else {
+                            PopUpService.shared.presentToast(title: "Message Sent", description: "Thanks for the feedback!", popUpType: .success)
+                            CrashlyticsService.shared.reportAProblem(email: email, message: problemDetails)
+                            self.printDebug("sent message with email: \(email), problem details: \(problemDetails)")
+                        }
+                    }
+                }
             })
         ],
         [
@@ -76,7 +89,9 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
             ("Sign Out", didSelect: {
                 AuthenticationService.shared.handleLogOut { error in
                     if let error = error {
-                        print("$ERR (SettingsViewController): \(String(describing: error))")
+                        Log.e(error)
+                        PopUpService.shared.presentToast(title: "Error Logging Out", description: "Try restarting the app.", popUpType: .failure)
+                        return
                     }
                     
                     self.unwrapCoordinatorOrShowError()
@@ -89,14 +104,14 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
     
     override func viewDidLoad() {
         self.tableView.tableFooterView = UIView()
-
+        
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
         self.navigationController?.navigationBar.tintColor = StudiumColor.primaryAccent.uiColor
         
         navigationController?.navigationBar.prefersLargeTitles = true
-
+        
         
         self.view.backgroundColor = StudiumColor.background.uiColor
         self.navigationController?.navigationBar.barTintColor = StudiumColor.background.uiColor
@@ -108,7 +123,7 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
         cell?.backgroundColor = StudiumColor.secondaryBackground.uiColor
         cell?.textLabel?.textColor = StudiumColor.primaryLabel.uiColor
         cell?.textLabel?.text = cellData[indexPath.section][indexPath.row].text
-
+        
         let id = AuthenticationService.shared.userID
         if cellData[indexPath.section][indexPath.row].text == "Email" {
             cell?.textLabel?.text = id
@@ -150,7 +165,6 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
         }
     }
     
-    
     //edit the background color of section headers
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: K.emptyHeaderHeight))
@@ -181,25 +195,11 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
     //TODO: Docstrings
     private func createAlertForAssignments(title: String, message: String, isCompleted: Bool){
         let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-
+        
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
             self.deleteAllAssignments(isCompleted: isCompleted)
-          }))
-
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-          }))
-
-        present(refreshAlert, animated: true, completion: nil)
-    }
-    
-    //TODO: Docstrings
-    private func createAlertForOtherEvents(title: String, message: String, isCompleted: Bool){
-        let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            self.deleteAllOtherEvents(isCompleted: isCompleted)
-          }))
-
+        }))
+        
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
         }))
         
@@ -207,23 +207,23 @@ class SettingsViewController: UITableViewController, AlertTimeHandler, Storyboar
     }
     
     //TODO: Docstrings
-    private func handleReportProblem() {
-        let alert = UIAlertController(title: "Report a Problem", message: "Let us know how we can help.", preferredStyle: .alert)
-        alert.addTextField()
-        alert.addAction(
-            UIAlertAction(
-                title: "Send",
-                style: .default,
-                handler: { [weak alert] (_) in
-                    if let textfield = alert?.textFields?[0],
-                       let text = textfield.text,
-                       !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                        Crashlytics.crashlytics().log("User Reported: \(text)")
-                        PopUpService.shared.presentToast(title: "Message Sent", description: "Thanks for the feedback!", image: .boltLightning, popUpType: .success)
-                    }
-                }
-            )
-        )
-        self.present(alert, animated: true, completion: nil)
+    private func createAlertForOtherEvents(title: String, message: String, isCompleted: Bool){
+        let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            self.deleteAllOtherEvents(isCompleted: isCompleted)
+        }))
+        
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        }))
+        
+        present(refreshAlert, animated: true, completion: nil)
+    }
+}
+
+extension SettingsViewController: AlertTimeHandler {
+    // TODO: Docstrings
+    func alertTimesWereUpdated(selectedAlertOptions: [AlertOption]) {
+        self.databaseService.setDefaultAlertOptions(alertOptions: selectedAlertOptions)
     }
 }

@@ -19,8 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.coordinator = AppCoordinator(authenticationService: AuthenticationService.shared)
         coordinator?.start()
         
-//        self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
+//        AutoscheduleService.shared.autoscheduleEvent()
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

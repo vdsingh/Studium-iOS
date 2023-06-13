@@ -9,22 +9,19 @@
 import UIKit
 import RAMAnimatedTabBarController
 
-//TODO: Delete
+// TODO: Docstrings
 class TabBarController: UITabBarController, Debuggable {
     
     let debug = true
     
-//    let appCoordinator = AppCoordinator(UINavigationController())
+    // TODO: Docstrings
     var tabItemCoordinators: [TabItemCoordinator]
     
+    // TODO: Docstrings
     init(tabItemCoordinators: [TabItemCoordinator]) {
         self.tabItemCoordinators = tabItemCoordinators
 
         super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -33,24 +30,26 @@ class TabBarController: UITabBarController, Debuggable {
 
         var tabItemViewControllers = [UIViewController]()
         for tabItemCoordinator in tabItemCoordinators {
-            tabItemCoordinator.start(replaceRoot: false)
+            tabItemCoordinator.start()
             tabItemViewControllers.append(tabItemCoordinator.navigationController)
         }
 
-//        let scrollAppearance = UITabBarAppearance()
-//        scrollAppearance.backgroundColor = StudiumColor.primaryAccent.uiColor
-//        scrollAppearance.backgroundColor = .yellow
+        let standardAppearance = UITabBarAppearance()
+        standardAppearance.backgroundColor = StudiumColor.primaryAccent.uiColor
+        self.tabBar.standardAppearance = standardAppearance
         
-        
-        self.tabBar.unselectedItemTintColor = .lightGray
+        // Keeps tabBar color consistent when scrolling
         self.tabBar.backgroundColor = StudiumColor.primaryAccent.uiColor
-        self.tabBar.barTintColor = 
-//        StudiumColor.primaryAccent.uiColor
-        // barTintColor is "selected color"
-        self.tabBar.tintColor = .white
-
-        self.viewControllers = tabItemViewControllers
         
-        printDebug("TabBarController viewControllers: \(self.viewControllers)")
+        // Color of unselected items
+        self.tabBar.unselectedItemTintColor = .lightGray
+
+        // Color of selected items
+        self.tabBar.tintColor = .white
+        self.viewControllers = tabItemViewControllers
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
