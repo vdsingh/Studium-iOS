@@ -47,6 +47,10 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling
         return [Assignment](self.autoscheduledEventsList)
     }
     
+    var autoschedulingDays: Set<Weekday> {
+        return self.days
+    }
+    
     /// Was this an autoscheduled assignment?
 //    var isAutoscheduled: Bool {
 //        self.parentAssignmentID != nil

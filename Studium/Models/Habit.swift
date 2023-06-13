@@ -11,7 +11,7 @@ import RealmSwift
 import VikUtilityKit
 
 //TODO: Docstrings
-class Habit: RecurringStudiumEvent, Autoscheduling {
+class Habit: RecurringStudiumEvent, Autoscheduling {    
     
     // MARK: - Autoscheduleable Variables
     
@@ -36,6 +36,10 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
     /// The events that this event has scheduled. We use OtherEvents as autoscheduled Habit events.
     var autoscheduledEvents: [OtherEvent] {
         return [OtherEvent](self.autoscheduledEventsList)
+    }
+    
+    var autoschedulingDays: Set<Weekday> {
+        return self.days
     }
         
     /// The events that this event has scheduled (as Habits)
@@ -98,13 +102,13 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
     /// Whether or not this event occurs on a specified date
     /// - Parameter date: The specified date
     /// - Returns: Whether or not this event occurs on the specified date
-    override func occursOn(date: Date) -> Bool {
-        if self.autoscheduling {
-            return false
-        } else {
-            return super.occursOn(date: date)
-        }
-    }
+//    override func occursOn(date: Date) -> Bool {
+//        if self.autoscheduling {
+//            return false
+//        } else {
+//            return super.occursOn(date: date)
+//        }
+//    }
 
     /// Adds a scheduled event to this event's scheduled events
     /// - Parameter event: The StudiumEvent to add
@@ -136,7 +140,7 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         
 //        return autoscheduledHabit
         
-        let otherEvent = OtherEvent()
-        return OtherEvent()
+        let otherEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: "This Event was Autoscheduled by your Habit: \(self.name)", startDate: timeChunk.startDate, endDate: timeChunk.endDate, color: self.color, icon: self.icon, alertTimes: self.alertTimes)
+        return otherEvent
     }
 }

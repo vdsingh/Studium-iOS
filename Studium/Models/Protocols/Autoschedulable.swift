@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import VikUtilityKit
 
 protocol Autoscheduling: StudiumEvent {
     
@@ -29,6 +30,8 @@ protocol Autoscheduling: StudiumEvent {
     
     //TODO: Docstrings
     func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> AutoscheduledEventType
+    
+    var autoschedulingDays: Set<Weekday> { get }
 }
 
 protocol Autoscheduled: StudiumEvent {
@@ -36,3 +39,5 @@ protocol Autoscheduled: StudiumEvent {
     //TODO: Docstrings
     var autoscheduled: Bool { get set }
 }
+
+

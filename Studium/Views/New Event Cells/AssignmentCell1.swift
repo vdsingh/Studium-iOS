@@ -132,7 +132,7 @@ class AssignmentCell1: DeletableEventCell {
         primaryLabel.attributedText = primaryTextAttributeString
 
         //this assignment has no autoscheduled events, so there is no need to have a button that drops down the autoscheduled events.
-        if assignment.isAutoscheduled || assignment.scheduledEvents.isEmpty {
+        if assignment.autoscheduled || assignment.autoscheduledEvents.isEmpty {
             expandEventsButton.isHidden = true
         } else {
             expandEventsButton.isHidden = false
@@ -149,11 +149,10 @@ class AssignmentCell1: DeletableEventCell {
         }
     }
     
-    //TODO: Docstring
+    // TODO: Docstring
     func setIsExpanded(isExpanded: Bool) {
         
-        
-        //configuration settings for chevron button (sizing)
+        // configuration settings for chevron button (sizing)
         if isExpanded {
             let chevUpImage = SystemIcon.chevronUp.createImage()
             expandEventsButton.setImage(chevUpImage, for: .normal)

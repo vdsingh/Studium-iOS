@@ -9,62 +9,90 @@
 import Foundation
 import VikUtilityKit
 
-//TODO: Docstrings
-protocol AutoscheduleServiceProtocol {
-    func autoscheduleEvent(forEvent event: StudiumEvent, onDate date: Date)
-    func getCommitments(for date: Date) -> [StudiumEvent: TimeChunk]
-    func getOpenTimeSlots(startBound: Date, endBound: Date, commitments: [TimeChunk]) -> [TimeChunk]
-    func bestTime(openTimeSlots: [TimeChunk], totalMinutes: Int) -> TimeChunk?
-    func findAutoscheduleTimeChunk(dateToScheduleOn: Date, startBound: Date, endBound: Date, totalMinutes: Int) -> TimeChunk?
-    func findAllApplicableDatesBetween(startDate: Date, endDate: Date, weekdays: Set<Weekday>) -> [Date]
-    func autoscheduleStudyTime(parentAssignment: Assignment)
+protocol DebuggableNext {
+    var debug: Bool { get }
 }
 
 //TODO: Docstrings
-final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggable {
+protocol AutoscheduleServiceProtocol {
+//    func autoscheduleEvent(forAutoschedulingEvent event: any Autoscheduleable, onDate date: Date)
+//    func getCommitments(for date: Date) -> [StudiumEvent: TimeChunk]
+//    func getOpenTimeSlots(startBound: Date, endBound: Date, commitments: [TimeChunk]) -> [TimeChunk]
+//    func bestTime(openTimeSlots: [TimeChunk], totalMinutes: Int) -> TimeChunk?
+//    func findAutoscheduleTimeChunk(dateToScheduleOn: Date, startBound: Date, endBound: Date, totalMinutes: Int) -> TimeChunk?
+//    func findAllApplicableDatesBetween(startDate: Date, endDate: Date, forEvent: StudiumEvent) -> [Date]
+//    func autoscheduleStudyTime(parentAssignment: Assignment)
+}
+
+//TODO: Docstrings
+final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, DebuggableNext {
     
-    let debug = true
+    var debug = true
     
     //TODO: Docstrings
-    let databaseService: DatabaseServiceProtocol
+//    let databaseService: DatabaseServiceProtocol
+    let databaseService: DatabaseService
     
     static let shared = AutoscheduleService(databaseService: DatabaseService.shared)
     
     //TODO: Docstrings
-//    static let shared = AutoscheduleService(databaseService: DatabaseService.shared)
-    
-    //TODO: Docstrings
-    init(databaseService: DatabaseServiceProtocol) {
+    init(databaseService: DatabaseService) {
         self.databaseService = databaseService
-         
-     }
-    
-    /// Autoschedules a StudiumEvent (WARNING: changes the start and end dates of the StudiumEvent object)
-    /// - Parameters:
-    ///   - event: The StudiumEvent that we are scheduling
-    ///   - date: The date on which to schedule the event
-    func autoscheduleEvent(forEvent event: StudiumEvent, onDate date: Date) {
-        printDebug("Autoscheduling for event \(event.name), which is \(event.totalLengthMinutes) minutes long")
-        let startBound = self.databaseService.getUserSettings().getWakeUpTime(for: date) ?? date.startOfDay
-        let endBound = date.setTime(hour: 23, minute: 59, second: 0) ?? date.endOfDay
-        printDebug("Autoschedule Time Bounds: \(startBound)-\(endBound)")
-        
-        var timeChunk: TimeChunk? = nil
-        if let recurringEvent = event as? RecurringStudiumEvent,
-           recurringEvent.occursOn(date: date) {
-            timeChunk = self.findAutoscheduleTimeChunk(dateToScheduleOn: date, startBound: startBound, endBound: endBound, totalMinutes: recurringEvent.totalLengthMinutes)
-        } else {
-            timeChunk = self.findAutoscheduleTimeChunk(dateToScheduleOn: date, startBound: startBound, endBound: endBound, totalMinutes: event.totalLengthMinutes)
-        }
-        
-        if let timeChunk = timeChunk {
-            printDebug("setting timechunk to \(timeChunk.startDate) - \(timeChunk.endDate) for event \(event.name) with totalLengthMinutes: \(event.totalLengthMinutes)")
-            event.setDates(startDate: timeChunk.startDate, endDate: timeChunk.endDate)
-        } else {
-            printDebug("Tried to autoschedule event \(event.name) but timeChunk was nil.")
-        }
     }
+    
+    func createAutoscheduledEvents<T: Autoscheduling>(
+        forAutoschedulingEvent event: T
+    ) -> [T.AutoscheduledEventType] {
+        Log.d("createAutoscheduledEvents called for event \(event.name)")
+        if !event.autoscheduling {
+            Log.s(AutoscheduleServiceError.triedToAutoscheduleForNonAutoschedulingEvent, additionalDetails: "autoscheduleEvent was called for event \(event) although the event is not autoscheduling.")
+            return []
+        }
         
+        let startDate = Date()
+        
+        // if autoschedule infinitely, autoschedule to 3 months from startDate, otherwise, schedule to event endDate
+        let endDate = event.autoscheduleInfinitely ? Calendar.current.date(byAdding: .month, value: 3, to: Date())! : event.endDate
+        
+        let applicableDates = findAllApplicableDatesBetween(startDate: startDate, endDate: endDate, weekdays: event.autoschedulingDays)
+        Log.d("the applicable dates between \(startDate) and \(endDate) for event \(event.name) are \(applicableDates)")
+        var autoscheduledEvents = [T.AutoscheduledEventType]()
+        
+        for date in applicableDates {
+            
+            // find the best TimeChunk for the event
+            if let timeChunk = bestTimeChunk(forEvent: event, onDate: date) {
+                Log.d("for date \(date) found best time chunk: \(timeChunk)")
+                let autoscheduledEvent = event.instantiateAutoscheduledEvent(forTimeChunk: timeChunk)
+                autoscheduledEvents.append(autoscheduledEvent)
+                self.databaseService.saveAutoscheduledEvent(autoscheduledEvent: autoscheduledEvent, autoschedulingEvent: event)
+            } else {
+                Log.d("tried to autoschedule for event \(event.name) on date \(date) but there were no available slots.")
+            }
+        }
+        
+        return autoscheduledEvents
+    }
+    
+    func bestTimeChunk(forEvent event: any Autoscheduling, onDate date: Date) -> TimeChunk? {
+        Log.d("bestTimeChunk called for event \(event.name) on date \(date)")
+        let startBound = self.databaseService.getUserSettings().getWakeUpTime(for: date) ?? date.startOfDay
+        Log.d("startBound for bestTimeChunk: \(startBound)")
+        
+        let commitments = self.getCommitments(for: date)
+        Log.d("Commitments for date \(date): \(commitments)")
+        
+        let openTimeSlots = self.getOpenTimeSlots(
+            startBound: startBound,
+            endBound: date.endOfDay,
+            commitments: [TimeChunk](commitments.values)
+        )
+        
+        Log.d("openTimeSlots: \(openTimeSlots)")
+        
+        return self.bestTime(openTimeSlots: openTimeSlots, totalMinutes: event.autoLengthMinutes)
+    }
+    
     /// Returns the Commitments  for StudiumEvents for a given day.
     /// - Parameter date: The date that we are retrieving commitments for
     /// - Returns: an array of Commitment objects
@@ -72,8 +100,8 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
         var commitments = [StudiumEvent: TimeChunk]()
         
         // Get all StudiumEvents
-        let studiumEvents = self.databaseService.getStudiumObjects(expecting: StudiumEvent.self)
-        
+//        let studiumEvents = self.databaseService.getStudiumObjects(expecting: StudiumEvent.self)
+        let studiumEvents = self.databaseService.getAllStudiumObjects()
         for event in studiumEvents {
             
             // If the event doesn't occur on the desired date, skip it
@@ -121,10 +149,10 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
                 //the commitment is completely within the slot, so we remove the chunk containing the commitment.
                 if(commitmentStartTime > slotStartTime && commitmentEndTime < slotEndTime){
                     
-                    printDebug("The commitment is completely within the slot")
+                    Log.d("The commitment is completely within the slot")
                     let newSlot1 = TimeChunk(startDate: slotStartTime, endDate: commitmentStartTime-1)
                     let newSlot2 = TimeChunk(startDate: commitmentEndTime+1, endDate: slotEndTime)
-
+                    
                     
                     //remove the entire old open slot
                     openSlots.remove(at: i)
@@ -133,8 +161,8 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
                     //append new open slots not including the commitment
                     openSlots.append(newSlot1)
                     openSlots.append(newSlot2)
-
-                //the bottom portion of the commitment is within the slot.
+                    
+                    //the bottom portion of the commitment is within the slot.
                 } else if(commitmentStartTime < slotStartTime && commitmentEndTime > slotStartTime && commitmentEndTime < slotEndTime) {
                     let newSlot = TimeChunk(startDate: commitmentEndTime+1, endDate: slotEndTime)
                     
@@ -145,7 +173,7 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
                     //add the new slot not containing the commitment
                     openSlots.append(newSlot)
                     
-                //the top portion of the commitment is within the slot.
+                    //the top portion of the commitment is within the slot.
                 } else if(commitmentStartTime < slotEndTime && commitmentStartTime > slotStartTime && commitmentEndTime > slotEndTime) {
                     
                     //remove the entire old slot
@@ -155,7 +183,7 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
                     let newSlot = TimeChunk(startDate: slotStartTime, endDate: commitmentStartTime-1)
                     openSlots.append(newSlot)
                     
-                //the slot is completely within the commitment
+                    //the slot is completely within the commitment
                 } else if(slotStartTime >= commitmentStartTime && slotEndTime <= commitmentEndTime) {
                     openSlots.remove(at: i)
                     i-=1
@@ -188,6 +216,8 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
                 } else {
                     bestTimeSlot = openTimeSlot
                 }
+            } else {
+                print("TIME SLOT LENGTH: \(openTimeSlot.lengthInMinutes), TARGET LENGTH: \(totalMinutes)")
             }
         }
         
@@ -208,7 +238,7 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
     ///   - totalMinutes: The total length of the event in minutes
     /// - Returns: A TimeChunk representing the start and end date of the autoscheduled event
     func findAutoscheduleTimeChunk(dateToScheduleOn: Date, startBound: Date, endBound: Date, totalMinutes: Int) -> TimeChunk? {
-        printDebug("attempting to find autoschedule time chunk.")
+        Log.d("attempting to find autoschedule time chunk.")
         let commitments = [TimeChunk](self.getCommitments(for: dateToScheduleOn).values)
         let openTimeSlots = self.getOpenTimeSlots(startBound: startBound, endBound: endBound, commitments: commitments)
         if !openTimeSlots.isEmpty {
@@ -224,54 +254,89 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
     ///   - endDate: The end bound for the range
     ///   - weekdays: The days that we're looking for
     /// - Returns: An array of Date objects which represent applicable days
-    func findAllApplicableDatesBetween(startDate: Date, endDate: Date, weekdays: Set<Weekday>) -> [Date] {
+    func findAllApplicableDatesBetween(
+        startDate: Date,
+        endDate: Date,
+        weekdays: Set<Weekday>
+    ) -> [Date] {
+        Log.d("findAllApplicableDatesBetween")
         var resultDates = [Date]()
         let calendar = Calendar.current
         
         // Iterate through each day in the range
         var currentDate = startDate
         while currentDate <= endDate {
-            let weekday = calendar.component(.weekday, from: currentDate)
-            if let studiumWeekday = Weekday(rawValue: weekday) {
-                
-                // If the current day is a Monday, Wednesday, or Friday, add it to the result array
-                if weekdays.contains(studiumWeekday) {
-                    printDebug("findAllApplicableDatesBetween adding studiumWeekday \(studiumWeekday.buttonText) which is date \(currentDate)")
-                    resultDates.append(currentDate)
-                }
-            }
+            
+//            event.days
             
             // Move to the next day
+//            if event.occursOn(date: currentDate) {
+            if weekdays.contains(currentDate.weekdayValue) {
+                resultDates.append(currentDate)
+            }
+            
             currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
         }
         
         return resultDates
     }
     
-    //TODO: Docstring
-    func autoscheduleStudyTime(parentAssignment: Assignment) {
-        if parentAssignment.autoscheduling {
-            printDebug("autoscheduling study time for assignment: \(parentAssignment.name)")
-            let datesToAutoschedule = self.findAllApplicableDatesBetween(startDate: Date(), endDate: parentAssignment.endDate, weekdays: parentAssignment.days)
-            printDebug("the applicable dates to autoschedule study time are: \(datesToAutoschedule)")
-            for date in datesToAutoschedule {
-                let studyTimeAssignment = Assignment(parentAssignment: parentAssignment)
-                self.autoscheduleEvent(forEvent: studyTimeAssignment, onDate: date)
-
-                if studyTimeAssignment.parentCourse != nil {
-                    self.databaseService.saveStudiumObject(studyTimeAssignment)
-                } else {
-                    print("$ERR (AutoscheduleService): tried to autoschedule study time for assignment \(parentAssignment.name) but the parent course was nil. The parent assignment course is: \(String(describing: parentAssignment.parentCourse?.name))")
-                }
-            }
-        }
-    }
+    // TODO: Docstring
+//    func autoscheduleStudyTime(parentAssignment: Assignment) {
+//        if parentAssignment.autoscheduling {
+//            printDebug("autoscheduling study time for assignment: \(parentAssignment.name)")
+//            let datesToAutoschedule = self.findAllApplicableDatesBetween(startDate: Date(), endDate: parentAssignment.endDate, weekdays: parentAssignment.days)
+//            printDebug("the applicable dates to autoschedule study time are: \(datesToAutoschedule)")
+//            for date in datesToAutoschedule {
+//                let studyTimeAssignment = Assignment(parentAssignment: parentAssignment)
+//                self.autoscheduleEvent(forAutoschedulingEvent: studyTimeAssignment, onDate: date)
+//                
+//                if studyTimeAssignment.parentCourse != nil {
+//                    self.databaseService.saveStudiumObject(studyTimeAssignment)
+//                } else {
+//                    print("$ERR (AutoscheduleService): tried to autoschedule study time for assignment \(parentAssignment.name) but the parent course was nil. The parent assignment course is: \(String(describing: parentAssignment.parentCourse?.name))")
+//                }
+//            }
+//        }
+//    }
 }
 
-extension Debuggable where Self: AutoscheduleServiceProtocol {
-    func printDebug(_ message: String) {
-        if self.debug || DebugFlags.authentication {
-            print("$LOG (AutoscheduleService): \(message)")
-        }
-    }
+enum AutoscheduleServiceError: Error {
+    case triedToAutoscheduleForNonAutoschedulingEvent
 }
+
+//extension Debuggable where Self: AutoscheduleServiceProtocol {
+//    func printDebug(_ message: String) {
+//        if self.debug || DebugFlags.authentication {
+//            print("$LOG (AutoscheduleService): \(message)")
+//        }
+//    }
+//}
+
+//extension AutoscheduleService {
+//    func getNextThreeMonthsDates() -> [Date] {
+//        let currentDate = Date()
+//        let calendar = Calendar.current
+//
+//        // Get the date three months from now
+//        guard let threeMonthsLater = calendar.date(byAdding: .month, value: 3, to: currentDate) else {
+//            return []
+//        }
+//
+//        var dates: [Date] = []
+//
+//        // Iterate over each day within the next three months
+//        calendar.enumerateDates(startingAfter: currentDate, matching: DateComponents(hour: 0, minute: 0, second: 0), matchingPolicy: .nextTime) { (date, _, stop) in
+//
+//            // Stop if the date exceeds three months from now
+//            guard let date = date, date < threeMonthsLater else {
+//                stop = true
+//                return
+//            }
+//
+//            dates.append(date)
+//        }
+//
+//        return dates
+//    }
+//}

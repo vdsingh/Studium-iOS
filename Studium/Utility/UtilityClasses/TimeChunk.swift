@@ -21,8 +21,8 @@ class TimeChunk {
     let descriptor: String?
     
     //TODO: Docstrings
-    var lengthInMinutes: Int {
-        let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: startDate, to: endDate)
+    var lengthInMinutes: Int {        
+        let diffComponents = Calendar.current.dateComponents([.minute], from: startDate, to: endDate)
         return diffComponents.minute ?? 0
     }
     
