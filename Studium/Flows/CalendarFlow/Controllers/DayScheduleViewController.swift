@@ -102,25 +102,25 @@ class DayScheduleViewController: DayViewController, Storyboarded {
             // Is the event recurring?
             if let recurringEvent = studiumEvent as? RecurringStudiumEvent {
                 
-                if let recurringEvent = recurringEvent as? (any Autoscheduleable),
-                   recurringEvent.autoscheduling {
+//                if let recurringEvent = recurringEvent as? (any Autoscheduleable),
+//                   recurringEvent.autoscheduling {
 //                    let autoscheduleChunk = AutoscheduleService.shared.findAutoscheduleTimeChunk(dateToScheduleOn: date, startBound: <#T##Date#>, endBound: <#T##Date#>, totalMinutes: <#T##Int#>)
-                } else {
+//                } else {
                     
                     // Does the event occur on the requested date?
-                    if let timechunk = recurringEvent.timeChunkForDate(date: date) {
-                        newEvent.dateInterval = DateInterval(
-                            start: Calendar.current.date(bySettingHour: studiumEvent.startDate.hour, minute: studiumEvent.startDate.minute, second: 0, of: date)!,
-                            end: Calendar.current.date(bySettingHour: studiumEvent.endDate.hour, minute: studiumEvent.endDate.minute, second: 0, of: date)!
-                        )
+//                    if let timechunk = recurringEvent.timeChunkForDate(date: date) {
+//                        newEvent.dateInterval = DateInterval(
+//                            start: Calendar.current.date(bySettingHour: studiumEvent.startDate.hour, minute: studiumEvent.startDate.minute, second: 0, of: date)!,
+//                            end: Calendar.current.date(bySettingHour: studiumEvent.endDate.hour, minute: studiumEvent.endDate.minute, second: 0, of: date)!
+//                        )
 
 //                        newEvent.dateInterval.start = Calendar.current.date(bySettingHour: studiumEvent.startDate.hour, minute: studiumEvent.startDate.minute, second: 0, of: date)!
 //                        newEvent.endDate = Calendar.current.date(bySettingHour: studiumEvent.endDate.hour, minute: studiumEvent.endDate.minute, second: 0, of: date)!
-                    }
+//                    }
                 }
-            } else {
+//            } else {
 //                continue
-            }
+//            }
             
             if let studiumEvent = studiumEvent as? CompletableStudiumEvent {
                 if studiumEvent.complete {
@@ -257,6 +257,7 @@ class DayScheduleViewController: DayViewController, Storyboarded {
         // Cancel editing current event and start creating a new one
         endEventEditing()
     }
+
     override func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
         print("did finish editing lol \(event)")
         print("new startDate: \(event.dateInterval.start) new endDate: \(event.dateInterval.end)")

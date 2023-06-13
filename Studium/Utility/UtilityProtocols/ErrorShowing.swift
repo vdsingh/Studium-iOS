@@ -59,12 +59,7 @@ extension ErrorShowing where Self: UIViewController {
         message: String = "Please restart the application.",
         actions: [UIAlertAction] = [UIAlertAction(title: "OK", style: .default)]
     ) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        for action in actions {
-            alertController.addAction(action)
-        }
-        
-        self.present(alertController, animated: true, completion: nil)
+        PopUpService.shared.presentToast(title: title, description: message, popUpType: .failure)
     }
     
     // TODO: Docstrings

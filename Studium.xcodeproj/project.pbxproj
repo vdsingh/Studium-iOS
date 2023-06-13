@@ -77,6 +77,12 @@
 		B94CA0D92A32C0F000047865 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D82A32C0F000047865 /* NavigationCoordinator.swift */; };
 		B94CA0E12A32C50F00047865 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B94CA0E02A32C50F00047865 /* GoogleService-Info.plist */; };
 		B94CA0E42A344B7500047865 /* PopUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0E32A344B7500047865 /* PopUpService.swift */; };
+		B94CA0E62A34573200047865 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0E52A34573200047865 /* Logger.swift */; };
+		B94CA0E82A34615400047865 /* CrashlyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0E72A34615400047865 /* CrashlyticsService.swift */; };
+		B94CA0EA2A35511000047865 /* StudiumFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0E92A35511000047865 /* StudiumFont.swift */; };
+		B94CA0ED2A3563BA00047865 /* FormPopUpType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0EC2A3563BA00047865 /* FormPopUpType.swift */; };
+		B94CA0F02A3683E800047865 /* Autoschedulable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0EF2A3683E800047865 /* Autoschedulable.swift */; };
+		B94CA0F22A3683F200047865 /* StudiumEventContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0F12A3683F200047865 /* StudiumEventContainer.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
@@ -202,6 +208,12 @@
 		B94CA0DB2A32C0FF00047865 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B94CA0E02A32C50F00047865 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B94CA0E32A344B7500047865 /* PopUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpService.swift; sourceTree = "<group>"; };
+		B94CA0E52A34573200047865 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		B94CA0E72A34615400047865 /* CrashlyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashlyticsService.swift; sourceTree = "<group>"; };
+		B94CA0E92A35511000047865 /* StudiumFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumFont.swift; sourceTree = "<group>"; };
+		B94CA0EC2A3563BA00047865 /* FormPopUpType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPopUpType.swift; sourceTree = "<group>"; };
+		B94CA0EF2A3683E800047865 /* Autoschedulable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autoschedulable.swift; sourceTree = "<group>"; };
+		B94CA0F12A3683F200047865 /* StudiumEventContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventContainer.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		B9707E372A11C7EF004B63F0 /* TableViewFormKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TableViewFormKit; path = ../../Packages/TableViewFormKit; sourceTree = "<group>"; };
@@ -403,6 +415,7 @@
 				B94CA0D42A2F1BCE00047865 /* StudiumIcon.swift */,
 				B90D144129899C310093EB0C /* Weekday.swift */,
 				B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */,
+				B94CA0E92A35511000047865 /* StudiumFont.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -452,9 +465,19 @@
 			path = Coordinators;
 			sourceTree = "<group>";
 		};
+		B94CA0EB2A35639B00047865 /* PopUps */ = {
+			isa = PBXGroup;
+			children = (
+				B94CA0E32A344B7500047865 /* PopUpService.swift */,
+				B94CA0EC2A3563BA00047865 /* FormPopUpType.swift */,
+			);
+			path = PopUps;
+			sourceTree = "<group>";
+		};
 		B96E6A5A298323CC00A25457 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B94CA0EB2A35639B00047865 /* PopUps */,
 				B97BB09D2A00D18F008F1A5B /* Mocking */,
 				B97BB0A52A00E9DD008F1A5B /* Persistence */,
 				B97BB0A42A00E9D0008F1A5B /* Authentication */,
@@ -462,7 +485,7 @@
 				B97BB09E2A00D19D008F1A5B /* MockAutoscheduleService.swift */,
 				B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */,
 				B97BB0A62A00EA0D008F1A5B /* AppleCalendarService.swift */,
-				B94CA0E32A344B7500047865 /* PopUpService.swift */,
+				B94CA0E72A34615400047865 /* CrashlyticsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -544,6 +567,8 @@
 			children = (
 				B995493B2992EDD000442968 /* Completable.swift */,
 				B97BB0B62A075CB4008F1A5B /* DaySchedulable.swift */,
+				B94CA0EF2A3683E800047865 /* Autoschedulable.swift */,
+				B94CA0F12A3683F200047865 /* StudiumEventContainer.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -725,6 +750,7 @@
 			isa = PBXGroup;
 			children = (
 				B9B41CF62A26E5E200239DD4 /* TimeChunk.swift */,
+				B94CA0E52A34573200047865 /* Logger.swift */,
 			);
 			path = UtilityClasses;
 			sourceTree = "<group>";
@@ -941,6 +967,7 @@
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
 				B9AFCF992A19F2430087A0FF /* DatabaseServiceProtocol.swift in Sources */,
 				B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */,
+				B94CA0F02A3683E800047865 /* Autoschedulable.swift in Sources */,
 				B90D13FD29845FE80093EB0C /* LogoSelectorViewController.swift in Sources */,
 				B90D1449298C77B80093EB0C /* NotificationService.swift in Sources */,
 				B94CA0CA2A2DABA000047865 /* StudiumEventFormCoordinator.swift in Sources */,
@@ -982,6 +1009,7 @@
 				B97BB0AE2A022B37008F1A5B /* Date_Extension.swift in Sources */,
 				B9AFCF952A19F1FE0087A0FF /* SettingsCoordinator.swift in Sources */,
 				B94CA0B72A2D435500047865 /* CourseRefreshProtocol.swift in Sources */,
+				B94CA0E82A34615400047865 /* CrashlyticsService.swift in Sources */,
 				B9B41D012A26F43900239DD4 /* NSObject_Extension.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
 				B90D144229899C310093EB0C /* Weekday.swift in Sources */,
@@ -991,6 +1019,7 @@
 				B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
+				B94CA0E62A34573200047865 /* Logger.swift in Sources */,
 				B94CA0C12A2D5CA800047865 /* Coordinator.swift in Sources */,
 				B94CA0BD2A2D5C5700047865 /* AlertTimeSelectingForm.swift in Sources */,
 				B9AFCF912A19F1EA0087A0FF /* ToDoCoordinator.swift in Sources */,
@@ -1005,6 +1034,7 @@
 				B94CA0D32A2F10F800047865 /* Coordinated.swift in Sources */,
 				B9F1B2DD2A1DB96C006F1462 /* TabBarCoordinator.swift in Sources */,
 				16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */,
+				B94CA0F22A3683F200047865 /* StudiumEventContainer.swift in Sources */,
 				B90D13FA29845FE80093EB0C /* AddHabitViewController.swift in Sources */,
 				B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */,
 				B9AFCF782A19E8260087A0FF /* AuthenticationCoordinator.swift in Sources */,
@@ -1020,10 +1050,12 @@
 				B97BB1672A0EF864008F1A5B /* AssignmentsViewController.swift in Sources */,
 				B90D1440298999AB0093EB0C /* StudiumFormError.swift in Sources */,
 				B94CA0D52A2F1BCE00047865 /* StudiumIcon.swift in Sources */,
+				B94CA0EA2A35511000047865 /* StudiumFont.swift in Sources */,
 				B9AFCF932A19F1F50087A0FF /* UserSetupCoordinator.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
 				165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */,
 				1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */,
+				B94CA0ED2A3563BA00047865 /* FormPopUpType.swift in Sources */,
 				B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */,
 				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,
 				1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */,
