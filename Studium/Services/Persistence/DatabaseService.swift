@@ -67,18 +67,44 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     
     /// Saves a StudiumEvent to the database
     /// - Parameter studiumEvent: The StudiumEvent to save to the database
-    public func saveStudiumObject(_ studiumEvent: StudiumEvent) {
+    public func saveStudiumObject<T: StudiumEvent>(_ studiumEvent: T) {
         
         // The event is an assignment
-        if let assignment = studiumEvent as? Assignment {
-            guard let parentCourse = assignment.parentCourse else {
-                print("$ERR (DatabaseService): tried to save assignment but its parent course was nil")
-                return
-            }
-            
-            self.saveAssignment(assignment: assignment, parentCourse: parentCourse)
-            return
+//        if let assignment = studiumEvent as? Assignment {
+//            guard let parentCourse = assignment.parentCourse else {
+//                Log.s(DatabaseServiceError.assignmentWithNilCourse, additionalDetails: "tried to save assignment \(assignment) but its parent course was nil")
+//                return
+//            }
+//
+//            self.saveAssignment(assignment: assignment, parentCourse: parentCourse)
+//            return
+//        }
+        
+        // If the event is autoscheduling
+        
+        if let autoschedulingEvent = studiumEvent as? any Autoscheduling,
+           autoschedulingEvent.autoscheduling {
+               
+               self.printDebug("event \(studiumEvent.name) is autoscheduling. will attempt to autoschedule now.")
+//            
+//            // create Autoschedule event objects. AutoscheduleService will save any created events
+            let autoscheduledEvents = AutoscheduleService.shared.createAutoscheduledEvents(forAutoschedulingEvent: autoschedulingEvent)
+               
+               self.printDebug("Created and saved autoscheduled events: \(autoscheduledEvents)")
+//            
+//            // save Autoschedule event objects
+//            for unsavedAutoscheduledEvent in unsavedAutoscheduledEvents {
+////                unsavedAutoscheduledEvent.save()
+//                self.saveAutoscheduledEvent(
+//                    autoschedulingEvent: autoschedulingEvent,
+//                    autoscheduledEvent: unsavedAutoscheduledEvent
+//                )
+//            }
         }
+        
+//        if let scheduledEvent = studiumEvent as? (any StudiumEventContained) {
+//            self.saveScheduledEvent(scheduledEvent: scheduledEvent, schedulingEvent: <#_#>)
+//        }
         
         printDebug("saving event \(studiumEvent)")
         do {
@@ -86,30 +112,31 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
                 self.realm.add(studiumEvent)
                 NotificationService.shared.scheduleNotificationsFor(event: studiumEvent)
             }
-        } catch {
-            print("$ERR: error deleting studium object.")
+        } catch let error {
+            Log.s(error, additionalDetails: "tried to save studiumEvent \(studiumEvent) but failed.")
         }
     }
     
-    
-    /// Saves an Assignment to the Database under a specified Course
-    /// - Parameters:
-    ///   - assignment: The Assignment to save
-    ///   - parentCourse: The Course that the Assignment belongs to
-    ///   - parentAssignment: The parentAssignment for the assignment (if the assignment is autoscheduled study time)
-    public func saveAssignment(assignment: Assignment, parentCourse: Course) {
-        printDebug("Saving assignment: \(assignment.name).")
-        
+    func saveAutoscheduledEvent<T: Autoscheduling>(autoscheduledEvent: T.AutoscheduledEventType, autoschedulingEvent: T) {
         self.realmWrite {
-            parentCourse.appendAssignment(assignment)
-            if let parentAssignmentID = assignment.parentAssignmentID {
-                if let parentAssignment = self.realm.object(ofType: Assignment.self, forPrimaryKey: parentAssignmentID) {
-                    parentAssignment.appendScheduledEvent(event: assignment)
-                } else {
-                    print("$ERR (DatabaseService): tried to save autoscheduled assignment, but couldn't retrieve the parent assignment from its primary key.")
-                }
-            }
-            NotificationService.shared.scheduleNotificationsFor(event: assignment)
+            autoschedulingEvent.appendAutoscheduledEvent(event: autoscheduledEvent)
+        }
+    }
+    
+    func saveContainedEvent<T: StudiumEventContainer>(containedEvent: T.ContainedEventType, containerEvent: T) {
+        self.realmWrite {
+            containerEvent.appendContainedEvent(containedEvent: containedEvent)
+        }
+        
+        // The contained event may be autoscheduling (ex: an Assignment that autoschedules work time)
+        if let autoschedulingEvent = containedEvent as? any Autoscheduling,
+           autoschedulingEvent.autoscheduling {
+            
+            self.printDebug("event \(autoschedulingEvent.name) is autoscheduling. will attempt to autoschedule now.")
+            // create Autoschedule event objects. AutoscheduleService will save any created events
+            let autoscheduledEvents = AutoscheduleService.shared.createAutoscheduledEvents(forAutoschedulingEvent: autoschedulingEvent)
+            
+            self.printDebug("Created and saved autoscheduled events: \(autoscheduledEvents)")
         }
     }
     
@@ -139,11 +166,9 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         return allEvents
     }
     
-    /// Retrieves all of the Assignments for a given Course
-    /// - Parameter course: The Course that we want to retrieve the Assignments for
-    /// - Returns: All of the Assignments for the provided Course
-    public func getAssignments(forCourse course: Course) -> [Assignment] {
-        return [Assignment](course.scheduledEvents)
+    // TODO: Docstrings
+    public func getContainedEvents<T: StudiumEventContainer>(forContainer container: T) -> [T.ContainedEventType] {
+        return container.containedEvents
     }
     
     /// Retrieves the UserSettings object from the database
@@ -170,6 +195,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         return UserSettings()
     }
     
+    // TODO: Docstrings
     public func getDefaultAlertOptions() -> [AlertOption] {
         let settings = self.getUserSettings()
         return settings.defaultAlertOptions
@@ -213,6 +239,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         }
     }
     
+    // TODO: Docstrings
     public func setDefaultAlertOptions(alertOptions: [AlertOption]) {
         let settings = self.getUserSettings()
         self.realmWrite {
@@ -229,7 +256,13 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         printDebug("attempting to delete studiumEvent \(studiumEvent.name)")
 
         if let containerEvent = studiumEvent as? (any StudiumEventContainer) {
-            while let event = containerEvent.scheduledEvents.first {
+            while let event = containerEvent.containedEvents.first {
+                self.deleteStudiumObject(event)
+            }
+        }
+        
+        if let autoschedulingEvent = studiumEvent as? (any Autoscheduling) {
+            while let event = autoschedulingEvent.autoscheduledEvents.first {
                 self.deleteStudiumObject(event)
             }
         }
@@ -245,6 +278,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         }
     }
     
+    // TODO: Docstrings
     private func realmWrite(_ writeBlock: () -> Void) {
         do {
             try self.realm.write {
@@ -254,4 +288,8 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
             print("$ERR (DatabaseService): \(String(describing: error))")
         }
     }
+}
+
+enum DatabaseServiceError: Error {
+    case assignmentWithNilCourse
 }

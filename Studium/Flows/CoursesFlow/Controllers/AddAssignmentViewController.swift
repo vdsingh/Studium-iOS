@@ -118,11 +118,13 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
                     newEvent: newAssignment
                 )
             } else {
-                self.databaseService.saveStudiumObject(newAssignment)
+                // DatabaseService will handle autoscheduling.
+//                self.databaseService.saveStudiumObject(newAssignment)
+                self.databaseService.saveContainedEvent(containedEvent: newAssignment, containerEvent: self.selectedCourse)
             }
             
-            self.autoscheduleService.autoscheduleStudyTime(parentAssignment: newAssignment)
-            delegate?.reloadData()
+//            self.autoscheduleService.autoscheduleStudyTime(parentAssignment: newAssignment)
+            refreshDelegate?.reloadData()
             dismiss(animated: true, completion: nil)
         } else {
             self.setCells()
@@ -242,7 +244,7 @@ extension AddAssignmentViewController: CanHandleInfoDisplay {
     func displayInformation() {
         let alert = UIAlertController(
             title: "Autoscheduling",
-            message: "We'll analyze your schedule and find time for you to get it done.",
+            message: "We'll analyze your schedule and find time for you to work on this!",
             preferredStyle: UIAlertController.Style.alert
         )
         

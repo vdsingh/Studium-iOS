@@ -11,6 +11,27 @@ import RealmSwift
 import VikUtilityKit
 
 class MockDatabaseService: DatabaseServiceProtocol {
+
+
+    
+    
+    //TODO: Implement
+    func saveAutoscheduledEvent<T>(autoscheduledEvent: T.AutoscheduledEventType, autoschedulingEvent: T) where T : Autoscheduling {
+        
+    }
+    
+    //TODO: Implement
+    func saveContainedEvent<T>(containedEvent: T.ContainedEventType, containerEvent: T) where T : StudiumEventContainer {
+        
+    }
+    
+    func getContainedEvents<T: StudiumEventContainer>(forContainer container: T) -> [T.ContainedEventType] {
+        return []
+    }
+    
+    
+    
+    
     
     var user: User? = nil
     
@@ -22,11 +43,6 @@ class MockDatabaseService: DatabaseServiceProtocol {
     
     func saveStudiumObject(_ studiumEvent: StudiumEvent) {
         self.events.append(studiumEvent)
-    }
-    
-    func saveAssignment(assignment: Assignment, parentCourse: Course) {
-        parentCourse.appendAssignment(assignment)
-        self.events.append(assignment)
     }
     
     func getStudiumObjects<T>(expecting type: T.Type) -> [T] where T : StudiumEvent {
@@ -44,9 +60,6 @@ class MockDatabaseService: DatabaseServiceProtocol {
         return self.events
     }
     
-    func getAssignments(forCourse course: Course) -> [Assignment] {
-        return course.scheduledEvents
-    }
     
     func getUserSettings() -> UserSettings {
         return UserSettings()
@@ -65,10 +78,6 @@ class MockDatabaseService: DatabaseServiceProtocol {
     
     func deleteStudiumObject(_ studiumEvent: StudiumEvent) {
         self.events.removeAll(where: { $0 == studiumEvent })
-    }
-    
-    func deleteAssignmentsForCourse(course: Course) {
-        //        course.assignments.remove
     }
     
     func setDefaultAlertOptions(alertOptions: [AlertOption]) {

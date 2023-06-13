@@ -11,12 +11,14 @@ import VikUtilityKit
 
 //TODO: Docstrings
 class MockAutoscheduleService: AutoscheduleServiceProtocol {
+
+    
     static let shared = MockAutoscheduleService()
     
     private init() { }
     
-    func autoscheduleEvent(forAutoschedulingEvent event: any Autoscheduling, onDate date: Date) {
-
+    func createAutoscheduledEvents<T>(forAutoschedulingEvent event: T) -> [T.AutoscheduledEventType] where T : Autoscheduling {
+        return []
     }
     
     func getCommitments(for date: Date) -> [StudiumEvent: TimeChunk] {

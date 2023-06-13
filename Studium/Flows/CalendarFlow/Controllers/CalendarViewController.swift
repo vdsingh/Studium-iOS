@@ -22,11 +22,32 @@ class CalendarViewController: UIViewController, Storyboarded {
     //TODO: Docstrings
     @IBOutlet weak var tableView: UITableView!
     
+    var noEventsLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "No Events on this Day"
+        label.font = StudiumFont.placeholder.font
+        label.textColor = StudiumFont.placeholder.color
+        return label
+    }()
+    
     //TODO: Docstrings
     var allEventsInDay: [StudiumEvent] = []
     
     //TODO: Docstrings
     var selectedDay: Date = Date()
+    
+    override func loadView() {
+        super.loadView()
+        self.view.addSubview(self.noEventsLabel)
+        
+        NSLayoutConstraint.activate([
+            self.noEventsLabel.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
+            self.noEventsLabel.centerYAnchor.constraint(equalTo: self.tableView.centerYAnchor),
+
+        ])
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +64,6 @@ class CalendarViewController: UIViewController, Storyboarded {
         self.calendar.appearance.selectionColor = StudiumColor.primaryAccent.uiColor
         self.calendar.appearance.todayColor = self.calendar.backgroundColor
         
-//        self.calendar.appearance.titleTodayColor
         
         self.navigationController?.navigationBar.tintColor = StudiumColor.primaryAccent.uiColor
         self.navigationController?.navigationBar.backgroundColor = StudiumColor.background.uiColor
@@ -130,13 +150,15 @@ class CalendarViewController: UIViewController, Storyboarded {
     
     //TODO: Docstrings
     func updateInfo(){
-        allEventsInDay = []
-        addAssignments()
-        addCourses()
-        addHabits()
-        allEventsInDay = allEventsInDay.sorted(by: { $0.startDate < $1.startDate })
+        self.allEventsInDay = []
+        self.addAssignments()
+        self.addCourses()
+        self.addHabits()
+        self.allEventsInDay = self.allEventsInDay.sorted(by: { $0.startDate < $1.startDate })
 
-        tableView.reloadData()
+        self.tableView.reloadData()
+        
+        self.noEventsLabel.isHidden = !allEventsInDay.isEmpty
     }
 }
 

@@ -79,7 +79,7 @@ class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDeleg
     /// Loads all non-autoscheduled assignments for the selected course.
     override func loadAssignments() {
         //TODO: Fix sorting
-        let assignments = self.databaseService.getAssignments(forCourse: self.selectedCourse)
+        let assignments = self.databaseService.getContainedEvents(forContainer: self.selectedCourse)
         printDebug("Loaded assignments: \(assignments.map({ $0.name }))")
 //        let assignments = DatabaseService.shared
 //            .getAssignments(forCourse: self.selectedCourse)

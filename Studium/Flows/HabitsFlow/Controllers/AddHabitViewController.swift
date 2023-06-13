@@ -155,7 +155,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
                 location: location,
                 additionalDetails: additionalDetails,
                 startDate: startDate,
-                endDate: startDate.add(minutes: totalLengthMinutes),
+                endDate: self.endDate,
                 autoscheduling: autoschedule,
                 startEarlier: earlier,
                 autoLengthMinutes: totalLengthMinutes,
@@ -169,6 +169,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
             if let editingHabit = self.habit {
                 self.databaseService.editStudiumEvent(oldEvent: editingHabit, newEvent: newHabit)
             } else {
+                // DatabaseService handles autoscheduling
                 self.databaseService.saveStudiumObject(newHabit)
             }
             
@@ -342,13 +343,12 @@ extension AddHabitViewController: CanHandleInfoDisplay {
     func displayInformation() {
         let alert = UIAlertController(
             title: "Autoscheduling",
-            message: "We'll analyze your schedule and find time for you to get it done.",
+            message: "We'll analyze your schedule and find time for you to work on this!",
             preferredStyle: UIAlertController.Style.alert
         )
         
         
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
-        }))
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in }))
         present(alert, animated: true, completion: nil)
     }
 }

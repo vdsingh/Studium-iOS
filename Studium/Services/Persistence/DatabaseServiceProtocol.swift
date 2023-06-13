@@ -11,16 +11,26 @@ import VikUtilityKit
 
 //TODO: Docstrings
 protocol DatabaseServiceProtocol {
+    
+    // Create
     func saveStudiumObject(_ studiumEvent: StudiumEvent)
-    func saveAssignment(assignment: Assignment, parentCourse: Course)
+    func saveContainedEvent<T: StudiumEventContainer>(containedEvent: T.ContainedEventType, containerEvent: T)
+    func saveAutoscheduledEvent<T: Autoscheduling>(autoscheduledEvent: T.AutoscheduledEventType, autoschedulingEvent: T)
+    func setDefaultAlertOptions(alertOptions: [AlertOption])
+
+    // Read
     func getStudiumObjects <T: StudiumEvent> (expecting type: T.Type) -> [T]
     func getAllStudiumObjects() -> [StudiumEvent]
-    func getAssignments(forCourse course: Course) -> [Assignment]
+//    func getAssignments(forCourse course: Course) -> [Assignment]
+    func getContainedEvents<T: StudiumEventContainer>(forContainer container: T) -> [T.ContainedEventType]
     func getUserSettings() -> UserSettings
+    func getDefaultAlertOptions() -> [AlertOption]
+
+    // Update
     func markComplete(_ completableEvent: CompletableStudiumEvent, _ complete: Bool)
     func editStudiumEvent(oldEvent: StudiumEvent, newEvent: StudiumEvent)
     func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date)
+    
+    // Delete
     func deleteStudiumObject(_ studiumEvent: StudiumEvent)
-    func setDefaultAlertOptions(alertOptions: [AlertOption])
-    func getDefaultAlertOptions() -> [AlertOption]
 }
