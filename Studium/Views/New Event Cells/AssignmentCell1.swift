@@ -30,6 +30,8 @@ class AssignmentCell1: DeletableEventCell {
     /// s a circle that tells us how late or close to the deadline this assignment is - red=late, yellow=due soon, green=not due soon.
     @IBOutlet weak var latenessIndicator: UIImageView!
     
+    // TODO: Docstrings
+    @IBOutlet weak var latenessIndicatorBackground: UIImageView!
     /// the icon associated with the assignment (it will be the same as the course's icon)
     @IBOutlet weak var icon: UIImageView!
     
@@ -99,6 +101,8 @@ class AssignmentCell1: DeletableEventCell {
         subLabel.textColor = contrastingColor
         dueDateLabel.textColor = contrastingColor
         expandEventsButton.tintColor = contrastingColor
+        iconBackground.tintColor = contrastingColor
+        latenessIndicatorBackground.tintColor = contrastingColor
 
         // Set all of the labels' texts
         subLabel.text = course.name
@@ -132,7 +136,7 @@ class AssignmentCell1: DeletableEventCell {
         primaryLabel.attributedText = primaryTextAttributeString
 
         //this assignment has no autoscheduled events, so there is no need to have a button that drops down the autoscheduled events.
-        if assignment.autoscheduled || assignment.autoscheduledEvents.isEmpty {
+        if assignment.autoscheduledEvents.isEmpty {
             expandEventsButton.isHidden = true
         } else {
             expandEventsButton.isHidden = false

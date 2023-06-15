@@ -2,7 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -129,7 +130,9 @@
                 <outlet property="dueDateLabel" destination="Syo-Rz-w2J" id="XxX-1p-xFd"/>
                 <outlet property="expandEventsButton" destination="EIm-12-tok" id="y3q-Xl-kY0"/>
                 <outlet property="icon" destination="PA4-b9-1uZ" id="YY5-bY-Teo"/>
+                <outlet property="iconBackground" destination="ucK-HN-XaB" id="eMH-U3-l3Y"/>
                 <outlet property="latenessIndicator" destination="WU4-W6-TQJ" id="U4k-wh-dyc"/>
+                <outlet property="latenessIndicatorBackground" destination="pTg-gp-6El" id="xC5-yi-Ybw"/>
                 <outlet property="primaryLabel" destination="pF6-1U-gVs" id="FeQ-6f-ykH"/>
                 <outlet property="subLabel" destination="wuB-Zg-viJ" id="siE-qp-gdy"/>
             </connections>

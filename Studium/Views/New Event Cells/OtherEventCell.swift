@@ -32,19 +32,17 @@ class OtherEventCell: DeletableEventCell {
     @IBOutlet weak var latenessIndicatorContainer: UIView!
     
     //TODO: Docstrings
-    var otherEvent: OtherEvent!
+    @IBOutlet weak var iconImageView: UIImageView!
     
     //TODO: Docstrings
-    func loadData(from otherEvent: OtherEvent){
-        event = otherEvent
+    func loadData(from otherEvent: OtherEvent) {
+        self.event = otherEvent
         
         let attributeString = NSMutableAttributedString(string: otherEvent.name)
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
-        if otherEvent.complete{
+        if otherEvent.complete {
             primaryLabel.attributedText = attributeString
-            
             latenessIndicator.tintColor = .gray
-
         } else {
             attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
             primaryLabel.attributedText = attributeString
@@ -59,13 +57,11 @@ class OtherEventCell: DeletableEventCell {
             }
         }
         
-        self.otherEvent = otherEvent
-
-        subLabel.text = otherEvent.location
-        startTimeLabel.text = otherEvent.startDate.format(with: "MMM d, h:mm a")
-        endTimeLabel.text = otherEvent.endDate.format(with: "MMM d, h:mm a")
-        backgroundColor = .black
-
+        self.iconImageView.image = otherEvent.icon.image
+        self.subLabel.text = otherEvent.location
+        self.startTimeLabel.text = otherEvent.startDate.format(with: "MMM d, h:mm a")
+        self.endTimeLabel.text = otherEvent.endDate.format(with: "MMM d, h:mm a")
+        self.backgroundColor = .black
     }
     
     //TODO: Docstrings
