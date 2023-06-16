@@ -38,13 +38,13 @@ class LoginViewController: AuthenticationViewController, UIGestureRecognizerDele
     let textFieldIconSize = 30
     
     //TODO: Docstrings
-    let tintColor: UIColor = UIColor(named: "Studium Secondary Theme Color") ?? .black
+    let tintColor: UIColor = StudiumColor.secondaryAccent.uiColor
     
     //TODO: Docstrings
-    let placeHolderColor: UIColor = .placeholderText
+    let placeHolderColor: UIColor = StudiumColor.placeholderLabel.uiColor
     
     //TODO: Docstrings
-    let backgroundColor: UIColor =  UIColor(named: "Studium System Background Color") ?? StudiumColor.background.uiColor
+    let backgroundColor: UIColor = StudiumColor.tertiaryBackground.uiColor
     
     //TODO: Docstrings
     let textFieldBorderWidth: CGFloat = 2
@@ -132,6 +132,7 @@ class LoginViewController: AuthenticationViewController, UIGestureRecognizerDele
         self.emailTextField.layer.masksToBounds = true
         self.emailTextField.layer.borderColor = UIColor.gray.cgColor
         self.emailTextField.layer.borderWidth = textFieldBorderWidth
+        self.emailTextField.textColor = StudiumColor.primaryLabel.uiColor
         
         let emailPlaceholderAttributedString = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: placeHolderColor])
         self.emailTextField.attributedPlaceholder = emailPlaceholderAttributedString
@@ -149,12 +150,13 @@ class LoginViewController: AuthenticationViewController, UIGestureRecognizerDele
         self.passwordTextField.leftView = passwordIconView
         self.passwordTextField.leftViewMode = UITextField.ViewMode.always
         
-        let passwordEyeImageView = UIImageView(frame: CGRect(x: -textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))
-        passwordEyeImageView.image = SystemIcon.eye.createImage()
-        passwordEyeImageView.contentMode = .scaleAspectFit
+        // TODO: password preview button
+//        let passwordEyeImageView = UIImageView(frame: CGRect(x: -textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))
+//        passwordEyeImageView.image = SystemIcon.eye.createImage()
+//        passwordEyeImageView.contentMode = .scaleAspectFit
 
         let passwordEyeView = UIView(frame: CGRect(x: 0, y: 0, width: textFieldIconSize/3*4, height: textFieldIconSize/3*5))
-        passwordEyeView.addSubview(passwordEyeImageView)
+//        passwordEyeView.addSubview(passwordEyeImageView)
         self.passwordTextField.tintColor = .gray
         self.passwordTextField.rightViewMode = UITextField.ViewMode.always
         self.passwordTextField.rightView = passwordEyeView
@@ -162,6 +164,7 @@ class LoginViewController: AuthenticationViewController, UIGestureRecognizerDele
         self.passwordTextField.layer.masksToBounds = true
         self.passwordTextField.layer.borderColor = UIColor.gray.cgColor
         self.passwordTextField.layer.borderWidth = textFieldBorderWidth
+        self.passwordTextField.textColor = StudiumColor.primaryLabel.uiColor
         
         let passwordPlaceholderAttributedString = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: placeHolderColor])
         self.passwordTextField.attributedPlaceholder = passwordPlaceholderAttributedString
@@ -169,10 +172,11 @@ class LoginViewController: AuthenticationViewController, UIGestureRecognizerDele
         self.passwordTextField.returnKeyType = .done
         self.passwordTextField.delegate = self
         
-        
         self.signInButton.tintColor = StudiumColor.secondaryAccent.uiColor
         self.signInButton.layer.cornerRadius = 10
         self.signInButton.setTitleColor(StudiumColor.primaryLabel.uiColor, for: .normal)
+        self.signInButton.setTitleColor(StudiumColor.primaryLabel.uiColor, for: .disabled)
+
     }
     
     //TODO: Docstrings

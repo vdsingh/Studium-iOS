@@ -138,7 +138,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="O4H-iH-3Aw">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="O4H-iH-3Aw">
                                 <rect key="frame" x="0.0" y="92" width="414" height="770"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uwi-Wp-5Zq" customClass="FSCalendar">
@@ -982,7 +982,7 @@
                                             <constraint firstAttribute="height" constant="50" id="DWn-6z-Wwf"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="done" textContentType="email"/>
                                         <connections>
                                             <action selector="textFieldEditingDidBegin:" destination="Ttg-AT-mA7" eventType="editingDidBegin" id="5C8-1h-3vY"/>
                                             <action selector="textFieldEditingDidEnd:" destination="Ttg-AT-mA7" eventType="editingDidEnd" id="11v-3B-d5X"/>
@@ -995,7 +995,7 @@
                                             <constraint firstAttribute="height" constant="50" id="zGr-s9-GiB"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                         <connections>
                                             <action selector="textFieldEditingDidBegin:" destination="Ttg-AT-mA7" eventType="editingDidBegin" id="uCM-5Y-6zN"/>
                                             <action selector="textFieldEditingDidEnd:" destination="Ttg-AT-mA7" eventType="editingDidEnd" id="A4y-ws-AwS"/>
@@ -1496,7 +1496,7 @@
                                             <constraint firstAttribute="height" constant="50" id="QxC-d5-skE"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="done" textContentType="email"/>
                                         <connections>
                                             <action selector="textFieldEditingDidBegin:" destination="BhP-zo-giK" eventType="editingDidBegin" id="4lK-QH-dGa"/>
                                             <action selector="textFieldEditingDidEnd:" destination="BhP-zo-giK" eventType="editingDidEnd" id="tbT-M8-IFU"/>
@@ -1509,7 +1509,7 @@
                                             <constraint firstAttribute="height" constant="50" id="hbz-BF-cnQ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                         <connections>
                                             <action selector="textFieldEditingDidBegin:" destination="BhP-zo-giK" eventType="editingDidBegin" id="JkI-tU-GyO"/>
                                             <action selector="textFieldEditingDidEnd:" destination="BhP-zo-giK" eventType="editingDidEnd" id="XC3-Oi-d7S"/>

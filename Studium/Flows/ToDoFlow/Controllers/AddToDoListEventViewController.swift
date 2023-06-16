@@ -55,7 +55,7 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
             [
                 .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCellID.locationTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
+                .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.image, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
             [
                 .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCellID.startTimeCell, onClick: self.timeCellClicked),
@@ -78,7 +78,8 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
             let newEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: self.additionalDetails, startDate: self.startDate, endDate: self.endDate, color: self.color, icon: self.icon, alertTimes: self.alertTimes)
             if let otherEvent = self.otherEvent {
                 // We are editing
-                self.databaseService.editStudiumEvent(oldEvent: otherEvent, newEvent: newEvent)
+                self.databaseService.updateEvent(oldEvent: otherEvent, updatedEvent: newEvent)
+//                self.databaseService.editStudiumEvent(oldEvent: otherEvent, newEvent: newEvent)
             
             } else {
                 // We are creating new

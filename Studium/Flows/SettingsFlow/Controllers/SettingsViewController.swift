@@ -11,11 +11,12 @@ import RealmSwift
 import UIKit
 import EventKit
 import GoogleSignIn
+import TableViewFormKit
 
 import FirebaseCrashlytics
 
 // TODO: Docstrings
-class SettingsViewController: UITableViewController, Storyboarded, ErrorShowing, Coordinated, Debuggable {
+class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordinated, Debuggable {
     
     let debug = true
     
@@ -33,13 +34,10 @@ class SettingsViewController: UITableViewController, Storyboarded, ErrorShowing,
     // TODO: Docstrings
     var databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
-    /// reference to defaults
-//    let defaults = UserDefaults.standard
-    
     //TODO: Docstrings
-    lazy var cellData: [[(text: String, didSelect: (() -> Void)?)]] = [
+    lazy var cellData: [[(text: String, icon: StudiumIcon?, didSelect: (() -> Void)?)]] = [
         [
-            ("Set Default Notifications", didSelect: {
+            ("Set Default Notifications", .bell, didSelect: {
                 self.unwrapCoordinatorOrShowError()
                 self.coordinator?.showAlertTimesSelectionViewController(
                     updateDelegate: self,
@@ -47,29 +45,29 @@ class SettingsViewController: UITableViewController, Storyboarded, ErrorShowing,
                     viewControllerTitle: "Default Notifications"
                 )
             }),
-            ("Reset Wake Up Times", didSelect: {
+            ("Reset Wake Up Times", .clock, didSelect: {
                 self.unwrapCoordinatorOrShowError()
                 self.coordinator?.showUserSetupFlow()
             })
         ],
         [
-            ("Delete All Assignments", didSelect: {
+            ("Delete All Assignments", nil, didSelect: {
                 self.createAlertForAssignments(title: Constants.deleteAllAssignmentsAlertInfo.title, message: Constants.deleteAllAssignmentsAlertInfo.message, isCompleted: false)
             }),
-            ("Delete Completed Assignments", didSelect: {
+            ("Delete Completed Assignments", nil, didSelect: {
                 self.createAlertForAssignments(title: Constants.deleteCompletedAssignmentsAlertInfo.title, message: Constants.deleteCompletedAssignmentsAlertInfo.message, isCompleted: true)
             }),
-            ("Delete All Other Events", didSelect: {
+            ("Delete All Other Events", nil, didSelect: {
                 self.createAlertForOtherEvents(title: Constants.deleteAllOtherEventsAlertInfo.title, message: Constants.deleteAllOtherEventsAlertInfo.message, isCompleted: false)
             }),
-            ("Delete All Completed Other Events", didSelect: {
+            ("Delete All Completed Other Events", nil, didSelect: {
                 self.createAlertForOtherEvents(title: Constants.deleteAllCompletedOtherEventsAlertInfo.title, message: Constants.deleteAllCompletedOtherEventsAlertInfo.message, isCompleted: true)
                 
             })
         ],
         
         [
-            ("Report a Problem", didSelect: {
+            ("Report a Problem", .bug, didSelect: {
                 PopUpService.shared.showForm(formType: .reportAProblem) { textContents in
                     if let email = textContents.first,
                     let problemDetails = textContents.last {
@@ -85,8 +83,8 @@ class SettingsViewController: UITableViewController, Storyboarded, ErrorShowing,
             })
         ],
         [
-            ("Email", nil),
-            ("Sign Out", didSelect: {
+            ("ID: \(AuthenticationService.shared.userID ?? "Guest")", .user, nil),
+            ("Sign Out", .rightFromBracket, didSelect: {
                 AuthenticationService.shared.handleLogOut { error in
                     if let error = error {
                         Log.e(error)
@@ -102,7 +100,23 @@ class SettingsViewController: UITableViewController, Storyboarded, ErrorShowing,
         ]
     ]
     
+    func setCells() {
+        self.cells = cellData.map({ sectionData in
+            return sectionData.map { cellData in
+                // cellData format: (text: String, didSelect: (() -> Void)?)
+                return .labelCell(
+                    cellText: cellData.text,
+                    icon: cellData.icon?.image,
+                    onClick: cellData.didSelect
+                )
+            }
+        })
+    }
+
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setCells()
         self.tableView.tableFooterView = UIView()
         
         
@@ -110,7 +124,7 @@ class SettingsViewController: UITableViewController, Storyboarded, ErrorShowing,
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
         self.navigationController?.navigationBar.tintColor = StudiumColor.primaryAccent.uiColor
         
-        navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         
         
         self.view.backgroundColor = StudiumColor.background.uiColor
@@ -118,19 +132,19 @@ class SettingsViewController: UITableViewController, Storyboarded, ErrorShowing,
     }
     
     //TODO: Docstrings
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
-        cell?.backgroundColor = StudiumColor.secondaryBackground.uiColor
-        cell?.textLabel?.textColor = StudiumColor.primaryLabel.uiColor
-        cell?.textLabel?.text = cellData[indexPath.section][indexPath.row].text
-        
-        let id = AuthenticationService.shared.userID
-        if cellData[indexPath.section][indexPath.row].text == "Email" {
-            cell?.textLabel?.text = id
-        }
-        
-        return cell!
-    }
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+//        cell?.backgroundColor = StudiumColor.secondaryBackground.uiColor
+//        cell?.textLabel?.textColor = StudiumColor.primaryLabel.uiColor
+//        cell?.textLabel?.text = cellData[indexPath.section][indexPath.row].text
+//        
+//        let id = AuthenticationService.shared.userID
+//        if cellData[indexPath.section][indexPath.row].text == "Email" {
+//            cell?.textLabel?.text = id
+//        }
+//        
+//        return cell!
+//    }
     
     //TODO: Docstrings
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -163,6 +177,8 @@ class SettingsViewController: UITableViewController, Storyboarded, ErrorShowing,
         if let selectAction = cellData.didSelect {
             selectAction()
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     //edit the background color of section headers

@@ -38,6 +38,8 @@ class LogoSelectorViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = StudiumColor.background.uiColor
+        self.collectionView.backgroundColor = StudiumColor.background.uiColor
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.reloadData()

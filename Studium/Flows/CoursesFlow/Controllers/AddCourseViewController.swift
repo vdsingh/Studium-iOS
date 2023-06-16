@@ -60,7 +60,7 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
                 .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCellID.locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: {
+                .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.image, cellAccessoryType: .disclosureIndicator, onClick: {
                     self.showAlertTimesSelectionViewController() }
                 )
             ],
@@ -102,10 +102,11 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
             )
             
             if let course = self.course {
-                self.databaseService.editStudiumEvent(
-                    oldEvent: course,
-                    newEvent: newCourse
-                )
+                self.databaseService.updateEvent(oldEvent: course, updatedEvent: newCourse)
+//                self.databaseService.editStudiumEvent(
+//                    oldEvent: course,
+//                    newEvent: newCourse
+//                )
             } else {
                 self.databaseService.saveStudiumObject(newCourse)
             }

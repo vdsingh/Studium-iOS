@@ -81,7 +81,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
             [
                 .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
                 .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: .endTimeCell, onClick: self.timeCellClicked),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
+                .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.image, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
             [
                 .switchCell(cellText: "Schedule Time to Work", isOn: self.autoscheduleWorkTime, switchDelegate: self, infoDelegate: self)
@@ -113,10 +113,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
             )
             
             if let assignmentEditing = self.assignmentEditing {
-                self.databaseService.editStudiumEvent(
-                    oldEvent: assignmentEditing,
-                    newEvent: newAssignment
-                )
+                self.databaseService.updateEvent(oldEvent: assignmentEditing, updatedEvent: newAssignment)
             } else {
                 // DatabaseService will handle autoscheduling.
 //                self.databaseService.saveStudiumObject(newAssignment)
@@ -199,6 +196,7 @@ extension AddAssignmentViewController: UITextFieldDelegateExtension {
 
 // TODO: Docstrings
 extension AddAssignmentViewController {
+    
     // TODO: Docstrings
     override func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         switch pickerView.tag {

@@ -13,6 +13,7 @@ import ChameleonFramework
 import RealmSwift
 import GoogleSignIn
 import FBSDKLoginKit
+import TableViewFormKit
 
 import FirebaseAnalytics
 import FirebaseCore
@@ -42,6 +43,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         
         FirebaseApp.configure()
+        
+        ColorManager.cellBackgroundColor = StudiumColor.secondaryBackground.uiColor
+        ColorManager.primaryBackgroundColor = StudiumColor.background.uiColor
+        ColorManager.primaryTextColor = StudiumColor.primaryLabel.uiColor
+        ColorManager.placeholderTextColor = StudiumColor.placeholderLabel.uiColor
+        ColorManager.primaryAccentColor = StudiumColor.primaryAccent.uiColor
         
         return true
     }

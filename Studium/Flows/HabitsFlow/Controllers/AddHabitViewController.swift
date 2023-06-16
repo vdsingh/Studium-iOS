@@ -90,7 +90,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
                 .textFieldCell(placeholderText: "Name", text: self.name, id: .nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", text: self.location, id: .locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
+                .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.image, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
             [
                 .switchCell(cellText: "Autoschedule", isOn: false, switchDelegate: self, infoDelegate: self),
@@ -116,7 +116,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
                 .textFieldCell(placeholderText: "Name", text: self.name, id: .nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", text: self.location, id: .locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
-                .labelCell(cellText: "Remind Me", cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
+                .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.image, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
             [
                 .switchCell(cellText: "Autoschedule", isOn: true, switchDelegate: self, infoDelegate: self),
@@ -167,7 +167,8 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
             )
             
             if let editingHabit = self.habit {
-                self.databaseService.editStudiumEvent(oldEvent: editingHabit, newEvent: newHabit)
+                self.databaseService.updateEvent(oldEvent: editingHabit, updatedEvent: newHabit)
+//                self.databaseService.editStudiumEvent(oldEvent: editingHabit, newEvent: newHabit)
             } else {
                 // DatabaseService handles autoscheduling
                 self.databaseService.saveStudiumObject(newHabit)

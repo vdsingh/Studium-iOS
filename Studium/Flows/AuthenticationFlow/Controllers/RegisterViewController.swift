@@ -162,15 +162,15 @@ class RegisterViewController: AuthenticationViewController, UIGestureRecognizerD
         passwordTextField.leftView = passwordIconView
         passwordTextField.leftViewMode = UITextField.ViewMode.always
         
-        let passwordEyeImageView = UIImageView(frame: CGRect(x: -iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
-        passwordEyeImageView.image = SystemIcon.eye.createImage()
-        passwordEyeImageView.contentMode = .scaleAspectFit
+//        let passwordEyeImageView = UIImageView(frame: CGRect(x: -iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
+//        passwordEyeImageView.image = SystemIcon.eye.createImage()
+//        passwordEyeImageView.contentMode = .scaleAspectFit
 
-        let passwordEyeView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize/3*4, height: iconSize/3*5))
-        passwordEyeView.addSubview(passwordEyeImageView)
+//        let passwordEyeView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize/3*4, height: iconSize/3*5))
+//        passwordEyeView.addSubview(passwordEyeImageView)
         passwordTextField.tintColor = .gray
-        passwordTextField.rightViewMode = UITextField.ViewMode.always
-        passwordTextField.rightView = passwordEyeView
+//        passwordTextField.rightViewMode = UITextField.ViewMode.always
+//        passwordTextField.rightView = passwordEyeView
         passwordTextField.layer.cornerRadius = 10
         passwordTextField.layer.masksToBounds = true
         passwordTextField.layer.borderColor = UIColor.gray.cgColor
