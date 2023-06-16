@@ -31,7 +31,7 @@ protocol Autoscheduling: StudiumEvent {
     //TODO: Docstrings
     func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> AutoscheduledEventType
     
-    var autoschedulingDays: Set<Weekday> { get }
+    var autoschedulingDays: Set<Weekday> { get set }
 }
 
 protocol Autoscheduled: StudiumEvent {

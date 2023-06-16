@@ -51,3 +51,13 @@ class OtherEvent: StudiumEvent, CompletableStudiumEvent, Autoscheduled {
         self.additionalDetails = additionalDetails
     }
 }
+
+extension OtherEvent: Updatable {
+    func updateFields(withNewEvent newEvent: OtherEvent) {
+        self.startDate = newEvent.startDate
+        self.endDate = newEvent.endDate
+        self.location = newEvent.location
+        self.name = newEvent.name
+        self.additionalDetails = newEvent.additionalDetails
+    }
+}

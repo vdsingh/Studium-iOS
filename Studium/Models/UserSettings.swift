@@ -74,51 +74,6 @@ extension UserSettings {
     }
 }
 
-//TODO: Docstrings
-//final class WakeUpTime: Object, Debuggable {
-//
-//    //TODO: Docstrings
-//    let debug = true
-//
-//    //TODO: Docstrings
-//    @Persisted var _id = ObjectId.generate()
-//
-//    //TODO: Docstrings
-//    @Persisted private var weekdayInt: Int
-//
-//    //TODO: Docstrings
-//    @Persisted var wakeUpTime: Date?
-//
-//    //TODO: Docstrings
-//    var weekday: Weekday {
-//        get { return Weekday(rawValue: self.weekdayInt) ?? .unknown }
-//        set { self.weekdayInt = newValue.rawValue }
-//    }
-//
-//    //TODO: Docstrings
-//    convenience init(weekday: Weekday, wakeUpTime: Date?) {
-//        self.init()
-//        self.weekday = weekday
-//        self.wakeUpTime = wakeUpTime
-//    }
-//
-//    //TODO: Docstrings
-//    func setWakeUpTime(wakeUpTime: Date) {
-//        self.wakeUpTime = wakeUpTime
-//        self.printDebug("Set wake up time for weekday value \(self.weekdayInt) to \(self.wakeUpTime)")
-//    }
-//
-//    override static func primaryKey() -> String? {
-//         return "_id"
-//    }
-//
-//    func printDebug(_ message: String) {
-//        if self.debug {
-//            print("$LOG (WakeUpTime): \(message)")
-//        }
-//    }
-//}
-
 extension UserSettings: Debuggable {
     func printDebug(_ message: String) {
         if self.debug {

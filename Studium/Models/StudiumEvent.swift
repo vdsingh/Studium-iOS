@@ -12,8 +12,14 @@ import EventKit
 import RealmSwift
 import VikUtilityKit
 
+protocol Updatable {
+    associatedtype EventType
+    
+    func updateFields(withNewEvent event: EventType)
+}
+
 //TODO: Docstrings
-class StudiumEvent: Object, DaySchedulable {
+class StudiumEvent: Object {
 
     /// id of the StudiumEvent
     @Persisted var _id: ObjectId = ObjectId.generate()
@@ -118,36 +124,9 @@ class StudiumEvent: Object, DaySchedulable {
         self.icon = icon
         self.alertTimes = alertTimes
     }
-
-    override static func primaryKey() -> String? {
-        return "_id"
-    }
     
-    //TODO: Move to different layer
-    
-    func addToAppleCalendar(){
-        func addToAppleCalendar(){
-            let store = EKEventStore()
-            let event = EKEvent(eventStore: store)
-            
-            let identifier = UserDefaults.standard.string(forKey: "appleCalendarID")
-            if identifier == nil{ //the user is not synced with Apple Calendar
-                return
-            }
-            
-            event.location = location
-            event.calendar = store.calendar(withIdentifier: identifier!) ?? store.defaultCalendarForNewEvents
-            event.title = name
-            event.startDate = startDate
-            event.endDate = endDate
-            event.notes = additionalDetails
-
-            do {
-                try store.save(event, span: EKSpan.futureEvents, commit: true)
-            } catch let error as NSError {
-                print("$ERR: Failed to save event. Error: \(error)")
-            }
-        }
+    func updateFields(withNewEvent: StudiumEvent) {
+        
     }
     
     /// Sets the start and end dates for the event
@@ -201,5 +180,9 @@ class StudiumEvent: Object, DaySchedulable {
     //TODO: Docstrings
     var scheduleDisplayColor: UIColor {
         return self.color
+    }
+    
+    override static func primaryKey() -> String? {
+        return "_id"
     }
 }

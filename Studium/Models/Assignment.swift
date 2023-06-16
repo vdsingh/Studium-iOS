@@ -11,9 +11,9 @@ import RealmSwift
 import VikUtilityKit
 
 /// Represents Course Assignments
-class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling, Autoscheduled, StudiumEventContained {
+class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling, StudiumEventContained {
     
-    typealias EventType = Assignment
+//    typealias EventType = Assignment
         
     let debug = true
 
@@ -32,23 +32,21 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling
     @Persisted var autoscheduling: Bool = false
     
     var autoscheduleInfinitely: Bool = false
-    
-    //TODO: Docstrings
-    @Persisted var autoscheduled: Bool = false
-        
+            
     /// The number of minutes to autoschedule study time
     @Persisted var autoLengthMinutes: Int = 60
     
     /// The autoscheduled assignments that belong to this assignment
-    @Persisted var autoscheduledEventsList: List<Assignment> = List<Assignment>()
+    @Persisted var autoscheduledEventsList: List<OtherEvent> = List<OtherEvent>()
     
     // TODO: Docstrings
-    var autoscheduledEvents: [Assignment] {
-        return [Assignment](self.autoscheduledEventsList)
+    var autoscheduledEvents: [OtherEvent] {
+        return [OtherEvent](self.autoscheduledEventsList)
     }
     
     var autoschedulingDays: Set<Weekday> {
-        return self.days
+        get { return self.days }
+        set { self.days = newValue}
     }
     
     /// Was this an autoscheduled assignment?
@@ -137,7 +135,7 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling
     }
     
     // TODO: Docstring
-    func appendAutoscheduledEvent(event: Assignment) {
+    func appendAutoscheduledEvent(event: OtherEvent) {
 //        self.scheduledEventsList.append(event)
         self.autoscheduledEventsList.append(event)
     }
@@ -151,27 +149,48 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling
 //        }
 //    }
     
-    
-    func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> Assignment {
+    // TODO: Docstring
+    func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> OtherEvent {
         guard let parentCourse = self.parentCourse else {
             Log.s(AssignmentError.nilParentCourse, additionalDetails: "tried to instantiate an autoscheduled event for assignment \(self), but the parent course for this assignment was nil.")
-            return Assignment()
+            return OtherEvent()
         }
         
-        let autoscheduledAssignment = Assignment(
+        let autoscheduledToDoEvent = OtherEvent(
             name: "Study Time",
-            additionalDetails: "This Event is Study Time for Assignment: \(self.name)",
-            complete: false,
+            location: self.location,
+            additionalDetails: "This Event is Study Time for Assignment \(self.name)",
             startDate: timeChunk.startDate,
             endDate: timeChunk.endDate,
-            notificationAlertTimes: self.alertTimes,
-            autoscheduling: false,
-            autoLengthMinutes: self.autoLengthMinutes,
-            autoDays: Set(),
-            parentCourse: parentCourse
+            color: self.color,
+            icon: self.icon,
+            alertTimes: self.alertTimes
         )
-        autoscheduledAssignment.autoscheduled = true
-        return autoscheduledAssignment
+        
+        autoscheduledToDoEvent.autoscheduled = true
+        return autoscheduledToDoEvent
+    }
+}
+
+extension Assignment: Updatable {
+    func updateFields(withNewEvent newEvent: Assignment) {
+        
+        var rerunAutoschedule = false
+        if (newEvent.autoscheduling && !self.autoscheduling) || (newEvent.autoschedulingDays != self.autoschedulingDays) {
+            // TODO: Implement reautoscheduling
+        }
+            
+        // update all of the fields
+        self.name = newEvent.name
+        self.additionalDetails = newEvent.additionalDetails
+        self.complete = newEvent.complete
+        self.startDate = newEvent.startDate
+        self.endDate = newEvent.endDate
+        self.alertTimes = newEvent.alertTimes
+        self.autoscheduling = newEvent.autoscheduling
+        self.autoLengthMinutes = newEvent.autoLengthMinutes
+        self.autoschedulingDays = newEvent.autoschedulingDays
+        self.parentCourse = newEvent.parentCourse
     }
 }
 

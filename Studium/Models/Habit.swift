@@ -38,22 +38,11 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         return [OtherEvent](self.autoscheduledEventsList)
     }
     
+    // TODO: Docstring
     var autoschedulingDays: Set<Weekday> {
-        return self.days
+        get { return self.days }
+        set { self.days = newValue}
     }
-        
-    /// The events that this event has scheduled (as Habits)
-//    var scheduledEventsArr: [Habit] {
-//        var scheduledAssignments = [Habit]()
-//        for event in self.scheduledEventsList {
-//            if let assignment = event as? Habit {
-//                scheduledAssignments.append(assignment)
-//            } else {
-//                print("$ERR (Assigment): A non-Assignment event was added to assignments scheduled events. Event: \(event)")
-//            }
-//        }
-//        return scheduledAssignments
-//    }
     
     //TODO: Docstrings
     convenience init(
@@ -80,67 +69,34 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         self.daysList = newDaysList
         self._partitionKey = partitionKey
     }
-    
-//    private init(
-//        name: String,
-//        location: String,
-//        additionalDetails: String,
-//        startDate: Date,
-//        endDate: Date,
-//        autoscheduling: Bool,
-//        startEarlier: Bool,
-//        autoLengthMinutes: Int,
-//        alertTimes: [AlertOption],
-//        days: Set<Weekday>,
-//        icon: StudiumIcon,
-//        color: UIColor,
-//        partitionKey: String
-//    ) {
-//
-//    }
-//
-    /// Whether or not this event occurs on a specified date
-    /// - Parameter date: The specified date
-    /// - Returns: Whether or not this event occurs on the specified date
-//    override func occursOn(date: Date) -> Bool {
-//        if self.autoscheduling {
-//            return false
-//        } else {
-//            return super.occursOn(date: date)
-//        }
-//    }
 
     /// Adds a scheduled event to this event's scheduled events
     /// - Parameter event: The StudiumEvent to add
     func appendAutoscheduledEvent(event: OtherEvent) {
         self.autoscheduledEventsList.append(event)
-//        if let event = event as? Assignment {
-//            self.scheduledEventsList.append(event)
-//        } else {
-//            print("$ERR (Assignment): cannot add event \(event.name) to assignments autoscheduled")
-//        }
     }
         
     func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> OtherEvent {
-//        let autoscheduledHabit = Habit(
-//            name: self.name,
-//            location: self.location,
-//            additionalDetails: "This Habit was Autoscheduled.",
-//            startDate: timeChunk.startDate,
-//            endDate: timeChunk.endDate,
-//            autoscheduling: false,
-//            startEarlier: self.startEarlier,
-//            autoLengthMinutes: self.autoLengthMinutes,
-//            alertTimes: self.alertTimes,
-//            days: Set(),
-//            icon: <#T##StudiumIcon#>,
-//            color: <#T##UIColor#>,
-//            partitionKey: <#T##String#>
-//        )
-        
-//        return autoscheduledHabit
-        
         let otherEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: "This Event was Autoscheduled by your Habit: \(self.name)", startDate: timeChunk.startDate, endDate: timeChunk.endDate, color: self.color, icon: self.icon, alertTimes: self.alertTimes)
         return otherEvent
+    }
+}
+
+extension Habit: Updatable {
+    func updateFields(withNewEvent newEvent: Habit) {
+        // TODO: implement reautoscheduling
+        self.name = newEvent.name
+        self.location = newEvent.location
+        self.additionalDetails = newEvent.additionalDetails
+        self.startDate = newEvent.startDate
+        self.endDate = newEvent.endDate
+        self.autoscheduling = newEvent.autoscheduling
+        self.startEarlier = newEvent.startEarlier
+        self.autoLengthMinutes = newEvent.autoLengthMinutes
+        self.alertTimes = newEvent.alertTimes
+        self.days = newEvent.days
+        self.icon = newEvent.icon
+        self.color = newEvent.color
+        self._partitionKey = newEvent._partitionKey
     }
 }
