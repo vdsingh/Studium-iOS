@@ -38,6 +38,7 @@ enum StudiumIcon: String, CaseIterable {
     
     case atom
     case bath
+    case bell
     case binoculars
     case blender
     case boltLightning
@@ -58,6 +59,7 @@ enum StudiumIcon: String, CaseIterable {
     case chessQueen
     case chessRook
     case chess
+    case clock
     case code
     case computer
     case creditCard
@@ -103,6 +105,7 @@ enum StudiumIcon: String, CaseIterable {
     case pizzaSlice
     case plane
     case plus
+    case rightFromBracket
     case robot
     case server
     case ship
@@ -111,6 +114,7 @@ enum StudiumIcon: String, CaseIterable {
     case soap
     case tree
     case tv
+    case user
     case utensils
     case vial
     case wallet
