@@ -57,23 +57,14 @@ class MasterForm: TableViewForm, Debuggable {
     // TODO: Docstrings
     var endDate: Date = Date() + (60*60)
     
-//    var totalLengthHours = 1
     // TODO: Docstrings
     var totalLengthMinutes = 0
-    
-
-    
-//    var lengthMinutes: Int = 0
     
     // TODO: Docstrings
     var lengthPickerIndices: [Int] {
         let hours = self.totalLengthMinutes / 60
-        //                    timePickerCell.picker.selectRow(hours, inComponent: 0, animated: true)
-        
         let minutes =  self.totalLengthMinutes % 60
-        //                    timePickerCell.picker.selectRow(minutes, inComponent: 1, animated: true)
         return [hours, minutes]
-        
     }
     
     override func viewDidLoad() {
@@ -406,7 +397,7 @@ extension MasterForm {
             if let onClick = onClick {
                 onClick()
             }
-        case .labelCell(_, _, _, _, let onClick):
+        case .labelCell(_, _, _, _, _, let onClick):
             if let onClick = onClick {
                 onClick()
             }

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 //TODO: Docstrings
-class AssignmentsViewController: StudiumEventListViewController, Storyboarded {
+class AssignmentsOtherEventsViewController: StudiumEventListViewController {
     
     override var debug: Bool {
         return true
@@ -18,9 +18,9 @@ class AssignmentsViewController: StudiumEventListViewController, Storyboarded {
     
     //TODO: Docstrings
     var assignmentsExpandedSet = Set<Assignment>()
-    
+        
     //TODO: Docstrings
-    func loadAssignments() { }
+    func loadEvents() { }
     
     /// Reloads/sorts the data and refreshes the TableView
     func reloadData() { }
@@ -28,7 +28,7 @@ class AssignmentsViewController: StudiumEventListViewController, Storyboarded {
 
 // MARK: - TableView Delegate
 
-extension AssignmentsViewController {
+extension AssignmentsOtherEventsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("Selected row \(indexPath.row)")
         if let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment,
@@ -36,22 +36,62 @@ extension AssignmentsViewController {
             self.handleEventsClose(assignment: assignment)
             self.databaseService.markComplete(assignment, !assignment.complete)
             
-            if assignment.autoscheduled {
-                tableView.reloadData()
-            } else {
-                reloadData()
-            }
-            
-            tableView.deselectRow(at: indexPath, animated: true)
-        } else {
-            print("$ERR (AssignmentsViewController): couldn't safely cast assignment or its cell")
+//            if assignment.autoscheduled {
+//                tableView.reloadData()
+//            } else {
+//                reloadData()
+//            }
+//            self.reloadData()
+//            tableView.deselectRow(at: indexPath, animated: true)
+        } else if let otherEventCell = tableView.cellForRow(at: indexPath) as? OtherEventCell,
+           let otherEvent = otherEventCell.event as? OtherEvent {
+            print("$LOG: Selected an otherEventCell")
+            self.databaseService.markComplete(otherEvent, !otherEvent.complete)
+//            if otherEvent.autoscheduled {
+//                tableView.reloadData()
+//            } else {
+//                reloadData()
+//            }
         }
+        
+        self.reloadData()
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    //TODO: Docstrings, move to AssignmentsOther...
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 }
 
+// MARK: - TableView Data Source
+extension AssignmentsOtherEventsViewController {
+    
+        //TODO: Docstrings
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment {
+            super.swipeCellId = AssignmentCell1.id
+            if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? AssignmentCell1 {
+                cell.event = assignment
+                cell.loadData(assignment: assignment, assignmentCollapseDelegate: self)
+                cell.setIsExpanded(isExpanded: self.assignmentsExpandedSet.contains(assignment))
+                return cell
+            }
+        } else if let otherEvent = eventsArray[indexPath.section][indexPath.row] as? OtherEvent {
+            super.swipeCellId = OtherEventCell.id
+            if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? OtherEventCell {
+                cell.event = otherEvent
+                cell.loadData(from: otherEvent)
+                return cell
+            }
+        }
+        
+        fatalError("$ERR: Couldn't dequeue cell for Course List")
+    }
+}
 
 /// Handle what happens when user wants to collapsed autoscheduled events.
-extension AssignmentsViewController: AssignmentCollapseDelegate {
+extension AssignmentsOtherEventsViewController: AssignmentCollapseDelegate {
     
     /// The collapse button in a cell was clicked
     /// - Parameter assignment: The assignment associated with the cell

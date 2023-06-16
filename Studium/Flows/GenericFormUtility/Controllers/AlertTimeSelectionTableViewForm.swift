@@ -33,6 +33,8 @@ class AlertTimeSelectionTableViewForm: TableViewForm, Storyboarded {
         super.viewDidLoad()
 //        self.tableView.register(UINib(nibName: LabelCell.id, bundle: nil), forCellReuseIdentifier: LabelCell.id)
         self.tableView.tableFooterView = UIView()
+        self.view.backgroundColor = StudiumColor.background.uiColor
+//        self.tableView.tintColor = StudiumColor.background.uiColor
     }
     
     // MARK: - Private Functions

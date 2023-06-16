@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 //TODO: Docstrings
-class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, LogoSelectionShowingCoordinator, AlertTimesSelectionShowingCoordinator, AssignmentEditingCoordinator {
+class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, LogoSelectionShowingCoordinator, AlertTimesSelectionShowingCoordinator, AssignmentEditingCoordinator, OtherEventEditingCoordinator {
+    
     
     //TODO: Docstrings
     var debug = false

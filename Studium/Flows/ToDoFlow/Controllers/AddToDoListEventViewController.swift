@@ -19,10 +19,10 @@ protocol ToDoListRefreshProtocol {
 }
 
 /// Form to add a To-Do List Event
-class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyboarded, Coordinated {
+class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyboarded {
     
     // TODO: Docstrings
-    weak var coordinator: ToDoCoordinator?
+    weak var coordinator: OtherEventEditingCoordinator?
     
     /// tracks the event being edited, if one is being edited.
     var otherEvent: OtherEvent?
@@ -32,6 +32,18 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
     
     // TODO: Docstrings
     @IBOutlet weak var navButton: UIBarButtonItem!
+    
+    func showAlertTimesSelectionViewController() {
+        self.printDebug("showAlertTimesSelectionViewController called")
+//        self.unwrapCoordinatorOrShowError()
+        
+        if let coordinator = coordinator as? AlertTimesSelectionShowingCoordinator {
+            coordinator.showAlertTimesSelectionViewController(updateDelegate: self, selectedAlertOptions: self.alertTimes)
+        } else {
+            self.showError(.nonConformingCoordinator)
+            Log.s(AlertTimeSelectingFormError.failedToUnwrapCoordinatorAsAlertTimesSelectionShowingCoordinator, additionalDetails: "Tried to show AlertTimesSelection Flow but the coordinator is not AlertTimesSelectionShowingCoordinator. Coordinator: \(String(describing: self.coordinator))")
+        }
+    }
     
     override func viewDidLoad() {
         self.setCells()

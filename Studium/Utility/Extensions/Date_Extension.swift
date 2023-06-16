@@ -6,7 +6,7 @@
 //  Copyright © 2023 Vikram Singh. All rights reserved.
 //
 //
-//import Foundation
+import Foundation
 //
 //extension Date {
 //    
@@ -155,3 +155,17 @@
 //        return Calendar.current.date(byAdding: .day, value: days, to: self)!
 //    }
 //}
+
+extension Date {
+    static func datesWithinThreeMonths(date1: Date, date2: Date) -> Bool {
+        let calendar = Calendar.current
+        
+        guard let threeMonthsLater = calendar.date(byAdding: .month, value: 3, to: date1),
+              let threeMonthsEarlier = calendar.date(byAdding: .month, value: -3, to: date1)
+        else {
+            return false
+        }
+        
+        return date2 >= threeMonthsEarlier && date2 <= threeMonthsLater
+    }
+}

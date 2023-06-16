@@ -11,7 +11,7 @@ import UIKit
 import VikUtilityKit
 
 //TODO: Docstrings
-class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, AlertTimesSelectionShowingCoordinator, AssignmentEditingCoordinator {
+class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, AlertTimesSelectionShowingCoordinator, AssignmentEditingCoordinator, OtherEventEditingCoordinator {
     
     //TODO: Docstrings
     var debug = false
@@ -62,18 +62,6 @@ class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator
         let addToDoEventVC = AddToDoListEventViewController.instantiate()
         let navController = UINavigationController(rootViewController: addToDoEventVC)
         addToDoEventVC.delegate = refreshDelegate
-        addToDoEventVC.coordinator = self
-        self.navigationController.topViewController?.present(navController, animated: true)
-        self.formNavigationController = navController
-    }
-    
-    //TODO: Docstrings
-    func showEditToDoListEventViewController(refreshDelegate: ToDoListRefreshProtocol, toDoEventToEdit: OtherEvent) {
-        let addToDoEventVC = AddToDoListEventViewController.instantiate()
-        let navController = UINavigationController(rootViewController: addToDoEventVC)
-        addToDoEventVC.delegate = refreshDelegate
-        addToDoEventVC.otherEvent = toDoEventToEdit
-        addToDoEventVC.title = "View/Edit To-Do Event"
         addToDoEventVC.coordinator = self
         self.navigationController.topViewController?.present(navController, animated: true)
         self.formNavigationController = navController

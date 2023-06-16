@@ -10,7 +10,7 @@ import Foundation
 import ChameleonFramework
 
 /// TableViewController that only displays Assignments
-class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDelegate, AssignmentRefreshProtocol, Coordinated {
+class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISearchBarDelegate, AssignmentRefreshProtocol, ToDoListRefreshProtocol, Coordinated, Storyboarded {
     
     // TODO: Docstring
     weak var coordinator: CoursesCoordinator?
@@ -33,6 +33,7 @@ class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDeleg
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         printDebug("viewWillAppear")
         if let course = selectedCourse {
             self.title = course.name
@@ -44,6 +45,7 @@ class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDeleg
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         collapseAllExpandedAssignments()
     }
     
@@ -53,60 +55,35 @@ class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDeleg
         self.unwrapCoordinatorOrShowError()
         self.coordinator?.showAddAssignmentViewController(refreshDelegate: self, selectedCourse: self.selectedCourse)
     }
-    
-    //MARK: - Data Source Methods
-    
-    //TODO: Docstrings
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        super.swipeCellId = AssignmentCell1.id
-        if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? AssignmentCell1,
-           let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment {
-            cell.event = assignment
-            cell.loadData(assignment: assignment, assignmentCollapseDelegate: self)
-            cell.setIsExpanded(isExpanded: self.assignmentsExpandedSet.contains(assignment))
-            return cell
-        }
-        
-        fatalError("$ERR: Couldn't dequeue cell for Course List")
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-    
+
     //MARK: - CRUD Methods
     
     /// Loads all non-autoscheduled assignments for the selected course.
-    override func loadAssignments() {
+    override func loadEvents() {
+        
         //TODO: Fix sorting
         let assignments = self.databaseService.getContainedEvents(forContainer: self.selectedCourse)
         printDebug("Loaded assignments: \(assignments.map({ $0.name }))")
-//        let assignments = DatabaseService.shared
-//            .getAssignments(forCourse: self.selectedCourse)
-//            .sorted(by: K.sortAssignmentsBy)
-//            .sorted(byKeyPath: K.sortAssignmentsBy, ascending: true)
-//        assignments = selectedCourse?.assignments.
-        
+
         // First array is incomplete events, second array is complete events
         self.eventsArray = [[],[]]
         for assignment in assignments {
-            
-            // skip the autoscheduled events.
-            if assignment.autoscheduled {
-                continue
-            }
-            
             if assignment.complete {
                 eventsArray[1].append(assignment)
             } else {
                 eventsArray[0].append(assignment)
+            }
+            
+            // If the Assignment is expanded
+            if self.assignmentsExpandedSet.contains(assignment) {
+                self.handleEventsOpen(assignment: assignment)
             }
         }
     }
     
     /// Reloads/sorts the data and refreshes the TableView
     override func reloadData() {
-        self.loadAssignments()
+        self.loadEvents()
         tableView.reloadData()
     }
     
@@ -134,16 +111,12 @@ class AssignmentsOnlyViewController: AssignmentsViewController, UISearchBarDeleg
     /// - Parameter indexPath: The index at which we want to edit an event
     override func edit(at indexPath: IndexPath) {
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        
-        let eventForEdit = deletableEventCell.event! as! Assignment
         self.unwrapCoordinatorOrShowError()
-        self.coordinator?.showEditAssignmentViewController(refreshDelegate: self, assignmentToEdit: eventForEdit)
-//        let addAssignmentViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddAssignmentViewController") as! AddAssignmentViewController
-//        addAssignmentViewController.delegate = self
-//        addAssignmentViewController.selectedCourse = eventForEdit.parentCourse
-//        addAssignmentViewController.assignmentEditing = eventForEdit
-//        addAssignmentViewController.title = "View/Edit Assignment"
-//        let navController = UINavigationController(rootViewController: addAssignmentViewController)
-//        self.present(navController, animated:true, completion: nil)
+
+        if let assignmentForEdit = deletableEventCell.event! as? Assignment {
+            self.coordinator?.showEditAssignmentViewController(refreshDelegate: self, assignmentToEdit: assignmentForEdit)
+        } else if let otherEventForEdit = deletableEventCell.event! as? OtherEvent {
+            self.coordinator?.showEditOtherEventViewController(refreshDelegate: self, otherEventToEdit: otherEventForEdit)
+        }
     }
 }

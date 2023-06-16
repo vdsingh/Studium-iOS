@@ -12,6 +12,8 @@ import VikUtilityKit
 
 /// Service to interact with the Realm Database
 final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
+
+    
     
     let debug = true
     
@@ -218,13 +220,16 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     /// - Parameters:
     ///   - oldEvent: The original event that we want to edit
     ///   - newEvent: A new event with the desired changes
-    public func editStudiumEvent(oldEvent: StudiumEvent, newEvent: StudiumEvent) {
-        printDebug("editing StudiumEvent. \nOld Event: \(oldEvent). \nNew Event: \(newEvent)")
-        newEvent.setID(oldEvent._id)
+    public func updateEvent<T: Updatable>(oldEvent: T, updatedEvent: T.EventType) {
+        printDebug("editing StudiumEvent. \nOld Event: \(oldEvent). \nNew Event: \(updatedEvent)")
+//        newEvent.setID(oldEvent._id)
         
         self.realmWrite {
-            self.realm.add(newEvent, update: .modified)
-            NotificationService.shared.scheduleNotificationsFor(event: newEvent)
+//            self.realm.add(newEvent, update: .modified)
+            oldEvent.updateFields(withNewEvent: updatedEvent)
+            if let event = oldEvent as? StudiumEvent {
+                NotificationService.shared.scheduleNotificationsFor(event: event)
+            }
         }
     }
     

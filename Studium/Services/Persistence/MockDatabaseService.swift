@@ -11,6 +11,10 @@ import RealmSwift
 import VikUtilityKit
 
 class MockDatabaseService: DatabaseServiceProtocol {
+    func updateEvent<T>(oldEvent: T, updatedEvent: T.EventType) where T : Updatable {
+        
+    }
+    
 
 
     

@@ -45,8 +45,13 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
         
         let startDate = Date()
         
+        var endDate = event.endDate
+        
         // if autoschedule infinitely, autoschedule to 3 months from startDate, otherwise, schedule to event endDate
-        let endDate = event.autoscheduleInfinitely ? Calendar.current.date(byAdding: .month, value: 3, to: Date())! : event.endDate
+        if event.autoscheduleInfinitely || !Date.datesWithinThreeMonths(date1: Date(), date2: event.endDate) {
+            endDate = Calendar.current.date(byAdding: .month, value: 3, to: Date())!
+            PopUpService.shared.presentToast(title: "Autoscheduled \(event.name)", description: "We've autoscheduled events for \(event.name) for the next three months.", popUpType: .success)
+        }
         
         let applicableDates = findAllApplicableDatesBetween(startDate: startDate, endDate: endDate, weekdays: event.autoschedulingDays)
         Log.d("the applicable dates between \(startDate) and \(endDate) for event \(event.name) are \(applicableDates)")

@@ -28,7 +28,9 @@ protocol DatabaseServiceProtocol {
 
     // Update
     func markComplete(_ completableEvent: CompletableStudiumEvent, _ complete: Bool)
-    func editStudiumEvent(oldEvent: StudiumEvent, newEvent: StudiumEvent)
+//    func editStudiumEvent(oldEvent: StudiumEvent, newEvent: StudiumEvent)
+    func updateEvent<T: Updatable>(oldEvent: T, updatedEvent: T.EventType)
+
     func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date)
     
     // Delete

@@ -38,14 +38,10 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
 
-
         // Set the color of the navigation bar button text
         self.navigationController?.navigationBar.tintColor = StudiumColor.primaryAccent.uiColor
-        
         self.navigationController?.navigationBar.barTintColor = StudiumColor.background.uiColor
-
         self.navigationItem.title = eventTypeString
-//        self.title = eventTypeString
         
         
         //Register all UI Elements used in the TableView
@@ -86,10 +82,7 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
            let event = cell.event {
             self.databaseService.deleteStudiumObject(event)
         }
-        
-        //        self.collapse
         eventsArray[indexPath.section].remove(at: indexPath.row)
-//        tableView.reloadData()
         
         updateHeader(section: indexPath.section)
     }
@@ -115,9 +108,6 @@ extension StudiumEventListViewController {
         headerView.tintColor = StudiumColor.secondaryBackground.uiColor
         headerView.primaryLabel.textColor = StudiumColor.primaryLabel.uiColor
         headerView.secondaryLabel.textColor = StudiumColor.primaryLabel.uiColor
-
-//        headerView.color
-//        headerView.backgroundColor =
         headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(eventsArray[section].count) \(eventTypeString)")
         return headerView
     }
