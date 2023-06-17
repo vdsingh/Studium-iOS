@@ -359,8 +359,8 @@
 				16A63B8024AA8059003A30D3 /* OtherEvent.swift */,
 				16C60FB125C5F7FB006D0FFC /* StudiumEvent.swift */,
 				168EE1C22655E2CF009A8001 /* RecurringStudiumEvent.swift */,
-				B995493D2992EEA300442968 /* Protocols */,
 				B97BB08129F7006E008F1A5B /* UserSettings.swift */,
+				B995493D2992EEA300442968 /* Protocols */,
 			);
 			path = Models;
 			sourceTree = "<group>";

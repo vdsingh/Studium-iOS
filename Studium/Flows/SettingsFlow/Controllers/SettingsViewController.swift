@@ -35,9 +35,20 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
     var databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
     //TODO: Docstrings
-    lazy var cellData: [[(text: String, icon: StudiumIcon?, didSelect: (() -> Void)?)]] = [
+    lazy var cellData: [[(text: String, icon: (any CreatesUIImage)?, didSelect: (() -> Void)?)]] = [
+        
         [
-            ("Set Default Notifications", .bell, didSelect: {
+            ("Sync with Apple Calendar", ThirdPartyIcon.appleCalendar, didSelect: {
+                AppleCalendarService.shared.syncCalendar(
+                    allEvents: self.databaseService.getAllStudiumObjects()) { _ in }
+            }),
+            
+            ("Sync with Google Calendar", ThirdPartyIcon.googleCalendar, didSelect: {
+                
+            })
+        ],
+        [
+            ("Set Default Notifications", StudiumIcon.bell, didSelect: {
                 self.unwrapCoordinatorOrShowError()
                 self.coordinator?.showAlertTimesSelectionViewController(
                     updateDelegate: self,
@@ -45,7 +56,7 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
                     viewControllerTitle: "Default Notifications"
                 )
             }),
-            ("Reset Wake Up Times", .clock, didSelect: {
+            ("Reset Wake Up Times", StudiumIcon.clock, didSelect: {
                 self.unwrapCoordinatorOrShowError()
                 self.coordinator?.showUserSetupFlow()
             })
@@ -67,7 +78,7 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
         ],
         
         [
-            ("Report a Problem", .bug, didSelect: {
+            ("Report a Problem", StudiumIcon.bug, didSelect: {
                 PopUpService.shared.showForm(formType: .reportAProblem) { textContents in
                     if let email = textContents.first,
                     let problemDetails = textContents.last {
@@ -83,8 +94,8 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
             })
         ],
         [
-            ("ID: \(AuthenticationService.shared.userID ?? "Guest")", .user, nil),
-            ("Sign Out", .rightFromBracket, didSelect: {
+            ("ID: \(AuthenticationService.shared.userID ?? "Guest")", StudiumIcon.user, nil),
+            ("Sign Out", StudiumIcon.rightFromBracket, didSelect: {
                 AuthenticationService.shared.handleLogOut { error in
                     if let error = error {
                         Log.e(error)
@@ -106,7 +117,7 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
                 // cellData format: (text: String, didSelect: (() -> Void)?)
                 return .labelCell(
                     cellText: cellData.text,
-                    icon: cellData.icon?.image,
+                    icon: cellData.icon?.uiImage,
                     onClick: cellData.didSelect
                 )
             }

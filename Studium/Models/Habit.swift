@@ -68,6 +68,10 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         newDaysList.append(objectsIn: days.compactMap{ $0.rawValue })
         self.daysList = newDaysList
         self._partitionKey = partitionKey
+        
+        let nextOccurringTimeChunk = self.nextOccuringTimeChunk
+        self.startDate = nextOccurringTimeChunk?.startDate ?? startDate
+        self.endDate = nextOccurringTimeChunk?.endDate ?? endDate
     }
 
     /// Adds a scheduled event to this event's scheduled events

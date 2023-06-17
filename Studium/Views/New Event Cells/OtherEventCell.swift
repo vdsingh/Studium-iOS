@@ -57,7 +57,7 @@ class OtherEventCell: DeletableEventCell {
             }
         }
         
-        self.iconImageView.image = otherEvent.icon.image
+        self.iconImageView.image = otherEvent.icon.uiImage
         self.subLabel.text = otherEvent.location
         self.startTimeLabel.text = otherEvent.startDate.format(with: "MMM d, h:mm a")
         self.endTimeLabel.text = otherEvent.endDate.format(with: "MMM d, h:mm a")

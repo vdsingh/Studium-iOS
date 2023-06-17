@@ -68,7 +68,7 @@ extension LogoSelectorViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LogoCollectionViewCell.id, for: indexPath) as? LogoCollectionViewCell {
             cell.setup()
-            cell.setImage(image: logos[indexPath.row].image, tintColor: .white)
+            cell.setImage(image: logos[indexPath.row].uiImage, tintColor: .white)
             return cell
         }
         

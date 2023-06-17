@@ -48,7 +48,7 @@
 	<key>MongoDBAppID</key>
 	<string>$(MONGODB_APP_ID)</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Sync Studium Data (Courses, Assignments, Habits, Other Events) to Apple Calendar</string>
+	<string>Add Studium Events to Apple Calendar</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

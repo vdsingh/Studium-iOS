@@ -33,9 +33,26 @@ import UIKit
 //    }
 //}
 
-// TODO: Docstrings
-enum StudiumIcon: String, CaseIterable {
+protocol CreatesUIImage {
+    var uiImage: UIImage { get }
+}
+
+enum ThirdPartyIcon: String, CaseIterable, CreatesUIImage {
+    case googleCalendar
+    case appleCalendar
     
+    var uiImage: UIImage {
+        if let image = UIImage(named: self.rawValue) {
+            return image
+        } else {
+            Log.e("tried to create UIImage from StudiumIcon rawValue \(self.rawValue) but failed.", logToCrashlytics: true)
+            return .actions
+        }
+    }
+}
+
+// TODO: Docstrings
+enum StudiumIcon: String, CaseIterable, CreatesUIImage {
     case atom
     case bath
     case bell
@@ -121,7 +138,7 @@ enum StudiumIcon: String, CaseIterable {
     
     
     // TODO: Docstrings
-    var image: UIImage {
+    var uiImage: UIImage {
         if let image = UIImage(named: self.rawValue) {
             return image
         } else {

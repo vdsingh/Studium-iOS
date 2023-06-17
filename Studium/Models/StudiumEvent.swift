@@ -19,7 +19,7 @@ protocol Updatable {
 }
 
 //TODO: Docstrings
-class StudiumEvent: Object {
+class StudiumEvent: Object, AppleCalendarEvent {    
 
     /// id of the StudiumEvent
     @Persisted var _id: ObjectId = ObjectId.generate()
@@ -42,6 +42,10 @@ class StudiumEvent: Object {
     /// The end date of the event
     @Persisted var endDate: Date = Date()
     
+    // TODO: Docstring
+    @Persisted var ekEventID: String? = nil
+
+    
     // MARK: - Private Persisted Variables
     
     /// The Hex value of the associated color
@@ -55,7 +59,7 @@ class StudiumEvent: Object {
     
     /// Raw representation of the notification IDs for this event
     @Persisted private var notificationIdentifiersList = List<String>()
-    
+        
     // MARK: - Computed Variables
     
     /// The color for the event

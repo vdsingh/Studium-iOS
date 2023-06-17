@@ -47,6 +47,10 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
         self._partitionKey = partitionKey
         self.alertTimes = notificationAlertTimes
         self.days = days
+        
+        let nextOccurringTimeChunk = self.nextOccuringTimeChunk
+        self.startDate = nextOccurringTimeChunk?.startDate ?? startDate
+        self.endDate = nextOccurringTimeChunk?.endDate ?? endDate
     }
     
     // MARK: - Public Functions

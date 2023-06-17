@@ -8,8 +8,14 @@
 
 import Foundation
 
+
+
 //TODO: Docstring
 final class UserDefaultsService {
+    
+    private enum Keys: String {
+        case appleCalendarID
+    }
     
     //TODO: Docstrings
     static let shared = UserDefaultsService()
@@ -19,6 +25,14 @@ final class UserDefaultsService {
     
     //TODO: Docstrings
     private let defaults = UserDefaults.standard
+    
+    func setAppleCalendarID(_ id: String) {
+        self.defaults.set(id, forKey: Keys.appleCalendarID.rawValue)
+    }
+    
+    func getAppleCalendarID() -> String? {
+        return self.defaults.string(forKey: Keys.appleCalendarID.rawValue)
+    }
     
 //    func wakeUpTime(for day: Date) {
 //        if let

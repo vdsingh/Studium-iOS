@@ -11,7 +11,7 @@ import RealmSwift
 import VikUtilityKit
 
 /// Represents Course Assignments
-class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling, StudiumEventContained {
+class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, StudiumEventContained {
     
 //    typealias EventType = Assignment
         
@@ -40,13 +40,21 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling
     @Persisted var autoscheduledEventsList: List<OtherEvent> = List<OtherEvent>()
     
     // TODO: Docstrings
+    @Persisted var autoschedulingDaysList: List<Int>
+    
+    // TODO: Docstrings
     var autoscheduledEvents: [OtherEvent] {
         return [OtherEvent](self.autoscheduledEventsList)
     }
     
+    // TODO: Docstrings
     var autoschedulingDays: Set<Weekday> {
-        get { return self.days }
-        set { self.days = newValue}
+        get { return Set<Weekday>( self.autoschedulingDaysList.compactMap { Weekday(rawValue: $0) }) }
+        set {
+            let list = List<Int>()
+            list.append(objectsIn: newValue.compactMap({ $0.rawValue }))
+            self.autoschedulingDaysList = list
+        }
     }
     
     /// Was this an autoscheduled assignment?
@@ -82,9 +90,10 @@ class Assignment: RecurringStudiumEvent, CompletableStudiumEvent, Autoscheduling
                 
         self.alertTimes = notificationAlertTimes
 
-        let newDaysList = List<Int>()
-        newDaysList.append(objectsIn: autoDays.compactMap{ $0.rawValue })
-        self.daysList = newDaysList
+//        let newDaysList = List<Int>()
+//        newDaysList.append(objectsIn: autoDays.compactMap{ $0.rawValue })
+//        self.autoscheduil = newDaysList
+        self.autoschedulingDays = autoDays
         
         self.parentCourse = parentCourse
     }

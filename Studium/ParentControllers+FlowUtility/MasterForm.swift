@@ -301,7 +301,7 @@ extension MasterForm: LogoSelectionHandler {
             return
         }
         
-        logoCell.setImage(image: icon.image)
+        logoCell.setImage(image: icon.uiImage)
     }
 }
 

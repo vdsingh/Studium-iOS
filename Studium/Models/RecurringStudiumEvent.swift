@@ -38,6 +38,25 @@ class RecurringStudiumEvent: StudiumEvent {
         return self.occursOn(date: Date())
     }
     
+    var nextOccuringTimeChunk: TimeChunk? {
+        if days.isEmpty {
+            return nil
+        }
+        
+        var currentDay = Date()
+        
+        // 1000 iteration limit
+        for _ in 0..<1000 {
+            if self.occursOn(date: currentDay) {
+                return self.timeChunkForDate(date: currentDay)
+            }
+            
+            currentDay = currentDay.add(days: 1)
+        }
+        
+        return nil
+    }
+    
     /// Whether or not the event occurs on a given date
     /// - Parameter date: The date that we're checking
     /// - Returns: Whether or not the event occurs on the date

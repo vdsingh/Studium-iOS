@@ -112,6 +112,18 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         do {
             try self.realm.write {
                 self.realm.add(studiumEvent)
+                AppleCalendarService.shared.createEvent(forStudiumEvent: studiumEvent) { result in
+                    switch result {
+                    case .success(let event):
+                        self.realmWrite {
+                            studiumEvent.ekEventID = event.eventIdentifier
+                        }
+                    case .failure(let error):
+                        Log.e(error)
+                        PopUpService.shared.presentToast(title: "Error Syncing to Apple Calendar", description: "We were unable this event to Apple Calendar", popUpType: .failure)
+                    }
+                }
+                
                 NotificationService.shared.scheduleNotificationsFor(event: studiumEvent)
             }
         } catch let error {
@@ -222,13 +234,11 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     ///   - newEvent: A new event with the desired changes
     public func updateEvent<T: Updatable>(oldEvent: T, updatedEvent: T.EventType) {
         printDebug("editing StudiumEvent. \nOld Event: \(oldEvent). \nNew Event: \(updatedEvent)")
-//        newEvent.setID(oldEvent._id)
-        
         self.realmWrite {
-//            self.realm.add(newEvent, update: .modified)
             oldEvent.updateFields(withNewEvent: updatedEvent)
             if let event = oldEvent as? StudiumEvent {
                 NotificationService.shared.scheduleNotificationsFor(event: event)
+                AppleCalendarService.shared.updateEvent(forStudiumEvent: event) {_ in}
             }
         }
     }
@@ -252,6 +262,13 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         }
     }
     
+    public func updateAppleCalendarEventID(studiumEvent: StudiumEvent, appleCalendarEventID: String) {
+        self.realmWrite {
+            studiumEvent.ekEventID = appleCalendarEventID
+        }
+    }
+
+    
     // MARK: - Delete
     
     /// Deletes a Studium Object from the database
@@ -274,6 +291,10 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         
         self.realmWrite {
             NotificationService.shared.deleteAllPendingNotifications(for: studiumEvent)
+            AppleCalendarService.shared.deleteEvent(forStudiumEvent: studiumEvent) { _ in
+                studiumEvent.ekEventID = nil
+            }
+            
             if !studiumEvent.isInvalidated {
                 printDebug("Deleting studiumEvent \(studiumEvent.name)")
                 self.realm.delete(studiumEvent)

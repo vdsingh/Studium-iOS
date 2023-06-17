@@ -62,7 +62,7 @@ class RecurringEventCell: DeletableEventCell {
     ) {
         printDebug("Loading data for event: \(recurringEvent)")
         self.event = recurringEvent//just edited
-        iconImage.image = icon.image
+        iconImage.image = icon.uiImage
         iconImage.tintColor = color
         iconCircle.tintColor = color
         background.layer.borderColor = color.cgColor

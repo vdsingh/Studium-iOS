@@ -81,7 +81,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
             [
                 .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
                 .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: .endTimeCell, onClick: self.timeCellClicked),
-                .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.image, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
+                .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.uiImage, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
             [
                 .switchCell(cellText: "Schedule Time to Work", isOn: self.autoscheduleWorkTime, switchDelegate: self, infoDelegate: self)
@@ -151,7 +151,6 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     func fillForm(
         assignment: Assignment
     ) {
-        
         printDebug("attempting to fillForm with \(assignment)")
         self.selectedCourse = assignment.parentCourse
         self.name = assignment.name
@@ -159,7 +158,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
         self.additionalDetails = assignment.additionalDetails
         self.alertTimes = assignment.alertTimes
         self.autoscheduleWorkTime = assignment.autoscheduling
-        self.daysSelected = assignment.days
+        self.daysSelected = assignment.autoschedulingDays
         self.totalLengthMinutes = assignment.autoLengthMinutes
         
         self.setCells()

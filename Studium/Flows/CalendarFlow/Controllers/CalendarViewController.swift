@@ -25,7 +25,7 @@ class CalendarViewController: UIViewController, Storyboarded {
     var noEventsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "No Events on this Day"
+        label.text = "No Events"
         label.font = StudiumFont.placeholder.font
         label.textColor = StudiumFont.placeholder.color
         return label

@@ -33,7 +33,7 @@ class HabitCell: DeletableEventCell {
         nameLabel.text = habit.name
         locationLabel.text = habit.location
         
-        iconImage.image = habit.icon.image
+        iconImage.image = habit.icon.uiImage
         iconImage.tintColor = habit.color
 //        habit.startDate
         
