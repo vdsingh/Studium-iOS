@@ -54,7 +54,7 @@ class AppleCalendarService {
             // Event is recurring
             if let recurringEvent = studiumEvent as? RecurringStudiumEvent {
                 // Add the recurrence rules for the event
-                self.resetRecurrenceRules(forEvent: newEvent, days: recurringEvent.days)
+                self.resetRecurrenceRules(forRecurringEvent: recurringEvent)
             }
             
             self.saveEvent(newEvent, completion: completion)
@@ -125,7 +125,7 @@ class AppleCalendarService {
         event.notes = studiumEvent.additionalDetails
         
         if let recurringEvent = studiumEvent as? RecurringStudiumEvent {
-            self.resetRecurrenceRules(forEvent: event, days: recurringEvent.days)
+            self.resetRecurrenceRules(forRecurringEvent: recurringEvent)
         }
         
         self.saveEvent(event, completion: completion)
@@ -136,31 +136,14 @@ class AppleCalendarService {
     /// - Parameters:
     ///   - event: The event for which we want to reset the rules
     ///   - days: The days on which the event occurs
-    private func resetRecurrenceRules(forEvent event: EKEvent, days: Set<Weekday>) {
-        var daysOfTheWeek = [EKRecurrenceDayOfWeek]()
-        
-        // Create an array of EKRecurrenceDayOfWeek based on recurring event days
-        for day in days {
-            if let ekWeekday = EKWeekday(rawValue: day.rawValue) {
-                daysOfTheWeek.append(EKRecurrenceDayOfWeek(ekWeekday))
-            } else {
-                Log.s(AppleCalendarServiceError.failedToCreateWeekdayFromRawValue, additionalDetails: "Tried to create an EKWeekday from rawValue: \(day.rawValue) but failed.")
-            }
+    private func resetRecurrenceRules(forRecurringEvent recurringEvent: RecurringStudiumEvent) {
+        if let ekEvent = self.getEKEvent(forStudiumEvent: recurringEvent) {
+            let recurrenceRule = recurringEvent.ekRecurrenceRule
+            ekEvent.recurrenceRules = [recurrenceRule]
+            Log.g("successfully reset recurrence rules in apple calendar for \(recurringEvent.name)")
+        } else {
+            Log.e(AppleCalendarServiceError.failedToRetrieveEventFromID)
         }
-        
-        event.recurrenceRules = [
-            EKRecurrenceRule(
-                recurrenceWith: .weekly,
-                interval: 1,
-                daysOfTheWeek: daysOfTheWeek,
-                daysOfTheMonth: nil,
-                monthsOfTheYear: nil,
-                weeksOfTheYear: nil,
-                daysOfTheYear: nil,
-                setPositions: nil,
-                end: nil
-            )
-        ]
     }
     
     // MARK: - Delete
@@ -196,7 +179,7 @@ extension AppleCalendarService {
     private func saveEvent(_ event: EKEvent, completion: @escaping (Result<EKEvent, Error>) -> Void) {
         do {
             try self.eventStore.save(event, span: .futureEvents, commit: true)
-            Log.d("successfully saved apple calendar event \(event.title ?? "")")
+            Log.g("successfully saved apple calendar event \(event.title ?? "")")
             completion(.success(event))
         } catch let error {
             Log.s(error, additionalDetails: "Attempted to save event \(event) but failed.")
@@ -213,13 +196,11 @@ extension AppleCalendarService {
     
     func syncCalendar(allEvents: [StudiumEvent], completion: @escaping (Result<[EKEvent], Error>) -> Void) {
         Log.d("Sync calendar called.")
-        
         self.requestCalendarAccess { granted in
             Log.d("Attempted to request Apple Calendar Access. Granted: \(granted)")
             
             // Permission to access Apple Calendar has been granted
             if granted {
-                
                 let (events, errors) = self.createEvents(forStudiumEvents: allEvents)
                 
                 // Everything went as intended
