@@ -14,6 +14,8 @@ pod 'RealmSwift'
 
 #Google Authentication
 pod 'GoogleSignIn'
+pod 'GoogleAPIClientForREST/Calendar'
+pod 'GTMSessionFetcher/Core'
 
 #Facebook Authentication
 pod 'FBSDKLoginKit'

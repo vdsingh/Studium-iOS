@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import GoogleSignIn
-import FBSDKLoginKit
 import RealmSwift
 
 //TODO: Docstrings
@@ -32,7 +30,7 @@ class AuthenticationService: NSObject, Debuggable {
     static let shared = AuthenticationService()
     
     //TODO: Docstrings
-    private lazy var app: App = {
+    lazy var app: App = {
         guard let appID = Bundle.main.object(forInfoDictionaryKey: "MongoDBAppID") as? String,
               !appID.isEmpty else {
             fatalError("MongoDB App ID value does not exist or is empty.")
@@ -64,8 +62,17 @@ class AuthenticationService: NSObject, Debuggable {
         return self.app.currentUser
     }
     
+    var userEmail: String? {
+        return self.user?.profile.email
+    }
+    
+    var googleAccessTokenString: String? {
+        get { return UserDefaultsService.shared.getGoogleAccessTokenString() }
+        set { UserDefaultsService.shared.setGoogleAccessTokenString(newValue) }
+    }
+    
     //TODO: Docstrings
-    private func handleLogin(credentials: Credentials, completion: @escaping (Result<User, Error>) -> Void) {
+    func handleLogin(credentials: Credentials, completion: @escaping (Result<User, Error>) -> Void) {
         if self.userIsLoggedIn {
             self.handleLogOut { error in
                 if let error = error {
@@ -75,6 +82,13 @@ class AuthenticationService: NSObject, Debuggable {
         }
         
         self.app.login(credentials: credentials, { result in
+            switch result {
+            case .success(let user):
+                Log.g("successfully logged into app as user \(user)")
+            case .failure(let error):
+                Log.e(error, additionalDetails: "attempted to login to app with credentials \(credentials) but failed.")
+            }
+            
             CrashlyticsService.shared.setUserID()
             completion(result)
         })
@@ -113,92 +127,6 @@ class AuthenticationService: NSObject, Debuggable {
     }
 }
 
-// MARK: - Facebook Authentication
-
-extension AuthenticationService {
-    
-    // TODO: Docstrings
-    func handleLoginWithFacebook(presentingViewController: UIViewController, completion: @escaping (Result<User, Error>) -> Void) {
-        
-        let loginManager = LoginManager()
-        
-        if AccessToken.current != nil {
-            loginManager.logOut()
-            return
-        }
-            
-        loginManager.logIn(
-            viewController: presentingViewController,
-            configuration: LoginConfiguration(permissions: ["email"], tracking: .enabled))
-        { [weak self] loginResult in
-            switch loginResult {
-            case .success(_, _, let accessToken):
-                if let accessToken = accessToken {
-                    let credentials = Credentials.facebook(accessToken: accessToken.tokenString)
-                    self?.handleLogin(credentials: credentials, completion: completion)
-                } else {
-                    completion(.failure(AuthenticationError.nilAccessToken))
-                }
-                
-            case .cancelled:
-                completion(.failure(AuthenticationError.cancelled))
-            case .failed(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-}
-
-// MARK: - Google Authentication
-
-extension AuthenticationService {
-    
-    // TODO: Docstrings
-    func handleLoginWithGoogle(presentingViewController: UIViewController, completion: @escaping (Result<User, Error>) -> Void) {
-        GIDSignIn.sharedInstance.signIn(
-            withPresenting: presentingViewController
-        ) { signInResult, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            guard let result = signInResult else {
-                completion(.failure(AuthenticationError.nilResult))
-                return
-            }
-            
-            guard let serverAuthCode = result.serverAuthCode else {
-                completion(.failure(AuthenticationError.nilAuthCode))
-                return
-            }
-            
-            let credentials = Credentials.google(serverAuthCode: serverAuthCode)
-            self.handleLogin(credentials: credentials, completion: completion)
-        }
-    }
-    
-    //TODO: Docstrings
-    func attemptRestorePreviousGoogleLogin(completion: @escaping (Result<User, Error>) -> Void) {
-        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-            if let error = error {
-                print("$ERR (GoogleAuthenticationService): error trying to restore google sign in: \(String(describing: error))")
-                completion(.failure(error))
-            } else if user == nil {
-                // Show the app's signed-out state.
-                completion(.failure(AuthenticationError.nilUser))
-            } else {
-                // Show the app's signed-in state.
-                if let user = self.app.currentUser {
-                    completion(.success(user))
-                } else {
-                    completion(.failure(AuthenticationError.nilUser))
-                }
-            }
-        }
-    }
-}
-
 // MARK: - Email/Password Login
 
 extension AuthenticationService {
@@ -220,7 +148,7 @@ extension AuthenticationService {
             }
             
             guard let user = self.user else {
-                Log.s(AuthenticationError.registeredSuccessfullyButUserWasNil, additionalDetails: "Registered without error, but user is nil", displayToUser: false)
+//                Log.s(AuthenticationError.registeredSuccessfullyButUserWasNil, additionalDetails: "Registered without error, but user is nil", displayToUser: false)
                 completion(.failure(AuthenticationError.nilUser))
                 return
             }
@@ -243,20 +171,20 @@ extension AuthenticationService {
         }
         
         let password = "password"
-        client.registerUser(email: email, password: password) { [weak self] (error) in
+        client.registerUser(email: email, password: password) { error in
             if let error = error {
                 Log.e(error)
             }
             
-            self?.printDebug("successfully registered guest.")
+            Log.g("successfully registered guest.")
         }
         
-        self.app.login(credentials: Credentials.emailPassword(email: email, password: password)) { [weak self] result in
+        self.app.login(credentials: Credentials.emailPassword(email: email, password: password)) { result in
             switch result {
             case .failure(let error):
                 print("$ERR (AuthenticationService): login failed: \(error.localizedDescription)")
             case .success(let user):
-                self?.printDebug("successfully logged in as user \(user)")
+                Log.g("successfully logged in as user \(user)")
                 completion(.success(user))
             }
         }
