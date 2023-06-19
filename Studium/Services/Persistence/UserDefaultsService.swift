@@ -15,6 +15,9 @@ final class UserDefaultsService {
     
     private enum Keys: String {
         case appleCalendarID
+        case email
+        case googleAccessTokenString
+        case googleCalendarID
     }
     
     //TODO: Docstrings
@@ -32,6 +35,22 @@ final class UserDefaultsService {
     
     func getAppleCalendarID() -> String? {
         return self.defaults.string(forKey: Keys.appleCalendarID.rawValue)
+    }
+    
+    func setGoogleCalendarID(_ id: String?) {
+        self.defaults.set(id, forKey: Keys.googleCalendarID.rawValue)
+    }
+    
+    func getGoogleCalendarID() -> String? {
+        return self.defaults.string(forKey: Keys.googleCalendarID.rawValue)
+    }
+    
+    func setGoogleAccessTokenString(_ accessTokenString: String?) {
+        self.defaults.set(accessTokenString, forKey: Keys.googleAccessTokenString.rawValue)
+    }
+    
+    func getGoogleAccessTokenString() -> String? {
+        return self.defaults.string(forKey: Keys.googleAccessTokenString.rawValue)
     }
     
 //    func wakeUpTime(for day: Date) {
