@@ -19,7 +19,7 @@ protocol Updatable {
 }
 
 //TODO: Docstrings
-class StudiumEvent: Object, AppleCalendarEvent {    
+class StudiumEvent: Object, AppleCalendarEvent, GoogleCalendarEventLinking {
 
     /// id of the StudiumEvent
     @Persisted var _id: ObjectId = ObjectId.generate()
@@ -44,6 +44,8 @@ class StudiumEvent: Object, AppleCalendarEvent {
     
     // TODO: Docstring
     @Persisted var ekEventID: String? = nil
+    
+    @Persisted var googleCalendarEventID: String? = nil
 
     
     // MARK: - Private Persisted Variables
@@ -129,10 +131,6 @@ class StudiumEvent: Object, AppleCalendarEvent {
         self.alertTimes = alertTimes
     }
     
-    func updateFields(withNewEvent: StudiumEvent) {
-        
-    }
-    
     /// Sets the start and end dates for the event
     /// - Parameters:
     ///   - startDate: The start date of the event
@@ -190,3 +188,13 @@ class StudiumEvent: Object, AppleCalendarEvent {
         return "_id"
     }
 }
+//
+//extension StudiumEvent: Updatable {
+//    func updateFields(withNewEvent newEvent: StudiumEvent) {
+//        Log.s(StudiumEventError.updateFieldsCalled, additionalDetails: "updateFields called from StudiumEvent where it should be called from subclasses")
+//    }
+//}
+//
+//enum StudiumEventError: Error {
+//    case updateFieldsCalled
+//}
