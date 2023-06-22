@@ -13,6 +13,7 @@ enum FlatImage: String, CreatesUIImage {
     case travelingAndSports
     case girlSittingOnBooks
     case womanFlying
+    case boyWritingInBook
     
     var uiImage: UIImage {
         if let image = UIImage(named: self.rawValue) {
