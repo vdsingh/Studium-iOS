@@ -20,28 +20,47 @@ class GoogleCalendarService {
     
     let calendarName = "Studium Calendar"
     
+    var calendarAuthorized: Bool {
+        guard let currentUser = GIDSignIn.sharedInstance.currentUser,
+              let grantedScopes = currentUser.grantedScopes else {
+            return false
+        }
+        
+        return grantedScopes.contains(GoogleAuthScope.calendarAPI.scopeURLString)
+    }
+    
     private var calendarID: String? {
         get { return UserDefaultsService.shared.getGoogleCalendarID() }
         set { UserDefaultsService.shared.setGoogleCalendarID(newValue)}
     }
     
+    var googleAccessToken: String? {
+        return GIDSignIn.sharedInstance.currentUser?.accessToken.tokenString
+    }
+    
     private init() {
+        print("CURRENT USER EMAIL: \(GIDSignIn.sharedInstance.currentUser?.profile?.email)")
         
         // Set up the service
         self.service.shouldFetchNextPages = true
         self.service.isRetryEnabled = true
+        if let googleAccessToken = self.googleAccessToken {
+            self.service.additionalHTTPHeaders = ["Authorization" : "Bearer \(googleAccessToken)"]
+        }
     }
     
     func authenticate(presentingViewController: UIViewController) {
-        AuthenticationService.shared.handleLoginWithGoogle(
+        AuthenticationService.shared.handleAuthenticateWithGoogle(
             presentingViewController: presentingViewController,
-            withAdditionalScopes: [.calendarAPI]
-        ) { result in
-            if let accessToken = AuthenticationService.shared.googleAccessTokenString {
-                // Set the access token for the Google Calendar service
-                self.service.additionalHTTPHeaders = ["Authorization" : "Bearer \(accessToken)"]
-            } else {
-                Log.e("Tried to authenticate in GoogleCalendarService but google accessToken is nil.")
+            scopes: [.calendarAPI])
+        { result in
+            switch result {
+            case .success(let user):
+                let googleAccessToken = user.accessToken.tokenString
+                self.service.additionalHTTPHeaders = ["Authorization" : "Bearer \(googleAccessToken)"]
+            case .failure(let error):
+                PopUpService.shared.presentToast(title: "Failed to Access Calendar", description: "We couldn't access your Google calendar. Try again later.", popUpType: .failure)
+                Log.e(error, additionalDetails: "Tried to authenticate in GoogleCalendarService but failed.")
             }
         }
     }
@@ -67,11 +86,15 @@ class GoogleCalendarService {
             googleEvent.summary = storingEvent.name
             
             let startDateTime = GTLRDateTime(date: storingEvent.startDate)
+            
             googleEvent.start = GTLRCalendar_EventDateTime()
+            googleEvent.start?.timeZone = TimeZone.current.identifier
             googleEvent.start?.dateTime = startDateTime
             
             let endDateTime = GTLRDateTime(date: storingEvent.endDate)
+            
             googleEvent.end = GTLRCalendar_EventDateTime()
+            googleEvent.end?.timeZone = TimeZone.current.identifier
             googleEvent.end?.dateTime = endDateTime
             
             // If the event is recurring, set the recurrence rule
@@ -95,7 +118,6 @@ class GoogleCalendarService {
         completion: @escaping (Result<GTLRCalendar_Event, Error>) -> Void
     ) {
         let eventInsertionQuery = GTLRCalendarQuery_EventsInsert.query(withObject: event, calendarId: calendarID)
-        
         self.service.executeQuery(eventInsertionQuery) { (ticket, createdEvent, error) in
             if let error = error {
                 Log.e(error, additionalDetails: "attempted to create google calendar event but failed")
