@@ -30,30 +30,27 @@ extension AuthenticationService {
         scopes: [GoogleAuthScope],
         completion: @escaping (Result<GIDGoogleUser, Error>) -> Void
     ) {
-        if let currentUser = GIDSignIn.sharedInstance.currentUser {
-            Log.d("adding scopes to Google User: scopes \(scopes)")
-            currentUser.addScopes([GoogleAuthScope.calendarAPI.scopeURLString], presenting: presentingViewController)
-        } else {
-            GIDSignIn.sharedInstance.signIn(
-                withPresenting: presentingViewController,
-                hint: nil,
-                additionalScopes: scopes.map { $0.scopeURLString }
-            ) { signInResult, error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                
-                guard let result = signInResult else {
-                    completion(.failure(AuthenticationError.nilResult))
-                    return
-                }
-                
-                self.googleAccessTokenString = result.user.accessToken.tokenString
-                Log.g("successfully set the user's google authentication access token to \(result.user.accessToken.tokenString)")
-                
-                completion(.success(result.user))
+        GIDSignIn.sharedInstance.signIn(
+            withPresenting: presentingViewController,
+            hint: nil,
+            additionalScopes: scopes.map { $0.scopeURLString }
+        ) { signInResult, error in
+            if let error = error {
+                completion(.failure(error))
+                return
             }
+            
+            guard let result = signInResult else {
+                completion(.failure(AuthenticationError.nilResult))
+                return
+            }
+            
+            result.user.addScopes(scopes.map({ $0.scopeURLString }), presenting: presentingViewController)
+            
+            self.googleAccessTokenString = result.user.accessToken.tokenString
+            Log.g("successfully set the user's google authentication access token to \(result.user.accessToken.tokenString)")
+            
+            completion(.success(result.user))
         }
     }
     

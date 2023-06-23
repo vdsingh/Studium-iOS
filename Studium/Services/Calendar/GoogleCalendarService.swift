@@ -8,6 +8,7 @@
 
 import Foundation
 import EventKit
+import VikUtilityKit
 import GoogleSignIn
 import GoogleAPIClientForREST
 import GTMSessionFetcher
@@ -21,12 +22,7 @@ class GoogleCalendarService {
     let calendarName = "Studium Calendar"
     
     var calendarAuthorized: Bool {
-        guard let currentUser = GIDSignIn.sharedInstance.currentUser,
-              let grantedScopes = currentUser.grantedScopes else {
-            return false
-        }
-        
-        return grantedScopes.contains(GoogleAuthScope.calendarAPI.scopeURLString)
+        return self.googleAccessToken != nil
     }
     
     private var calendarID: String? {
@@ -35,12 +31,11 @@ class GoogleCalendarService {
     }
     
     var googleAccessToken: String? {
-        return GIDSignIn.sharedInstance.currentUser?.accessToken.tokenString
+        get { return UserDefaultsService.shared.getGoogleAccessTokenString() }
+        set { UserDefaultsService.shared.setGoogleCalendarID(newValue) }
     }
     
     private init() {
-        print("CURRENT USER EMAIL: \(GIDSignIn.sharedInstance.currentUser?.profile?.email)")
-        
         // Set up the service
         self.service.shouldFetchNextPages = true
         self.service.isRetryEnabled = true
@@ -57,6 +52,7 @@ class GoogleCalendarService {
             switch result {
             case .success(let user):
                 let googleAccessToken = user.accessToken.tokenString
+                self.googleAccessToken = googleAccessToken
                 self.service.additionalHTTPHeaders = ["Authorization" : "Bearer \(googleAccessToken)"]
             case .failure(let error):
                 PopUpService.shared.presentToast(title: "Failed to Access Calendar", description: "We couldn't access your Google calendar. Try again later.", popUpType: .failure)
@@ -140,8 +136,22 @@ class GoogleCalendarService {
         recurringEvent: GTLRCalendar_Event,
         recurrenceRule: EKRecurrenceRule
     ) {
+        guard let daysOfTheWeek = recurrenceRule.daysOfTheWeek else {
+            Log.e("setRecurrenceRule was called but")
+            return
+        }
+        
         // Construct the recurrence rule string from the EKRecurrenceRule
-        let recurrenceRuleString = recurrenceRule.rfc5545()
+        var recurrenceRuleString = "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY="
+        for day in recurrenceRule.daysOfTheWeek! {
+            let weekdayIntValue = day.dayOfTheWeek.rawValue
+            if let studiumWeekday = Weekday(rawValue: weekdayIntValue) {
+                recurrenceRuleString += "\(studiumWeekday.rfc5545Value),"
+            }
+        }
+        
+        // Remove the trailing comma
+        recurrenceRuleString.removeLast()        
         recurringEvent.recurrence = [recurrenceRuleString]
     }
     
@@ -236,12 +246,39 @@ class GoogleCalendarService {
     
     // MARK: - Delete
     
-    func deleteEvent(event: any GoogleCalendarEventLinking) {
-        
+    func deleteEvent(
+        googleCalendarEventID: String?,
+        completion: @escaping (Error?) -> Void
+    ) {
+        Log.d("attempted to delete event with ID \(googleCalendarEventID) from Google Calendar")
+        self.updateCalendar() {
+            guard let calendarID = self.calendarID else {
+                Log.s(GoogleCalendarServiceError.nilCalendarIDAfterUpdate, additionalDetails: "Attempted to get the calendarID in deleteEvent, but failed even after calling updateCalendar")
+                completion(GoogleCalendarServiceError.nilCalendarIDAfterUpdate)
+                return
+            }
+            
+            guard let googleCalendarEventID = googleCalendarEventID else {
+                Log.e(GoogleCalendarServiceError.nilEventID, additionalDetails: "tried to delete google calendar event, but it was nil")
+                completion(GoogleCalendarServiceError.nilEventID)
+                return
+            }
+            
+            let deletionQuery = GTLRCalendarQuery_EventsDelete.query(withCalendarId: calendarID, eventId: googleCalendarEventID)
+            
+            self.service.executeQuery(deletionQuery) { (ticket, _, error) in
+                if let error = error {
+                    Log.e(error, additionalDetails: "Attempted to delete Google Calendar Event with id \(googleCalendarEventID), but failed when executing the service request.")
+                    completion(error)
+                } else {
+                    completion(nil)
+                }
+            }
+        }
     }
-    
 }
 
 enum GoogleCalendarServiceError: Error {
     case nilCalendarIDAfterUpdate
+    case nilEventID
 }

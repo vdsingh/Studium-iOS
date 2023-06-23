@@ -13,38 +13,14 @@ import VikUtilityKit
 /// Service to interact with the Realm Database
 final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
 
-    
-    
     let debug = true
     
 //    var autoscheduleService: AutoscheduleServiceProtocol!
     
     static let shared = DatabaseService()
     
-//    init() {
-//        self.autoscheduleService = autoscheduleService
-//        self.setAutoscheduleService(autoscheduleService: AutoscheduleService.shared)
-//    }
-    
-//    func setAutoscheduleService(autoscheduleService: AutoscheduleServiceProtocol) {
-//        self.autoscheduleService = autoscheduleService
-//    }
-//
-    /// Represents the application for Realm
-//    let app = App(id: Secret.appID)
-//
-//    /// Represents the User for Realm
-//    var user: User? {
-//        guard let user = app.currentUser else {
-//            print("$ERR: Current User is nil")
-//            return nil
-//        }
-//
-//        return user
-//    }
-    
     /// The Realm database instance
-    private var realm: Realm {
+    var realm: Realm {
         
         
         // If the user exists, establish a connection to realm using the User's ID
@@ -69,62 +45,25 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     
     /// Saves a StudiumEvent to the database
     /// - Parameter studiumEvent: The StudiumEvent to save to the database
-    public func saveStudiumObject<T: StudiumEvent>(_ studiumEvent: T) {
-        
-        // The event is an assignment
-//        if let assignment = studiumEvent as? Assignment {
-//            guard let parentCourse = assignment.parentCourse else {
-//                Log.s(DatabaseServiceError.assignmentWithNilCourse, additionalDetails: "tried to save assignment \(assignment) but its parent course was nil")
-//                return
-//            }
-//
-//            self.saveAssignment(assignment: assignment, parentCourse: parentCourse)
-//            return
-//        }
-        
+    public func saveStudiumObject<T: StudiumEvent>(_ studiumEvent: T, realmWriteCompletion: @escaping () -> Void) {
         // If the event is autoscheduling
         
         if let autoschedulingEvent = studiumEvent as? any Autoscheduling,
            autoschedulingEvent.autoscheduling {
-               
                self.printDebug("event \(studiumEvent.name) is autoscheduling. will attempt to autoschedule now.")
-//            
-//            // create Autoschedule event objects. AutoscheduleService will save any created events
+            // create Autoschedule event objects. AutoscheduleService will save any created events
             let autoscheduledEvents = AutoscheduleService.shared.createAutoscheduledEvents(forAutoschedulingEvent: autoschedulingEvent)
                
                self.printDebug("Created and saved autoscheduled events: \(autoscheduledEvents)")
-//            
-//            // save Autoschedule event objects
-//            for unsavedAutoscheduledEvent in unsavedAutoscheduledEvents {
-////                unsavedAutoscheduledEvent.save()
-//                self.saveAutoscheduledEvent(
-//                    autoschedulingEvent: autoschedulingEvent,
-//                    autoscheduledEvent: unsavedAutoscheduledEvent
-//                )
-//            }
+            
         }
         
-//        if let scheduledEvent = studiumEvent as? (any StudiumEventContained) {
-//            self.saveScheduledEvent(scheduledEvent: scheduledEvent, schedulingEvent: <#_#>)
-//        }
         
         printDebug("saving event \(studiumEvent)")
         do {
             try self.realm.write {
                 self.realm.add(studiumEvent)
-                AppleCalendarService.shared.createEvent(forStudiumEvent: studiumEvent) { result in
-                    switch result {
-                    case .success(let event):
-                        self.realmWrite {
-                            studiumEvent.ekEventID = event.eventIdentifier
-                        }
-                    case .failure(let error):
-                        Log.e(error)
-                        PopUpService.shared.presentToast(title: "Error Syncing to Apple Calendar", description: "We were unable this event to Apple Calendar", popUpType: .failure)
-                    }
-                }
-                
-                NotificationService.shared.scheduleNotificationsFor(event: studiumEvent)
+                realmWriteCompletion()
             }
         } catch let error {
             Log.s(error, additionalDetails: "tried to save studiumEvent \(studiumEvent) but failed.")
@@ -155,6 +94,14 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     }
     
     // MARK: - Read
+    
+    public func getStudiumEvent<T: Object>(withPrimaryKey id: ObjectId, type: T.Type) -> T? {
+        if let studiumEvent = self.realm.object(ofType: T.self, forPrimaryKey: id) {
+            return studiumEvent
+        }
+        
+        return nil
+    }
     
     /// Retrieves all of the StudiumEvents of a certain type
     /// - Parameter type: The type of StudiumEvent we want to retrieve
@@ -228,18 +175,19 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         }
     }
     
-    /// Edits a StudiumEvent
+    /// Edits an Updatable event
     /// - Parameters:
     ///   - oldEvent: The original event that we want to edit
     ///   - newEvent: A new event with the desired changes
-    public func updateEvent<T: Updatable>(oldEvent: T, updatedEvent: T.EventType) {
+    public func updateEvent<T: Updatable>(
+        oldEvent: T,
+        updatedEvent: T.EventType,
+        realmWriteCompletion: @escaping () -> Void
+    ) {
         printDebug("editing StudiumEvent. \nOld Event: \(oldEvent). \nNew Event: \(updatedEvent)")
         self.realmWrite {
             oldEvent.updateFields(withNewEvent: updatedEvent)
-            if let event = oldEvent as? StudiumEvent {
-                NotificationService.shared.scheduleNotificationsFor(event: event)
-                AppleCalendarService.shared.updateEvent(forStudiumEvent: event) {_ in}
-            }
+            realmWriteCompletion()
         }
     }
     
@@ -267,39 +215,44 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
             studiumEvent.ekEventID = appleCalendarEventID
         }
     }
+    
+    public func updateGoogleCalendarEventID(studiumEvent: StudiumEvent, googleCalendarEventID: String) {
+        self.realmWrite {
+            studiumEvent.googleCalendarEventID = googleCalendarEventID
+        }
+    }
 
     
     // MARK: - Delete
     
     /// Deletes a Studium Object from the database
     /// - Parameter studiumEvent: The StudiumEvent to delete
-    public func deleteStudiumObject(_ studiumEvent: StudiumEvent) {
-        
-        printDebug("attempting to delete studiumEvent \(studiumEvent.name)")
+    public func deleteStudiumObject(
+        _ studiumEvent: StudiumEvent,
+        eventWillDelete: @escaping () -> Void
+    ) {
+        Log.d("attempting to delete studiumEvent \(studiumEvent.name)")
 
         if let containerEvent = studiumEvent as? (any StudiumEventContainer) {
             while let event = containerEvent.containedEvents.first {
-                self.deleteStudiumObject(event)
+                self.deleteStudiumObject(event) { }
             }
         }
         
         if let autoschedulingEvent = studiumEvent as? (any Autoscheduling) {
             while let event = autoschedulingEvent.autoscheduledEvents.first {
-                self.deleteStudiumObject(event)
+                self.deleteStudiumObject(event) { }
             }
         }
         
         self.realmWrite {
-            NotificationService.shared.deleteAllPendingNotifications(for: studiumEvent)
-            AppleCalendarService.shared.deleteEvent(forStudiumEvent: studiumEvent) { _ in
-                studiumEvent.ekEventID = nil
-            }
-            
+            eventWillDelete()
             if !studiumEvent.isInvalidated {
-                printDebug("Deleting studiumEvent \(studiumEvent.name)")
+                Log.d("Deleting studiumEvent \(studiumEvent.name)")
                 self.realm.delete(studiumEvent)
+                
             } else {
-                print("$ERR (DatabaseService): Tried to delete StudiumEvent \(studiumEvent), but it was invalidated.")
+                Log.e("Tried to delete StudiumEvent \(studiumEvent), but it was invalidated.")
             }
         }
     }
@@ -307,7 +260,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     // TODO: Docstrings
     private func realmWrite(_ writeBlock: () -> Void) {
         do {
-            try self.realm.write {
+            try self.realm.safeWrite {
                 writeBlock()
             }
         } catch let error {
