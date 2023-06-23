@@ -112,7 +112,9 @@ extension AuthenticationViewController {
     @objc func googleLoginClicked() {
         self.spinner.startAnimating()
 
-        AuthenticationService.shared.handleLoginWithGoogle(presentingViewController: self) { [weak self] result in
+        AuthenticationService.shared.handleLoginWithGoogle(
+            presentingViewController: self
+        ) { [weak self] result in
             self?.handleLoginResult(result: result)
         }
     }

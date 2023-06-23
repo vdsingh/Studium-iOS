@@ -1,10 +1,6 @@
-
 import Foundation
 import UIKit
-import RealmSwift
 import FlexColorPicker
-import EventKit
-
 import TableViewFormKit
 import VikUtilityKit
 
@@ -13,9 +9,6 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
     
     // TODO: Docstrings
     weak var coordinator: CoursesCoordinator?
-    
-    // TODO: Docstrings
-    let codeLocationString = "AddCourseViewController"
     
     // TODO: Docstrings
     var course: Course?
@@ -33,23 +26,19 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
 
     // TODO: Docstrings
     override func viewDidLoad() {
-       
+        super.viewDidLoad()
         self.setCells()
     
-        super.viewDidLoad()
-        navButton.image = SystemIcon.plus.createImage()
-        
-//        self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
+        self.navButton.image = SystemIcon.plus.createImage()
         
         // gets rid of empty cells at the bottom
-        tableView.tableFooterView = UIView()
+        self.tableView.tableFooterView = UIView()
         
+        // We are currently editing
         if let course = self.course {
-            navButton.image = .none
-            navButton.title = "Done"
+            self.navButton.image = .none
+            self.navButton.title = "Done"
             self.fillForm(with: course)
-            // TODO: Update course notification times
         }
     }
     
@@ -60,8 +49,12 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
                 .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
                 .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCellID.locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
-                .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.uiImage, cellAccessoryType: .disclosureIndicator, onClick: {
-                    self.showAlertTimesSelectionViewController() }
+                .labelCell(
+                    cellText: "Remind Me", icon: StudiumIcon.bell.uiImage,
+                    cellAccessoryType: .disclosureIndicator,
+                    onClick: {
+                        self.showAlertTimesSelectionViewController()
+                    }
                 )
             ],
             [
@@ -75,66 +68,60 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
             ],
             [
                 .errorCell(errors: self.errors)
-//                .labelCell(cellText: "", textColor: StudiumColor.failure.uiColor, backgroundColor: StudiumColor.background.uiColor)
             ]
         ]
     }
     
-    //final step that occurs when the user has filled out the form and wants to add the new course
+    // final step that occurs when the user has filled out the form and wants to add the new course
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        
+        self.endDate = Calendar.current.date(bySettingHour: self.endDate.hour, minute: self.endDate.minute, second: self.endDate.second, of: self.startDate)!
+
         self.errors = self.findErrors()
-        endDate = Calendar.current.date(bySettingHour: endDate.hour, minute: endDate.minute, second: endDate.second, of: startDate)!
-        
         
         if self.errors.isEmpty {
             let newCourse = Course (
-                name: name,
+                name: self.name,
                 color: self.color,
-                location: location,
-                additionalDetails: additionalDetails,
-                startDate: startDate,
-                endDate: endDate,
+                location: self.location,
+                additionalDetails: self.additionalDetails,
+                startDate: self.startDate,
+                endDate: self.endDate,
                 days: self.daysSelected,
                 icon: self.icon,
-                notificationAlertTimes: alertTimes,
+                notificationAlertTimes: self.alertTimes,
                 partitionKey: AuthenticationService.shared.userID!
             )
             
             if let course = self.course {
-                self.databaseService.updateEvent(oldEvent: course, updatedEvent: newCourse)
-//                self.databaseService.editStudiumEvent(
-//                    oldEvent: course,
-//                    newEvent: newCourse
-//                )
+                self.studiumEventService.updateStudiumEvent(oldEvent: course, updatedEvent: newCourse)
             } else {
-                self.databaseService.saveStudiumObject(newCourse)
+                self.studiumEventService.saveStudiumEvent(newCourse)
             }
 
-            if delegate == nil {
+            if self.delegate == nil {
                 printDebug("Course refresh delegate is nil.")
             }
             
-            dismiss(animated: true, completion: delegate?.loadCourses)
+            self.dismiss(animated: true, completion: self.delegate?.loadCourses)
         } else {
             self.setCells()
             self.scrollToBottomOfTableView()
-            tableView.reloadData()
+            self.tableView.reloadData()
         }
     }
     
     //TODO: Docstring
     func findErrors() -> [StudiumFormError] {
         var errors = [StudiumFormError]()
-        if name == "" {
+        if self.name == "" {
             errors.append(.nameNotSpecified)
         }
         
-        if daysSelected == [] {
+        if self.daysSelected == [] {
             errors.append(.oneDayNotSpecified)
         }
         
-        if startDate > endDate {
+        if self.startDate > self.endDate {
             errors.append(.endTimeOccursBeforeStartTime)
         }
         
@@ -144,7 +131,7 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
     /// handles when the user wants to cancel their form
     /// - Parameter sender: The button used to cancel the form
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        dismiss(animated: true)
+        self.dismiss(animated: true)
     }
 }
 
@@ -157,7 +144,7 @@ extension AddCourseViewController {
     /// - Parameter tableView: The TableView
     /// - Returns: The number of sections in the TableView
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return cells.count
+        return self.cells.count
     }
     
     /// The number of rows in a given section of a TableView
@@ -166,7 +153,7 @@ extension AddCourseViewController {
     ///   - section: The section for which we are providing the number of rows
     /// - Returns: The number of rows in a given section of a TableView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cells[section].count
+        return self.cells[section].count
     }
 }
 
@@ -206,7 +193,7 @@ extension AddCourseViewController: ColorDelegate {
     
     // TODO: Docstrings
     func colorPickerValueChanged(sender: RadialPaletteControl) {
-        color = sender.selectedColor
+        self.color = sender.selectedColor
     }
 }
 
@@ -216,16 +203,16 @@ extension AddCourseViewController {
     // TODO: Docstrings
     func fillForm(with course: Course) {
         printDebug("Filling Add Course form with course: \(course)")
-        tableView.reloadData()
+        self.tableView.reloadData()
                 
         if let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell {
             nameCell.textField.text = course.name
-            name = course.name
+            self.name = course.name
         }
         
         if let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? TextFieldCell {
             locationCell.textField.text = course.location
-            location = course.location
+            self.location = course.location
         }
         
         if let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? DaySelectorCell {
@@ -238,17 +225,16 @@ extension AddCourseViewController {
         self.alertTimes = course.alertTimes
         
         if let startCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? TimeCell {
-            startDate = course.startDate
-            startCell.setDate(startDate)
+            self.startDate = course.startDate
+            startCell.setDate(self.startDate)
         }
         
         if let endCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as? TimeCell {
-            endDate = course.endDate
-            endCell.setDate(endDate)
+            self.endDate = course.endDate
+            endCell.setDate(self.endDate)
         }
         
         if let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? LogoSelectionCell {
-//            logoCell.logoImageView.image = course.logo.createImage()
             logoCell.setImage(image: course.icon.uiImage )
             self.icon = course.icon
         }
@@ -260,7 +246,7 @@ extension AddCourseViewController {
             
         if let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as? TextFieldCell {
             additionalDetailsCell.textField.text = course.additionalDetails
-            additionalDetails = course.additionalDetails
+            self.additionalDetails = course.additionalDetails
         }
     }
 }

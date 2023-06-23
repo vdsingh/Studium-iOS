@@ -28,8 +28,13 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Courses"
         self.sectionHeaders = ["To Do:", "Completed:"]
         self.eventTypeString = "Assignments"
+        
+        self.emptyDetailIndicator.setImage(FlatImage.boyWritingInBook.uiImage)
+        self.emptyDetailIndicator.setTitle("No Assignments here yet")
+        self.emptyDetailIndicator.setSubtitle("Tap + to add an Assignment")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,7 +56,7 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
     
     /// The user pressed the '+' button to add a new assignment
     /// - Parameter sender: The button that the user pressed
-    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+    override func addButtonPressed() {
         self.unwrapCoordinatorOrShowError()
         self.coordinator?.showAddAssignmentViewController(refreshDelegate: self, selectedCourse: self.selectedCourse)
     }
@@ -79,6 +84,8 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
                 self.handleEventsOpen(assignment: assignment)
             }
         }
+        
+        self.updateEmptyEventsIndicator()
     }
     
     /// Reloads/sorts the data and refreshes the TableView

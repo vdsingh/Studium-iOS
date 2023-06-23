@@ -79,7 +79,8 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     
     //TODO: Docstrings
     @IBAction func monthButtonPressed(_ sender: Any) {
-        performSegue(withIdentifier: "toCalendar", sender: self)
+//        performSegue(withIdentifier: "toCalendar", sender: self)
+        self.coordinator?.showMonthScheduleViewController()
     }
     
     //TODO: Docstring

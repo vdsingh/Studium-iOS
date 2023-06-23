@@ -86,7 +86,7 @@ class CalendarViewController: UIViewController, Storyboarded {
     
     //TODO: Docstrings
     @IBAction func dayButtonPressed(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
+        self.navigationController?.popViewController(animated: true)
     }
     
 //    @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
