@@ -19,7 +19,7 @@ import FirebaseCrashlytics
 /// - severe: Log type severe
 enum LogEvent: String {
     case e = "$ ERR [‼️]: " // error
-    case i = "$ INF [ℹ️]:" // info
+    case g = "$ SUCCESS [✅]:" // info
     case d = "$ DEB [💬]: " // debug
     case v = "$ VER [🔬]: " // verbose
     case w = "$ WAR [⚠️]: " // warning
@@ -78,7 +78,7 @@ class Log {
         }
     }
     
-    /// Logs info messages on console with prefix [ℹ️]
+    /// Logs success messages on console with prefix [✅]
     ///
     /// - Parameters:
     ///   - object: Object or message to be logged
@@ -86,9 +86,9 @@ class Log {
     ///   - line: Line number in file from where the logging is done
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
-    class func i ( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
+    class func g ( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
         if isLoggingEnabled {
-            print("\(LogEvent.i.rawValue) \(Date().toString()) [\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
+            print("\(LogEvent.g.rawValue) \(Date().toString()) [\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
         }
     }
     

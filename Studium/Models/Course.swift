@@ -59,19 +59,6 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
     func appendContainedEvent(containedEvent: Assignment) {
         self.assignmentsList.append(containedEvent)
     }
-    
-    // TODO: Docstrings
-    func setValues(
-        name: String? = nil,
-        color: UIColor? = nil,
-        location: String? = nil,
-        additionalDetails: String? = nil
-    ) {
-        if let name = name { self.name = name }
-        if let color = color { self.color = color }
-        if let location = location { self.location = location }
-        if let additionalDetails = additionalDetails { self.name = additionalDetails }
-    }
 }
 
 extension Course: Updatable {

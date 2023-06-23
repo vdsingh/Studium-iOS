@@ -18,18 +18,18 @@ import VikUtilityKit
 class RecurringStudiumEvent: StudiumEvent, GoogleCalendarRecurringEventLinking {
     
     /// Represents the days as ints for which this event occurs on
-    internal var daysList = List<Int>()
+    internal let daysList = List<Int>()
     
     /// Represents the days for which this event occurs on
     var days: Set<Weekday> {
         get {
-            return Set<Weekday>( daysList.compactMap { Weekday(rawValue: $0) })
+            return Set<Weekday>( self.daysList.compactMap { Weekday(rawValue: $0) })
         }
         
         set {
-            let list = List<Int>()
-            list.append(objectsIn: newValue.compactMap({ $0.rawValue }))
-            self.daysList = list
+//            let list = List<Int>()
+            self.daysList.removeAll()
+            self.daysList.append(objectsIn: newValue.compactMap({ $0.rawValue }))
         }
     }
     

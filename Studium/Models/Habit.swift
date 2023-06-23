@@ -64,9 +64,7 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         self.startEarlier = startEarlier
         self.autoscheduling = autoscheduling
         self.autoLengthMinutes = autoLengthMinutes
-        let newDaysList = List<Int>()
-        newDaysList.append(objectsIn: days.compactMap{ $0.rawValue })
-        self.daysList = newDaysList
+        self.days = days
         self._partitionKey = partitionKey
         
         let nextOccurringTimeChunk = self.nextOccuringTimeChunk

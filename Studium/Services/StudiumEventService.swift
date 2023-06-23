@@ -92,24 +92,23 @@ class StudiumEventService {
         updatedEvent: T.EventType
     ) {
         self.databaseService.updateEvent(oldEvent: oldEvent, updatedEvent: updatedEvent) {
-            
             // Make sure event is StudiumEvent
             guard let oldEvent = oldEvent as? StudiumEvent else {
                 Log.s(StudiumEventServiceError.invalidParameterType, additionalDetails: "updated event \(oldEvent), but it was not a StudiumEvent")
                 return
             }
-            
+
             // Schedule Notifications
             self.notificationService.scheduleNotificationsFor(event: oldEvent)
-            
+
             if self.appleCalendarService.authorizationStatus() == .authorized {
-                
+
                 // Update Apple Calendar Event
                 self.appleCalendarService.updateEvent(forStudiumEvent: oldEvent) { _ in }
             }
-            
+
             if self.googleCalendarService.calendarAuthorized {
-                
+
                 // Update Google CalendarEvent
                 self.googleCalendarService.updateEvent(event: oldEvent)
             } else {
@@ -127,18 +126,23 @@ class StudiumEventService {
     // MARK: - Delete
     
     func deleteStudiumEvent(_ studiumEvent: StudiumEvent) {
-        self.databaseService.deleteStudiumObject(studiumEvent) {
-            NotificationService.shared.deleteAllPendingNotifications(for: studiumEvent)
-            if self.appleCalendarService.authorizationStatus() == .authorized {
-                self.appleCalendarService.deleteEvent(forStudiumEvent: studiumEvent) { _ in
-                    studiumEvent.ekEventID = nil
+        self.databaseService.deleteStudiumObject(
+            studiumEvent,
+            eventWillDelete: {
+                NotificationService.shared.deleteAllPendingNotifications(for: studiumEvent)
+                if self.appleCalendarService.authorizationStatus() == .authorized {
+                    self.appleCalendarService.deleteEvent(forStudiumEvent: studiumEvent) { _ in
+                        
+                        // Remove the Apple Calendar Event ID from the StudiumEvent
+                        studiumEvent.ekEventID = nil
+                    }
+                }
+                
+                if self.googleCalendarService.calendarAuthorized {
+                    self.googleCalendarService.deleteEvent(googleCalendarEventID: studiumEvent.googleCalendarEventID) { _ in }
                 }
             }
-            
-            if self.googleCalendarService.calendarAuthorized {
-                self.googleCalendarService.deleteEvent(event: studiumEvent)
-            }
-        }
+        )
     }
 }
 
