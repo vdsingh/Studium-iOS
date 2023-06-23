@@ -90,12 +90,14 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
             let newEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: self.additionalDetails, startDate: self.startDate, endDate: self.endDate, color: self.color, icon: self.icon, alertTimes: self.alertTimes)
             if let otherEvent = self.otherEvent {
                 // We are editing
-                self.databaseService.updateEvent(oldEvent: otherEvent, updatedEvent: newEvent)
+                self.studiumEventService.updateStudiumEvent(oldEvent: otherEvent, updatedEvent: newEvent)
+//                self.databaseService.updateEvent(oldEvent: otherEvent, updatedEvent: newEvent)
 //                self.databaseService.editStudiumEvent(oldEvent: otherEvent, newEvent: newEvent)
             
             } else {
                 // We are creating new
-                self.databaseService.saveStudiumObject(newEvent)
+//                self.databaseService.saveStudiumObject(newEvent)
+                self.studiumEventService.saveStudiumEvent(newEvent)
             }
             
             guard let delegate = delegate else {

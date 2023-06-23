@@ -167,11 +167,13 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
             )
             
             if let editingHabit = self.habit {
-                self.databaseService.updateEvent(oldEvent: editingHabit, updatedEvent: newHabit)
+//                self.databaseService.updateEvent(oldEvent: editingHabit, updatedEvent: newHabit)
 //                self.databaseService.editStudiumEvent(oldEvent: editingHabit, newEvent: newHabit)
+                self.studiumEventService.updateStudiumEvent(oldEvent: editingHabit, updatedEvent: newHabit)
             } else {
                 // DatabaseService handles autoscheduling
-                self.databaseService.saveStudiumObject(newHabit)
+                self.studiumEventService.saveStudiumEvent(newHabit)
+//                self.databaseService.saveStudiumObject(newHabit)
             }
             
             dismiss(animated: true) {

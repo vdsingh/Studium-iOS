@@ -24,17 +24,14 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController {
     
     /// Reloads/sorts the data and refreshes the TableView
     func reloadData() { }
-}
 
-// MARK: - TableView Delegate
-
-extension AssignmentsOtherEventsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("Selected row \(indexPath.row)")
         if let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment,
            let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1 {
             self.handleEventsClose(assignment: assignment)
-            self.databaseService.markComplete(assignment, !assignment.complete)
+            self.studiumEventService.markComplete(assignment, !assignment.complete)
+//            self.databaseService.markComplete(assignment, !assignment.complete)
             
 //            if assignment.autoscheduled {
 //                tableView.reloadData()
@@ -46,7 +43,7 @@ extension AssignmentsOtherEventsViewController {
         } else if let otherEventCell = tableView.cellForRow(at: indexPath) as? OtherEventCell,
            let otherEvent = otherEventCell.event as? OtherEvent {
             print("$LOG: Selected an otherEventCell")
-            self.databaseService.markComplete(otherEvent, !otherEvent.complete)
+            self.studiumEventService.markComplete(otherEvent, !otherEvent.complete)
 //            if otherEvent.autoscheduled {
 //                tableView.reloadData()
 //            } else {
@@ -59,16 +56,13 @@ extension AssignmentsOtherEventsViewController {
     }
     
     //TODO: Docstrings, move to AssignmentsOther...
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-}
 
-// MARK: - TableView Data Source
-extension AssignmentsOtherEventsViewController {
-    
         //TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         if let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment {
             super.swipeCellId = AssignmentCell1.id
             if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? AssignmentCell1 {

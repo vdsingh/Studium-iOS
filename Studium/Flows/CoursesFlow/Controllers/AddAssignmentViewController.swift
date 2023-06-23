@@ -113,7 +113,8 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
             )
             
             if let assignmentEditing = self.assignmentEditing {
-                self.databaseService.updateEvent(oldEvent: assignmentEditing, updatedEvent: newAssignment)
+                self.studiumEventService.updateStudiumEvent(oldEvent: assignmentEditing, updatedEvent: newAssignment)
+//                self.databaseService.updateEvent(oldEvent: assignmentEditing, updatedEvent: newAssignment)
             } else {
                 // DatabaseService will handle autoscheduling.
 //                self.databaseService.saveStudiumObject(newAssignment)

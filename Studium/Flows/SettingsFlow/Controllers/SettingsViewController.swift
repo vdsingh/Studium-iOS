@@ -34,17 +34,20 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
     // TODO: Docstrings
     var databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
+    let studiumEventService: StudiumEventService = StudiumEventService.shared
+    
     //TODO: Docstrings
     lazy var cellData: [[(text: String, icon: (any CreatesUIImage)?, didSelect: (() -> Void)?)]] = [
         
         [
             ("Sync with Apple Calendar", ThirdPartyIcon.appleCalendar, didSelect: {
-                AppleCalendarService.shared.syncCalendar(
-                    allEvents: self.databaseService.getAllStudiumObjects()) { _ in }
+                AppleCalendarService.shared.syncCalendar{ _ in }
             }),
             
             ("Sync with Google Calendar", ThirdPartyIcon.googleCalendar, didSelect: {
-                
+                GoogleCalendarService.shared.authenticate(
+                    presentingViewController: self
+                )
             })
         ],
         [
@@ -94,7 +97,7 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
             })
         ],
         [
-            ("ID: \(AuthenticationService.shared.userID ?? "Guest")", StudiumIcon.user, nil),
+            ("ID: \(AuthenticationService.shared.userEmail ?? "Unavailable")", StudiumIcon.user, nil),
             ("Sign Out", StudiumIcon.rightFromBracket, didSelect: {
                 AuthenticationService.shared.handleLogOut { error in
                     if let error = error {
@@ -204,7 +207,8 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
         let assignments = self.databaseService.getStudiumObjects(expecting: Assignment.self)
         for assignment in assignments {
             if (isCompleted && assignment.complete) || !isCompleted {
-                self.databaseService.deleteStudiumObject(assignment)
+                self.studiumEventService.deleteStudiumEvent(assignment)
+//                self.databaseService.deleteStudiumObject(assignment)
             }
         }
     }
@@ -214,7 +218,8 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
         let otherEvents = self.databaseService.getStudiumObjects(expecting: OtherEvent.self)
         for event in otherEvents {
             if (isCompleted && event.complete) || !isCompleted {
-                self.databaseService.deleteStudiumObject(event)
+//                self.databaseService.deleteStudiumObject(event)
+                self.studiumEventService.deleteStudiumEvent(event)
             }
         }
     }

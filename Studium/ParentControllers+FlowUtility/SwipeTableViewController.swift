@@ -10,8 +10,18 @@ import UIKit
 import SwipeCellKit
 import RealmSwift
 
+protocol UITableViewControllerProtocol: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    var tableView: UITableView { get set }
+}
+
 //TODO: Docstrings
-class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate, Debuggable {
+class SwipeTableViewController: UIViewController, UITableViewControllerProtocol, SwipeTableViewCellDelegate, Debuggable, UITableViewDataSource, UITableViewDelegate {
+    
+    var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
     var debug: Bool { false }
     
@@ -23,11 +33,26 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     
     //TODO: Docstrings
     var swipeCellId: String = "SwipeCell"
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+                
+        self.view.addSubview(self.tableView)
+        NSLayoutConstraint.activate([
+            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+        ])
+    }
 
     //MARK: - TableView Data Source Methods
     
     //TODO: Docstrings
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         self.printDebug("will try to dequeue a SwipeTableViewCell with id: \(self.swipeCellId)")
         if let cell = tableView.dequeueReusableCell(withIdentifier:  self.swipeCellId, for: indexPath) as? SwipeTableViewCell {
             cell.delegate = self
@@ -38,8 +63,12 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     }
     
     //TODO: Docstrings
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return K.populatedHeaderHeight
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
     }
     
     //MARK: - Swipe Cell Delegate

@@ -27,10 +27,15 @@ class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefr
     let otherEvents = [OtherEvent]()
 
     override func viewDidLoad() {
-        self.eventTypeString = "Events"
         super.viewDidLoad()
+        self.title = "To Do List"
+        self.eventTypeString = "Events"
                 
-        sectionHeaders = ["To Do:", "Completed:"]
+        self.sectionHeaders = ["To Do:", "Completed:"]
+        
+        self.emptyDetailIndicator.setImage(FlatImage.womanFlying.uiImage)
+        self.emptyDetailIndicator.setTitle("No To-Do Events here yet")
+        self.emptyDetailIndicator.setSubtitle("Tap + to add a To-Do Event")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,7 +76,8 @@ class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefr
         
         eventsArray[0] = eventsArray[0].sorted(by: { $0.startDate.compare($1.startDate) == .orderedAscending })
         eventsArray[1] = eventsArray[1].sorted(by: { $0.startDate.compare($1.startDate) == .orderedDescending })
-
+        
+        self.updateEmptyEventsIndicator()
     }
     
     //TODO: Docstrings
@@ -93,64 +99,8 @@ class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefr
     }
     
     //TODO: Docstrings
-    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+    override func addButtonPressed() {
         self.unwrapCoordinatorOrShowError()
         self.coordinator?.showAddToDoListEventViewController(refreshDelegate: self)
     }
- 
-    //TODO: Docstrings
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        
-//        if let event = eventsArray[indexPath.section][indexPath.row] as? Assignment {
-//            super.swipeCellId = AssignmentCell1.id
-//            if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? AssignmentCell1,
-//               let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment {
-//                cell.loadData(assignment: assignment, assignmentCollapseDelegate: self)
-//                cell.setIsExpanded(isExpanded: self.assignmentsExpandedSet.contains(assignment))
-//                return cell
-//            }
-//            
-//            fatalError("$ERR: Couldn't dequeue cell for assignment \(event.name)")
-//        } else if let event = eventsArray[indexPath.section][indexPath.row] as? OtherEvent {
-//            super.swipeCellId = OtherEventCell.id
-//            if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? OtherEventCell,
-//               let otherEvent = eventsArray[indexPath.section][indexPath.row] as? OtherEvent {
-//                cell.loadData(from: otherEvent)
-//                return cell
-//            }
-//            
-//            fatalError("$ERR: Couldn't dequeue cell for other event \(event.name)")
-//
-//        } else {
-//            print("$ERR: couldn't unwrap event as Assignment or ToDoEvent")
-//            let cell = super.tableView(tableView, cellForRowAt: indexPath)
-//            return cell
-//        }
-//    }
-    
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-////        let headerCell = tableView.dequeueReusableCell(withIdentifier: K.headerCellID) as! HeaderView
-//        let headerView = HeaderView()
-//        headerView.setTexts(primaryText: sectionHeaders[section], secondaryText: "\(eventsArray[section].count) Events")
-//        headerViews[section] = headerView
-//
-//        return headerView
-//    }
-    
-    //TODO: Docstrings
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        
-//        // super didSelectRow handles marking events complete (in Realm)
-//        super.tableView(tableView, didSelectRowAt: indexPath)
-//        
-//        if let cell = tableView.cellForRow(at: indexPath) as? OtherEventCell,
-//           let otherEvent = cell.event as? OtherEvent {
-//            print("$LOG: Selected an otherEventCell")
-//            self.databaseService.markComplete(otherEvent, !otherEvent.complete)
-//            tableView.reloadData()
-//            reloadData()
-//        }
-//        
-//        tableView.deselectRow(at: indexPath, animated: true)
-//    }
 }

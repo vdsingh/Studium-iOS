@@ -105,7 +105,8 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         if let event = cell.event as? Assignment {
             self.handleEventsClose(assignment: event)
-            self.databaseService.deleteStudiumObject(event)
+            self.studiumEventService.deleteStudiumEvent(event)
+//            self.databaseService.deleteStudiumObject(event)
         } else {
             print("$ERR (AssignmentsViewController): Tried to delete event at cell (\(indexPath.section), \(indexPath.row)), however its event was nil")
         }

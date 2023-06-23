@@ -22,8 +22,10 @@ class MasterForm: TableViewForm, Debuggable {
         true
     }
     
-    let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
-    let autoscheduleService: AutoscheduleServiceProtocol = AutoscheduleService.shared
+    let databaseService: DatabaseServiceProtocol = DatabaseService.shared
+//    let autoscheduleService: AutoscheduleServiceProtocol = AutoscheduleService.shared
+    
+    let studiumEventService: StudiumEventService = StudiumEventService.shared
     
     // TODO: Docstrings
     lazy var alertTimes: [AlertOption] = {

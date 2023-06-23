@@ -118,7 +118,7 @@ class AppleCalendarService {
     func deleteEKEvent(event: EKEvent, completion: @escaping (Error?) -> Void) {
         do {
             try self.eventStore.remove(event, span: .futureEvents, commit: true)
-            Log.d("successfully deleted Apple Calendar Event")
+            Log.g("successfully deleted Apple Calendar Event")
             completion(nil)
         } catch let error {
             Log.s(error, additionalDetails: "Attempted to delete event \(event) but failed.")
