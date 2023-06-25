@@ -46,8 +46,8 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
     func setCells() {
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCellID.locationTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: TextFieldCharLimit.shortField.rawValue, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", text: self.location, charLimit: TextFieldCharLimit.shortField.rawValue, id: FormCellID.TextFieldCellID.locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
                 .labelCell(
                     cellText: "Remind Me", icon: StudiumIcon.bell.uiImage,
@@ -64,7 +64,7 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
             [
                 .logoCell(logo: self.icon.uiImage, onClick: { self.showLogoSelectionViewController() }),
                 .colorPickerCell(delegate: self),
-                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: TextFieldCharLimit.longField.rawValue, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],
             [
                 .errorCell(errors: self.errors)
@@ -111,8 +111,10 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
     }
     
     //TODO: Docstring
-    func findErrors() -> [StudiumFormError] {
+    override func findErrors() -> [StudiumFormError] {
         var errors = [StudiumFormError]()
+        errors.append(contentsOf: super.findErrors())
+        
         if self.name == "" {
             errors.append(.nameNotSpecified)
         }
@@ -124,7 +126,7 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
         if self.startDate > self.endDate {
             errors.append(.endTimeOccursBeforeStartTime)
         }
-        
+
         return errors
     }
     

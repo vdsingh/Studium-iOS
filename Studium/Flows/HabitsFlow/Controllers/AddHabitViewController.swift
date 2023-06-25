@@ -15,6 +15,11 @@ import FlexColorPicker
 import TableViewFormKit
 import VikUtilityKit
 
+enum TextFieldCharLimit: Int {
+    case shortField = 100
+    case longField = 300
+}
+
 /// Guarantees that the Habit list has a method that allows it to refresh.
 protocol HabitRefreshProtocol {
     
@@ -87,8 +92,8 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
     func setCells() {
         self.cellsNoAuto = [
             [
-                .textFieldCell(placeholderText: "Name", text: self.name, id: .nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", text: self.location, id: .locationTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: 100, id: .nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", text: self.location, charLimit: 100, id: .locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
                 .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.uiImage, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
@@ -102,6 +107,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
                 .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details",
                                text: self.additionalDetails,
+                               charLimit: 300,
                                id: FormCellID.TextFieldCellID.additionalDetailsTextField,
                                textFieldDelegate: self,
                                delegate: self)
@@ -113,8 +119,8 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
         
         self.cellsAuto = [
             [
-                .textFieldCell(placeholderText: "Name", text: self.name, id: .nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", text: self.location, id: .locationTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: TextFieldCharLimit.shortField.rawValue, id: .nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", text: self.location, charLimit: TextFieldCharLimit.shortField.rawValue, id: .locationTextField, textFieldDelegate: self, delegate: self),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
                 .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.uiImage, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
@@ -127,7 +133,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
             [
                 .logoCell(logo: self.icon.uiImage, onClick: { self.showLogoSelectionViewController() }),
                 .colorPickerCell(delegate: self),
-                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: .additionalDetailsTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: TextFieldCharLimit.longField.rawValue, id: .additionalDetailsTextField, textFieldDelegate: self, delegate: self),
             ],
             [
                 .errorCell(errors: self.errors)
@@ -190,8 +196,10 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
     }
     
     //TODO: Docstring
-    func findErrors() -> [StudiumFormError] {
+    override func findErrors() -> [StudiumFormError] {
         var errors = [StudiumFormError]()
+        
+        errors.append(contentsOf: super.findErrors())
         
         if self.name == "" {
             errors.append(.nameNotSpecified)

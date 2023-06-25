@@ -79,7 +79,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     func setCells() {
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: 100, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
                 .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: .endTimeCell, onClick: self.timeCellClicked),
                 .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.uiImage, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
@@ -87,7 +87,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
                 .switchCell(cellText: "Schedule Time to Work", isOn: self.autoscheduleWorkTime, switchDelegate: self, infoDelegate: self)
             ],
             [
-                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: 300, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],
             [
                 .errorCell(errors: self.errors)
@@ -132,8 +132,9 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     }
     
     //TODO: Docstring
-    func findErrors() -> [StudiumFormError] {
+    override func findErrors() -> [StudiumFormError] {
         var errors = [StudiumFormError]()
+        errors.append(contentsOf: super.findErrors())
         if self.name == "" {
             errors.append(.nameNotSpecified)
         }

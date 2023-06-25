@@ -18,6 +18,10 @@ enum StudiumFormError: FormError {
     case totalTimeNotSpecified
     case totalTimeExceedsTimeFrame
     
+    case nameTooLong(charLimit: TextFieldCharLimit)
+    case locationTooLong(charLimit: TextFieldCharLimit)
+    case additionalDetailsTooLong(charLimit: TextFieldCharLimit)
+    
     //TODO: Docstrings
     var stringRepresentation: String {
         switch self {
@@ -31,6 +35,12 @@ enum StudiumFormError: FormError {
             return "Please specify total time"
         case .totalTimeExceedsTimeFrame:
             return "The total time exceeds the time frame"
+        case .nameTooLong(let charLimit):
+            return "Please limit the name to \(charLimit.rawValue) characters"
+        case .locationTooLong(let charLimit):
+            return "Please limit the location to \(charLimit.rawValue) characters"
+        case .additionalDetailsTooLong(let charLimit):
+            return "Please limit the additional details to \(charLimit.rawValue) characters"
         }
     }
 }
