@@ -56,11 +56,6 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
             self.autoschedulingDaysList = list
         }
     }
-    
-    /// Was this an autoscheduled assignment?
-//    var isAutoscheduled: Bool {
-//        self.parentAssignmentID != nil
-//    }
 
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
     convenience init(
@@ -145,18 +140,8 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
     
     // TODO: Docstring
     func appendAutoscheduledEvent(event: OtherEvent) {
-//        self.scheduledEventsList.append(event)
         self.autoscheduledEventsList.append(event)
     }
-    
-    // TODO: Docstring
-//    func removeScheduledEvent(event: Assignment) {
-//        if let eventIndex = self.scheduledEventsList.firstIndex(where: { $0._id == event._id }) {
-//            self.scheduledEventsList.remove(at: eventIndex)
-//        } else {
-//            print("$ERR (Assignment): Tried to remove assignment \(event.name) from scheduledEvents, but it was not in there to start.")
-//        }
-//    }
     
     // TODO: Docstring
     func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> OtherEvent {

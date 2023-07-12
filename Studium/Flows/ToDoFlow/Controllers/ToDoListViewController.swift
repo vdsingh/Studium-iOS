@@ -83,7 +83,7 @@ class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefr
     //TODO: Docstrings
     override func reloadData() {
         self.loadEvents()
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     //TODO: Docstrings

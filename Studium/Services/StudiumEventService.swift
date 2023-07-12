@@ -54,7 +54,7 @@ class StudiumEventService {
                 self.appleCalendarService.createEvent(forStudiumEvent: studiumEvent) { result in
                     switch result {
                     case .success(let appleCalendarEvent):
-                        Log.g("successfully created apple calendar event and linked it to StudiumEvent \(studiumEvent.name)")
+                        Log.g("successfully created apple calendar event \(appleCalendarEvent.calendarItemIdentifier) and linked it to StudiumEvent \(studiumEvent.name)")
                     case .failure(let error):
                         Log.e(error)
                         PopUpService.shared.presentToast(title: "Error Adding Event to Apple Calendar", description: "We were unable this event to Apple Calendar", popUpType: .failure)

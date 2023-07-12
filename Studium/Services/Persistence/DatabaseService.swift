@@ -171,7 +171,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     public func markComplete(_ completableEvent: CompletableStudiumEvent, _ complete: Bool) {
         //TODO: Delete assignment notifications when complete, add when incomplete.
         self.realmWrite {
-            completableEvent.complete = !completableEvent.complete
+            completableEvent.complete = complete
         }
     }
     

@@ -41,12 +41,10 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Fore
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("Selected row \(indexPath.row)")
-        if let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment,
+        if let assignment = self.eventsArray[indexPath.section][indexPath.row] as? Assignment,
            let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1 {
             self.handleEventsClose(assignment: assignment)
             self.studiumEventService.markComplete(assignment, !assignment.complete)
-//            self.databaseService.markComplete(assignment, !assignment.complete)
-            
 //            if assignment.autoscheduled {
 //                tableView.reloadData()
 //            } else {
@@ -153,7 +151,7 @@ extension AssignmentsOtherEventsViewController: AssignmentCollapseDelegate {
         }
         
         self.assignmentsExpandedSet.remove(assignment)
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     /// collapses all assignmentCells whose autoscheduled events are expanded

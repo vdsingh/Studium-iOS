@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import UIKit
+import SwiftUI
 
 //TODO: Docstrings
 class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol, Storyboarded, Coordinated {
@@ -36,6 +37,12 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         self.emptyDetailIndicator.setImage(FlatImage.travelingAndSports.uiImage)
         self.emptyDetailIndicator.setTitle("No Habits here yet")
         self.emptyDetailIndicator.setSubtitle("Tap + to add a Habit")
+        self.emptyDetailIndicator.configureButton(buttonText: "Button") { button in
+            self.studiumEventService.updateNextTenAssignments()
+            let assignmentsModels = AssignmentsWidgetDataService.shared.getAssignments()
+            button.setTitle("\(assignmentsModels.map({ $0.name }))", for: .normal)
+            WidgetsService.shared.reloadAssignmentsWidget()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,7 +68,7 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
             }
         }
         
-        //sort all the habits happening today by startTime (the ones that are first come first in the list)
+        // sort all the habits happening today by startTime (the ones that are first come first in the list)
         eventsArray[0].sort(by: { $0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm" )})
         self.tableView.reloadData()
         

@@ -70,7 +70,7 @@ class Log {
     ///   - funcName: Name of the function from where the logging is done
     class func e( _ object: Any, additionalDetails: String = "", logToCrashlytics: Bool = false, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
         if isLoggingEnabled {
-            print("\(LogEvent.e.rawValue) \(Date().toString()) [\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
+            print("\(LogEvent.e.rawValue) \(Date().toString()) [\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object). Additional Details: \(additionalDetails)")
         }
         
         if logToCrashlytics {

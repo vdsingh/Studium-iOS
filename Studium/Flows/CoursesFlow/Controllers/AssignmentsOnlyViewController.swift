@@ -9,6 +9,8 @@
 import Foundation
 import ChameleonFramework
 
+
+
 /// TableViewController that only displays Assignments
 class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISearchBarDelegate, AssignmentRefreshProtocol, ToDoListRefreshProtocol, Coordinated, Storyboarded {
     
@@ -39,21 +41,20 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        printDebug("viewWillAppear")
         if let course = selectedCourse {
             self.title = course.name
         } else {
             print("$ERR: course is nil")
         }
         
-        reloadData()
+        self.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        collapseAllExpandedAssignments()
+        self.collapseAllExpandedAssignments()
     }
-    
+        
     /// The user pressed the '+' button to add a new assignment
     /// - Parameter sender: The button that the user pressed
     override func addButtonPressed() {
@@ -106,7 +107,6 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
         if let event = cell.event as? Assignment {
             self.handleEventsClose(assignment: event)
             self.studiumEventService.deleteStudiumEvent(event)
-//            self.databaseService.deleteStudiumObject(event)
         } else {
             print("$ERR (AssignmentsViewController): Tried to delete event at cell (\(indexPath.section), \(indexPath.row)), however its event was nil")
         }

@@ -76,7 +76,7 @@ class AuthenticationService: NSObject, Debuggable {
         if self.userIsLoggedIn {
             self.handleLogOut { error in
                 if let error = error {
-                    print("$ERR (AuthenticationService): \(String(describing: error))")
+                    Log.e(error, additionalDetails: "attempted to log out but failed.")
                 }
             }
         }

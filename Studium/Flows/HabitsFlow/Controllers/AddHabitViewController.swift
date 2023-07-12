@@ -60,6 +60,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
     
     /// Whether the user wants this habit to be scheduled earlier or later
     var earlier = true
+    
 
     // TODO: Docstrings
     @IBOutlet weak var navButton: UIBarButtonItem!
@@ -86,6 +87,8 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
             
             fillForm(with: habit)
         }
+        
+
     }
     
     // TODO: Docstrings

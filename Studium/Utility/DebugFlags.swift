@@ -7,13 +7,15 @@
 //
 
 import Foundation
+
+// TODO: Docstrings
 struct DebugFlags {
     
     //TODO: Docstrings
     static let developerMode = true
     
     //TODO: Docstrings
-    static let coordinators = true
+    static let coordinators = false
     
     //TODO: Docstrings
     static let authentication = false
