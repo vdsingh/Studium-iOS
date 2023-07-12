@@ -9,8 +9,12 @@
 import Foundation
 import UIKit
 
+protocol ForegroundSubscriber {
+    func willEnterForeground()
+}
+
 //TODO: Docstrings
-class AssignmentsOtherEventsViewController: StudiumEventListViewController {
+class AssignmentsOtherEventsViewController: StudiumEventListViewController, ForegroundSubscriber {
     
     override var debug: Bool {
         return true
@@ -18,6 +22,16 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController {
     
     //TODO: Docstrings
     var assignmentsExpandedSet = Set<Assignment>()
+    
+    override func viewDidLoad() {
+        self.sceneDelegate!.addForegroundSubscriber(self)
+        super.viewDidLoad()
+    }
+    
+    func willEnterForeground() {
+        print("WILL ENTER FOREGROUND")
+        self.reloadData()
+    }
         
     //TODO: Docstrings
     func loadEvents() { }

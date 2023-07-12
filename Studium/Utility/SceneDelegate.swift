@@ -10,17 +10,24 @@ import UIKit
 import SwiftUI
 import FBSDKLoginKit
 
+var currentScene: UIScene?
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+
     var window: UIWindow?
     var coordinator: AppCoordinator?
+    
+    let studiumEventService = StudiumEventService.shared
+    
+    private var willEnterForegroundSubscribers = [ForegroundSubscriber]()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        
         self.coordinator = AppCoordinator(authenticationService: AuthenticationService.shared)
         coordinator?.start()
         
         self.window?.makeKeyAndVisible()
-//        AutoscheduleService.shared.autoscheduleEvent()
+        currentScene = scene
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -56,7 +63,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                   completion: nil)
             }
         }
-
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -79,12 +85,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        self.studiumEventService.updateFromWidget()
+        DispatchQueue.main.async {
+            for subscriber in self.willEnterForegroundSubscribers {
+                subscriber.willEnterForeground()
+            }
+        }
+    }
+    
+    func addForegroundSubscriber(_ foregroundSubscriber: ForegroundSubscriber) {
+        self.willEnterForegroundSubscribers.append(foregroundSubscriber)
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+    }
+}
+
+// Here is a convenient view controller extension.
+extension UIViewController {
+    var sceneDelegate: SceneDelegate? {
+        for scene in UIApplication.shared.connectedScenes {
+            if scene == currentScene,
+               let delegate = scene.delegate as? SceneDelegate {
+                return delegate
+            }
+        }
+        return nil
     }
 }
 
