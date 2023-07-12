@@ -1,5 +1,5 @@
 //
-//  Constants.swift
+//  WidgetConstants.swift
 //  Studium
 //
 //  Created by Vikram Singh on 6/25/23.
@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct Constants {
-    static let appGroupSuiteName = "com.vikramsingh.Studium"
+struct WidgetConstants {
+    static let appGroupSuiteName = "group.com.vikramsingh.Studium"
     static let nextAssignmentsKey = "nextAssignments"
+    static let streakKey = "streak"
 }

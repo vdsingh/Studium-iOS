@@ -7,11 +7,22 @@
 //
 
 import Foundation
+import AppIntents
 
-struct AssignmentWidgetModel: Codable {
+class AssignmentWidgetModel: NSObject, Codable {
     let id: String
     let name: String
     let dueDate: Date
     let course: String
     var isComplete: Bool
+    let colorHex: String
+    
+    init(id: String, name: String, dueDate: Date, course: String, isComplete: Bool, colorHex: String) {
+        self.id = id
+        self.name = name
+        self.dueDate = dueDate
+        self.course = course
+        self.isComplete = isComplete
+        self.colorHex = colorHex
+    }
 }

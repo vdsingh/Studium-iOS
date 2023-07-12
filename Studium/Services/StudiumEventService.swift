@@ -16,25 +16,28 @@ class StudiumEventService {
         databaseService: DatabaseService.shared,
         notificationService: NotificationService.shared,
         appleCalendarService: AppleCalendarService.shared,
-        googleCalendarService: GoogleCalendarService.shared
+        googleCalendarService: GoogleCalendarService.shared,
+        widgetsService: WidgetsService.shared
     )
     
     private var databaseService: DatabaseService
     private var notificationService: NotificationService
     private var appleCalendarService: AppleCalendarService
     private var googleCalendarService: GoogleCalendarService
+    private var widgetsService: WidgetsService
 
     init(
         databaseService: DatabaseService,
         notificationService: NotificationService,
         appleCalendarService: AppleCalendarService,
-        googleCalendarService: GoogleCalendarService
+        googleCalendarService: GoogleCalendarService,
+        widgetsService: WidgetsService
     ) {
         self.databaseService = databaseService
         self.notificationService = notificationService
         self.appleCalendarService = appleCalendarService
         self.googleCalendarService = googleCalendarService
-        
+        self.widgetsService = widgetsService
     }
     
     // MARK: - Create
@@ -82,6 +85,9 @@ class StudiumEventService {
             
             // Schedule Notifications
             NotificationService.shared.scheduleNotificationsFor(event: studiumEvent)
+            
+            // Update next ten assignments for widget updates
+            self.updateNextTenAssignments()
         }
     }
     
@@ -114,6 +120,9 @@ class StudiumEventService {
             } else {
                 Log.d("attempted to update StudiumEvent on Google Calendar but was not authorized")
             }
+            
+            // Update next ten assignments for widget updates
+            self.updateNextTenAssignments()
         }
     }
     
@@ -121,6 +130,16 @@ class StudiumEventService {
         //TODO: Delete assignment notifications when complete, add when incomplete.
         
         self.databaseService.markComplete(completableEvent, complete)
+        
+        // Update next ten assignments for widget updates
+        self.updateNextTenAssignments()
+    }
+    
+    // TODO: Make private
+    func updateNextTenAssignments() {
+        let nextTenAssignments = [Assignment](self.databaseService.getStudiumObjects(expecting: Assignment.self).prefix(10))
+        UserDefaultsService.shared.updateNextTenAssignments(assignments: nextTenAssignments)
+        self.widgetsService.reloadAssignmentsWidget()
     }
     
     // MARK: - Delete
@@ -143,6 +162,21 @@ class StudiumEventService {
                 }
             }
         )
+        
+        // Update next ten assignments for widget updates
+        self.updateNextTenAssignments()
+    }
+    
+    // TODO: Docstrings
+    func updateFromWidget() {
+        let assignmentWidgetModels = AssignmentsWidgetDataService.shared.getAssignments()
+        for assignmentWidgetModel in assignmentWidgetModels {
+            if let correspondingAssignment = databaseService.getStudiumEvent(withPrimaryKey: assignmentWidgetModel.id, type: Assignment.self) {
+                self.databaseService.markComplete(correspondingAssignment, assignmentWidgetModel.isComplete)
+            } else {
+                Log.e("Tried to update assignment from Widget Model \(assignmentWidgetModel), but a corresponding assignment object could not be found.")
+            }
+        }
     }
 }
 
