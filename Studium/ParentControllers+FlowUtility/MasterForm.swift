@@ -111,6 +111,26 @@ class MasterForm: TableViewForm, Debuggable {
 //            destinationVC.setSelectedAlertOptions(alertOptions: self.alertTimes)
 //        }
     }
+    
+    func findErrors() -> [StudiumFormError] {
+        
+        var errors = [StudiumFormError]()
+        
+        // Character Limit checking
+        if self.name.count > TextFieldCharLimit.shortField.rawValue {
+            errors.append(.nameTooLong(charLimit: .shortField))
+        }
+        
+        if self.location.count > TextFieldCharLimit.shortField.rawValue {
+            errors.append(.locationTooLong(charLimit: .shortField))
+        }
+        
+        if self.additionalDetails.count > TextFieldCharLimit.longField.rawValue {
+            errors.append(.additionalDetailsTooLong(charLimit: .longField))
+        }
+        
+        return errors
+    }
 }
 
 // MARK: - FormCell Searching

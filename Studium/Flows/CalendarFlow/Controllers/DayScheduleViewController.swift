@@ -92,7 +92,11 @@ class DayScheduleViewController: DayViewController, Storyboarded {
             printDebug("Creating StudiumEvent: \(studiumEvent.name) for Date: \(date)")
             
             let newEvent = Event()
-            newEvent.dateInterval = DateInterval(start: studiumEvent.startDate, end: studiumEvent.endDate)
+            guard let timeChunk = studiumEvent.timeChunkForDate(date: date) else {
+                // event does not occur on date
+                continue
+            }
+            newEvent.dateInterval = DateInterval(start: timeChunk.startDate, end: timeChunk.endDate)
 //            newEvent.startDate = studiumEvent.startDate
 //            newEvent.endDate = studiumEvent.endDate
             newEvent.color = studiumEvent.scheduleDisplayColor

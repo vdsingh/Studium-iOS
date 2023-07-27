@@ -59,7 +59,13 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
         
         for date in applicableDates {
             // Start Bound of the day (usually wake up time)
-            let startBound = self.databaseService.getUserSettings().getWakeUpTime(for: date) ?? date.startOfDay
+            var startBound = self.databaseService.getUserSettings().getWakeUpTime(for: date) ?? date.startOfDay
+            var endBound = date.endOfDay
+            
+            if event.useDatesAsBounds {
+                startBound = event.startDate.setDate(year: date.year, month: date.month, day: date.day)!
+                endBound = event.endDate.setDate(year: date.year, month: date.month, day: date.day)!
+            }
             
             // Array of TimeChunks representing commitments for the day
             let commitments = [TimeChunk](self.getCommitments(for: date).values)
@@ -67,7 +73,7 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
             // Open time slots for the day
             let openTimeSlots = self.getOpenTimeSlots(
                 startBound: startBound,
-                endBound: date.endOfDay,
+                endBound: endBound,
                 commitments: commitments
             )
             

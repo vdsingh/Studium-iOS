@@ -9,6 +9,7 @@
 import Foundation
 import SwipeCellKit
 import UIKit
+import SwiftUI
 
 //TODO: Docstrings
 class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {

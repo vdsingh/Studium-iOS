@@ -96,8 +96,13 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
         self.navigationController.pushViewController(assignmentsListVC, animated: true)
     }
     
+    func showGradesFlow() {
+        let gradesVC = GradesViewController.instantiate()
+        self.navigationController.pushViewController(gradesVC, animated: true)
+    }
+    
     //TODO: Docstrings
     func childDidFinish(_ child: Coordinator?) {
-        
+    
     }
 }

@@ -17,6 +17,20 @@ protocol UITableViewControllerProtocol: UIViewController, UITableViewDataSource,
 //TODO: Docstrings
 class SwipeTableViewController: UIViewController, UITableViewControllerProtocol, SwipeTableViewCellDelegate, Debuggable, UITableViewDataSource, UITableViewDelegate {
     
+    private var vStack: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.backgroundColor = .cyan
+        return stack
+    }()
+//    
+//    private var scrollView: UIScrollView = {
+//        let scrollView = UIScrollView()
+//        scrollView.translatesAutoresizingMaskIntoConstraints = false
+//        return scrollView
+//    }
+//    
     var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -40,12 +54,13 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
         self.tableView.delegate = self
         self.tableView.dataSource = self
                 
-        self.view.addSubview(self.tableView)
+        self.vStack.addArrangedSubview(self.tableView)
+        self.view.addSubview(self.vStack)
         NSLayoutConstraint.activate([
-            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            self.vStack.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.vStack.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.vStack.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            self.vStack.rightAnchor.constraint(equalTo: self.view.rightAnchor),
         ])
     }
 
@@ -93,5 +108,13 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
         options.transitionStyle = .border
         
         return options
+    }
+    
+    func addViewToStack(subView: UIView) {
+        self.vStack.addArrangedSubview(subView)
+    }
+    
+    func insertViewIntoStack(subView: UIView, at index: Int) {
+        self.vStack.insertArrangedSubview(subView, at: index)
     }
 }
