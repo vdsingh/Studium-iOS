@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 /// Colors for this application
 public enum StudiumColor: String {
@@ -26,9 +27,15 @@ public enum StudiumColor: String {
     case success = "#09b000"
     case failure = "#fc0303"
     
+    case link = "127dff"
+    
     //TODO: Docstrings
     public var uiColor: UIColor {
         UIColor(hex: self.rawValue)
+    }
+    
+    public var color: Color {
+        Color(uiColor: self.uiColor)
     }
 
     //TODO: Docstrings

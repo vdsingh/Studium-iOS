@@ -18,12 +18,15 @@ struct StudiumLinkView: View {
         HStack(alignment: .top) {
             SmallIcon(image: SystemIcon.link.createImage())
             VStack(alignment: .leading) {
-                
-                Link(destination: URL(string: "https://www.google.com")!) {
-                    Text(self.linkConfig.label)
-                        .multilineTextAlignment(.leading)
+
+                if let url = URL(string: self.linkConfig.link) {
+                    //TODO: Fix force unwrap
+                    Link(destination: url) {
+                        Text(self.linkConfig.label)
+                            .multilineTextAlignment(.leading)
+                    }
+                    .foregroundStyle(StudiumColor.link.color)
                 }
-                .foregroundStyle(StudiumColor.link.color)
             }
         }
     }

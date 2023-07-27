@@ -19,6 +19,17 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
     //TODO: Docstrings
     var habits: [Habit] = []
     
+    override func loadView() {
+        super.loadView()
+        self.emptyDetailIndicatorViewModel = ImageDetailViewModel(
+            image: FlatImage.travelingAndSports.uiImage,
+            title: "No Habits here yet",
+            subtitle: nil,
+            buttonText: "Add a Habit",
+            buttonAction: self.addButtonPressed
+        )
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Habits"
@@ -27,21 +38,10 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
 
         self.tableView.delegate = self
         self.tableView.dataSource = self
-
         self.tableView.separatorStyle = .none //gets rid of dividers between cells.
         self.tableView.rowHeight = 140
         
         self.sectionHeaders = ["Today:", "Not Today:"]
-        
-        self.emptyDetailIndicator.setImage(FlatImage.travelingAndSports.uiImage)
-        self.emptyDetailIndicator.setTitle("No Habits here yet")
-        self.emptyDetailIndicator.setSubtitle("Tap + to add a Habit")
-        self.emptyDetailIndicator.configureButton(buttonText: "Button") { button in
-            self.studiumEventService.updateNextTenAssignments()
-            let assignmentsModels = AssignmentsWidgetDataService.shared.getAssignments()
-            button.setTitle("\(assignmentsModels.map({ $0.name }))", for: .normal)
-            WidgetsService.shared.reloadAssignmentsWidget()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

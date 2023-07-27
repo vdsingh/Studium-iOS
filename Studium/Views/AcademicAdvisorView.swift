@@ -1,15 +1,15 @@
 //
-//  ImageDetailView.swift
+//  AcademicAdvisorView.swift
 //  Studium
 //
-//  Created by Vikram Singh on 7/12/23.
+//  Created by Vikram Singh on 7/20/23.
 //  Copyright © 2023 Vikram Singh. All rights reserved.
 //
 
 import Foundation
 import SwiftUI
 
-class ImageDetailViewModel: ObservableObject {
+class AcademicAdvisorViewModel: ObservableObject {
     @Published var isHidden: Bool = false
     
     let image: UIImage?
@@ -32,9 +32,9 @@ class ImageDetailViewModel: ObservableObject {
     }
 }
 
-struct ImageDetailView: View {
+struct AcademicAdvisorView: View {
     
-    @ObservedObject var viewModel: ImageDetailViewModel
+    @ObservedObject var viewModel: AcademicAdvisorViewModel
     
     var body: some View {
         VStack {
@@ -60,7 +60,7 @@ struct ImageDetailView: View {
                     self.viewModel.buttonAction()
                 } label: {
                     Text(self.viewModel.buttonText)
-                        .font(StudiumFont.bodySemibold.font)
+                        .font(StudiumFont.subTitle.font)
                         .frame(width: 300, height: 50)
                 }
                 .background(Color(uiColor: StudiumColor.secondaryAccent.uiColor))

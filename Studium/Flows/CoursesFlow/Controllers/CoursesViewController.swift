@@ -22,6 +22,11 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         false
     }
     
+    override func loadView() {
+        super.loadView()
+        self.emptyDetailIndicatorViewModel = ImageDetailViewModel(image: FlatImage.girlSittingOnBooks.uiImage, title: "No Courses here yet", subtitle: nil, buttonText: "Add a Course", buttonAction: self.addButtonPressed)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Courses"
@@ -37,10 +42,6 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         
         self.tableView.rowHeight = 140
         self.tableView.separatorStyle = .none //gets rid of dividers between cells.
-        
-        self.emptyDetailIndicator.setImage(FlatImage.girlSittingOnBooks.uiImage)
-        self.emptyDetailIndicator.setTitle("No Courses here yet")
-        self.emptyDetailIndicator.setSubtitle("Tap + to add a Course")
     }
     
     override func viewWillAppear(_ animated: Bool) {

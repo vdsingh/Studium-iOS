@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import VikUtilityKit
 import UIKit
 
 protocol ForegroundSubscriber {
@@ -43,8 +44,11 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Fore
         printDebug("Selected row \(indexPath.row)")
         if let assignment = self.eventsArray[indexPath.section][indexPath.row] as? Assignment,
            let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1 {
-            self.handleEventsClose(assignment: assignment)
-            self.studiumEventService.markComplete(assignment, !assignment.complete)
+            let vc = AssignmentViewController(assignment: assignment)
+            self.present(vc, animated: true)
+//            self.handleEventsClose(assignment: assignment)
+            
+//            self.studiumEventService.markComplete(assignment, !assignment.complete)
 //            if assignment.autoscheduled {
 //                tableView.reloadData()
 //            } else {
@@ -79,7 +83,15 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Fore
             super.swipeCellId = AssignmentCell1.id
             if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? AssignmentCell1 {
                 cell.event = assignment
-                cell.loadData(assignment: assignment, assignmentCollapseDelegate: self)
+                cell.loadData(
+                    assignment: assignment,
+                    assignmentCollapseDelegate: self,
+                    checkboxWasTappedCallback: {
+                        self.studiumEventService.markComplete(assignment, !assignment.complete)
+                        self.reloadData()
+                    }
+                )
+                
                 cell.setIsExpanded(isExpanded: self.assignmentsExpandedSet.contains(assignment))
                 return cell
             }

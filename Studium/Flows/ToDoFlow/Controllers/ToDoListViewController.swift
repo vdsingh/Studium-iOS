@@ -25,6 +25,17 @@ class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefr
     
     //TODO: Docstrings
     let otherEvents = [OtherEvent]()
+    
+    override func loadView() {
+        super.loadView()
+        self.emptyDetailIndicatorViewModel = ImageDetailViewModel(
+            image: FlatImage.womanFlying.uiImage,
+            title: "No Events here yet",
+            subtitle: nil,
+            buttonText: "Add an Event",
+            buttonAction: self.addButtonPressed
+        )
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +43,6 @@ class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefr
         self.eventTypeString = "Events"
                 
         self.sectionHeaders = ["To Do:", "Completed:"]
-        
-        self.emptyDetailIndicator.setImage(FlatImage.womanFlying.uiImage)
-        self.emptyDetailIndicator.setTitle("No To-Do Events here yet")
-        self.emptyDetailIndicator.setSubtitle("Tap + to add a To-Do Event")
     }
     
     override func viewWillAppear(_ animated: Bool) {

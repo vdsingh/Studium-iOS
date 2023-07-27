@@ -26,7 +26,7 @@ class CalendarViewController: UIViewController, Storyboarded {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "No Events"
-        label.font = StudiumFont.placeholder.font
+        label.font = StudiumFont.placeholder.uiFont
         label.textColor = StudiumFont.placeholder.color
         return label
     }()
@@ -168,11 +168,10 @@ extension CalendarViewController: UITableViewDelegate {
     //TODO: Docstrings
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let event: StudiumEvent = allEventsInDay[indexPath.row]
-        print("$LOG: EVENT COLOR for \(event.name): \(event.color)")
         if let event = event as? Assignment {
             let cell = tableView.dequeueReusableCell(withIdentifier: AssignmentCell1.id, for: indexPath) as! AssignmentCell1
             cell.hideChevronButton = true
-            cell.loadData(assignment: event, assignmentCollapseDelegate: nil)
+            cell.loadData(assignment: event, assignmentCollapseDelegate: nil, checkboxWasTappedCallback: {})
             cell.hideLatenessIndicator(hide: true)
             return cell
         } else {

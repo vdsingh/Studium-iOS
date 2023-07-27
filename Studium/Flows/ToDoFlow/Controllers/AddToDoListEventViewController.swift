@@ -65,8 +65,8 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
     func setCells() {
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCellID.locationTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: TextFieldCharLimit.shortField.rawValue, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Location", text: self.location, charLimit: TextFieldCharLimit.shortField.rawValue, id: FormCellID.TextFieldCellID.locationTextField, textFieldDelegate: self, delegate: self),
                 .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.uiImage, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
             [
@@ -74,7 +74,7 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
                 .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCellID.endTimeCell, onClick: self.timeCellClicked)
             ],
             [
-                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: TextFieldCharLimit.longField.rawValue, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
             ],
             [
                 .errorCell(errors: self.errors)
@@ -116,8 +116,10 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
     }
     
     //TODO: Docstring
-    func findErrors() -> [StudiumFormError] {
+    override func findErrors() -> [StudiumFormError] {
         var errors = [StudiumFormError]()
+        errors.append(contentsOf: super.findErrors())
+        
         if self.name == "" {
             errors.append(.nameNotSpecified)
         }
