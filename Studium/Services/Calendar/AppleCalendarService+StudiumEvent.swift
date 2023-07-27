@@ -127,7 +127,6 @@ extension AppleCalendarService {
     func syncCalendar(
         completion: @escaping (Result<[EKEvent], Error>) -> Void
     ) {
-        
         Log.d("Sync calendar called.")
         self.requestCalendarAccess { granted in
             Log.d("Attempted to request Apple Calendar Access. Granted: \(granted)")

@@ -28,7 +28,7 @@ extension AssignmentEditingCoordinator {
         addAssignmentVC.refreshDelegate = refreshDelegate
         addAssignmentVC.selectedCourse = assignmentToEdit.parentCourse
         addAssignmentVC.assignmentEditing = assignmentToEdit
-        addAssignmentVC.title = "View/Edit Assignment"
+        addAssignmentVC.title = "Edit Assignment"
         addAssignmentVC.coordinator = self
 
         self.navigationController.topViewController?.present(navController, animated: true)

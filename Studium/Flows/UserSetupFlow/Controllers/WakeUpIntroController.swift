@@ -219,8 +219,8 @@ class WakeUpIntroController: UIViewController, ErrorShowing, Storyboarded, Coord
     // TODO: Docstrings
     //function called when the user is finished and wants to move on
     @IBAction func nextPressed(_ sender: UIButton) {
-        storeData()
-        defaults.set(true, forKey: "didFinishIntro")
+        self.storeData()
+        self.defaults.set(true, forKey: "didFinishIntro")
         self.unwrapCoordinatorOrShowError()
         self.coordinator?.showTabBarFlow()
     }

@@ -62,7 +62,6 @@ class PopUpService {
         formType: FormPopUpType,
         dismissCompletion: @escaping ([String]) -> Void
     ) {
-
         let textFieldsContent = formType.textFieldsContent()
         let contentView = EKFormMessageView(
             with: formType.titleContent,

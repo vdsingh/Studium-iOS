@@ -176,16 +176,13 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
             )
             
             if let editingHabit = self.habit {
-//                self.databaseService.updateEvent(oldEvent: editingHabit, updatedEvent: newHabit)
-//                self.databaseService.editStudiumEvent(oldEvent: editingHabit, newEvent: newHabit)
                 self.studiumEventService.updateStudiumEvent(oldEvent: editingHabit, updatedEvent: newHabit)
             } else {
                 // DatabaseService handles autoscheduling
                 self.studiumEventService.saveStudiumEvent(newHabit)
-//                self.databaseService.saveStudiumObject(newHabit)
             }
             
-            dismiss(animated: true) {
+            self.dismiss(animated: true) {
                 if let del = self.delegate {
                     del.loadHabits()
                 } else {
@@ -224,9 +221,9 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
     }
     
     // TODO: Docstrings
-    //Handles whenever the user decides to cancel.
+    // Handles whenever the user decides to cancel.
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        dismiss(animated: true)
+        self.dismiss(animated: true)
     }
     
     //MARK: - TableView helpers
@@ -314,7 +311,7 @@ extension AddHabitViewController: ColorDelegate {
     
     // TODO: Docstrings
     func colorPickerValueChanged(sender: RadialPaletteControl) {
-        color = sender.selectedColor
+        self.color = sender.selectedColor
         print("$LOG: Changed color")
     }
 }
@@ -340,13 +337,13 @@ extension AddHabitViewController: CanHandleSwitch {
     func switchValueChanged(sender: UISwitch) {
         if sender.isOn { //auto schedule
             self.cells = self.cellsAuto
-            autoschedule = true
+            self.autoschedule = true
         } else {
             self.cells = self.cellsNoAuto
-            autoschedule = false
+            self.autoschedule = false
         }
         
-        reloadData()
+        self.reloadData()
     }
 }
 
@@ -363,7 +360,7 @@ extension AddHabitViewController: CanHandleInfoDisplay {
         
         
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in }))
-        present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -375,68 +372,21 @@ extension AddHabitViewController {
     func fillForm(with habit: Habit) {
         printDebug("Filling form for habit: \(habit.name)")
         
-        navButton.image = .none
-        navButton.title = "Done"
-        
-//        let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-//        nameCell.textField.text = habit.name
+        self.navButton.image = .none
+        self.navButton.title = "Done"
         self.name = habit.name
-        
-//        let locationCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
-//        locationCell.textField.text = habit.location
         self.location = habit.location
-        
-//        let daysCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! DaySelectorCell
-//        daysCell.selectDays(days: habit.days)
-//        self.daysSelected = []
         self.daysSelected = habit.days
-//        for day in habit.days {
-//            daysSelected.insert(day)
-//        }
-        
         self.alertTimes = habit.alertTimes
-        
-//        let logoCell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LogoCell
-//        logoCell.logoImageView.image = habit.logo.createImage()
         self.icon = habit.icon
-        
-//        let colorCell = tableView.cellForRow(at: IndexPath(row: 1, section: 2)) as! ColorPickerCell
-//        let color = habit.color
-//        colorCell.colorPreview.backgroundColor = color
         self.color = habit.color
-        
-//        let additionalDetailsCell = tableView.cellForRow(at: IndexPath(row: 2, section: 2)) as! TextFieldCell
-//        additionalDetailsCell.textField.text = habit.additionalDetails
         self.additionalDetails = habit.additionalDetails
-        
-//        let startCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! TimeCell
         self.startDate = habit.startDate
-//        startCell.setDate(startDate)
-        
-//        let endCell = tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! TimeCell
         self.endDate = habit.endDate
-//        endCell.setDate(endDate)
-        
         self.autoschedule = habit.autoscheduling
-        
         self.totalLengthMinutes = habit.autoLengthMinutes
-        
         
         self.setCells()
         self.tableView.reloadData()
-//        self.setCells()
-        
-//        if habit.autoschedule {
-//            let autoscheduleCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SwitchCell
-//            autoscheduleCell.tableSwitch.isOn = true
-//            self.autoschedule = true
-
-//            let timePickerCell = tableView.cellForRow(at: IndexPath(row: 3, section: 1)) as! PickerCell
-//            let hours = habit.autoLengthMinutes / 60
-//            timePickerCell.picker.selectRow(hours, inComponent: 0, animated: true)
-//
-//            let minutes =  habit.autoLengthMinutes % 60
-//            timePickerCell.picker.selectRow(minutes, inComponent: 1, animated: true)
-//        }
     }
 }

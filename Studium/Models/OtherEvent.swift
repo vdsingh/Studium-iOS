@@ -19,7 +19,7 @@ class OtherEvent: StudiumEvent, CompletableStudiumEvent, Autoscheduled {
     @Persisted var complete: Bool = false
     
     @Persisted var autoscheduled: Bool = false
-    
+        
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
     
     // TODO: Docstrings

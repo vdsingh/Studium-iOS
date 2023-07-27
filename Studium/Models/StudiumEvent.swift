@@ -19,7 +19,7 @@ protocol Updatable {
 }
 
 //TODO: Docstrings
-class StudiumEvent: Object, AppleCalendarEvent, GoogleCalendarEventLinking {
+class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, GoogleCalendarEventLinking {
 
     /// id of the StudiumEvent
     @Persisted var _id: ObjectId = ObjectId.generate()
@@ -167,10 +167,7 @@ class StudiumEvent: Object, AppleCalendarEvent, GoogleCalendarEventLinking {
         if !self.occursOn(date: date) {
             return nil
         }
-        
-//        let startDate = Calendar.current.date(bySettingHour: self.startDate.hour, minute: self.startDate.minute, second: 0, of: date)!
-//        let endDate = Calendar.current.date(bySettingHour: self.endDate.hour, minute: self.endDate.minute, second: 0, of: date)!
-//
+
         return TimeChunk(startDate: self.startDate, endDate: self.endDate)
     }
     

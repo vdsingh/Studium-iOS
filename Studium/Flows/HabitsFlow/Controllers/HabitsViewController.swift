@@ -9,7 +9,6 @@
 import Foundation
 import RealmSwift
 import UIKit
-import SwiftUI
 
 //TODO: Docstrings
 class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol, Storyboarded, Coordinated {
@@ -59,17 +58,17 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
     //TODO: Docstrings
     func loadHabits() {
         self.habits = self.databaseService.getStudiumObjects(expecting: Habit.self)
-        eventsArray = [[],[]]
+        self.eventsArray = [[],[]]
         for habit in self.habits {
             if habit.days.contains(Date().weekdayValue){
-                eventsArray[0].append(habit)
+                self.eventsArray[0].append(habit)
             } else {
-                eventsArray[1].append(habit)
+                self.eventsArray[1].append(habit)
             }
         }
         
         // sort all the habits happening today by startTime (the ones that are first come first in the list)
-        eventsArray[0].sort(by: { $0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm" )})
+        self.eventsArray[0].sort(by: { $0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm" )})
         self.tableView.reloadData()
         
         self.updateEmptyEventsIndicator()
@@ -105,7 +104,7 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
 
     //TODO: Docstrings
     override func edit(at indexPath: IndexPath) {
-        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        let deletableEventCell = self.tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let eventForEdit = deletableEventCell.event! as! Habit
         self.coordinator?.showEditHabitViewController(refreshDelegate: self, habitToEdit: eventForEdit )
     }
@@ -115,7 +114,7 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let habit: Habit = cell.event as! Habit
         self.studiumEventService.deleteStudiumEvent(habit)
-        eventsArray[indexPath.section].remove(at: indexPath.row)
+        self.eventsArray[indexPath.section].remove(at: indexPath.row)
         super.updateHeader(section: indexPath.section)
         self.updateEmptyEventsIndicator()
     }

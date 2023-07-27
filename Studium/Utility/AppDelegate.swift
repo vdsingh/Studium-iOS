@@ -8,13 +8,10 @@
 
 import UIKit
 import ChameleonFramework
-
-//AUTHENTICATION
 import RealmSwift
 import GoogleSignIn
 import FBSDKLoginKit
 import TableViewFormKit
-
 import FirebaseAnalytics
 import FirebaseCore
 
@@ -32,9 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return AutoscheduleService(databaseService: self.databaseService)
     }()
     
+    let studiumEventService = StudiumEventService.shared
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        printDebug("Did finish launching");
+        Log.d("Did finish launching");
         
         // Initialize Facebook SDK
         FBSDKCoreKit.ApplicationDelegate.shared.application(
@@ -49,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ColorManager.primaryTextColor = StudiumColor.primaryLabel.uiColor
         ColorManager.placeholderTextColor = StudiumColor.placeholderLabel.uiColor
         ColorManager.primaryAccentColor = StudiumColor.primaryAccent.uiColor
-        
+    
         return true
     }
     

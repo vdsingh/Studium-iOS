@@ -62,7 +62,7 @@ class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinat
         let navController = UINavigationController(rootViewController: editHabitVC)
         editHabitVC.delegate = refreshDelegate
         editHabitVC.habit = habitToEdit
-        editHabitVC.title = "View/Edit Habit"
+        editHabitVC.title = "Edit Habit"
         editHabitVC.coordinator = self
         self.navigationController.topViewController?.present(navController, animated: true)
         self.formNavigationController = navController

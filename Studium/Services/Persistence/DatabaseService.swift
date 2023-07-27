@@ -22,7 +22,6 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     /// The Realm database instance
     var realm: Realm {
         
-        
         // If the user exists, establish a connection to realm using the User's ID
         if let user = AuthenticationService.shared.user {
             do {
@@ -57,7 +56,6 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
                self.printDebug("Created and saved autoscheduled events: \(autoscheduledEvents)")
             
         }
-        
         
         printDebug("saving event \(studiumEvent)")
         do {
@@ -258,13 +256,13 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     }
     
     // TODO: Docstrings
-    private func realmWrite(_ writeBlock: () -> Void) {
+    func realmWrite(_ writeBlock: () -> Void) {
         do {
             try self.realm.safeWrite {
                 writeBlock()
             }
         } catch let error {
-            print("$ERR (DatabaseService): \(String(describing: error))")
+            Log.e(error)
         }
     }
 }
