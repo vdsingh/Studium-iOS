@@ -8,8 +8,8 @@
 
 import Foundation
 import ChameleonFramework
-
-
+import VikUtilityKit
+import SwiftUI
 
 /// TableViewController that only displays Assignments
 class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISearchBarDelegate, AssignmentRefreshProtocol, ToDoListRefreshProtocol, Coordinated, Storyboarded {
@@ -24,19 +24,45 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
     /// The course that was selected to reach this screen
     var selectedCourse: Course! {
         didSet{
-            reloadData()
+            self.reloadData()
         }
+    }
+    
+    override func loadView() {
+        super.loadView()
+        self.emptyDetailIndicatorViewModel = ImageDetailViewModel(image: FlatImage.boyWritingInBook.uiImage, title: "No Assignments here yet", subtitle: nil, buttonText: "Add an Assignment", buttonAction: self.addButtonPressed)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Courses"
-        self.sectionHeaders = ["To Do:", "Completed:"]
+        self.sectionHeaders = ["To Do:", "Turned In:"]
         self.eventTypeString = "Assignments"
         
-        self.emptyDetailIndicator.setImage(FlatImage.boyWritingInBook.uiImage)
-        self.emptyDetailIndicator.setTitle("No Assignments here yet")
-        self.emptyDetailIndicator.setSubtitle("Tap + to add an Assignment")
+        
+//        let gradesButton = UIBarButtonItem(image: SystemIcon.graduationcap.createImage(), style: .plain, target: self, action: #selector(self.gradesButtonPressed))
+//        self.navigationItem.rightBarButtonItems?.append(gradesButton)
+        
+//        let finishSetupView = Detail
+//        let viewModel = AcademicAdvisorViewModel(image: nil, title: "Academic Advisor", subtitle: "Finish Setup", buttonText: "Add Office Hours", buttonAction: {})
+        let viewModel = AcademicAdvisorViewModel(image: nil, title: "Academic Advisor", subtitle: "Finish Setup", buttonText: "Add Office Hours", buttonAction: {})
+//        viewModel.setTextAlignment(.leading)
+        let hostingController = UIHostingController(rootView: AcademicAdvisorView(viewModel: viewModel))
+//        let hostingController = UIHostingController(rootView: AcademicAdvisorView(viewModel: viewModel))
+//        self.hostingController = hostingController
+//        self.addChild(hostingController)
+//        hostingController.view.backgroundColor = .clear
+//        if let hostingControllerView = hostingController.view {
+//            hostingControllerView.translatesAutoresizingMaskIntoConstraints = false
+//            hostingController.didMove(toParent: self)
+//            self.tableView.addSubview(hostingControllerView)
+//            
+//            NSLayoutConstraint.activate([
+//                hostingControllerView.centerXAnchor.constraint(equalTo: self.tableView .centerXAnchor),
+//                hostingControllerView.topAnchor.constraint(equalTo: self.tableView.topAnchor, constant: 50)
+//            ])
+//        }
+//        self.insertViewIntoStack(subView: hostingController.view, at: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,7 +70,7 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
         if let course = selectedCourse {
             self.title = course.name
         } else {
-            print("$ERR: course is nil")
+            Log.e("course is nil")
         }
         
         self.reloadData()
@@ -61,6 +87,10 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
         self.unwrapCoordinatorOrShowError()
         self.coordinator?.showAddAssignmentViewController(refreshDelegate: self, selectedCourse: self.selectedCourse)
     }
+    
+    @objc func gradesButtonPressed() {
+        self.coordinator?.showGradesFlow()
+    }
 
     //MARK: - CRUD Methods
     
@@ -69,15 +99,15 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
         
         //TODO: Fix sorting
         let assignments = self.databaseService.getContainedEvents(forContainer: self.selectedCourse)
-        printDebug("Loaded assignments: \(assignments.map({ $0.name }))")
+        Log.d("Loaded assignments: \(assignments.map({ $0.name }))")
 
         // First array is incomplete events, second array is complete events
         self.eventsArray = [[],[]]
         for assignment in assignments {
             if assignment.complete {
-                eventsArray[1].append(assignment)
+                self.eventsArray[1].append(assignment)
             } else {
-                eventsArray[0].append(assignment)
+                self.eventsArray[0].append(assignment)
             }
             
             // If the Assignment is expanded
@@ -92,7 +122,7 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
     /// Reloads/sorts the data and refreshes the TableView
     override func reloadData() {
         self.loadEvents()
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     private func sortEventsArrays() {
@@ -108,11 +138,11 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
             self.handleEventsClose(assignment: event)
             self.studiumEventService.deleteStudiumEvent(event)
         } else {
-            print("$ERR (AssignmentsViewController): Tried to delete event at cell (\(indexPath.section), \(indexPath.row)), however its event was nil")
+            Log.e("Tried to delete event at cell (\(indexPath.section), \(indexPath.row)), however its event was nil")
         }
         
-        eventsArray[indexPath.section].remove(at: indexPath.row)
-        updateHeader(section: indexPath.section)
+        self.eventsArray[indexPath.section].remove(at: indexPath.row)
+        self.updateHeader(section: indexPath.section)
     }
     
     /// Trigger editing of event in cell

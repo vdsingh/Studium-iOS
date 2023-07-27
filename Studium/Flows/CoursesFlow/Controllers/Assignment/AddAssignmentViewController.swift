@@ -16,7 +16,6 @@ protocol AssignmentRefreshProtocol {
 // TODO: Docstrings
 class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboarded {
     
-    
     // TODO: Docstrings
     override var debug: Bool {
         return true
@@ -25,8 +24,6 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     // TODO: Docstrings
     func showAlertTimesSelectionViewController() {
         self.printDebug("showAlertTimesSelectionViewController called")
-//        self.unwrapCoordinatorOrShowError()
-        
         if let coordinator = coordinator as? AlertTimesSelectionShowingCoordinator {
             coordinator.showAlertTimesSelectionViewController(updateDelegate: self, selectedAlertOptions: self.alertTimes)
         } else {
@@ -36,7 +33,6 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     }
     
     // TODO: Docstrings
-//    weak var coordinator: CoursesCoordinator?
     weak var coordinator: AssignmentEditingCoordinator?
     
     /// Holds the assignment being edited (if an assignment is being edited)
@@ -65,9 +61,9 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
         self.setCells()
         
         if let assignment = assignmentEditing {
-            navButton.image = .none
-            navButton.title = "Done"
-            fillForm (
+            self.navButton.image = .none
+            self.navButton.title = "Done"
+            self.fillForm (
                 assignment: assignment
             )
         } else {
@@ -114,20 +110,16 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
             
             if let assignmentEditing = self.assignmentEditing {
                 self.studiumEventService.updateStudiumEvent(oldEvent: assignmentEditing, updatedEvent: newAssignment)
-//                self.databaseService.updateEvent(oldEvent: assignmentEditing, updatedEvent: newAssignment)
             } else {
                 // DatabaseService will handle autoscheduling.
-//                self.databaseService.saveStudiumObject(newAssignment)
                 self.databaseService.saveContainedEvent(containedEvent: newAssignment, containerEvent: self.selectedCourse)
             }
             
-//            self.autoscheduleService.autoscheduleStudyTime(parentAssignment: newAssignment)
-            refreshDelegate?.reloadData()
-            dismiss(animated: true, completion: nil)
+            self.refreshDelegate?.reloadData()
+            self.dismiss(animated: true, completion: nil)
         } else {
-            self.setCells()
             self.scrollToBottomOfTableView()
-            tableView.reloadData()
+            self.tableView.reloadData()
         }
     }
     
@@ -173,7 +165,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
 // TODO: Docstrings
 extension AddAssignmentViewController: UITextFieldDelegateExtension {
     
-    //TODO: Implement IDs here
+    // TODO: Implement IDs here
     // TODO: Docstrings
     func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
         guard let text = sender.text else {
@@ -234,7 +226,7 @@ extension AddAssignmentViewController: CanHandleSwitch {
             self.cells[1].append(.switchCell(cellText: "Schedule Time to Work", isOn: false, switchDelegate: self, infoDelegate: self))
         }
         
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
 }
 
@@ -257,7 +249,7 @@ extension AddAssignmentViewController: CanHandleInfoDisplay {
             )
         )
         
-        present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
