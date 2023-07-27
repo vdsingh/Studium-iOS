@@ -31,29 +31,32 @@ class GoogleCalendarService {
     }
     
     var googleAccessToken: String? {
-        get { return UserDefaultsService.shared.getGoogleAccessTokenString() }
-        set { UserDefaultsService.shared.setGoogleCalendarID(newValue) }
+        return GIDSignIn.sharedInstance.currentUser?.accessToken.tokenString
+//        get { return UserDefaultsService.shared.getGoogleAccessTokenString() }
+//        set { UserDefaultsService.shared.setGoogleCalendarID(newValue) }
     }
     
     private init() {
         // Set up the service
         self.service.shouldFetchNextPages = true
         self.service.isRetryEnabled = true
+        self.setAccessTokenHeader()
+    }
+    
+    func setAccessTokenHeader() {
         if let googleAccessToken = self.googleAccessToken {
             self.service.additionalHTTPHeaders = ["Authorization" : "Bearer \(googleAccessToken)"]
         }
     }
     
-    func authenticate(presentingViewController: UIViewController) {
-        AuthenticationService.shared.handleAuthenticateWithGoogle(
-            presentingViewController: presentingViewController,
-            scopes: [.calendarAPI])
-        { result in
+    func authenticateWithCalendarScope(presentingViewController: UIViewController) {
+        AuthenticationService.shared.authenticateWithGoogle(
+            withScopes: [.calendarAPI],
+            presentingViewController: presentingViewController
+        ) { result in
             switch result {
-            case .success(let user):
-                let googleAccessToken = user.accessToken.tokenString
-                self.googleAccessToken = googleAccessToken
-                self.service.additionalHTTPHeaders = ["Authorization" : "Bearer \(googleAccessToken)"]
+            case .success(_):
+                self.setAccessTokenHeader()
             case .failure(let error):
                 PopUpService.shared.presentToast(title: "Failed to Access Calendar", description: "We couldn't access your Google calendar. Try again later.", popUpType: .failure)
                 Log.e(error, additionalDetails: "Tried to authenticate in GoogleCalendarService but failed.")
@@ -61,7 +64,45 @@ class GoogleCalendarService {
         }
     }
     
+    func executeQuery(_ query: GTLRQuery, completionHandler: @escaping GTLRServiceCompletionHandler) {
+        guard let googleAccessToken = self.googleAccessToken else {
+            Log.e("attempted to execute query but googleAccessToken was nil")
+            return
+        }
+        
+        self.setAccessTokenHeader()
+        self.service.executeQuery(query, completionHandler: completionHandler)
+    }
+    
     // MARK: - Create
+    
+    /// Creates and returns a GTLRCalendar Event that corresponds to any GoogleCalendarEventLinking event
+    /// - Parameter storingEvent: The event that specifies the details for the Google Calendar Event
+    /// - Returns:  a GTLRCalendar Event that corresponds to the specified GoogleCalendarEventLinking event
+    func instantiateEvent(storingEvent: any GoogleCalendarEventLinking) -> GTLRCalendar_Event {
+        let googleEvent = GTLRCalendar_Event()
+        googleEvent.summary = storingEvent.name
+        
+        let startDateTime = GTLRDateTime(date: storingEvent.startDate)
+        
+        googleEvent.start = GTLRCalendar_EventDateTime()
+        googleEvent.start?.timeZone = TimeZone.current.identifier
+        googleEvent.start?.dateTime = startDateTime
+        
+        let endDateTime = GTLRDateTime(date: storingEvent.endDate)
+        
+        googleEvent.end = GTLRCalendar_EventDateTime()
+        googleEvent.end?.timeZone = TimeZone.current.identifier
+        googleEvent.end?.dateTime = endDateTime
+        
+        // If the event is recurring, set the recurrence rule
+        if let storingEvent = storingEvent as? any GoogleCalendarRecurringEventLinking {
+            let recurrenceRule = storingEvent.ekRecurrenceRule
+            self.setRecurrenceRule(recurringEvent: googleEvent, recurrenceRule: recurrenceRule)
+        }
+        
+        return googleEvent
+    }
     
     /// Creates a google calendar event based on a linking event
     /// - Parameters:
@@ -78,26 +119,7 @@ class GoogleCalendarService {
                 return
             }
             
-            let googleEvent = GTLRCalendar_Event()
-            googleEvent.summary = storingEvent.name
-            
-            let startDateTime = GTLRDateTime(date: storingEvent.startDate)
-            
-            googleEvent.start = GTLRCalendar_EventDateTime()
-            googleEvent.start?.timeZone = TimeZone.current.identifier
-            googleEvent.start?.dateTime = startDateTime
-            
-            let endDateTime = GTLRDateTime(date: storingEvent.endDate)
-            
-            googleEvent.end = GTLRCalendar_EventDateTime()
-            googleEvent.end?.timeZone = TimeZone.current.identifier
-            googleEvent.end?.dateTime = endDateTime
-            
-            // If the event is recurring, set the recurrence rule
-            if let storingEvent = storingEvent as? any GoogleCalendarRecurringEventLinking {
-                let recurrenceRule = storingEvent.ekRecurrenceRule
-                self.setRecurrenceRule(recurringEvent: googleEvent, recurrenceRule: recurrenceRule)
-            }
+            let googleEvent = self.instantiateEvent(storingEvent: storingEvent)
             
             self.insertEvent(
                 event: googleEvent,
@@ -114,7 +136,7 @@ class GoogleCalendarService {
         completion: @escaping (Result<GTLRCalendar_Event, Error>) -> Void
     ) {
         let eventInsertionQuery = GTLRCalendarQuery_EventsInsert.query(withObject: event, calendarId: calendarID)
-        self.service.executeQuery(eventInsertionQuery) { (ticket, createdEvent, error) in
+        self.executeQuery(eventInsertionQuery) { (ticket, createdEvent, error) in
             if let error = error {
                 Log.e(error, additionalDetails: "attempted to create google calendar event but failed")
                 completion(.failure(error))
@@ -143,7 +165,7 @@ class GoogleCalendarService {
         
         // Construct the recurrence rule string from the EKRecurrenceRule
         var recurrenceRuleString = "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY="
-        for day in recurrenceRule.daysOfTheWeek! {
+        for day in daysOfTheWeek {
             let weekdayIntValue = day.dayOfTheWeek.rawValue
             if let studiumWeekday = Weekday(rawValue: weekdayIntValue) {
                 recurrenceRuleString += "\(studiumWeekday.rfc5545Value),"
@@ -151,7 +173,7 @@ class GoogleCalendarService {
         }
         
         // Remove the trailing comma
-        recurrenceRuleString.removeLast()        
+        recurrenceRuleString.removeLast()
         recurringEvent.recurrence = [recurrenceRuleString]
     }
     
@@ -163,7 +185,7 @@ class GoogleCalendarService {
         
         let calendarCreationQuery = GTLRCalendarQuery_CalendarsInsert.query(withObject: calendar)
         
-        self.service.executeQuery(calendarCreationQuery) { (ticket, createdCalendar, error) in
+        self.executeQuery(calendarCreationQuery) { (ticket, createdCalendar, error) in
             if let error = error {
                 Log.e(error, additionalDetails: "Tried to create Google Calendar but failed.")
                 
@@ -200,7 +222,7 @@ class GoogleCalendarService {
             
             let fetchEventQuery = GTLRCalendarQuery_EventsGet.query(withCalendarId: calendarID, eventId: eventID)
             
-            self.service.executeQuery(fetchEventQuery) { (ticket, event, error) in
+            self.executeQuery(fetchEventQuery) { (ticket, event, error) in
                 if let error = error {
                     completion(.failure(error))
                 } else if let event = event as? GTLRCalendar_Event {
@@ -215,8 +237,54 @@ class GoogleCalendarService {
     
     // MARK: - Update
     
-    func updateEvent(event: any GoogleCalendarEventLinking) {
+    func updateEvent(
+        googleCalendarEventID: String?,
+        updatedEvent: any GoogleCalendarEventLinking,
+        completion: @escaping (Result<GTLRCalendar_Event, Error>) -> Void
+    ) {
+        Log.d("attempted to update event with ID \(String(describing: googleCalendarEventID)) from Google Calendar")
         
+        // Update the calendar
+        self.updateCalendar() {
+            guard let calendarID = self.calendarID else {
+                Log.s(GoogleCalendarServiceError.nilCalendarIDAfterUpdate, additionalDetails: "Attempted to get the calendarID in deleteEvent, but failed even after calling updateCalendar")
+                completion(.failure(GoogleCalendarServiceError.nilCalendarIDAfterUpdate))
+                return
+            }
+            
+            guard let googleCalendarEventID = googleCalendarEventID else {
+                Log.e(GoogleCalendarServiceError.nilEventID, additionalDetails: "tried to delete google calendar event, but it was nil")
+                completion(.failure(GoogleCalendarServiceError.nilEventID))
+                return
+            }
+            
+            let updatedGoogleCalendarEvent = self.instantiateEvent(storingEvent: updatedEvent)
+            
+            self.getEvent(eventID: googleCalendarEventID, completion: { result in
+                switch result {
+                case .success(let event):
+                    let updateQuery = GTLRCalendarQuery_EventsUpdate.query(
+                        withObject: updatedGoogleCalendarEvent,
+                        calendarId: calendarID,
+                        eventId: googleCalendarEventID
+                    )
+                    
+                    self.executeQuery(updateQuery) { (ticket, event, error) in
+                        if let error = error {
+                            Log.e(error, additionalDetails: "Attempted to update Google Calendar Event with id \(googleCalendarEventID), but failed when executing the service request.")
+                            completion(.failure(error))
+                        } else if let event = event as? GTLRCalendar_Event {
+                            completion(.success(event))
+                        } else {
+                            Log.e(GoogleCalendarServiceError.nilEvent, additionalDetails: "Attempted to update Google Calendar Event with id \(googleCalendarEventID) and succeeded, but the event was nil.")
+                            completion(.failure(GoogleCalendarServiceError.nilEvent))
+                        }
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            })
+        }
     }
     
     /// Fetches the Google Calendar for this app, or creates one if there isn't one (and stores its ID)
@@ -226,10 +294,12 @@ class GoogleCalendarService {
         if let calendarID = self.calendarID {
             let calendarFetchQuery = GTLRCalendarQuery_CalendarListGet.query(withCalendarId: calendarID)
             
-            self.service.executeQuery(calendarFetchQuery) { (ticket, calendar, error) in
+            self.executeQuery(calendarFetchQuery) { (ticket, calendar, error) in
+
+                // Couldn't fetch the calendar
                 if let error = error {
-                    Log.e(error, additionalDetails: "Attempted to fetch calendar from id: \(calendarID) but failed")
-                    self.createCalendar(completion: completion)
+                    Log.e(error, additionalDetails: "Attempted to fetch calendar from id: \(calendarID) but failed. The googleAccessToken is \(String(describing: self.googleAccessToken))")
+                    completion()
                 } else if let calendar = calendar as? GTLRCalendar_CalendarListEntry {
                     Log.g("successfully fetched calendar \(String(describing: calendar.summary))")
                     completion()
@@ -250,7 +320,7 @@ class GoogleCalendarService {
         googleCalendarEventID: String?,
         completion: @escaping (Error?) -> Void
     ) {
-        Log.d("attempted to delete event with ID \(googleCalendarEventID) from Google Calendar")
+        Log.d("attempted to delete event with ID \(String(describing: googleCalendarEventID)) from Google Calendar")
         self.updateCalendar() {
             guard let calendarID = self.calendarID else {
                 Log.s(GoogleCalendarServiceError.nilCalendarIDAfterUpdate, additionalDetails: "Attempted to get the calendarID in deleteEvent, but failed even after calling updateCalendar")
@@ -266,7 +336,7 @@ class GoogleCalendarService {
             
             let deletionQuery = GTLRCalendarQuery_EventsDelete.query(withCalendarId: calendarID, eventId: googleCalendarEventID)
             
-            self.service.executeQuery(deletionQuery) { (ticket, _, error) in
+            self.executeQuery(deletionQuery) { (ticket, _, error) in
                 if let error = error {
                     Log.e(error, additionalDetails: "Attempted to delete Google Calendar Event with id \(googleCalendarEventID), but failed when executing the service request.")
                     completion(error)
@@ -281,4 +351,5 @@ class GoogleCalendarService {
 enum GoogleCalendarServiceError: Error {
     case nilCalendarIDAfterUpdate
     case nilEventID
+    case nilEvent
 }
