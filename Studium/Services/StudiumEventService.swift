@@ -116,7 +116,7 @@ class StudiumEventService {
             if self.googleCalendarService.calendarAuthorized {
 
                 // Update Google CalendarEvent
-                self.googleCalendarService.updateEvent(event: oldEvent)
+                self.googleCalendarService.updateEvent(googleCalendarEventID: oldEvent.googleCalendarEventID, updatedEvent: oldEvent) { _ in }
             } else {
                 Log.d("attempted to update StudiumEvent on Google Calendar but was not authorized")
             }

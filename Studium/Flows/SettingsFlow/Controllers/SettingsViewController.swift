@@ -45,7 +45,7 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
             }),
             
             ("Sync with Google Calendar", ThirdPartyIcon.googleCalendar, didSelect: {
-                GoogleCalendarService.shared.authenticate(
+                GoogleCalendarService.shared.authenticateWithCalendarScope(
                     presentingViewController: self
                 )
             })

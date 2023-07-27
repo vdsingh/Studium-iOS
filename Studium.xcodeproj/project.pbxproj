@@ -62,6 +62,23 @@
 		B90D144229899C310093EB0C /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D144129899C310093EB0C /* Weekday.swift */; };
 		B90D1447298C6EA50093EB0C /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1446298C6EA50093EB0C /* AuthenticationService.swift */; };
 		B90D1449298C77B80093EB0C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D1448298C77B80093EB0C /* NotificationService.swift */; };
+		B90F10382A6A098500BAB23F /* Autoscheduled.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10372A6A098500BAB23F /* Autoscheduled.swift */; };
+		B90F103A2A6A1BBA00BAB23F /* GradesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10392A6A1BBA00BAB23F /* GradesViewController.swift */; };
+		B90F103C2A6A2E4200BAB23F /* AcademicAdvisorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F103B2A6A2E4200BAB23F /* AcademicAdvisorView.swift */; };
+		B90F10412A6EF9E400BAB23F /* AssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10402A6EF9E400BAB23F /* AssignmentViewController.swift */; };
+		B90F10442A6F2FD700BAB23F /* StudiumSubtitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10432A6F2FD700BAB23F /* StudiumSubtitle.swift */; };
+		B90F10462A6F2FF800BAB23F /* StudiumGraySubtitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10452A6F2FF800BAB23F /* StudiumGraySubtitle.swift */; };
+		B90F10482A6F308900BAB23F /* StudiumTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10472A6F308900BAB23F /* StudiumTitle.swift */; };
+		B90F104C2A6F30D100BAB23F /* SmallIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F104B2A6F30D100BAB23F /* SmallIcon.swift */; };
+		B90F104E2A6F30D600BAB23F /* MediumIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F104D2A6F30D600BAB23F /* MediumIcon.swift */; };
+		B90F10502A6F310100BAB23F /* StudiumText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F104F2A6F310100BAB23F /* StudiumText.swift */; };
+		B90F10522A6F326000BAB23F /* StudiumLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10512A6F326000BAB23F /* StudiumLinkView.swift */; };
+		B90F10542A6F337F00BAB23F /* Increment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10532A6F337F00BAB23F /* Increment.swift */; };
+		B90F10562A6F406900BAB23F /* LatenessIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10552A6F406900BAB23F /* LatenessIndicatorView.swift */; };
+		B90F10582A6F803400BAB23F /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10572A6F803400BAB23F /* Spinner.swift */; };
+		B90F105A2A6F8DAC00BAB23F /* PDFService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10592A6F8DAC00BAB23F /* PDFService.swift */; };
+		B90F10642A72115200BAB23F /* ChatGPTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10632A72115200BAB23F /* ChatGPTService.swift */; };
+		B90F10662A7301D000BAB23F /* SecretsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10652A7301D000BAB23F /* SecretsService.swift */; };
 		B94CA0B72A2D435500047865 /* CourseRefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0B62A2D435500047865 /* CourseRefreshProtocol.swift */; };
 		B94CA0B92A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */; };
 		B94CA0BB2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0BA2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift */; };
@@ -84,6 +101,11 @@
 		B94CA0F02A3683E800047865 /* Autoschedulable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0EF2A3683E800047865 /* Autoschedulable.swift */; };
 		B94CA0F22A3683F200047865 /* StudiumEventContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0F12A3683F200047865 /* StudiumEventContainer.swift */; };
 		B94CA0F42A39A9C600047865 /* OtherEventEditingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0F32A39A9C600047865 /* OtherEventEditingCoordinator.swift */; };
+		B95194122A5675A900E0869A /* WidgetsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95194112A5675A900E0869A /* WidgetsService.swift */; };
+		B95194152A57C13800E0869A /* MarkAssignmentCompleteIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95194132A57BEA500E0869A /* MarkAssignmentCompleteIntent.swift */; };
+		B95194162A57C63000E0869A /* AssignmentsWidgetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A492342A49347E006E6A32 /* AssignmentsWidgetDataService.swift */; };
+		B95194172A5D6AF400E0869A /* UIColor_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0AF2A022B5C008F1A5B /* UIColor_Extension.swift */; };
+		B951941A2A5E8A8300E0869A /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95194192A5E8A8300E0869A /* ImageDetailView.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
@@ -115,6 +137,19 @@
 		B98693632A3E8A3400272B22 /* RFC5545.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98693592A3E8A3300272B22 /* RFC5545.swift */; };
 		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
+		B9A492212A483E26006E6A32 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9CDEF842A45ADC90084AB24 /* WidgetKit.framework */; };
+		B9A492222A483E26006E6A32 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9CDEF862A45ADC90084AB24 /* SwiftUI.framework */; };
+		B9A492252A483E26006E6A32 /* AssignmentsWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A492242A483E26006E6A32 /* AssignmentsWidgetBundle.swift */; };
+		B9A492272A483E26006E6A32 /* AssignmentsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A492262A483E26006E6A32 /* AssignmentsWidget.swift */; };
+		B9A492292A483E26006E6A32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9A492282A483E26006E6A32 /* Assets.xcassets */; };
+		B9A4922D2A483E26006E6A32 /* AssignmentsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B9A492202A483E26006E6A32 /* AssignmentsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B9A492352A49347E006E6A32 /* AssignmentsWidgetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A492342A49347E006E6A32 /* AssignmentsWidgetDataService.swift */; };
+		B9A4923A2A4937C8006E6A32 /* Array_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A492392A4937C8006E6A32 /* Array_Extension.swift */; };
+		B9A4923C2A4937DE006E6A32 /* AssignmentWidgetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4923B2A4937DE006E6A32 /* AssignmentWidgetModel.swift */; };
+		B9A4923F2A493883006E6A32 /* AssignmentWidgetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4923B2A4937DE006E6A32 /* AssignmentWidgetModel.swift */; };
+		B9A492402A493892006E6A32 /* WidgetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4923D2A4937F8006E6A32 /* WidgetConstants.swift */; };
+		B9A492412A493899006E6A32 /* Array_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A492392A4937C8006E6A32 /* Array_Extension.swift */; };
+		B9A492432A4941A1006E6A32 /* WidgetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4923D2A4937F8006E6A32 /* WidgetConstants.swift */; };
 		B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */; };
 		B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */; };
 		B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */; };
@@ -136,8 +171,9 @@
 		B9B41D012A26F43900239DD4 /* NSObject_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B41D002A26F43900239DD4 /* NSObject_Extension.swift */; };
 		B9CDEF732A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF722A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift */; };
 		B9CDEF752A417D650084AB24 /* Realm_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF742A417D650084AB24 /* Realm_Extension.swift */; };
-		B9CDEF772A4190720084AB24 /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF762A4190720084AB24 /* ImageDetailView.swift */; };
 		B9CDEF792A427CAF0084AB24 /* FlatImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF782A427CAF0084AB24 /* FlatImage.swift */; };
+		B9CDEF7B2A4597140084AB24 /* GoogleSignInErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF7A2A4597140084AB24 /* GoogleSignInErrorCode.swift */; };
+		B9CDEF7D2A45972C0084AB24 /* GoogleAuthScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF7C2A45972C0084AB24 /* GoogleAuthScope.swift */; };
 		B9F1B2DD2A1DB96C006F1462 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F1B2DC2A1DB96C006F1462 /* TabBarCoordinator.swift */; };
 /* End PBXBuildFile section */
 
@@ -149,7 +185,28 @@
 			remoteGlobalIDString = 1693E72C247A3DC4003D4702;
 			remoteInfo = Studium;
 		};
+		B9A4922B2A483E26006E6A32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1693E725247A3DC4003D4702 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B9A4921F2A483E26006E6A32;
+			remoteInfo = AssignmentsWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B9A4922E2A483E26006E6A32 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B9A4922D2A483E26006E6A32 /* AssignmentsWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		161A69E424C7B84B00E5A5AE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -209,6 +266,23 @@
 		B90D144129899C310093EB0C /* Weekday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
 		B90D1446298C6EA50093EB0C /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		B90D1448298C77B80093EB0C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		B90F10372A6A098500BAB23F /* Autoscheduled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autoscheduled.swift; sourceTree = "<group>"; };
+		B90F10392A6A1BBA00BAB23F /* GradesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesViewController.swift; sourceTree = "<group>"; };
+		B90F103B2A6A2E4200BAB23F /* AcademicAdvisorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicAdvisorView.swift; sourceTree = "<group>"; };
+		B90F10402A6EF9E400BAB23F /* AssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentViewController.swift; sourceTree = "<group>"; };
+		B90F10432A6F2FD700BAB23F /* StudiumSubtitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumSubtitle.swift; sourceTree = "<group>"; };
+		B90F10452A6F2FF800BAB23F /* StudiumGraySubtitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumGraySubtitle.swift; sourceTree = "<group>"; };
+		B90F10472A6F308900BAB23F /* StudiumTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumTitle.swift; sourceTree = "<group>"; };
+		B90F104B2A6F30D100BAB23F /* SmallIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallIcon.swift; sourceTree = "<group>"; };
+		B90F104D2A6F30D600BAB23F /* MediumIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumIcon.swift; sourceTree = "<group>"; };
+		B90F104F2A6F310100BAB23F /* StudiumText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumText.swift; sourceTree = "<group>"; };
+		B90F10512A6F326000BAB23F /* StudiumLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumLinkView.swift; sourceTree = "<group>"; };
+		B90F10532A6F337F00BAB23F /* Increment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Increment.swift; sourceTree = "<group>"; };
+		B90F10552A6F406900BAB23F /* LatenessIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatenessIndicatorView.swift; sourceTree = "<group>"; };
+		B90F10572A6F803400BAB23F /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
+		B90F10592A6F8DAC00BAB23F /* PDFService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFService.swift; sourceTree = "<group>"; };
+		B90F10632A72115200BAB23F /* ChatGPTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTService.swift; sourceTree = "<group>"; };
+		B90F10652A7301D000BAB23F /* SecretsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsService.swift; sourceTree = "<group>"; };
 		B94CA0B62A2D435500047865 /* CourseRefreshProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRefreshProtocol.swift; sourceTree = "<group>"; };
 		B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoSelectionShowingCoordinator.swift; sourceTree = "<group>"; };
 		B94CA0BA2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTimesSelectionShowingCoordinator.swift; sourceTree = "<group>"; };
@@ -232,6 +306,9 @@
 		B94CA0EF2A3683E800047865 /* Autoschedulable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autoschedulable.swift; sourceTree = "<group>"; };
 		B94CA0F12A3683F200047865 /* StudiumEventContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventContainer.swift; sourceTree = "<group>"; };
 		B94CA0F32A39A9C600047865 /* OtherEventEditingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventEditingCoordinator.swift; sourceTree = "<group>"; };
+		B95194112A5675A900E0869A /* WidgetsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsService.swift; sourceTree = "<group>"; };
+		B95194132A57BEA500E0869A /* MarkAssignmentCompleteIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkAssignmentCompleteIntent.swift; sourceTree = "<group>"; };
+		B95194192A5E8A8300E0869A /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		B9707E372A11C7EF004B63F0 /* TableViewFormKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TableViewFormKit; path = ../../Packages/TableViewFormKit; sourceTree = "<group>"; };
@@ -267,6 +344,17 @@
 		B986935A2A3E8A3400272B22 /* RFC5545.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFC5545.h; sourceTree = "<group>"; };
 		B995493B2992EDD000442968 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
 		B995493E2992F0D400442968 /* StudiumEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventListViewController.swift; sourceTree = "<group>"; };
+		B9A492202A483E26006E6A32 /* AssignmentsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AssignmentsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9A492242A483E26006E6A32 /* AssignmentsWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsWidgetBundle.swift; sourceTree = "<group>"; };
+		B9A492262A483E26006E6A32 /* AssignmentsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsWidget.swift; sourceTree = "<group>"; };
+		B9A492282A483E26006E6A32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B9A4922A2A483E26006E6A32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9A492322A493309006E6A32 /* AssignmentsWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AssignmentsWidgetExtension.entitlements; sourceTree = "<group>"; };
+		B9A492332A493370006E6A32 /* Studium.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Studium.entitlements; sourceTree = "<group>"; };
+		B9A492342A49347E006E6A32 /* AssignmentsWidgetDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsWidgetDataService.swift; sourceTree = "<group>"; };
+		B9A492392A4937C8006E6A32 /* Array_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array_Extension.swift; sourceTree = "<group>"; };
+		B9A4923B2A4937DE006E6A32 /* AssignmentWidgetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentWidgetModel.swift; sourceTree = "<group>"; };
+		B9A4923D2A4937F8006E6A32 /* WidgetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetConstants.swift; sourceTree = "<group>"; };
 		B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumColor.swift; sourceTree = "<group>"; };
 		B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoscheduleService.swift; sourceTree = "<group>"; };
@@ -288,8 +376,11 @@
 		B9B41D002A26F43900239DD4 /* NSObject_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject_Extension.swift; sourceTree = "<group>"; };
 		B9CDEF722A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppleCalendarService+StudiumEvent.swift"; sourceTree = "<group>"; };
 		B9CDEF742A417D650084AB24 /* Realm_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Realm_Extension.swift; sourceTree = "<group>"; };
-		B9CDEF762A4190720084AB24 /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
 		B9CDEF782A427CAF0084AB24 /* FlatImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatImage.swift; sourceTree = "<group>"; };
+		B9CDEF7A2A4597140084AB24 /* GoogleSignInErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInErrorCode.swift; sourceTree = "<group>"; };
+		B9CDEF7C2A45972C0084AB24 /* GoogleAuthScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthScope.swift; sourceTree = "<group>"; };
+		B9CDEF842A45ADC90084AB24 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		B9CDEF862A45ADC90084AB24 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		B9F1B2DC2A1DB96C006F1462 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		DF894A87F89725DF823072C4 /* Pods_Studium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Studium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD108DE721EFFA5F65BC9E17 /* Pods-Studium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.debug.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.debug.xcconfig"; sourceTree = "<group>"; };
@@ -309,6 +400,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9A4921D2A483E26006E6A32 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9A492222A483E26006E6A32 /* SwiftUI.framework in Frameworks */,
+				B9A492212A483E26006E6A32 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,9 +437,11 @@
 		1693E724247A3DC4003D4702 = {
 			isa = PBXGroup;
 			children = (
+				B9A492322A493309006E6A32 /* AssignmentsWidgetExtension.entitlements */,
 				B97BB1682A119DB0008F1A5B /* Packages */,
 				1693E72F247A3DC4003D4702 /* Studium */,
 				B97BB0952A00CBF9008F1A5B /* StudiumTests */,
+				B9A492232A483E26006E6A32 /* AssignmentsWidget */,
 				1693E72E247A3DC4003D4702 /* Products */,
 				93B0DD225789CBCF8381CAD6 /* Pods */,
 				6FB44260C022218BAA798CDC /* Frameworks */,
@@ -351,6 +453,7 @@
 			children = (
 				1693E72D247A3DC4003D4702 /* Studium.app */,
 				B97BB0942A00CBF9008F1A5B /* StudiumTests.xctest */,
+				B9A492202A483E26006E6A32 /* AssignmentsWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -358,6 +461,7 @@
 		1693E72F247A3DC4003D4702 /* Studium */ = {
 			isa = PBXGroup;
 			children = (
+				B9A492332A493370006E6A32 /* Studium.entitlements */,
 				B9AFCF822A19EF590087A0FF /* ParentControllers+FlowUtility */,
 				B9AFCF792A19EE4E0087A0FF /* Flows */,
 				B96E6A5D2983464900A25457 /* Utility */,
@@ -374,6 +478,7 @@
 		1693E74B247A4634003D4702 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B90F10422A6F2FBB00BAB23F /* SwiftUIDesignSystem */,
 				B94CA0C42A2DA11900047865 /* CollectionViewCells */,
 				16C05CF1264F36DC004C9629 /* New Event Cells */,
 				16B2837925C25BA50039043E /* Event Cells */,
@@ -381,7 +486,8 @@
 				1693E736247A3DC4003D4702 /* Main.storyboard */,
 				1693E73B247A3DC6003D4702 /* LaunchScreen.storyboard */,
 				1649A46827DEAD1900B75481 /* HeaderView.swift */,
-				B9CDEF762A4190720084AB24 /* ImageDetailView.swift */,
+				B95194192A5E8A8300E0869A /* ImageDetailView.swift */,
+				B90F103B2A6A2E4200BAB23F /* AcademicAdvisorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -432,6 +538,8 @@
 			isa = PBXGroup;
 			children = (
 				DF894A87F89725DF823072C4 /* Pods_Studium.framework */,
+				B9CDEF842A45ADC90084AB24 /* WidgetKit.framework */,
+				B9CDEF862A45ADC90084AB24 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -455,6 +563,48 @@
 				B9CDEF782A427CAF0084AB24 /* FlatImage.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		B90F103F2A6EF9CE00BAB23F /* Assignment */ = {
+			isa = PBXGroup;
+			children = (
+				1693E756247A4BCB003D4702 /* AssignmentsOnlyViewController.swift */,
+				B90F10402A6EF9E400BAB23F /* AssignmentViewController.swift */,
+				B90D13F929845FE80093EB0C /* AddAssignmentViewController.swift */,
+			);
+			path = Assignment;
+			sourceTree = "<group>";
+		};
+		B90F10422A6F2FBB00BAB23F /* SwiftUIDesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				B90F104A2A6F30CA00BAB23F /* Icons */,
+				B90F10492A6F30C500BAB23F /* Texts */,
+				B90F10512A6F326000BAB23F /* StudiumLinkView.swift */,
+				B90F10552A6F406900BAB23F /* LatenessIndicatorView.swift */,
+				B90F10572A6F803400BAB23F /* Spinner.swift */,
+			);
+			path = SwiftUIDesignSystem;
+			sourceTree = "<group>";
+		};
+		B90F10492A6F30C500BAB23F /* Texts */ = {
+			isa = PBXGroup;
+			children = (
+				B90F10432A6F2FD700BAB23F /* StudiumSubtitle.swift */,
+				B90F10452A6F2FF800BAB23F /* StudiumGraySubtitle.swift */,
+				B90F10472A6F308900BAB23F /* StudiumTitle.swift */,
+				B90F104F2A6F310100BAB23F /* StudiumText.swift */,
+			);
+			path = Texts;
+			sourceTree = "<group>";
+		};
+		B90F104A2A6F30CA00BAB23F /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				B90F104B2A6F30D100BAB23F /* SmallIcon.swift */,
+				B90F104D2A6F30D600BAB23F /* MediumIcon.swift */,
+			);
+			path = Icons;
 			sourceTree = "<group>";
 		};
 		B94CA0C42A2DA11900047865 /* CollectionViewCells */ = {
@@ -515,16 +665,20 @@
 		B96E6A5A298323CC00A25457 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B986934C2A3DA80F00272B22 /* StudiumEventService.swift */,
 				B94CA0EB2A35639B00047865 /* PopUps */,
 				B97BB09D2A00D18F008F1A5B /* Mocking */,
 				B97BB0A52A00E9DD008F1A5B /* Persistence */,
 				B97BB0A42A00E9D0008F1A5B /* Authentication */,
+				B986934B2A3DA7FB00272B22 /* Calendar */,
+				B986934C2A3DA80F00272B22 /* StudiumEventService.swift */,
 				B90D1448298C77B80093EB0C /* NotificationService.swift */,
 				B97BB09E2A00D19D008F1A5B /* MockAutoscheduleService.swift */,
 				B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */,
-				B986934B2A3DA7FB00272B22 /* Calendar */,
 				B94CA0E72A34615400047865 /* CrashlyticsService.swift */,
+				B95194112A5675A900E0869A /* WidgetsService.swift */,
+				B90F10592A6F8DAC00BAB23F /* PDFService.swift */,
+				B90F10632A72115200BAB23F /* ChatGPTService.swift */,
+				B90F10652A7301D000BAB23F /* SecretsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -541,6 +695,7 @@
 				B97BB0AA2A022B20008F1A5B /* Extensions */,
 				B90D144329899C3C0093EB0C /* Enums */,
 				B9B41CF42A26E3F500239DD4 /* DebugFlags.swift */,
+				B90F10532A6F337F00BAB23F /* Increment.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -565,7 +720,7 @@
 			isa = PBXGroup;
 			children = (
 				B90D1446298C6EA50093EB0C /* AuthenticationService.swift */,
-				B98693212A3D702800272B22 /* AuthenticationService+Google.swift */,
+				B9CDEF7E2A4597430084AB24 /* GoogleAuth */,
 				B98693232A3D703100272B22 /* AuthenticationService+Facebook.swift */,
 			);
 			path = Authentication;
@@ -639,8 +794,41 @@
 				B94CA0EF2A3683E800047865 /* Autoschedulable.swift */,
 				B94CA0F12A3683F200047865 /* StudiumEventContainer.swift */,
 				B98693492A3D9C7F00272B22 /* GoogleCalendarEventLinking.swift */,
+				B90F10372A6A098500BAB23F /* Autoscheduled.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		B9A492232A483E26006E6A32 /* AssignmentsWidget */ = {
+			isa = PBXGroup;
+			children = (
+				B9A492422A493A89006E6A32 /* Models */,
+				B9A492382A4937C1006E6A32 /* Utility */,
+				B9A492242A483E26006E6A32 /* AssignmentsWidgetBundle.swift */,
+				B9A492262A483E26006E6A32 /* AssignmentsWidget.swift */,
+				B9A492342A49347E006E6A32 /* AssignmentsWidgetDataService.swift */,
+				B9A492282A483E26006E6A32 /* Assets.xcassets */,
+				B9A4922A2A483E26006E6A32 /* Info.plist */,
+				B95194132A57BEA500E0869A /* MarkAssignmentCompleteIntent.swift */,
+			);
+			path = AssignmentsWidget;
+			sourceTree = "<group>";
+		};
+		B9A492382A4937C1006E6A32 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				B9A492392A4937C8006E6A32 /* Array_Extension.swift */,
+				B9A4923D2A4937F8006E6A32 /* WidgetConstants.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		B9A492422A493A89006E6A32 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B9A4923B2A4937DE006E6A32 /* AssignmentWidgetModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		B9AFCF792A19EE4E0087A0FF /* Flows */ = {
@@ -798,11 +986,11 @@
 		B9AFCF882A19F0E80087A0FF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B90F103F2A6EF9CE00BAB23F /* Assignment */,
 				1693E745247A4152003D4702 /* CoursesViewController.swift */,
 				B90D13F429845FE80093EB0C /* AddCourseViewController.swift */,
-				B90D13F929845FE80093EB0C /* AddAssignmentViewController.swift */,
-				1693E756247A4BCB003D4702 /* AssignmentsOnlyViewController.swift */,
 				B94CA0B62A2D435500047865 /* CourseRefreshProtocol.swift */,
+				B90F10392A6A1BBA00BAB23F /* GradesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -854,6 +1042,16 @@
 			path = UtilityProtocols;
 			sourceTree = "<group>";
 		};
+		B9CDEF7E2A4597430084AB24 /* GoogleAuth */ = {
+			isa = PBXGroup;
+			children = (
+				B98693212A3D702800272B22 /* AuthenticationService+Google.swift */,
+				B9CDEF7A2A4597140084AB24 /* GoogleSignInErrorCode.swift */,
+				B9CDEF7C2A45972C0084AB24 /* GoogleAuthScope.swift */,
+			);
+			path = GoogleAuth;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -866,11 +1064,13 @@
 				1693E72A247A3DC4003D4702 /* Frameworks */,
 				1693E72B247A3DC4003D4702 /* Resources */,
 				E4F465B928E2E9E890816BA9 /* [CP] Embed Pods Frameworks */,
+				B9A4922E2A483E26006E6A32 /* Embed Foundation Extensions */,
 				B94CA0E22A32CCA900047865 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B9A4922C2A483E26006E6A32 /* PBXTargetDependency */,
 			);
 			name = Studium;
 			packageProductDependencies = (
@@ -898,13 +1098,30 @@
 			productReference = B97BB0942A00CBF9008F1A5B /* StudiumTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		B9A4921F2A483E26006E6A32 /* AssignmentsWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B9A492312A483E26006E6A32 /* Build configuration list for PBXNativeTarget "AssignmentsWidgetExtension" */;
+			buildPhases = (
+				B9A4921C2A483E26006E6A32 /* Sources */,
+				B9A4921D2A483E26006E6A32 /* Frameworks */,
+				B9A4921E2A483E26006E6A32 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AssignmentsWidgetExtension;
+			productName = AssignmentsWidgetExtension;
+			productReference = B9A492202A483E26006E6A32 /* AssignmentsWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		1693E725247A3DC4003D4702 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Vikram Singh";
 				TargetAttributes = {
@@ -914,6 +1131,9 @@
 					B97BB0932A00CBF9008F1A5B = {
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = 1693E72C247A3DC4003D4702;
+					};
+					B9A4921F2A483E26006E6A32 = {
+						CreatedOnToolsVersion = 15.0;
 					};
 				};
 			};
@@ -932,6 +1152,7 @@
 			targets = (
 				1693E72C247A3DC4003D4702 /* Studium */,
 				B97BB0932A00CBF9008F1A5B /* StudiumTests */,
+				B9A4921F2A483E26006E6A32 /* AssignmentsWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -961,6 +1182,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9A4921E2A483E26006E6A32 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9A492292A483E26006E6A32 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1034,24 +1263,33 @@
 			files = (
 				1693E757247A4BCB003D4702 /* AssignmentsOnlyViewController.swift in Sources */,
 				B94CA0B92A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift in Sources */,
+				B90F105A2A6F8DAC00BAB23F /* PDFService.swift in Sources */,
+				B90F10662A7301D000BAB23F /* SecretsService.swift in Sources */,
+				B90F10582A6F803400BAB23F /* Spinner.swift in Sources */,
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
 				B9AFCF992A19F2430087A0FF /* DatabaseServiceProtocol.swift in Sources */,
 				B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */,
 				B94CA0F02A3683E800047865 /* Autoschedulable.swift in Sources */,
+				B90F10462A6F2FF800BAB23F /* StudiumGraySubtitle.swift in Sources */,
 				B90D13FD29845FE80093EB0C /* LogoSelectorViewController.swift in Sources */,
+				B90F10542A6F337F00BAB23F /* Increment.swift in Sources */,
 				B90D1449298C77B80093EB0C /* NotificationService.swift in Sources */,
 				B94CA0CA2A2DABA000047865 /* StudiumEventFormCoordinator.swift in Sources */,
 				B90D13FC29845FE80093EB0C /* MasterForm.swift in Sources */,
+				B951941A2A5E8A8300E0869A /* ImageDetailView.swift in Sources */,
 				B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */,
 				B986935B2A3E8A3400272B22 /* Date.swift in Sources */,
 				B97BB08429F74628008F1A5B /* Debuggable.swift in Sources */,
+				B90F10412A6EF9E400BAB23F /* AssignmentViewController.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
 				B90D13FE29845FE80093EB0C /* AddToDoListEventViewController.swift in Sources */,
 				1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */,
 				B94CA0D72A31432400047865 /* AssignmentEditingCoordinator.swift in Sources */,
 				B9CDEF792A427CAF0084AB24 /* FlatImage.swift in Sources */,
 				B97BB0AC2A022B30008F1A5B /* String_Extension.swift in Sources */,
+				B9A4923A2A4937C8006E6A32 /* Array_Extension.swift in Sources */,
 				B90D140029845FE80093EB0C /* AddAssignmentViewController.swift in Sources */,
+				B90F103C2A6A2E4200BAB23F /* AcademicAdvisorView.swift in Sources */,
 				B9AFCF8D2A19F1D40087A0FF /* HabitsCoordinator.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
 				B9B41CFF2A26EE6900239DD4 /* ErrorShowing.swift in Sources */,
@@ -1059,34 +1297,43 @@
 				B94CA0CF2A2F101E00047865 /* AlertOption.swift in Sources */,
 				1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */,
 				B986935D2A3E8A3400272B22 /* EKAlarm.swift in Sources */,
+				B9A4923C2A4937DE006E6A32 /* AssignmentWidgetModel.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
+				B90F10502A6F310100BAB23F /* StudiumText.swift in Sources */,
 				16827D1A27F58B9A0001D1EF /* AuthenticationViewController.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				B9AFCF8B2A19F1CA0087A0FF /* CalendarCoordinator.swift in Sources */,
 				B9AFCF742A19E3160087A0FF /* AppCoordinator.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
 				16C05CF4264F37B8004C9629 /* RecurringEventCell.swift in Sources */,
+				B90F10442A6F2FD700BAB23F /* StudiumSubtitle.swift in Sources */,
 				B90D13FF29845FE80093EB0C /* AlertTimeSelectionTableViewForm.swift in Sources */,
 				B97BB0B22A0399FB008F1A5B /* UIViewController_Extension.swift in Sources */,
 				B9B41CF72A26E5E200239DD4 /* TimeChunk.swift in Sources */,
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
 				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
 				B94CA0C72A2DA12A00047865 /* LogoCollectionViewCell.swift in Sources */,
+				B90F10522A6F326000BAB23F /* StudiumLinkView.swift in Sources */,
 				B97BB0A72A00EA0D008F1A5B /* AppleCalendarService.swift in Sources */,
 				B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */,
 				B94CA0F42A39A9C600047865 /* OtherEventEditingCoordinator.swift in Sources */,
 				B995493C2992EDD000442968 /* Completable.swift in Sources */,
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
 				B9B41CEF2A242A3D00239DD4 /* Storyboarded.swift in Sources */,
+				B90F103A2A6A1BBA00BAB23F /* GradesViewController.swift in Sources */,
 				B9AFCF8F2A19F1DE0087A0FF /* CoursesCoordinator.swift in Sources */,
 				B986934A2A3D9C7F00272B22 /* GoogleCalendarEventLinking.swift in Sources */,
+				B90F104C2A6F30D100BAB23F /* SmallIcon.swift in Sources */,
 				B986935E2A3E8A3400272B22 /* EKReminder.swift in Sources */,
 				16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */,
+				B90F10482A6F308900BAB23F /* StudiumTitle.swift in Sources */,
 				B97BB0AE2A022B37008F1A5B /* Date_Extension.swift in Sources */,
 				B9AFCF952A19F1FE0087A0FF /* SettingsCoordinator.swift in Sources */,
 				B94CA0B72A2D435500047865 /* CourseRefreshProtocol.swift in Sources */,
+				B90F10382A6A098500BAB23F /* Autoscheduled.swift in Sources */,
 				B94CA0E82A34615400047865 /* CrashlyticsService.swift in Sources */,
 				B98693222A3D702800272B22 /* AuthenticationService+Google.swift in Sources */,
+				B9A492432A4941A1006E6A32 /* WidgetConstants.swift in Sources */,
 				B9B41D012A26F43900239DD4 /* NSObject_Extension.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
 				B90D144229899C310093EB0C /* Weekday.swift in Sources */,
@@ -1095,11 +1342,14 @@
 				B90D1447298C6EA50093EB0C /* AuthenticationService.swift in Sources */,
 				B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
+				B9CDEF7D2A45972C0084AB24 /* GoogleAuthScope.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
 				B94CA0E62A34573200047865 /* Logger.swift in Sources */,
 				B94CA0C12A2D5CA800047865 /* Coordinator.swift in Sources */,
 				B94CA0BD2A2D5C5700047865 /* AlertTimeSelectingForm.swift in Sources */,
 				B9AFCF912A19F1EA0087A0FF /* ToDoCoordinator.swift in Sources */,
+				B90F104E2A6F30D600BAB23F /* MediumIcon.swift in Sources */,
+				B95194122A5675A900E0869A /* WidgetsService.swift in Sources */,
 				1693E752247A487C003D4702 /* SwipeTableViewController.swift in Sources */,
 				B94CA0D92A32C0F000047865 /* NavigationCoordinator.swift in Sources */,
 				B98693482A3D867700272B22 /* GoogleCalendarService.swift in Sources */,
@@ -1133,17 +1383,20 @@
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,
 				B94CA0CC2A2F0DB400047865 /* LogoSelectingForm.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
+				B90F10642A72115200BAB23F /* ChatGPTService.swift in Sources */,
 				B97BB1672A0EF864008F1A5B /* AssignmentsOtherEventsViewController.swift in Sources */,
-				B9CDEF772A4190720084AB24 /* ImageDetailView.swift in Sources */,
 				B90D1440298999AB0093EB0C /* StudiumFormError.swift in Sources */,
 				B94CA0D52A2F1BCE00047865 /* StudiumIcon.swift in Sources */,
 				B94CA0EA2A35511000047865 /* StudiumFont.swift in Sources */,
 				B9AFCF932A19F1F50087A0FF /* UserSetupCoordinator.swift in Sources */,
+				B90F10562A6F406900BAB23F /* LatenessIndicatorView.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
 				B98693242A3D703100272B22 /* AuthenticationService+Facebook.swift in Sources */,
 				165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */,
 				1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */,
+				B95194162A57C63000E0869A /* AssignmentsWidgetDataService.swift in Sources */,
 				B94CA0ED2A3563BA00047865 /* FormPopUpType.swift in Sources */,
+				B9CDEF7B2A4597140084AB24 /* GoogleSignInErrorCode.swift in Sources */,
 				B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */,
 				1693E748247A417B003D4702 /* HabitsViewController.swift in Sources */,
 				1693E733247A3DC4003D4702 /* SceneDelegate.swift in Sources */,
@@ -1159,6 +1412,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B9A4921C2A483E26006E6A32 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9A492402A493892006E6A32 /* WidgetConstants.swift in Sources */,
+				B9A492412A493899006E6A32 /* Array_Extension.swift in Sources */,
+				B9A4923F2A493883006E6A32 /* AssignmentWidgetModel.swift in Sources */,
+				B95194172A5D6AF400E0869A /* UIColor_Extension.swift in Sources */,
+				B9A492352A49347E006E6A32 /* AssignmentsWidgetDataService.swift in Sources */,
+				B95194152A57C13800E0869A /* MarkAssignmentCompleteIntent.swift in Sources */,
+				B9A492272A483E26006E6A32 /* AssignmentsWidget.swift in Sources */,
+				B9A492252A483E26006E6A32 /* AssignmentsWidgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1166,6 +1434,11 @@
 			isa = PBXTargetDependency;
 			target = 1693E72C247A3DC4003D4702 /* Studium */;
 			targetProxy = B97BB0982A00CBF9008F1A5B /* PBXContainerItemProxy */;
+		};
+		B9A4922C2A483E26006E6A32 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B9A4921F2A483E26006E6A32 /* AssignmentsWidgetExtension */;
+			targetProxy = B9A4922B2A483E26006E6A32 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1241,7 +1514,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1297,7 +1570,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1311,7 +1584,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FD108DE721EFFA5F65BC9E17 /* Pods-Studium.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Studium/Studium.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1324,7 +1599,7 @@
 				INFOPLIST_FILE = Studium/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Studium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1344,7 +1619,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 916237789911EFDDFB48EFE4 /* Pods-Studium.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Studium/Studium.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VJUSE27PV3;
@@ -1356,7 +1633,7 @@
 				INFOPLIST_FILE = Studium/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Studium;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1412,6 +1689,75 @@
 			};
 			name = Release;
 		};
+		B9A4922F2A483E26006E6A32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = AssignmentsWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VJUSE27PV3;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AssignmentsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AssignmentsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Vikram Singh. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vikramsingh.Studium.AssignmentsWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B9A492302A483E26006E6A32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = AssignmentsWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VJUSE27PV3;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AssignmentsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AssignmentsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Vikram Singh. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vikramsingh.Studium.AssignmentsWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1438,6 +1784,15 @@
 			buildConfigurations = (
 				B97BB09A2A00CBF9008F1A5B /* Debug */,
 				B97BB09B2A00CBF9008F1A5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B9A492312A483E26006E6A32 /* Build configuration list for PBXNativeTarget "AssignmentsWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B9A4922F2A483E26006E6A32 /* Debug */,
+				B9A492302A483E26006E6A32 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

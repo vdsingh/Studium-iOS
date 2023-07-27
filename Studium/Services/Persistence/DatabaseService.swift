@@ -93,8 +93,10 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     
     // MARK: - Read
     
-    public func getStudiumEvent<T: Object>(withPrimaryKey id: ObjectId, type: T.Type) -> T? {
-        if let studiumEvent = self.realm.object(ofType: T.self, forPrimaryKey: id) {
+    public func getStudiumEvent<T: Object>(withPrimaryKey id: String, type: T.Type) -> T? {
+        
+        let objectId = try! ObjectId(string: id)
+        if let studiumEvent = self.realm.object(ofType: T.self, forPrimaryKey: objectId ) {
             return studiumEvent
         }
         

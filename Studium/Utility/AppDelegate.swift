@@ -86,12 +86,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return false
     }
-}
-
-extension AppDelegate: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG (AppDelegate): \(message)")
-        }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+//        self.updateRecentAssignments()
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        print("Application will resign active")
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        print("Application did enter background")
+//        self.updateRecentAssignments()
     }
 }
