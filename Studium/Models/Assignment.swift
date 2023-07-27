@@ -32,6 +32,8 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
     @Persisted var autoscheduling: Bool = false
     
     var autoscheduleInfinitely: Bool = false
+    
+    var useDatesAsBounds: Bool = false
             
     /// The number of minutes to autoschedule study time
     @Persisted var autoLengthMinutes: Int = 60
@@ -42,9 +44,42 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
     // TODO: Docstrings
     @Persisted var autoschedulingDaysList: List<Int>
     
+    @Persisted private var resourceLinksList: List<LinkConfig>
+    
+    @Persisted var resourcesAreLoading: Bool = false
+    
+    var resourceLinks: [LinkConfig] {
+        get { return [LinkConfig](self.resourceLinksList) }
+        set {
+            let list = List<LinkConfig>()
+            list.append(objectsIn: newValue)
+            self.resourceLinksList = list
+        }
+    }
+    
+//    var resourceProviderState: ResourceProviderState {
+//        if self.resourcesAreLoading {
+//            return .loading
+//        } else if self.resourceLinks.isEmpty {
+//            return .noResourcesProvided
+//        } else {
+//            return .resourcesProvided(links: self.resourceLinks)
+//        }
+//    }
+    
     // TODO: Docstrings
     var autoscheduledEvents: [OtherEvent] {
         return [OtherEvent](self.autoscheduledEventsList)
+    }
+    
+    var latenessStatus: LatenessStatus {
+        if Date() > self.endDate {
+            return .late
+        } else if Date() + (60*60*24*3) > self.endDate {
+            return .withinThreeDays
+        } else {
+            return .onTime
+        }
     }
     
     // TODO: Docstrings
@@ -55,6 +90,10 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
             list.append(objectsIn: newValue.compactMap({ $0.rawValue }))
             self.autoschedulingDaysList = list
         }
+    }
+    
+    var dueDateString: String {
+        return self.endDate.format(with: .full)
     }
 
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
@@ -107,6 +146,7 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
         
         if self.startDate > self.endDate
         {
+            //TODO: Remove
             fatalError("Start date is later than end date")
         }
 

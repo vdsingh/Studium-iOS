@@ -44,6 +44,8 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         set { self.days = newValue}
     }
     
+    var useDatesAsBounds: Bool = true
+    
     //TODO: Docstrings
     convenience init(
         name: String,
@@ -80,7 +82,16 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         
     func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> OtherEvent {
         let otherEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: "This Event was Autoscheduled by your Habit: \(self.name)", startDate: timeChunk.startDate, endDate: timeChunk.endDate, color: self.color, icon: self.icon, alertTimes: self.alertTimes)
+        otherEvent.autoscheduled = true
         return otherEvent
+    }
+    
+    override func timeChunkForDate(date: Date) -> TimeChunk? {
+        if self.autoscheduling {
+            return nil
+        }
+        
+        return super.timeChunkForDate(date: date)
     }
 }
 

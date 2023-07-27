@@ -31,13 +31,8 @@ protocol Autoscheduling: StudiumEvent {
     //TODO: Docstrings
     func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> AutoscheduledEventType
     
+    // TODO: Docstrings
     var autoschedulingDays: Set<Weekday> { get set }
-}
-
-protocol Autoscheduled: StudiumEvent {
     
-    //TODO: Docstrings
-    var autoscheduled: Bool { get set }
+    var useDatesAsBounds: Bool { get }
 }
-
-
