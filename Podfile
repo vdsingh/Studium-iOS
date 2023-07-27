@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '13.0.0'
+platform :ios, '15.0.0'
 
 target 'Studium' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -29,6 +29,10 @@ pod 'FlexColorPicker' # Color Picker Form Element
 pod 'FSCalendar' # Calendar View
 pod 'RAMAnimatedTabBarController' # Animated Tab Bar
 pod 'SwiftEntryKit', '2.0.0' # Banners and Pop-Ups
+
+#ChatGPT API
+pod 'ChatGPTSwift', '~> 1.3.1'
+
 
 end
 
