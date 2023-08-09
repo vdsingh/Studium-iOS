@@ -11,14 +11,16 @@ import SwiftUI
 
 struct StudiumSubtitle: View {
     let text: String
+    let textColor: Color
 
     var body: some View {
         Text(self.text)
             .font(StudiumFont.subTitle.font)
-            .foregroundStyle(StudiumColor.primaryLabel.color)
+            .foregroundStyle(self.textColor)
     }
     
-    init(_ text: String) {
+    init(_ text: String, textColor: Color = StudiumFont.subTitle.color) {
         self.text = text
+        self.textColor = textColor
     }
 }

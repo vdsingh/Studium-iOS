@@ -9,15 +9,15 @@
 import Foundation
 import SwiftUI
 
-struct StudiumGraySubtitle: View {
-    let text: String
-    var body: some View {
-        Text(text)
-            .font(StudiumFont.subTitle.font)
-            .foregroundStyle(Color(uiColor: .lightGray))
-    }
-    
-    init(_ text: String) {
-        self.text = text
-    }
-}
+//struct StudiumGraySubtitle: View {
+//    let text: String
+//    var body: some View {
+//        Text(text)
+//            .font(StudiumFont.subTitle.font)
+//            .foregroundStyle(Color(uiColor: .lightGray))
+//    }
+//    
+//    init(_ text: String) {
+//        self.text = text
+//    }
+//}
