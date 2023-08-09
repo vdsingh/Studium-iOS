@@ -8,6 +8,7 @@
 
 import UIKit
 import SwipeCellKit
+import VikUtilityKit
 
 //TODO: Docstrings
 class OtherEventCell: DeletableEventCell {
@@ -34,34 +35,50 @@ class OtherEventCell: DeletableEventCell {
     //TODO: Docstrings
     @IBOutlet weak var iconImageView: UIImageView!
     
+    @IBOutlet weak var iconBackground: UIImageView!
+    
+    var checkboxWasTappedCallback: (() -> Void)?
+
+    
     //TODO: Docstrings
-    func loadData(from otherEvent: OtherEvent) {
+    func loadData(from otherEvent: OtherEvent, checkboxWasTappedCallback: @escaping () -> Void) {
+        self.iconBackground.isUserInteractionEnabled = true
+        self.iconBackground.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.checkboxWasTapped)))
+        
         self.event = otherEvent
+        self.checkboxWasTappedCallback = checkboxWasTappedCallback
         
         let attributeString = NSMutableAttributedString(string: otherEvent.name)
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+        
         if otherEvent.complete {
-            primaryLabel.attributedText = attributeString
-            latenessIndicator.tintColor = .gray
+            self.backgroundColor = .gray
+            self.iconImageView.tintColor = .gray
+            self.primaryLabel.attributedText = attributeString
+            self.latenessIndicator.tintColor = .gray
+            self.iconBackground.image = SystemIcon.circleCheckmarkFill.createImage()
         } else {
-            attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
-            primaryLabel.attributedText = attributeString
             
+            attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
+            self.primaryLabel.attributedText = attributeString
+            self.iconBackground.image = SystemIcon.circle.createImage()
+
             //If our otherEvent is past due, make the lateness indicator red. If it is due soon, make the lateness indicator yellow. Otherwise, make it green.
             if Date() > otherEvent.endDate {
-                latenessIndicator.tintColor = .red
-            }else if Date() + (60*60*24*3) > otherEvent.endDate{
-                latenessIndicator.tintColor = .yellow
-            }else{
-                latenessIndicator.tintColor = .green
+                self.latenessIndicator.tintColor = .red
+            } else if Date() + (60*60*24*3) > otherEvent.endDate {
+                self.latenessIndicator.tintColor = .yellow
+            } else {
+                self.latenessIndicator.tintColor = .green
             }
         }
         
-        self.iconImageView.image = otherEvent.icon.uiImage
+//        self.iconImageView.image = otherEvent.icon.uiImage
+        self.iconImageView.isHidden = true
         self.subLabel.text = otherEvent.location
-        self.startTimeLabel.text = otherEvent.startDate.format(with: "MMM d, h:mm a")
-        self.endTimeLabel.text = otherEvent.endDate.format(with: "MMM d, h:mm a")
-        self.backgroundColor = .black
+        self.startTimeLabel.text = otherEvent.startDate.format(with: DateFormat.fullDateWithTime)
+        self.endTimeLabel.text = otherEvent.endDate.format(with: DateFormat.fullDateWithTime)
+//        self.backgroundColor = .black
     }
     
     //TODO: Docstrings
@@ -72,25 +89,34 @@ class OtherEventCell: DeletableEventCell {
             contrastingColor = UIColor(hexString: "#4a4a4a")!
         }
 
-        primaryLabel.text = primaryText
-        primaryLabel.textColor = contrastingColor
+        self.primaryLabel.text = primaryText
+        self.primaryLabel.textColor = contrastingColor
         
-        subLabel.text = secondaryText
-        subLabel.textColor = contrastingColor
+        self.subLabel.text = secondaryText
+        self.subLabel.textColor = contrastingColor
         
-        startTimeLabel.text = startDate.format(with: "h:mm a")
-        startTimeLabel.textColor = contrastingColor
+        self.startTimeLabel.text = startDate.format(with: "h:mm a")
+        self.startTimeLabel.textColor = contrastingColor
 
-        endTimeLabel.text = endDate.format(with: "h:mm a")
-        endTimeLabel.textColor = contrastingColor
+        self.endTimeLabel.text = endDate.format(with: "h:mm a")
+        self.endTimeLabel.textColor = contrastingColor
 
         
-        backgroundColor = cellColor
-        latenessIndicator.isHidden = true
+        self.backgroundColor = cellColor
+        self.latenessIndicator.isHidden = true
     }
     
     //TODO: Docstrings
     func hideLatenessIndicator(hide: Bool) {
         self.latenessIndicatorContainer.isHidden = hide
+    }
+    
+    @objc func checkboxWasTapped() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
+        
+        if let callback = self.checkboxWasTappedCallback {
+            callback()
+        }
     }
 }

@@ -32,6 +32,7 @@ class AssignmentCell1: DeletableEventCell {
     
     // TODO: Docstrings
     @IBOutlet weak var latenessIndicatorBackground: UIImageView!
+    
     /// the icon associated with the assignment (it will be the same as the course's icon)
     @IBOutlet weak var icon: UIImageView!
     
@@ -65,26 +66,18 @@ class AssignmentCell1: DeletableEventCell {
         super.awakeFromNib()
         let chevDownImage = SystemIcon.chevronDown.createImage()
         
-//        UIImage(systemName: "chevron.down", withConfiguration: largeConfig)
-//        expandEventsButton.setImage(chevDownImage, for: .normal)
         self.iconBackground.isUserInteractionEnabled = true
         self.iconBackground.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.checkboxWasTapped)))
         self.setIsExpanded(isExpanded: false)
-        
-        self.accessoryView = UIImageView(image: SystemIcon.chevronRight.createImage())
     }
     
     @objc func checkboxWasTapped() {
-        print("HELLO")
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.success)
         
         if let callback = self.checkboxWasTappedCallback {
             callback()
         }
-        
-//        let generator = UIImpactFeedbackGenerator(style: .rigid)
-//        generator.impactOccurred()
     }
     
     //TODO: Docstring
@@ -101,13 +94,15 @@ class AssignmentCell1: DeletableEventCell {
         
         self.checkboxWasTappedCallback = checkboxWasTappedCallback
         
+        //TODO: Fix force unwrap
+        
         // Create an attributed string for the assignment's name (the main label). This is so that when the assignment is marked complete, we can put a slash through the label.
         let primaryTextAttributeString = NSMutableAttributedString(string: self.event!.name)
         primaryTextAttributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, primaryTextAttributeString.length))
         
         // Safely get the associated course for this assignment
         guard let course = assignment.parentCourse else {
-            print("$ERR (AssignmentCell1): parent course was nil when loading assignment data")
+            Log.e("parent course was nil when loading assignment data")
             return
         }
         
@@ -118,9 +113,9 @@ class AssignmentCell1: DeletableEventCell {
         var contrastingColor = UIColor(contrastingBlackOrWhiteColorOn: themeColor, isFlat: true)
         // Black as a label color looks too intense. If the contrasting color is supposed to be black, change it to a lighter gray.
         if contrastingColor == UIColor(contrastingBlackOrWhiteColorOn: .white, isFlat: true){
-            contrastingColor = UIColor(hexString: "#4a4a4a")!
+           contrastingColor = UIColor(hexString: "#4a4a4a")!
         }
-        
+                
         // Set all of the labels' colors and chevron color to the contrasting color
         self.primaryLabel.textColor = contrastingColor
         self.subLabel.textColor = contrastingColor
@@ -139,18 +134,16 @@ class AssignmentCell1: DeletableEventCell {
 //            self.background.backgroundColor = .gray
             self.backgroundColor = .gray
             self.icon.tintColor = .gray
-            self.iconBackground.image = UIImage(systemName: "checkmark.circle")
+            self.iconBackground.image = SystemIcon.circleCheckmarkFill.createImage()
             
             // make the lateness indicator gray- it's not relevant since the assignment has already been completed
             self.latenessIndicator.tintColor = .gray
         } else {
             self.backgroundColor = themeColor
-//            self.background.backgroundColor = themeColor
             primaryTextAttributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, primaryTextAttributeString.length))
             
             self.icon.tintColor = themeColor
-            self.iconBackground.image = UIImage(systemName: "circle")
-            
+            self.iconBackground.image = SystemIcon.circle.createImage()
             
             //If our assignment is past due, make the lateness indicator red. If it is due soon, make the lateness indicator yellow. Otherwise, make it green.
             if Date() > assignment.endDate {
@@ -179,7 +172,7 @@ class AssignmentCell1: DeletableEventCell {
         self.icon.image = course.icon.uiImage
         
         //override the chevron button.
-        if hideChevronButton {
+        if self.hideChevronButton {
             self.expandEventsButton.isHidden = true
         }
     }
@@ -203,7 +196,7 @@ class AssignmentCell1: DeletableEventCell {
     @IBAction func collapseButtonPressed(_ sender: UIButton) {
         guard let assignmentCollapseDelegate = self.assignmentCollapseDelegate,
               let assignment = self.event as? Assignment else {
-                  print("$ERR (AssignmentCell1): assignmentCollapseDelegate was nil: \(String(describing: self.assignmentCollapseDelegate)) or event was nil or not an assignment: \(String(describing: self.event))")
+            Log.e("assignmentCollapseDelegate was nil: \(String(describing: self.assignmentCollapseDelegate)) or event was nil or not an assignment: \(String(describing: self.event))")
             return
         }
         
