@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 
 /// This service wraps all the services for manipulating StudiumEvents (ex: DatabaseService, NotificationService, etc.)
@@ -176,6 +177,12 @@ class StudiumEventService {
             } else {
                 Log.e("Tried to update assignment from Widget Model \(assignmentWidgetModel), but a corresponding assignment object could not be found.")
             }
+        }
+    }
+    
+    func attachFile(to storer: any FileStorer, fileURL: URL?) {
+        DatabaseService.shared.realmWrite {
+            storer.thaw()?.attachFileURL(fileURL)
         }
     }
 }

@@ -11,11 +11,11 @@ import RealmSwift
 import VikUtilityKit
 
 /// Represents Course Assignments
-class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, StudiumEventContained {
+class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, StudiumEventContained, FileStorer {
     
-//    typealias EventType = Assignment
-        
     let debug = true
+    
+    @Persisted var attachedFileURLString: String? = nil
 
     /// Specifies whether or not the Assignment object is marked as complete or not
     @Persisted var complete: Bool = false
