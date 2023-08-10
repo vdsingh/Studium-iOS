@@ -63,7 +63,11 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
             ],
             [
                 .logoCell(logo: self.icon.uiImage, onClick: { self.showLogoSelectionViewController() }),
-                .colorPickerCell(delegate: self),
+                .colorPickerCellV2(colorWasSelected: { color in
+                    print("SELECTED COLOR: \(color)")
+                    self.color = UIColor(color)
+                }),
+//                .colorPickerCell(delegate: self),
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: TextFieldCharLimit.longField.rawValue, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
             ],
             [
