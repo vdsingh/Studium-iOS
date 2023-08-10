@@ -39,21 +39,26 @@ struct ImageDetailView: View {
     var body: some View {
         VStack {
             Spacer()
-            VStack {
+            VStack(spacing: Increment.two) {
                 if let image = self.viewModel.image {
                     Image(uiImage: image)
                         .resizable()
-                        .frame(width: 350, height: 275)
+                        .aspectRatio(image.size, contentMode: .fit)
+                        .frame(width: UIScreen.main.bounds.width * 3/4)
+//                        .
+
                 }
                 
-                Text(self.viewModel.title)
-                    .font(StudiumFont.title.font)
-                    .foregroundStyle(Color(StudiumFont.title.color))
-                
-                if let subtitle = self.viewModel.subtitle {
-                    Text(subtitle)
+                VStack(spacing: Increment.one) {
+                    Text(self.viewModel.title)
                         .font(StudiumFont.subTitle.font)
-                        .foregroundStyle(Color(StudiumFont.placeholder.color))
+                        .foregroundStyle(StudiumFont.subTitle.color)
+                    
+                    if let subtitle = self.viewModel.subtitle {
+                        Text(subtitle)
+                            .font(StudiumFont.body.font)
+                            .foregroundStyle(StudiumFont.placeholder.color)
+                    }
                 }
                 
                 Button {
@@ -66,8 +71,9 @@ struct ImageDetailView: View {
                 .background(Color(uiColor: StudiumColor.secondaryAccent.uiColor))
                 .foregroundColor(Color(uiColor: StudiumColor.primaryLabel.uiColor))
                 .clipShape(.rect(cornerRadius: 10))
+                
             }
-            .scaledToFill()
+//            .scaledToFit()
             .padding(20)
         }
         .background(Color(uiColor: StudiumColor.secondaryBackground.uiColor))

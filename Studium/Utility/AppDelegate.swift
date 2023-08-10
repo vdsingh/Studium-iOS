@@ -48,6 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ColorManager.primaryTextColor = StudiumColor.primaryLabel.uiColor
         ColorManager.placeholderTextColor = StudiumColor.placeholderLabel.uiColor
         ColorManager.primaryAccentColor = StudiumColor.primaryAccent.uiColor
+        ColorManager.tableViewSeparatorColor = StudiumColor.tertiaryBackground.uiColor
     
         return true
     }

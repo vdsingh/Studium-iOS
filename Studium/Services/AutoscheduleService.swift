@@ -135,7 +135,14 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
             let commitmentEndTime = commitment.endDate
             
             var i = 0
+            var totalIterations = 0
+            let iterationLimit = 1000
             while(i < openSlots.count) {
+                if (totalIterations >= iterationLimit) {
+                    Log.e("getOpenTimeSlots exceeded the iterationLimit")
+                    break
+                }
+                
                 let slot = openSlots[i]
                 let slotStartTime = slot.startDate
                 let slotEndTime = slot.endDate
@@ -182,7 +189,9 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
                     openSlots.remove(at: i)
                     i-=1
                 }
+                
                 i+=1
+                totalIterations += 1
             }
         }
         

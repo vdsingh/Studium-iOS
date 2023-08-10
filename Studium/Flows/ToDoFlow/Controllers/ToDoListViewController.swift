@@ -11,7 +11,7 @@ import RealmSwift
 import ChameleonFramework
 
 //TODO: Docstrings
-class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefreshProtocol, AssignmentRefreshProtocol, Coordinated, Storyboarded {
+class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefreshProtocol, Coordinated, Storyboarded {
     
     // TODO: Docstrings
     override var debug: Bool {
@@ -99,10 +99,19 @@ class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefr
         self.unwrapCoordinatorOrShowError()
 
         if let assignment = deletableEventCell.event! as? Assignment {
-            self.coordinator?.showEditAssignmentViewController(refreshDelegate: self, assignmentToEdit: assignment)
+//            self.coordinator?.showEditAssignmentViewController(refreshDelegate: self, assignmentToEdit: assignment)
+            self.editAssignment(assignment)
         } else if let otherEvent = deletableEventCell.event! as? OtherEvent {
             self.coordinator?.showEditOtherEventViewController(refreshDelegate: self, otherEventToEdit: otherEvent)
         }
+    }
+    
+    override func editAssignment(_ assignment: Assignment) {
+        self.coordinator?.showEditAssignmentViewController(refreshDelegate: self, assignmentToEdit: assignment)
+    }
+    
+    override func editOtherEvent(_ otherEvent: OtherEvent) {
+        self.coordinator?.showEditOtherEventViewController(refreshDelegate: self, otherEventToEdit: otherEvent)
     }
     
     //TODO: Docstrings

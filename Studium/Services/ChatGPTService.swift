@@ -25,6 +25,7 @@ class ChatGPTService {
                 DatabaseService.shared.realmWrite {
                     assignment.thaw()?.resourcesAreLoading = true
                 }
+                
                 let response = try await api.sendMessage(text: message, temperature: 0)
                 let safeAssignment = DatabaseService.shared.getStudiumEvent(withPrimaryKey: assignmentKey, type: Assignment.self)!
 

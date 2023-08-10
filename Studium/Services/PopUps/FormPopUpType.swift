@@ -74,7 +74,7 @@ enum FormPopUpType {
         switch self {
         case .reportAProblem:
             let titleStyle = EKProperty.LabelStyle(
-                font: StudiumFont.title.uiFont,
+                font: StudiumFont.subTitle.uiFont,
                 color: EKColor(StudiumColor.primaryLabel.uiColor),
                 displayMode: EKAttributes.DisplayMode.inferred
             )
@@ -92,7 +92,7 @@ enum FormPopUpType {
             return EKProperty.ButtonContent(
                 label: .init(
                     text: "Send",
-                    style: .init(font: StudiumFont.subTitle.uiFont, color: EKColor(StudiumFont.subTitle.color))
+                    style: .init(font: StudiumFont.bodySemibold.uiFont, color: EKColor(StudiumFont.subTitle.uiColor))
                 ),
                 backgroundColor: EKColor(StudiumColor.secondaryAccent.uiColor),
                 highlightedBackgroundColor: EKColor(StudiumColor.secondaryAccent.darken(by: 10)),
@@ -115,11 +115,11 @@ enum FormPopUpType {
                         text: "Contact Email (Optional)",
                         style: .init(
                             font: StudiumFont.placeholder.uiFont,
-                            color: EKColor(StudiumFont.placeholder.color)
+                            color: EKColor(StudiumFont.placeholder.uiColor)
                         )
                     ),
                     tintColor: EKColor(StudiumColor.primaryAccent.uiColor),
-                    textStyle: .init(font: StudiumFont.body.uiFont, color: EKColor(StudiumFont.body.color)),
+                    textStyle: .init(font: StudiumFont.body.uiFont, color: EKColor(StudiumFont.body.uiColor)),
                     leadingImage: SystemIcon.envelope.createImage(withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular, scale: .default)).withRenderingMode(.alwaysTemplate),
                     bottomBorderColor: EKColor(StudiumColor.secondaryLabel.uiColor)
                 ),
@@ -133,7 +133,7 @@ enum FormPopUpType {
                         )
                     ),
                     tintColor: EKColor(StudiumColor.primaryAccent.uiColor),
-                    textStyle: .init(font: StudiumFont.body.uiFont, color: EKColor(StudiumFont.body.color)),
+                    textStyle: .init(font: StudiumFont.body.uiFont, color: EKColor(StudiumFont.body.uiColor)),
                     leadingImage: SystemIcon.exclamationmarkCircle.createImage(withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular, scale: .default)).withRenderingMode(.alwaysTemplate)
                 )
             ]

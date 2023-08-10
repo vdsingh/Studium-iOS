@@ -76,8 +76,8 @@ class OtherEventCell: DeletableEventCell {
 //        self.iconImageView.image = otherEvent.icon.uiImage
         self.iconImageView.isHidden = true
         self.subLabel.text = otherEvent.location
-        self.startTimeLabel.text = otherEvent.startDate.format(with: DateFormat.fullDateWithTime)
-        self.endTimeLabel.text = otherEvent.endDate.format(with: DateFormat.fullDateWithTime)
+        self.startTimeLabel.text = otherEvent.startDate.format(with: DateFormat.fullDateWithTime.rawValue)
+        self.endTimeLabel.text = otherEvent.endDate.format(with: DateFormat.fullDateWithTime.rawValue)
 //        self.backgroundColor = .black
     }
     

@@ -10,6 +10,10 @@ import UIKit
 import SwiftUI
 import FBSDKLoginKit
 
+protocol ForegroundSubscriber {
+    func willEnterForeground()
+}
+
 var currentScene: UIScene?
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

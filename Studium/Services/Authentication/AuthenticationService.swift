@@ -182,7 +182,7 @@ extension AuthenticationService {
         self.app.login(credentials: Credentials.emailPassword(email: email, password: password)) { result in
             switch result {
             case .failure(let error):
-                print("$ERR (AuthenticationService): login failed: \(error.localizedDescription)")
+                Log.e(error, additionalDetails: "login failed")
             case .success(let user):
                 Log.g("successfully logged in as user \(user)")
                 completion(.success(user))

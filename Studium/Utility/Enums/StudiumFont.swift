@@ -16,6 +16,7 @@ enum StudiumFont {
     case body
     case bodySemibold
     case placeholder
+    case subText
     
     var uiFont: UIFont {
         switch self {
@@ -27,6 +28,8 @@ enum StudiumFont {
             return UIFont.systemFont(ofSize: 18)
         case .bodySemibold:
             return UIFont.systemFont(ofSize: 18, weight: .semibold)
+        case .subText:
+            return UIFont.systemFont(ofSize: 14)
         }
     }
     
@@ -34,12 +37,16 @@ enum StudiumFont {
         return Font(self.uiFont)
     }
     
-    var color: UIColor {
+    var uiColor: UIColor {
         switch self {
         case .title, .body, .subTitle, .bodySemibold:
             return StudiumColor.primaryLabel.uiColor
-        case .placeholder:
+        case .placeholder, .subText:
             return StudiumColor.placeholderLabel.uiColor
         }
+    }
+    
+    var color: Color {
+        return Color(uiColor: self.uiColor)
     }
 }

@@ -48,12 +48,12 @@ struct AcademicAdvisorView: View {
                 
                 Text(self.viewModel.title)
                     .font(StudiumFont.title.font)
-                    .foregroundStyle(Color(StudiumFont.title.color))
+                    .foregroundStyle(StudiumFont.title.color)
                 
                 if let subtitle = self.viewModel.subtitle {
                     Text(subtitle)
                         .font(StudiumFont.subTitle.font)
-                        .foregroundStyle(Color(StudiumFont.placeholder.color))
+                        .foregroundStyle(StudiumFont.placeholder.color)
                 }
                 
                 Button {

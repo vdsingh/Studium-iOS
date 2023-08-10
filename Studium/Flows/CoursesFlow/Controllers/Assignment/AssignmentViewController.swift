@@ -12,127 +12,138 @@ import RealmSwift
 import UIKit
 import SwiftUI
 
-struct AssignmentViewHeader: View {
-    @ObservedRealmObject var assignment: Assignment
+//struct AssignmentViewHeader: View {
+//    
+//    @ObservedRealmObject var assignment: Assignment
+//    var body: some View {
+//    }
+//}
+struct AssignmentViewSectionTitle: View {
+    
+    let icon: UIImage
+    let title: String
+    
     var body: some View {
-        HStack(alignment: .top) {
-            HStack(spacing: Increment.two) {
-                Image(uiImage: StudiumIcon.code.uiImage)
-                    .renderingMode(.template)
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundStyle(.white)
-                    .frame(width: Increment.eight)
-                
-                VStack(alignment: .leading, spacing: 0) {
-                    StudiumTitle(self.assignment.name)
-                    StudiumGraySubtitle(self.assignment.parentCourse?.name ?? "")
-                }
-            }
-            
-            Spacer()
-            
-            HStack(alignment: .top, spacing: Increment.two) {
-                Button {
-                    
-                } label: {
-                    SmallIcon(image: SystemIcon.trashCan.createImage())
-                }
-                
-                Button {
-                    
-                } label: {
-                    SmallIcon(image: SystemIcon.pencil.createImage())
-                    
-                }
-            }
+        HStack(spacing: Increment.one) {
+            SmallIcon(image: self.icon)
+            StudiumSubtitle(self.title)
         }
     }
 }
-
 struct AssignmentViewDetails: View {
+    
+    
+    let studiumEventService = StudiumEventService.shared
     @ObservedRealmObject var assignment: Assignment
+    @State private var isImporting: Bool = false
+    
+    let pdfUrlWasPressed: (URL) -> Void
+    
     var body: some View {
         VStack(alignment: .leading, spacing: Increment.two) {
-            HStack {
-                LatenessIndicatorView(self.assignment.latenessStatus)
-                StudiumText(self.assignment.latenessStatus.statusString)
+            Button {
+                if let assignment = self.assignment.thaw() {
+                    self.studiumEventService.markComplete(assignment, !assignment.complete)
+                }
+            } label: {
+                HStack {
+                    SmallIcon(color: StudiumColor.secondaryAccent.color, image: self.assignment.complete ? SystemIcon.circleCheckmarkFill.createImage() : SystemIcon.circle.createImage())
+                    Text(self.assignment.complete ? "Complete" : "Incomplete")
+                        .strikethrough(self.assignment.complete)
+                        .font(StudiumFont.bodySemibold.font)
+                        .foregroundStyle(StudiumFont.bodySemibold.color)
+                    Spacer()
+                }
             }
             
             HStack {
-                SmallIcon(image: SystemIcon.clockFill.createImage())
-                StudiumText("Due: \(self.assignment.dueDateString)")
+                SmallIcon(color: self.assignment.latenessStatus.color, image: SystemIcon.clockFill.createImage())
+                VStack(alignment: .leading) {
+                    StudiumText("Due: \(self.assignment.dueDateString)")
+                    StudiumSubtext(self.assignment.daysHoursMinsDueDateString)
+                }
             }
             
             HStack {
                 SmallIcon(image: SystemIcon.paperclip.createImage())
-                Button {
-                    
-                } label:  {
-                    StudiumText("Attach a File")
-                }
-                .buttonStyle(StudiumButtonStyle(disabled: false))
+                UploadFileButton(
+                    fileStorer: self.assignment,
+                    isImporting: self.$isImporting,
+                    urlWasPressed: self.pdfUrlWasPressed
+                )
             }
         }
     }
 }
 
-//struct StudiumButtonStyleDisabled: ButtonStyle {
-//    func makeBody(configuration: Configuration) -> some View {
-//        configuration.label
-//            .padding(.vertical, Increment.one)
-//            .padding(.horizontal, Increment.two)
-//            .background(.gray)
-//            .foregroundStyle(.white)
-//            .clipShape(.rect(cornerRadius: Increment.one))
-//    }
-//}
-
-struct StudiumButtonStyle: ButtonStyle {
-    let disabled: Bool
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .padding(.vertical, Increment.one)
-            .padding(.horizontal, Increment.two)
-            .background(Color(self.disabled ? .gray: StudiumColor.primaryAccent.uiColor))
-            .foregroundStyle(.white)
-            .clipShape(.rect(cornerRadius: Increment.one))
-    }
-}
-
-class LinkConfig: Object {
-    @Persisted(primaryKey: true) var _id: ObjectId = ObjectId.generate()
-    @Persisted var label: String
-    @Persisted var link: String
+struct AssignmentViewStudyTime: View {
+    @ObservedRealmObject var assignment: Assignment
     
-    convenience init(label: String, link: String) {
-        self.init()
-        self.label = label
-        self.link = link
+    var autoLengthString: String {
+        let hours = self.assignment.autoLengthMinutes / 60
+        let minutes = self.assignment.autoLengthMinutes % 60
+        
+        let hoursString = hours == 1 ? "\(hours) hour" : "\(hours) hours"
+        let minutesString = minutes == 1 ? "\(minutes) minute" : "\(minutes) minutes"
+        
+        return "\(hoursString), \(minutesString)"
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: Increment.two) {
+            AssignmentViewSectionTitle(icon: StudiumIcon.book.uiImage, title: "Study Time")
+            VStack(alignment: .leading) {
+                HStack {
+                    MiniIcon(image: SystemIcon.clockFill.createImage())
+                    StudiumText(self.autoLengthString)
+                }
+                
+                HStack {
+                    MiniIcon(image: SystemIcon.calendar.createImage())
+                    DaysView(selectedDays: self.assignment.autoschedulingDays)
+                }
+            }
+            .padding(.leading, 30)
+        }
     }
 }
 
-//enum ResourceProviderState {
-//    case noResourcesProvided
-//    case loading
-//    case resourcesProvided(links: [LinkConfig])
-//}
+struct DayView: View {
+    
+    let day: Weekday
+    let isSelected: Bool
+    
+    var body: some View {
+        if self.isSelected {
+            ZStack {
+                StudiumColor.primaryAccent.color
+                    .clipShape(.rect(cornerRadius: Increment.one))
 
-struct CustomTextFieldStyle: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .padding(Increment.two)
-            .background(StudiumColor.tertiaryBackground.color)
-            .cornerRadius(Increment.one)
+                Text(self.day.buttonText)
+                    .font(StudiumFont.subText.font)
+                    .foregroundStyle(StudiumFont.body.color)
+                    .padding(2)
+            }
+        } else {
+            Text(self.day.buttonText)
+                .font(StudiumFont.subText.font)
+                .foregroundStyle(StudiumColor.primaryAccent.color)
+            
+        }
     }
 }
-
-extension View {
-    func customTextFieldStyle() -> some View {
-        self.modifier(CustomTextFieldStyle())
+struct DaysView: View {
+    @State var selectedDays: Set<Weekday>
+    
+    var body: some View {
+        HStack(alignment: .center) {
+            ForEach(Weekday.allKnownCases, id: \.self) { weekday in
+                DayView(day: weekday, isSelected: self.selectedDays.contains(weekday))
+                    .frame(maxWidth: .infinity)
+            }
+        }
     }
 }
-
 struct AssignmentViewAIResourceProvider: View {
     @ObservedRealmObject var assignment: Assignment
     
@@ -140,6 +151,7 @@ struct AssignmentViewAIResourceProvider: View {
     @State var keyword2: String = ""
     @State var keyword3: String = ""
     
+    @State var aiResourceProviderIsHidden: Bool = false
     
     var keywords: [String] {
         [self.keyword1, self.keyword2, self.keyword3]
@@ -151,50 +163,67 @@ struct AssignmentViewAIResourceProvider: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: Increment.three) {
-            HStack(spacing: Increment.one) {
-                SmallIcon(image: StudiumIcon.robot.uiImage)
-                StudiumSubtitle("AI Resource Provider")
+            HStack {
+                AssignmentViewSectionTitle(icon: StudiumIcon.robot.uiImage, title: "AI Resource Provider")
+                Spacer()
+                Button {
+                    withAnimation {
+                        self.aiResourceProviderIsHidden.toggle()
+                    }
+                } label: {
+                    Text(self.aiResourceProviderIsHidden ? "Show" : "Hide")
+                        .foregroundStyle(StudiumColor.link.color)
+                        .font(StudiumFont.body.font)
+                }
             }
             
-//            switch self.$assignment.resourceProviderState {
-//            case .noResourcesProvided:
-            if self.assignment.resourcesAreLoading {
-                HStack(alignment: .center) {
-                    Spacer()
-                    Spinner()
-                        .frame(width: Increment.eight, height: Increment.eight)
-                    Spacer()
-                }
-            } else if self.assignment.resourceLinks.isEmpty {
-                VStack(spacing: Increment.two) {
-                    TextField("Keyword 1", text: $keyword1)
-                        .customTextFieldStyle()
-                    
-                    TextField("Keyword 2", text: $keyword2)
-                        .customTextFieldStyle()
-                    
-                    TextField("Keyword 3", text: $keyword3)
-                        .customTextFieldStyle()
-                    
-                    Button {
-                        ChatGPTService.shared.generateResources(forAssignment: self.assignment, keywords: self.keywords)
-                    } label: {
-                        Text("Find Resources")
-                            .frame(maxWidth: .infinity)
-                            .padding(Increment.one)
+            if !self.aiResourceProviderIsHidden {
+                if self.assignment.resourcesAreLoading {
+                    HStack(alignment: .center) {
+                        Spacer()
+                        Spinner()
+                            .frame(width: Increment.eight, height: Increment.eight)
+                        Spacer()
                     }
-                    .buttonStyle(StudiumButtonStyle(disabled: self.resourcesButtonIsDisabled))
-                    .disabled(self.resourcesButtonIsDisabled)
-                }
-            } else {
-                
-                //            case .loading:
-                
-                
-                //            case .resourcesProvided(let links):
-                VStack(alignment: .leading, spacing: Increment.two) {
-                    ForEach(self.assignment.resourceLinks, id: \.self) { linkConfig in
-                        StudiumLinkView(linkConfig)
+                } else if self.assignment.resourceLinks.isEmpty {
+                    VStack(spacing: Increment.two) {
+                        TextField("", text: self.$keyword1)
+                            .placeholder(when: self.keyword1.isEmpty, placeholder: {
+                                Text("Keyword 1").foregroundColor(StudiumFont.placeholder.color)
+                            })
+                            .customTextFieldStyle()
+                        
+                        TextField(
+                            "",
+                            text: self.$keyword2
+                        )
+                        .placeholder(when: self.keyword2.isEmpty, placeholder: {
+                            Text("Keyword 2").foregroundColor(StudiumFont.placeholder.color)
+                        })
+                        .customTextFieldStyle()
+                        
+                        TextField("", text: self.$keyword3)
+                            .placeholder(when: self.keyword3.isEmpty, placeholder: {
+                                Text("Keyword 3").foregroundColor(StudiumFont.placeholder.color)
+                            })
+                            .customTextFieldStyle()
+                        
+                        Button {
+                            ChatGPTService.shared.generateResources(forAssignment: self.assignment, keywords: self.keywords)
+                        } label: {
+                            Text("Find Resources")
+                                .frame(maxWidth: .infinity)
+                                .padding(Increment.one)
+                        }
+                        .buttonStyle(StudiumButtonStyle(disabled: self.resourcesButtonIsDisabled))
+                        .disabled(self.resourcesButtonIsDisabled)
+                    }
+                    .transition(.scale)
+                } else {
+                    VStack(alignment: .leading, spacing: Increment.two) {
+                        ForEach(self.assignment.resourceLinks, id: \.self) { linkConfig in
+                            StudiumLinkView(linkConfig)
+                        }
                     }
                 }
             }
@@ -204,40 +233,77 @@ struct AssignmentViewAIResourceProvider: View {
 }
 
 
+extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
+        }
+    }
+}
+
+
+struct StudiumEventViewDivider: View {
+    var body: some View {
+        Divider()
+            .background(StudiumColor.primaryLabel.color)
+    }
+}
+
 struct AssignmentView: View {
     @ObservedRealmObject var assignment: Assignment
-    
+    let pdfUrlWasPressed: (URL) -> Void
     var body: some View {
-        VStack {
+        if !self.assignment.isInvalidated {
             ZStack {
-                Rectangle()
-                    .foregroundStyle(StudiumColor.primaryAccent.color)
-                    .frame(height: Increment.eight * 2)
-                    .padding(0)
-                AssignmentViewHeader(assignment: assignment)
-                    .padding(.horizontal, Increment.three)
-            }
-            
-            VStack(alignment: .leading, spacing: Increment.three)  {
-                AssignmentViewDetails(assignment: self.assignment)
-                Divider()
-                    .background(StudiumColor.primaryLabel.color)
-                AssignmentViewAIResourceProvider(assignment: self.assignment)
-                Divider()
-                    .background(StudiumColor.primaryLabel.color)
-                VStack(alignment: .leading, spacing: Increment.two) {
-                    HStack(alignment: .top) {
-                        SmallIcon(image: SystemIcon.paragraphSign.createImage())
-                        StudiumSubtitle("Additional Details")
+                StudiumColor.background.color
+                    .ignoresSafeArea()
+                VStack(spacing: Increment.two) {
+                    StudiumEventViewHeader(icon: self.assignment.icon.uiImage, color: Color(uiColor: self.assignment.color), primaryTitle: self.assignment.name, secondaryTitle: self.assignment.parentCourse?.name ?? "")
+
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: Increment.three)  {
+                            AssignmentViewDetails(assignment: self.assignment, pdfUrlWasPressed: self.pdfUrlWasPressed)
+       
+                            StudiumEventViewDivider()
+
+                            if self.assignment.autoscheduling {
+                                AssignmentViewStudyTime(assignment: self.assignment)
+                                StudiumEventViewDivider()
+                            }
+                            
+                            AssignmentViewAIResourceProvider(assignment: self.assignment)
+                            
+                            StudiumEventViewDivider()
+//                            Spacer()
+
+                            VStack(alignment: .leading) {
+                                HStack(alignment: .top) {
+                                    SmallIcon(image: SystemIcon.paragraphSign.createImage())
+                                    StudiumSubtitle("Additional Details")
+                                }
+                                
+                                if self.assignment.additionalDetails.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                    StudiumSubtext("No Additional Details Provided")
+                                } else {
+                                    StudiumText(self.assignment.additionalDetails)
+                                }
+                            }
+                        }
+                        .padding(.horizontal, Increment.three)
+                        .padding(.top, Increment.three)
                     }
                     
-                    StudiumText(self.assignment.additionalDetails)
+                    Spacer()
                 }
-                
-                Spacer()
             }
-            .padding(.horizontal, Increment.three)
-            .padding(.top, Increment.three)
+            .navigationBarBackButtonHidden()
+        } else {
+            Spacer()
         }
     }
 }
@@ -271,10 +337,20 @@ enum LatenessStatus {
 }
 
 class AssignmentViewController: UIViewController {
-    let assignment: Assignment
     
-    init(assignment: Assignment) {
+    let assignment: Assignment
+    let editButtonPressed: () -> Void
+    let deleteButtonPressed: () -> Void
+    
+    init(
+        assignment: Assignment,
+        editButtonPressed: @escaping () -> Void,
+        deleteButtonPressed: @escaping () -> Void
+    ) {
         self.assignment = assignment
+        self.editButtonPressed = editButtonPressed
+        self.deleteButtonPressed = deleteButtonPressed
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -285,10 +361,34 @@ class AssignmentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupSwiftUI()
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.navigationController?.navigationBar.tintColor = StudiumColor.primaryLabelColor(forBackgroundColor: self.assignment.color)
+        
+//        StudiumColor.link.uiColor
+        
+        
+        let editImage = SystemIcon.pencilCircleFill.createImage()
+        
+        
+        
+        let editItem = UIBarButtonItem(image: editImage, style: .done, target: self, action: #selector(self.editAssignment))
+    
+        
+        let deleteItem = UIBarButtonItem(image: SystemIcon.trashCanCircleFill.createImage(), style: .done, target: self, action: #selector(self.deleteAssignment))
+//        deleteItem.tintColor = StudiumColor.failure.uiColor
+        
+        self.navigationItem.rightBarButtonItems = [
+            editItem,
+            deleteItem
+        ]
     }
     
     private func setupSwiftUI() {
-        let assignmentView = AssignmentView(assignment: self.assignment)
+        let assignmentView = AssignmentView(
+            assignment: self.assignment, pdfUrlWasPressed: { url in
+                self.openPDFViewController(url: url)
+            })
+        
         let hostingController = UIHostingController(rootView: assignmentView)
         self.addChild(hostingController)
         
@@ -304,14 +404,37 @@ class AssignmentViewController: UIViewController {
         
         hostingController.didMove(toParent: self)
     }
-}
-
-
-struct ContentView_Previews: PreviewProvider {
-    static let mockAssignment = Assignment(name: "Homework 4", additionalDetails: "Additional Details", complete: true, startDate: Date(), endDate: Date()+100000, notificationAlertTimes: [], autoscheduling: true, autoLengthMinutes: 60, autoDays: Set(), parentCourse: Course(name: "CS 320", location: "Building A", additionalDetails: "Hello World", startDate: Date(), endDate: Date(), color: .green, icon: .atom, alertTimes: []))
     
-    static var previews: some View {
-
-        AssignmentView(assignment: mockAssignment)
+    func openPDFViewController(url: URL) {
+        let pdfViewController = PDFViewController(pdfURL: url)
+        self.navigationController?.pushViewController(pdfViewController, animated: true)
+    }
+    
+    @objc private func editAssignment() {
+        self.editButtonPressed()
+    }
+    
+    @objc private func deleteAssignment() {
+        self.deleteButtonPressed()
     }
 }
+
+
+//struct ContentView_Previews: PreviewProvider {
+//    
+//    static var weekdays: Set<Weekday> {
+//        var set = Set<Weekday>()
+//        set.insert(.wednesday)
+//        set.insert(.monday)
+//        return set
+//    }
+//    
+//    static let mockAssignment = Assignment(name: "Homework 4", additionalDetails: "Additional Details", complete: true, startDate: Date(), endDate: Date()+100000, notificationAlertTimes: [], autoscheduling: true, autoLengthMinutes: 60, autoDays: weekdays, parentCourse: Course(name: "CS 320", location: "Building A", additionalDetails: "Hello World", startDate: Date(), endDate: Date(), color: .green, icon: .atom, alertTimes: []))
+//    
+//    static var previews: some View {
+//        AssignmentView(
+//            assignment: mockAssignment,
+//            pdfUrlWasPressed: { _ in }
+//        )
+//    }
+//}

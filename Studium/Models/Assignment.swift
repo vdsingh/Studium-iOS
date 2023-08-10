@@ -85,6 +85,17 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
     var dueDateString: String {
         return self.endDate.format(with: .full)
     }
+    
+    /// Assignment Icon should be whatever the parent course's icon is
+    override var icon: StudiumIcon {
+        get { return self.parentCourse?.icon ?? .book }
+        set { }
+    }
+    
+    override var color: UIColor {
+        get { return self.parentCourse?.color ?? StudiumColor.primaryAccent.uiColor }
+        set { }
+    }
 
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
     convenience init(
