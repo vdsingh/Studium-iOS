@@ -27,7 +27,7 @@ class CalendarViewController: UIViewController, Storyboarded {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "No Events"
         label.font = StudiumFont.placeholder.uiFont
-        label.textColor = StudiumFont.placeholder.color
+        label.textColor = StudiumFont.placeholder.uiColor
         return label
     }()
     

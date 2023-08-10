@@ -92,7 +92,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     //MARK: - Delegate Methods
     
     //TODO: Docstrings
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let course = eventsArray[indexPath.section][indexPath.row] as? Course else {
             self.showError(.failedCast(objectString: "\(eventsArray[indexPath.section][indexPath.row])", intendedTypeString: "Course"))
             return

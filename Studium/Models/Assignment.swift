@@ -57,16 +57,6 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
         }
     }
     
-//    var resourceProviderState: ResourceProviderState {
-//        if self.resourcesAreLoading {
-//            return .loading
-//        } else if self.resourceLinks.isEmpty {
-//            return .noResourcesProvided
-//        } else {
-//            return .resourcesProvided(links: self.resourceLinks)
-//        }
-//    }
-    
     // TODO: Docstrings
     var autoscheduledEvents: [OtherEvent] {
         return [OtherEvent](self.autoscheduledEventsList)
@@ -124,9 +114,6 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
                 
         self.alertTimes = notificationAlertTimes
 
-//        let newDaysList = List<Int>()
-//        newDaysList.append(objectsIn: autoDays.compactMap{ $0.rawValue })
-//        self.autoscheduil = newDaysList
         self.autoschedulingDays = autoDays
         
         self.parentCourse = parentCourse

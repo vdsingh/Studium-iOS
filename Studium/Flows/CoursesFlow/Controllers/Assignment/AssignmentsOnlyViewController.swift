@@ -12,7 +12,7 @@ import VikUtilityKit
 import SwiftUI
 
 /// TableViewController that only displays Assignments
-class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISearchBarDelegate, AssignmentRefreshProtocol, ToDoListRefreshProtocol, Coordinated, Storyboarded {
+class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISearchBarDelegate, ToDoListRefreshProtocol, Coordinated, Storyboarded {
     
     // TODO: Docstring
     weak var coordinator: CoursesCoordinator?
@@ -38,31 +38,7 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
         self.title = "Courses"
         self.sectionHeaders = ["To Do:", "Turned In:"]
         self.eventTypeString = "Assignments"
-        
-        
-//        let gradesButton = UIBarButtonItem(image: SystemIcon.graduationcap.createImage(), style: .plain, target: self, action: #selector(self.gradesButtonPressed))
-//        self.navigationItem.rightBarButtonItems?.append(gradesButton)
-        
-//        let finishSetupView = Detail
-//        let viewModel = AcademicAdvisorViewModel(image: nil, title: "Academic Advisor", subtitle: "Finish Setup", buttonText: "Add Office Hours", buttonAction: {})
         let viewModel = AcademicAdvisorViewModel(image: nil, title: "Academic Advisor", subtitle: "Finish Setup", buttonText: "Add Office Hours", buttonAction: {})
-//        viewModel.setTextAlignment(.leading)
-        let hostingController = UIHostingController(rootView: AcademicAdvisorView(viewModel: viewModel))
-//        let hostingController = UIHostingController(rootView: AcademicAdvisorView(viewModel: viewModel))
-//        self.hostingController = hostingController
-//        self.addChild(hostingController)
-//        hostingController.view.backgroundColor = .clear
-//        if let hostingControllerView = hostingController.view {
-//            hostingControllerView.translatesAutoresizingMaskIntoConstraints = false
-//            hostingController.didMove(toParent: self)
-//            self.tableView.addSubview(hostingControllerView)
-//            
-//            NSLayoutConstraint.activate([
-//                hostingControllerView.centerXAnchor.constraint(equalTo: self.tableView .centerXAnchor),
-//                hostingControllerView.topAnchor.constraint(equalTo: self.tableView.topAnchor, constant: 50)
-//            ])
-//        }
-//        self.insertViewIntoStack(subView: hostingController.view, at: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -151,10 +127,16 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         self.unwrapCoordinatorOrShowError()
 
+        //TODO: Fix force unwrap
         if let assignmentForEdit = deletableEventCell.event! as? Assignment {
-            self.coordinator?.showEditAssignmentViewController(refreshDelegate: self, assignmentToEdit: assignmentForEdit)
+            self.editAssignment(assignmentForEdit)
         } else if let otherEventForEdit = deletableEventCell.event! as? OtherEvent {
             self.coordinator?.showEditOtherEventViewController(refreshDelegate: self, otherEventToEdit: otherEventForEdit)
         }
+    }
+    
+    override func editAssignment(_ assignment: Assignment) {
+        self.coordinator?.showEditAssignmentViewController(refreshDelegate: self, assignmentToEdit: assignment)
+//        self.navigationController.push
     }
 }

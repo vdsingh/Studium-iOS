@@ -25,7 +25,6 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
     
     //TODO: Docstrings
     let databaseService: DatabaseServiceProtocol
-//    let databaseService: DatabaseService
     
     static let shared = AutoscheduleService(databaseService: DatabaseService.shared)
     
@@ -123,7 +122,7 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
         
         // The start bound can't occur after the end bound
         if(startBound > endBound) {
-            print("$ERR (AutoscheduleService): start bound cannot occur after end bound")
+            Log.e("start bound cannot occur after end bound")
             return []
         }
         

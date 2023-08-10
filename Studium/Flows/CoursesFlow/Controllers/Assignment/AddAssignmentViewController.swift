@@ -67,7 +67,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
                 assignment: assignment
             )
         } else {
-            navButton.image = SystemIcon.plus.createImage()
+            self.navButton.image = SystemIcon.plus.createImage()
         }
     }
     
@@ -80,7 +80,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
                 .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.uiImage, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
             [
-                .switchCell(cellText: "Schedule Time to Work", isOn: self.autoscheduleWorkTime, switchDelegate: self, infoDelegate: self)
+                .switchCell(cellText: "Autoschedule Work Time", isOn: self.autoscheduleWorkTime, switchDelegate: self, infoDelegate: self)
             ],
             [
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: 300, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)

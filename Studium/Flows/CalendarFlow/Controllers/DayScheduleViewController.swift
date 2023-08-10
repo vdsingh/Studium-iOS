@@ -240,30 +240,30 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     }
     
     //TODO: Docstrings
-    override func dayView(dayView: DayView, didTapTimelineAt date: Date) {
+    func dayView(dayView: DayView, didTapTimelineAt date: Date) {
         endEventEditing()
         print("Did Tap at date: \(date)")
     }
     
-    override func dayViewDidBeginDragging(dayView: DayView) {
+    func dayViewDidBeginDragging(dayView: DayView) {
         print("DayView did begin dragging")
     }
     
-    override func dayView(dayView: DayView, willMoveTo date: Date) {
+    func dayView(dayView: DayView, willMoveTo date: Date) {
 //        print("DayView = \(dayView) will move to: \(date)")
     }
     
-    override func dayView(dayView: DayView, didMoveTo date: Date) {
+    func dayView(dayView: DayView, didMoveTo date: Date) {
         self.updateTitle(selectedDate: date)
     }
     
-    override func dayView(dayView: DayView, didLongPressTimelineAt date: Date) {
+    func dayView(dayView: DayView, didLongPressTimelineAt date: Date) {
         print("Did long press timeline at date \(date)")
         // Cancel editing current event and start creating a new one
         endEventEditing()
     }
 
-    override func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
+    func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
         print("did finish editing lol \(event)")
         print("new startDate: \(event.dateInterval.start) new endDate: \(event.dateInterval.end)")
         
