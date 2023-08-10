@@ -103,13 +103,9 @@ class MasterForm: TableViewForm, Debuggable {
             guard let colorCell = tableView.cellForRow(at: IndexPath(row: colorCellRow, section: 2)) as? ColorPickerCell else {
                 return
             }
+            
             destinationVC.color = colorCell.colorPreview.backgroundColor ?? StudiumColor.primaryLabel.uiColor
         }
-        
-//        else if let destinationVC = segue.destination as? AlertTimeSelectionForm {
-//            destinationVC.delegate = self
-//            destinationVC.setSelectedAlertOptions(alertOptions: self.alertTimes)
-//        }
     }
     
     func findErrors() -> [StudiumFormError] {
@@ -192,21 +188,21 @@ extension MasterForm {
     
     // TODO: Docstrings
     func timeCellClicked(indexPath: IndexPath) {
-        guard let timeCell = tableView.cellForRow(at: indexPath) as? TimeCell else {
+        guard let timeCell = self.tableView.cellForRow(at: indexPath) as? TimeCell else {
             Log.s(MasterForm.StudiumError.cellTypeMismatch, additionalDetails: "timeCellClicked was called in \(String(describing: self)) at indexPath \(indexPath) however the cell at this indexPath could not be optionally unwrapped as a TimeCell. The cell: \(String(describing: tableView.cellForRow(at: indexPath)))")
             return
         }
         
         var timeCellIndex = indexPath.row
-        tableView.beginUpdates()
+        self.tableView.beginUpdates()
         
         // Find the first time picker (if there is one) and remove it
         if let indexOfFirstTimePicker = self.findFirstTimePickerCellIndex(section: indexPath.section) {
-            cells[indexPath.section].remove(at: indexOfFirstTimePicker)
-            tableView.deleteRows(at: [IndexPath(row: indexOfFirstTimePicker, section: indexPath.section)], with: .right)
+            self.cells[indexPath.section].remove(at: indexOfFirstTimePicker)
+            self.tableView.deleteRows(at: [IndexPath(row: indexOfFirstTimePicker, section: indexPath.section)], with: .right)
             /// Clicked on time cell while corresopnding timepicker is already expanded.
             if indexOfFirstTimePicker == indexPath.row + 1 {
-                tableView.endUpdates()
+                self.tableView.endUpdates()
                 return
                 // Clicked on time cell while above timepicker is expanded
             } else if indexOfFirstTimePicker == indexPath.row - 1 {
@@ -226,6 +222,7 @@ extension MasterForm {
                     id: timePickerID,
                     delegate: self
                 ),
+//                .datePickerCell,
                 at: timeCellIndex + 1
             )
         case .startTimeCell:
@@ -278,9 +275,6 @@ extension MasterForm: UITimePickerDelegate {
                 pickerDate = Calendar.current.date(from: components)
                 
             }
-            
-            //            correspondingTimeCell.timeLabel.text = pickerDate!.format(with: correspondingTimeCell.getDateFormat())
-            //            correspondingTimeCell.setDateFormat()
         } else {
             print("$ERR (MasterFormClass): date is nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
         }
@@ -432,7 +426,7 @@ extension MasterForm {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cell = cells[indexPath.section][indexPath.row]
         switch cell{
-        case .pickerCell, .timePickerCell, .colorPickerCell, .errorCell:
+        case .pickerCell, .timePickerCell, .colorPickerCell, .colorPickerCellV2, .errorCell:
             return kLargeCellHeight
         case .logoCell:
             return kMediumCellHeight

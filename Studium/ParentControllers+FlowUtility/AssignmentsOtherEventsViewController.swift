@@ -10,16 +10,14 @@ import Foundation
 import VikUtilityKit
 import UIKit
 
-protocol ForegroundSubscriber {
-    func willEnterForeground()
-}
-
 //TODO: Docstrings
-class AssignmentsOtherEventsViewController: StudiumEventListViewController, ForegroundSubscriber {
+class AssignmentsOtherEventsViewController: StudiumEventListViewController, AssignmentRefreshProtocol, ForegroundSubscriber {
     
     override var debug: Bool {
         return true
     }
+    
+//    var coordinator: Coordinator?
     
     //TODO: Docstrings
     var assignmentsExpandedSet = Set<Assignment>()
@@ -39,32 +37,56 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Fore
     
     /// Reloads/sorts the data and refreshes the TableView
     func reloadData() { }
+    
+    func editAssignment(_ assignment: Assignment) {
+        Log.e("editAssignment called from superclass when it should be implemented in subclass.")
+        PopUpService.shared.presentGenericError()
+    }
+    
+    func editOtherEvent(_ otherEvent: OtherEvent) {
+        Log.e("editOtherEvent called from superclass when it should be implemented in subclass.")
+        PopUpService.shared.presentGenericError()
+    }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("Selected row \(indexPath.row)")
         if let assignment = self.eventsArray[indexPath.section][indexPath.row] as? Assignment,
            let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1 {
-            let vc = AssignmentViewController(assignment: assignment)
-            self.present(vc, animated: true)
-//            self.handleEventsClose(assignment: assignment)
+            let vc = AssignmentViewController(
+                assignment: assignment,
+                editButtonPressed: {
+                    self.editAssignment(assignment)
+                },
+                deleteButtonPressed: {
+                    PopUpService.shared.presentDeleteAlert {
+                        self.navigationController?.popViewController(animated: true)
+                        self.studiumEventService.deleteStudiumEvent(assignment)
+                        self.reloadData()
+                    }
+                }
+            )
             
-//            self.studiumEventService.markComplete(assignment, !assignment.complete)
-//            if assignment.autoscheduled {
-//                tableView.reloadData()
-//            } else {
-//                reloadData()
-//            }
-//            self.reloadData()
-//            tableView.deselectRow(at: indexPath, animated: true)
+            self.navigationController?.modalPresentationStyle = .formSheet
+            self.navigationController?.pushViewController(vc, animated: true)
         } else if let otherEventCell = tableView.cellForRow(at: indexPath) as? OtherEventCell,
            let otherEvent = otherEventCell.event as? OtherEvent {
             print("$LOG: Selected an otherEventCell")
-            self.studiumEventService.markComplete(otherEvent, !otherEvent.complete)
-//            if otherEvent.autoscheduled {
-//                tableView.reloadData()
-//            } else {
-//                reloadData()
-//            }
+            let vc = OtherEventViewController(
+                otherEvent: otherEvent,
+                editButtonPressed: {
+                    self.editOtherEvent(otherEvent)
+                },
+                deleteButtonPressed: {
+                    PopUpService.shared.presentDeleteAlert {
+                        self.navigationController?.popViewController(animated: true)
+                        self.studiumEventService.deleteStudiumEvent(otherEvent)
+                        self.reloadData()
+                    }
+                }
+            )
+            
+            self.navigationController?.modalPresentationStyle = .formSheet
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         
         self.reloadData()
@@ -99,7 +121,14 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Fore
             super.swipeCellId = OtherEventCell.id
             if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? OtherEventCell {
                 cell.event = otherEvent
-                cell.loadData(from: otherEvent)
+                cell.loadData(
+                    from: otherEvent,
+                    checkboxWasTappedCallback: {
+                        self.studiumEventService.markComplete(otherEvent, !otherEvent.complete)
+                        self.reloadData()
+                    }
+                )
+                
                 return cell
             }
         }
@@ -141,7 +170,7 @@ extension AssignmentsOtherEventsViewController: AssignmentCollapseDelegate {
             print("$ERR (AssignmentsViewController): problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
         }
         
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
 
     /// Handles the closing of autoscheduled events for an Assignment

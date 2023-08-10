@@ -13,6 +13,8 @@ import SwiftUI
 
 //TODO: Docstrings
 class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
+    
+//    let coordinator: Coordinator
 
     // TODO: Docstrings
     let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
@@ -39,6 +41,14 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
     }()
     
     private var hostingController: UIHostingController<ImageDetailView>?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Set the color of the navigation bar button text
+        self.navigationController?.navigationBar.tintColor = StudiumColor.secondaryAccent.uiColor
+        self.navigationController?.navigationBar.barTintColor = StudiumColor.background.uiColor
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,9 +70,7 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
 
-        // Set the color of the navigation bar button text
-        self.navigationController?.navigationBar.tintColor = StudiumColor.secondaryAccent.uiColor
-        self.navigationController?.navigationBar.barTintColor = StudiumColor.background.uiColor
+
         self.navigationItem.title = self.eventTypeString
         self.navigationController?.navigationBar.prefersLargeTitles = true
 
@@ -92,7 +100,9 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
             
             NSLayoutConstraint.activate([
                 hostingControllerView.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
-                hostingControllerView.topAnchor.constraint(equalTo: self.tableView.topAnchor, constant: 50)
+                hostingControllerView.topAnchor.constraint(equalTo: self.tableView.topAnchor, constant: 50),
+                hostingControllerView.leadingAnchor.constraint(equalTo: self.tableView.leadingAnchor),
+                hostingControllerView.trailingAnchor.constraint(equalTo: self.tableView.trailingAnchor)
             ])
         }
     }
@@ -169,16 +179,43 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
         return headerView
     }
     
+    //TODO: Implement
     //TODO: Docstrings
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let eventCell = tableView.cellForRow(at: indexPath) as? DeletableEventCell {
-            if let event = eventCell.event as? CompletableStudiumEvent {
-                self.studiumEventService.markComplete(event, !event.complete)
-            } else {
-                Log.d("event is not completable")
-            }
-        }
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if let eventCell = tableView.cellForRow(at: indexPath) as? DeletableEventCell,
+//           let event = eventCell.event {
+//            
+//            if let assignment = event as? Assignment {
+//                self.assignmentWasSelected(assignment: assignment)
+//            }
+//            
+////            if let event = eventCell.event as? CompletableStudiumEvent {
+////                self.studiumEventService.markComplete(event, !event.complete)
+////            } else {
+////                Log.d("event is not completable")
+////            }
+//        }
+//    }
+    
+//    func assignmentWasSelected(assignment: Assignment) {
+//        let vc = AssignmentViewController(
+//            assignment: assignment,
+//            editButtonPressed: {
+//                self.editAssignmentWasSelected(assignment)
+//            },
+//            deleteButtonPressed: {
+//                
+//            }
+//        )
+//    }
+//    
+//    func editAssignmentWasSelected(_ assignment: Assignment) {
+//        
+//    }
+//    
+//    func deleteAssignmentWasSelected() {
+//        
+//    }
 
 // MARK: - TableView DataSource
 

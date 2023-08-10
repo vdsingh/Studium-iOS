@@ -109,6 +109,11 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, GoogleCal
         return 0
     }
     
+    var daysHoursMinsDueDateString: String {
+        let (days, hours, mins) = Date().daysMinsHours(until: self.endDate)
+        return "\(days) Days, \(hours) Hours, \(mins) Minutes"
+    }
+    
     //TODO: Docstrings
     convenience init(
         name: String,
@@ -185,13 +190,16 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, GoogleCal
         return "_id"
     }
 }
-//
-//extension StudiumEvent: Updatable {
-//    func updateFields(withNewEvent newEvent: StudiumEvent) {
-//        Log.s(StudiumEventError.updateFieldsCalled, additionalDetails: "updateFields called from StudiumEvent where it should be called from subclasses")
-//    }
-//}
-//
-//enum StudiumEventError: Error {
-//    case updateFieldsCalled
-//}
+
+extension Date {
+    func daysMinsHours(until date: Date) -> (days: Int, hours: Int, minutes: Int) {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day, .hour, .minute], from: self, to: date)
+        
+        let days = components.day ?? 0
+        let hours = components.hour ?? 0
+        let minutes = components.minute ?? 0
+        
+        return (days, hours, minutes)
+    }
+}

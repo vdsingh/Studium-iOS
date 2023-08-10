@@ -24,13 +24,7 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
         stack.backgroundColor = .cyan
         return stack
     }()
-//    
-//    private var scrollView: UIScrollView = {
-//        let scrollView = UIScrollView()
-//        scrollView.translatesAutoresizingMaskIntoConstraints = false
-//        return scrollView
-//    }
-//    
+
     var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -68,7 +62,7 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
     
     //TODO: Docstrings
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        self.printDebug("will try to dequeue a SwipeTableViewCell with id: \(self.swipeCellId)")
+        Log.d("will try to dequeue a SwipeTableViewCell with id: \(self.swipeCellId)")
         if let cell = tableView.dequeueReusableCell(withIdentifier:  self.swipeCellId, for: indexPath) as? SwipeTableViewCell {
             cell.delegate = self
             return cell
@@ -90,7 +84,7 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
     
     //TODO: Docstrings
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        if orientation == .right{
+        if orientation == .right {
             return self.rightActions
         } else {
             return self.leftActions
@@ -105,8 +99,8 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
         } else {
             options.expansionStyle = .selection
         }
-        options.transitionStyle = .border
         
+        options.transitionStyle = .border
         return options
     }
     
