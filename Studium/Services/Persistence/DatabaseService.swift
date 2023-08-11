@@ -20,14 +20,15 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     static let shared = DatabaseService()
     
     /// The Realm database instance
-    var realm: Realm {
+    var realm: Realm? {
         
         // If the user exists, establish a connection to realm using the User's ID
         if let user = AuthenticationService.shared.user {
             do {
                 return try Realm(configuration: user.configuration(partitionValue: user.id))
             } catch let error {
-                fatalError("$ERR: issue accessing Realm: \(String(describing: error))")
+                Log.e(error)
+                return nil
             }
         } else {
             AuthenticationService.shared.handleLogOut { error in
@@ -36,7 +37,8 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
                 }
             }
             
-            fatalError("$ERR: tried to access Realm before user logged in. User Logged In: \(AuthenticationService.shared.userIsLoggedIn)")
+            Log.e("Realm is nil")
+            return nil
         }
     }
     
@@ -57,25 +59,21 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
             
         }
         
-        printDebug("saving event \(studiumEvent)")
-        do {
-            try self.realm.write {
-                self.realm.add(studiumEvent)
-                realmWriteCompletion()
-            }
-        } catch let error {
-            Log.s(error, additionalDetails: "tried to save studiumEvent \(studiumEvent) but failed.")
+        Log.d("saving event \(studiumEvent)")
+        self.realmWrite { realm in
+            realm.add(studiumEvent)
+            realmWriteCompletion()
         }
     }
     
     func saveAutoscheduledEvent<T: Autoscheduling>(autoscheduledEvent: T.AutoscheduledEventType, autoschedulingEvent: T) {
-        self.realmWrite {
+        self.realmWrite { _ in
             autoschedulingEvent.appendAutoscheduledEvent(event: autoscheduledEvent)
         }
     }
     
     func saveContainedEvent<T: StudiumEventContainer>(containedEvent: T.ContainedEventType, containerEvent: T) {
-        self.realmWrite {
+        self.realmWrite { _ in
             containerEvent.appendContainedEvent(containedEvent: containedEvent)
         }
         
@@ -94,9 +92,14 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     // MARK: - Read
     
     public func getStudiumEvent<T: Object>(withPrimaryKey id: String, type: T.Type) -> T? {
+        guard let realm = self.realm else {
+            Log.e("Realm is nil")
+            PopUpService.shared.presentGenericError()
+            return nil
+        }
         
         let objectId = try! ObjectId(string: id)
-        if let studiumEvent = self.realm.object(ofType: T.self, forPrimaryKey: objectId ) {
+        if let studiumEvent = realm.object(ofType: T.self, forPrimaryKey: objectId ) {
             return studiumEvent
         }
         
@@ -107,7 +110,13 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     /// - Parameter type: The type of StudiumEvent we want to retrieve
     /// - Returns: All StudiumEvent objects of the specified type
     public func getStudiumObjects <T: StudiumEvent> (expecting type: T.Type) -> [T] {
-        return [T](self.realm.objects(type))
+        guard let realm = self.realm else {
+            Log.e("Realm is nil")
+            PopUpService.shared.presentGenericError()
+            return []
+        }
+        
+        return [T](realm.objects(type))
     }
     
     /// Gets all of the StudiumEvents in the database
@@ -135,22 +144,18 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     /// Retrieves the UserSettings object from the database
     /// - Returns: The UserSettings object from the database
     public func getUserSettings() -> UserSettings {
-        let settings = [UserSettings](self.realm.objects(UserSettings.self))
-        
-        do {
+        if let realm = self.realm {
+            let settings = [UserSettings](realm.objects(UserSettings.self))
             if let first = settings.first {
                 return first
             } else {
                 let settings = UserSettings()
-                try self.realm.write {
-                    self.realm.add(settings)
+                self.realmWrite { realm in
+                    realm.add(settings)
                 }
                 
                 return settings
             }
-        } catch let error {
-            // Error handling
-            print("$ERR (DatabaseService): \(error.localizedDescription)")
         }
         
         return UserSettings()
@@ -170,7 +175,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     ///   - complete: Whether or not the event should be complete or not
     public func markComplete(_ completableEvent: CompletableStudiumEvent, _ complete: Bool) {
         //TODO: Delete assignment notifications when complete, add when incomplete.
-        self.realmWrite {
+        self.realmWrite { _ in
             completableEvent.complete = complete
         }
     }
@@ -185,7 +190,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         realmWriteCompletion: @escaping () -> Void
     ) {
         printDebug("editing StudiumEvent. \nOld Event: \(oldEvent). \nNew Event: \(updatedEvent)")
-        self.realmWrite {
+        self.realmWrite { _ in
             oldEvent.updateFields(withNewEvent: updatedEvent)
             realmWriteCompletion()
         }
@@ -197,7 +202,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     ///   - wakeUpTime: The time that the user plans to wake up
     public func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date) {
         let settings = self.getUserSettings()
-        self.realmWrite {
+        self.realmWrite { _ in
             settings.setWakeUpTime(for: weekday, wakeUpTime: wakeUpTime)
         }
     }
@@ -205,19 +210,19 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     // TODO: Docstrings
     public func setDefaultAlertOptions(alertOptions: [AlertOption]) {
         let settings = self.getUserSettings()
-        self.realmWrite {
+        self.realmWrite { _ in
             settings.setDefaultAlertOptions(alertOptions: alertOptions)
         }
     }
     
     public func updateAppleCalendarEventID(studiumEvent: StudiumEvent, appleCalendarEventID: String) {
-        self.realmWrite {
+        self.realmWrite { _ in
             studiumEvent.ekEventID = appleCalendarEventID
         }
     }
     
     public func updateGoogleCalendarEventID(studiumEvent: StudiumEvent, googleCalendarEventID: String) {
-        self.realmWrite {
+        self.realmWrite { _ in
             studiumEvent.googleCalendarEventID = googleCalendarEventID
         }
     }
@@ -245,11 +250,11 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
             }
         }
         
-        self.realmWrite {
+        self.realmWrite { realm in
             eventWillDelete()
             if !studiumEvent.isInvalidated {
                 Log.d("Deleting studiumEvent \(studiumEvent.name)")
-                self.realm.delete(studiumEvent)
+                realm.delete(studiumEvent)
                 
             } else {
                 Log.e("Tried to delete StudiumEvent \(studiumEvent), but it was invalidated.")
@@ -257,11 +262,18 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         }
     }
     
-    // TODO: Docstrings
-    func realmWrite(_ writeBlock: () -> Void) {
+    /// Safely write to realm database
+    /// - Parameter writeBlock: Safe closure to work in database
+    func realmWrite(_ writeBlock: (Realm) -> Void) {
+        guard let realm = self.realm else{
+            Log.e("Realm is nil.")
+            PopUpService.shared.presentGenericError()
+            return
+        }
+        
         do {
-            try self.realm.safeWrite {
-                writeBlock()
+            try realm.safeWrite {
+                writeBlock(realm)
             }
         } catch let error {
             Log.e(error)
