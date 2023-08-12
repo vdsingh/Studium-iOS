@@ -13,8 +13,8 @@ import VikUtilityKit
 protocol DatabaseServiceProtocol {
     
     // Create
-    func saveStudiumObject(_ studiumEvent: StudiumEvent, realmWriteCompletion: @escaping () -> Void)
-    func saveContainedEvent<T: StudiumEventContainer>(containedEvent: T.ContainedEventType, containerEvent: T)
+//    func saveStudiumObject(_ studiumEvent: StudiumEvent, realmWriteCompletion: @escaping () -> Void)
+    func saveContainedEvent<T: StudiumEventContainer>(containedEvent: T.ContainedEventType, containerEvent: T, autoscheduleCompletion: @escaping () -> Void)
     func saveAutoscheduledEvent<T: Autoscheduling>(autoscheduledEvent: T.AutoscheduledEventType, autoschedulingEvent: T)
     func setDefaultAlertOptions(alertOptions: [AlertOption])
 

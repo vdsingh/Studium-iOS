@@ -111,8 +111,23 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
             if let assignmentEditing = self.assignmentEditing {
                 self.studiumEventService.updateStudiumEvent(oldEvent: assignmentEditing, updatedEvent: newAssignment)
             } else {
+                if newAssignment.autoscheduling {
+                    self.databaseService.realmWrite { _ in
+                        newAssignment.isGeneratingEvents = true
+                    }
+                }
+                
                 // DatabaseService will handle autoscheduling.
-                self.databaseService.saveContainedEvent(containedEvent: newAssignment, containerEvent: self.selectedCourse)
+                self.databaseService.saveContainedEvent(
+                    containedEvent: newAssignment,
+                    containerEvent: self.selectedCourse,
+                    autoscheduleCompletion: {
+                        self.databaseService.realmWrite { _ in
+                            newAssignment.isGeneratingEvents = false
+                        }
+                        self.refreshDelegate?.reloadData()
+                    }
+                )
             }
             
             self.refreshDelegate?.reloadData()
@@ -137,7 +152,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     /// Called when user clicks the cancel button
     /// - Parameter sender: Button that the user clicked to cancel
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        dismiss(animated: true)
+        self.dismiss(animated: true)
     }
     
     /// Fills the form with information from an Assignment

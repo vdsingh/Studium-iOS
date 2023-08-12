@@ -51,6 +51,8 @@ class AssignmentCell1: DeletableEventCell {
     /// button that allows user to expand list of autoscheduled events (if there are any)
     @IBOutlet weak var expandEventsButton: UIButton!
     
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
     /// a delegate that allows us to expand assignment cells that have autoscheduled events
     var assignmentCollapseDelegate: AssignmentCollapseDelegate?
     
@@ -69,6 +71,8 @@ class AssignmentCell1: DeletableEventCell {
         self.iconBackground.isUserInteractionEnabled = true
         self.iconBackground.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.checkboxWasTapped)))
         self.setIsExpanded(isExpanded: false)
+        
+        self.loadingIndicator.hidesWhenStopped = true
     }
     
     @objc func checkboxWasTapped() {
@@ -94,7 +98,6 @@ class AssignmentCell1: DeletableEventCell {
         
         self.checkboxWasTappedCallback = checkboxWasTappedCallback
         
-        //TODO: Fix force unwrap
         
         // Create an attributed string for the assignment's name (the main label). This is so that when the assignment is marked complete, we can put a slash through the label.
         let primaryTextAttributeString = NSMutableAttributedString(string: self.event!.name)
@@ -124,10 +127,12 @@ class AssignmentCell1: DeletableEventCell {
         self.iconBackground.tintColor = contrastingColor
         self.latenessIndicatorBackground.tintColor = contrastingColor
         self.accessoryView?.tintColor = contrastingColor
+        self.loadingIndicator.color = contrastingColor
+
 
         // Set all of the labels' texts
         self.subLabel.text = course.name
-        self.dueDateLabel.text = assignment.endDate.format(with: "MMM d, h:mm a")
+        self.dueDateLabel.text = assignment.endDate.format(with: DateFormat.fullDateWithTime.formatString)
 
         if assignment.complete {
             // if assignment is complete, make it's background color and icon color gray
@@ -206,6 +211,14 @@ class AssignmentCell1: DeletableEventCell {
     //TODO: Docstring
     func hideLatenessIndicator(hide: Bool) {
         self.latenessIndicator.isHidden = hide
+    }
+    
+    func setLoading(_ isLoading: Bool) {
+        if isLoading {
+            self.loadingIndicator.startAnimating()
+        } else {
+            self.loadingIndicator.stopAnimating()
+        }
     }
 }
 

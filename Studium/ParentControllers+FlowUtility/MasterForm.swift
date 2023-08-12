@@ -22,7 +22,7 @@ class MasterForm: TableViewForm, Debuggable {
         true
     }
     
-    let databaseService: DatabaseServiceProtocol = DatabaseService.shared
+    let databaseService: DatabaseService = DatabaseService.shared
 //    let autoscheduleService: AutoscheduleServiceProtocol = AutoscheduleService.shared
     
     let studiumEventService: StudiumEventService = StudiumEventService.shared

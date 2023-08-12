@@ -63,25 +63,25 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="IUd-aq-cj6">
-                                <rect key="frame" x="95" y="0.0" width="262" height="50"/>
+                                <rect key="frame" x="95" y="0.0" width="204.5" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Primary Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pF6-1U-gVs">
-                                        <rect key="frame" x="0.0" y="0.0" width="262" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="204.5" height="25.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="Yeo-7f-SgP">
-                                        <rect key="frame" x="0.0" y="28.5" width="262" height="21.5"/>
+                                        <rect key="frame" x="0.0" y="28.5" width="204.5" height="21.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Subtext" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuB-Zg-viJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="122" height="21.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="64.5" height="21.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Sep 26, 11:59PM" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Syo-Rz-w2J">
-                                                <rect key="frame" x="122" y="0.0" width="140" height="21.5"/>
+                                                <rect key="frame" x="64.5" y="0.0" width="140" height="21.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="140" id="lVI-Z1-9Vu"/>
                                                 </constraints>
@@ -97,7 +97,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIm-12-tok">
-                                <rect key="frame" x="372" y="0.0" width="30" height="50"/>
+                                <rect key="frame" x="314.5" y="0.0" width="30" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="pOu-zI-a7S"/>
                                     <constraint firstAttribute="height" constant="50" id="peH-Sf-fA9"/>
@@ -112,6 +112,10 @@
                                     <action selector="collapseButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="A5o-az-lRk"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Bco-Nh-DOu">
+                                <rect key="frame" x="382" y="0.0" width="20" height="50"/>
+                                <color key="tintColor" systemColor="systemCyanColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="EIm-12-tok" secondAttribute="trailing" id="3dm-fB-Qzy"/>
@@ -139,6 +143,7 @@
                 <outlet property="iconBackground" destination="ucK-HN-XaB" id="eMH-U3-l3Y"/>
                 <outlet property="latenessIndicator" destination="WU4-W6-TQJ" id="U4k-wh-dyc"/>
                 <outlet property="latenessIndicatorBackground" destination="pTg-gp-6El" id="xC5-yi-Ybw"/>
+                <outlet property="loadingIndicator" destination="Bco-Nh-DOu" id="bhl-Em-9mI"/>
                 <outlet property="primaryLabel" destination="pF6-1U-gVs" id="FeQ-6f-ykH"/>
                 <outlet property="subLabel" destination="wuB-Zg-viJ" id="siE-qp-gdy"/>
             </connections>
@@ -150,7 +155,10 @@
         <image name="circle.fill" catalog="system" width="128" height="123"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemCyanColor">
+            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

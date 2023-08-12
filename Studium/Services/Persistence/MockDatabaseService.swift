@@ -11,6 +11,14 @@ import RealmSwift
 import VikUtilityKit
 
 class MockDatabaseService: DatabaseServiceProtocol {
+    func saveContainedEvent<T>(containedEvent: T.ContainedEventType, containerEvent: T, autoscheduleCompletion: @escaping () -> Void) where T : StudiumEventContainer {
+        
+    }
+    
+    func saveAutoscheduledEvent<T>(autoscheduledEvent: T.AutoscheduledEventType, autoschedulingEvent: T, autoscheduleCompletion: @escaping () -> Void) where T : Autoscheduling {
+        
+    }
+    
     func updateEvent<T: Updatable>(oldEvent: T, updatedEvent: T.EventType, realmWriteCompletion: @escaping () -> Void) {
         
     }

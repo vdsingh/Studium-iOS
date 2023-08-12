@@ -48,6 +48,8 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
     
     @Persisted var resourcesAreLoading: Bool = false
     
+    @Persisted var isGeneratingEvents: Bool = false
+    
     var resourceLinks: [LinkConfig] {
         get { return [LinkConfig](self.resourceLinksList) }
         set {

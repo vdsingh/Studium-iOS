@@ -46,6 +46,8 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
     
     var useDatesAsBounds: Bool = true
     
+    @Persisted var isGeneratingEvents: Bool = false
+    
     //TODO: Docstrings
     convenience init(
         name: String,

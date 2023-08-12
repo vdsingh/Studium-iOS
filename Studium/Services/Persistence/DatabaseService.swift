@@ -12,6 +12,7 @@ import VikUtilityKit
 
 /// Service to interact with the Realm Database
 final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
+    
 
     let debug = true
     
@@ -46,14 +47,20 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     
     /// Saves a StudiumEvent to the database
     /// - Parameter studiumEvent: The StudiumEvent to save to the database
-    public func saveStudiumObject<T: StudiumEvent>(_ studiumEvent: T, realmWriteCompletion: @escaping () -> Void) {
+    public func saveStudiumObject<T: StudiumEvent>(
+        _ studiumEvent: T,
+        realmWriteCompletion: @escaping () -> Void,
+        autoscheduleCompletion: @escaping () -> Void
+    ) {
         // If the event is autoscheduling
         
         if let autoschedulingEvent = studiumEvent as? any Autoscheduling,
            autoschedulingEvent.autoscheduling {
                self.printDebug("event \(studiumEvent.name) is autoscheduling. will attempt to autoschedule now.")
             // create Autoschedule event objects. AutoscheduleService will save any created events
-            let autoscheduledEvents = AutoscheduleService.shared.createAutoscheduledEvents(forAutoschedulingEvent: autoschedulingEvent)
+            let autoscheduledEvents = AutoscheduleService.shared.createAutoscheduledEvents(forAutoschedulingEvent: autoschedulingEvent) { _ in
+                autoscheduleCompletion()
+            }
                
                self.printDebug("Created and saved autoscheduled events: \(autoscheduledEvents)")
             
@@ -66,13 +73,19 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         }
     }
     
-    func saveAutoscheduledEvent<T: Autoscheduling>(autoscheduledEvent: T.AutoscheduledEventType, autoschedulingEvent: T) {
+    func saveAutoscheduledEvent<T: Autoscheduling>(
+        autoscheduledEvent: T.AutoscheduledEventType,
+        autoschedulingEvent: T)
+    {
         self.realmWrite { _ in
             autoschedulingEvent.appendAutoscheduledEvent(event: autoscheduledEvent)
         }
     }
     
-    func saveContainedEvent<T: StudiumEventContainer>(containedEvent: T.ContainedEventType, containerEvent: T) {
+    func saveContainedEvent<T: StudiumEventContainer>(
+        containedEvent: T.ContainedEventType, containerEvent: T,
+        autoscheduleCompletion: @escaping () -> Void
+    ) {
         self.realmWrite { _ in
             containerEvent.appendContainedEvent(containedEvent: containedEvent)
         }
@@ -83,7 +96,9 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
             
             self.printDebug("event \(autoschedulingEvent.name) is autoscheduling. will attempt to autoschedule now.")
             // create Autoschedule event objects. AutoscheduleService will save any created events
-            let autoscheduledEvents = AutoscheduleService.shared.createAutoscheduledEvents(forAutoschedulingEvent: autoschedulingEvent)
+            let autoscheduledEvents = AutoscheduleService.shared.createAutoscheduledEvents(forAutoschedulingEvent: autoschedulingEvent) { _ in
+                autoscheduleCompletion()
+            }
             
             self.printDebug("Created and saved autoscheduled events: \(autoscheduledEvents)")
         }

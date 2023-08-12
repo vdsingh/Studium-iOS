@@ -34,5 +34,9 @@ protocol Autoscheduling: StudiumEvent {
     // TODO: Docstrings
     var autoschedulingDays: Set<Weekday> { get set }
     
+    // TODO: Docstrings
     var useDatesAsBounds: Bool { get }
+    
+    /// Flag for whether host is waiting on autoscheduled events to be scheduled (i.e., display a loading indicator)
+    var isGeneratingEvents: Bool { get set }
 }

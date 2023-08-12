@@ -46,7 +46,7 @@ class StudiumEventService {
     func saveStudiumEvent(_ studiumEvent: StudiumEvent) {
         
         // Save the event to the database
-        self.databaseService.saveStudiumObject(studiumEvent) {
+        self.databaseService.saveStudiumObject(studiumEvent, realmWriteCompletion: {
             
             // Save to Apple Calendar if Authorized
             if self.appleCalendarService.authorizationStatus() == .authorized {
@@ -89,7 +89,9 @@ class StudiumEventService {
             
             // Update next ten assignments for widget updates
             self.updateNextTenAssignments()
-        }
+        }, autoscheduleCompletion: {
+            
+        })
     }
     
     // MARK: - Update
@@ -181,7 +183,7 @@ class StudiumEventService {
     }
     
     func attachFile(to storer: any FileStorer, fileURL: URL?) {
-        DatabaseService.shared.realmWrite {
+        DatabaseService.shared.realmWrite { _ in
             storer.thaw()?.attachFileURL(fileURL)
         }
     }
