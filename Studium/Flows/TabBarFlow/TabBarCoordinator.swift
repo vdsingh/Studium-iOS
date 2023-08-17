@@ -28,8 +28,8 @@ class TabBarCoordinator: NSObject, Coordinator, Debuggable {
     
     //TODO: Docstrings
     override init() {
-//        self.navigationController = navigationController
         self.childCoordinators = [
+            TreeCoordinator(UINavigationController()),
             CalendarCoordinator(UINavigationController()),
             HabitsCoordinator(UINavigationController()),
             CoursesCoordinator(UINavigationController()),
