@@ -12,18 +12,23 @@ import SwiftUI
 struct LatenessIndicatorView: View {
     @State var indicatorColor: Color
     
+    let width: CGFloat
+    let height: CGFloat
+    
     var body: some View {
         ZStack {
             Ellipse()
-                .frame(width: 25, height: 25)
+                .frame(width: self.width, height: self.height)
                 .foregroundStyle(.gray)
             Ellipse()
-                .frame(width: 20, height: 20)
+                .frame(width: self.width * 2/3, height: self.height * 2/3)
                 .foregroundStyle(self.indicatorColor)
         }
     }
     
-    init(_ latenessStatus: LatenessStatus) {
+    init(_ latenessStatus: LatenessStatus, width: CGFloat = 25, height: CGFloat = 25) {
         self.indicatorColor = latenessStatus.color
+        self.width = width
+        self.height = height
     }
 }
