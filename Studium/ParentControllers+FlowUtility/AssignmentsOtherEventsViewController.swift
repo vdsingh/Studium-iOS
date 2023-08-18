@@ -12,23 +12,25 @@ import UIKit
 
 //TODO: Docstrings
 class AssignmentsOtherEventsViewController: StudiumEventListViewController, AssignmentRefreshProtocol, ForegroundSubscriber {
-    
-    override var debug: Bool {
-        return true
-    }
-    
-//    var coordinator: Coordinator?
-    
+            
+
     //TODO: Docstrings
-    var assignmentsExpandedSet = Set<Assignment>()
+    var assignmentsExpandedIDSet = Set<String>()
+    
+//    override func loadView() {
+//        super.loadView()
+//
+//    }
     
     override func viewDidLoad() {
-        self.sceneDelegate!.addForegroundSubscriber(self)
+        if let sceneDelegate = self.sceneDelegate {
+            sceneDelegate.addForegroundSubscriber(self)
+        }
+        
         super.viewDidLoad()
     }
     
     func willEnterForeground() {
-        print("WILL ENTER FOREGROUND")
         self.reloadData()
     }
         
@@ -47,11 +49,12 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
         Log.e("editOtherEvent called from superclass when it should be implemented in subclass.")
         PopUpService.shared.presentGenericError()
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        printDebug("Selected row \(indexPath.row)")
-        if let assignment = self.eventsArray[indexPath.section][indexPath.row] as? Assignment,
-           let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentCell1 {
+        Log.d("Selected row \(indexPath.row)")
+        if let assignment = self.displayedEvents[indexPath.section][indexPath.row] as? Assignment,
+           let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentTableViewCell {
+           
             let vc = AssignmentViewController(
                 assignment: assignment,
                 editButtonPressed: {
@@ -68,9 +71,11 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
             
             self.navigationController?.modalPresentationStyle = .formSheet
             self.navigationController?.pushViewController(vc, animated: true)
-        } else if let otherEventCell = tableView.cellForRow(at: indexPath) as? OtherEventCell,
+        } else if let otherEventCell = tableView.cellForRow(at: indexPath) as? OtherEventTableViewCell,
+        
+//        else if let otherEventCell = tableView.cellForRow(at: indexPath) as? OtherEventCell,
            let otherEvent = otherEventCell.event as? OtherEvent {
-            print("$LOG: Selected an otherEventCell")
+            Log.d("Selected an otherEventCell")
             let vc = OtherEventViewController(
                 otherEvent: otherEvent,
                 editButtonPressed: {
@@ -93,47 +98,127 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    //TODO: Docstrings, move to AssignmentsOther...
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
 
-        //TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if let assignment = eventsArray[indexPath.section][indexPath.row] as? Assignment {
-            super.swipeCellId = AssignmentCell1.id
-            if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? AssignmentCell1 {
-                cell.event = assignment
-                cell.loadData(
-                    assignment: assignment,
-                    assignmentCollapseDelegate: self,
-                    checkboxWasTappedCallback: {
-                        self.studiumEventService.markComplete(assignment, !assignment.complete)
-                        self.reloadData()
-                    }
-                )
-                
-                cell.setIsExpanded(isExpanded: self.assignmentsExpandedSet.contains(assignment))
-                return cell
-            }
-        } else if let otherEvent = eventsArray[indexPath.section][indexPath.row] as? OtherEvent {
-            super.swipeCellId = OtherEventCell.id
-            if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? OtherEventCell {
-                cell.event = otherEvent
-                cell.loadData(
-                    from: otherEvent,
-                    checkboxWasTappedCallback: {
+        if let assignment = self.displayedEvents[indexPath.section][indexPath.row] as? Assignment {
+            super.swipeCellId = AssignmentTableViewCell.id
+//            if let cell = super.table
+            let cell = AssignmentTableViewCell(
+                assignment: assignment,
+                isExpanded: self.assignmentsExpandedIDSet.contains(assignment._id.stringValue),
+                assignmentCollapseHandler: self,
+                checkboxWasTapped: {
+                    self.studiumEventService.markComplete(assignment, !assignment.complete)
+                    self.reloadData()
+                }
+            )
+            
+//            cell.setExpanded()
+            cell.delegate = self
+            cell.setLoading(assignment.isGeneratingEvents)
+
+            //            cell.setUp(with: assignment)
+            return cell
+            
+//            if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? AssignmentCell1 {
+//                cell.event = assignment
+//                cell.loadData(
+//                    assignment: assignment,
+//                    assignmentCollapseDelegate: self,
+//                    checkboxWasTappedCallback: {
+//                        self.studiumEventService.markComplete(assignment, !assignment.complete)
+//                        self.reloadData()
+//                    }
+//                )
+//                
+//                cell.setIsExpanded(isExpanded: self.assignmentsExpandedSet.contains(assignment))
+//                cell.setLoading(assignment.isGeneratingEvents)
+//                
+//                return cell
+//            }
+        } else if let otherEvent = self.displayedEvents[indexPath.section][indexPath.row] as? OtherEvent {
+            super.swipeCellId = OtherEventTableViewCell.id
+//            let cell = super.table
+            let cell = OtherEventTableViewCell(
+                otherEvent: otherEvent,
+                checkboxWasTapped: {
+                    if let otherEvent = otherEvent.thaw() {
                         self.studiumEventService.markComplete(otherEvent, !otherEvent.complete)
-                        self.reloadData()
                     }
-                )
-                
+                    
+                    self.reloadData()
+                }
+            )
+            
+            cell.delegate = self
+
                 return cell
-            }
+//            }
         }
         
-        fatalError("$ERR: Couldn't dequeue cell for Course List")
+        Log.s(AssignmentsViewControllerError.couldntDequeueCell, additionalDetails: "Issue dequeueing cell. Couldn't dequeue as AssignmentCell or OtherEventCell")
+        return UITableViewCell()
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        self.displayedEvents.count
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.displayedEvents[section].count
+    }
+    
+//    Log.d("Will attempt to delete at \(indexPath)")
+//    if let cell = self.tableView.cellForRow(at: indexPath) as? DeletableEventCell,
+//       let event = cell.event {
+//        let eventID = event._id
+//        let eventType = type(of: event)
+//        DispatchQueue.global(qos: .userInitiated).async {
+//            if let event = self.databaseService.getStudiumEvent(withID: eventID, type: eventType.self) {
+//                self.studiumEventService.deleteStudiumEvent(event)
+//            } else {
+//                Log.e("Failed to retrieve studiumEvent by ID to delete it.", additionalDetails: "Event type: \(eventType)")
+//                PopUpService.shared.presentGenericError()
+//            }
+//        }
+//    }
+    //
+    //    self.eventsArray[indexPath.section].remove(at: indexPath.row)
+    //    self.updateHeader(section: indexPath.section)
+    //    self.updateEmptyEventsIndicator()
+    
+    //FIXME: Find a better way to handle this (generics)
+    override func delete(at indexPath: IndexPath) {
+        if let cell = self.tableView.cellForRow(at: indexPath) as? DeletableEventCell,
+           let event = cell.event {
+            let eventID = event._id
+            if let assignment = event as? Assignment {
+                DispatchQueue.global(qos: .userInitiated).async {
+                    if let event = self.databaseService.getStudiumEvent(withID: eventID, type: Assignment.self) {
+                        self.studiumEventService.deleteStudiumEvent(event)
+                    } else {
+                        Log.e("Failed to retrieve studiumEvent by ID to delete it.", additionalDetails: "Event type: Assignment")
+                        PopUpService.shared.presentGenericError()
+                    }
+                }
+            } else if let otherEvent = event as? OtherEvent {
+                DispatchQueue.global(qos: .userInitiated).async {
+                    if let event = self.databaseService.getStudiumEvent(withID: eventID, type: OtherEvent.self) {
+                        self.studiumEventService.deleteStudiumEvent(event)
+                    } else {
+                        Log.e("Failed to retrieve studiumEvent by ID to delete it.", additionalDetails: "Event type: OtherEvent")
+                        PopUpService.shared.presentGenericError()
+                    }
+                }
+            }
+            
+            self.eventsArray[indexPath.section].remove(at: indexPath.row)
+            self.updateHeader(section: indexPath.section)
+            self.updateEmptyEventsIndicator()
+        }
     }
 }
 
@@ -143,64 +228,66 @@ extension AssignmentsOtherEventsViewController: AssignmentCollapseDelegate {
     /// The collapse button in a cell was clicked
     /// - Parameter assignment: The assignment associated with the cell
     func collapseButtonClicked(assignment: Assignment) {
-
+        
         // The assignment is expanded
-        if self.assignmentsExpandedSet.contains(assignment) {
+        if self.assignmentsExpandedIDSet.contains(assignment._id.stringValue) {
             self.handleEventsClose(assignment: assignment)
-            self.assignmentsExpandedSet.remove(assignment)
+            self.assignmentsExpandedIDSet.remove(assignment._id.stringValue)
         } else {
             self.handleEventsOpen(assignment: assignment)
-            self.assignmentsExpandedSet.insert(assignment)
+            self.assignmentsExpandedIDSet.insert(assignment._id.stringValue)
         }
     }
     
     /// Handles the opening of autoscheduled events for an Assignment
     /// - Parameter assignment: The Assignment for which we want to open autoscheduled events
     func handleEventsOpen(assignment: Assignment) {
-        let assignmentSection = assignment.complete ? 1 : 0
-        if let assignmentRow = eventsArray[assignmentSection].firstIndex(of: assignment) {
-            printDebug("Handling opening auto events for assignment at index (\(assignmentSection), \(assignmentRow))")
-            var index = assignmentRow + 1
-            for auto in assignment.autoscheduledEvents {
-                // Add the autoscheduled events to the events array
-                eventsArray[assignmentSection].insert(auto, at: index)
-                index += 1
-            }
-        } else {
-            print("$ERR (AssignmentsViewController): problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
-        }
-        
-        self.tableView.reloadData()
-    }
-
-    /// Handles the closing of autoscheduled events for an Assignment
-    /// - Parameter assignment: The Assignment for which we want to close autoscheduled events
-    func handleEventsClose(assignment: Assignment) {
-        // assignment is not expanded
-        if !self.assignmentsExpandedSet.contains(assignment) {
+        guard let autoschedulingConfig = assignment.autoschedulingConfig else {
+            Log.e("handleEventsOpen called when assignment has no autoschedulingConfig")
             return
         }
         
         let assignmentSection = assignment.complete ? 1 : 0
-        if let assignmentRow = eventsArray[assignmentSection].firstIndex(of: assignment) {
-            printDebug("Handling closing auto events for assignment at index (\(assignmentSection), \(assignmentRow))")
-            for _ in assignment.autoscheduledEvents {
-                eventsArray[assignmentSection].remove(at: assignmentRow + 1)
+        if let assignmentRow = self.displayedEvents[assignmentSection].firstIndex(where: { $0._id == assignment._id }) {
+            Log.d("Handling opening auto events for assignment at index (\(assignmentSection), \(assignmentRow))")
+            var index = assignmentRow + 1
+            for auto in assignment.autoscheduledEvents {
+                // Add the autoscheduled events to the events array
+                self.displayedEvents[assignmentSection].insert(auto, at: index)
+                index += 1
             }
         } else {
-            Log.s(AssignmentsViewControllerError.failedToFindAssignment, additionalDetails: "problem accessing assignment when closing auto list events. \(assignment.name) is not in the assignments array.")
+            Log.e("problem accessing assignment when opening auto list events. \(assignment.name) is not in the assignments array.")
         }
         
-        self.assignmentsExpandedSet.remove(assignment)
+        self.tableView.reloadData()
+    }
+    
+    /// Handles the closing of autoscheduled events for an Assignment
+    /// - Parameter assignment: The Assignment for which we want to close autoscheduled events
+    func handleEventsClose(assignment: Assignment) {
+        guard let autoschedulingConfig = assignment.autoschedulingConfig else {
+            Log.e("handleEventsClose called when assignment has no autoschedulingConfig")
+            return
+        }
+        // assignment is not expanded
+        if !self.assignmentsExpandedIDSet.contains(assignment._id.stringValue) {
+            return
+        }
+        let expandedEventIDs = assignment.autoscheduledEvents.compactMap({ $0._id })
+        let assignmentSection = assignment.complete ? 1 : 0
+        self.displayedEvents[assignmentSection].removeAll(where: { expandedEventIDs.contains($0._id) })
+        
+        self.assignmentsExpandedIDSet.remove(assignment._id.stringValue)
         self.tableView.reloadData()
     }
     
     /// collapses all assignmentCells whose autoscheduled events are expanded
-    func collapseAllExpandedAssignments(){
-        for cell in tableView.visibleCells {
-            if let assignmentCell = cell as? AssignmentCell1 {
+    func collapseAllExpandedAssignments() {
+        for cell in self.tableView.visibleCells {
+            if let assignmentCell = cell as? AssignmentTableViewCell {
                 guard let assignment = assignmentCell.event as? Assignment else {
-                    print("$ERR (AssignmentsViewController): tried to unwrap cell event as assignment but failed. Event: \(String(describing: assignmentCell.event))")
+                    Log.e("tried to unwrap cell event as assignment but failed. Event: \(String(describing: assignmentCell.event))")
                     continue
                 }
                 
@@ -212,4 +299,6 @@ extension AssignmentsOtherEventsViewController: AssignmentCollapseDelegate {
 
 enum AssignmentsViewControllerError: Error {
     case failedToFindAssignment
+    case couldntDequeueCell
+    case outOfBounds
 }

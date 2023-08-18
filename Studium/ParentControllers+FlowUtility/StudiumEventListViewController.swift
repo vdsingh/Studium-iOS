@@ -14,10 +14,8 @@ import SwiftUI
 //TODO: Docstrings
 class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
     
-//    let coordinator: Coordinator
-
     // TODO: Docstrings
-    let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
+    let databaseService: DatabaseService! = DatabaseService.shared
     
     // TODO: Docstrings
     let studiumEventService: StudiumEventService = StudiumEventService.shared
@@ -27,8 +25,23 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
         false
     }
     
+    var searchController: UISearchController!
+
     //TODO: Docstrings
     var eventsArray: [[StudiumEvent]] = [[],[]]
+    
+    var displayedEvents: [[StudiumEvent]] {
+        get { self.searchController.isActive ? self.filteredEvents : self.eventsArray }
+        set {
+            if self.searchController.isActive {
+                self.filteredEvents = newValue
+            } else {
+                self.eventsArray = newValue
+            }
+        }
+    }
+
+    lazy var filteredEvents: [[StudiumEvent]] = self.eventsArray
     
     //TODO: Docstrings
     var sectionHeaders: [String] = ["Section 1", "Section 2"]
@@ -41,6 +54,15 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
     }()
     
     private var hostingController: UIHostingController<ImageDetailView>?
+    
+    override func loadView() {
+        super.loadView()
+        self.searchController = UISearchController(searchResultsController: nil)
+        self.searchController.searchResultsUpdater = self
+        self.searchController.obscuresBackgroundDuringPresentation = false
+        self.navigationItem.searchController = self.searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -61,8 +83,9 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
         //Register all UI Elements used in the TableView
         self.tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderView.id)
         self.tableView.register(UINib(nibName: RecurringEventCell.id, bundle: nil), forCellReuseIdentifier: RecurringEventCell.id)
-        self.tableView.register(UINib(nibName: AssignmentCell1.id, bundle: nil), forCellReuseIdentifier: AssignmentCell1.id)
-        self.tableView.register(UINib(nibName: OtherEventCell.id, bundle: nil), forCellReuseIdentifier: OtherEventCell.id)
+        self.tableView.register(OtherEventTableViewCell.self, forCellReuseIdentifier: OtherEventTableViewCell.id)
+
+        self.tableView.register(AssignmentTableViewCell.self, forCellReuseIdentifier: AssignmentTableViewCell.id)
 
         self.view.backgroundColor = StudiumColor.background.uiColor
         
@@ -124,7 +147,7 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
     /// Updates the header for a given section
     /// - Parameter section: The section corresponding to the header that we wish to update
     func updateHeader(section: Int) {
-        let headerView  = tableView.headerView(forSection: section) as? HeaderView
+        let headerView  = self.tableView.headerView(forSection: section) as? HeaderView
         headerView?.setTexts(
             primaryText: sectionHeaders[section],
             secondaryText: "\(eventsArray[section].count) \(eventTypeString)"
@@ -136,9 +159,18 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
     //TODO: Docstrings
     func delete(at indexPath: IndexPath) {
         Log.d("Will attempt to delete at \(indexPath)")
-        if let cell = tableView.cellForRow(at: indexPath) as? DeletableEventCell,
+        if let cell = self.tableView.cellForRow(at: indexPath) as? DeletableEventCell,
            let event = cell.event {
-            self.studiumEventService.deleteStudiumEvent(event)
+            let eventID = event._id
+            let eventType = type(of: event)
+            DispatchQueue.global(qos: .userInitiated).async {
+                if let event = self.databaseService.getStudiumEvent(withID: eventID, type: eventType.self) {
+                    self.studiumEventService.deleteStudiumEvent(event)
+                } else {
+                    Log.e("Failed to retrieve studiumEvent by ID to delete it.", additionalDetails: "Event type: \(eventType)")
+                    PopUpService.shared.presentGenericError()
+                }
+            }
         }
         
         self.eventsArray[indexPath.section].remove(at: indexPath.row)
@@ -151,10 +183,10 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
     //TODO: Docstrings
     func edit(at indexPath: IndexPath) { }
 
-// MARK: - TableView Delegate
+    // MARK: - TableView Delegate
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return eventsArray[0].isEmpty && eventsArray[1].isEmpty ? 0 : super.tableView(tableView, heightForHeaderInSection: section)
+        return self.eventsArray[0].isEmpty && self.eventsArray[1].isEmpty ? 0 : super.tableView(tableView, heightForHeaderInSection: section)
     }
 
     //TODO: Docstrings
@@ -178,52 +210,43 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
         
         return headerView
     }
-    
-    //TODO: Implement
-    //TODO: Docstrings
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if let eventCell = tableView.cellForRow(at: indexPath) as? DeletableEventCell,
-//           let event = eventCell.event {
-//            
-//            if let assignment = event as? Assignment {
-//                self.assignmentWasSelected(assignment: assignment)
-//            }
-//            
-////            if let event = eventCell.event as? CompletableStudiumEvent {
-////                self.studiumEventService.markComplete(event, !event.complete)
-////            } else {
-////                Log.d("event is not completable")
-////            }
-//        }
-//    }
-    
-//    func assignmentWasSelected(assignment: Assignment) {
-//        let vc = AssignmentViewController(
-//            assignment: assignment,
-//            editButtonPressed: {
-//                self.editAssignmentWasSelected(assignment)
-//            },
-//            deleteButtonPressed: {
-//                
-//            }
-//        )
-//    }
-//    
-//    func editAssignmentWasSelected(_ assignment: Assignment) {
-//        
-//    }
-//    
-//    func deleteAssignmentWasSelected() {
-//        
-//    }
 
-// MARK: - TableView DataSource
+    // MARK: - TableView DataSource
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.eventsArray.count
+        return self.displayedEvents.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.eventsArray[section].count
+        return self.displayedEvents[section].count
+    }
+}
+
+extension StudiumEventListViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        self.filteredEvents = [[], []]
+        if let searchText = searchController.searchBar.text {
+            self.filterEvents(for: searchText)
+        }
+    }
+    
+    func filterEvents(for searchText: String) {
+        if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            self.filteredEvents = self.eventsArray
+        } else {
+            for section in 0..<self.eventsArray.count {
+                for event in self.eventsArray[section] {
+                    if self.eventIsVisible(event: event, fromSearch: searchText) {
+                        self.filteredEvents[section].append(event)
+                    }
+                }
+            }
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    func eventIsVisible(event: StudiumEvent, fromSearch searchText: String) -> Bool {
+        return event.eventIsVisible(fromSearch: searchText)
     }
 }
