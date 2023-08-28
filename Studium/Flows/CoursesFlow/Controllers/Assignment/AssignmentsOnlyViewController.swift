@@ -43,7 +43,7 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let course = selectedCourse {
+        if let course = self.selectedCourse {
             self.title = course.name
         } else {
             Log.e("course is nil")
@@ -87,7 +87,7 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
             }
             
             // If the Assignment is expanded
-            if self.assignmentsExpandedSet.contains(assignment) {
+            if self.assignmentsExpandedIDSet.contains(assignment._id.stringValue) {
                 self.handleEventsOpen(assignment: assignment)
             }
         }
@@ -109,7 +109,7 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
     /// Trigger deletion of event in cell
     /// - Parameter indexPath: The index at which we want to delete an event
     override func delete(at indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        let cell = self.tableView.cellForRow(at: indexPath) as! DeletableEventCell
         if let event = cell.event as? Assignment {
             self.handleEventsClose(assignment: event)
             self.studiumEventService.deleteStudiumEvent(event)
@@ -117,26 +117,26 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
             Log.e("Tried to delete event at cell (\(indexPath.section), \(indexPath.row)), however its event was nil")
         }
         
-        self.eventsArray[indexPath.section].remove(at: indexPath.row)
+//        self.displayedEvents
+        self.displayedEvents[indexPath.section].remove(at: indexPath.row)
         self.updateHeader(section: indexPath.section)
     }
     
     /// Trigger editing of event in cell
     /// - Parameter indexPath: The index at which we want to edit an event
     override func edit(at indexPath: IndexPath) {
-        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        let deletableEventCell = self.tableView.cellForRow(at: indexPath) as! DeletableEventCell
         self.unwrapCoordinatorOrShowError()
 
         //TODO: Fix force unwrap
-        if let assignmentForEdit = deletableEventCell.event! as? Assignment {
+        if let assignmentForEdit = deletableEventCell.event as? Assignment {
             self.editAssignment(assignmentForEdit)
-        } else if let otherEventForEdit = deletableEventCell.event! as? OtherEvent {
+        } else if let otherEventForEdit = deletableEventCell.event as? OtherEvent {
             self.coordinator?.showEditOtherEventViewController(refreshDelegate: self, otherEventToEdit: otherEventForEdit)
         }
     }
     
     override func editAssignment(_ assignment: Assignment) {
         self.coordinator?.showEditAssignmentViewController(refreshDelegate: self, assignmentToEdit: assignment)
-//        self.navigationController.push
     }
 }

@@ -93,8 +93,8 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     
     //TODO: Docstrings
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let course = eventsArray[indexPath.section][indexPath.row] as? Course else {
-            self.showError(.failedCast(objectString: "\(eventsArray[indexPath.section][indexPath.row])", intendedTypeString: "Course"))
+        guard let course = self.eventsArray[indexPath.section][indexPath.row] as? Course else {
+            self.showError(.failedCast(objectString: "\(self.eventsArray[indexPath.section][indexPath.row])", intendedTypeString: "Course"))
             return
         }
         
@@ -116,7 +116,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         }
 
         // sort all the habits happening today by startTime (the ones that are first come first in the list)
-        eventsArray[0].sort(by: {$0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm")})
+        self.eventsArray[0].sort(by: {$0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm")})
         self.tableView.reloadData()
         
         self.updateEmptyEventsIndicator()
@@ -135,13 +135,13 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     override func delete(at indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? DeletableEventCell,
            let course = cell.event as? Course {
-            print("$LOG: attempting to delete course \(course.name) at section \(indexPath.section) and row \(indexPath.row)")
+            Log.d("attempting to delete course \(course.name) at section \(indexPath.section) and row \(indexPath.row)")
             self.studiumEventService.deleteStudiumEvent(course)
             eventsArray[indexPath.section].remove(at: indexPath.row)
             updateHeader(section: indexPath.section)
             self.updateEmptyEventsIndicator()
         } else {
-            print("$ERR: cell event wasn't course or cell wasn't deletable event cell.")
+            Log.e("cell event wasn't course or cell wasn't deletable event cell.")
         }
     }
         
