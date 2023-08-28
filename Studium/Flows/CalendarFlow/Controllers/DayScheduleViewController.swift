@@ -23,7 +23,7 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dayView.autoScrollToFirstEvent = true
+        self.dayView.autoScrollToFirstEvent = true
         
         var style = CalendarStyle()
         style.header.backgroundColor = StudiumColor.secondaryBackground.uiColor
@@ -49,7 +49,7 @@ class DayScheduleViewController: DayViewController, Storyboarded {
         style.timeline.timeColor = StudiumColor.secondaryLabel.uiColor
         
         
-        dayView.updateStyle(style)
+        self.dayView.updateStyle(style)
         
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
@@ -96,7 +96,18 @@ class DayScheduleViewController: DayViewController, Storyboarded {
                 // event does not occur on date
                 continue
             }
-            newEvent.dateInterval = DateInterval(start: timeChunk.startDate, end: timeChunk.endDate)
+            
+            if timeChunk.endDate < timeChunk.startDate {
+                Log.e("endDate of StudiumEvent occurs before startDate")
+                continue
+            }
+            
+            Log.d("Creating new event with title \(studiumEvent.name). Object: \(studiumEvent)")
+//            newEvent.dateInterval = DateInterval(start: Date(), end: Date())
+            newEvent.dateInterval.start = timeChunk.startDate
+            newEvent.dateInterval.end = timeChunk.endDate
+//            newEvent.dateInterval = DateInterval(start: timeChunk.startDate, end: timeChunk.endDate)
+            
 //            newEvent.startDate = studiumEvent.startDate
 //            newEvent.endDate = studiumEvent.endDate
             newEvent.color = studiumEvent.scheduleDisplayColor
@@ -193,7 +204,6 @@ class DayScheduleViewController: DayViewController, Storyboarded {
 //            generatedEvents.append(contentsOf: generateEventsForDate(date))
 //        }
 //        return generatedEvents
-        printDebug("eventsForDate called")
         return self.generateEventsForDate(date)
     }
     

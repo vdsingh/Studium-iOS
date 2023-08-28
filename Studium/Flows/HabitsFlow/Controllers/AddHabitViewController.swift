@@ -207,11 +207,11 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
         
         errors.append(contentsOf: super.findErrors())
         
-        if self.name == "" {
+        if self.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             errors.append(.nameNotSpecified)
         }
         
-        if  self.daysSelected == [] {
+        if self.daysSelected.isEmpty {
             errors.append(.oneDayNotSpecified)
         }
         
@@ -219,8 +219,11 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
             errors.append(.totalTimeNotSpecified)
         } else if self.endDate < self.startDate {
             errors.append(.endTimeOccursBeforeStartTime)
-        } else if self.autoschedule && (self.endDate.hour - self.startDate.hour) * 60 + (self.endDate.minute - self.startDate.minute) < self.totalLengthMinutes {
-            errors.append(.totalTimeExceedsTimeFrame)
+        } else if self.autoschedule, let autoMinutes = self.totalLengthMinutes {
+            let timeChunk = TimeChunk(startDate: self.startDate, endDate: self.endDate)
+            if timeChunk.lengthInMinutes < autoMinutes {
+                errors.append(.totalTimeExceedsTimeFrame)
+            }
         }
         
         return errors

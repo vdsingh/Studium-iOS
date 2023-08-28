@@ -120,11 +120,11 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
         var errors = [StudiumFormError]()
         errors.append(contentsOf: super.findErrors())
         
-        if self.name == "" {
+        if self.name.trimmed().isEmpty {
             errors.append(.nameNotSpecified)
         }
         
-        if startDate > endDate {
+        if self.startDate > self.endDate {
             errors.append(.endTimeOccursBeforeStartTime)
         }
         

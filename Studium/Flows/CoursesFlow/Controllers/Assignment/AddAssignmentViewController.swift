@@ -142,8 +142,28 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     override func findErrors() -> [StudiumFormError] {
         var errors = [StudiumFormError]()
         errors.append(contentsOf: super.findErrors())
-        if self.name == "" {
+        if self.name.trimmed().isEmpty {
             errors.append(.nameNotSpecified)
+        }
+        
+        
+        if self.autoscheduleWorkTime {
+            if self.totalLengthMinutes == 0 || self.totalLengthMinutes == nil {
+                errors.append(.totalTimeNotSpecified)
+            }
+            
+            if self.daysSelected.isEmpty {
+                errors.append(.oneDayNotSpecified)
+            }
+            
+            if let autoMinutes = self.totalLengthMinutes {
+                let timeChunk = TimeChunk(startDate: self.startDate, endDate: self.endDate)
+                if timeChunk.lengthInMinutes < autoMinutes {
+                    errors.append(.totalTimeExceedsTimeFrame)
+                }
+            }
+        } else if self.endDate < self.startDate {
+            errors.append(.endTimeOccursBeforeStartTime)
         }
         
         return errors
