@@ -107,7 +107,10 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
             ],
             [
                 .logoCell(logo: self.icon.uiImage, onClick: { self.showLogoSelectionViewController() }),
-                .colorPickerCell(delegate: self),
+//                .colorPickerCell(delegate: self),
+                .colorPickerCellV2(colors: StudiumEventColor.allCasesUIColors, colorWasSelected: { color in
+                    self.color = UIColor(color)
+                }),
                 .textFieldCell(placeholderText: "Additional Details",
                                text: self.additionalDetails,
                                charLimit: 300,
@@ -135,7 +138,10 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
             ],
             [
                 .logoCell(logo: self.icon.uiImage, onClick: { self.showLogoSelectionViewController() }),
-                .colorPickerCell(delegate: self),
+//                .colorPickerCell(delegate: self),
+                .colorPickerCellV2(colors: StudiumEventColor.allCasesUIColors, colorWasSelected: { color in
+                    self.color = UIColor(color)
+                }),
                 .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: TextFieldCharLimit.longField.rawValue, id: .additionalDetailsTextField, textFieldDelegate: self, delegate: self),
             ],
             [
