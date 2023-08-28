@@ -6,6 +6,41 @@
 //  Copyright © 2020 Vikram Singh. All rights reserved.
 //
 
+//protocol Autoscheduling: StudiumEvent {
+//    
+//    associatedtype AutoscheduledEventType: Autoscheduled
+//    
+//    /// Whether or not this event is in charge of autoscheduling other events
+//    var autoscheduling: Bool { get set }
+//    
+//    /// The amount of time (in minutes) that autoscheduled events should be scheduled for
+//    var autoLengthMinutes: Int { get set }
+//    
+//    /// Whether we want to continuously autoschedule this event so long as it exists (otherwise, we'll use the event's endDate)
+//    var autoscheduleInfinitely: Bool { get set }
+//    
+//    // TODO: Docstrings
+//    var autoscheduledEvents: [AutoscheduledEventType] { get }
+//    
+//    //TODO: Docstrings
+//    func appendAutoscheduledEvent(event: AutoscheduledEventType)
+//    
+//    //TODO: Docstrings
+//    func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> AutoscheduledEventType
+//    
+//    // TODO: Docstrings
+//    var autoschedulingDays: Set<Weekday> { get set }
+//    
+//    // TODO: Docstrings
+//    var useDatesAsBounds: Bool { get }
+//    
+//    /// Flag for whether host is waiting on autoscheduled events to be scheduled (i.e., display a loading indicator)
+//    var isGeneratingEvents: Bool { get set }
+//}
+
+
+
+
 import Foundation
 import RealmSwift
 import VikUtilityKit
@@ -13,10 +48,11 @@ import VikUtilityKit
 /// Represents Course Assignments
 class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, StudiumEventContained, FileStorer {
     
-    let debug = true
+//    let debug = true
+    typealias AutoscheduledEventType = OtherEvent
     
     @Persisted var attachedFileURLString: String? = nil
-
+    
     /// Specifies whether or not the Assignment object is marked as complete or not
     @Persisted var complete: Bool = false
 
@@ -24,25 +60,28 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
     @Persisted var parentCourse: Course?
     
     /// Link to the parent Assignment if this is an autoscheduled study time
-    @Persisted var parentAssignmentID: ObjectId?
+//    @Persisted var parentAssignmentID: ObjectId?
         
     // MARK: - Variables that track information about scheduling work time.
     
     /// Whether or not scheduling work time is enabled
-    @Persisted var autoscheduling: Bool = false
+//    @Persisted var autoscheduling: Bool = false
     
-    var autoscheduleInfinitely: Bool = false
+    @Persisted var autoschedulingConfigData: Data?
     
-    var useDatesAsBounds: Bool = false
+//    var autoscheduleInfinitely: Bool = false
+    
+//    var useDatesAsBounds: Bool = false
+    
             
-    /// The number of minutes to autoschedule study time
-    @Persisted var autoLengthMinutes: Int = 60
+    /// The number of minutes to autoschedule study time. Nil if Assignment is not autoscheduling
+//    @Persisted var autoLengthMinutes: Int? = nil
     
     /// The autoscheduled assignments that belong to this assignment
     @Persisted var autoscheduledEventsList: List<OtherEvent> = List<OtherEvent>()
     
     // TODO: Docstrings
-    @Persisted var autoschedulingDaysList: List<Int>
+//    @Persisted var autoschedulingDaysList: List<Int>
     
     @Persisted private var resourceLinksList: List<LinkConfig>
     
@@ -60,9 +99,9 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
     }
     
     // TODO: Docstrings
-    var autoscheduledEvents: [OtherEvent] {
-        return [OtherEvent](self.autoscheduledEventsList)
-    }
+//    var autoscheduledEvents: [OtherEvent] {
+//        return [OtherEvent](self.autoscheduledEventsList)
+//    }
     
     var latenessStatus: LatenessStatus {
         if Date() > self.endDate {
@@ -75,14 +114,6 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
     }
     
     // TODO: Docstrings
-    var autoschedulingDays: Set<Weekday> {
-        get { return Set<Weekday>( self.autoschedulingDaysList.compactMap { Weekday(rawValue: $0) }) }
-        set {
-            let list = List<Int>()
-            list.append(objectsIn: newValue.compactMap({ $0.rawValue }))
-            self.autoschedulingDaysList = list
-        }
-    }
     
     var dueDateString: String {
         return self.endDate.format(with: .full)
@@ -91,12 +122,12 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
     /// Assignment Icon should be whatever the parent course's icon is
     override var icon: StudiumIcon {
         get { return self.parentCourse?.icon ?? .book }
-        set { }
+        set { Log.e("Tried to set Assignment Icon") }
     }
     
     override var color: UIColor {
         get { return self.parentCourse?.color ?? StudiumColor.primaryAccent.uiColor }
-        set { }
+        set { Log.e("Tried to set Assignment Color") }
     }
 
     //Basically an init that must be called manually because Realm doesn't allow init for some reason.
@@ -107,9 +138,10 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
         startDate: Date,
         endDate: Date,
         notificationAlertTimes: [AlertOption],
-        autoscheduling: Bool,
-        autoLengthMinutes: Int,
-        autoDays: Set<Weekday>,
+        autoschedulingConfig: AutoschedulingConfig?,
+//        autoscheduling: Bool,
+//        autoLengthMinutes: Int,
+//        autoDays: Set<Weekday>?,
         partitionKey: String = AuthenticationService.shared.userID ?? "",
         parentCourse: Course
     ) {
@@ -120,49 +152,51 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
         self.startDate = startDate
         self.endDate = endDate
         
-        self.autoscheduling = autoscheduling
-        self.autoLengthMinutes = autoLengthMinutes
+        self.autoschedulingConfig = autoschedulingConfig
+        
+//        self.autoscheduling = autoscheduling
+//        self.autoLengthMinutes = autoLengthMinutes
         
         self._partitionKey = partitionKey
                 
         self.alertTimes = notificationAlertTimes
 
-        self.autoschedulingDays = autoDays
+//        self.autoschedulingDays = autoDays
         
         self.parentCourse = parentCourse
     }
     
     /// Initializer for autoscheduled assignments
     /// - Parameter parentAssignment: The parent Assignment to which the autoscheduled assignment belongs
-    convenience init(parentAssignment: Assignment) {
-        self.init()
-        self.printDebug("Initializing assignment with parent assignment \(parentAssignment.name), which has autolength minutes \(parentAssignment.autoLengthMinutes)")
-        self.name = "Work Time: \(parentAssignment.name)"
-        self.additionalDetails = parentAssignment.additionalDetails
-        self.complete = parentAssignment.complete
-        
-        self.startDate = parentAssignment.endDate.subtract(minutes: parentAssignment.autoLengthMinutes)
-        self.endDate = parentAssignment.endDate
-        
-        if self.startDate > self.endDate
-        {
-            //TODO: Remove
-            fatalError("Start date is later than end date")
-        }
-
-        self.autoscheduling = false
-        
-        self.autoLengthMinutes = parentAssignment.autoLengthMinutes
-        
-        self._partitionKey = parentAssignment._partitionKey
-                
-        self.alertTimes = parentAssignment.alertTimes
-        
-        self.parentCourse = parentAssignment.parentCourse
-        
-        self.parentAssignmentID = parentAssignment._id
-        self.printDebug("Initialized assignment with start and end \(parentAssignment.name)")
-    }
+//    convenience init(parentAssignment: Assignment) {
+//        self.init()
+//        self.printDebug("Initializing assignment with parent assignment \(parentAssignment.name), which has autolength minutes \(parentAssignment.autoLengthMinutes)")
+//        self.name = "Work Time: \(parentAssignment.name)"
+//        self.additionalDetails = parentAssignment.additionalDetails
+//        self.complete = parentAssignment.complete
+//        
+//        self.startDate = parentAssignment.endDate.subtract(minutes: parentAssignment.autoLengthMinutes)
+//        self.endDate = parentAssignment.endDate
+//        
+//        if self.startDate > self.endDate
+//        {
+//            //TODO: Remove
+//            fatalError("Start date is later than end date")
+//        }
+//
+//        self.autoscheduling = false
+//        
+//        self.autoLengthMinutes = parentAssignment.autoLengthMinutes
+//        
+//        self._partitionKey = parentAssignment._partitionKey
+//                
+//        self.alertTimes = parentAssignment.alertTimes
+//        
+//        self.parentCourse = parentAssignment.parentCourse
+//        
+//        self.parentAssignmentID = parentAssignment._id
+//        self.printDebug("Initialized assignment with start and end \(parentAssignment.name)")
+//    }
     
     /// The String that is displayed on a schedule view
     override var scheduleDisplayString: String {
@@ -179,9 +213,9 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
     }
     
     // TODO: Docstring
-    func appendAutoscheduledEvent(event: OtherEvent) {
-        self.autoscheduledEventsList.append(event)
-    }
+//    func appendAutoscheduledEvent(event: OtherEvent) {
+//        self.autoscheduledEventsList.append(event)
+//    }
     
     // TODO: Docstring
     func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> OtherEvent {
@@ -215,15 +249,23 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
             colorHex: self.color.hexValue()
         )
     }
+    
+    // MARK: - Searchable
+    override func eventIsVisible(fromSearch searchText: String) -> Bool {
+        return self.name.contains(searchText) ||
+        (self.parentCourse?.name ?? "").contains(searchText) ||
+        self.dueDateString.contains(searchText) ||
+        self.location.contains(searchText)
+    }
 }
 
 extension Assignment: Updatable {
     func updateFields(withNewEvent newEvent: Assignment) {
         
-        var rerunAutoschedule = false
-        if (newEvent.autoscheduling && !self.autoscheduling) || (newEvent.autoschedulingDays != self.autoschedulingDays) {
-            // TODO: Implement reautoscheduling
-        }
+//        var rerunAutoschedule = false
+//        if (newEvent.autoscheduling && !self.autoscheduling) || (newEvent.autoschedulingDays != self.autoschedulingDays) {
+//            // TODO: Implement reautoscheduling
+//        }
             
         // update all of the fields
         self.name = newEvent.name
@@ -232,19 +274,18 @@ extension Assignment: Updatable {
         self.startDate = newEvent.startDate
         self.endDate = newEvent.endDate
         self.alertTimes = newEvent.alertTimes
-        self.autoscheduling = newEvent.autoscheduling
-        self.autoLengthMinutes = newEvent.autoLengthMinutes
-        self.autoschedulingDays = newEvent.autoschedulingDays
+        if let autoschedulingConfig = newEvent.autoschedulingConfig {
+            self.autoschedulingConfig = AutoschedulingConfig(
+                autoLengthMinutes: autoschedulingConfig.autoLengthMinutes,
+                autoscheduleInfinitely: autoschedulingConfig.autoscheduleInfinitely,
+                useDatesAsBounds: autoschedulingConfig.useDatesAsBounds,
+                autoschedulingDaysList: autoschedulingConfig.autoschedulingDays
+            )
+        }
         self.parentCourse = newEvent.parentCourse
     }
-}
-
-extension Assignment: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG (Assignment): \(message)")
-        }
-    }
+    
+    
 }
 
 enum AssignmentError: Error {

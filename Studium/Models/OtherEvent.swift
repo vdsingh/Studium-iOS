@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 // TODO: Docstrings
-class OtherEvent: StudiumEvent, CompletableStudiumEvent, Autoscheduled {
+class OtherEvent: StudiumEvent, CompletableStudiumEvent, Autoscheduled, Codable {
     
     
     //Specifies whether or not the OtherEvent object is marked as complete or not. This determines where it lies in a tableView and whether or not it's crossed out.

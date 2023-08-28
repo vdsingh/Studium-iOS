@@ -162,6 +162,15 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
         // TODO: FIX FORCE UNWRAP
         self.endDate = Calendar.current.date(bySettingHour: self.endDate.hour, minute: self.endDate.minute, second: self.endDate.second, of: self.startDate)!
         
+        var autoschedulingConfig: AutoschedulingConfig? = nil
+        if let autoMinutes = self.totalLengthMinutes {
+            AutoschedulingConfig(
+                autoLengthMinutes: autoMinutes,
+                autoscheduleInfinitely: true,
+                useDatesAsBounds: false,
+                autoschedulingDaysList: self.daysSelected
+            )
+        }
         
         // there are no errors.
         if self.errors.isEmpty {
@@ -171,11 +180,12 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
                 additionalDetails: additionalDetails,
                 startDate: startDate,
                 endDate: self.endDate,
-                autoscheduling: autoschedule,
-                startEarlier: earlier,
-                autoLengthMinutes: totalLengthMinutes,
+                autoschedulingConfig: autoschedulingConfig,
+//                autoscheduling: autoschedule,
+//                startEarlier: earlier,
+//                autoLengthMinutes: totalLengthMinutes,
                 alertTimes: self.alertTimes,
-                days: daysSelected,
+                days: self.daysSelected,
                 icon: self.icon,
                 color: color,
                 partitionKey: AuthenticationService.shared.userID!
@@ -393,7 +403,7 @@ extension AddHabitViewController {
         self.startDate = habit.startDate
         self.endDate = habit.endDate
         self.autoschedule = habit.autoscheduling
-        self.totalLengthMinutes = habit.autoLengthMinutes
+        self.totalLengthMinutes = habit.autoschedulingConfig?.autoLengthMinutes
         
         self.setCells()
         self.tableView.reloadData()

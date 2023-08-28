@@ -44,27 +44,31 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
             completion([])
         }
         
+        guard let autoschedulingConfig = event.autoschedulingConfig else {
+            return
+        }
+        
         let startDate = Date()
         var endDate = event.endDate
         
         // if autoschedule infinitely, autoschedule to 3 months from startDate, otherwise, schedule to event endDate
-        if event.autoscheduleInfinitely || !Date.datesWithinThreeMonths(date1: Date(), date2: event.endDate) {
+        if autoschedulingConfig.autoscheduleInfinitely || !Date.datesWithinThreeMonths(date1: Date(), date2: event.endDate) {
             endDate = Calendar.current.date(byAdding: .month, value: 3, to: Date())!
             PopUpService.shared.presentToast(title: "Autoscheduled \(event.name)", description: "We'll autoschedule events for \(event.name) for the next three months.", popUpType: .success)
         }
         
-        let eventID = event._id.stringValue
+        let eventID = event._id
         
         // Run the algorithm on background thread
         DispatchQueue.global().async {
-            guard let event = self.databaseService.getStudiumEvent(withPrimaryKey: eventID, type: T.self) else {
+            guard let event = self.databaseService.getStudiumEvent(withID: eventID, type: T.self) else {
                 return
             }
             
             let applicableDates = self.findAllApplicableDatesBetween(
                 startDate: startDate,
                 endDate: endDate,
-                weekdays: event.autoschedulingDays
+                weekdays: autoschedulingConfig.autoschedulingDays
             )
             
             Log.d("the applicable dates between \(startDate) and \(endDate) for event \(event.name) are \(applicableDates)")
@@ -75,7 +79,7 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
                 var startBound = self.databaseService.getUserSettings().getWakeUpTime(for: date) ?? date.startOfDay
                 var endBound = date.endOfDay
                 
-                if event.useDatesAsBounds {
+                if autoschedulingConfig.useDatesAsBounds {
                     startBound = event.startDate.setDate(year: date.year, month: date.month, day: date.day)!
                     endBound = event.endDate.setDate(year: date.year, month: date.month, day: date.day)!
                 }
@@ -93,7 +97,7 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggab
                 // find the best TimeChunk for the event, if one exists
                 if let bestTimeChunk = self.bestTime(
                     openTimeSlots: openTimeSlots,
-                    totalMinutes: event.autoLengthMinutes
+                    totalMinutes: autoschedulingConfig.autoLengthMinutes
                 ) {
                     Log.d("for date \(date) found best time chunk: \(bestTimeChunk)")
                     let autoscheduledEvent = event.instantiateAutoscheduledEvent(forTimeChunk: bestTimeChunk)

@@ -54,7 +54,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
         
         super.viewDidLoad()
                 
-        // TODO: Fix force unwrap
+        //FIXME: Fix force unwrap
         self.endDate = Calendar.current.date(bySetting: .hour, value: 23, of: self.endDate)!
         self.endDate = Calendar.current.date(bySetting: .minute, value: 59, of: self.endDate)!
         
@@ -95,6 +95,12 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         self.errors = self.findErrors()
         if self.errors.isEmpty {
+            var autoschedulingConfig: AutoschedulingConfig? = nil
+            if  self.autoscheduleWorkTime,
+                let autoLengthMinutes = self.totalLengthMinutes {
+                autoschedulingConfig = AutoschedulingConfig(autoLengthMinutes: autoLengthMinutes, autoscheduleInfinitely: false, useDatesAsBounds: true, autoschedulingDaysList: self.daysSelected)
+            }
+            
             let newAssignment = Assignment(
                 name: self.name,
                 additionalDetails: self.additionalDetails,
@@ -102,9 +108,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
                 startDate: self.endDate - (60 * 60),
                 endDate: self.endDate,
                 notificationAlertTimes: self.alertTimes,
-                autoscheduling: self.autoscheduleWorkTime,
-                autoLengthMinutes: self.totalLengthMinutes,
-                autoDays: self.daysSelected,
+                autoschedulingConfig: autoschedulingConfig,
                 parentCourse: self.selectedCourse
             )
             
@@ -187,8 +191,14 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
         self.additionalDetails = assignment.additionalDetails
         self.alertTimes = assignment.alertTimes
         self.autoscheduleWorkTime = assignment.autoscheduling
-        self.daysSelected = assignment.autoschedulingDays
-        self.totalLengthMinutes = assignment.autoLengthMinutes
+
+        if let autoschedulingConfig = assignment.autoschedulingConfig {
+            self.daysSelected = autoschedulingConfig.autoschedulingDays
+            self.totalLengthMinutes = autoschedulingConfig.autoLengthMinutes
+        } else {
+            self.daysSelected = Set()
+            self.totalLengthMinutes = nil
+        }
         
         self.setCells()
         self.refreshAutoscheduleSection()
