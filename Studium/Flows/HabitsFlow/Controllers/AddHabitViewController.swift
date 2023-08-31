@@ -8,10 +8,8 @@
 
 import Foundation
 import UIKit
-
 import RealmSwift
 import FlexColorPicker
-
 import TableViewFormKit
 import VikUtilityKit
 
@@ -70,33 +68,25 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
         
         super.viewDidLoad()
         
-        //used to decipher which TimeCell should have which dates
-//        times = [self.startDate, self.endDate]
-        
-//        self.cells = self.cellsNoAuto
-        
         //makes it so that the form doesn't have a bunch of empty cells at the bottom
-        tableView.tableFooterView = UIView()
+        self.tableView.tableFooterView = UIView()
         
-        navButton.image = SystemIcon.plus.createImage()
-        if let habit = habit {
-//            if habit.autoschedule {
-//                self.cells = self.cellsAuto
-//                self.reloadData()
-//            }
-            
-            fillForm(with: habit)
+        self.navButton.image = SystemIcon.plus.createImage()
+        if let habit = self.habit {
+            self.fillForm(with: habit)
         }
-        
-
     }
     
     // TODO: Docstrings
     func setCells() {
         self.cellsNoAuto = [
             [
-                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: 100, id: .nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", text: self.location, charLimit: 100, id: .locationTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: 100, textfieldWasEdited: { text in
+                    self.name = text
+                }),
+                .textFieldCell(placeholderText: "Location", text: self.location, charLimit: 100, textfieldWasEdited: { text in
+                    self.location = text
+                }),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
                 .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.uiImage, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
@@ -114,9 +104,9 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
                 .textFieldCell(placeholderText: "Additional Details",
                                text: self.additionalDetails,
                                charLimit: 300,
-                               id: FormCellID.TextFieldCellID.additionalDetailsTextField,
-                               textFieldDelegate: self,
-                               delegate: self)
+                               textfieldWasEdited: { text in
+                                   self.additionalDetails = text
+                               })
             ],
             [
                 .errorCell(errors: self.errors)
@@ -125,8 +115,12 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
         
         self.cellsAuto = [
             [
-                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: TextFieldCharLimit.shortField.rawValue, id: .nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", text: self.location, charLimit: TextFieldCharLimit.shortField.rawValue, id: .locationTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: TextFieldCharLimit.shortField.rawValue, textfieldWasEdited: { text in
+                    self.name = text
+                }),
+                .textFieldCell(placeholderText: "Location", text: self.location, charLimit: TextFieldCharLimit.shortField.rawValue, textfieldWasEdited: { text in
+                    self.location = text
+                }),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
                 .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.uiImage, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
@@ -142,7 +136,9 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
                 .colorPickerCellV2(colors: StudiumEventColor.allCasesUIColors, colorWasSelected: { color in
                     self.color = UIColor(color)
                 }),
-                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: TextFieldCharLimit.longField.rawValue, id: .additionalDetailsTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: TextFieldCharLimit.longField.rawValue, textfieldWasEdited: { text in
+                    self.additionalDetails = text
+                })
             ],
             [
                 .errorCell(errors: self.errors)
@@ -305,25 +301,25 @@ extension AddHabitViewController: DaySelectorDelegate {
 }
 
 // TODO: Docstrings
-extension AddHabitViewController: UITextFieldDelegateExtension {
-    
-    // TODO: Docstrings
-    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
-        guard let text = sender.text else {
-            print("$ERR: sender's text is nil when editing text.")
-            return
-        }
-        
-        switch textFieldID {
-        case .nameTextField:
-            self.name = text
-        case .locationTextField:
-            self.location = text
-        case .additionalDetailsTextField:
-            self.additionalDetails = text
-        }
-    }
-}
+//extension AddHabitViewController: UITextFieldDelegateExtension {
+//    
+//    // TODO: Docstrings
+//    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
+//        guard let text = sender.text else {
+//            Log.e("sender's text is nil when editing text.")
+//            return
+//        }
+//        
+//        switch textFieldID {
+//        case .nameTextField:
+//            self.name = text
+//        case .locationTextField:
+//            self.location = text
+//        case .additionalDetailsTextField:
+//            self.additionalDetails = text
+//        }
+//    }
+//}
 
 // TODO: Docstrings
 extension AddHabitViewController: ColorDelegate {

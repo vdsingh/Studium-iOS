@@ -46,8 +46,12 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
     func setCells() {
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: TextFieldCharLimit.shortField.rawValue, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", text: self.location, charLimit: TextFieldCharLimit.shortField.rawValue, id: FormCellID.TextFieldCellID.locationTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: TextFieldCharLimit.shortField.rawValue, textfieldWasEdited: { text in
+                    self.name = text
+                }),
+                .textFieldCell(placeholderText: "Location", text: self.location, charLimit: TextFieldCharLimit.shortField.rawValue, textfieldWasEdited: { text in
+                    self.location = text
+                }),
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
                 .labelCell(
                     cellText: "Remind Me", icon: StudiumIcon.bell.uiImage,
@@ -66,7 +70,9 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
                 .colorPickerCellV2(colors: StudiumEventColor.allCasesUIColors, colorWasSelected: { color in
                     self.color = UIColor(color)
                 }),
-                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: TextFieldCharLimit.longField.rawValue, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: TextFieldCharLimit.longField.rawValue, textfieldWasEdited: { text in
+                    self.additionalDetails = text
+                })
             ],
             [
                 .errorCell(errors: self.errors)
@@ -100,11 +106,13 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
                 self.studiumEventService.saveStudiumEvent(newCourse)
             }
 
-            if self.delegate == nil {
-                printDebug("Course refresh delegate is nil.")
+            if let delegate = self.delegate {
+                self.dismiss(animated: true, completion: delegate.loadCourses)
+            } else {
+                Log.e("courseRefreshDelegate was nil. Didn't refresh list.")
+                PopUpService.shared.presentGenericError()
+                self.dismiss(animated: true)
             }
-            
-            self.dismiss(animated: true, completion: self.delegate?.loadCourses)
         } else {
             self.setCells()
             self.scrollToBottomOfTableView()
@@ -117,11 +125,11 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
         var errors = [StudiumFormError]()
         errors.append(contentsOf: super.findErrors())
         
-        if self.name == "" {
+        if self.name.trimmed().isEmpty {
             errors.append(.nameNotSpecified)
         }
         
-        if self.daysSelected == [] {
+        if self.daysSelected.isEmpty {
             errors.append(.oneDayNotSpecified)
         }
         
@@ -162,25 +170,25 @@ extension AddCourseViewController {
 }
 
 // TODO: Docstrings
-extension AddCourseViewController: UITextFieldDelegateExtension {
-    
-    // TODO: Docstrings
-    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
-        guard let text = sender.text else {
-            print("$ERR: sender's text is nil when editing text in \(textFieldID).\n File: \(#file)\nFunction: \(#function)\nLine: \(#line)")
-            return
-        }
-
-        switch textFieldID {
-        case .nameTextField:
-            self.name = text
-        case .locationTextField:
-            self.location = text
-        case .additionalDetailsTextField:
-            self.additionalDetails = text
-        }
-    }
-}
+//extension AddCourseViewController: UITextFieldDelegateExtension {
+//    
+//    // TODO: Docstrings
+//    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
+//        guard let text = sender.text else {
+//            Log.e("sender's text is nil when editing text in \(textFieldID).")
+//            return
+//        }
+//
+//        switch textFieldID {
+//        case .nameTextField:
+//            self.name = text
+//        case .locationTextField:
+//            self.location = text
+//        case .additionalDetailsTextField:
+//            self.additionalDetails = text
+//        }
+//    }
+//}
 
 // TODO: Docstrings
 extension AddCourseViewController: DaySelectorDelegate {
@@ -188,7 +196,7 @@ extension AddCourseViewController: DaySelectorDelegate {
     // TODO: Docstrings
     func updateDaysSelected(weekdays: Set<Weekday>) {
         self.daysSelected = weekdays
-        printDebug("Updated Selected Days: \(self.daysSelected)")
+        Log.d("Updated Selected Days: \(self.daysSelected)")
     }
 }
 
@@ -206,7 +214,7 @@ extension AddCourseViewController {
     
     // TODO: Docstrings
     func fillForm(with course: Course) {
-        printDebug("Filling Add Course form with course: \(course)")
+        Log.d("Filling Add Course form with course: \(course)")
         self.tableView.reloadData()
                 
         if let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell {

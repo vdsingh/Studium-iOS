@@ -75,20 +75,26 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     func setCells() {
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: 100, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: 100, textfieldWasEdited: { text in
+                    self.name = text
+                }),
                 .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: .endTimeCell, onClick: self.timeCellClicked),
                 .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.uiImage, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
             [
-                .switchCell(cellText: "Autoschedule Work Time", isOn: self.autoscheduleWorkTime, switchDelegate: self, infoDelegate: self)
+
             ],
             [
-                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: 300, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self)
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: 300, textfieldWasEdited: { text in
+                    self.additionalDetails = text
+                })
             ],
             [
                 .errorCell(errors: self.errors)
             ]
         ]
+        
+        self.refreshAutoscheduleSection()
     }
     
     //method that is triggered when the user wants to finalize the form
@@ -205,31 +211,6 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     }
 }
 
-//MARK: - Cell DataSource and Delegates
-
-// TODO: Docstrings
-extension AddAssignmentViewController: UITextFieldDelegateExtension {
-    
-    // TODO: Implement IDs here
-    // TODO: Docstrings
-    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
-        guard let text = sender.text else {
-            print("$ERR (AddAssignmentViewController): sender's text was nil. File: \(#file), Function: \(#function), Line: \(#line)")
-            return
-        }
-        
-        switch textFieldID {
-        case .nameTextField:
-            self.name = text
-        case .additionalDetailsTextField:
-            self.additionalDetails = text
-        default:
-            print("$ERR (AddAssignmentViewController): edited text for non-existent field. File: \(#file), Function: \(#function), Line: \(#line)")
-            break
-        }
-    }
-}
-
 //MARK: - Picker Delegate Methods
 
 // TODO: Docstrings
@@ -253,22 +234,22 @@ extension AddAssignmentViewController: CanHandleSwitch {
     
     // TODO: Docstrings
     func switchValueChanged(sender: UISwitch) {
-        printDebug("Switch value changed")
+        Log.d("autoschedule value changed")
         self.autoscheduleWorkTime = sender.isOn
         self.setCells()
-        
         self.refreshAutoscheduleSection()
     }
     
     // TODO: Docstrings
     func refreshAutoscheduleSection() {
         // TODO: Use tableview updates so these actions are animated.
+        self.cells[1] = [.switchCell(cellText: "Autoschedule Work Time", isOn: self.autoscheduleWorkTime, switchDelegate: self, infoDelegate: self)]
+        
         if self.autoscheduleWorkTime {
-            self.cells[1].append(.daySelectorCell(daysSelected: self.daysSelected, delegate: self))
-            self.cells[1].append(.pickerCell(cellText: "Length", indices: self.lengthPickerIndices, tag: FormCellID.PickerCellID.lengthPickerCell, delegate: self, dataSource: self))
-        } else {
-            self.cells[1].removeAll()
-            self.cells[1].append(.switchCell(cellText: "Schedule Time to Work", isOn: false, switchDelegate: self, infoDelegate: self))
+            self.cells[1].append(contentsOf: [
+                .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
+                .pickerCell(cellText: "Length", indices: self.lengthPickerIndices, tag: FormCellID.PickerCellID.lengthPickerCell, delegate: self, dataSource: self)
+            ])
         }
         
         self.tableView.reloadData()
