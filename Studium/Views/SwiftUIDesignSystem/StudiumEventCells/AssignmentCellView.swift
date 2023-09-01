@@ -78,7 +78,8 @@ struct AssignmentCellView: View {
                         Spacer()
                     }
                     
-                    if !self.assignment.autoscheduledEvents.isEmpty {
+                    if let autoschedulingConfig = self.assignment.autoschedulingConfig,
+                       !self.assignment.autoscheduledEvents.isEmpty {
                         Button {
                             guard let assignmentCollapseDelegate = self.assignmentCollapseHandler else {
                                 Log.e("assignmentCollapseDelegate was nil)")
