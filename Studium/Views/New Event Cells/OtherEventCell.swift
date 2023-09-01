@@ -48,6 +48,7 @@ class OtherEventCell: DeletableEventCell {
         self.event = otherEvent
         self.checkboxWasTappedCallback = checkboxWasTappedCallback
         
+        
         let attributeString = NSMutableAttributedString(string: otherEvent.name)
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
         
@@ -58,7 +59,7 @@ class OtherEventCell: DeletableEventCell {
             self.latenessIndicator.tintColor = .gray
             self.iconBackground.image = SystemIcon.circleCheckmarkFill.createImage()
         } else {
-            
+            self.backgroundColor = otherEvent.color
             attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
             self.primaryLabel.attributedText = attributeString
             self.iconBackground.image = SystemIcon.circle.createImage()
@@ -73,12 +74,20 @@ class OtherEventCell: DeletableEventCell {
             }
         }
         
-//        self.iconImageView.image = otherEvent.icon.uiImage
+        let textColor = StudiumColor.primaryLabelColor(forBackgroundColor: self.backgroundColor ?? otherEvent.color)
+        self.iconBackground.tintColor = textColor
+        self.latenessIndicatorContainer.tintColor = textColor
+        self.subLabel.textColor = textColor
+        self.startTimeLabel.textColor = textColor
+        self.endTimeLabel.textColor = textColor
+        self.primaryLabel.textColor = textColor
+
+
+        
         self.iconImageView.isHidden = true
         self.subLabel.text = otherEvent.location
         self.startTimeLabel.text = otherEvent.startDate.format(with: DateFormat.fullDateWithTime.rawValue)
         self.endTimeLabel.text = otherEvent.endDate.format(with: DateFormat.fullDateWithTime.rawValue)
-//        self.backgroundColor = .black
     }
     
     //TODO: Docstrings
@@ -95,10 +104,10 @@ class OtherEventCell: DeletableEventCell {
         self.subLabel.text = secondaryText
         self.subLabel.textColor = contrastingColor
         
-        self.startTimeLabel.text = startDate.format(with: "h:mm a")
+        self.startTimeLabel.text = startDate.format(with: DateFormat.standardTime.formatString)
         self.startTimeLabel.textColor = contrastingColor
 
-        self.endTimeLabel.text = endDate.format(with: "h:mm a")
+        self.endTimeLabel.text = endDate.format(with: DateFormat.standardTime.formatString)
         self.endTimeLabel.textColor = contrastingColor
 
         

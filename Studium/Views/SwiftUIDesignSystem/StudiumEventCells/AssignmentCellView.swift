@@ -39,8 +39,6 @@ struct AssignmentCellView: View {
                     )
                     
                     Button {
-                        let generator = UINotificationFeedbackGenerator()
-                        generator.notificationOccurred(.success)
                         self.checkboxWasTapped()
                     } label: {
                         Image(uiImage: self.assignment.complete ? SystemIcon.circleCheckmarkFill.createImage() : SystemIcon.circle.createImage())
@@ -108,7 +106,7 @@ struct AssignmentCellView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct AssignmentViewController_Previews: PreviewProvider {
     
     static var weekdays: Set<Weekday> {
         var set = Set<Weekday>()
@@ -117,7 +115,7 @@ struct ContentView_Previews: PreviewProvider {
         return set
     }
     
-    static let mockAssignment = Assignment(name: "Homework 4", additionalDetails: "Additional Details", complete: true, startDate: Date(), endDate: Date()+100000, notificationAlertTimes: [], autoscheduling: true, autoLengthMinutes: 60, autoDays: weekdays, parentCourse: Course(name: "CS 320", location: "Building A", additionalDetails: "Hello World", startDate: Date(), endDate: Date(), color: .green, icon: .atom, alertTimes: []))
+    static let mockAssignment = Assignment(name: "Homework 4", additionalDetails: "Additional Details", complete: true, startDate: Date(), endDate: Date()+100000, notificationAlertTimes: [], autoschedulingConfig: nil, parentCourse: Course(name: "CS 320", location: "Building A", additionalDetails: "Hello World", startDate: Date(), endDate: Date(), color: .green, icon: .atom, alertTimes: []))
     
     static var previews: some View {
         AssignmentCellView(assignment: mockAssignment, isExpanded: true, checkboxWasTapped: {}, assignmentCollapseHandler: nil)

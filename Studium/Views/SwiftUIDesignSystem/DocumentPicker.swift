@@ -22,8 +22,6 @@ struct DocumentPicker: UIViewControllerRepresentable {
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<DocumentPicker>
     ) -> UIDocumentPickerViewController {
-        //The file types like ".pkcs12" are listed here:
-        //https://developer.apple.com/documentation/uniformtypeidentifiers/system_declared_uniform_type_identifiers?changes=latest_minor
         let controller: UIDocumentPickerViewController = UIDocumentPickerViewController(forOpeningContentTypes: [.pdf], asCopy: true)
         controller.delegate = context.coordinator
         return controller
@@ -53,17 +51,5 @@ class DocumentPickerCoordinator: NSObject, UIDocumentPickerDelegate, UINavigatio
         }
         
         self.documentWasSelected(url)
-//        let fileURL = urls[0]
-//        
-//        let certData = try! Data(contentsOf: fileURL)
-//        
-//        print("Picked documents at urls: \(urls.map { $0.lastPathComponent })")
-//        
-//        if let documentsPathURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first {
-//            let certURL = documentsPathURL.appendingPathComponent("certFile.pfx")
-//            
-//            try? certData.write(to: certURL)
-//        }
-        
     }
 }

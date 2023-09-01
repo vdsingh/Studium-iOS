@@ -120,7 +120,7 @@ extension Habit: Updatable {
                 autoLengthMinutes: autoschedulingConfig.autoLengthMinutes,
                 autoscheduleInfinitely: autoschedulingConfig.autoscheduleInfinitely,
                 useDatesAsBounds: autoschedulingConfig.useDatesAsBounds,
-                autoschedulingDaysList: autoschedulingConfig.autoschedulingDays
+                autoschedulingDays: autoschedulingConfig.autoschedulingDays
             )
         }
 //        self.autoscheduling = newEvent.autoscheduling

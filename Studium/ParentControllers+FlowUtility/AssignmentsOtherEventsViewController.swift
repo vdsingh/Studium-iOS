@@ -12,15 +12,15 @@ import UIKit
 
 //TODO: Docstrings
 class AssignmentsOtherEventsViewController: StudiumEventListViewController, AssignmentRefreshProtocol, ForegroundSubscriber {
-            
-
+    
+    
     //TODO: Docstrings
     var assignmentsExpandedIDSet = Set<String>()
     
-//    override func loadView() {
-//        super.loadView()
-//
-//    }
+    //    override func loadView() {
+    //        super.loadView()
+    //
+    //    }
     
     override func viewDidLoad() {
         if let sceneDelegate = self.sceneDelegate {
@@ -33,8 +33,8 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
     func willEnterForeground() {
         self.reloadData()
     }
-        
-    //TODO: Docstrings
+    
+    // TODO: Docstrings
     func loadEvents() { }
     
     /// Reloads/sorts the data and refreshes the TableView
@@ -54,7 +54,7 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
         Log.d("Selected row \(indexPath.row)")
         if let assignment = self.displayedEvents[indexPath.section][indexPath.row] as? Assignment,
            let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentTableViewCell {
-           
+            
             let vc = AssignmentViewController(
                 assignment: assignment,
                 editButtonPressed: {
@@ -72,9 +72,7 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
             self.navigationController?.modalPresentationStyle = .formSheet
             self.navigationController?.pushViewController(vc, animated: true)
         } else if let otherEventCell = tableView.cellForRow(at: indexPath) as? OtherEventTableViewCell,
-        
-//        else if let otherEventCell = tableView.cellForRow(at: indexPath) as? OtherEventCell,
-           let otherEvent = otherEventCell.event as? OtherEvent {
+                  let otherEvent = otherEventCell.event as? OtherEvent {
             Log.d("Selected an otherEventCell")
             let vc = OtherEventViewController(
                 otherEvent: otherEvent,
@@ -101,11 +99,10 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let assignment = self.displayedEvents[indexPath.section][indexPath.row] as? Assignment {
             super.swipeCellId = AssignmentTableViewCell.id
-//            if let cell = super.table
             let cell = AssignmentTableViewCell(
                 assignment: assignment,
                 isExpanded: self.assignmentsExpandedIDSet.contains(assignment._id.stringValue),
@@ -116,32 +113,11 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
                 }
             )
             
-//            cell.setExpanded()
             cell.delegate = self
             cell.setLoading(assignment.isGeneratingEvents)
-
-            //            cell.setUp(with: assignment)
             return cell
-            
-//            if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? AssignmentCell1 {
-//                cell.event = assignment
-//                cell.loadData(
-//                    assignment: assignment,
-//                    assignmentCollapseDelegate: self,
-//                    checkboxWasTappedCallback: {
-//                        self.studiumEventService.markComplete(assignment, !assignment.complete)
-//                        self.reloadData()
-//                    }
-//                )
-//                
-//                cell.setIsExpanded(isExpanded: self.assignmentsExpandedSet.contains(assignment))
-//                cell.setLoading(assignment.isGeneratingEvents)
-//                
-//                return cell
-//            }
         } else if let otherEvent = self.displayedEvents[indexPath.section][indexPath.row] as? OtherEvent {
             super.swipeCellId = OtherEventTableViewCell.id
-//            let cell = super.table
             let cell = OtherEventTableViewCell(
                 otherEvent: otherEvent,
                 checkboxWasTapped: {
@@ -154,9 +130,8 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
             )
             
             cell.delegate = self
-
-                return cell
-//            }
+            
+            return cell
         }
         
         Log.s(AssignmentsViewControllerError.couldntDequeueCell, additionalDetails: "Issue dequeueing cell. Couldn't dequeue as AssignmentCell or OtherEventCell")
@@ -170,25 +145,6 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.displayedEvents[section].count
     }
-    
-//    Log.d("Will attempt to delete at \(indexPath)")
-//    if let cell = self.tableView.cellForRow(at: indexPath) as? DeletableEventCell,
-//       let event = cell.event {
-//        let eventID = event._id
-//        let eventType = type(of: event)
-//        DispatchQueue.global(qos: .userInitiated).async {
-//            if let event = self.databaseService.getStudiumEvent(withID: eventID, type: eventType.self) {
-//                self.studiumEventService.deleteStudiumEvent(event)
-//            } else {
-//                Log.e("Failed to retrieve studiumEvent by ID to delete it.", additionalDetails: "Event type: \(eventType)")
-//                PopUpService.shared.presentGenericError()
-//            }
-//        }
-//    }
-    //
-    //    self.eventsArray[indexPath.section].remove(at: indexPath.row)
-    //    self.updateHeader(section: indexPath.section)
-    //    self.updateEmptyEventsIndicator()
     
     //FIXME: Find a better way to handle this (generics)
     override func delete(at indexPath: IndexPath) {
@@ -215,7 +171,7 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
                 }
             }
             
-            self.eventsArray[indexPath.section].remove(at: indexPath.row)
+            self.displayedEvents[indexPath.section].remove(at: indexPath.row)
             self.updateHeader(section: indexPath.section)
             self.updateEmptyEventsIndicator()
         }
@@ -242,11 +198,6 @@ extension AssignmentsOtherEventsViewController: AssignmentCollapseDelegate {
     /// Handles the opening of autoscheduled events for an Assignment
     /// - Parameter assignment: The Assignment for which we want to open autoscheduled events
     func handleEventsOpen(assignment: Assignment) {
-        guard let autoschedulingConfig = assignment.autoschedulingConfig else {
-            Log.e("handleEventsOpen called when assignment has no autoschedulingConfig")
-            return
-        }
-        
         let assignmentSection = assignment.complete ? 1 : 0
         if let assignmentRow = self.displayedEvents[assignmentSection].firstIndex(where: { $0._id == assignment._id }) {
             Log.d("Handling opening auto events for assignment at index (\(assignmentSection), \(assignmentRow))")
@@ -266,10 +217,7 @@ extension AssignmentsOtherEventsViewController: AssignmentCollapseDelegate {
     /// Handles the closing of autoscheduled events for an Assignment
     /// - Parameter assignment: The Assignment for which we want to close autoscheduled events
     func handleEventsClose(assignment: Assignment) {
-        guard let autoschedulingConfig = assignment.autoschedulingConfig else {
-            Log.e("handleEventsClose called when assignment has no autoschedulingConfig")
-            return
-        }
+        
         // assignment is not expanded
         if !self.assignmentsExpandedIDSet.contains(assignment._id.stringValue) {
             return

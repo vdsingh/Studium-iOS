@@ -28,7 +28,6 @@ struct StudiumEventViewHeader: View {
                         .renderingMode(.template)
                         .resizable()
                         .scaledToFit()
-//                    (Color(uiColor: self.primaryLabelColor))
                         .foregroundStyle(self.primaryLabelColor)
                         .frame(width: Increment.six)
                     
