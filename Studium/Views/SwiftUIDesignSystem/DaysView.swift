@@ -11,7 +11,7 @@ import SwiftUI
 import VikUtilityKit
 
 struct DaysView: View {
-    @State var selectedDays: Set<Weekday>
+    var selectedDays: Set<Weekday>
     
     var body: some View {
         HStack(alignment: .center) {
@@ -25,7 +25,7 @@ struct DaysView: View {
 
 struct DayView: View {
     let day: Weekday
-    let isSelected: Bool
+    var isSelected: Bool
     
     var body: some View {
         if self.isSelected {

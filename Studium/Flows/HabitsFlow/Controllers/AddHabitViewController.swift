@@ -164,7 +164,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
                 autoLengthMinutes: autoMinutes,
                 autoscheduleInfinitely: true,
                 useDatesAsBounds: false,
-                autoschedulingDaysList: self.daysSelected
+                autoschedulingDays: self.daysSelected
             )
         }
         
@@ -248,7 +248,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
     func reloadData(){
         self.setCells()
 //        self.cells = self.autoschedule ? self.cellsAuto : self.cellsNoAuto
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
 }
 

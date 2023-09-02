@@ -79,7 +79,12 @@
 		B90F10642A72115200BAB23F /* ChatGPTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10632A72115200BAB23F /* ChatGPTService.swift */; };
 		B90F10662A7301D000BAB23F /* SecretsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10652A7301D000BAB23F /* SecretsService.swift */; };
 		B90F10682A748A1400BAB23F /* UploadFileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F10672A748A1400BAB23F /* UploadFileButton.swift */; };
+		B90FFE352A8F1427000E6EA6 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90FFE342A8F1427000E6EA6 /* Updatable.swift */; };
+		B90FFE372A8F150A000E6EA6 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90FFE362A8F150A000E6EA6 /* Searchable.swift */; };
 		B93CBC532A81AAE8005BDA5F /* StudiumEventViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93CBC522A81AAE8005BDA5F /* StudiumEventViewHeader.swift */; };
+		B93CBC552A84BE8B005BDA5F /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93CBC542A84BE8B005BDA5F /* SectionHeader.swift */; };
+		B93CBC572A882C08005BDA5F /* AssignmentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93CBC562A882C08005BDA5F /* AssignmentCellView.swift */; };
+		B93CBC5C2A885A8B005BDA5F /* OtherEventCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93CBC5B2A885A8B005BDA5F /* OtherEventCellView.swift */; };
 		B94CA0B72A2D435500047865 /* CourseRefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0B62A2D435500047865 /* CourseRefreshProtocol.swift */; };
 		B94CA0B92A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */; };
 		B94CA0BB2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0BA2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift */; };
@@ -108,6 +113,13 @@
 		B96BEC742A806476005105B2 /* OtherEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96BEC732A806476005105B2 /* OtherEventViewController.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
+		B97058EC2A88B493008F8636 /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058EB2A88B492008F8636 /* HabitViewController.swift */; };
+		B97058EE2A88B6F3008F8636 /* DaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058ED2A88B6F3008F8636 /* DaysView.swift */; };
+		B97058F02A88BD00008F8636 /* SoundEffectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058EF2A88BD00008F8636 /* SoundEffectService.swift */; };
+		B97058F32A88BDAE008F8636 /* celebration2.wav in Resources */ = {isa = PBXBuildFile; fileRef = B97058F22A88BDAE008F8636 /* celebration2.wav */; };
+		B97058F52A88BE62008F8636 /* celebration.wav in Resources */ = {isa = PBXBuildFile; fileRef = B97058F42A88BE62008F8636 /* celebration.wav */; };
+		B97058F82A88C1D0008F8636 /* TreeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058F72A88C1D0008F8636 /* TreeCoordinator.swift */; };
+		B97058FA2A88C38B008F8636 /* TreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058F92A88C38B008F8636 /* TreeViewController.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
 		B97BB08429F74628008F1A5B /* Debuggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08329F74628008F1A5B /* Debuggable.swift */; };
 		B97BB0972A00CBF9008F1A5B /* AutoscheduleServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0962A00CBF9008F1A5B /* AutoscheduleServiceTests.swift */; };
@@ -176,6 +188,8 @@
 		B9CDEF792A427CAF0084AB24 /* FlatImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF782A427CAF0084AB24 /* FlatImage.swift */; };
 		B9CDEF7B2A4597140084AB24 /* GoogleSignInErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF7A2A4597140084AB24 /* GoogleSignInErrorCode.swift */; };
 		B9CDEF7D2A45972C0084AB24 /* GoogleAuthScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF7C2A45972C0084AB24 /* GoogleAuthScope.swift */; };
+		B9D71E6B2A8DE8BC00A17F7E /* MockStudiumEventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D71E6A2A8DE8BC00A17F7E /* MockStudiumEventService.swift */; };
+		B9D71E6D2A8DEB4F00A17F7E /* StudiumEventColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D71E6C2A8DEB4F00A17F7E /* StudiumEventColor.swift */; };
 		B9EAD6962A7B2639002E1F40 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EAD6952A7B2639002E1F40 /* DocumentPicker.swift */; };
 		B9EAD6982A7DCDE7002E1F40 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9EAD6972A7DCDE7002E1F40 /* GoogleService-Info.plist */; };
 		B9EAD69C2A7E5527002E1F40 /* StudiumTextfieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EAD69B2A7E5527002E1F40 /* StudiumTextfieldStyle.swift */; };
@@ -291,7 +305,12 @@
 		B90F10632A72115200BAB23F /* ChatGPTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTService.swift; sourceTree = "<group>"; };
 		B90F10652A7301D000BAB23F /* SecretsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsService.swift; sourceTree = "<group>"; };
 		B90F10672A748A1400BAB23F /* UploadFileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadFileButton.swift; sourceTree = "<group>"; };
+		B90FFE342A8F1427000E6EA6 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
+		B90FFE362A8F150A000E6EA6 /* Searchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchable.swift; sourceTree = "<group>"; };
 		B93CBC522A81AAE8005BDA5F /* StudiumEventViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventViewHeader.swift; sourceTree = "<group>"; };
+		B93CBC542A84BE8B005BDA5F /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
+		B93CBC562A882C08005BDA5F /* AssignmentCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCellView.swift; sourceTree = "<group>"; };
+		B93CBC5B2A885A8B005BDA5F /* OtherEventCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventCellView.swift; sourceTree = "<group>"; };
 		B94CA0B62A2D435500047865 /* CourseRefreshProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRefreshProtocol.swift; sourceTree = "<group>"; };
 		B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoSelectionShowingCoordinator.swift; sourceTree = "<group>"; };
 		B94CA0BA2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTimesSelectionShowingCoordinator.swift; sourceTree = "<group>"; };
@@ -319,6 +338,13 @@
 		B96BEC732A806476005105B2 /* OtherEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventViewController.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		B97058EB2A88B492008F8636 /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
+		B97058ED2A88B6F3008F8636 /* DaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysView.swift; sourceTree = "<group>"; };
+		B97058EF2A88BD00008F8636 /* SoundEffectService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffectService.swift; sourceTree = "<group>"; };
+		B97058F22A88BDAE008F8636 /* celebration2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = celebration2.wav; sourceTree = "<group>"; };
+		B97058F42A88BE62008F8636 /* celebration.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = celebration.wav; sourceTree = "<group>"; };
+		B97058F72A88C1D0008F8636 /* TreeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeCoordinator.swift; sourceTree = "<group>"; };
+		B97058F92A88C38B008F8636 /* TreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeViewController.swift; sourceTree = "<group>"; };
 		B9707E372A11C7EF004B63F0 /* TableViewFormKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TableViewFormKit; path = ../../Packages/TableViewFormKit; sourceTree = "<group>"; };
 		B9707E382A11C850004B63F0 /* VikUtilityKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = VikUtilityKit; path = ../../Packages/VikUtilityKit; sourceTree = "<group>"; };
 		B97BB08129F7006E008F1A5B /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -391,6 +417,8 @@
 		B9CDEF7C2A45972C0084AB24 /* GoogleAuthScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthScope.swift; sourceTree = "<group>"; };
 		B9CDEF842A45ADC90084AB24 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		B9CDEF862A45ADC90084AB24 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		B9D71E6A2A8DE8BC00A17F7E /* MockStudiumEventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStudiumEventService.swift; sourceTree = "<group>"; };
+		B9D71E6C2A8DEB4F00A17F7E /* StudiumEventColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventColor.swift; sourceTree = "<group>"; };
 		B9EAD6952A7B2639002E1F40 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
 		B9EAD6972A7DCDE7002E1F40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9EAD69B2A7E5527002E1F40 /* StudiumTextfieldStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudiumTextfieldStyle.swift; sourceTree = "<group>"; };
@@ -477,6 +505,7 @@
 		1693E72F247A3DC4003D4702 /* Studium */ = {
 			isa = PBXGroup;
 			children = (
+				B97058F12A88BDA0008F8636 /* Sounds */,
 				B9A492332A493370006E6A32 /* Studium.entitlements */,
 				B9AFCF822A19EF590087A0FF /* ParentControllers+FlowUtility */,
 				B9AFCF792A19EE4E0087A0FF /* Flows */,
@@ -511,6 +540,7 @@
 		1693E74C247A463D003D4702 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B9D71E692A8DE8B300A17F7E /* Mocking */,
 				1693E74D247A464F003D4702 /* Course.swift */,
 				1693E74F247A4660003D4702 /* Assignment.swift */,
 				16429D03247E43720052E47C /* Habit.swift */,
@@ -578,6 +608,7 @@
 				B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */,
 				B94CA0E92A35511000047865 /* StudiumFont.swift */,
 				B9CDEF782A427CAF0084AB24 /* FlatImage.swift */,
+				B9D71E6C2A8DEB4F00A17F7E /* StudiumEventColor.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -596,6 +627,7 @@
 		B90F10422A6F2FBB00BAB23F /* SwiftUIDesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				B93CBC582A882C0C005BDA5F /* StudiumEventCells */,
 				B90F104A2A6F30CA00BAB23F /* Icons */,
 				B90F10492A6F30C500BAB23F /* Texts */,
 				B90F10512A6F326000BAB23F /* StudiumLinkView.swift */,
@@ -606,6 +638,7 @@
 				B9C2EB182A78C67900E14320 /* StudiumButtonStyle.swift */,
 				B9EAD6952A7B2639002E1F40 /* DocumentPicker.swift */,
 				B93CBC522A81AAE8005BDA5F /* StudiumEventViewHeader.swift */,
+				B97058ED2A88B6F3008F8636 /* DaysView.swift */,
 			);
 			path = SwiftUIDesignSystem;
 			sourceTree = "<group>";
@@ -630,6 +663,15 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
+		B93CBC582A882C0C005BDA5F /* StudiumEventCells */ = {
+			isa = PBXGroup;
+			children = (
+				B93CBC562A882C08005BDA5F /* AssignmentCellView.swift */,
+				B93CBC5B2A885A8B005BDA5F /* OtherEventCellView.swift */,
+			);
+			path = StudiumEventCells;
+			sourceTree = "<group>";
+		};
 		B94CA0C42A2DA11900047865 /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -649,6 +691,7 @@
 		B94CA0D02A2F103400047865 /* AlertTimeSelection */ = {
 			isa = PBXGroup;
 			children = (
+				B90D13F829845FE80093EB0C /* AlertTimeSelectionTableViewForm.swift */,
 				B94CA0BC2A2D5C5700047865 /* AlertTimeSelectingForm.swift */,
 				B94CA0BA2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift */,
 			);
@@ -658,8 +701,10 @@
 		B94CA0D12A2F103E00047865 /* LogoSelection */ = {
 			isa = PBXGroup;
 			children = (
+				B90D13F629845FE80093EB0C /* LogoSelectorViewController.swift */,
 				B94CA0CB2A2F0DB400047865 /* LogoSelectingForm.swift */,
 				B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */,
+				B93CBC542A84BE8B005BDA5F /* SectionHeader.swift */,
 			);
 			path = LogoSelection;
 			sourceTree = "<group>";
@@ -701,6 +746,7 @@
 				B95194112A5675A900E0869A /* WidgetsService.swift */,
 				B90F10632A72115200BAB23F /* ChatGPTService.swift */,
 				B90F10652A7301D000BAB23F /* SecretsService.swift */,
+				B97058EF2A88BD00008F8636 /* SoundEffectService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -720,6 +766,24 @@
 				B90F10532A6F337F00BAB23F /* Increment.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		B97058F12A88BDA0008F8636 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				B97058F22A88BDAE008F8636 /* celebration2.wav */,
+				B97058F42A88BE62008F8636 /* celebration.wav */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		B97058F62A88C1C5008F8636 /* TreeFlow */ = {
+			isa = PBXGroup;
+			children = (
+				B97058F72A88C1D0008F8636 /* TreeCoordinator.swift */,
+				B97058F92A88C38B008F8636 /* TreeViewController.swift */,
+			);
+			path = TreeFlow;
 			sourceTree = "<group>";
 		};
 		B97BB0952A00CBF9008F1A5B /* StudiumTests */ = {
@@ -812,12 +876,14 @@
 			isa = PBXGroup;
 			children = (
 				B995493B2992EDD000442968 /* Completable.swift */,
+				B90FFE362A8F150A000E6EA6 /* Searchable.swift */,
 				B97BB0B62A075CB4008F1A5B /* DaySchedulable.swift */,
 				B9EAD6A52A7E55AD002E1F40 /* Autoscheduling.swift */,
 				B94CA0F12A3683F200047865 /* StudiumEventContainer.swift */,
 				B98693492A3D9C7F00272B22 /* GoogleCalendarEventLinking.swift */,
 				B90F10372A6A098500BAB23F /* Autoscheduled.swift */,
 				B9EAD6A32A7E559C002E1F40 /* FileStorer.swift */,
+				B90FFE342A8F1427000E6EA6 /* Updatable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -857,6 +923,7 @@
 		B9AFCF792A19EE4E0087A0FF /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				B97058F62A88C1C5008F8636 /* TreeFlow */,
 				B9AFCF732A19E3160087A0FF /* AppCoordinator.swift */,
 				B9B41CFB2A26E83600239DD4 /* TabBarFlow */,
 				B9AFCF7E2A19EEB40087A0FF /* CoursesFlow */,
@@ -966,7 +1033,6 @@
 				B90D143F298999AB0093EB0C /* StudiumFormError.swift */,
 				B94CA0C92A2DABA000047865 /* StudiumEventFormCoordinator.swift */,
 				B94CA0CE2A2F101E00047865 /* AlertOption.swift */,
-				B9AFCF852A19F0CB0087A0FF /* Controllers */,
 			);
 			path = GenericFormUtility;
 			sourceTree = "<group>";
@@ -976,15 +1042,6 @@
 			children = (
 				16547B6C24DA4AC000E68E4D /* ThemesViewController.swift */,
 				161A69E424C7B84B00E5A5AE /* SettingsViewController.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		B9AFCF852A19F0CB0087A0FF /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				B90D13F629845FE80093EB0C /* LogoSelectorViewController.swift */,
-				B90D13F829845FE80093EB0C /* AlertTimeSelectionTableViewForm.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1024,6 +1081,7 @@
 			children = (
 				B90D13F329845FE80093EB0C /* AddHabitViewController.swift */,
 				1693E747247A417B003D4702 /* HabitsViewController.swift */,
+				B97058EB2A88B492008F8636 /* HabitViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1074,6 +1132,14 @@
 				B9CDEF7C2A45972C0084AB24 /* GoogleAuthScope.swift */,
 			);
 			path = GoogleAuth;
+			sourceTree = "<group>";
+		};
+		B9D71E692A8DE8B300A17F7E /* Mocking */ = {
+			isa = PBXGroup;
+			children = (
+				B9D71E6A2A8DE8BC00A17F7E /* MockStudiumEventService.swift */,
+			);
+			path = Mocking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1196,9 +1262,11 @@
 				1693E738247A3DC4003D4702 /* Main.storyboard in Resources */,
 				165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */,
 				16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */,
+				B97058F32A88BDAE008F8636 /* celebration2.wav in Resources */,
 				B9EAD6982A7DCDE7002E1F40 /* GoogleService-Info.plist in Resources */,
 				16C05CFB264F5ABC004C9629 /* AssignmentCell1.xib in Resources */,
 				16A63B8524AA85A7003A30D3 /* OtherEventCell.xib in Resources */,
+				B97058F52A88BE62008F8636 /* celebration.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1289,14 +1357,17 @@
 				B94CA0B92A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift in Sources */,
 				B90F10662A7301D000BAB23F /* SecretsService.swift in Sources */,
 				B90F10582A6F803400BAB23F /* Spinner.swift in Sources */,
+				B97058F82A88C1D0008F8636 /* TreeCoordinator.swift in Sources */,
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
 				B9AFCF992A19F2430087A0FF /* DatabaseServiceProtocol.swift in Sources */,
 				B9EAD6A62A7E55AD002E1F40 /* Autoscheduling.swift in Sources */,
 				B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */,
 				B90F10462A6F2FF800BAB23F /* StudiumGraySubtitle.swift in Sources */,
+				B90FFE372A8F150A000E6EA6 /* Searchable.swift in Sources */,
 				B90D13FD29845FE80093EB0C /* LogoSelectorViewController.swift in Sources */,
 				B90F10542A6F337F00BAB23F /* Increment.swift in Sources */,
 				B90D1449298C77B80093EB0C /* NotificationService.swift in Sources */,
+				B93CBC552A84BE8B005BDA5F /* SectionHeader.swift in Sources */,
 				B94CA0CA2A2DABA000047865 /* StudiumEventFormCoordinator.swift in Sources */,
 				B90D13FC29845FE80093EB0C /* MasterForm.swift in Sources */,
 				B951941A2A5E8A8300E0869A /* ImageDetailView.swift in Sources */,
@@ -1309,6 +1380,7 @@
 				B90D13FE29845FE80093EB0C /* AddToDoListEventViewController.swift in Sources */,
 				1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */,
 				B94CA0D72A31432400047865 /* AssignmentEditingCoordinator.swift in Sources */,
+				B9D71E6B2A8DE8BC00A17F7E /* MockStudiumEventService.swift in Sources */,
 				B9CDEF792A427CAF0084AB24 /* FlatImage.swift in Sources */,
 				B97BB0AC2A022B30008F1A5B /* String_Extension.swift in Sources */,
 				B9A4923A2A4937C8006E6A32 /* Array_Extension.swift in Sources */,
@@ -1362,6 +1434,7 @@
 				B9B41D012A26F43900239DD4 /* NSObject_Extension.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
 				B90D144229899C310093EB0C /* Weekday.swift in Sources */,
+				B90FFE352A8F1427000E6EA6 /* Updatable.swift in Sources */,
 				B94CA0BB2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift in Sources */,
 				16C60FB225C5F7FB006D0FFC /* StudiumEvent.swift in Sources */,
 				B90D1447298C6EA50093EB0C /* AuthenticationService.swift in Sources */,
@@ -1369,9 +1442,11 @@
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
 				B9CDEF7D2A45972C0084AB24 /* GoogleAuthScope.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
+				B97058EE2A88B6F3008F8636 /* DaysView.swift in Sources */,
 				B93CBC532A81AAE8005BDA5F /* StudiumEventViewHeader.swift in Sources */,
 				B94CA0E62A34573200047865 /* Logger.swift in Sources */,
 				B94CA0C12A2D5CA800047865 /* Coordinator.swift in Sources */,
+				B97058F02A88BD00008F8636 /* SoundEffectService.swift in Sources */,
 				B94CA0BD2A2D5C5700047865 /* AlertTimeSelectingForm.swift in Sources */,
 				B9AFCF912A19F1EA0087A0FF /* ToDoCoordinator.swift in Sources */,
 				B90F104E2A6F30D600BAB23F /* MediumIcon.swift in Sources */,
@@ -1382,6 +1457,7 @@
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
 				B9CDEF732A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift in Sources */,
 				B9B41CF52A26E3F500239DD4 /* DebugFlags.swift in Sources */,
+				B93CBC572A882C08005BDA5F /* AssignmentCellView.swift in Sources */,
 				B986934D2A3DA80F00272B22 /* StudiumEventService.swift in Sources */,
 				B96E6A9C298456A500A25457 /* K.swift in Sources */,
 				B9B41CF12A26D2E500239DD4 /* TabItemCoordinator.swift in Sources */,
@@ -1404,7 +1480,11 @@
 				B986935C2A3E8A3400272B22 /* EKCalendarItem.swift in Sources */,
 				164905B727E18732002DE61D /* LoginViewController.swift in Sources */,
 				B97BB09F2A00D19D008F1A5B /* MockAutoscheduleService.swift in Sources */,
+				B9D71E6D2A8DEB4F00A17F7E /* StudiumEventColor.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
+				B93CBC5C2A885A8B005BDA5F /* OtherEventCellView.swift in Sources */,
+				B97058EC2A88B493008F8636 /* HabitViewController.swift in Sources */,
+				B97058FA2A88C38B008F8636 /* TreeViewController.swift in Sources */,
 				B97BB0B72A075CB4008F1A5B /* DaySchedulable.swift in Sources */,
 				B98693602A3E8A3400272B22 /* EKParticipant.swift in Sources */,
 				B9B41CFA2A26E82E00239DD4 /* TabItemInfo.swift in Sources */,
