@@ -23,7 +23,7 @@ pod 'FBSDKLoginKit'
 
 #UI Related
 pod 'SwipeCellKit'
-pod 'CalendarKit'
+pod 'CalendarKit', '1.1.0'
 pod 'ChameleonFramework/Swift', :git => 'https://github.com/wowansm/Chameleon.git', :branch => 'swift5'
 pod 'Colorful'
 pod 'FlexColorPicker' # Color Picker Form Element

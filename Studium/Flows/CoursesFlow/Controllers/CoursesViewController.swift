@@ -17,11 +17,6 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     //TODO: Docstrings
     var courses = [Course]()
     
-    // TODO: Docstrings
-    override var debug: Bool {
-        false
-    }
-    
     override func loadView() {
         super.loadView()
         self.emptyDetailIndicatorViewModel = ImageDetailViewModel(image: FlatImage.girlSittingOnBooks.uiImage, title: "No Courses here yet", subtitle: nil, buttonText: "Add a Course", buttonAction: self.addButtonPressed)
@@ -29,17 +24,15 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Courses"
         
+        self.title = "Courses"
         self.eventTypeString = "Courses"
-
         self.sectionHeaders = ["Today:", "Not Today:"]
 
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
         self.tableView.delegate = self //setting delegate class for the table view to be this
         self.tableView.dataSource = self //setting data source for the table view to be this
-        
         self.tableView.rowHeight = 140
         self.tableView.separatorStyle = .none //gets rid of dividers between cells.
     }
@@ -68,7 +61,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // build the cells
         super.swipeCellId = RecurringEventCell.id
-        printDebug("will try to dequeue cell in CoursesViewController with id: \(self.swipeCellId)")
+        Log.d("will try to dequeue cell in CoursesViewController with id: \(self.swipeCellId)")
         
         if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? RecurringEventCell,
            let course = eventsArray[indexPath.section][indexPath.row] as? Course {
@@ -124,11 +117,14 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
 
     //TODO: Docstrings
     override func edit(at indexPath: IndexPath) {
-        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        let eventForEdit = deletableEventCell.event! as! Course
-        self.unwrapCoordinatorOrShowError()
-        self.coordinator?.showEditCourseViewController(refreshDelegate: self, courseToEdit: eventForEdit)
-        Log.d("Editing course \(eventForEdit)")
+        if let deletableEventCell = self.tableView.cellForRow(at: indexPath) as? DeletableEventCell,
+           let eventForEdit = deletableEventCell.event as? Course {
+            self.unwrapCoordinatorOrShowError()
+            self.coordinator?.showEditCourseViewController(refreshDelegate: self, courseToEdit: eventForEdit)
+        } else {
+            Log.e("Couldn't unwrap event as Course")
+            PopUpService.shared.presentGenericError()
+        }
     }
     
     //TODO: Docstrings

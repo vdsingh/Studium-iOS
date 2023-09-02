@@ -12,14 +12,10 @@ import EventKit
 import RealmSwift
 import VikUtilityKit
 
-protocol Updatable {
-    associatedtype EventType
-    
-    func updateFields(withNewEvent event: EventType)
-}
-
 //TODO: Docstrings
-class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, GoogleCalendarEventLinking {
+class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, GoogleCalendarEventLinking, Identifiable {
+    
+//    @Persisted var shouldBeDeleted: Bool = false
 
     /// id of the StudiumEvent
     @Persisted var _id: ObjectId = ObjectId.generate()
@@ -105,13 +101,8 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, GoogleCal
             return minutes
         }
         
-        print("$ERR (StudiumEvent): Couldn't get total length minutes from start and end date. returning 0")
+        Log.e("Couldn't get total length minutes from start and end date. returning 0")
         return 0
-    }
-    
-    var daysHoursMinsDueDateString: String {
-        let (days, hours, mins) = Date().daysMinsHours(until: self.endDate)
-        return "\(days) Days, \(hours) Hours, \(mins) Minutes"
     }
     
     //TODO: Docstrings
@@ -178,7 +169,7 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, GoogleCal
     
     //TODO: Docstrings
     var scheduleDisplayString: String {
-        return "\(self.startDate.format(with: "h:mm a")) - \(self.endDate.format(with: "h:mm a")): \(self.name)"
+        return "\(self.startDate.format(with: DateFormat.standardTime.formatString)) - \(self.endDate.format(with: DateFormat.standardTime.formatString)): \(self.name)"
     }
     
     //TODO: Docstrings
@@ -189,17 +180,12 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, GoogleCal
     override static func primaryKey() -> String? {
         return "_id"
     }
-}
-
-extension Date {
-    func daysMinsHours(until date: Date) -> (days: Int, hours: Int, minutes: Int) {
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.day, .hour, .minute], from: self, to: date)
-        
-        let days = components.day ?? 0
-        let hours = components.hour ?? 0
-        let minutes = components.minute ?? 0
-        
-        return (days, hours, minutes)
+    
+    // MARK: - Searchable
+    func eventIsVisible(fromSearch searchText: String) -> Bool {
+        return self.name.contains(searchText) ||
+        self.startDate.formatted().contains(searchText) ||
+        self.endDate.formatted().contains(searchText) ||
+        self.location.contains(searchText)
     }
 }

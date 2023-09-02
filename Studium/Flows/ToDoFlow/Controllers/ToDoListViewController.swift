@@ -55,6 +55,28 @@ class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefr
         self.collapseAllExpandedAssignments()
     }
     
+    
+    //TODO: Fix sorting
+//    let assignments = self.databaseService.getContainedEvents(forContainer: self.selectedCourse)
+//    Log.d("Loaded assignments: \(assignments.map({ $0.name }))")
+//
+//    // First array is incomplete events, second array is complete events
+//    self.eventsArray = [[],[]]
+//    for assignment in assignments {
+//        if assignment.complete {
+//            self.eventsArray[1].append(assignment)
+//        } else {
+//            self.eventsArray[0].append(assignment)
+//        }
+//        
+//        // If the Assignment is expanded
+//        if self.assignmentsExpandedIDSet.contains(assignment._id.stringValue) {
+//            self.handleEventsOpen(assignment: assignment)
+//        }
+//    }
+//    
+//    self.updateEmptyEventsIndicator()
+    
     override func loadEvents() {
         self.eventsArray = [[],[]]
 
@@ -63,9 +85,14 @@ class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefr
         
         for assignment in assignments {
             if assignment.complete {
-                eventsArray[1].append(assignment)
+                self.eventsArray[1].append(assignment)
             } else {
-                eventsArray[0].append(assignment)
+                self.eventsArray[0].append(assignment)
+            }
+            
+            // If the Assignment is expanded
+            if self.assignmentsExpandedIDSet.contains(assignment._id.stringValue) {
+                self.handleEventsOpen(assignment: assignment)
             }
         }
         
@@ -75,14 +102,11 @@ class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefr
             }
             
             if otherEvent.complete {
-                eventsArray[1].append(otherEvent)
+                self.eventsArray[1].append(otherEvent)
             } else {
-                eventsArray[0].append(otherEvent)
+                self.eventsArray[0].append(otherEvent)
             }
         }
-        
-        eventsArray[0] = eventsArray[0].sorted(by: { $0.startDate.compare($1.startDate) == .orderedAscending })
-        eventsArray[1] = eventsArray[1].sorted(by: { $0.startDate.compare($1.startDate) == .orderedDescending })
         
         self.updateEmptyEventsIndicator()
     }
@@ -98,11 +122,15 @@ class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefr
         let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         self.unwrapCoordinatorOrShowError()
 
-        if let assignment = deletableEventCell.event! as? Assignment {
-//            self.coordinator?.showEditAssignmentViewController(refreshDelegate: self, assignmentToEdit: assignment)
+        if let assignment = deletableEventCell.event as? Assignment {
             self.editAssignment(assignment)
-        } else if let otherEvent = deletableEventCell.event! as? OtherEvent {
-            self.coordinator?.showEditOtherEventViewController(refreshDelegate: self, otherEventToEdit: otherEvent)
+        } else if let otherEvent = deletableEventCell.event as? OtherEvent {
+//            self.coordinator?.showEditOtherEventViewController(refreshDelegate: self, otherEventToEdit: otherEvent)
+            self.editOtherEvent(otherEvent)
+            Log.d("Attempting to edit OtherEvent: \(otherEvent)")
+        } else {
+            Log.e("Couldn't cast event as Assignment or OtherEvent when attempting to edit")
+            PopUpService.shared.presentGenericError()
         }
     }
     

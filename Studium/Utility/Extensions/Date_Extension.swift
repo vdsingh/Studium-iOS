@@ -168,4 +168,20 @@ extension Date {
         
         return date2 >= threeMonthsEarlier && date2 <= threeMonthsLater
     }
+    
+    var daysHoursMinsDueDateString: String {
+        let (days, hours, mins) = Date().daysMinsHours(until: self)
+        return "in \(days) Days, \(hours) Hours, \(mins) Minutes"
+    }
+    
+    func daysMinsHours(until date: Date) -> (days: Int, hours: Int, minutes: Int) {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day, .hour, .minute], from: self, to: date)
+        
+        let days = components.day ?? 0
+        let hours = components.hour ?? 0
+        let minutes = components.minute ?? 0
+        
+        return (days, hours, minutes)
+    }
 }

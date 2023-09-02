@@ -12,12 +12,6 @@ import RealmSwift
 import UIKit
 import SwiftUI
 
-//struct AssignmentViewHeader: View {
-//    
-//    @ObservedRealmObject var assignment: Assignment
-//    var body: some View {
-//    }
-//}
 struct AssignmentViewSectionTitle: View {
     
     let icon: UIImage
@@ -60,7 +54,7 @@ struct AssignmentViewDetails: View {
                 SmallIcon(color: self.assignment.latenessStatus.color, image: SystemIcon.clockFill.createImage())
                 VStack(alignment: .leading) {
                     StudiumText("Due: \(self.assignment.dueDateString)")
-                    StudiumSubtext(self.assignment.daysHoursMinsDueDateString)
+                    StudiumSubtext(self.assignment.endDate.daysHoursMinsDueDateString)
                 }
             }
             
@@ -79,71 +73,43 @@ struct AssignmentViewDetails: View {
 struct AssignmentViewStudyTime: View {
     @ObservedRealmObject var assignment: Assignment
     
-    var autoLengthString: String {
-        let hours = self.assignment.autoLengthMinutes / 60
-        let minutes = self.assignment.autoLengthMinutes % 60
-        
-        let hoursString = hours == 1 ? "\(hours) hour" : "\(hours) hours"
-        let minutesString = minutes == 1 ? "\(minutes) minute" : "\(minutes) minutes"
-        
-        return "\(hoursString), \(minutesString)"
-    }
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: Increment.two) {
-            AssignmentViewSectionTitle(icon: StudiumIcon.book.uiImage, title: "Study Time")
-            VStack(alignment: .leading) {
-                HStack {
-                    MiniIcon(image: SystemIcon.clockFill.createImage())
-                    StudiumText(self.autoLengthString)
-                }
-                
-                HStack {
-                    MiniIcon(image: SystemIcon.calendar.createImage())
-                    DaysView(selectedDays: self.assignment.autoschedulingDays)
-                }
-            }
-            .padding(.leading, 30)
-        }
-    }
-}
-
-struct DayView: View {
-    
-    let day: Weekday
-    let isSelected: Bool
-    
-    var body: some View {
-        if self.isSelected {
-            ZStack {
-                StudiumColor.primaryAccent.color
-                    .clipShape(.rect(cornerRadius: Increment.one))
-
-                Text(self.day.buttonText)
-                    .font(StudiumFont.subText.font)
-                    .foregroundStyle(StudiumFont.body.color)
-                    .padding(2)
-            }
-        } else {
-            Text(self.day.buttonText)
-                .font(StudiumFont.subText.font)
-                .foregroundStyle(StudiumColor.primaryAccent.color)
+    var autoLengthString: String? {
+        if let autoschedulingConfig = self.assignment.autoschedulingConfig {
+            let hours = autoschedulingConfig.autoLengthMinutes / 60
+            let minutes = autoschedulingConfig.autoLengthMinutes % 60
             
+            let hoursString = hours == 1 ? "\(hours) hour" : "\(hours) hours"
+            let minutesString = minutes == 1 ? "\(minutes) minute" : "\(minutes) minutes"
+            
+            return "\(hoursString), \(minutesString)"
         }
+        
+        return nil
     }
-}
-struct DaysView: View {
-    @State var selectedDays: Set<Weekday>
     
     var body: some View {
-        HStack(alignment: .center) {
-            ForEach(Weekday.allKnownCases, id: \.self) { weekday in
-                DayView(day: weekday, isSelected: self.selectedDays.contains(weekday))
-                    .frame(maxWidth: .infinity)
+        if let autoschedulingConfig = self.assignment.autoschedulingConfig {
+            VStack(alignment: .leading, spacing: Increment.two) {
+                AssignmentViewSectionTitle(icon: StudiumIcon.book.uiImage, title: "Study Time")
+                VStack(alignment: .leading) {
+                    HStack {
+                        MiniIcon(image: SystemIcon.clockFill.createImage())
+                        if let autoLengthString = self.autoLengthString {
+                            StudiumText(autoLengthString)
+                        }
+                    }
+                    
+                    HStack {
+                        MiniIcon(image: SystemIcon.calendar.createImage())
+                        DaysView(selectedDays: autoschedulingConfig.autoschedulingDays)
+                    }
+                }
+                .padding(.leading, 30)
             }
         }
     }
 }
+
 struct AssignmentViewAIResourceProvider: View {
     @ObservedRealmObject var assignment: Assignment
     
@@ -279,7 +245,6 @@ struct AssignmentView: View {
                             AssignmentViewAIResourceProvider(assignment: self.assignment)
                             
                             StudiumEventViewDivider()
-//                            Spacer()
 
                             VStack(alignment: .leading) {
                                 HStack(alignment: .top) {
@@ -364,18 +329,10 @@ class AssignmentViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.navigationBar.tintColor = StudiumColor.primaryLabelColor(forBackgroundColor: self.assignment.color)
         
-//        StudiumColor.link.uiColor
-        
-        
         let editImage = SystemIcon.pencilCircleFill.createImage()
-        
-        
-        
         let editItem = UIBarButtonItem(image: editImage, style: .done, target: self, action: #selector(self.editAssignment))
     
-        
         let deleteItem = UIBarButtonItem(image: SystemIcon.trashCanCircleFill.createImage(), style: .done, target: self, action: #selector(self.deleteAssignment))
-//        deleteItem.tintColor = StudiumColor.failure.uiColor
         
         self.navigationItem.rightBarButtonItems = [
             editItem,
@@ -387,7 +344,8 @@ class AssignmentViewController: UIViewController {
         let assignmentView = AssignmentView(
             assignment: self.assignment, pdfUrlWasPressed: { url in
                 self.openPDFViewController(url: url)
-            })
+            }
+        )
         
         let hostingController = UIHostingController(rootView: assignmentView)
         self.addChild(hostingController)
@@ -419,22 +377,21 @@ class AssignmentViewController: UIViewController {
     }
 }
 
-
-//struct ContentView_Previews: PreviewProvider {
-//    
-//    static var weekdays: Set<Weekday> {
-//        var set = Set<Weekday>()
-//        set.insert(.wednesday)
-//        set.insert(.monday)
-//        return set
-//    }
-//    
-//    static let mockAssignment = Assignment(name: "Homework 4", additionalDetails: "Additional Details", complete: true, startDate: Date(), endDate: Date()+100000, notificationAlertTimes: [], autoscheduling: true, autoLengthMinutes: 60, autoDays: weekdays, parentCourse: Course(name: "CS 320", location: "Building A", additionalDetails: "Hello World", startDate: Date(), endDate: Date(), color: .green, icon: .atom, alertTimes: []))
-//    
-//    static var previews: some View {
-//        AssignmentView(
-//            assignment: mockAssignment,
-//            pdfUrlWasPressed: { _ in }
-//        )
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    
+    static var weekdays: Set<Weekday> {
+        var set = Set<Weekday>()
+        set.insert(.wednesday)
+        set.insert(.monday)
+        return set
+    }
+    
+    static let mockAssignment = Assignment(name: "Homework 4", additionalDetails: "Additional Details", complete: true, startDate: Date(), endDate: Date()+100000, notificationAlertTimes: [], autoschedulingConfig: nil, parentCourse: Course(name: "CS 320", location: "Building A", additionalDetails: "Hello World", startDate: Date(), endDate: Date(), color: .green, icon: .atom, alertTimes: []))
+    
+    static var previews: some View {
+        AssignmentView(
+            assignment: mockAssignment,
+            pdfUrlWasPressed: { _ in }
+        )
+    }
+}

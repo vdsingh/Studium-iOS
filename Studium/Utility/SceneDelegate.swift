@@ -27,8 +27,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        self.coordinator = AppCoordinator(authenticationService: AuthenticationService.shared)
-        coordinator?.start()
+        let coordinator = AppCoordinator(authenticationService: AuthenticationService.shared)
+        self.coordinator = coordinator
+        coordinator.start()
         
         self.window?.makeKeyAndVisible()
         currentScene = scene

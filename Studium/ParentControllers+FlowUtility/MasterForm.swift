@@ -60,13 +60,15 @@ class MasterForm: TableViewForm, Debuggable {
     var endDate: Date = Date() + (60*60)
     
     // TODO: Docstrings
-    var totalLengthMinutes = 0
+    var totalLengthMinutes: Int?
     
     // TODO: Docstrings
     var lengthPickerIndices: [Int] {
-        let hours = self.totalLengthMinutes / 60
-        let minutes =  self.totalLengthMinutes % 60
-        return [hours, minutes]
+        if let totalLengthMinutes = self.totalLengthMinutes {
+            return [totalLengthMinutes / 60, totalLengthMinutes % 60]
+        }
+        
+        return [0, 0]
     }
     
     override func viewDidLoad() {
@@ -100,7 +102,7 @@ class MasterForm: TableViewForm, Debuggable {
                 return
             }
             
-            guard let colorCell = tableView.cellForRow(at: IndexPath(row: colorCellRow, section: 2)) as? ColorPickerCell else {
+            guard let colorCell = self.tableView.cellForRow(at: IndexPath(row: colorCellRow, section: 2)) as? ColorPickerCell else {
                 return
             }
             
@@ -113,15 +115,15 @@ class MasterForm: TableViewForm, Debuggable {
         var errors = [StudiumFormError]()
         
         // Character Limit checking
-        if self.name.count > TextFieldCharLimit.shortField.rawValue {
+        if self.name.trimmingCharacters(in: .whitespacesAndNewlines).count > TextFieldCharLimit.shortField.rawValue {
             errors.append(.nameTooLong(charLimit: .shortField))
         }
         
-        if self.location.count > TextFieldCharLimit.shortField.rawValue {
+        if self.location.trimmingCharacters(in: .whitespacesAndNewlines).count > TextFieldCharLimit.shortField.rawValue {
             errors.append(.locationTooLong(charLimit: .shortField))
         }
         
-        if self.additionalDetails.count > TextFieldCharLimit.longField.rawValue {
+        if self.additionalDetails.trimmingCharacters(in: .whitespacesAndNewlines).count > TextFieldCharLimit.longField.rawValue {
             errors.append(.additionalDetailsTooLong(charLimit: .longField))
         }
         
@@ -222,7 +224,6 @@ extension MasterForm {
                     id: timePickerID,
                     delegate: self
                 ),
-//                .datePickerCell,
                 at: timeCellIndex + 1
             )
         case .startTimeCell:
@@ -282,10 +283,10 @@ extension MasterForm: UITimePickerDelegate {
         switch pickerID {
         case .startDateTimePicker:
             self.startDate = sender.date
-            print("$LOG: updated startDate \(self.startDate)")
+            Log.d("updated startDate \(self.startDate)")
         case .endDateTimePicker:
             self.endDate = sender.date
-            print("$LOG: updated endDate \(self.endDate)")
+            Log.d("updated endDate \(self.endDate)")
         default:
             print("$ERR (MasterFormClass): unexpected TimePicker ID.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
@@ -299,7 +300,6 @@ extension MasterForm: UITimePickerDelegate {
 extension MasterForm: AlertTimeHandler {
     func alertTimesWereUpdated(selectedAlertOptions: [AlertOption]) {
         self.alertTimes = selectedAlertOptions
-        self.printDebug("Selected alert times updated to \(self.alertTimes)")
     }
 }
 
@@ -340,7 +340,7 @@ extension MasterForm: UIPickerViewDelegate {
                 return "\(row) min"
             }
         default:
-            print("$ERR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            Log.e("Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return nil
         }
     }
@@ -350,7 +350,6 @@ extension MasterForm: UIPickerViewDelegate {
         let lengthHours = pickerView.selectedRow(inComponent: 0)
         let lengthMinutes = pickerView.selectedRow(inComponent: 1)
         self.totalLengthMinutes = (lengthHours * 60) + lengthMinutes
-        print("set totalLengthMinutes to \(self.totalLengthMinutes)")
     }
 }
 
@@ -365,7 +364,7 @@ extension MasterForm: UIPickerViewDataSource {
         case FormCellID.PickerCellID.coursePickerCell.rawValue:
             return 1
         default:
-            print("$ERR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            Log.e("Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return 0
         }
     }
@@ -382,7 +381,7 @@ extension MasterForm: UIPickerViewDataSource {
         case FormCellID.PickerCellID.coursePickerCell.rawValue:
             return self.databaseService.getStudiumObjects(expecting: Course.self).count
         default:
-            print("$ERR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            Log.e("Unknown pickerView ID")
             return 0
         }
     }
@@ -437,12 +436,12 @@ extension MasterForm {
     
     // TODO: Docstrings
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return cells.count
+        return self.cells.count
     }
     
     // TODO: Docstrings
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cells[section].count
+        return self.cells[section].count
     }
     
     // TODO: Docstrings
@@ -472,6 +471,6 @@ extension MasterForm {
 // MARK: - TableViewForm Conformance
 extension MasterForm {
     func fillForm(event: StudiumEvent) {
-        fatalError("$ERR (MasterForm): fillForm method should be overriden by subclass.")
+        Log.s(NSError(domain: "", code: 0), additionalDetails: "fillForm was called in MasterForm when it should be called in subclass. self: \(self)")
     }
 }

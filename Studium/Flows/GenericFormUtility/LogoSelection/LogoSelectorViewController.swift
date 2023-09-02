@@ -33,8 +33,6 @@ class LogoSelectorViewController: UIViewController, Storyboarded {
     
     var filteredIcons: [StudiumIcon] = StudiumIcon.allCases
     
-//    var isSearching = false
-    
     var searchController: UISearchController!
 
     override func loadView() {

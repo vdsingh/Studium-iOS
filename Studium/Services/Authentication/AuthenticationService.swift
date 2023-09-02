@@ -174,29 +174,19 @@ extension AuthenticationService {
         client.registerUser(email: email, password: password) { error in
             if let error = error {
                 Log.e(error)
-                completion(.failure(error))
-            } else {
-                
-                Log.g("successfully registered guest.")
-                self.app.login(credentials: Credentials.emailPassword(email: email, password: password)) { result in
-                    switch result {
-                    case .failure(let error):
-                        Log.e(error, additionalDetails: "login failed")
-                        completion(.failure(error))
-                    case .success(let user):
-                        Log.g("successfully logged in as user \(user)")
-                        completion(.success(user))
-                    }
+            }
+            
+            Log.g("successfully registered guest.")
+            self.app.login(credentials: Credentials.emailPassword(email: email, password: password)) { result in
+                switch result {
+                case .failure(let error):
+                    Log.e(error, additionalDetails: "login failed")
+                    completion(.failure(error))
+                case .success(let user):
+                    Log.g("successfully logged in as user \(user)")
+                    completion(.success(user))
                 }
             }
         }
     }
 }
-
-//extension AuthenticationService: Debuggable {
-//    func printDebug(_ message: String) {
-//        if self.debug {
-//            print("$LOG (AuthenticationService): \(message)")
-//        }
-//    }
-//}

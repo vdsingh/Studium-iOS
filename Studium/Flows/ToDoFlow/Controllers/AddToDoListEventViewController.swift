@@ -35,9 +35,8 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
     
     func showAlertTimesSelectionViewController() {
         self.printDebug("showAlertTimesSelectionViewController called")
-//        self.unwrapCoordinatorOrShowError()
         
-        if let coordinator = coordinator as? AlertTimesSelectionShowingCoordinator {
+        if let coordinator = coordinator {
             coordinator.showAlertTimesSelectionViewController(updateDelegate: self, selectedAlertOptions: self.alertTimes)
         } else {
             self.showError(.nonConformingCoordinator)
@@ -178,5 +177,11 @@ extension AddToDoListEventViewController {
         self.startDate = otherEvent.startDate
         self.endDate = otherEvent.endDate
         self.setCells()
+    }
+}
+
+extension String {
+    func trimmed() -> String {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

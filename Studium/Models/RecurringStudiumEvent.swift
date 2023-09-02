@@ -39,7 +39,7 @@ class RecurringStudiumEvent: StudiumEvent, GoogleCalendarRecurringEventLinking {
     }
     
     var nextOccuringTimeChunk: TimeChunk? {
-        if days.isEmpty {
+        if self.days.isEmpty {
             return nil
         }
         

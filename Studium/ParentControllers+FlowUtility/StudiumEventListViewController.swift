@@ -173,7 +173,7 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
             }
         }
         
-        self.eventsArray[indexPath.section].remove(at: indexPath.row)
+        self.displayedEvents[indexPath.section].remove(at: indexPath.row)
         self.updateHeader(section: indexPath.section)
         self.updateEmptyEventsIndicator()
     }

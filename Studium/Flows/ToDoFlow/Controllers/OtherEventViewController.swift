@@ -18,43 +18,49 @@ struct OtherEventViewDetails: View {
     let studiumEventService = StudiumEventService.shared
     
     var body: some View {
-            VStack(alignment: .leading, spacing: Increment.two) {
-                Button {
-                    if let otherEvent = self.otherEvent.thaw() {
-                        self.studiumEventService.markComplete(otherEvent, !otherEvent.complete)
-                    }
-                } label: {
-                    HStack {
-                        SmallIcon(color: StudiumColor.secondaryAccent.color, image: self.otherEvent.complete ? SystemIcon.circleCheckmarkFill.createImage() : SystemIcon.circle.createImage())
-                        Text(self.otherEvent.complete ? "Complete" : "Incomplete")
-                            .strikethrough(self.otherEvent.complete)
-                            .font(StudiumFont.bodySemibold.font)
-                            .foregroundStyle(StudiumFont.bodySemibold.color)
-                        Spacer()
-                    }
+        VStack(alignment: .leading, spacing: Increment.two) {
+            Button {
+                if let otherEvent = self.otherEvent.thaw() {
+                    self.studiumEventService.markComplete(otherEvent, !otherEvent.complete)
                 }
-                
+            } label: {
                 HStack {
-                    VStack(alignment: .leading) {
-                        if !self.otherEvent.location.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                            HStack {
-                                SmallIcon(image: SystemIcon.map.createImage())
-                                StudiumText(self.otherEvent.location)
-                            }
-                        }
-                        
+                    SmallIcon(color: StudiumColor.secondaryAccent.color, image: self.otherEvent.complete ? SystemIcon.circleCheckmarkFill.createImage() : SystemIcon.circle.createImage())
+                    Text(self.otherEvent.complete ? "Complete" : "Incomplete")
+                        .strikethrough(self.otherEvent.complete)
+                        .font(StudiumFont.bodySemibold.font)
+                        .foregroundStyle(StudiumFont.bodySemibold.color)
+                    Spacer()
+                }
+            }
+            
+            HStack {
+                VStack(alignment: .leading) {
+                    if !self.otherEvent.location.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                         HStack {
-                            SmallIcon(image: SystemIcon.calendarClock.createImage())
-                            StudiumText("Start Date: \(self.otherEvent.startDate.formatted())")
+                            SmallIcon(image: SystemIcon.map.createImage())
+                            StudiumText(self.otherEvent.location)
                         }
-                        
-                        HStack {
-                            SmallIcon(image: SystemIcon.calendarExclamation)
-                            StudiumText("End Date: \(self.otherEvent.endDate.formatted())")
+                    }
+                    
+                    HStack {
+                        SmallIcon(image: SystemIcon.calendarClock.createImage())
+                        VStack(alignment: .leading) {
+                            StudiumText("Start: \(self.otherEvent.startDate.formatted())")
+                            StudiumSubtext(self.otherEvent.startDate.daysHoursMinsDueDateString)
+                        }
+                    }
+                    
+                    HStack {
+                        SmallIcon(image: SystemIcon.calendarExclamation)
+                        VStack(alignment: .leading) {
+                            StudiumText("End: \(self.otherEvent.endDate.formatted())")
+                            StudiumSubtext(self.otherEvent.endDate.daysHoursMinsDueDateString)
                         }
                     }
                 }
             }
+        }
     }
 }
 
@@ -71,7 +77,6 @@ struct OtherEventView: View {
                         VStack(alignment: .leading, spacing: Increment.three) {
                             OtherEventViewDetails(otherEvent: self.otherEvent)
                             StudiumEventViewDivider()
-//                            Spacer()
                             
                             VStack(alignment: .leading) {
                                 HStack(alignment: .top) {
@@ -171,18 +176,18 @@ class OtherEventViewController: UIViewController {
 }
 
 
-struct ContentView_Previews: PreviewProvider {
-    
-    static var weekdays: Set<Weekday> {
-        var set = Set<Weekday>()
-        set.insert(.wednesday)
-        set.insert(.monday)
-        return set
-    }
-    
-    static let mockOtherEvent = OtherEvent(name: "To Do Event", location: "Some Place", additionalDetails: "Some additional details", startDate: Date(), endDate: Date() + 100000, color: .green, icon: .atom, alertTimes: [])
-    
-    static var previews: some View {
-        OtherEventView(otherEvent: mockOtherEvent)
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    
+//    static var weekdays: Set<Weekday> {
+//        var set = Set<Weekday>()
+//        set.insert(.wednesday)
+//        set.insert(.monday)
+//        return set
+//    }
+//    
+//    static let mockOtherEvent = OtherEvent(name: "To Do Event", location: "Some Place", additionalDetails: "Some additional details", startDate: Date(), endDate: Date() + 100000, color: .green, icon: .atom, alertTimes: [])
+//    
+//    static var previews: some View {
+//        OtherEventView(otherEvent: mockOtherEvent)
+//    }
+//}

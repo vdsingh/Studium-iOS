@@ -58,7 +58,7 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
         ])
     }
 
-    //MARK: - TableView Data Source Methods
+    //MARK: - TableView Data Source
     
     //TODO: Docstrings
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,7 +68,8 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
             return cell
         }
         
-        fatalError("$ERR: Couldn't dequeue cell as SwipeTableViewCell")
+        Log.e("Couldn't dequeue cell as SwipeTableViewCell")
+        return UITableViewCell()
     }
     
     //TODO: Docstrings

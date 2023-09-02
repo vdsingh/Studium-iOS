@@ -97,7 +97,7 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
                 days: self.daysSelected,
                 icon: self.icon,
                 notificationAlertTimes: self.alertTimes,
-                partitionKey: AuthenticationService.shared.userID!
+                partitionKey: AuthenticationService.shared.userID ?? ""
             )
             
             if let course = self.course {
@@ -168,27 +168,6 @@ extension AddCourseViewController {
         return self.cells[section].count
     }
 }
-
-// TODO: Docstrings
-//extension AddCourseViewController: UITextFieldDelegateExtension {
-//    
-//    // TODO: Docstrings
-//    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
-//        guard let text = sender.text else {
-//            Log.e("sender's text is nil when editing text in \(textFieldID).")
-//            return
-//        }
-//
-//        switch textFieldID {
-//        case .nameTextField:
-//            self.name = text
-//        case .locationTextField:
-//            self.location = text
-//        case .additionalDetailsTextField:
-//            self.additionalDetails = text
-//        }
-//    }
-//}
 
 // TODO: Docstrings
 extension AddCourseViewController: DaySelectorDelegate {

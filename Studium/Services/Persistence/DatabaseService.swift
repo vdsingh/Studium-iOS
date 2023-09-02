@@ -12,7 +12,6 @@ import VikUtilityKit
 
 /// Service to interact with the Realm Database
 final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
-    
 
     let debug = true
     
@@ -62,7 +61,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
                 autoscheduleCompletion()
             }
                
-               self.printDebug("Created and saved autoscheduled events: \(autoscheduledEvents)")
+            Log.g("Created and saved autoscheduled events: \(autoscheduledEvents)")
             
         }
         
@@ -106,15 +105,14 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
     
     // MARK: - Read
     
-    public func getStudiumEvent<T: Object>(withPrimaryKey id: String, type: T.Type) -> T? {
+    public func getStudiumEvent<T: StudiumEvent>(withID id: ObjectId, type: T.Type) -> T? {
         guard let realm = self.realm else {
             Log.e("Realm is nil")
             PopUpService.shared.presentGenericError()
             return nil
         }
         
-        let objectId = try! ObjectId(string: id)
-        if let studiumEvent = realm.object(ofType: T.self, forPrimaryKey: objectId ) {
+        if let studiumEvent = realm.object(ofType: T.self, forPrimaryKey: id) {
             return studiumEvent
         }
         
@@ -204,7 +202,6 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         updatedEvent: T.EventType,
         realmWriteCompletion: @escaping () -> Void
     ) {
-        printDebug("editing StudiumEvent. \nOld Event: \(oldEvent). \nNew Event: \(updatedEvent)")
         self.realmWrite { _ in
             oldEvent.updateFields(withNewEvent: updatedEvent)
             realmWriteCompletion()
@@ -242,37 +239,34 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         }
     }
 
-    
     // MARK: - Delete
     
     /// Deletes a Studium Object from the database
     /// - Parameter studiumEvent: The StudiumEvent to delete
-    public func deleteStudiumObject(
-        _ studiumEvent: StudiumEvent,
+    public func deleteStudiumObject<T: StudiumEvent>(
+        _ studiumEvent: T,
         eventWillDelete: @escaping () -> Void
     ) {
-        Log.d("attempting to delete studiumEvent \(studiumEvent.name)")
-
+        
         if let containerEvent = studiumEvent as? (any StudiumEventContainer) {
             while let event = containerEvent.containedEvents.first {
                 self.deleteStudiumObject(event) { }
             }
         }
         
-        if let autoschedulingEvent = studiumEvent as? (any Autoscheduling) {
-            while let event = autoschedulingEvent.autoscheduledEvents.first {
-                self.deleteStudiumObject(event) { }
-            }
-        }
+//        if let autoschedulingEvent = studiumEvent as? (any Autoscheduling) {
+//            while let event = autoschedulingEvent.autoscheduledEvents.first {
+//                self.deleteStudiumObject(event) { }
+//            }
+//        }
         
         self.realmWrite { realm in
             eventWillDelete()
             if !studiumEvent.isInvalidated {
-                Log.d("Deleting studiumEvent \(studiumEvent.name)")
                 realm.delete(studiumEvent)
-                
             } else {
                 Log.e("Tried to delete StudiumEvent \(studiumEvent), but it was invalidated.")
+                PopUpService.shared.presentGenericError()
             }
         }
     }

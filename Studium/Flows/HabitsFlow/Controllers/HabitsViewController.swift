@@ -97,16 +97,32 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         return tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
     }
     
-    //TODO: Docstrings
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let habit = self.eventsArray[indexPath.section][indexPath.row] as? Habit {
+            let vc = HabitViewController(
+                habit: habit,
+                editButtonPressed: {
+                    self.edit(at: indexPath)
+                },
+                deleteButtonPressed: {
+                    PopUpService.shared.presentDeleteAlert {
+                        self.delete(at: indexPath)
+                    }
+                }
+            )
+            
+            self.navigationController?.modalPresentationStyle = .formSheet
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
 
     //TODO: Docstrings
     override func edit(at indexPath: IndexPath) {
         let deletableEventCell = self.tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let eventForEdit = deletableEventCell.event! as! Habit
-        self.coordinator?.showEditHabitViewController(refreshDelegate: self, habitToEdit: eventForEdit )
+        self.coordinator?.showEditHabitViewController(refreshDelegate: self, habitToEdit: eventForEdit)
     }
     
     //TODO: Docstrings

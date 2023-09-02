@@ -37,7 +37,6 @@ struct TreeImage: View {
     var body: some View {
         Image(uiImage: self.treeStatus.uiImage)
             .resizable()
-//            .renderingMode(.template)
             .foregroundStyle(.cyan)
             .scaledToFit()
             .frame(width: 200, height: 200)

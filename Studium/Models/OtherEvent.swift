@@ -59,5 +59,6 @@ extension OtherEvent: Updatable {
         self.location = newEvent.location
         self.name = newEvent.name
         self.additionalDetails = newEvent.additionalDetails
+        self.alertTimes = newEvent.alertTimes
     }
 }

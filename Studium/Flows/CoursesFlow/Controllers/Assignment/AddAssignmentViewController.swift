@@ -23,7 +23,6 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     
     // TODO: Docstrings
     func showAlertTimesSelectionViewController() {
-        self.printDebug("showAlertTimesSelectionViewController called")
         if let coordinator = coordinator as? AlertTimesSelectionShowingCoordinator {
             coordinator.showAlertTimesSelectionViewController(updateDelegate: self, selectedAlertOptions: self.alertTimes)
         } else {
@@ -40,6 +39,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
  
     // TODO: Docstrings
     var autoscheduleWorkTime: Bool = false
+//    var autoschedulingConfig: AutoschedulingConfig?
     
     /// link to the main list of assignments, so it can refresh when we add a new one
     var refreshDelegate: AssignmentRefreshProtocol?
@@ -97,14 +97,14 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
         self.refreshAutoscheduleSection()
     }
     
-    //method that is triggered when the user wants to finalize the form
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         self.errors = self.findErrors()
         if self.errors.isEmpty {
             var autoschedulingConfig: AutoschedulingConfig? = nil
-            if  self.autoscheduleWorkTime,
-                let autoLengthMinutes = self.totalLengthMinutes {
-                autoschedulingConfig = AutoschedulingConfig(autoLengthMinutes: autoLengthMinutes, autoscheduleInfinitely: false, useDatesAsBounds: true, autoschedulingDaysList: self.daysSelected)
+            if self.autoscheduleWorkTime,
+               let autoLengthMinutes = self.totalLengthMinutes {
+                autoschedulingConfig = AutoschedulingConfig(autoLengthMinutes: autoLengthMinutes, autoscheduleInfinitely: false, useDatesAsBounds: true, autoschedulingDays: self.daysSelected)
+                Log.d("addButtonPressed daysSelected: \(self.daysSelected). AutoschedulingConfig days: \(autoschedulingConfig?.autoschedulingDays)")
             }
             
             let newAssignment = Assignment(
@@ -117,7 +117,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
                 autoschedulingConfig: autoschedulingConfig,
                 parentCourse: self.selectedCourse
             )
-            
+                        
             if let assignmentEditing = self.assignmentEditing {
                 self.studiumEventService.updateStudiumEvent(oldEvent: assignmentEditing, updatedEvent: newAssignment)
             } else {
@@ -190,7 +190,6 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     func fillForm(
         assignment: Assignment
     ) {
-        printDebug("attempting to fillForm with \(assignment)")
         self.selectedCourse = assignment.parentCourse
         self.name = assignment.name
         self.endDate = assignment.endDate
@@ -201,13 +200,14 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
         if let autoschedulingConfig = assignment.autoschedulingConfig {
             self.daysSelected = autoschedulingConfig.autoschedulingDays
             self.totalLengthMinutes = autoschedulingConfig.autoLengthMinutes
+            self.autoscheduleWorkTime = true
         } else {
             self.daysSelected = Set()
             self.totalLengthMinutes = nil
+            self.autoscheduleWorkTime = false
         }
         
         self.setCells()
-        self.refreshAutoscheduleSection()
     }
 }
 
@@ -237,15 +237,15 @@ extension AddAssignmentViewController: CanHandleSwitch {
         Log.d("autoschedule value changed")
         self.autoscheduleWorkTime = sender.isOn
         self.setCells()
-        self.refreshAutoscheduleSection()
+//        self.refreshAutoscheduleSection()
     }
     
     // TODO: Docstrings
     func refreshAutoscheduleSection() {
-        // TODO: Use tableview updates so these actions are animated.
-        self.cells[1] = [.switchCell(cellText: "Autoschedule Work Time", isOn: self.autoscheduleWorkTime, switchDelegate: self, infoDelegate: self)]
         
+        self.cells[1] = [.switchCell(cellText: "Autoschedule Work Time", isOn: self.autoscheduleWorkTime, switchDelegate: self, infoDelegate: self)]
         if self.autoscheduleWorkTime {
+            Log.d("refreshAutoscheduleSection. Length picker indices: \(self.lengthPickerIndices). Days Selected: \(self.daysSelected)")
             self.cells[1].append(contentsOf: [
                 .daySelectorCell(daysSelected: self.daysSelected, delegate: self),
                 .pickerCell(cellText: "Length", indices: self.lengthPickerIndices, tag: FormCellID.PickerCellID.lengthPickerCell, delegate: self, dataSource: self)
@@ -283,5 +283,6 @@ extension AddAssignmentViewController: CanHandleInfoDisplay {
 extension AddAssignmentViewController: DaySelectorDelegate {
     func updateDaysSelected(weekdays: Set<Weekday>) {
         self.daysSelected = weekdays
+        Log.d("Updated daysSelected: \(self.daysSelected)")
     }
 }

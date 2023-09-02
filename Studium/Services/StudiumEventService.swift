@@ -26,6 +26,7 @@ class StudiumEventService {
     private var appleCalendarService: AppleCalendarService
     private var googleCalendarService: GoogleCalendarService
     private var widgetsService: WidgetsService
+    private var soundService: SoundEffectService = SoundEffectService.shared
 
     init(
         databaseService: DatabaseService,
@@ -85,7 +86,7 @@ class StudiumEventService {
             }
             
             // Schedule Notifications
-            NotificationService.shared.scheduleNotificationsFor(event: studiumEvent)
+            self.notificationService.scheduleNotificationsFor(event: studiumEvent)
             
             // Update next ten assignments for widget updates
             self.updateNextTenAssignments()
@@ -134,6 +135,10 @@ class StudiumEventService {
         
         self.databaseService.markComplete(completableEvent, complete)
         
+        self.soundService.playSuccessSound()
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
+        
         // Update next ten assignments for widget updates
         self.updateNextTenAssignments()
     }
@@ -174,7 +179,8 @@ class StudiumEventService {
     func updateFromWidget() {
         let assignmentWidgetModels = AssignmentsWidgetDataService.shared.getAssignments()
         for assignmentWidgetModel in assignmentWidgetModels {
-            if let correspondingAssignment = databaseService.getStudiumEvent(withPrimaryKey: assignmentWidgetModel.id, type: Assignment.self) {
+            let id = try! ObjectId(string: assignmentWidgetModel.id)
+            if let correspondingAssignment = databaseService.getStudiumEvent(withID: id, type: Assignment.self) {
                 self.databaseService.markComplete(correspondingAssignment, assignmentWidgetModel.isComplete)
             } else {
                 Log.e("Tried to update assignment from Widget Model \(assignmentWidgetModel), but a corresponding assignment object could not be found.")
