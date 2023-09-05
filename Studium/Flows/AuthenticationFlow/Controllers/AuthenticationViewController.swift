@@ -112,7 +112,9 @@ extension AuthenticationViewController {
     @objc func googleLoginClicked() {
         self.spinner.startAnimating()
 
-        AuthenticationService.shared.handleLoginWithGoogle(presentingViewController: self) { [weak self] result in
+        AuthenticationService.shared.handleLoginWithGoogle(
+            presentingViewController: self
+        ) { [weak self] result in
             self?.handleLoginResult(result: result)
         }
     }
@@ -139,9 +141,9 @@ extension AuthenticationViewController {
         DispatchQueue.main.async {
             switch result {
             case .success(_):
-                self.printDebug("Handling general login success")
+                Log.d("Handling general login success")
                 self.unwrapCoordinatorOrShowError()
-                self.coordinator?.showUserSetupFlow()
+                self.coordinator!.showUserSetupFlow()
             case .failure(let error):
                 Log.e(error)
                 PopUpService.shared.presentToast(title: "Couldn't Sign In", description: error.localizedDescription, popUpType: .failure)

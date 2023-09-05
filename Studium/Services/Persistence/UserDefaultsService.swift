@@ -8,8 +8,17 @@
 
 import Foundation
 
+
+
 //TODO: Docstring
 final class UserDefaultsService {
+    
+    private enum Keys: String {
+        case appleCalendarID
+        case email
+        case googleAccessTokenString
+        case googleCalendarID
+    }
     
     //TODO: Docstrings
     static let shared = UserDefaultsService()
@@ -20,12 +29,36 @@ final class UserDefaultsService {
     //TODO: Docstrings
     private let defaults = UserDefaults.standard
     
-//    func wakeUpTime(for day: Date) {
-//        if let
-//        return day.setTime(hour: <#T##Int#>, minute: <#T##Int#>, second: <#T##Int#>)
-//    }
+    private let widgetGroupDefaults = UserDefaults(suiteName: WidgetConstants.appGroupSuiteName)
     
-//    let wakeUpTime = UserDefaults.standard.array(forKey: K.wakeUpKeyDict[date.weekday]!)![0] as! Date
-//    let startBound = date.setTime(hour: wakeUpTime.hour, minute: wakeUpTime.minute, second: 0) ?? Date()
-//    let endBound = date.setTime(hour: 23, minute: 59, second: 0) ?? Date()
+    func setAppleCalendarID(_ id: String) {
+        self.defaults.set(id, forKey: Keys.appleCalendarID.rawValue)
+    }
+    
+    func getAppleCalendarID() -> String? {
+        return self.defaults.string(forKey: Keys.appleCalendarID.rawValue)
+    }
+    
+    func setGoogleCalendarID(_ id: String?) {
+        self.defaults.set(id, forKey: Keys.googleCalendarID.rawValue)
+    }
+    
+    func getGoogleCalendarID() -> String? {
+        return self.defaults.string(forKey: Keys.googleCalendarID.rawValue)
+    }
+    
+    func setGoogleAccessTokenString(_ accessTokenString: String?) {
+        self.defaults.set(accessTokenString, forKey: Keys.googleAccessTokenString.rawValue)
+    }
+    
+    func getGoogleAccessTokenString() -> String? {
+        return self.defaults.string(forKey: Keys.googleAccessTokenString.rawValue)
+    }
+    
+    /// Stores data for the next ten assignments in UserDefaults to be used by Widgets
+    /// - Parameter assignments: The next ten assignments (supplied by DatabaseService)
+    func updateNextTenAssignments(assignments: [Assignment]) {
+        let assignmentWidgetModels = assignments.map { $0.instantiateAssignmentWidgetModel() }
+        AssignmentsWidgetDataService.shared.setAssignments(assignmentWidgetModels)
+    }
 }

@@ -11,38 +11,50 @@ import RealmSwift
 import VikUtilityKit
 
 //TODO: Docstrings
-class Habit: RecurringStudiumEvent, Autoscheduling {    
+class Habit: RecurringStudiumEvent, Autoscheduling {
+    
+    typealias AutoscheduledEventType = OtherEvent
     
     // MARK: - Autoscheduleable Variables
     
     /// Does this event autoschedule other events?
-    @Persisted var autoscheduling: Bool = false
+//    @Persisted var autoscheduling: Bool = false
     
     ///If this event is autoscheduling, how long should scheduled events be?
-    @Persisted var autoLengthMinutes: Int = 60
+//    @Persisted var autoLengthMinutes: Int = 60
     
 //    /// Was this event autoscheduled by another event?
 //    @Persisted var autoscheduled: Bool = false
     
     //TODO: Docstrings
-    @Persisted var autoscheduledEventsList = List<OtherEvent>()
+//    @Persisted var autoscheduledEventsList = List<OtherEvent>()
     
     //TODO: Docstrings
-    @Persisted var startEarlier: Bool = true
+//    @Persisted var startEarlier: Bool = true
     
     /// Autoscheduling Habits should autoschedule until they are deleted.
-    var autoscheduleInfinitely: Bool = true
+//    var autoscheduleInfinitely: Bool = true
         
     /// The events that this event has scheduled. We use OtherEvents as autoscheduled Habit events.
-    var autoscheduledEvents: [OtherEvent] {
-        return [OtherEvent](self.autoscheduledEventsList)
-    }
+//    var autoscheduledEvents: [OtherEvent] {
+//        return [OtherEvent](self.autoscheduledEventsList)
+//    }
     
     // TODO: Docstring
-    var autoschedulingDays: Set<Weekday> {
-        get { return self.days }
-        set { self.days = newValue}
-    }
+//    var autoschedulingDays: Set<Weekday> {
+//        get { return self.days }
+//        set { self.days = newValue}
+//    }
+    
+//    var useDatesAsBounds: Bool = true
+    
+//    @Persisted var isGeneratingEvents: Bool = false
+    
+    
+    //TODO: Docstrings
+    @Persisted var autoscheduledEventsList = List<OtherEvent>()
+    
+    @Persisted var autoschedulingConfigData: Data?
     
     //TODO: Docstrings
     convenience init(
@@ -51,9 +63,10 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         additionalDetails: String,
         startDate: Date,
         endDate: Date,
-        autoscheduling: Bool,
-        startEarlier: Bool,
-        autoLengthMinutes: Int,
+        autoschedulingConfig: AutoschedulingConfig?,
+//        autoscheduling: Bool,
+//        startEarlier: Bool,
+//        autoLengthMinutes: Int,
         alertTimes: [AlertOption],
         days: Set<Weekday>,
         icon: StudiumIcon,
@@ -61,24 +74,36 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         partitionKey: String
     ) {
         self.init(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, color: color, icon: icon, alertTimes: alertTimes)
-        self.startEarlier = startEarlier
-        self.autoscheduling = autoscheduling
-        self.autoLengthMinutes = autoLengthMinutes
-        let newDaysList = List<Int>()
-        newDaysList.append(objectsIn: days.compactMap{ $0.rawValue })
-        self.daysList = newDaysList
+//        self.startEarlier = startEarlier
+        self.autoschedulingConfig = autoschedulingConfig
+//        self.autoscheduling = autoscheduling
+//        self.autoLengthMinutes = autoLengthMinutes
+        self.days = days
         self._partitionKey = partitionKey
+        
+        let nextOccurringTimeChunk = self.nextOccuringTimeChunk
+        self.startDate = nextOccurringTimeChunk?.startDate ?? startDate
+        self.endDate = nextOccurringTimeChunk?.endDate ?? endDate
     }
 
     /// Adds a scheduled event to this event's scheduled events
     /// - Parameter event: The StudiumEvent to add
-    func appendAutoscheduledEvent(event: OtherEvent) {
-        self.autoscheduledEventsList.append(event)
-    }
+//    func appendAutoscheduledEvent(event: OtherEvent) {
+//        self.autoscheduledEventsList.append(event)
+//    }
         
     func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> OtherEvent {
         let otherEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: "This Event was Autoscheduled by your Habit: \(self.name)", startDate: timeChunk.startDate, endDate: timeChunk.endDate, color: self.color, icon: self.icon, alertTimes: self.alertTimes)
+        otherEvent.autoscheduled = true
         return otherEvent
+    }
+    
+    override func timeChunkForDate(date: Date) -> TimeChunk? {
+        if self.autoscheduling {
+            return nil
+        }
+        
+        return super.timeChunkForDate(date: date)
     }
 }
 
@@ -90,9 +115,17 @@ extension Habit: Updatable {
         self.additionalDetails = newEvent.additionalDetails
         self.startDate = newEvent.startDate
         self.endDate = newEvent.endDate
-        self.autoscheduling = newEvent.autoscheduling
-        self.startEarlier = newEvent.startEarlier
-        self.autoLengthMinutes = newEvent.autoLengthMinutes
+        if let autoschedulingConfig = newEvent.autoschedulingConfig {
+            self.autoschedulingConfig = AutoschedulingConfig(
+                autoLengthMinutes: autoschedulingConfig.autoLengthMinutes,
+                autoscheduleInfinitely: autoschedulingConfig.autoscheduleInfinitely,
+                useDatesAsBounds: autoschedulingConfig.useDatesAsBounds,
+                autoschedulingDays: autoschedulingConfig.autoschedulingDays
+            )
+        }
+//        self.autoscheduling = newEvent.autoscheduling
+//        self.startEarlier = newEvent.startEarlier
+//        self.autoLengthMinutes = newEvent.autoLengthMinutes
         self.alertTimes = newEvent.alertTimes
         self.days = newEvent.days
         self.icon = newEvent.icon

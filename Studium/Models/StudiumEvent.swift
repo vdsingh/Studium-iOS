@@ -12,14 +12,10 @@ import EventKit
 import RealmSwift
 import VikUtilityKit
 
-protocol Updatable {
-    associatedtype EventType
-    
-    func updateFields(withNewEvent event: EventType)
-}
-
 //TODO: Docstrings
-class StudiumEvent: Object {
+class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, GoogleCalendarEventLinking, Identifiable {
+    
+//    @Persisted var shouldBeDeleted: Bool = false
 
     /// id of the StudiumEvent
     @Persisted var _id: ObjectId = ObjectId.generate()
@@ -42,6 +38,12 @@ class StudiumEvent: Object {
     /// The end date of the event
     @Persisted var endDate: Date = Date()
     
+    // TODO: Docstring
+    @Persisted var ekEventID: String? = nil
+    
+    @Persisted var googleCalendarEventID: String? = nil
+
+    
     // MARK: - Private Persisted Variables
     
     /// The Hex value of the associated color
@@ -55,7 +57,7 @@ class StudiumEvent: Object {
     
     /// Raw representation of the notification IDs for this event
     @Persisted private var notificationIdentifiersList = List<String>()
-    
+        
     // MARK: - Computed Variables
     
     /// The color for the event
@@ -99,7 +101,7 @@ class StudiumEvent: Object {
             return minutes
         }
         
-        print("$ERR (StudiumEvent): Couldn't get total length minutes from start and end date. returning 0")
+        Log.e("Couldn't get total length minutes from start and end date. returning 0")
         return 0
     }
     
@@ -123,10 +125,6 @@ class StudiumEvent: Object {
         self.color = color
         self.icon = icon
         self.alertTimes = alertTimes
-    }
-    
-    func updateFields(withNewEvent: StudiumEvent) {
-        
     }
     
     /// Sets the start and end dates for the event
@@ -165,16 +163,13 @@ class StudiumEvent: Object {
         if !self.occursOn(date: date) {
             return nil
         }
-        
-//        let startDate = Calendar.current.date(bySettingHour: self.startDate.hour, minute: self.startDate.minute, second: 0, of: date)!
-//        let endDate = Calendar.current.date(bySettingHour: self.endDate.hour, minute: self.endDate.minute, second: 0, of: date)!
-//
+
         return TimeChunk(startDate: self.startDate, endDate: self.endDate)
     }
     
     //TODO: Docstrings
     var scheduleDisplayString: String {
-        return "\(self.startDate.format(with: "h:mm a")) - \(self.endDate.format(with: "h:mm a")): \(self.name)"
+        return "\(self.startDate.format(with: DateFormat.standardTime.formatString)) - \(self.endDate.format(with: DateFormat.standardTime.formatString)): \(self.name)"
     }
     
     //TODO: Docstrings
@@ -184,5 +179,13 @@ class StudiumEvent: Object {
     
     override static func primaryKey() -> String? {
         return "_id"
+    }
+    
+    // MARK: - Searchable
+    func eventIsVisible(fromSearch searchText: String) -> Bool {
+        return self.name.contains(searchText) ||
+        self.startDate.formatted().contains(searchText) ||
+        self.endDate.formatted().contains(searchText) ||
+        self.location.contains(searchText)
     }
 }

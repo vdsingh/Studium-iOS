@@ -35,9 +35,8 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
     
     func showAlertTimesSelectionViewController() {
         self.printDebug("showAlertTimesSelectionViewController called")
-//        self.unwrapCoordinatorOrShowError()
         
-        if let coordinator = coordinator as? AlertTimesSelectionShowingCoordinator {
+        if let coordinator = coordinator {
             coordinator.showAlertTimesSelectionViewController(updateDelegate: self, selectedAlertOptions: self.alertTimes)
         } else {
             self.showError(.nonConformingCoordinator)
@@ -65,16 +64,22 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
     func setCells() {
         self.cells = [
             [
-                .textFieldCell(placeholderText: "Name", text: self.name, id: FormCellID.TextFieldCellID.nameTextField, textFieldDelegate: self, delegate: self),
-                .textFieldCell(placeholderText: "Location", text: self.location, id: FormCellID.TextFieldCellID.locationTextField, textFieldDelegate: self, delegate: self),
-                .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.image, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
+                .textFieldCell(placeholderText: "Name", text: self.name, charLimit: TextFieldCharLimit.shortField.rawValue, textfieldWasEdited: { text in
+                    self.name = text
+                }),
+                .textFieldCell(placeholderText: "Location", text: self.location, charLimit: TextFieldCharLimit.shortField.rawValue, textfieldWasEdited: { text in
+                    self.location = text
+                }),
+                .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.uiImage, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
             [
                 .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCellID.startTimeCell, onClick: self.timeCellClicked),
                 .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: FormCellID.TimeCellID.endTimeCell, onClick: self.timeCellClicked)
             ],
             [
-                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, id: FormCellID.TextFieldCellID.additionalDetailsTextField, textFieldDelegate: self, delegate: self),
+                .textFieldCell(placeholderText: "Additional Details", text: self.additionalDetails, charLimit: TextFieldCharLimit.longField.rawValue, textfieldWasEdited: { text in
+                    self.additionalDetails = text
+                }),
             ],
             [
                 .errorCell(errors: self.errors)
@@ -87,15 +92,17 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         self.errors = self.findErrors()
         if self.errors.isEmpty {
-            let newEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: self.additionalDetails, startDate: self.startDate, endDate: self.endDate, color: self.color, icon: self.icon, alertTimes: self.alertTimes)
+            let newEvent = OtherEvent(name: self.name.trimmed(), location: self.location.trimmed(), additionalDetails: self.additionalDetails.trimmed(), startDate: self.startDate, endDate: self.endDate, color: self.color, icon: self.icon, alertTimes: self.alertTimes)
             if let otherEvent = self.otherEvent {
                 // We are editing
-                self.databaseService.updateEvent(oldEvent: otherEvent, updatedEvent: newEvent)
+                self.studiumEventService.updateStudiumEvent(oldEvent: otherEvent, updatedEvent: newEvent)
+//                self.databaseService.updateEvent(oldEvent: otherEvent, updatedEvent: newEvent)
 //                self.databaseService.editStudiumEvent(oldEvent: otherEvent, newEvent: newEvent)
             
             } else {
                 // We are creating new
-                self.databaseService.saveStudiumObject(newEvent)
+//                self.databaseService.saveStudiumObject(newEvent)
+                self.studiumEventService.saveStudiumEvent(newEvent)
             }
             
             guard let delegate = delegate else {
@@ -114,13 +121,15 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
     }
     
     //TODO: Docstring
-    func findErrors() -> [StudiumFormError] {
+    override func findErrors() -> [StudiumFormError] {
         var errors = [StudiumFormError]()
-        if self.name == "" {
+        errors.append(contentsOf: super.findErrors())
+        
+        if self.name.trimmed().isEmpty {
             errors.append(.nameNotSpecified)
         }
         
-        if startDate > endDate {
+        if self.startDate > self.endDate {
             errors.append(.endTimeOccursBeforeStartTime)
         }
         
@@ -130,37 +139,37 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
     /// Cancel the form
     /// - Parameter sender: The UIBarButtonItem used to cancel the form
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        dismiss(animated: true)
+        self.dismiss(animated: true)
     }
 }
 
 // TODO: Docstrings
-extension AddToDoListEventViewController: UITextFieldDelegateExtension {
-    
-    // TODO: Docstrings
-    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
-        guard let text = sender.text else {
-            print("$ ERROR: sender's text was nil. \nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
-            return
-        }
-        
-        switch textFieldID {
-        case .nameTextField:
-            self.name = text
-        case .locationTextField:
-            self.location = text
-        case .additionalDetailsTextField:
-            self.additionalDetails = text
-        }
-    }
-}
+//extension AddToDoListEventViewController: UITextFieldDelegateExtension {
+//    
+//    // TODO: Docstrings
+//    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
+//        guard let text = sender.text else {
+//            Log.e("sender's text was nil. \nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+//            return
+//        }
+//        
+//        switch textFieldID {
+//        case .nameTextField:
+//            self.name = text
+//        case .locationTextField:
+//            self.location = text
+//        case .additionalDetailsTextField:
+//            self.additionalDetails = text
+//        }
+//    }
+//}
 
 // TODO: Docstrings
 extension AddToDoListEventViewController {
     
     // TODO: Docstrings
     func fillForm(with otherEvent: OtherEvent) {
-        printDebug("fillform called in AddToDoListEventController")
+        Log.d("fillform called in AddToDoListEventController")
         self.name = otherEvent.name
         self.location = otherEvent.location
         self.additionalDetails = otherEvent.additionalDetails
@@ -168,5 +177,11 @@ extension AddToDoListEventViewController {
         self.startDate = otherEvent.startDate
         self.endDate = otherEvent.endDate
         self.setCells()
+    }
+}
+
+extension String {
+    func trimmed() -> String {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

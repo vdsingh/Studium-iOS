@@ -34,10 +34,24 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
     // TODO: Docstrings
     var databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
+    let studiumEventService: StudiumEventService = StudiumEventService.shared
+    
     //TODO: Docstrings
-    lazy var cellData: [[(text: String, icon: StudiumIcon?, didSelect: (() -> Void)?)]] = [
+    lazy var cellData: [[(text: String, icon: (any CreatesUIImage)?, didSelect: (() -> Void)?)]] = [
+        
         [
-            ("Set Default Notifications", .bell, didSelect: {
+            ("Sync with Apple Calendar", ThirdPartyIcon.appleCalendar, didSelect: {
+                AppleCalendarService.shared.syncCalendar{ _ in }
+            }),
+            
+            ("Sync with Google Calendar", ThirdPartyIcon.googleCalendar, didSelect: {
+                GoogleCalendarService.shared.authenticateWithCalendarScope(
+                    presentingViewController: self
+                )
+            })
+        ],
+        [
+            ("Set Default Notifications", StudiumIcon.bell, didSelect: {
                 self.unwrapCoordinatorOrShowError()
                 self.coordinator?.showAlertTimesSelectionViewController(
                     updateDelegate: self,
@@ -45,7 +59,7 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
                     viewControllerTitle: "Default Notifications"
                 )
             }),
-            ("Reset Wake Up Times", .clock, didSelect: {
+            ("Reset Wake Up Times", StudiumIcon.clock, didSelect: {
                 self.unwrapCoordinatorOrShowError()
                 self.coordinator?.showUserSetupFlow()
             })
@@ -67,7 +81,7 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
         ],
         
         [
-            ("Report a Problem", .bug, didSelect: {
+            ("Report a Problem", StudiumIcon.bug, didSelect: {
                 PopUpService.shared.showForm(formType: .reportAProblem) { textContents in
                     if let email = textContents.first,
                     let problemDetails = textContents.last {
@@ -83,8 +97,8 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
             })
         ],
         [
-            ("ID: \(AuthenticationService.shared.userID ?? "Guest")", .user, nil),
-            ("Sign Out", .rightFromBracket, didSelect: {
+            ("ID: \(AuthenticationService.shared.userEmail ?? "Unavailable")", StudiumIcon.user, nil),
+            ("Sign Out", StudiumIcon.rightFromBracket, didSelect: {
                 AuthenticationService.shared.handleLogOut { error in
                     if let error = error {
                         Log.e(error)
@@ -106,7 +120,7 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
                 // cellData format: (text: String, didSelect: (() -> Void)?)
                 return .labelCell(
                     cellText: cellData.text,
-                    icon: cellData.icon?.image,
+                    icon: cellData.icon?.uiImage,
                     onClick: cellData.didSelect
                 )
             }
@@ -193,7 +207,8 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
         let assignments = self.databaseService.getStudiumObjects(expecting: Assignment.self)
         for assignment in assignments {
             if (isCompleted && assignment.complete) || !isCompleted {
-                self.databaseService.deleteStudiumObject(assignment)
+                self.studiumEventService.deleteStudiumEvent(assignment)
+//                self.databaseService.deleteStudiumObject(assignment)
             }
         }
     }
@@ -203,7 +218,8 @@ class SettingsViewController: TableViewForm, Storyboarded, ErrorShowing, Coordin
         let otherEvents = self.databaseService.getStudiumObjects(expecting: OtherEvent.self)
         for event in otherEvents {
             if (isCompleted && event.complete) || !isCompleted {
-                self.databaseService.deleteStudiumObject(event)
+//                self.databaseService.deleteStudiumObject(event)
+                self.studiumEventService.deleteStudiumEvent(event)
             }
         }
     }
