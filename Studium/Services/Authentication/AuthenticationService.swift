@@ -24,7 +24,7 @@ enum AuthenticationError: Error {
 
 
 //TODO: Docstrings
-class AuthenticationService: NSObject, Debuggable {
+class AuthenticationService: NSObject {
     
     let debug = true
     

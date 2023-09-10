@@ -18,11 +18,6 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
     
     
     // TODO: Docstrings
-    override var debug: Bool {
-        return true
-    }
-    
-    // TODO: Docstrings
     func showAlertTimesSelectionViewController() {
         self.printDebug("showAlertTimesSelectionViewController called")
 //        self.unwrapCoordinatorOrShowError()

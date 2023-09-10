@@ -17,9 +17,7 @@ class WakeUpIntroController: UIViewController, ErrorShowing, Storyboarded, Coord
     
     //TODO: Docstrings
     let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
-    
-    let debug = true
-    
+        
     //reference to defaults - that is where we will be storing the time data for when the user wakes up
     let defaults = UserDefaults.standard
     
@@ -228,7 +226,7 @@ class WakeUpIntroController: UIViewController, ErrorShowing, Storyboarded, Coord
     // TODO: Docstrings
     //function that stores the data in UserDefaults
     func storeData(){
-        printDebug("Storing data for Wake Up Times: \(self.times)")
+        Log.d("Storing data for Wake Up Times: \(self.times)")
         guard let sunTime = self.times["Sun"],
               let monTime = self.times["Mon"],
               let tueTime = self.times["Tue"],
@@ -247,13 +245,5 @@ class WakeUpIntroController: UIViewController, ErrorShowing, Storyboarded, Coord
         self.databaseService.setWakeUpTime(for: .thursday, wakeUpTime: thuTime)
         self.databaseService.setWakeUpTime(for: .friday, wakeUpTime: friTime)
         self.databaseService.setWakeUpTime(for: .saturday, wakeUpTime: satTime)
-    }
-}
-
-extension WakeUpIntroController: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG (WakeUpIntroController): \(message)")
-        }
     }
 }

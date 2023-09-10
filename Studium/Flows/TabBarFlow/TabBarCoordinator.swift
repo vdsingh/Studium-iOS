@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 //TODO: Docstrings
-class TabBarCoordinator: NSObject, Coordinator, Debuggable {
+class TabBarCoordinator: NSObject, Coordinator {
     
     var debug: Bool = false
     
@@ -45,9 +45,7 @@ class TabBarCoordinator: NSObject, Coordinator, Debuggable {
     
     //TODO: Docstrings
     func start(replaceRoot: (Bool, animated: Bool)) {
-        self.printDebug("TabBarCoordinator start called")
         self.showTabBarController(replaceRoot: replaceRoot)
-        self.printDebug("TabBarCoordinator start finished")
     }
     
     //TODO: Docstrings

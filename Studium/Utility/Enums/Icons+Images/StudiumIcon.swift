@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+<<<<<<< Updated upstream:Studium/Utility/Enums/StudiumIcon.swift
 // TODO: Docstrings, implement
 //enum StudiumIconImageTag: String {
 //    case chemistry
@@ -33,6 +34,8 @@ import UIKit
 //    }
 //}
 
+=======
+>>>>>>> Stashed changes:Studium/Utility/Enums/Icons+Images/StudiumIcon.swift
 // TODO: Docstrings
 enum StudiumIcon: String, CaseIterable {
     

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 //TODO: Docstrings
-class AppCoordinator: NSObject, Coordinator, Debuggable {
+class AppCoordinator: NSObject, Coordinator {
     
     var debug = false
     
@@ -39,7 +39,7 @@ class AppCoordinator: NSObject, Coordinator, Debuggable {
     
     //TODO: Docstrings
     func showAuthenticationFlow() {
-        self.printDebug("showAuthenticationFlow called")
+        Log.d("showAuthenticationFlow called")
         let child = AuthenticationCoordinator()
         child.parentCoordinator = self
         self.childCoordinators.append(child)
@@ -48,7 +48,7 @@ class AppCoordinator: NSObject, Coordinator, Debuggable {
     
     //TODO: Docstrings
     func showMainFlow() {
-        self.printDebug("showMainFlow called")
+        Log.d("showMainFlow called")
         let child = TabBarCoordinator()
         self.setRootViewController(child.tabBarController)
         child.parentCoordinator = self
@@ -58,7 +58,7 @@ class AppCoordinator: NSObject, Coordinator, Debuggable {
     
     //TODO: Docstrings
     func showUserSetupFlow() {
-        self.printDebug("showUserSetupFlow called")
+        Log.d("showUserSetupFlow called")
         let child = UserSetupCoordinator()
         child.parentCoordinator = self
         self.childCoordinators.append(child)

@@ -13,7 +13,7 @@ import GoogleSignIn
 import RealmSwift
 
 // TODO: Docstrings
-class AuthenticationViewController: UIViewController, Storyboarded, ErrorShowing, Debuggable, Coordinated {
+class AuthenticationViewController: UIViewController, Storyboarded, ErrorShowing, Coordinated {
     
     let debug = true
     

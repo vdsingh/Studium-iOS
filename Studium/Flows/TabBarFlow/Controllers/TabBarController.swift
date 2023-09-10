@@ -10,7 +10,7 @@ import UIKit
 import RAMAnimatedTabBarController
 
 // TODO: Docstrings
-class TabBarController: UITabBarController, Debuggable {
+class TabBarController: UITabBarController {
     
     let debug = true
     
@@ -26,7 +26,6 @@ class TabBarController: UITabBarController, Debuggable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.printDebug("TabBarController viewDidLoad")
 
         var tabItemViewControllers = [UIViewController]()
         for tabItemCoordinator in tabItemCoordinators {

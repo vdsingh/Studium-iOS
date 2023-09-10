@@ -12,7 +12,6 @@ import VikUtilityKit
 
 //TODO: Docstring
 final class UserSettings: Object {
-    let debug = true
     
     //TODO: Docstrings
     @Persisted var _id = "UserSettings"
@@ -71,13 +70,5 @@ extension UserSettings {
     func setWakeUpTime(for weekday: Weekday, wakeUpTime: Date) {
         let stringValue = "\(weekday.rawValue)"
         self._wakeUpMap[stringValue] = wakeUpTime
-    }
-}
-
-extension UserSettings: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG (UserSettings): \(message)")
-        }
     }
 }

@@ -13,7 +13,6 @@ import RealmSwift
 //TODO: Docstrings
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate, Debuggable {
     
-    var debug: Bool { false }
     
     //TODO: Docstrings
     var rightActions = [SwipeAction]()

@@ -181,7 +181,6 @@ class LoginViewController: AuthenticationViewController, UIGestureRecognizerDele
     
     //TODO: Docstrings
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        printDebug("Back Button Pressed")
         if let navigationController = self.navigationController {
             navigationController.popViewController(animated: true)
         } else {

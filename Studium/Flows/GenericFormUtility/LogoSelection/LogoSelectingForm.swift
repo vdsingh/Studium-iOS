@@ -19,7 +19,6 @@ extension LogoSelectingForm {
     
     //TODO: Docstrings
     func showLogoSelectionViewController() {
-        self.printDebug("showLogoSelectionViewController called")
         guard let coordinator = self.coordinator else {
             self.showError(.nilCoordinator)
             return

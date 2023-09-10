@@ -13,11 +13,6 @@ import ChameleonFramework
 //TODO: Docstrings
 class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefreshProtocol, AssignmentRefreshProtocol, Coordinated, Storyboarded {
     
-    // TODO: Docstrings
-    override var debug: Bool {
-        return false
-    }
-    
     weak var coordinator: ToDoCoordinator?
     
     //TODO: Docstrings

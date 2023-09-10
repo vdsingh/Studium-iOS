@@ -19,7 +19,7 @@ extension AlertTimeSelectingForm where Self: Coordinated {
     
     // TODO: Docstrings
     func showAlertTimesSelectionViewController() {
-        self.printDebug("showAlertTimesSelectionViewController called")
+        Log.d("showAlertTimesSelectionViewController called")
         self.unwrapCoordinatorOrShowError()
         
         if let coordinator = coordinator as? AlertTimesSelectionShowingCoordinator {
