@@ -17,6 +17,6 @@ struct StudiumButtonStyle: ButtonStyle {
             .padding(.horizontal, Increment.two)
             .background(Color(self.disabled ? .gray: StudiumColor.primaryAccent.uiColor))
             .foregroundStyle(.white)
-            .clipShape(.rect(cornerRadius: Increment.one))
+//            .clipShape(.rect(cornerRadius: Increment.one))
     }
 }

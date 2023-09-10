@@ -8,8 +8,8 @@
 
 import UIKit
 import RealmSwift
-import TableViewFormKit
-import VikUtilityKit
+
+
 
 // TODO: Docstrings
 protocol ToDoListRefreshProtocol {
@@ -34,7 +34,7 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
     @IBOutlet weak var navButton: UIBarButtonItem!
     
     func showAlertTimesSelectionViewController() {
-        self.printDebug("showAlertTimesSelectionViewController called")
+        Log.d("showAlertTimesSelectionViewController called")
         
         if let coordinator = coordinator {
             coordinator.showAlertTimesSelectionViewController(updateDelegate: self, selectedAlertOptions: self.alertTimes)

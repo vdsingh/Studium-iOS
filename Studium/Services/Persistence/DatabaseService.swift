@@ -8,10 +8,9 @@
 
 import Foundation
 import RealmSwift
-import VikUtilityKit
 
 /// Service to interact with the Realm Database
-final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
+final class DatabaseService: NSObject, DatabaseServiceProtocol {
 
     let debug = true
     
@@ -55,7 +54,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         
         if let autoschedulingEvent = studiumEvent as? any Autoscheduling,
            autoschedulingEvent.autoscheduling {
-               self.printDebug("event \(studiumEvent.name) is autoscheduling. will attempt to autoschedule now.")
+            Log.d("event \(studiumEvent.name) is autoscheduling. will attempt to autoschedule now.")
             // create Autoschedule event objects. AutoscheduleService will save any created events
             let autoscheduledEvents = AutoscheduleService.shared.createAutoscheduledEvents(forAutoschedulingEvent: autoschedulingEvent) { _ in
                 autoscheduleCompletion()
@@ -93,13 +92,13 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol, Debuggable {
         if let autoschedulingEvent = containedEvent as? any Autoscheduling,
            autoschedulingEvent.autoscheduling {
             
-            self.printDebug("event \(autoschedulingEvent.name) is autoscheduling. will attempt to autoschedule now.")
+            Log.d("event \(autoschedulingEvent.name) is autoscheduling. will attempt to autoschedule now.")
             // create Autoschedule event objects. AutoscheduleService will save any created events
             let autoscheduledEvents = AutoscheduleService.shared.createAutoscheduledEvents(forAutoschedulingEvent: autoschedulingEvent) { _ in
                 autoscheduleCompletion()
             }
             
-            self.printDebug("Created and saved autoscheduled events: \(autoscheduledEvents)")
+            Log.d("Created and saved autoscheduled events: \(autoscheduledEvents)")
         }
     }
     

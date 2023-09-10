@@ -12,7 +12,7 @@ import Foundation
 import SwiftUI
 import UIKit
 import RealmSwift
-import VikUtilityKit
+
 
 struct OtherEventCellView: View {
     @ObservedRealmObject var otherEvent: OtherEvent

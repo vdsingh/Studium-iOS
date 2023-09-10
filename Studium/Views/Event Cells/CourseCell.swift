@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 import SwipeCellKit
-import VikUtilityKit
+
 
 class CourseCell: DeletableEventCell{
     @IBOutlet weak var iconImage: UIImageView!

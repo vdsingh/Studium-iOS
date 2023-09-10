@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 import UIKit
-import VikUtilityKit
+
 
 struct SettingsCell: View {
     
@@ -34,7 +34,7 @@ struct SettingsCell: View {
             } else {
                 HStack {
                     if let icon = self.icon {
-                        SmallIcon(image: icon, renderingMode: self.iconRenderingMode)
+                        SmallIcon(image: icon)
                     }
                     
                     StudiumText(self.text)
@@ -75,80 +75,6 @@ struct SettingsView: View {
     let presentingViewController: UIViewController
     let alertTimeDelegate: AlertTimeHandler
     weak var coordinator: SettingsCoordinator?
-    
-    // TODO: Docstrings
-    var databaseService: DatabaseServiceProtocol! = DatabaseService.shared
-    
-    let studiumEventService: StudiumEventService = StudiumEventService.shared
-    
-    //TODO: Docstrings
-    lazy var cellData: [[(text: String, icon: (any CreatesUIImage)?, didSelect: (() -> Void)?)]] = [
-        
-        [
-            ("Sync with Apple Calendar", ThirdPartyIcon.appleCalendar, didSelect: {
-                AppleCalendarService.shared.syncCalendar{ _ in }
-            }),
-            
-            ("Sync with Google Calendar", ThirdPartyIcon.googleCalendar, didSelect: {
-                GoogleCalendarService.shared.authenticateWithCalendarScope(
-                    presentingViewController: self
-                )
-            })
-        ],
-        [
-            ("Set Default Notifications", StudiumIcon.bell, didSelect: {
-                self.unwrapCoordinatorOrShowError()
-                self.coordinator?.showAlertTimesSelectionViewController(
-                    updateDelegate: self,
-                    selectedAlertOptions: self.databaseService.getDefaultAlertOptions(),
-                    viewControllerTitle: "Default Notifications"
-                )
-            }),
-            ("Reset Wake Up Times", StudiumIcon.clock, didSelect: {
-                self.unwrapCoordinatorOrShowError()
-                self.coordinator?.showUserSetupFlow()
-            })
-        ],
-        [
-            ("Delete All Assignments", nil, didSelect: {
-                self.createAlertForAssignments(title: Constants.deleteAllAssignmentsAlertInfo.title, message: Constants.deleteAllAssignmentsAlertInfo.message, isCompleted: false)
-            }),
-            ("Delete Completed Assignments", nil, didSelect: {
-                self.createAlertForAssignments(title: Constants.deleteCompletedAssignmentsAlertInfo.title, message: Constants.deleteCompletedAssignmentsAlertInfo.message, isCompleted: true)
-            }),
-            ("Delete All Other Events", nil, didSelect: {
-                self.createAlertForOtherEvents(title: Constants.deleteAllOtherEventsAlertInfo.title, message: Constants.deleteAllOtherEventsAlertInfo.message, isCompleted: false)
-            }),
-            ("Delete All Completed Other Events", nil, didSelect: {
-                self.createAlertForOtherEvents(title: Constants.deleteAllCompletedOtherEventsAlertInfo.title, message: Constants.deleteAllCompletedOtherEventsAlertInfo.message, isCompleted: true)
-                
-            })
-        ],
-        
-        [
-            ("Report a Problem", StudiumIcon.bug, didSelect: {
-                PopUpService.shared.showForm(formType: .reportAProblem) { textContents in
-                    if let email = textContents.first,
-                    let problemDetails = textContents.last {
-                        if problemDetails.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                            PopUpService.shared.presentToast(title: "Error Reporting Problem", description: "Please specify the problem details.", popUpType: .failure)
-                        } else {
-                            PopUpService.shared.presentToast(title: "Message Sent", description: "Thanks for the feedback!", popUpType: .success)
-                            CrashlyticsService.shared.reportAProblem(email: email, message: problemDetails)
-                            self.printDebug("sent message with email: \(email), problem details: \(problemDetails)")
-                        }
-                    }
-                }
-            })
-        ],
-        [
-            ("ID: \(AuthenticationService.shared.userEmail ?? "Unavailable")", StudiumIcon.user, nil),
-            ("Sign Out", StudiumIcon.rightFromBracket, didSelect: {
-                AuthenticationService.shared.handleLogOut { error in
-                    if let error = error {
-                        Log.e(error)
-                        PopUpService.shared.presentToast(title: "Error Logging Out", description: "Try restarting the app.", popUpType: .failure)
-                        return
 
     var body: some View {
         NavigationView {
@@ -258,7 +184,6 @@ struct SettingsView: View {
                 Section("Account") {
                     SettingsCell(icon: StudiumIcon.user, text: "Email") { cell in
                         cell.loading = false
->>>>>>> Stashed changes
                     }
                     
                     SettingsCell(text: "Sign Out") { cell in
@@ -282,23 +207,6 @@ struct SettingsView: View {
                         }
                     }
                 }
-<<<<<<< Updated upstream
-            })
-            
-        ]
-    ]
-    
-    func setCells() {
-        self.cells = cellData.map({ sectionData in
-            return sectionData.map { cellData in
-                // cellData format: (text: String, didSelect: (() -> Void)?)
-                return .labelCell(
-                    cellText: cellData.text,
-                    icon: cellData.icon?.uiImage,
-                    onClick: cellData.didSelect
-                )
-=======
->>>>>>> Stashed changes
             }
             .environment(\.defaultMinListRowHeight, Increment.ten)
             .navigationTitle("Settings")
@@ -345,68 +253,6 @@ class SettingsViewController: UIViewController {
             hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-<<<<<<< Updated upstream
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    //edit the background color of section headers
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: K.emptyHeaderHeight))
-        headerView.backgroundColor = StudiumColor.background.uiColor
-        return headerView
-    }
-    
-    //TODO: Docstrings
-    private func deleteAllAssignments(isCompleted: Bool) {
-        let assignments = self.databaseService.getStudiumObjects(expecting: Assignment.self)
-        for assignment in assignments {
-            if (isCompleted && assignment.complete) || !isCompleted {
-                self.studiumEventService.deleteStudiumEvent(assignment)
-//                self.databaseService.deleteStudiumObject(assignment)
-            }
-        }
-    }
-    
-    //TODO: Docstrings
-    private func deleteAllOtherEvents(isCompleted: Bool) {
-        let otherEvents = self.databaseService.getStudiumObjects(expecting: OtherEvent.self)
-        for event in otherEvents {
-            if (isCompleted && event.complete) || !isCompleted {
-//                self.databaseService.deleteStudiumObject(event)
-                self.studiumEventService.deleteStudiumEvent(event)
-            }
-        }
-    }
-    
-    //TODO: Docstrings
-    private func createAlertForAssignments(title: String, message: String, isCompleted: Bool){
-        let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            self.deleteAllAssignments(isCompleted: isCompleted)
-        }))
-        
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-        }))
-        
-        present(refreshAlert, animated: true, completion: nil)
-    }
-    
-    //TODO: Docstrings
-    private func createAlertForOtherEvents(title: String, message: String, isCompleted: Bool){
-        let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            self.deleteAllOtherEvents(isCompleted: isCompleted)
-        }))
-        
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-        }))
-        
-        present(refreshAlert, animated: true, completion: nil)
-=======
-        hostingController.didMove(toParent: self)
->>>>>>> Stashed changes
     }
 }
 

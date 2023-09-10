@@ -8,7 +8,7 @@
 
 import XCTest
 @testable import Studium
-@testable import VikUtilityKit
+@testable 
 
 //TODO: Docstrings
 final class AutoscheduleServiceTests: XCTestCase {

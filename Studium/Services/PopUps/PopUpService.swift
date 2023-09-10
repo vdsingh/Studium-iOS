@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import SwiftEntryKit
-import VikUtilityKit
+
 import SwiftUI
 
 enum ToastPopUpType {

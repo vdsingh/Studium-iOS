@@ -15,7 +15,7 @@ protocol UITableViewControllerProtocol: UIViewController, UITableViewDataSource,
 }
 
 //TODO: Docstrings
-class SwipeTableViewController: UIViewController, UITableViewControllerProtocol, SwipeTableViewCellDelegate, Debuggable, UITableViewDataSource, UITableViewDelegate {
+class SwipeTableViewController: UIViewController, UITableViewControllerProtocol, SwipeTableViewCellDelegate, UITableViewDataSource, UITableViewDelegate {
     
     private var vStack: UIStackView = {
         let stack = UIStackView()
@@ -73,7 +73,7 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
     
     //TODO: Docstrings
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return K.populatedHeaderHeight
+        return Increment.five
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

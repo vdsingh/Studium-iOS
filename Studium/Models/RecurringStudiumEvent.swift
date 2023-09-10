@@ -12,7 +12,7 @@ import EventKit
 import CalendarKit
 import RealmSwift
 
-import VikUtilityKit
+
 
 /// Represents StudiumEvents that repeat
 class RecurringStudiumEvent: StudiumEvent, GoogleCalendarRecurringEventLinking {

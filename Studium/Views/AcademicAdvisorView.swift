@@ -65,13 +65,13 @@ struct AcademicAdvisorView: View {
                 }
                 .background(Color(uiColor: StudiumColor.secondaryAccent.uiColor))
                 .foregroundColor(Color(uiColor: StudiumColor.primaryLabel.uiColor))
-                .clipShape(.rect(cornerRadius: 10))
+//                .clipShape(Rectangle().cornerRadius(Increment.two))
             }
             .scaledToFill()
             .padding(20)
         }
         .background(Color(uiColor: StudiumColor.secondaryBackground.uiColor))
-        .clipShape(.rect(cornerRadius: 20))
+//        .clipShape(Rectangle().cornerRadius(Increment.two))
         .opacity(self.viewModel.isHidden ? 0 : 1)
         
         Spacer()

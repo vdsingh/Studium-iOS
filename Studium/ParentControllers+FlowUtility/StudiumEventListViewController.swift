@@ -20,11 +20,6 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
     // TODO: Docstrings
     let studiumEventService: StudiumEventService = StudiumEventService.shared
     
-    //TODO: Docstrings
-    override var debug: Bool {
-        false
-    }
-    
     var searchController: UISearchController!
 
     //TODO: Docstrings

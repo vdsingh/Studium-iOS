@@ -8,23 +8,6 @@
 
 import Foundation
 import UIKit
-protocol CreatesUIImage {
-    var uiImage: UIImage { get }
-}
-
-enum ThirdPartyIcon: String, CaseIterable, CreatesUIImage {
-    case googleCalendar
-    case appleCalendar
-    
-    var uiImage: UIImage {
-        if let image = UIImage(named: self.rawValue) {
-            return image
-        } else {
-            Log.e("tried to create UIImage from StudiumIcon rawValue \(self.rawValue) but failed.", logToCrashlytics: true)
-            return .actions
-        }
-    }
-}
 
 // TODO: Docstrings
 enum StudiumIcon: String, CaseIterable, CreatesUIImage {

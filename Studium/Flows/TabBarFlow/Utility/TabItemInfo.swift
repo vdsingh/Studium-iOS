@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import VikUtilityKit
 
 // TODO: Docstrings
 enum TabItemInfo: Int {

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="KGk-i7-Jjw" customClass="TextFieldCell" customModule="TableViewFormKit">
+            <rect key="frame" x="0.0" y="0.0" width="350" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="350" height="60"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Placeholder" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nXI-Ly-Emf">
+                        <rect key="frame" x="20" y="0.0" width="330" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="lJq-Hg-hjL"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <action selector="finishedEditingText:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="a8p-6z-1eW"/>
+                            <action selector="textEdited:" destination="KGk-i7-Jjw" eventType="editingChanged" id="aV4-jj-Fg3"/>
+                        </connections>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJK-a9-hAZ">
+                        <rect key="frame" x="298" y="26" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="nXI-Ly-Emf" secondAttribute="trailing" id="0ee-av-Q3I"/>
+                    <constraint firstItem="nXI-Ly-Emf" firstAttribute="trailing" secondItem="GJK-a9-hAZ" secondAttribute="trailing" constant="10" id="HgT-p0-wsM"/>
+                    <constraint firstItem="nXI-Ly-Emf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="I78-0e-F4D"/>
+                    <constraint firstAttribute="bottom" secondItem="nXI-Ly-Emf" secondAttribute="bottom" id="O4b-3f-ISI"/>
+                    <constraint firstItem="nXI-Ly-Emf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="OJR-Z7-cNv"/>
+                    <constraint firstItem="nXI-Ly-Emf" firstAttribute="bottom" secondItem="GJK-a9-hAZ" secondAttribute="bottom" constant="3" id="aqq-XA-kEq"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="charLimitLabel" destination="GJK-a9-hAZ" id="Jph-6H-Pkr"/>
+                <outlet property="textField" destination="nXI-Ly-Emf" id="Ibu-22-O2R"/>
+            </connections>
+            <point key="canvasLocation" x="63.768115942028992" y="128.57142857142856"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -8,7 +8,7 @@
 
 import Foundation
 import SwiftUI
-import VikUtilityKit
+
 
 struct DaysView: View {
     var selectedDays: Set<Weekday>
@@ -31,7 +31,8 @@ struct DayView: View {
         if self.isSelected {
             ZStack {
                 StudiumColor.primaryAccent.color
-                    .clipShape(.rect(cornerRadius: Increment.one))
+//                    .clipShape(Rectangle().cornerRadius(Increment.one))
+//                    .clipShape(.rect(cornerRadius: Increment.one))
 
                 Text(self.day.buttonText)
                     .font(StudiumFont.subText.font)

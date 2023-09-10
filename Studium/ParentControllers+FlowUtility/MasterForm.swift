@@ -8,8 +8,6 @@
 
 import Foundation
 import UIKit
-import TableViewFormKit
-import VikUtilityKit
 
 /// characteristics of all forms.
 let kLargeCellHeight: CGFloat = 150
@@ -389,7 +387,7 @@ extension MasterForm {
     
     // TODO: Docstrings
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: K.emptyHeaderHeight))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: Increment.two))
         
         return headerView
     }

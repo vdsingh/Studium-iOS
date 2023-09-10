@@ -12,9 +12,9 @@ import ChameleonFramework
 import RealmSwift
 import GoogleSignIn
 
-struct K {
-    static let emptyHeaderHeight: CGFloat = 12
-    static let populatedHeaderHeight: CGFloat = 32
+//struct K {
+//    static let emptyHeaderHeight: CGFloat = 12
+//    static let populatedHeaderHeight: CGFloat = 32
     
     //SEGUES
 //    static let coursesToAssignmentsSegue = "coursesToAssignments"
@@ -65,4 +65,4 @@ struct K {
 //        "bluegreenGradient": [UIColor(hexString: "087EE1")!.cgColor, UIColor(hexString: "05E8BA")!.cgColor],
 //        "purplepinkGradient": [UIColor(hexString: "CB218E")!.cgColor, UIColor(hexString: "6617CB")!.cgColor]
 //    ]
-}
+//}

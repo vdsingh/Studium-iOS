@@ -16,5 +16,6 @@ struct Increment {
     static let six: CGFloat = 36
     static let seven: CGFloat = 42
     static let eight: CGFloat = 48
-
+    static let nine: CGFloat = 54
+    static let ten: CGFloat = 60
 }

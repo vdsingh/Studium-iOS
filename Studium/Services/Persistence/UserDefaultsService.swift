@@ -29,7 +29,7 @@ final class UserDefaultsService {
     //TODO: Docstrings
     private let defaults = UserDefaults.standard
     
-    private let widgetGroupDefaults = UserDefaults(suiteName: WidgetConstants.appGroupSuiteName)
+//    private let widgetGroupDefaults = UserDefaults(suiteName: WidgetConstants.appGroupSuiteName)
     
     func setAppleCalendarID(_ id: String) {
         self.defaults.set(id, forKey: Keys.appleCalendarID.rawValue)
@@ -57,8 +57,8 @@ final class UserDefaultsService {
     
     /// Stores data for the next ten assignments in UserDefaults to be used by Widgets
     /// - Parameter assignments: The next ten assignments (supplied by DatabaseService)
-    func updateNextTenAssignments(assignments: [Assignment]) {
-        let assignmentWidgetModels = assignments.map { $0.instantiateAssignmentWidgetModel() }
-        AssignmentsWidgetDataService.shared.setAssignments(assignmentWidgetModels)
-    }
+//    func updateNextTenAssignments(assignments: [Assignment]) {
+//        let assignmentWidgetModels = assignments.map { $0.instantiateAssignmentWidgetModel() }
+//        AssignmentsWidgetDataService.shared.setAssignments(assignmentWidgetModels)
+//    }
 }

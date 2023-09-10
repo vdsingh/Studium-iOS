@@ -8,7 +8,6 @@
 
 import Foundation
 import ChameleonFramework
-import VikUtilityKit
 import SwiftUI
 
 /// TableViewController that only displays Assignments

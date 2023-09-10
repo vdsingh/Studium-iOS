@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import VikUtilityKit
 import UIKit
 
 //TODO: Docstrings

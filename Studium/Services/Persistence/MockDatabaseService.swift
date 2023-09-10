@@ -8,7 +8,7 @@
 
 import Foundation
 import RealmSwift
-import VikUtilityKit
+
 
 class MockDatabaseService: DatabaseServiceProtocol {
     func saveContainedEvent<T>(containedEvent: T.ContainedEventType, containerEvent: T, autoscheduleCompletion: @escaping () -> Void) where T : StudiumEventContainer {

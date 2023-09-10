@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 import ChameleonFramework
-import VikUtilityKit
+
 
 //TODO: Docstrings
 class RecurringEventCell: DeletableEventCell {
@@ -60,7 +60,7 @@ class RecurringEventCell: DeletableEventCell {
         recurringEvent: RecurringStudiumEvent,
         icon: StudiumIcon
     ) {
-        printDebug("Loading data for event: \(recurringEvent)")
+        Log.d("Loading data for event: \(recurringEvent)")
         self.event = recurringEvent //just edited
         self.iconImage.image = icon.uiImage
         self.iconImage.tintColor = color
@@ -92,14 +92,6 @@ class RecurringEventCell: DeletableEventCell {
             let index = dayVal.rawValue - 1
             dayBoxes[index].backgroundColor = color
             dayLabels[index].textColor = UIColor(contrastingBlackOrWhiteColorOn: color, isFlat: true)
-        }
-    }
-}
-
-extension RecurringEventCell: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG(RecurringEventCell): \(message)")
         }
     }
 }

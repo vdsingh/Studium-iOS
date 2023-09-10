@@ -12,7 +12,7 @@ import FBSDKLoginKit
 import RealmSwift
 import GoogleSignIn
 
-import VikUtilityKit
+
 
 // TODO: Docstrings
 class RegisterViewController: AuthenticationViewController, UIGestureRecognizerDelegate {

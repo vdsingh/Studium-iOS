@@ -89,7 +89,7 @@ class StudiumEventService {
             self.notificationService.scheduleNotificationsFor(event: studiumEvent)
             
             // Update next ten assignments for widget updates
-            self.updateNextTenAssignments()
+//            self.updateNextTenAssignments()
         }, autoscheduleCompletion: {
             
         })
@@ -126,7 +126,7 @@ class StudiumEventService {
             }
             
             // Update next ten assignments for widget updates
-            self.updateNextTenAssignments()
+//            self.updateNextTenAssignments()
         }
     }
     
@@ -140,16 +140,16 @@ class StudiumEventService {
         generator.notificationOccurred(.success)
         
         // Update next ten assignments for widget updates
-        self.updateNextTenAssignments()
+//        self.updateNextTenAssignments()
     }
     
     // TODO: Make private
-    func updateNextTenAssignments() {
-        let nextTenAssignments = [Assignment](self.databaseService.getStudiumObjects(expecting: Assignment.self).prefix(10))
-        UserDefaultsService.shared.updateNextTenAssignments(assignments: nextTenAssignments)
-        self.widgetsService.reloadAssignmentsWidget()
-    }
-    
+//    func updateNextTenAssignments() {
+//        let nextTenAssignments = [Assignment](self.databaseService.getStudiumObjects(expecting: Assignment.self).prefix(10))
+//        UserDefaultsService.shared.updateNextTenAssignments(assignments: nextTenAssignments)
+//        self.widgetsService.reloadAssignmentsWidget()
+//    }
+//
     // MARK: - Delete
     
     func deleteStudiumEvent(_ studiumEvent: StudiumEvent) {
@@ -172,21 +172,21 @@ class StudiumEventService {
         )
         
         // Update next ten assignments for widget updates
-        self.updateNextTenAssignments()
+//        self.updateNextTenAssignments()
     }
     
     // TODO: Docstrings
-    func updateFromWidget() {
-        let assignmentWidgetModels = AssignmentsWidgetDataService.shared.getAssignments()
-        for assignmentWidgetModel in assignmentWidgetModels {
-            let id = try! ObjectId(string: assignmentWidgetModel.id)
-            if let correspondingAssignment = databaseService.getStudiumEvent(withID: id, type: Assignment.self) {
-                self.databaseService.markComplete(correspondingAssignment, assignmentWidgetModel.isComplete)
-            } else {
-                Log.e("Tried to update assignment from Widget Model \(assignmentWidgetModel), but a corresponding assignment object could not be found.")
-            }
-        }
-    }
+//    func updateFromWidget() {
+//        let assignmentWidgetModels = AssignmentsWidgetDataService.shared.getAssignments()
+//        for assignmentWidgetModel in assignmentWidgetModels {
+//            let id = try! ObjectId(string: assignmentWidgetModel.id)
+//            if let correspondingAssignment = databaseService.getStudiumEvent(withID: id, type: Assignment.self) {
+//                self.databaseService.markComplete(correspondingAssignment, assignmentWidgetModel.isComplete)
+//            } else {
+//                Log.e("Tried to update assignment from Widget Model \(assignmentWidgetModel), but a corresponding assignment object could not be found.")
+//            }
+//        }
+//    }
     
     func attachFile(to storer: any FileStorer, fileURL: URL?) {
         DatabaseService.shared.realmWrite { _ in

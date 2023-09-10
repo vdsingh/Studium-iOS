@@ -3,9 +3,6 @@ import UIKit
 
 import RealmSwift
 
-import TableViewFormKit
-import VikUtilityKit
-
 //TODO: Docstring
 protocol AssignmentRefreshProtocol {
     

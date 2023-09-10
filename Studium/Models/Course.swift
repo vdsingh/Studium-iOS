@@ -8,7 +8,7 @@
 
 import Foundation
 import RealmSwift
-import VikUtilityKit
+
 
 // TODO: Docstrings
 class Course: RecurringStudiumEvent, StudiumEventContainer {

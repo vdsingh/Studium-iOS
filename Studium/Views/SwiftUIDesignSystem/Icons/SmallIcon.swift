@@ -8,7 +8,7 @@
 
 import Foundation
 import SwiftUI
-import VikUtilityKit
+
 
 /// 25 x 25 Image
 struct SmallIcon: View {

@@ -9,7 +9,7 @@
 import UIKit
 import CalendarKit
 
-import VikUtilityKit
+
 
 //TODO: Docstrings
 class DayScheduleViewController: DayViewController, Storyboarded {
@@ -279,13 +279,5 @@ class DayScheduleViewController: DayViewController, Storyboarded {
         dateFormatter.dateFormat = "MMMM YYYY"
         let monthString = dateFormatter.string(from: selectedDate)
         self.navigationItem.title = "\(monthString)"
-    }
-}
-
-extension DayScheduleViewController: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG (DayScheduleViewController): \(message)")
-        }
     }
 }

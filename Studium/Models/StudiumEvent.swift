@@ -10,7 +10,7 @@
 import Foundation
 import EventKit
 import RealmSwift
-import VikUtilityKit
+
 
 //TODO: Docstrings
 class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, GoogleCalendarEventLinking, Identifiable {

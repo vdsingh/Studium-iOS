@@ -11,7 +11,7 @@ import ChameleonFramework
 import RealmSwift
 import GoogleSignIn
 import FBSDKLoginKit
-import TableViewFormKit
+
 import FirebaseAnalytics
 import FirebaseCore
 

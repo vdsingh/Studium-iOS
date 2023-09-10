@@ -141,12 +141,3 @@ class NotificationService {
         }
     }
 }
-
-extension NotificationService: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG (NotificationService): \(message)")
-        }
-    }
-}
-

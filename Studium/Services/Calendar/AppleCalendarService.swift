@@ -8,7 +8,7 @@
 
 import Foundation
 import EventKit
-import VikUtilityKit
+
 
 protocol AppleCalendarEvent {
     var ekEventID: String? { get set }

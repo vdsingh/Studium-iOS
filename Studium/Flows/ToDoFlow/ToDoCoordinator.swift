@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import VikUtilityKit
+
 
 //TODO: Docstrings
 class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, AlertTimesSelectionShowingCoordinator, AssignmentEditingCoordinator, OtherEventEditingCoordinator {

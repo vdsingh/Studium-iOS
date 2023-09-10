@@ -8,7 +8,7 @@
 
 import Foundation
 import RealmSwift
-import VikUtilityKit
+
 
 //TODO: Docstring
 final class UserSettings: Object {

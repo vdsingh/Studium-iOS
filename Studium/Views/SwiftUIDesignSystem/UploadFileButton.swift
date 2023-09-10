@@ -11,7 +11,7 @@ import SwiftUI
 import RealmSwift
 import UniformTypeIdentifiers
 import PDFKit
-import VikUtilityKit
+
 
 struct PDFViewer: View {
     let pdfURL: URL

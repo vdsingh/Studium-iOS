@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import VikUtilityKit
+
 import RealmSwift
 
 //TODO: Docstrings
@@ -20,7 +20,7 @@ protocol AutoscheduleServiceProtocol {
 }
 
 //TODO: Docstrings
-final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol, Debuggable {
+final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol {
     
     var debug = true
     

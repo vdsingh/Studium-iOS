@@ -89,13 +89,10 @@
 		B94CA0B92A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */; };
 		B94CA0BB2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0BA2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift */; };
 		B94CA0BD2A2D5C5700047865 /* AlertTimeSelectingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0BC2A2D5C5700047865 /* AlertTimeSelectingForm.swift */; };
-		B94CA0C12A2D5CA800047865 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0C02A2D5CA800047865 /* Coordinator.swift */; };
-		B94CA0C72A2DA12A00047865 /* LogoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0C52A2DA12A00047865 /* LogoCollectionViewCell.swift */; };
 		B94CA0CA2A2DABA000047865 /* StudiumEventFormCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0C92A2DABA000047865 /* StudiumEventFormCoordinator.swift */; };
 		B94CA0CC2A2F0DB400047865 /* LogoSelectingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0CB2A2F0DB400047865 /* LogoSelectingForm.swift */; };
 		B94CA0CF2A2F101E00047865 /* AlertOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0CE2A2F101E00047865 /* AlertOption.swift */; };
 		B94CA0D32A2F10F800047865 /* Coordinated.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D22A2F10F800047865 /* Coordinated.swift */; };
-		B94CA0D52A2F1BCE00047865 /* StudiumIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D42A2F1BCE00047865 /* StudiumIcon.swift */; };
 		B94CA0D72A31432400047865 /* AssignmentEditingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */; };
 		B94CA0D92A32C0F000047865 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0D82A32C0F000047865 /* NavigationCoordinator.swift */; };
 		B94CA0E42A344B7500047865 /* PopUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0E32A344B7500047865 /* PopUpService.swift */; };
@@ -145,6 +142,46 @@
 		B98693632A3E8A3400272B22 /* RFC5545.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98693592A3E8A3300272B22 /* RFC5545.swift */; };
 		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
+		B9A165032AAD97FE005A23F6 /* ThirdPartyIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A164FF2AAD97FE005A23F6 /* ThirdPartyIcon.swift */; };
+		B9A165042AAD97FE005A23F6 /* FlatImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165002AAD97FE005A23F6 /* FlatImage.swift */; };
+		B9A165052AAD97FE005A23F6 /* StudiumIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165012AAD97FE005A23F6 /* StudiumIcon.swift */; };
+		B9A165062AAD97FE005A23F6 /* CreatesUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165022AAD97FE005A23F6 /* CreatesUIImage.swift */; };
+		B9A1650F2AAD9A6F005A23F6 /* Weekday2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1650A2AAD9A6F005A23F6 /* Weekday2.swift */; };
+		B9A165102AAD9A6F005A23F6 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1650B2AAD9A6F005A23F6 /* DateFormat.swift */; };
+		B9A165112AAD9A6F005A23F6 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1650C2AAD9A6F005A23F6 /* SystemIcon.swift */; };
+		B9A165122AAD9A6F005A23F6 /* Date_Extension_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1650E2AAD9A6F005A23F6 /* Date_Extension_2.swift */; };
+		B9A165352AAD9A79005A23F6 /* ColorPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165152AAD9A79005A23F6 /* ColorPickerCell.swift */; };
+		B9A165362AAD9A79005A23F6 /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A165162AAD9A79005A23F6 /* LabelCell.xib */; };
+		B9A165372AAD9A79005A23F6 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165172AAD9A79005A23F6 /* PickerCell.swift */; };
+		B9A165382AAD9A79005A23F6 /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A165182AAD9A79005A23F6 /* SegmentedControlCell.xib */; };
+		B9A165392AAD9A79005A23F6 /* DaySelectorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A165192AAD9A79005A23F6 /* DaySelectorCell.xib */; };
+		B9A1653A2AAD9A79005A23F6 /* ColorPickerCellV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1651A2AAD9A79005A23F6 /* ColorPickerCellV2.swift */; };
+		B9A1653B2AAD9A79005A23F6 /* ThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1651B2AAD9A79005A23F6 /* ThemeCell.swift */; };
+		B9A1653C2AAD9A79005A23F6 /* SwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A1651C2AAD9A79005A23F6 /* SwitchCell.xib */; };
+		B9A1653D2AAD9A79005A23F6 /* TimePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1651D2AAD9A79005A23F6 /* TimePickerCell.swift */; };
+		B9A1653E2AAD9A79005A23F6 /* LogoSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A1651E2AAD9A79005A23F6 /* LogoSelectionCell.xib */; };
+		B9A1653F2AAD9A79005A23F6 /* TimePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A1651F2AAD9A79005A23F6 /* TimePickerCell.xib */; };
+		B9A165402AAD9A79005A23F6 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165202AAD9A79005A23F6 /* TextFieldCell.swift */; };
+		B9A165412AAD9A79005A23F6 /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165212AAD9A79005A23F6 /* BasicCell.swift */; };
+		B9A165422AAD9A79005A23F6 /* TimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A165222AAD9A79005A23F6 /* TimeCell.xib */; };
+		B9A165432AAD9A79005A23F6 /* LogoSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165232AAD9A79005A23F6 /* LogoSelectionCell.swift */; };
+		B9A165442AAD9A79005A23F6 /* DaySelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165242AAD9A79005A23F6 /* DaySelectorCell.swift */; };
+		B9A165452AAD9A79005A23F6 /* SegmentedControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165252AAD9A79005A23F6 /* SegmentedControlCell.swift */; };
+		B9A165462AAD9A79005A23F6 /* ColorPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A165262AAD9A79005A23F6 /* ColorPickerCell.xib */; };
+		B9A165472AAD9A79005A23F6 /* ThemeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A165272AAD9A79005A23F6 /* ThemeCell.xib */; };
+		B9A165482AAD9A79005A23F6 /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165282AAD9A79005A23F6 /* TimeCell.swift */; };
+		B9A165492AAD9A79005A23F6 /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A165292AAD9A79005A23F6 /* TextFieldCell.xib */; };
+		B9A1654A2AAD9A79005A23F6 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1652A2AAD9A79005A23F6 /* LabelCell.swift */; };
+		B9A1654B2AAD9A79005A23F6 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1652B2AAD9A79005A23F6 /* SwitchCell.swift */; };
+		B9A1654C2AAD9A79005A23F6 /* LogoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1652C2AAD9A79005A23F6 /* LogoCollectionViewCell.swift */; };
+		B9A1654D2AAD9A79005A23F6 /* TimePickerCellV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1652D2AAD9A79005A23F6 /* TimePickerCellV2.swift */; };
+		B9A1654E2AAD9A79005A23F6 /* PickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A1652E2AAD9A79005A23F6 /* PickerCell.xib */; };
+		B9A1654F2AAD9A79005A23F6 /* UITextFieldDelegateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1652F2AAD9A79005A23F6 /* UITextFieldDelegateExtension.swift */; };
+		B9A165502AAD9A79005A23F6 /* FormError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165302AAD9A79005A23F6 /* FormError.swift */; };
+		B9A165512AAD9A79005A23F6 /* FormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165312AAD9A79005A23F6 /* FormCell.swift */; };
+		B9A165522AAD9A79005A23F6 /* TableViewForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165322AAD9A79005A23F6 /* TableViewForm.swift */; };
+		B9A165532AAD9A79005A23F6 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165342AAD9A79005A23F6 /* ColorManager.swift */; };
+		B9A165572AAD9CE6005A23F6 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165562AAD9CE6005A23F6 /* Coordinator.swift */; };
 		B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */; };
 		B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */; };
 		B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */; };
@@ -168,7 +205,6 @@
 		B9C2EB1D2A78DD6500E14320 /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C2EB1C2A78DD6500E14320 /* PDFViewController.swift */; };
 		B9CDEF732A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF722A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift */; };
 		B9CDEF752A417D650084AB24 /* Realm_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF742A417D650084AB24 /* Realm_Extension.swift */; };
-		B9CDEF792A427CAF0084AB24 /* FlatImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF782A427CAF0084AB24 /* FlatImage.swift */; };
 		B9CDEF7B2A4597140084AB24 /* GoogleSignInErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF7A2A4597140084AB24 /* GoogleSignInErrorCode.swift */; };
 		B9CDEF7D2A45972C0084AB24 /* GoogleAuthScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF7C2A45972C0084AB24 /* GoogleAuthScope.swift */; };
 		B9D71E6B2A8DE8BC00A17F7E /* MockStudiumEventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D71E6A2A8DE8BC00A17F7E /* MockStudiumEventService.swift */; };
@@ -289,16 +325,12 @@
 		B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoSelectionShowingCoordinator.swift; sourceTree = "<group>"; };
 		B94CA0BA2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTimesSelectionShowingCoordinator.swift; sourceTree = "<group>"; };
 		B94CA0BC2A2D5C5700047865 /* AlertTimeSelectingForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTimeSelectingForm.swift; sourceTree = "<group>"; };
-		B94CA0C02A2D5CA800047865 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = ../../../../../Coordinator.swift; sourceTree = "<group>"; };
-		B94CA0C52A2DA12A00047865 /* LogoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogoCollectionViewCell.swift; path = ../../../../../Packages/TableViewFormKit/Sources/TableViewFormKit/FormCellViews/LogoCollectionViewCell.swift; sourceTree = "<group>"; };
 		B94CA0C92A2DABA000047865 /* StudiumEventFormCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventFormCoordinator.swift; sourceTree = "<group>"; };
 		B94CA0CB2A2F0DB400047865 /* LogoSelectingForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoSelectingForm.swift; sourceTree = "<group>"; };
 		B94CA0CE2A2F101E00047865 /* AlertOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOption.swift; sourceTree = "<group>"; };
 		B94CA0D22A2F10F800047865 /* Coordinated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinated.swift; sourceTree = "<group>"; };
-		B94CA0D42A2F1BCE00047865 /* StudiumIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumIcon.swift; sourceTree = "<group>"; };
 		B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentEditingCoordinator.swift; sourceTree = "<group>"; };
 		B94CA0D82A32C0F000047865 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
-		B94CA0DB2A32C0FF00047865 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B94CA0E32A344B7500047865 /* PopUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpService.swift; sourceTree = "<group>"; };
 		B94CA0E52A34573200047865 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B94CA0E72A34615400047865 /* CrashlyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashlyticsService.swift; sourceTree = "<group>"; };
@@ -349,6 +381,46 @@
 		B986935A2A3E8A3400272B22 /* RFC5545.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFC5545.h; sourceTree = "<group>"; };
 		B995493B2992EDD000442968 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
 		B995493E2992F0D400442968 /* StudiumEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventListViewController.swift; sourceTree = "<group>"; };
+		B9A164FF2AAD97FE005A23F6 /* ThirdPartyIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdPartyIcon.swift; sourceTree = "<group>"; };
+		B9A165002AAD97FE005A23F6 /* FlatImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatImage.swift; sourceTree = "<group>"; };
+		B9A165012AAD97FE005A23F6 /* StudiumIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudiumIcon.swift; sourceTree = "<group>"; };
+		B9A165022AAD97FE005A23F6 /* CreatesUIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatesUIImage.swift; sourceTree = "<group>"; };
+		B9A1650A2AAD9A6F005A23F6 /* Weekday2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weekday2.swift; sourceTree = "<group>"; };
+		B9A1650B2AAD9A6F005A23F6 /* DateFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
+		B9A1650C2AAD9A6F005A23F6 /* SystemIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemIcon.swift; sourceTree = "<group>"; };
+		B9A1650E2AAD9A6F005A23F6 /* Date_Extension_2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date_Extension_2.swift; sourceTree = "<group>"; };
+		B9A165152AAD9A79005A23F6 /* ColorPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerCell.swift; sourceTree = "<group>"; };
+		B9A165162AAD9A79005A23F6 /* LabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
+		B9A165172AAD9A79005A23F6 /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
+		B9A165182AAD9A79005A23F6 /* SegmentedControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
+		B9A165192AAD9A79005A23F6 /* DaySelectorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DaySelectorCell.xib; sourceTree = "<group>"; };
+		B9A1651A2AAD9A79005A23F6 /* ColorPickerCellV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerCellV2.swift; sourceTree = "<group>"; };
+		B9A1651B2AAD9A79005A23F6 /* ThemeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeCell.swift; sourceTree = "<group>"; };
+		B9A1651C2AAD9A79005A23F6 /* SwitchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchCell.xib; sourceTree = "<group>"; };
+		B9A1651D2AAD9A79005A23F6 /* TimePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerCell.swift; sourceTree = "<group>"; };
+		B9A1651E2AAD9A79005A23F6 /* LogoSelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoSelectionCell.xib; sourceTree = "<group>"; };
+		B9A1651F2AAD9A79005A23F6 /* TimePickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimePickerCell.xib; sourceTree = "<group>"; };
+		B9A165202AAD9A79005A23F6 /* TextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
+		B9A165212AAD9A79005A23F6 /* BasicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
+		B9A165222AAD9A79005A23F6 /* TimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeCell.xib; sourceTree = "<group>"; };
+		B9A165232AAD9A79005A23F6 /* LogoSelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoSelectionCell.swift; sourceTree = "<group>"; };
+		B9A165242AAD9A79005A23F6 /* DaySelectorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DaySelectorCell.swift; sourceTree = "<group>"; };
+		B9A165252AAD9A79005A23F6 /* SegmentedControlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlCell.swift; sourceTree = "<group>"; };
+		B9A165262AAD9A79005A23F6 /* ColorPickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorPickerCell.xib; sourceTree = "<group>"; };
+		B9A165272AAD9A79005A23F6 /* ThemeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeCell.xib; sourceTree = "<group>"; };
+		B9A165282AAD9A79005A23F6 /* TimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
+		B9A165292AAD9A79005A23F6 /* TextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
+		B9A1652A2AAD9A79005A23F6 /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
+		B9A1652B2AAD9A79005A23F6 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
+		B9A1652C2AAD9A79005A23F6 /* LogoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoCollectionViewCell.swift; sourceTree = "<group>"; };
+		B9A1652D2AAD9A79005A23F6 /* TimePickerCellV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerCellV2.swift; sourceTree = "<group>"; };
+		B9A1652E2AAD9A79005A23F6 /* PickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerCell.xib; sourceTree = "<group>"; };
+		B9A1652F2AAD9A79005A23F6 /* UITextFieldDelegateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldDelegateExtension.swift; sourceTree = "<group>"; };
+		B9A165302AAD9A79005A23F6 /* FormError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormError.swift; sourceTree = "<group>"; };
+		B9A165312AAD9A79005A23F6 /* FormCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormCell.swift; sourceTree = "<group>"; };
+		B9A165322AAD9A79005A23F6 /* TableViewForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewForm.swift; sourceTree = "<group>"; };
+		B9A165342AAD9A79005A23F6 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		B9A165562AAD9CE6005A23F6 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = "../../../../iOS Engineering/Apps/Studium/Studium/ParentControllers+FlowUtility/Coordinators/Coordinator.swift"; sourceTree = "<group>"; };
 		B9A492332A493370006E6A32 /* Studium.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Studium.entitlements; sourceTree = "<group>"; };
 		B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumColor.swift; sourceTree = "<group>"; };
@@ -373,7 +445,6 @@
 		B9C2EB1C2A78DD6500E14320 /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
 		B9CDEF722A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppleCalendarService+StudiumEvent.swift"; sourceTree = "<group>"; };
 		B9CDEF742A417D650084AB24 /* Realm_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Realm_Extension.swift; sourceTree = "<group>"; };
-		B9CDEF782A427CAF0084AB24 /* FlatImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatImage.swift; sourceTree = "<group>"; };
 		B9CDEF7A2A4597140084AB24 /* GoogleSignInErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInErrorCode.swift; sourceTree = "<group>"; };
 		B9CDEF7C2A45972C0084AB24 /* GoogleAuthScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthScope.swift; sourceTree = "<group>"; };
 		B9CDEF842A45ADC90084AB24 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -451,6 +522,7 @@
 		1693E72F247A3DC4003D4702 /* Studium */ = {
 			isa = PBXGroup;
 			children = (
+				B9A165072AAD99FD005A23F6 /* TempDeps */,
 				B97058F12A88BDA0008F8636 /* Sounds */,
 				B9A492332A493370006E6A32 /* Studium.entitlements */,
 				B9AFCF822A19EF590087A0FF /* ParentControllers+FlowUtility */,
@@ -469,7 +541,6 @@
 			isa = PBXGroup;
 			children = (
 				B90F10422A6F2FBB00BAB23F /* SwiftUIDesignSystem */,
-				B94CA0C42A2DA11900047865 /* CollectionViewCells */,
 				16C05CF1264F36DC004C9629 /* New Event Cells */,
 				16B2837925C25BA50039043E /* Event Cells */,
 				1665FF1E250EA98300485F3D /* Fonts */,
@@ -548,11 +619,10 @@
 		B90D144329899C3C0093EB0C /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				B94CA0D42A2F1BCE00047865 /* StudiumIcon.swift */,
+				B9A164FE2AAD97FE005A23F6 /* Icons+Images */,
 				B90D144129899C310093EB0C /* Weekday.swift */,
 				B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */,
 				B94CA0E92A35511000047865 /* StudiumFont.swift */,
-				B9CDEF782A427CAF0084AB24 /* FlatImage.swift */,
 				B9D71E6C2A8DEB4F00A17F7E /* StudiumEventColor.swift */,
 			);
 			path = Enums;
@@ -617,14 +687,6 @@
 			path = StudiumEventCells;
 			sourceTree = "<group>";
 		};
-		B94CA0C42A2DA11900047865 /* CollectionViewCells */ = {
-			isa = PBXGroup;
-			children = (
-				B94CA0C52A2DA12A00047865 /* LogoCollectionViewCell.swift */,
-			);
-			path = CollectionViewCells;
-			sourceTree = "<group>";
-		};
 		B94CA0CD2A2F0FFC00047865 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,7 +719,7 @@
 		B94CA0DA2A32C0FF00047865 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				B94CA0DB2A32C0FF00047865 /* Coordinator.swift */,
+				B9A165562AAD9CE6005A23F6 /* Coordinator.swift */,
 				B94CA0D22A2F10F800047865 /* Coordinated.swift */,
 				B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */,
 				B94CA0D82A32C0F000047865 /* NavigationCoordinator.swift */,
@@ -824,11 +886,112 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		B9A164FE2AAD97FE005A23F6 /* Icons+Images */ = {
+			isa = PBXGroup;
+			children = (
+				B9A164FF2AAD97FE005A23F6 /* ThirdPartyIcon.swift */,
+				B9A165002AAD97FE005A23F6 /* FlatImage.swift */,
+				B9A165012AAD97FE005A23F6 /* StudiumIcon.swift */,
+				B9A165022AAD97FE005A23F6 /* CreatesUIImage.swift */,
+			);
+			path = "Icons+Images";
+			sourceTree = "<group>";
+		};
+		B9A165072AAD99FD005A23F6 /* TempDeps */ = {
+			isa = PBXGroup;
+			children = (
+				B9A165132AAD9A79005A23F6 /* TableViewFormKit */,
+				B9A165082AAD9A6F005A23F6 /* VikUtilityKit */,
+			);
+			path = TempDeps;
+			sourceTree = "<group>";
+		};
+		B9A165082AAD9A6F005A23F6 /* VikUtilityKit */ = {
+			isa = PBXGroup;
+			children = (
+				B9A165092AAD9A6F005A23F6 /* Enums */,
+				B9A1650D2AAD9A6F005A23F6 /* Extensions */,
+			);
+			path = VikUtilityKit;
+			sourceTree = "<group>";
+		};
+		B9A165092AAD9A6F005A23F6 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				B9A1650A2AAD9A6F005A23F6 /* Weekday2.swift */,
+				B9A1650B2AAD9A6F005A23F6 /* DateFormat.swift */,
+				B9A1650C2AAD9A6F005A23F6 /* SystemIcon.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		B9A1650D2AAD9A6F005A23F6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B9A1650E2AAD9A6F005A23F6 /* Date_Extension_2.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B9A165132AAD9A79005A23F6 /* TableViewFormKit */ = {
+			isa = PBXGroup;
+			children = (
+				B9A165142AAD9A79005A23F6 /* FormCellViews */,
+				B9A1652F2AAD9A79005A23F6 /* UITextFieldDelegateExtension.swift */,
+				B9A165302AAD9A79005A23F6 /* FormError.swift */,
+				B9A165312AAD9A79005A23F6 /* FormCell.swift */,
+				B9A165322AAD9A79005A23F6 /* TableViewForm.swift */,
+				B9A165332AAD9A79005A23F6 /* Utility */,
+			);
+			path = TableViewFormKit;
+			sourceTree = "<group>";
+		};
+		B9A165142AAD9A79005A23F6 /* FormCellViews */ = {
+			isa = PBXGroup;
+			children = (
+				B9A165152AAD9A79005A23F6 /* ColorPickerCell.swift */,
+				B9A165162AAD9A79005A23F6 /* LabelCell.xib */,
+				B9A165172AAD9A79005A23F6 /* PickerCell.swift */,
+				B9A165182AAD9A79005A23F6 /* SegmentedControlCell.xib */,
+				B9A165192AAD9A79005A23F6 /* DaySelectorCell.xib */,
+				B9A1651A2AAD9A79005A23F6 /* ColorPickerCellV2.swift */,
+				B9A1651B2AAD9A79005A23F6 /* ThemeCell.swift */,
+				B9A1651C2AAD9A79005A23F6 /* SwitchCell.xib */,
+				B9A1651D2AAD9A79005A23F6 /* TimePickerCell.swift */,
+				B9A1651E2AAD9A79005A23F6 /* LogoSelectionCell.xib */,
+				B9A1651F2AAD9A79005A23F6 /* TimePickerCell.xib */,
+				B9A165202AAD9A79005A23F6 /* TextFieldCell.swift */,
+				B9A165212AAD9A79005A23F6 /* BasicCell.swift */,
+				B9A165222AAD9A79005A23F6 /* TimeCell.xib */,
+				B9A165232AAD9A79005A23F6 /* LogoSelectionCell.swift */,
+				B9A165242AAD9A79005A23F6 /* DaySelectorCell.swift */,
+				B9A165252AAD9A79005A23F6 /* SegmentedControlCell.swift */,
+				B9A165262AAD9A79005A23F6 /* ColorPickerCell.xib */,
+				B9A165272AAD9A79005A23F6 /* ThemeCell.xib */,
+				B9A165282AAD9A79005A23F6 /* TimeCell.swift */,
+				B9A165292AAD9A79005A23F6 /* TextFieldCell.xib */,
+				B9A1652A2AAD9A79005A23F6 /* LabelCell.swift */,
+				B9A1652B2AAD9A79005A23F6 /* SwitchCell.swift */,
+				B9A1652C2AAD9A79005A23F6 /* LogoCollectionViewCell.swift */,
+				B9A1652D2AAD9A79005A23F6 /* TimePickerCellV2.swift */,
+				B9A1652E2AAD9A79005A23F6 /* PickerCell.xib */,
+			);
+			path = FormCellViews;
+			sourceTree = "<group>";
+		};
+		B9A165332AAD9A79005A23F6 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				B9A165342AAD9A79005A23F6 /* ColorManager.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		B9AFCF792A19EE4E0087A0FF /* Flows */ = {
 			isa = PBXGroup;
 			children = (
-				B97058F62A88C1C5008F8636 /* TreeFlow */,
 				B9AFCF732A19E3160087A0FF /* AppCoordinator.swift */,
+				B97058F62A88C1C5008F8636 /* TreeFlow */,
 				B9B41CFB2A26E83600239DD4 /* TabBarFlow */,
 				B9AFCF7E2A19EEB40087A0FF /* CoursesFlow */,
 				B9AFCF7D2A19EEAB0087A0FF /* HabitsFlow */,
@@ -922,7 +1085,6 @@
 				1693E751247A487C003D4702 /* SwipeTableViewController.swift */,
 				B90D13F529845FE80093EB0C /* MasterForm.swift */,
 				B94CA0DA2A32C0FF00047865 /* Coordinators */,
-				B94CA0C02A2D5CA800047865 /* Coordinator.swift */,
 				B995493E2992F0D400442968 /* StudiumEventListViewController.swift */,
 				B97BB1662A0EF864008F1A5B /* AssignmentsOtherEventsViewController.swift */,
 			);
@@ -1133,11 +1295,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9A165422AAD9A79005A23F6 /* TimeCell.xib in Resources */,
+				B9A165462AAD9A79005A23F6 /* ColorPickerCell.xib in Resources */,
 				1693E73D247A3DC6003D4702 /* LaunchScreen.storyboard in Resources */,
 				1693E73A247A3DC6003D4702 /* Assets.xcassets in Resources */,
 				16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */,
+				B9A165362AAD9A79005A23F6 /* LabelCell.xib in Resources */,
 				16C05CF5264F37B8004C9629 /* RecurringEventCell.xib in Resources */,
+				B9A1653C2AAD9A79005A23F6 /* SwitchCell.xib in Resources */,
 				16A63B7D24A01289003A30D3 /* HabitCell.xib in Resources */,
+				B9A165382AAD9A79005A23F6 /* SegmentedControlCell.xib in Resources */,
+				B9A1653F2AAD9A79005A23F6 /* TimePickerCell.xib in Resources */,
+				B9A165492AAD9A79005A23F6 /* TextFieldCell.xib in Resources */,
 				16C607EC250E985000983C3D /* GlacialIndifference-Regular.otf in Resources */,
 				16C607ED250E985000983C3D /* GlacialIndifference-Bold.otf in Resources */,
 				1693E738247A3DC4003D4702 /* Main.storyboard in Resources */,
@@ -1145,8 +1314,12 @@
 				16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */,
 				B97058F32A88BDAE008F8636 /* celebration2.wav in Resources */,
 				16C05CFB264F5ABC004C9629 /* AssignmentCell1.xib in Resources */,
+				B9A1653E2AAD9A79005A23F6 /* LogoSelectionCell.xib in Resources */,
 				16A63B8524AA85A7003A30D3 /* OtherEventCell.xib in Resources */,
 				B97058F52A88BE62008F8636 /* celebration.wav in Resources */,
+				B9A165472AAD9A79005A23F6 /* ThemeCell.xib in Resources */,
+				B9A165392AAD9A79005A23F6 /* DaySelectorCell.xib in Resources */,
+				B9A1654E2AAD9A79005A23F6 /* PickerCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1225,18 +1398,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9A165452AAD9A79005A23F6 /* SegmentedControlCell.swift in Sources */,
 				1693E757247A4BCB003D4702 /* AssignmentsOnlyViewController.swift in Sources */,
 				B94CA0B92A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift in Sources */,
 				B90F10662A7301D000BAB23F /* SecretsService.swift in Sources */,
 				B90F10582A6F803400BAB23F /* Spinner.swift in Sources */,
 				B97058F82A88C1D0008F8636 /* TreeCoordinator.swift in Sources */,
 				1693E735247A3DC4003D4702 /* CalendarViewController.swift in Sources */,
+				B9A165062AAD97FE005A23F6 /* CreatesUIImage.swift in Sources */,
 				B9AFCF992A19F2430087A0FF /* DatabaseServiceProtocol.swift in Sources */,
 				B9EAD6A62A7E55AD002E1F40 /* Autoscheduling.swift in Sources */,
 				B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */,
 				B90F10462A6F2FF800BAB23F /* StudiumGraySubtitle.swift in Sources */,
 				B90FFE372A8F150A000E6EA6 /* Searchable.swift in Sources */,
 				B90D13FD29845FE80093EB0C /* LogoSelectorViewController.swift in Sources */,
+				B9A165042AAD97FE005A23F6 /* FlatImage.swift in Sources */,
+				B9A165412AAD9A79005A23F6 /* BasicCell.swift in Sources */,
 				B90F10542A6F337F00BAB23F /* Increment.swift in Sources */,
 				B90D1449298C77B80093EB0C /* NotificationService.swift in Sources */,
 				B93CBC552A84BE8B005BDA5F /* SectionHeader.swift in Sources */,
@@ -1253,12 +1430,14 @@
 				1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */,
 				B94CA0D72A31432400047865 /* AssignmentEditingCoordinator.swift in Sources */,
 				B9D71E6B2A8DE8BC00A17F7E /* MockStudiumEventService.swift in Sources */,
-				B9CDEF792A427CAF0084AB24 /* FlatImage.swift in Sources */,
 				B97BB0AC2A022B30008F1A5B /* String_Extension.swift in Sources */,
 				B90D140029845FE80093EB0C /* AddAssignmentViewController.swift in Sources */,
 				B90F103C2A6A2E4200BAB23F /* AcademicAdvisorView.swift in Sources */,
 				B9AFCF8D2A19F1D40087A0FF /* HabitsCoordinator.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
+				B9A165112AAD9A6F005A23F6 /* SystemIcon.swift in Sources */,
+				B9A165482AAD9A79005A23F6 /* TimeCell.swift in Sources */,
+				B9A165432AAD9A79005A23F6 /* LogoSelectionCell.swift in Sources */,
 				B9B41CFF2A26EE6900239DD4 /* ErrorShowing.swift in Sources */,
 				B94CA0E42A344B7500047865 /* PopUpService.swift in Sources */,
 				B94CA0CF2A2F101E00047865 /* AlertOption.swift in Sources */,
@@ -1268,34 +1447,44 @@
 				B90F10502A6F310100BAB23F /* StudiumText.swift in Sources */,
 				16827D1A27F58B9A0001D1EF /* AuthenticationViewController.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
+				B9A165352AAD9A79005A23F6 /* ColorPickerCell.swift in Sources */,
 				B9AFCF8B2A19F1CA0087A0FF /* CalendarCoordinator.swift in Sources */,
 				B9AFCF742A19E3160087A0FF /* AppCoordinator.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
+				B9A1653A2AAD9A79005A23F6 /* ColorPickerCellV2.swift in Sources */,
 				16C05CF4264F37B8004C9629 /* RecurringEventCell.swift in Sources */,
 				B90F10442A6F2FD700BAB23F /* StudiumSubtitle.swift in Sources */,
 				B90D13FF29845FE80093EB0C /* AlertTimeSelectionTableViewForm.swift in Sources */,
 				B97BB0B22A0399FB008F1A5B /* UIViewController_Extension.swift in Sources */,
 				B9B41CF72A26E5E200239DD4 /* TimeChunk.swift in Sources */,
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
+				B9A1654D2AAD9A79005A23F6 /* TimePickerCellV2.swift in Sources */,
 				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
-				B94CA0C72A2DA12A00047865 /* LogoCollectionViewCell.swift in Sources */,
 				B90F10522A6F326000BAB23F /* StudiumLinkView.swift in Sources */,
 				B97BB0A72A00EA0D008F1A5B /* AppleCalendarService.swift in Sources */,
 				B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */,
 				B94CA0F42A39A9C600047865 /* OtherEventEditingCoordinator.swift in Sources */,
 				B995493C2992EDD000442968 /* Completable.swift in Sources */,
+				B9A1654C2AAD9A79005A23F6 /* LogoCollectionViewCell.swift in Sources */,
+				B9A165122AAD9A6F005A23F6 /* Date_Extension_2.swift in Sources */,
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
 				B9B41CEF2A242A3D00239DD4 /* Storyboarded.swift in Sources */,
 				B90F103A2A6A1BBA00BAB23F /* GradesViewController.swift in Sources */,
 				B9AFCF8F2A19F1DE0087A0FF /* CoursesCoordinator.swift in Sources */,
+				B9A165522AAD9A79005A23F6 /* TableViewForm.swift in Sources */,
 				B9EAD6962A7B2639002E1F40 /* DocumentPicker.swift in Sources */,
 				B986934A2A3D9C7F00272B22 /* GoogleCalendarEventLinking.swift in Sources */,
+				B9A165372AAD9A79005A23F6 /* PickerCell.swift in Sources */,
 				B90F104C2A6F30D100BAB23F /* SmallIcon.swift in Sources */,
 				B986935E2A3E8A3400272B22 /* EKReminder.swift in Sources */,
 				16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */,
+				B9A165052AAD97FE005A23F6 /* StudiumIcon.swift in Sources */,
 				B90F10482A6F308900BAB23F /* StudiumTitle.swift in Sources */,
+				B9A1654A2AAD9A79005A23F6 /* LabelCell.swift in Sources */,
 				B97BB0AE2A022B37008F1A5B /* Date_Extension.swift in Sources */,
+				B9A165532AAD9A79005A23F6 /* ColorManager.swift in Sources */,
 				B9AFCF952A19F1FE0087A0FF /* SettingsCoordinator.swift in Sources */,
+				B9A165442AAD9A79005A23F6 /* DaySelectorCell.swift in Sources */,
 				B94CA0B72A2D435500047865 /* CourseRefreshProtocol.swift in Sources */,
 				B90F10382A6A098500BAB23F /* Autoscheduled.swift in Sources */,
 				B94CA0E82A34615400047865 /* CrashlyticsService.swift in Sources */,
@@ -1310,11 +1499,12 @@
 				B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */,
 				1693E74A247A41A5003D4702 /* DayScheduleViewController.swift in Sources */,
 				B9CDEF7D2A45972C0084AB24 /* GoogleAuthScope.swift in Sources */,
+				B9A1650F2AAD9A6F005A23F6 /* Weekday2.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
 				B97058EE2A88B6F3008F8636 /* DaysView.swift in Sources */,
 				B93CBC532A81AAE8005BDA5F /* StudiumEventViewHeader.swift in Sources */,
 				B94CA0E62A34573200047865 /* Logger.swift in Sources */,
-				B94CA0C12A2D5CA800047865 /* Coordinator.swift in Sources */,
+				B9A165032AAD97FE005A23F6 /* ThirdPartyIcon.swift in Sources */,
 				B97058F02A88BD00008F8636 /* SoundEffectService.swift in Sources */,
 				B94CA0BD2A2D5C5700047865 /* AlertTimeSelectingForm.swift in Sources */,
 				B9AFCF912A19F1EA0087A0FF /* ToDoCoordinator.swift in Sources */,
@@ -1324,6 +1514,7 @@
 				B94CA0D92A32C0F000047865 /* NavigationCoordinator.swift in Sources */,
 				B98693482A3D867700272B22 /* GoogleCalendarService.swift in Sources */,
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
+				B9A165572AAD9CE6005A23F6 /* Coordinator.swift in Sources */,
 				B9CDEF732A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift in Sources */,
 				B9B41CF52A26E3F500239DD4 /* DebugFlags.swift in Sources */,
 				B93CBC572A882C08005BDA5F /* AssignmentCellView.swift in Sources */,
@@ -1342,6 +1533,7 @@
 				B9C2EB192A78C67900E14320 /* StudiumButtonStyle.swift in Sources */,
 				B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */,
 				B9CDEF752A417D650084AB24 /* Realm_Extension.swift in Sources */,
+				B9A1653D2AAD9A79005A23F6 /* TimePickerCell.swift in Sources */,
 				B98693622A3E8A3400272B22 /* EKRecurrenceRule.swift in Sources */,
 				B98693632A3E8A3400272B22 /* RFC5545.swift in Sources */,
 				B9AFCF782A19E8260087A0FF /* AuthenticationCoordinator.swift in Sources */,
@@ -1351,22 +1543,28 @@
 				B97BB09F2A00D19D008F1A5B /* MockAutoscheduleService.swift in Sources */,
 				B9D71E6D2A8DEB4F00A17F7E /* StudiumEventColor.swift in Sources */,
 				16A63B8124AA8059003A30D3 /* OtherEvent.swift in Sources */,
+				B9A165402AAD9A79005A23F6 /* TextFieldCell.swift in Sources */,
 				B93CBC5C2A885A8B005BDA5F /* OtherEventCellView.swift in Sources */,
 				B97058EC2A88B493008F8636 /* HabitViewController.swift in Sources */,
 				B97058FA2A88C38B008F8636 /* TreeViewController.swift in Sources */,
 				B97BB0B72A075CB4008F1A5B /* DaySchedulable.swift in Sources */,
+				B9A1654B2AAD9A79005A23F6 /* SwitchCell.swift in Sources */,
 				B98693602A3E8A3400272B22 /* EKParticipant.swift in Sources */,
 				B9B41CFA2A26E82E00239DD4 /* TabItemInfo.swift in Sources */,
+				B9A165102AAD9A6F005A23F6 /* DateFormat.swift in Sources */,
 				B96BEC742A806476005105B2 /* OtherEventViewController.swift in Sources */,
+				B9A165502AAD9A79005A23F6 /* FormError.swift in Sources */,
 				B986935F2A3E8A3400272B22 /* EKEvent.swift in Sources */,
 				B97BB0A12A00D29A008F1A5B /* MockDatabaseService.swift in Sources */,
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,
+				B9A1654F2AAD9A79005A23F6 /* UITextFieldDelegateExtension.swift in Sources */,
+				B9A165512AAD9A79005A23F6 /* FormCell.swift in Sources */,
 				B94CA0CC2A2F0DB400047865 /* LogoSelectingForm.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
+				B9A1653B2AAD9A79005A23F6 /* ThemeCell.swift in Sources */,
 				B90F10642A72115200BAB23F /* ChatGPTService.swift in Sources */,
 				B97BB1672A0EF864008F1A5B /* AssignmentsOtherEventsViewController.swift in Sources */,
 				B90D1440298999AB0093EB0C /* StudiumFormError.swift in Sources */,
-				B94CA0D52A2F1BCE00047865 /* StudiumIcon.swift in Sources */,
 				B9EAD69C2A7E5527002E1F40 /* StudiumTextfieldStyle.swift in Sources */,
 				B94CA0EA2A35511000047865 /* StudiumFont.swift in Sources */,
 				B9AFCF932A19F1F50087A0FF /* UserSetupCoordinator.swift in Sources */,

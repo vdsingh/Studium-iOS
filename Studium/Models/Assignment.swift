@@ -43,7 +43,7 @@
 
 import Foundation
 import RealmSwift
-import VikUtilityKit
+
 
 /// Represents Course Assignments
 class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, StudiumEventContained, FileStorer {
@@ -239,16 +239,16 @@ class Assignment: StudiumEvent, CompletableStudiumEvent, Autoscheduling, Studium
         return autoscheduledToDoEvent
     }
     
-    func instantiateAssignmentWidgetModel() -> AssignmentWidgetModel {
-        return AssignmentWidgetModel(
-            id: self._id.stringValue,
-            name: self.name,
-            dueDate: self.endDate,
-            course: self.parentCourse?.name ?? "",
-            isComplete: self.complete,
-            colorHex: self.color.hexValue()
-        )
-    }
+//    func instantiateAssignmentWidgetModel() -> AssignmentWidgetModel {
+//        return AssignmentWidgetModel(
+//            id: self._id.stringValue,
+//            name: self.name,
+//            dueDate: self.endDate,
+//            course: self.parentCourse?.name ?? "",
+//            isComplete: self.complete,
+//            colorHex: self.color.hexValue()
+//        )
+//    }
     
     // MARK: - Searchable
     override func eventIsVisible(fromSearch searchText: String) -> Bool {

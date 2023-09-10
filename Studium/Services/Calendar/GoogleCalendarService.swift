@@ -8,7 +8,7 @@
 
 import Foundation
 import EventKit
-import VikUtilityKit
+
 import GoogleSignIn
 import GoogleAPIClientForREST
 import GTMSessionFetcher

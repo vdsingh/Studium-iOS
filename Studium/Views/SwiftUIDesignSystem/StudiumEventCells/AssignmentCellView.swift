@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import UIKit
 import RealmSwift
-import VikUtilityKit
+
 
 struct AssignmentCellView: View {
     @ObservedRealmObject var assignment: Assignment

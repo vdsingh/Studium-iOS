@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import VikUtilityKit
 
 //TODO: Docstrings
 protocol DatabaseServiceProtocol {

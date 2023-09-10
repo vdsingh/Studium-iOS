@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import VikUtilityKit
 import RealmSwift
 
 protocol Autoscheduling: StudiumEvent {
