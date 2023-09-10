@@ -16,8 +16,6 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     
     weak var coordinator: CalendarCoordinator?
     
-    let debug = true
-
     //TODO: Docstring
     let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
@@ -57,7 +55,6 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        printDebug("View Will Appear")
         super.viewWillAppear(animated)
         reloadData()
         self.generatedEvents = []
@@ -85,11 +82,9 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     
     //TODO: Docstring
     func createEventsForStudiumEvents(on date: Date) -> [Event] {
-        printDebug("createEventsForStudiumEvents called")
         let studiumEvents = self.databaseService.getAllStudiumObjects()
         var events = [Event]()
         for studiumEvent in studiumEvents {
-            printDebug("Creating StudiumEvent: \(studiumEvent.name) for Date: \(date)")
             
             let newEvent = Event()
             guard let timeChunk = studiumEvent.timeChunkForDate(date: date) else {
@@ -147,12 +142,10 @@ class DayScheduleViewController: DayViewController, Storyboarded {
                 }
             }
 
-            printDebug("Appending event with text \(newEvent.attributedText?.string) and dates \(newEvent.dateInterval.start) - \(newEvent.dateInterval.end)")
             
             if newEvent.dateInterval.start <= newEvent.dateInterval.end {
                 events.append(newEvent)
             } else {
-                print("$ERR (DayScheduleViewController): Couldn't add event with text \(newEvent.attributedText?.string) because startDate occurs after endDate")
             }
         }
         
@@ -161,12 +154,11 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     
     //TODO: Docstrings
     func createWakeTimeEvent(for date: Date) -> Event? {
-        printDebug("Creating Wake Time Events")
         
         // There is no wake up time for the specified date
         guard let wakeUpTime = self.databaseService.getUserSettings().getWakeUpTime(for: date),
               wakeUpTime.occursOn(date: date) else {
-            printDebug("Wake up time for \(date.weekdayValue) was nil or mismatched the requested date. Wake Up Time: \(String(describing: self.databaseService.getUserSettings().getWakeUpTime(for: date))), Requested: \(date)")
+            Log.d("Wake up time for \(date.weekdayValue) was nil or mismatched the requested date. Wake Up Time: \(String(describing: self.databaseService.getUserSettings().getWakeUpTime(for: date))), Requested: \(date)")
             return nil
         }
 
@@ -183,7 +175,6 @@ class DayScheduleViewController: DayViewController, Storyboarded {
         let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
         newEvent.attributedText = attributedString
         
-        printDebug("Created Wake Up Event for \(date). Wake Up Time is \(wakeUpTime)")
 
         return newEvent
     }
@@ -209,7 +200,6 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     
     //TODO: Docstrings
     func generateEventsForDate(_ date: Date) -> [EventDescriptor] {
-        printDebug("generateEventsForDate called")
         var events = [Event]()
         events.append(contentsOf: self.createEventsForStudiumEvents(on: date))
         

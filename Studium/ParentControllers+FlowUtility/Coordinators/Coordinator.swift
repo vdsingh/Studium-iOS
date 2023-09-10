@@ -34,8 +34,7 @@ extension Coordinator {
     
     //TODO: Docstrings
     func finish() {
-        self.printDebug("finish called")
-        childCoordinators.removeAll()
+        self.childCoordinators.removeAll()
         
         guard let parentCoordinator = self.parentCoordinator  else {
             return
@@ -49,7 +48,6 @@ extension Coordinator {
         }
         
         parentCoordinator.childDidFinish(self)
-        self.printDebug("finish call ended")
     }
     
     //TODO: Docstrings
@@ -64,14 +62,6 @@ extension Coordinator {
     func setRootViewController(_ viewController: UIViewController) {
         DispatchQueue.main.async {
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(viewController)
-        }
-    }
-}
-
-extension Debuggable where Self: Coordinator {
-    func printDebug(_ message: String) {
-        if self.debug || DebugFlags.coordinators {
-            print("$LOG \(String(describing: self)): \(message)")
         }
     }
 }

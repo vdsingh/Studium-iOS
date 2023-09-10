@@ -15,11 +15,6 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
     
     /// reference to the list that is to be refreshed when a new course is added.
     var delegate: CourseRefreshProtocol?
-    
-    // TODO: Docstrings
-    override var debug: Bool {
-        true
-    }
         
     // TODO: Docstrings
     @IBOutlet weak var navButton: UIBarButtonItem!

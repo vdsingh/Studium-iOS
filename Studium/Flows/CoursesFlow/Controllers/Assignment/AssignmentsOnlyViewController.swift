@@ -16,10 +16,6 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
     
     // TODO: Docstring
     weak var coordinator: CoursesCoordinator?
-    
-    override var debug: Bool {
-        return true
-    }
         
     /// The course that was selected to reach this screen
     var selectedCourse: Course! {

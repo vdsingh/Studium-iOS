@@ -16,11 +16,7 @@ let kLargeCellHeight: CGFloat = 150
 let kMediumCellHeight: CGFloat = 60
 let kNormalCellHeight: CGFloat = 50
 
-class MasterForm: TableViewForm, Debuggable {
-    
-    var debug: Bool {
-        true
-    }
+class MasterForm: TableViewForm {
     
     let databaseService: DatabaseService = DatabaseService.shared
 //    let autoscheduleService: AutoscheduleServiceProtocol = AutoscheduleService.shared
@@ -244,12 +240,12 @@ extension MasterForm {
                 .pickerCell(cellText: "Length of Habit", indices: self.lengthPickerIndices, tag: .lengthPickerCell, delegate: self, dataSource: self),
                 at: timeCellIndex + 1)
         default:
-            print("$ERR: unexpected cell ID.\nFile: \(#file)\nFunction:\(#function)\nLine:\(#line)")
+            Log.e("unexpected cell ID.")
             return
         }
         
-        tableView.insertRows(at: [IndexPath(row: timeCellIndex + 1, section: indexPath.section)], with: .left)
-        tableView.endUpdates()
+        self.tableView.insertRows(at: [IndexPath(row: timeCellIndex + 1, section: indexPath.section)], with: .left)
+        self.tableView.endUpdates()
     }
     
 }
@@ -277,7 +273,7 @@ extension MasterForm: UITimePickerDelegate {
                 
             }
         } else {
-            print("$ERR (MasterFormClass): date is nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            Log.e("date is nil.")
         }
         
         switch pickerID {
@@ -400,7 +396,7 @@ extension MasterForm {
     
     // TODO: Docstrings
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        view.endEditing(true)
+        self.view.endEditing(true)
         tableView.deselectRow(at: indexPath, animated: true)
         let cell = cells[indexPath.section][indexPath.row]
         switch cell {
@@ -446,11 +442,7 @@ extension MasterForm {
     
     // TODO: Docstrings
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
-        }
-        
-        return K.emptyHeaderHeight
+        return section == 0 ? 0 : Increment.two
     }
     
     /// Scrolls the screen to the bottom of the Form

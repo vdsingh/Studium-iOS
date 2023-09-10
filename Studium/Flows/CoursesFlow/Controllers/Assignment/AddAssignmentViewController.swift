@@ -17,11 +17,6 @@ protocol AssignmentRefreshProtocol {
 class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboarded {
     
     // TODO: Docstrings
-    override var debug: Bool {
-        return true
-    }
-    
-    // TODO: Docstrings
     func showAlertTimesSelectionViewController() {
         if let coordinator = coordinator as? AlertTimesSelectionShowingCoordinator {
             coordinator.showAlertTimesSelectionViewController(updateDelegate: self, selectedAlertOptions: self.alertTimes)

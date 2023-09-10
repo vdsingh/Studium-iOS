@@ -8,31 +8,6 @@
 
 import Foundation
 import UIKit
-
-// TODO: Docstrings, implement
-//enum StudiumIconImageTag: String {
-//    case chemistry
-//    case drugs
-//    case lifting
-//    case medical
-//    case science
-//
-//    var allRelatedTerms: [String] {
-//        switch self {
-//        case .chemistry:
-//            return ["chemical", "chemicals", "chem"]
-//        case .drugs:
-//            <#code#>
-//        case .lifting:
-//            <#code#>
-//        case .medical:
-//            <#code#>
-//        case .science:
-//            <#code#>
-//        }
-//    }
-//}
-
 protocol CreatesUIImage {
     var uiImage: UIImage { get }
 }

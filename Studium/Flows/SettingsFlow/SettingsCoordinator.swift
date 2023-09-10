@@ -13,7 +13,7 @@ import UIKit
 class SettingsCoordinator: NSObject, NavigationCoordinator, AlertTimesSelectionShowingCoordinator {
     
     //TODO: Docstrings
-    var debug: Bool = false
+//    var debug: Bool = false
 
     //TODO: Docstrings
     var parentCoordinator: Coordinator?
@@ -54,10 +54,11 @@ class SettingsCoordinator: NSObject, NavigationCoordinator, AlertTimesSelectionS
     
     // TODO: Docstrings
     func showSettingsListViewController() -> UIViewController {
-        let settingsListVC = SettingsViewController.instantiate()
-        settingsListVC.coordinator = self
-        self.navigationController.pushViewController(settingsListVC, animated: true)
-        return settingsListVC
+//        let settingsListVC = SettingsViewController.instantiate()
+        let settingsVC = SettingsViewController(coordinator: self, databaseService: DatabaseService.shared)
+//        settingsVC.coordinator = self
+        self.navigationController.pushViewController(settingsVC, animated: true)
+        return settingsVC
     }
     
     // TODO: Docstrings

@@ -31,7 +31,6 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
         return tableView
     }()
     
-    var debug: Bool { false }
     
     //TODO: Docstrings
     var rightActions = [SwipeAction]()

@@ -385,7 +385,6 @@ extension AddHabitViewController {
     /// Fills the FormCells with information from a provided habit
     /// - Parameter habit: The habit that we want to fill the Form with
     func fillForm(with habit: Habit) {
-        printDebug("Filling form for habit: \(habit.name)")
         
         self.navButton.image = .none
         self.navButton.title = "Done"
