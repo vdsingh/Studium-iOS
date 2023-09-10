@@ -106,9 +106,6 @@
 		B94CA0F22A3683F200047865 /* StudiumEventContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0F12A3683F200047865 /* StudiumEventContainer.swift */; };
 		B94CA0F42A39A9C600047865 /* OtherEventEditingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0F32A39A9C600047865 /* OtherEventEditingCoordinator.swift */; };
 		B95194122A5675A900E0869A /* WidgetsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95194112A5675A900E0869A /* WidgetsService.swift */; };
-		B95194152A57C13800E0869A /* MarkAssignmentCompleteIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95194132A57BEA500E0869A /* MarkAssignmentCompleteIntent.swift */; };
-		B95194162A57C63000E0869A /* AssignmentsWidgetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A492342A49347E006E6A32 /* AssignmentsWidgetDataService.swift */; };
-		B95194172A5D6AF400E0869A /* UIColor_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0AF2A022B5C008F1A5B /* UIColor_Extension.swift */; };
 		B951941A2A5E8A8300E0869A /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95194192A5E8A8300E0869A /* ImageDetailView.swift */; };
 		B96BEC742A806476005105B2 /* OtherEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96BEC732A806476005105B2 /* OtherEventViewController.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
@@ -133,7 +130,6 @@
 		B97BB0B22A0399FB008F1A5B /* UIViewController_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0B12A0399FB008F1A5B /* UIViewController_Extension.swift */; };
 		B97BB0B72A075CB4008F1A5B /* DaySchedulable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0B62A075CB4008F1A5B /* DaySchedulable.swift */; };
 		B97BB1672A0EF864008F1A5B /* AssignmentsOtherEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB1662A0EF864008F1A5B /* AssignmentsOtherEventsViewController.swift */; };
-		B97BB1762A11A2EB008F1A5B /* TableViewFormKit in Frameworks */ = {isa = PBXBuildFile; productRef = B97BB1752A11A2EB008F1A5B /* TableViewFormKit */; };
 		B98693222A3D702800272B22 /* AuthenticationService+Google.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98693212A3D702800272B22 /* AuthenticationService+Google.swift */; };
 		B98693242A3D703100272B22 /* AuthenticationService+Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98693232A3D703100272B22 /* AuthenticationService+Facebook.swift */; };
 		B98693482A3D867700272B22 /* GoogleCalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98693472A3D867700272B22 /* GoogleCalendarService.swift */; };
@@ -149,19 +145,6 @@
 		B98693632A3E8A3400272B22 /* RFC5545.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98693592A3E8A3300272B22 /* RFC5545.swift */; };
 		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
-		B9A492212A483E26006E6A32 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9CDEF842A45ADC90084AB24 /* WidgetKit.framework */; };
-		B9A492222A483E26006E6A32 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9CDEF862A45ADC90084AB24 /* SwiftUI.framework */; };
-		B9A492252A483E26006E6A32 /* AssignmentsWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A492242A483E26006E6A32 /* AssignmentsWidgetBundle.swift */; };
-		B9A492272A483E26006E6A32 /* AssignmentsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A492262A483E26006E6A32 /* AssignmentsWidget.swift */; };
-		B9A492292A483E26006E6A32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9A492282A483E26006E6A32 /* Assets.xcassets */; };
-		B9A4922D2A483E26006E6A32 /* AssignmentsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B9A492202A483E26006E6A32 /* AssignmentsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B9A492352A49347E006E6A32 /* AssignmentsWidgetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A492342A49347E006E6A32 /* AssignmentsWidgetDataService.swift */; };
-		B9A4923A2A4937C8006E6A32 /* Array_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A492392A4937C8006E6A32 /* Array_Extension.swift */; };
-		B9A4923C2A4937DE006E6A32 /* AssignmentWidgetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4923B2A4937DE006E6A32 /* AssignmentWidgetModel.swift */; };
-		B9A4923F2A493883006E6A32 /* AssignmentWidgetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4923B2A4937DE006E6A32 /* AssignmentWidgetModel.swift */; };
-		B9A492402A493892006E6A32 /* WidgetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4923D2A4937F8006E6A32 /* WidgetConstants.swift */; };
-		B9A492412A493899006E6A32 /* Array_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A492392A4937C8006E6A32 /* Array_Extension.swift */; };
-		B9A492432A4941A1006E6A32 /* WidgetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4923D2A4937F8006E6A32 /* WidgetConstants.swift */; };
 		B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */; };
 		B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */; };
 		B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */; };
@@ -191,7 +174,6 @@
 		B9D71E6B2A8DE8BC00A17F7E /* MockStudiumEventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D71E6A2A8DE8BC00A17F7E /* MockStudiumEventService.swift */; };
 		B9D71E6D2A8DEB4F00A17F7E /* StudiumEventColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D71E6C2A8DEB4F00A17F7E /* StudiumEventColor.swift */; };
 		B9EAD6962A7B2639002E1F40 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EAD6952A7B2639002E1F40 /* DocumentPicker.swift */; };
-		B9EAD6982A7DCDE7002E1F40 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9EAD6972A7DCDE7002E1F40 /* GoogleService-Info.plist */; };
 		B9EAD69C2A7E5527002E1F40 /* StudiumTextfieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EAD69B2A7E5527002E1F40 /* StudiumTextfieldStyle.swift */; };
 		B9EAD6A42A7E559C002E1F40 /* FileStorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EAD6A32A7E559C002E1F40 /* FileStorer.swift */; };
 		B9EAD6A62A7E55AD002E1F40 /* Autoscheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EAD6A52A7E55AD002E1F40 /* Autoscheduling.swift */; };
@@ -207,13 +189,6 @@
 			remoteGlobalIDString = 1693E72C247A3DC4003D4702;
 			remoteInfo = Studium;
 		};
-		B9A4922B2A483E26006E6A32 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1693E725247A3DC4003D4702 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B9A4921F2A483E26006E6A32;
-			remoteInfo = AssignmentsWidgetExtension;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -223,7 +198,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				B9A4922D2A483E26006E6A32 /* AssignmentsWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,7 +307,6 @@
 		B94CA0F12A3683F200047865 /* StudiumEventContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventContainer.swift; sourceTree = "<group>"; };
 		B94CA0F32A39A9C600047865 /* OtherEventEditingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventEditingCoordinator.swift; sourceTree = "<group>"; };
 		B95194112A5675A900E0869A /* WidgetsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsService.swift; sourceTree = "<group>"; };
-		B95194132A57BEA500E0869A /* MarkAssignmentCompleteIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkAssignmentCompleteIntent.swift; sourceTree = "<group>"; };
 		B95194192A5E8A8300E0869A /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
 		B96BEC732A806476005105B2 /* OtherEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventViewController.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
@@ -345,8 +318,6 @@
 		B97058F42A88BE62008F8636 /* celebration.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = celebration.wav; sourceTree = "<group>"; };
 		B97058F72A88C1D0008F8636 /* TreeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeCoordinator.swift; sourceTree = "<group>"; };
 		B97058F92A88C38B008F8636 /* TreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeViewController.swift; sourceTree = "<group>"; };
-		B9707E372A11C7EF004B63F0 /* TableViewFormKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TableViewFormKit; path = ../../Packages/TableViewFormKit; sourceTree = "<group>"; };
-		B9707E382A11C850004B63F0 /* VikUtilityKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = VikUtilityKit; path = ../../Packages/VikUtilityKit; sourceTree = "<group>"; };
 		B97BB08129F7006E008F1A5B /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B97BB08329F74628008F1A5B /* Debuggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debuggable.swift; sourceTree = "<group>"; };
 		B97BB0942A00CBF9008F1A5B /* StudiumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudiumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -378,17 +349,7 @@
 		B986935A2A3E8A3400272B22 /* RFC5545.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFC5545.h; sourceTree = "<group>"; };
 		B995493B2992EDD000442968 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
 		B995493E2992F0D400442968 /* StudiumEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventListViewController.swift; sourceTree = "<group>"; };
-		B9A492202A483E26006E6A32 /* AssignmentsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AssignmentsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		B9A492242A483E26006E6A32 /* AssignmentsWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsWidgetBundle.swift; sourceTree = "<group>"; };
-		B9A492262A483E26006E6A32 /* AssignmentsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsWidget.swift; sourceTree = "<group>"; };
-		B9A492282A483E26006E6A32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B9A4922A2A483E26006E6A32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B9A492322A493309006E6A32 /* AssignmentsWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AssignmentsWidgetExtension.entitlements; sourceTree = "<group>"; };
 		B9A492332A493370006E6A32 /* Studium.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Studium.entitlements; sourceTree = "<group>"; };
-		B9A492342A49347E006E6A32 /* AssignmentsWidgetDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsWidgetDataService.swift; sourceTree = "<group>"; };
-		B9A492392A4937C8006E6A32 /* Array_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array_Extension.swift; sourceTree = "<group>"; };
-		B9A4923B2A4937DE006E6A32 /* AssignmentWidgetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentWidgetModel.swift; sourceTree = "<group>"; };
-		B9A4923D2A4937F8006E6A32 /* WidgetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetConstants.swift; sourceTree = "<group>"; };
 		B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumColor.swift; sourceTree = "<group>"; };
 		B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoscheduleService.swift; sourceTree = "<group>"; };
@@ -420,7 +381,6 @@
 		B9D71E6A2A8DE8BC00A17F7E /* MockStudiumEventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStudiumEventService.swift; sourceTree = "<group>"; };
 		B9D71E6C2A8DEB4F00A17F7E /* StudiumEventColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventColor.swift; sourceTree = "<group>"; };
 		B9EAD6952A7B2639002E1F40 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
-		B9EAD6972A7DCDE7002E1F40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9EAD69B2A7E5527002E1F40 /* StudiumTextfieldStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudiumTextfieldStyle.swift; sourceTree = "<group>"; };
 		B9EAD6A32A7E559C002E1F40 /* FileStorer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileStorer.swift; sourceTree = "<group>"; };
 		B9EAD6A52A7E55AD002E1F40 /* Autoscheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Autoscheduling.swift; sourceTree = "<group>"; };
@@ -435,7 +395,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B97BB1762A11A2EB008F1A5B /* TableViewFormKit in Frameworks */,
 				213DBA6FC4EC440BD2C6C133 /* Pods_Studium.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -444,15 +403,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B9A4921D2A483E26006E6A32 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B9A492222A483E26006E6A32 /* SwiftUI.framework in Frameworks */,
-				B9A492212A483E26006E6A32 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,11 +431,8 @@
 		1693E724247A3DC4003D4702 = {
 			isa = PBXGroup;
 			children = (
-				B9A492322A493309006E6A32 /* AssignmentsWidgetExtension.entitlements */,
-				B97BB1682A119DB0008F1A5B /* Packages */,
 				1693E72F247A3DC4003D4702 /* Studium */,
 				B97BB0952A00CBF9008F1A5B /* StudiumTests */,
-				B9A492232A483E26006E6A32 /* AssignmentsWidget */,
 				1693E72E247A3DC4003D4702 /* Products */,
 				93B0DD225789CBCF8381CAD6 /* Pods */,
 				6FB44260C022218BAA798CDC /* Frameworks */,
@@ -497,7 +444,6 @@
 			children = (
 				1693E72D247A3DC4003D4702 /* Studium.app */,
 				B97BB0942A00CBF9008F1A5B /* StudiumTests.xctest */,
-				B9A492202A483E26006E6A32 /* AssignmentsWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -514,7 +460,6 @@
 				1693E74C247A463D003D4702 /* Models */,
 				1693E74B247A4634003D4702 /* Views */,
 				1693E73E247A3DC6003D4702 /* Info.plist */,
-				B9EAD6972A7DCDE7002E1F40 /* GoogleService-Info.plist */,
 				B97BB0B42A075964008F1A5B /* Secrets.xcconfig */,
 			);
 			path = Studium;
@@ -837,15 +782,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		B97BB1682A119DB0008F1A5B /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				B9707E372A11C7EF004B63F0 /* TableViewFormKit */,
-				B9707E382A11C850004B63F0 /* VikUtilityKit */,
-			);
-			name = Packages;
-			sourceTree = "<group>";
-		};
 		B986934B2A3DA7FB00272B22 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -886,38 +822,6 @@
 				B90FFE342A8F1427000E6EA6 /* Updatable.swift */,
 			);
 			path = Protocols;
-			sourceTree = "<group>";
-		};
-		B9A492232A483E26006E6A32 /* AssignmentsWidget */ = {
-			isa = PBXGroup;
-			children = (
-				B9A492422A493A89006E6A32 /* Models */,
-				B9A492382A4937C1006E6A32 /* Utility */,
-				B9A492242A483E26006E6A32 /* AssignmentsWidgetBundle.swift */,
-				B9A492262A483E26006E6A32 /* AssignmentsWidget.swift */,
-				B9A492342A49347E006E6A32 /* AssignmentsWidgetDataService.swift */,
-				B9A492282A483E26006E6A32 /* Assets.xcassets */,
-				B9A4922A2A483E26006E6A32 /* Info.plist */,
-				B95194132A57BEA500E0869A /* MarkAssignmentCompleteIntent.swift */,
-			);
-			path = AssignmentsWidget;
-			sourceTree = "<group>";
-		};
-		B9A492382A4937C1006E6A32 /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				B9A492392A4937C8006E6A32 /* Array_Extension.swift */,
-				B9A4923D2A4937F8006E6A32 /* WidgetConstants.swift */,
-			);
-			path = Utility;
-			sourceTree = "<group>";
-		};
-		B9A492422A493A89006E6A32 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				B9A4923B2A4937DE006E6A32 /* AssignmentWidgetModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		B9AFCF792A19EE4E0087A0FF /* Flows */ = {
@@ -1160,11 +1064,9 @@
 			buildRules = (
 			);
 			dependencies = (
-				B9A4922C2A483E26006E6A32 /* PBXTargetDependency */,
 			);
 			name = Studium;
 			packageProductDependencies = (
-				B97BB1752A11A2EB008F1A5B /* TableViewFormKit */,
 			);
 			productName = Studium;
 			productReference = 1693E72D247A3DC4003D4702 /* Studium.app */;
@@ -1188,23 +1090,6 @@
 			productReference = B97BB0942A00CBF9008F1A5B /* StudiumTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B9A4921F2A483E26006E6A32 /* AssignmentsWidgetExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B9A492312A483E26006E6A32 /* Build configuration list for PBXNativeTarget "AssignmentsWidgetExtension" */;
-			buildPhases = (
-				B9A4921C2A483E26006E6A32 /* Sources */,
-				B9A4921D2A483E26006E6A32 /* Frameworks */,
-				B9A4921E2A483E26006E6A32 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = AssignmentsWidgetExtension;
-			productName = AssignmentsWidgetExtension;
-			productReference = B9A492202A483E26006E6A32 /* AssignmentsWidgetExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1221,9 +1106,6 @@
 					B97BB0932A00CBF9008F1A5B = {
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = 1693E72C247A3DC4003D4702;
-					};
-					B9A4921F2A483E26006E6A32 = {
-						CreatedOnToolsVersion = 15.0;
 					};
 				};
 			};
@@ -1242,7 +1124,6 @@
 			targets = (
 				1693E72C247A3DC4003D4702 /* Studium */,
 				B97BB0932A00CBF9008F1A5B /* StudiumTests */,
-				B9A4921F2A483E26006E6A32 /* AssignmentsWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1263,7 +1144,6 @@
 				165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */,
 				16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */,
 				B97058F32A88BDAE008F8636 /* celebration2.wav in Resources */,
-				B9EAD6982A7DCDE7002E1F40 /* GoogleService-Info.plist in Resources */,
 				16C05CFB264F5ABC004C9629 /* AssignmentCell1.xib in Resources */,
 				16A63B8524AA85A7003A30D3 /* OtherEventCell.xib in Resources */,
 				B97058F52A88BE62008F8636 /* celebration.wav in Resources */,
@@ -1274,14 +1154,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B9A4921E2A483E26006E6A32 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B9A492292A483E26006E6A32 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1383,7 +1255,6 @@
 				B9D71E6B2A8DE8BC00A17F7E /* MockStudiumEventService.swift in Sources */,
 				B9CDEF792A427CAF0084AB24 /* FlatImage.swift in Sources */,
 				B97BB0AC2A022B30008F1A5B /* String_Extension.swift in Sources */,
-				B9A4923A2A4937C8006E6A32 /* Array_Extension.swift in Sources */,
 				B90D140029845FE80093EB0C /* AddAssignmentViewController.swift in Sources */,
 				B90F103C2A6A2E4200BAB23F /* AcademicAdvisorView.swift in Sources */,
 				B9AFCF8D2A19F1D40087A0FF /* HabitsCoordinator.swift in Sources */,
@@ -1393,7 +1264,6 @@
 				B94CA0CF2A2F101E00047865 /* AlertOption.swift in Sources */,
 				1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */,
 				B986935D2A3E8A3400272B22 /* EKAlarm.swift in Sources */,
-				B9A4923C2A4937DE006E6A32 /* AssignmentWidgetModel.swift in Sources */,
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
 				B90F10502A6F310100BAB23F /* StudiumText.swift in Sources */,
 				16827D1A27F58B9A0001D1EF /* AuthenticationViewController.swift in Sources */,
@@ -1430,7 +1300,6 @@
 				B90F10382A6A098500BAB23F /* Autoscheduled.swift in Sources */,
 				B94CA0E82A34615400047865 /* CrashlyticsService.swift in Sources */,
 				B98693222A3D702800272B22 /* AuthenticationService+Google.swift in Sources */,
-				B9A492432A4941A1006E6A32 /* WidgetConstants.swift in Sources */,
 				B9B41D012A26F43900239DD4 /* NSObject_Extension.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
 				B90D144229899C310093EB0C /* Weekday.swift in Sources */,
@@ -1506,7 +1375,6 @@
 				B98693242A3D703100272B22 /* AuthenticationService+Facebook.swift in Sources */,
 				165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */,
 				1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */,
-				B95194162A57C63000E0869A /* AssignmentsWidgetDataService.swift in Sources */,
 				B94CA0ED2A3563BA00047865 /* FormPopUpType.swift in Sources */,
 				B9CDEF7B2A4597140084AB24 /* GoogleSignInErrorCode.swift in Sources */,
 				B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */,
@@ -1524,21 +1392,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B9A4921C2A483E26006E6A32 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B9A492402A493892006E6A32 /* WidgetConstants.swift in Sources */,
-				B9A492412A493899006E6A32 /* Array_Extension.swift in Sources */,
-				B9A4923F2A493883006E6A32 /* AssignmentWidgetModel.swift in Sources */,
-				B95194172A5D6AF400E0869A /* UIColor_Extension.swift in Sources */,
-				B9A492352A49347E006E6A32 /* AssignmentsWidgetDataService.swift in Sources */,
-				B95194152A57C13800E0869A /* MarkAssignmentCompleteIntent.swift in Sources */,
-				B9A492272A483E26006E6A32 /* AssignmentsWidget.swift in Sources */,
-				B9A492252A483E26006E6A32 /* AssignmentsWidgetBundle.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1546,11 +1399,6 @@
 			isa = PBXTargetDependency;
 			target = 1693E72C247A3DC4003D4702 /* Studium */;
 			targetProxy = B97BB0982A00CBF9008F1A5B /* PBXContainerItemProxy */;
-		};
-		B9A4922C2A483E26006E6A32 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B9A4921F2A483E26006E6A32 /* AssignmentsWidgetExtension */;
-			targetProxy = B9A4922B2A483E26006E6A32 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1801,75 +1649,6 @@
 			};
 			name = Release;
 		};
-		B9A4922F2A483E26006E6A32 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = AssignmentsWidgetExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = VJUSE27PV3;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AssignmentsWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = AssignmentsWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Vikram Singh. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vikramsingh.Studium.AssignmentsWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		B9A492302A483E26006E6A32 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = AssignmentsWidgetExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = VJUSE27PV3;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AssignmentsWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = AssignmentsWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Vikram Singh. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vikramsingh.Studium.AssignmentsWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1900,23 +1679,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B9A492312A483E26006E6A32 /* Build configuration list for PBXNativeTarget "AssignmentsWidgetExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B9A4922F2A483E26006E6A32 /* Debug */,
-				B9A492302A483E26006E6A32 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		B97BB1752A11A2EB008F1A5B /* TableViewFormKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TableViewFormKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1693E725247A3DC4003D4702 /* Project object */;
 }
