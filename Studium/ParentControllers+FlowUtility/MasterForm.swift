@@ -18,8 +18,10 @@ let kNormalCellHeight: CGFloat = 50
 
 class MasterForm: TableViewForm {
     
-    let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
-    let autoscheduleService: AutoscheduleServiceProtocol = AutoscheduleService.shared
+    let databaseService: DatabaseService = DatabaseService.shared
+//    let autoscheduleService: AutoscheduleServiceProtocol = AutoscheduleService.shared
+    
+    let studiumEventService: StudiumEventService = StudiumEventService.shared
     
     // TODO: Docstrings
     lazy var alertTimes: [AlertOption] = {
@@ -54,13 +56,15 @@ class MasterForm: TableViewForm {
     var endDate: Date = Date() + (60*60)
     
     // TODO: Docstrings
-    var totalLengthMinutes = 0
+    var totalLengthMinutes: Int?
     
     // TODO: Docstrings
     var lengthPickerIndices: [Int] {
-        let hours = self.totalLengthMinutes / 60
-        let minutes =  self.totalLengthMinutes % 60
-        return [hours, minutes]
+        if let totalLengthMinutes = self.totalLengthMinutes {
+            return [totalLengthMinutes / 60, totalLengthMinutes % 60]
+        }
+        
+        return [0, 0]
     }
     
     override func viewDidLoad() {
@@ -94,16 +98,32 @@ class MasterForm: TableViewForm {
                 return
             }
             
-            guard let colorCell = tableView.cellForRow(at: IndexPath(row: colorCellRow, section: 2)) as? ColorPickerCell else {
+            guard let colorCell = self.tableView.cellForRow(at: IndexPath(row: colorCellRow, section: 2)) as? ColorPickerCell else {
                 return
             }
+            
             destinationVC.color = colorCell.colorPreview.backgroundColor ?? StudiumColor.primaryLabel.uiColor
         }
+    }
+    
+    func findErrors() -> [StudiumFormError] {
         
-//        else if let destinationVC = segue.destination as? AlertTimeSelectionForm {
-//            destinationVC.delegate = self
-//            destinationVC.setSelectedAlertOptions(alertOptions: self.alertTimes)
-//        }
+        var errors = [StudiumFormError]()
+        
+        // Character Limit checking
+        if self.name.trimmingCharacters(in: .whitespacesAndNewlines).count > TextFieldCharLimit.shortField.rawValue {
+            errors.append(.nameTooLong(charLimit: .shortField))
+        }
+        
+        if self.location.trimmingCharacters(in: .whitespacesAndNewlines).count > TextFieldCharLimit.shortField.rawValue {
+            errors.append(.locationTooLong(charLimit: .shortField))
+        }
+        
+        if self.additionalDetails.trimmingCharacters(in: .whitespacesAndNewlines).count > TextFieldCharLimit.longField.rawValue {
+            errors.append(.additionalDetailsTooLong(charLimit: .longField))
+        }
+        
+        return errors
     }
 }
 
@@ -166,21 +186,21 @@ extension MasterForm {
     
     // TODO: Docstrings
     func timeCellClicked(indexPath: IndexPath) {
-        guard let timeCell = tableView.cellForRow(at: indexPath) as? TimeCell else {
+        guard let timeCell = self.tableView.cellForRow(at: indexPath) as? TimeCell else {
             Log.s(MasterForm.StudiumError.cellTypeMismatch, additionalDetails: "timeCellClicked was called in \(String(describing: self)) at indexPath \(indexPath) however the cell at this indexPath could not be optionally unwrapped as a TimeCell. The cell: \(String(describing: tableView.cellForRow(at: indexPath)))")
             return
         }
         
         var timeCellIndex = indexPath.row
-        tableView.beginUpdates()
+        self.tableView.beginUpdates()
         
         // Find the first time picker (if there is one) and remove it
         if let indexOfFirstTimePicker = self.findFirstTimePickerCellIndex(section: indexPath.section) {
-            cells[indexPath.section].remove(at: indexOfFirstTimePicker)
-            tableView.deleteRows(at: [IndexPath(row: indexOfFirstTimePicker, section: indexPath.section)], with: .right)
+            self.cells[indexPath.section].remove(at: indexOfFirstTimePicker)
+            self.tableView.deleteRows(at: [IndexPath(row: indexOfFirstTimePicker, section: indexPath.section)], with: .right)
             /// Clicked on time cell while corresopnding timepicker is already expanded.
             if indexOfFirstTimePicker == indexPath.row + 1 {
-                tableView.endUpdates()
+                self.tableView.endUpdates()
                 return
                 // Clicked on time cell while above timepicker is expanded
             } else if indexOfFirstTimePicker == indexPath.row - 1 {
@@ -252,9 +272,6 @@ extension MasterForm: UITimePickerDelegate {
                 pickerDate = Calendar.current.date(from: components)
                 
             }
-            
-            //            correspondingTimeCell.timeLabel.text = pickerDate!.format(with: correspondingTimeCell.getDateFormat())
-            //            correspondingTimeCell.setDateFormat()
         } else {
             Log.e("date is nil.")
         }
@@ -262,10 +279,10 @@ extension MasterForm: UITimePickerDelegate {
         switch pickerID {
         case .startDateTimePicker:
             self.startDate = sender.date
-            print("$LOG: updated startDate \(self.startDate)")
+            Log.d("updated startDate \(self.startDate)")
         case .endDateTimePicker:
             self.endDate = sender.date
-            print("$LOG: updated endDate \(self.endDate)")
+            Log.d("updated endDate \(self.endDate)")
         default:
             print("$ERR (MasterFormClass): unexpected TimePicker ID.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
@@ -279,7 +296,6 @@ extension MasterForm: UITimePickerDelegate {
 extension MasterForm: AlertTimeHandler {
     func alertTimesWereUpdated(selectedAlertOptions: [AlertOption]) {
         self.alertTimes = selectedAlertOptions
-        self.printDebug("Selected alert times updated to \(self.alertTimes)")
     }
 }
 
@@ -297,7 +313,7 @@ extension MasterForm: LogoSelectionHandler {
             return
         }
         
-        logoCell.setImage(image: icon.image)
+        logoCell.setImage(image: icon.uiImage)
     }
 }
 
@@ -320,7 +336,7 @@ extension MasterForm: UIPickerViewDelegate {
                 return "\(row) min"
             }
         default:
-            print("$ERR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            Log.e("Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return nil
         }
     }
@@ -330,7 +346,6 @@ extension MasterForm: UIPickerViewDelegate {
         let lengthHours = pickerView.selectedRow(inComponent: 0)
         let lengthMinutes = pickerView.selectedRow(inComponent: 1)
         self.totalLengthMinutes = (lengthHours * 60) + lengthMinutes
-        print("set totalLengthMinutes to \(self.totalLengthMinutes)")
     }
 }
 
@@ -345,7 +360,7 @@ extension MasterForm: UIPickerViewDataSource {
         case FormCellID.PickerCellID.coursePickerCell.rawValue:
             return 1
         default:
-            print("$ERR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            Log.e("Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return 0
         }
     }
@@ -362,7 +377,7 @@ extension MasterForm: UIPickerViewDataSource {
         case FormCellID.PickerCellID.coursePickerCell.rawValue:
             return self.databaseService.getStudiumObjects(expecting: Course.self).count
         default:
-            print("$ERR: Unknown pickerView ID\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            Log.e("Unknown pickerView ID")
             return 0
         }
     }
@@ -406,7 +421,7 @@ extension MasterForm {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cell = cells[indexPath.section][indexPath.row]
         switch cell{
-        case .pickerCell, .timePickerCell, .colorPickerCell, .errorCell:
+        case .pickerCell, .timePickerCell, .colorPickerCell, .colorPickerCellV2, .errorCell:
             return kLargeCellHeight
         case .logoCell:
             return kMediumCellHeight
@@ -417,12 +432,12 @@ extension MasterForm {
     
     // TODO: Docstrings
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return cells.count
+        return self.cells.count
     }
     
     // TODO: Docstrings
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cells[section].count
+        return self.cells[section].count
     }
     
     // TODO: Docstrings
@@ -448,6 +463,6 @@ extension MasterForm {
 // MARK: - TableViewForm Conformance
 extension MasterForm {
     func fillForm(event: StudiumEvent) {
-        fatalError("$ERR (MasterForm): fillForm method should be overriden by subclass.")
+        Log.s(NSError(domain: "", code: 0), additionalDetails: "fillForm was called in MasterForm when it should be called in subclass. self: \(self)")
     }
 }

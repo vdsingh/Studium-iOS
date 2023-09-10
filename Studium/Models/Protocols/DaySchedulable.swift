@@ -7,10 +7,13 @@
 //
 
 import Foundation
+import CalendarKit
 import UIKit
 
 // TODO: Docstrings
-protocol DaySchedulable {
-    var scheduleDisplayString: String { get }
-    var scheduleDisplayColor: UIColor { get }
-}
+//protocol DaySchedulable {
+//    var scheduleDisplayString: String { get }
+//    var scheduleDisplayColor: UIColor { get }
+//    
+//    func eventForDate(_ date: Date) -> Event
+//}

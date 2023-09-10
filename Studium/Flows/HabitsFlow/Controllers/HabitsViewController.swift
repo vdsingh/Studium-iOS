@@ -19,23 +19,38 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
     //TODO: Docstrings
     var habits: [Habit] = []
     
+    override func loadView() {
+        super.loadView()
+        self.emptyDetailIndicatorViewModel = ImageDetailViewModel(
+            image: FlatImage.travelingAndSports.uiImage,
+            title: "No Habits here yet",
+            subtitle: nil,
+            buttonText: "Add a Habit",
+            buttonAction: self.addButtonPressed
+        )
+    }
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
+        self.title = "Habits"
+
         self.eventTypeString = "Habits"
 
-        super.viewDidLoad()
-
-        tableView.separatorStyle = .none //gets rid of dividers between cells.
-        tableView.rowHeight = 140
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.separatorStyle = .none //gets rid of dividers between cells.
+        self.tableView.rowHeight = 140
         
-        sectionHeaders = ["Today:", "Not Today:"]
+        self.sectionHeaders = ["Today:", "Not Today:"]
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadHabits()
+        super.viewWillAppear(animated)
+        self.loadHabits()
     }
     
     //TODO: Docstrings
-    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+    override func addButtonPressed() {
         self.unwrapCoordinatorOrShowError()
         self.coordinator?.showAddHabitViewController(refreshDelegate: self)
     }
@@ -43,18 +58,20 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
     //TODO: Docstrings
     func loadHabits() {
         self.habits = self.databaseService.getStudiumObjects(expecting: Habit.self)
-        eventsArray = [[],[]]
+        self.eventsArray = [[],[]]
         for habit in self.habits {
             if habit.days.contains(Date().weekdayValue){
-                eventsArray[0].append(habit)
+                self.eventsArray[0].append(habit)
             } else {
-                eventsArray[1].append(habit)
+                self.eventsArray[1].append(habit)
             }
         }
         
-        //sort all the habits happening today by startTime (the ones that are first come first in the list)
-        eventsArray[0].sort(by: { $0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm" )})
-        tableView.reloadData()
+        // sort all the habits happening today by startTime (the ones that are first come first in the list)
+        self.eventsArray[0].sort(by: { $0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm" )})
+        self.tableView.reloadData()
+        
+        self.updateEmptyEventsIndicator()
     }
     
     //TODO: Docstrings
@@ -80,26 +97,41 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
         return tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
     }
     
-    //TODO: Docstrings
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let habit = self.eventsArray[indexPath.section][indexPath.row] as? Habit {
+            let vc = HabitViewController(
+                habit: habit,
+                editButtonPressed: {
+                    self.edit(at: indexPath)
+                },
+                deleteButtonPressed: {
+                    PopUpService.shared.presentDeleteAlert {
+                        self.delete(at: indexPath)
+                    }
+                }
+            )
+            
+            self.navigationController?.modalPresentationStyle = .formSheet
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
 
     //TODO: Docstrings
     override func edit(at indexPath: IndexPath) {
-        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
+        let deletableEventCell = self.tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let eventForEdit = deletableEventCell.event! as! Habit
-        self.coordinator?.showEditHabitViewController(refreshDelegate: self, habitToEdit: eventForEdit )
+        self.coordinator?.showEditHabitViewController(refreshDelegate: self, habitToEdit: eventForEdit)
     }
     
     //TODO: Docstrings
     override func delete(at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
         let habit: Habit = cell.event as! Habit
-        print("LOG: attempting to delete Habit \(habit.name) at section \(indexPath.section) and row \(indexPath.row)")
-        
-        self.databaseService.deleteStudiumObject(habit)
-        eventsArray[indexPath.section].remove(at: indexPath.row)
+        self.studiumEventService.deleteStudiumEvent(habit)
+        self.eventsArray[indexPath.section].remove(at: indexPath.row)
         super.updateHeader(section: indexPath.section)
+        self.updateEmptyEventsIndicator()
     }
 }

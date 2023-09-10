@@ -2,6 +2,7 @@ Pods/
 Assets/
 Secrets.xcconfig
 GoogleService-Info.plist
+*.xcuserstate
 
 
 # Xcode

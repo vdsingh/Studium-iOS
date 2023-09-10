@@ -8,30 +8,45 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 enum StudiumFont {
     case title
     case subTitle
     case body
+    case bodySemibold
     case placeholder
+    case subText
     
-    var font: UIFont {
+    var uiFont: UIFont {
         switch self {
         case .title:
-            return UIFont.boldSystemFont(ofSize: 24)
+            return UIFont.boldSystemFont(ofSize: 30)
         case .subTitle:
-            return UIFont.systemFont(ofSize: 18, weight: .semibold)
+            return UIFont.systemFont(ofSize: 24, weight: .semibold)
         case .placeholder, .body:
-            return UIFont.systemFont(ofSize: 16)
+            return UIFont.systemFont(ofSize: 18)
+        case .bodySemibold:
+            return UIFont.systemFont(ofSize: 18, weight: .semibold)
+        case .subText:
+            return UIFont.systemFont(ofSize: 14)
         }
     }
     
-    var color: UIColor {
+    var font: Font {
+        return Font(self.uiFont)
+    }
+    
+    var uiColor: UIColor {
         switch self {
-        case .title, .body, .subTitle:
+        case .title, .body, .subTitle, .bodySemibold:
             return StudiumColor.primaryLabel.uiColor
-        case .placeholder:
+        case .placeholder, .subText:
             return StudiumColor.placeholderLabel.uiColor
         }
+    }
+    
+    var color: Color {
+        return Color(uiColor: self.uiColor)
     }
 }

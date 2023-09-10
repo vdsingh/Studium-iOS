@@ -28,9 +28,9 @@ class NotificationService {
         self.deleteAllPendingNotifications(for: event)
         if let event = event as? RecurringStudiumEvent {
             self.scheduleNotificationsFor(recurringEvent: event)
+        } else {
+            self.scheduleNotificationsForOneTimeEvent(event)
         }
-        
-        self.scheduleNotificationsForOneTimeEvent(event)
     }
     
     /// Deletes all of the pending notifications for an event

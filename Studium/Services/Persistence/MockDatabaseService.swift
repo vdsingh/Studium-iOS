@@ -11,7 +11,15 @@ import RealmSwift
 import VikUtilityKit
 
 class MockDatabaseService: DatabaseServiceProtocol {
-    func updateEvent<T>(oldEvent: T, updatedEvent: T.EventType) where T : Updatable {
+    func saveContainedEvent<T>(containedEvent: T.ContainedEventType, containerEvent: T, autoscheduleCompletion: @escaping () -> Void) where T : StudiumEventContainer {
+        
+    }
+    
+    func saveAutoscheduledEvent<T>(autoscheduledEvent: T.AutoscheduledEventType, autoschedulingEvent: T, autoscheduleCompletion: @escaping () -> Void) where T : Autoscheduling {
+        
+    }
+    
+    func updateEvent<T: Updatable>(oldEvent: T, updatedEvent: T.EventType, realmWriteCompletion: @escaping () -> Void) {
         
     }
     
@@ -45,7 +53,7 @@ class MockDatabaseService: DatabaseServiceProtocol {
     
     var events = [StudiumEvent]()
     
-    func saveStudiumObject(_ studiumEvent: StudiumEvent) {
+    func saveStudiumObject(_ studiumEvent: StudiumEvent, realmWriteCompletion: @escaping () -> Void) {
         self.events.append(studiumEvent)
     }
     
@@ -80,7 +88,7 @@ class MockDatabaseService: DatabaseServiceProtocol {
         
     }
     
-    func deleteStudiumObject(_ studiumEvent: StudiumEvent) {
+    func deleteStudiumObject(_ studiumEvent: StudiumEvent, eventWillDelete: @escaping () -> Void) {
         self.events.removeAll(where: { $0 == studiumEvent })
     }
     

@@ -52,13 +52,13 @@ extension ThemesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let color: UIColor = K.colorsDict[colors[indexPath.section][indexPath.row]] ?? UIColor.black
+//        let color: UIColor = K.colorsDict[colors[indexPath.section][indexPath.row]] ?? UIColor.black
         
 //        appDelegate.changeTheme(colorKey: colors[indexPath.section][indexPath.row])
         //hide and unhide the navbar to basically refresh it
 //        self.navigationController?.isNavigationBarHidden = true
 //        self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.barTintColor = color
+//        self.navigationController?.navigationBar.barTintColor = color
         
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -94,7 +94,7 @@ extension ThemesViewController: UITableViewDataSource {
         cell.label.text = themeNames[indexPath.section][indexPath.row]
 //        let color: UIColor = UIColor(hexString: colors[indexPath.section][indexPath.row])!
 //        cell.colorPreview.tintColor = K.colorsDict[colors[indexPath.section][indexPath.row]]
-        cell.setColorPreviewColor(colors: K.gradientPreviewDict[colors[indexPath.section][indexPath.row]]!)
+//        cell.setColorPreviewColor(colors: K.gradientPreviewDict[colors[indexPath.section][indexPath.row]]!)
 //        cell.colorPreview.backgroundColor = K.colorsDict[colors[indexPath.section][indexPath.row]]
         
         return cell

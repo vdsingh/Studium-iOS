@@ -61,19 +61,19 @@ class RecurringEventCell: DeletableEventCell {
         icon: StudiumIcon
     ) {
         printDebug("Loading data for event: \(recurringEvent)")
-        self.event = recurringEvent//just edited
-        iconImage.image = icon.image
-        iconImage.tintColor = color
-        iconCircle.tintColor = color
-        background.layer.borderColor = color.cgColor
+        self.event = recurringEvent //just edited
+        self.iconImage.image = icon.uiImage
+        self.iconImage.tintColor = color
+        self.iconCircle.tintColor = color
+        self.background.layer.borderColor = color.cgColor
         
-        nameLabel.text = courseName
-        nameLabel.textColor = color
-        locationLabel.text = recurringEvent.location
+        self.nameLabel.text = courseName
+        self.nameLabel.textColor = color
+        self.locationLabel.text = recurringEvent.location
 
         var timeText = startTime.format(with: DateFormat.standardTime.rawValue)
         timeText.append(" - \(endTime.format(with: DateFormat.standardTime.rawValue))")
-        timeLabel.text = timeText
+        self.timeLabel.text = timeText
         
         for dayBox in dayBoxes {
             dayBox.layer.borderWidth = 2

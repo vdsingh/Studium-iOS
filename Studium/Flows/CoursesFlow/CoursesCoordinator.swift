@@ -73,7 +73,7 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
         let navController = UINavigationController(rootViewController: addCourseVC)
         addCourseVC.delegate = refreshDelegate
         addCourseVC.course = courseToEdit
-        addCourseVC.title = "View/Edit Course"
+        addCourseVC.title = "Edit Course"
         addCourseVC.coordinator = self
         self.navigationController.topViewController?.present(navController, animated: true)
         self.formNavigationController = navController
@@ -96,8 +96,13 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
         self.navigationController.pushViewController(assignmentsListVC, animated: true)
     }
     
+    func showGradesFlow() {
+        let gradesVC = GradesViewController.instantiate()
+        self.navigationController.pushViewController(gradesVC, animated: true)
+    }
+    
     //TODO: Docstrings
     func childDidFinish(_ child: Coordinator?) {
-        
+    
     }
 }

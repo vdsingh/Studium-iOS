@@ -47,6 +47,10 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
         self._partitionKey = partitionKey
         self.alertTimes = notificationAlertTimes
         self.days = days
+        
+        let nextOccurringTimeChunk = self.nextOccuringTimeChunk
+        self.startDate = nextOccurringTimeChunk?.startDate ?? startDate
+        self.endDate = nextOccurringTimeChunk?.endDate ?? endDate
     }
     
     // MARK: - Public Functions
@@ -54,19 +58,6 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
     // TODO: Docstrings
     func appendContainedEvent(containedEvent: Assignment) {
         self.assignmentsList.append(containedEvent)
-    }
-    
-    // TODO: Docstrings
-    func setValues(
-        name: String? = nil,
-        color: UIColor? = nil,
-        location: String? = nil,
-        additionalDetails: String? = nil
-    ) {
-        if let name = name { self.name = name }
-        if let color = color { self.color = color }
-        if let location = location { self.location = location }
-        if let additionalDetails = additionalDetails { self.name = additionalDetails }
     }
 }
 

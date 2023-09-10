@@ -14,40 +14,36 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     // TODO: Docstrings
     weak var coordinator: CoursesCoordinator?
     
-    private enum SegueIdentifiers: String {
-        case coursesToAssignments = "coursesToAssignments"
-    }
-    
     //TODO: Docstrings
     var courses = [Course]()
     
-    // TODO: Docstrings
-    override var debug: Bool {
-        false
+    override func loadView() {
+        super.loadView()
+        self.emptyDetailIndicatorViewModel = ImageDetailViewModel(image: FlatImage.girlSittingOnBooks.uiImage, title: "No Courses here yet", subtitle: nil, buttonText: "Add a Course", buttonAction: self.addButtonPressed)
     }
     
     override func viewDidLoad() {
-        self.eventTypeString = "Courses"
-
         super.viewDidLoad()
         
-        sectionHeaders = ["Today:", "Not Today:"]
+        self.title = "Courses"
+        self.eventTypeString = "Courses"
+        self.sectionHeaders = ["Today:", "Not Today:"]
 
-        navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         
-        tableView.delegate = self //setting delegate class for the table view to be this
-        tableView.dataSource = self //setting data source for the table view to be this
-        
-        tableView.rowHeight = 140
-        tableView.separatorStyle = .none //gets rid of dividers between cells.
+        self.tableView.delegate = self //setting delegate class for the table view to be this
+        self.tableView.dataSource = self //setting data source for the table view to be this
+        self.tableView.rowHeight = 140
+        self.tableView.separatorStyle = .none //gets rid of dividers between cells.
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        let sizeLength = UIScreen.main.bounds.size.height * 2
-//        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: sizeLength, height: 64)
+        super.viewWillAppear(animated)
 
-        loadCourses()
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
+        self.loadCourses()
     }
     
     //TODO: Docstrings
@@ -59,15 +55,14 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
         return outputImage!
     }
     
-    
     //MARK: - Data Source Methods
     
     //TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //build the cells
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseCell
+        // build the cells
         super.swipeCellId = RecurringEventCell.id
-        printDebug("will try to dequeue cell in CoursesViewController with id: \(self.swipeCellId)")
+        Log.d("will try to dequeue cell in CoursesViewController with id: \(self.swipeCellId)")
+        
         if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? RecurringEventCell,
            let course = eventsArray[indexPath.section][indexPath.row] as? Course {
             cell.event = course
@@ -83,39 +78,29 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
             )
             return cell
         }
-        
+
         fatalError("$ERR: Couldn't dequeue cell for Course List")
     }
     
     //MARK: - Delegate Methods
     
     //TODO: Docstrings
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        performSegue(withIdentifier: SegueIdentifiers.coursesToAssignments.rawValue, sender: self)
-        guard let course = eventsArray[indexPath.section][indexPath.row] as? Course else {
-            self.showError(.failedCast(objectString: "\(eventsArray[indexPath.section][indexPath.row])", intendedTypeString: "Course"))
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let course = self.eventsArray[indexPath.section][indexPath.row] as? Course else {
+            self.showError(.failedCast(objectString: "\(self.eventsArray[indexPath.section][indexPath.row])", intendedTypeString: "Course"))
             return
         }
         
         self.coordinator?.showAssignmentsListViewController(selectedCourse: course)
     }
     
-    //TODO: Docstrings
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let destinationVC = segue.destination as? AssignmentsOnlyViewController {
-//            if let indexPath = tableView.indexPathForSelectedRow {
-//                destinationVC.selectedCourse = eventsArray[indexPath.section][indexPath.row] as? Course
-//            }
-//        }
-//    }
-    
     //MARK: - CRUD Methods
     
     //TODO: Docstrings
-    func loadCourses(){
+    func loadCourses() {
         self.courses = self.databaseService.getStudiumObjects(expecting: Course.self)
         eventsArray = [[],[]]
-        for course in courses {
+        for course in self.courses {
             if course.days.contains(Date().weekdayValue) {
                 eventsArray[0].append(course)
             } else {
@@ -123,63 +108,43 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
             }
         }
 
-        //sort all the habits happening today by startTime (the ones that are first come first in the list)
-        eventsArray[0].sort(by: {$0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm")})
-        tableView.reloadData()
+        // sort all the habits happening today by startTime (the ones that are first come first in the list)
+        self.eventsArray[0].sort(by: {$0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm")})
+        self.tableView.reloadData()
+        
+        self.updateEmptyEventsIndicator()
     }
-    
-//    func sortCourses() {
-//        let stateCourses = StudiumState.state.getCourses()
-//        for course in stateCourses {
-//            if course.days.contains(Date().week) {
-//                eventsArray[0].append(course)
-//            } else {
-//                eventsArray[1].append(course)
-//            }
-//        }
-//        eventsArray[0].sort(by: { $0.startDate.format(with: "HH:mm") < $1.startDate.format(with: "HH:mm") })
-//    }
-    
+
     //TODO: Docstrings
     override func edit(at indexPath: IndexPath) {
-        let deletableEventCell = tableView.cellForRow(at: indexPath) as! DeletableEventCell
-        let eventForEdit = deletableEventCell.event! as! Course
-        self.unwrapCoordinatorOrShowError()
-        self.coordinator?.showEditCourseViewController(refreshDelegate: self, courseToEdit: eventForEdit)
-        
-//        let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
-//        addCourseViewController.delegate = self
-//        addCourseViewController.course = eventForEdit
-//        ColorPickerCell.color = eventForEdit.color
-        
-//        addCourseViewController.title = "View/Edit Course"
-//        let navController = UINavigationController(rootViewController: addCourseViewController)
-//        self.present(navController, animated:true, completion: nil)
+        if let deletableEventCell = self.tableView.cellForRow(at: indexPath) as? DeletableEventCell,
+           let eventForEdit = deletableEventCell.event as? Course {
+            self.unwrapCoordinatorOrShowError()
+            self.coordinator?.showEditCourseViewController(refreshDelegate: self, courseToEdit: eventForEdit)
+        } else {
+            Log.e("Couldn't unwrap event as Course")
+            PopUpService.shared.presentGenericError()
+        }
     }
     
     //TODO: Docstrings
     override func delete(at indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? DeletableEventCell,
            let course = cell.event as? Course {
-            print("$LOG: attempting to delete course \(course.name) at section \(indexPath.section) and row \(indexPath.row)")
-            self.databaseService.deleteStudiumObject(course)
-            //        RealmCRUD.deleteCourse(course: course)
+            Log.d("attempting to delete course \(course.name) at section \(indexPath.section) and row \(indexPath.row)")
+            self.studiumEventService.deleteStudiumEvent(course)
             eventsArray[indexPath.section].remove(at: indexPath.row)
             updateHeader(section: indexPath.section)
-            //        tableView.deleteRows(at: [indexPath], with: .automatic)
-            
-            //        tableView.headerView(forSection: indexPath.section)?.contentConfiguration = config
+            self.updateEmptyEventsIndicator()
         } else {
-            print("$ERR: cell event wasn't course or cell wasn't deletable event cell.")
+            Log.e("cell event wasn't course or cell wasn't deletable event cell.")
         }
     }
         
     //MARK: - UI Actions
-    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-//        let addCourseViewController = self.storyboard!.instantiateViewController(withIdentifier: "AddCourseViewController") as! AddCourseViewController
+    
+    /// Function called when user clicks the "+" button
+    override func addButtonPressed() {
         self.coordinator?.showAddCourseViewController(refreshDelegate: self)
-//        let navController = UINavigationController(rootViewController: addCourseViewController)
-//        ColorPickerCell.color = .white
-//        self.present(navController, animated:true, completion: nil)
     }
 }

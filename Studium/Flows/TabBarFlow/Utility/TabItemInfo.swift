@@ -16,6 +16,7 @@ enum TabItemInfo: Int {
     case habitsFlow = 1
     case coursesFlow = 2
     case toDoFlow = 3
+    case treeFlow = 4
     
     // TODO: Docstrings
     var title: String {
@@ -28,6 +29,8 @@ enum TabItemInfo: Int {
             return "Courses"
         case .toDoFlow:
             return "To Do"
+        case .treeFlow:
+            return "Tree"
         }
     }
     
@@ -42,6 +45,8 @@ enum TabItemInfo: Int {
             return (SystemIcon.book.createImage(), SystemIcon.bookFill.createImage())
         case .toDoFlow:
             return (SystemIcon.listClipboard.createImage(), SystemIcon.listClipboardFill.createImage())
+        case .treeFlow:
+            return (SystemIcon.tree.createImage(), SystemIcon.treeFill.createImage())
         }
     }
     

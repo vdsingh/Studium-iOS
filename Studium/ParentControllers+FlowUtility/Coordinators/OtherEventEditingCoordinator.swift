@@ -24,7 +24,7 @@ extension OtherEventEditingCoordinator {
         let navController = UINavigationController(rootViewController: addToDoEventVC)
         addToDoEventVC.delegate = refreshDelegate
         addToDoEventVC.otherEvent = otherEventToEdit
-        addToDoEventVC.title = "View/Edit To-Do Event"
+        addToDoEventVC.title = "Edit To-Do Event"
         addToDoEventVC.coordinator = self
         self.navigationController.topViewController?.present(navController, animated: true)
         self.formNavigationController = navController

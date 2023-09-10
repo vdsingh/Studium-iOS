@@ -25,9 +25,9 @@ class CalendarViewController: UIViewController, Storyboarded {
     var noEventsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "No Events on this Day"
-        label.font = StudiumFont.placeholder.font
-        label.textColor = StudiumFont.placeholder.color
+        label.text = "No Events"
+        label.font = StudiumFont.placeholder.uiFont
+        label.textColor = StudiumFont.placeholder.uiColor
         return label
     }()
     
@@ -71,11 +71,11 @@ class CalendarViewController: UIViewController, Storyboarded {
         
         
         //TableView Related Stuff:
-        tableView.register(UINib(nibName: OtherEventCell.id, bundle: nil), forCellReuseIdentifier: OtherEventCell.id)
-        tableView.register(UINib(nibName: AssignmentCell1.id, bundle: nil), forCellReuseIdentifier: AssignmentCell1.id)
+        self.tableView.register(UINib(nibName: OtherEventCell.id, bundle: nil), forCellReuseIdentifier: OtherEventCell.id)
+//        self.tableView.register(UINib(nibName: AssignmentCell1.id, bundle: nil), forCellReuseIdentifier: AssignmentCell1.id)
 
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,7 +86,7 @@ class CalendarViewController: UIViewController, Storyboarded {
     
     //TODO: Docstrings
     @IBAction func dayButtonPressed(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
+        self.navigationController?.popViewController(animated: true)
     }
     
 //    @IBAction func timeControlChanged(_ sender: UISegmentedControl) {
@@ -168,12 +168,14 @@ extension CalendarViewController: UITableViewDelegate {
     //TODO: Docstrings
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let event: StudiumEvent = allEventsInDay[indexPath.row]
-        print("$LOG: EVENT COLOR for \(event.name): \(event.color)")
-        if let event = event as? Assignment {
-            let cell = tableView.dequeueReusableCell(withIdentifier: AssignmentCell1.id, for: indexPath) as! AssignmentCell1
-            cell.hideChevronButton = true
-            cell.loadData(assignment: event, assignmentCollapseDelegate: nil)
-            cell.hideLatenessIndicator(hide: true)
+        if let assignment = event as? Assignment {
+            let cell = AssignmentTableViewCell(assignment: assignment, isExpanded: false, assignmentCollapseHandler: self, checkboxWasTapped: {
+                
+            })
+//            let cell = tableView.dequeueReusableCell(withIdentifier: AssignmentCell1.id, for: indexPath) as! AssignmentCell1
+//            cell.hideChevronButton = true
+//            cell.loadData(assignment: event, assignmentCollapseDelegate: nil, checkboxWasTappedCallback: {})
+//            cell.hideLatenessIndicator(hide: true)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:  OtherEventCell.id, for: indexPath) as! OtherEventCell
@@ -228,6 +230,12 @@ extension CalendarViewController: FSCalendarDelegate{
         selectedDay = date
         updateInfo()
         
+        
+    }
+}
+
+extension CalendarViewController: AssignmentCollapseDelegate {
+    func collapseButtonClicked(assignment: Assignment) {
         
     }
 }

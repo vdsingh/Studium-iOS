@@ -21,7 +21,7 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dayView.autoScrollToFirstEvent = true
+        self.dayView.autoScrollToFirstEvent = true
         
         var style = CalendarStyle()
         style.header.backgroundColor = StudiumColor.secondaryBackground.uiColor
@@ -47,7 +47,7 @@ class DayScheduleViewController: DayViewController, Storyboarded {
         style.timeline.timeColor = StudiumColor.secondaryLabel.uiColor
         
         
-        dayView.updateStyle(style)
+        self.dayView.updateStyle(style)
         
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
@@ -76,7 +76,8 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     
     //TODO: Docstrings
     @IBAction func monthButtonPressed(_ sender: Any) {
-        performSegue(withIdentifier: "toCalendar", sender: self)
+//        performSegue(withIdentifier: "toCalendar", sender: self)
+        self.coordinator?.showMonthScheduleViewController()
     }
     
     //TODO: Docstring
@@ -86,7 +87,22 @@ class DayScheduleViewController: DayViewController, Storyboarded {
         for studiumEvent in studiumEvents {
             
             let newEvent = Event()
-            newEvent.dateInterval = DateInterval(start: studiumEvent.startDate, end: studiumEvent.endDate)
+            guard let timeChunk = studiumEvent.timeChunkForDate(date: date) else {
+                // event does not occur on date
+                continue
+            }
+            
+            if timeChunk.endDate < timeChunk.startDate {
+                Log.e("endDate of StudiumEvent occurs before startDate")
+                continue
+            }
+            
+            Log.d("Creating new event with title \(studiumEvent.name). Object: \(studiumEvent)")
+//            newEvent.dateInterval = DateInterval(start: Date(), end: Date())
+            newEvent.dateInterval.start = timeChunk.startDate
+            newEvent.dateInterval.end = timeChunk.endDate
+//            newEvent.dateInterval = DateInterval(start: timeChunk.startDate, end: timeChunk.endDate)
+            
 //            newEvent.startDate = studiumEvent.startDate
 //            newEvent.endDate = studiumEvent.endDate
             newEvent.color = studiumEvent.scheduleDisplayColor
@@ -179,7 +195,6 @@ class DayScheduleViewController: DayViewController, Storyboarded {
 //            generatedEvents.append(contentsOf: generateEventsForDate(date))
 //        }
 //        return generatedEvents
-        printDebug("eventsForDate called")
         return self.generateEventsForDate(date)
     }
     
@@ -225,30 +240,30 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     }
     
     //TODO: Docstrings
-    override func dayView(dayView: DayView, didTapTimelineAt date: Date) {
+    func dayView(dayView: DayView, didTapTimelineAt date: Date) {
         endEventEditing()
         print("Did Tap at date: \(date)")
     }
     
-    override func dayViewDidBeginDragging(dayView: DayView) {
+    func dayViewDidBeginDragging(dayView: DayView) {
         print("DayView did begin dragging")
     }
     
-    override func dayView(dayView: DayView, willMoveTo date: Date) {
+    func dayView(dayView: DayView, willMoveTo date: Date) {
 //        print("DayView = \(dayView) will move to: \(date)")
     }
     
-    override func dayView(dayView: DayView, didMoveTo date: Date) {
+    func dayView(dayView: DayView, didMoveTo date: Date) {
         self.updateTitle(selectedDate: date)
     }
     
-    override func dayView(dayView: DayView, didLongPressTimelineAt date: Date) {
+    func dayView(dayView: DayView, didLongPressTimelineAt date: Date) {
         print("Did long press timeline at date \(date)")
         // Cancel editing current event and start creating a new one
         endEventEditing()
     }
 
-    override func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
+    func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
         print("did finish editing lol \(event)")
         print("new startDate: \(event.dateInterval.start) new endDate: \(event.dateInterval.end)")
         

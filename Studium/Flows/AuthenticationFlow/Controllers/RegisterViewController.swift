@@ -44,13 +44,13 @@ class RegisterViewController: AuthenticationViewController, UIGestureRecognizerD
     let iconSize = 30
     
     //TODO: Docstrings
-    let tintColor: UIColor = UIColor(named: "Studium Secondary Theme Color") ?? .black
+    let tintColor: UIColor = StudiumColor.secondaryAccent.uiColor
     
     //TODO: Docstrings
-    let placeHolderColor: UIColor = .placeholderText
+    let placeHolderColor: UIColor = StudiumColor.placeholderLabel.uiColor
     
     //TODO: Docstrings
-    let backgroundColor: UIColor =  UIColor(named: "Studium System Background Color") ?? StudiumColor.background.uiColor
+    let backgroundColor: UIColor = StudiumColor.tertiaryBackground.uiColor
     
     //TODO: Docstrings
     let textFieldBorderWidth: CGFloat = 2
@@ -137,20 +137,21 @@ class RegisterViewController: AuthenticationViewController, UIGestureRecognizerD
 
         let emailView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize/3*4, height: iconSize/3*5))
         emailView.addSubview(emailImageView)
-        emailTextField.tintColor = .gray
-        emailTextField.leftViewMode = UITextField.ViewMode.always
-        emailTextField.leftView = emailView
-        emailTextField.layer.masksToBounds = true
-        emailTextField.layer.cornerRadius = 10
-        emailTextField.layer.masksToBounds = true
-        emailTextField.layer.borderColor = UIColor.gray.cgColor
-        emailTextField.layer.borderWidth = textFieldBorderWidth
+        self.emailTextField.tintColor = .gray
+        self.emailTextField.leftViewMode = UITextField.ViewMode.always
+        self.emailTextField.leftView = emailView
+        self.emailTextField.layer.masksToBounds = true
+        self.emailTextField.layer.cornerRadius = 10
+        self.emailTextField.layer.masksToBounds = true
+        self.emailTextField.layer.borderColor = UIColor.gray.cgColor
+        self.emailTextField.layer.borderWidth = textFieldBorderWidth
+        self.emailTextField.textColor = StudiumColor.primaryLabel.uiColor
         
         let emailPlaceholderAttributedString = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: placeHolderColor])
-        emailTextField.attributedPlaceholder = emailPlaceholderAttributedString
-        emailTextField.backgroundColor = backgroundColor
-        emailTextField.returnKeyType = .done
-        emailTextField.delegate = self
+        self.emailTextField.attributedPlaceholder = emailPlaceholderAttributedString
+        self.emailTextField.backgroundColor = backgroundColor
+        self.emailTextField.returnKeyType = .done
+        self.emailTextField.delegate = self
         
         //PASSWORD TEXT FIELD SETUP:
         let passwordIconImageView = UIImageView(frame: CGRect(x: iconSize/4, y: iconSize/3, width: iconSize, height: iconSize))
@@ -175,6 +176,7 @@ class RegisterViewController: AuthenticationViewController, UIGestureRecognizerD
         passwordTextField.layer.masksToBounds = true
         passwordTextField.layer.borderColor = UIColor.gray.cgColor
         passwordTextField.layer.borderWidth = textFieldBorderWidth
+        self.passwordTextField.textColor = StudiumColor.primaryLabel.uiColor
         
         let passwordPlaceholderAttributedString = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: placeHolderColor])
         passwordTextField.attributedPlaceholder = passwordPlaceholderAttributedString
@@ -182,9 +184,11 @@ class RegisterViewController: AuthenticationViewController, UIGestureRecognizerD
         passwordTextField.returnKeyType = .done
         passwordTextField.delegate = self
         
+        self.signUpButton.tintColor = StudiumColor.secondaryAccent.uiColor
         signUpButton.layer.cornerRadius = 10
         signUpButton.setTitleColor(StudiumColor.primaryLabel.uiColor, for: .normal)
-    
+        signUpButton.setTitleColor(StudiumColor.primaryLabel.uiColor, for: .disabled)
+
         continueAsGuestButton.tintColor = tintColor
     }
 }

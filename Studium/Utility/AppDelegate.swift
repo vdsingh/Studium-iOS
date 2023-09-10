@@ -8,13 +8,10 @@
 
 import UIKit
 import ChameleonFramework
-
-//AUTHENTICATION
 import RealmSwift
 import GoogleSignIn
 import FBSDKLoginKit
 import TableViewFormKit
-
 import FirebaseAnalytics
 import FirebaseCore
 
@@ -32,9 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return AutoscheduleService(databaseService: self.databaseService)
     }()
     
+    let studiumEventService = StudiumEventService.shared
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        printDebug("Did finish launching");
+        Log.d("Did finish launching");
         
         // Initialize Facebook SDK
         FBSDKCoreKit.ApplicationDelegate.shared.application(
@@ -49,7 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ColorManager.primaryTextColor = StudiumColor.primaryLabel.uiColor
         ColorManager.placeholderTextColor = StudiumColor.placeholderLabel.uiColor
         ColorManager.primaryAccentColor = StudiumColor.primaryAccent.uiColor
-        
+        ColorManager.tableViewSeparatorColor = StudiumColor.tertiaryBackground.uiColor
+    
         return true
     }
     
@@ -87,12 +87,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return false
     }
-}
-
-extension AppDelegate: Debuggable {
-    func printDebug(_ message: String) {
-        if self.debug {
-            print("$LOG (AppDelegate): \(message)")
-        }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+//        self.updateRecentAssignments()
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        print("Application will resign active")
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        print("Application did enter background")
+//        self.updateRecentAssignments()
     }
 }

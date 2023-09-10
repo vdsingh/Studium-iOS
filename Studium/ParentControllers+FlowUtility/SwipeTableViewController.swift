@@ -10,8 +10,26 @@ import UIKit
 import SwipeCellKit
 import RealmSwift
 
+protocol UITableViewControllerProtocol: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    var tableView: UITableView { get set }
+}
+
 //TODO: Docstrings
-class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate, Debuggable {
+class SwipeTableViewController: UIViewController, UITableViewControllerProtocol, SwipeTableViewCellDelegate, Debuggable, UITableViewDataSource, UITableViewDelegate {
+    
+    private var vStack: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.backgroundColor = .cyan
+        return stack
+    }()
+
+    var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
     
     //TODO: Docstrings
@@ -22,30 +40,51 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     
     //TODO: Docstrings
     var swipeCellId: String = "SwipeCell"
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+                
+        self.vStack.addArrangedSubview(self.tableView)
+        self.view.addSubview(self.vStack)
+        NSLayoutConstraint.activate([
+            self.vStack.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.vStack.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.vStack.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            self.vStack.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+        ])
+    }
 
-    //MARK: - TableView Data Source Methods
+    //MARK: - TableView Data Source
     
     //TODO: Docstrings
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        self.printDebug("will try to dequeue a SwipeTableViewCell with id: \(self.swipeCellId)")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        Log.d("will try to dequeue a SwipeTableViewCell with id: \(self.swipeCellId)")
         if let cell = tableView.dequeueReusableCell(withIdentifier:  self.swipeCellId, for: indexPath) as? SwipeTableViewCell {
             cell.delegate = self
             return cell
         }
         
-        fatalError("$ERR: Couldn't dequeue cell as SwipeTableViewCell")
+        Log.e("Couldn't dequeue cell as SwipeTableViewCell")
+        return UITableViewCell()
     }
     
     //TODO: Docstrings
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return K.populatedHeaderHeight
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
     }
     
     //MARK: - Swipe Cell Delegate
     
     //TODO: Docstrings
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        if orientation == .right{
+        if orientation == .right {
             return self.rightActions
         } else {
             return self.leftActions
@@ -60,8 +99,16 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         } else {
             options.expansionStyle = .selection
         }
-        options.transitionStyle = .border
         
+        options.transitionStyle = .border
         return options
+    }
+    
+    func addViewToStack(subView: UIView) {
+        self.vStack.addArrangedSubview(subView)
+    }
+    
+    func insertViewIntoStack(subView: UIView, at index: Int) {
+        self.vStack.insertArrangedSubview(subView, at: index)
     }
 }
