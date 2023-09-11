@@ -2,8 +2,6 @@ Pods/
 Assets/
 Secrets.xcconfig
 GoogleService-Info.plist
-*.xcuserstate
-
 
 # Xcode
 #
@@ -96,3 +94,4 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+*.xcuserstate
