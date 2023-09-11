@@ -71,13 +71,14 @@ struct ImageDetailView: View {
                 .background(Color(uiColor: StudiumColor.secondaryAccent.uiColor))
                 .foregroundColor(Color(uiColor: StudiumColor.primaryLabel.uiColor))
 //                .clipShape(.rect(cornerRadius: 10))
+                .clipShape(.rect(cornerRadius: Increment.two))
                 
             }
 //            .scaledToFit()
-            .padding(20)
+            .padding(Increment.three)
         }
         .background(Color(uiColor: StudiumColor.secondaryBackground.uiColor))
-//        .clipShape(.rect(cornerRadius: 20))
+        .clipShape(.rect(cornerRadius: Increment.three))
         .opacity(self.viewModel.isHidden ? 0 : 1)
         
         Spacer()

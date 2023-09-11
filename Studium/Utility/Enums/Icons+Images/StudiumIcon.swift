@@ -38,6 +38,8 @@ enum StudiumIcon: String, CaseIterable, CreatesUIImage {
     case chessQueen
     case chessRook
     case chess
+    case clipboardRegular
+    case clipboardSolid
     case clock
     case code
     case computer
@@ -184,6 +186,10 @@ enum StudiumIcon: String, CaseIterable, CreatesUIImage {
             terms.append(contentsOf: ["chess rook", "chess", "strategy"])
         case .chess:
             terms.append(contentsOf: ["chess", "strategy", "game"])
+        case .clipboardRegular:
+            terms.append(contentsOf: ["list", "clipboard"])
+        case .clipboardSolid:
+            terms.append(contentsOf: ["list", "clipboard"])
         case .clock:
             terms.append(contentsOf: ["clock", "time", "hour"])
         case .code:
@@ -337,6 +343,18 @@ enum StudiumIcon: String, CaseIterable, CreatesUIImage {
         }
         
         return terms
+    }
+    
+    public func createTabBarIcon() -> UIImage {
+        
+//        guard let image = UIImage(named: self.rawValue, withConfiguration: configuration) else {
+            
+        guard let image = UIImage(named: self.rawValue) else {
+            return .actions
+//            fatalError("$ERR: couldn't create image from systemName String: \(self.rawValue)")
+        }
+        
+        return image.imageScaled(to: CGSize(width: 20, height: 25))
     }
     
     static func icons(

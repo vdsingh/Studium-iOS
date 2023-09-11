@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ChameleonFramework
+//import ChameleonFramework
 import SwiftUI
 
 /// TableViewController that only displays Assignments

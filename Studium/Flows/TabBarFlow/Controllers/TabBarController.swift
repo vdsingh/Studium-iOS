@@ -28,7 +28,7 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
 
         var tabItemViewControllers = [UIViewController]()
-        for tabItemCoordinator in tabItemCoordinators {
+        for tabItemCoordinator in self.tabItemCoordinators {
             tabItemCoordinator.start()
             tabItemViewControllers.append(tabItemCoordinator.navigationController)
         }
