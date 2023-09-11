@@ -34,7 +34,7 @@ struct SettingsCell: View {
             } else {
                 HStack {
                     if let icon = self.icon {
-                        SmallIcon(image: icon)
+                        SmallIcon(image: icon, renderingMode: self.iconRenderingMode)
                     }
                     
                     StudiumText(self.text)

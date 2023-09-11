@@ -16,7 +16,7 @@ struct StudiumLinkView: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            SmallIcon(image: SystemIcon.link.createImage())
+            SmallIcon(image: SystemIcon.link)
             VStack(alignment: .leading) {
 
                 if let url = URL(string: self.linkConfig.link) {
