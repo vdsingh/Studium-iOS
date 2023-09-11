@@ -23,6 +23,8 @@ open class TableViewForm: UITableViewController {
     private func registerFormCells() {
         // registering the necessary cells for the form.
         self.tableView.register(UINib(nibName: TextFieldCell.id, bundle: nil), forCellReuseIdentifier: TextFieldCell.id)
+        self.tableView.register(TextFieldCellV2.self, forCellReuseIdentifier: TextFieldCellV2.id)
+
         self.tableView.register(UINib(nibName: TimeCell.id, bundle: nil), forCellReuseIdentifier: TimeCell.id)
         self.tableView.register(UINib(nibName: PickerCell.id, bundle: nil), forCellReuseIdentifier: PickerCell.id)
         self.tableView.register(UINib(nibName: TimePickerCell.id, bundle: nil), forCellReuseIdentifier: TimePickerCell.id)
@@ -52,13 +54,19 @@ extension TableViewForm {
         let cell = cells[indexPath.section][indexPath.row]
         switch cell {
         case .textFieldCell(let placeholderText, let text, let charLimit, let textfieldWasEdited):
-            let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.id, for: indexPath) as! TextFieldCell
-            cell.textField.placeholder = placeholderText
-            cell.textFieldWasEdited = textfieldWasEdited
+            let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCellV2.id, for: indexPath) as! TextFieldCellV2
+//            cell.textField.placeholder = placeholderText
+//            cell.textFieldWasEdited = textfieldWasEdited
 //            cell.delegate = delegate
 //            cell.textFieldID = id
-            cell.textField.text = text
-            cell.setCharLimit(charLimit)
+//            cell.textField.text = text
+//            cell.setCharLimit(charLimit)
+            cell.host(parent: self, initialText: text, charLimit: charLimit, placeholder: placeholderText,
+                      textfieldWasEdited: textfieldWasEdited)
+            
+//            let cell = tableView.dequeueReusableCell(withIdentifier: ColorPickerCellV2.id, for: indexPath) as! ColorPickerCellV2
+//            cell.host(parent: self, colors: colors, colorWasSelected: colorWasSelected)
+//            return cell
             return cell
         case .switchCell(let cellText, let isOn, let switchDelegate, let infoDelegate):
             let cell = tableView.dequeueReusableCell(withIdentifier: SwitchCell.id, for: indexPath) as! SwitchCell
