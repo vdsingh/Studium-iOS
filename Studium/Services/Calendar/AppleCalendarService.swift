@@ -140,7 +140,8 @@ extension AppleCalendarService {
     }
     
     // TODO: Docstring
-    func authorizationStatus() -> EKAuthorizationStatus {
+//    func authorizationStatus() -> EKAuthorizationStatus {
+    var authorizationStatus: EKAuthorizationStatus {
         return EKEventStore.authorizationStatus(for: .event)
     }
     

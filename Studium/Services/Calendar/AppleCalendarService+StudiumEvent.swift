@@ -74,7 +74,7 @@ extension AppleCalendarService {
         forStudiumEvent studiumEvent: StudiumEvent,
         completion: @escaping (Result<EKEvent, Error>) -> Void
     ) {
-        if self.authorizationStatus() == .authorized {
+        if self.authorizationStatus == .authorized {
             guard let event = self.getEKEvent(forStudiumEvent: studiumEvent) else {
                 Log.e("Tried to retrieve EKEvent for studiumEvent \(studiumEvent) when updating but couldn't.")
                 completion(.failure(AppleCalendarServiceError.failedToRetrieveEventFromID))
@@ -89,7 +89,7 @@ extension AppleCalendarService {
             
             self.saveEKEvent(event, completion: completion)
         } else {
-            Log.w("event for StudiumEvent \(studiumEvent.name) was not updated in apple calendar due to authorization status \(self.authorizationStatus())")
+            Log.w("event for StudiumEvent \(studiumEvent.name) was not updated in apple calendar due to authorization status \(self.authorizationStatus)")
             completion(.failure(AppleCalendarServiceError.invalidAuthorizationStatus))
         }
     }
@@ -164,6 +164,7 @@ extension AppleCalendarService {
                 self.showPopUp(popUpOption: .successfullySynced)
             } else {
                 self.showPopUp(popUpOption: .failedToAccessCalendar)
+                Log.d("Authorization Status: \(self.authorizationStatus)")
                 completion(.failure(AppleCalendarServiceError.invalidAuthorizationStatus))
             }
         }

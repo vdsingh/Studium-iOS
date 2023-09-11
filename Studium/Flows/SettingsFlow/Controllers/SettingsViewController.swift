@@ -45,8 +45,7 @@ struct SettingsCell: View {
     
     init(icon: UIImage,
          text: String,
-         onClick: @escaping (SettingsCell) -> Void
-    ) {
+         onClick: @escaping (SettingsCell) -> Void) {
         self.icon = icon
         self.text = text
         self.onClick = onClick
