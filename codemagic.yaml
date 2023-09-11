@@ -1,5 +1,24 @@
 workflows:
-    sample-workflow:
-        name: Codemagic Sample Workflow
-        max_build_duration: 120
+    studium-ios:
+        name: Studium Pipeline
         instance_type: mac_mini_m1
+        environment:
+          vars:
+            BUNDLE_ID: "com.vikramsingh.Studium"
+            XCODE_WORKSPACE: "Studium.xcworkspace"
+            XCODE_SCHEME: "Studium"
+        scripts:
+            - name: CICD Started
+            - script: echo 'CI/CD Started'
+            - name: Build ipa for distribution
+            - script: xcode-project build-ipa \
+            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
+        triggering:
+          events:                       # List the events that trigger builds
+            - pull_request
+          branch_patterns:              # Include or exclude watched branches
+            - pattern: 'main'
+              include: true
+              source: false 
+          cancel_previous_builds: true  # Set to `true` to automatically cancel outdated webhook builds
