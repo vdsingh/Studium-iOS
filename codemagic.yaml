@@ -21,12 +21,13 @@ workflows:
               script: | 
                 xcode-project build-ipa \
                   --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
-                  --scheme "$XCODE_SCHEME"
+                  --scheme "$XCODE_SCHEME" \
+                  –export-options-plist=/Users/builder/export_options.plist
         triggering:
-          events:                       # List the events that trigger builds
+          events:
             - pull_request
-          branch_patterns:              # Include or exclude watched branches
+          branch_patterns:
             - pattern: 'main'
               include: true
               source: false 
-          cancel_previous_builds: true  # Set to `true` to automatically cancel outdated webhook builds
+          cancel_previous_builds: true
