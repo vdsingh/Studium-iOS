@@ -68,24 +68,44 @@ struct SettingsCell: View {
     }
 }
 
+import EventKit
 struct SettingsView: View {
     let databaseService: DatabaseService = .shared
     let studiumEventService: StudiumEventService = .shared
     let presentingViewController: UIViewController
     let alertTimeDelegate: AlertTimeHandler
     weak var coordinator: SettingsCoordinator?
-
+    
+    var appleCalendarIsAuthorized: Bool {
+        let authStatus = AppleCalendarService.shared.authorizationStatus
+        if authStatus == .authorized {
+            return true
+        } else if #available(iOS 17.0, *), authStatus == .fullAccess {
+            return true
+        }
+        
+        return false
+    }
+    
     var body: some View {
         NavigationView {
             List {
                 Section("Calendar Sync") {
-                    SettingsCell(icon: ThirdPartyIcon.appleCalendar, iconRenderingMode: .original, text: "Sync with Apple Calendar") { cell in
-                        AppleCalendarService.shared.syncCalendar { _ in
-                            cell.loading = false
+                    if self.appleCalendarIsAuthorized {
+                        SettingsCell(icon: ThirdPartyIcon.appleCalendar, iconRenderingMode: .original, text: "Unsync Apple Calendar") { cell in
+//                            AppleCalendarService.shared.syncCalendar { _ in
+                                cell.loading = false
+//                            }
+                        }
+                    } else {
+                        SettingsCell(icon: ThirdPartyIcon.appleCalendar, iconRenderingMode: .original, text: "Sync Apple Calendar") { cell in
+                            AppleCalendarService.shared.syncCalendar { _ in
+                                cell.loading = false
+                            }
                         }
                     }
                     
-                    SettingsCell(icon: ThirdPartyIcon.googleCalendar, iconRenderingMode: .original, text: "Sync with Google Calendar") { cell in
+                    SettingsCell(icon: ThirdPartyIcon.googleCalendar, iconRenderingMode: .original, text: "Sync Google Calendar") { cell in
                         GoogleCalendarService.shared.authenticateWithCalendarScope(
                             presentingViewController: self.presentingViewController
                         )

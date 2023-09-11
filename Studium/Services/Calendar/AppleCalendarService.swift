@@ -134,8 +134,27 @@ extension AppleCalendarService {
     // TODO: Docstring
     // Request access to the user's calendar
     func requestCalendarAccess(completion: @escaping (Bool) -> Void) {
-        self.eventStore.requestAccess(to: .event) { (granted, error) in
-            completion(granted)
+        switch self.authorizationStatus {
+        case .notDetermined:
+            if #available(iOS 17.0, *) {
+                self.eventStore.requestFullAccessToEvents { granted, error in
+                    completion(granted)
+                }
+            } else {
+                self.eventStore.requestAccess(to: .event) { (granted, error) in
+                    completion(granted)
+                }
+            }
+        case .restricted:
+            completion(false)
+        case .denied:
+            completion(false)
+        case .fullAccess:
+            completion(true)
+        case .writeOnly:
+            completion(false)
+        @unknown default:
+            completion(false)
         }
     }
     
