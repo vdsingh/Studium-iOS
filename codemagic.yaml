@@ -3,6 +3,9 @@ workflows:
         name: Studium Pipeline
         instance_type: mac_mini_m1
         environment:
+          ios_signing:
+            distribution_type: development # or: ad_hoc | development | enterprise
+            bundle_identifier: com.vikramsingh.Studium
           vars:
             BUNDLE_ID: "com.vikramsingh.Studium"
             XCODE_WORKSPACE: "Studium.xcworkspace"
