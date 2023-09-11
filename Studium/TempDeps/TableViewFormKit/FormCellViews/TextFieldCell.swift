@@ -93,3 +93,77 @@ public class TextFieldCell: BasicCell {
 extension TextFieldCell: FormCellProtocol {
     public static var id: String = "TextFieldCell"
 }
+
+import SwiftUI
+
+struct TextFieldCellV2View: View {
+    @State var text: String
+    
+    let placeholderText: String
+    let charLimit: Int?
+    let textWasEdited: (String) -> Void
+    var body: some View {
+        ZStack {
+            TextField(self.placeholderText, text: self.$text)
+                .onChange(of: self.text) { _ in
+                    self.textWasEdited(self.text)
+                    if let charLimit = self.charLimit {
+                        self.text = String(self.text.prefix(charLimit))
+                    }
+                }
+            if let charLimit = self.charLimit {
+                HStack {
+                    Spacer()
+                    VStack {
+                        Spacer()
+                        Spacer()
+                        Spacer()
+                        Text("\(self.text.count)/\(charLimit)")
+                            .font(.system(size: Increment.two))
+                            .foregroundStyle(self.text.count >= charLimit ? .red : StudiumColor.placeholderLabel.color)
+                        Spacer()
+                    }
+                }
+            }
+        }.padding(.horizontal, Increment.four)
+    }
+}
+
+class TextFieldCellV2: BasicCell {
+    static let id = "TextFieldCellV2"
+    
+    private weak var controller: UIHostingController<TextFieldCellV2View>?
+//    private let colorWasSelected: (Color) -> Void = { _ in }
+    
+//    cell.host(parent: self, initialText: text, charLimit: charLimit, textfieldWasEdited: textfieldWasEdited)
+
+    func host(
+        parent: UIViewController,
+        initialText: String?,
+        charLimit: Int?,
+        placeholder: String,
+        textfieldWasEdited: @escaping (String) -> Void
+    ) {
+        let view = TextFieldCellV2View(text: initialText ?? "", placeholderText: placeholder, charLimit: charLimit, textWasEdited: textfieldWasEdited)
+        if let controller = self.controller {
+            controller.rootView = view
+            controller.view.layoutIfNeeded()
+        } else {
+            let swiftUICellViewController = UIHostingController(rootView: view)
+            self.controller = swiftUICellViewController
+            swiftUICellViewController.view.backgroundColor = ColorManager.cellBackgroundColor
+            parent.addChild(swiftUICellViewController)
+            self.contentView.addSubview(swiftUICellViewController.view)
+            swiftUICellViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                self.contentView.leadingAnchor.constraint(equalTo: swiftUICellViewController.view.leadingAnchor),
+                self.contentView.trailingAnchor.constraint(equalTo: swiftUICellViewController.view.trailingAnchor),
+                self.contentView.topAnchor.constraint(equalTo: swiftUICellViewController.view.topAnchor),
+                self.contentView.bottomAnchor.constraint(equalTo: swiftUICellViewController.view.bottomAnchor)
+            ])
+
+            swiftUICellViewController.didMove(toParent: parent)
+            swiftUICellViewController.view.layoutIfNeeded()
+        }
+    }
+}

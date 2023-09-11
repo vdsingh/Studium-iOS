@@ -106,7 +106,6 @@
 		B951941A2A5E8A8300E0869A /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95194192A5E8A8300E0869A /* ImageDetailView.swift */; };
 		B96BEC742A806476005105B2 /* OtherEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96BEC732A806476005105B2 /* OtherEventViewController.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
-		B96E6A9C298456A500A25457 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A9B298456A500A25457 /* K.swift */; };
 		B97058EC2A88B493008F8636 /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058EB2A88B492008F8636 /* HabitViewController.swift */; };
 		B97058EE2A88B6F3008F8636 /* DaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058ED2A88B6F3008F8636 /* DaysView.swift */; };
 		B97058F02A88BD00008F8636 /* SoundEffectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058EF2A88BD00008F8636 /* SoundEffectService.swift */; };
@@ -182,6 +181,7 @@
 		B9A165522AAD9A79005A23F6 /* TableViewForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165322AAD9A79005A23F6 /* TableViewForm.swift */; };
 		B9A165532AAD9A79005A23F6 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165342AAD9A79005A23F6 /* ColorManager.swift */; };
 		B9A165572AAD9CE6005A23F6 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165562AAD9CE6005A23F6 /* Coordinator.swift */; };
+		B9A165592AADA4A2005A23F6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9A165582AADA4A2005A23F6 /* GoogleService-Info.plist */; };
 		B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */; };
 		B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */; };
 		B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */; };
@@ -342,7 +342,6 @@
 		B95194192A5E8A8300E0869A /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
 		B96BEC732A806476005105B2 /* OtherEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventViewController.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
-		B96E6A9B298456A500A25457 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		B97058EB2A88B492008F8636 /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
 		B97058ED2A88B6F3008F8636 /* DaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysView.swift; sourceTree = "<group>"; };
 		B97058EF2A88BD00008F8636 /* SoundEffectService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffectService.swift; sourceTree = "<group>"; };
@@ -421,6 +420,7 @@
 		B9A165322AAD9A79005A23F6 /* TableViewForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewForm.swift; sourceTree = "<group>"; };
 		B9A165342AAD9A79005A23F6 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		B9A165562AAD9CE6005A23F6 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = "../../../../iOS Engineering/Apps/Studium/Studium/ParentControllers+FlowUtility/Coordinators/Coordinator.swift"; sourceTree = "<group>"; };
+		B9A165582AADA4A2005A23F6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9A492332A493370006E6A32 /* Studium.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Studium.entitlements; sourceTree = "<group>"; };
 		B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumColor.swift; sourceTree = "<group>"; };
@@ -532,6 +532,7 @@
 				1693E74C247A463D003D4702 /* Models */,
 				1693E74B247A4634003D4702 /* Views */,
 				1693E73E247A3DC6003D4702 /* Info.plist */,
+				B9A165582AADA4A2005A23F6 /* GoogleService-Info.plist */,
 				B97BB0B42A075964008F1A5B /* Secrets.xcconfig */,
 			);
 			path = Studium;
@@ -741,7 +742,6 @@
 			isa = PBXGroup;
 			children = (
 				B94CA0EB2A35639B00047865 /* PopUps */,
-				B97BB09D2A00D18F008F1A5B /* Mocking */,
 				B97BB0A52A00E9DD008F1A5B /* Persistence */,
 				B97BB0A42A00E9D0008F1A5B /* Authentication */,
 				B986934B2A3DA7FB00272B22 /* Calendar */,
@@ -763,7 +763,6 @@
 			children = (
 				B9B41CFD2A26EE4F00239DD4 /* UtilityProtocols */,
 				B9B41CF82A26E5E500239DD4 /* UtilityClasses */,
-				B96E6A9B298456A500A25457 /* K.swift */,
 				1693E739247A3DC6003D4702 /* Assets.xcassets */,
 				1693E730247A3DC4003D4702 /* AppDelegate.swift */,
 				1693E732247A3DC4003D4702 /* SceneDelegate.swift */,
@@ -800,13 +799,6 @@
 				B97BB0A22A00E248008F1A5B /* DateTests.swift */,
 			);
 			path = StudiumTests;
-			sourceTree = "<group>";
-		};
-		B97BB09D2A00D18F008F1A5B /* Mocking */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Mocking;
 			sourceTree = "<group>";
 		};
 		B97BB0A42A00E9D0008F1A5B /* Authentication */ = {
@@ -1315,6 +1307,7 @@
 				B97058F32A88BDAE008F8636 /* celebration2.wav in Resources */,
 				16C05CFB264F5ABC004C9629 /* AssignmentCell1.xib in Resources */,
 				B9A1653E2AAD9A79005A23F6 /* LogoSelectionCell.xib in Resources */,
+				B9A165592AADA4A2005A23F6 /* GoogleService-Info.plist in Resources */,
 				16A63B8524AA85A7003A30D3 /* OtherEventCell.xib in Resources */,
 				B97058F52A88BE62008F8636 /* celebration.wav in Resources */,
 				B9A165472AAD9A79005A23F6 /* ThemeCell.xib in Resources */,
@@ -1519,7 +1512,6 @@
 				B9B41CF52A26E3F500239DD4 /* DebugFlags.swift in Sources */,
 				B93CBC572A882C08005BDA5F /* AssignmentCellView.swift in Sources */,
 				B986934D2A3DA80F00272B22 /* StudiumEventService.swift in Sources */,
-				B96E6A9C298456A500A25457 /* K.swift in Sources */,
 				B9B41CF12A26D2E500239DD4 /* TabItemCoordinator.swift in Sources */,
 				B90F10682A748A1400BAB23F /* UploadFileButton.swift in Sources */,
 				B90D13FB29845FE80093EB0C /* AddCourseViewController.swift in Sources */,

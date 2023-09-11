@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /// Represents system icons.
-public enum SystemIcon: String, CaseIterable {
+public enum SystemIcon: String, CaseIterable, CreatesUIImage {
     case tree
     case treeFill = "tree.fill"
     case paragraphSign = "paragraphsign"
@@ -46,6 +46,7 @@ public enum SystemIcon: String, CaseIterable {
     case lightbulb
     case tv
     case heart
+    case heartFill = "heart.fill"
     case envelope
     case lock
     case sunMax = "sun.max"
@@ -131,4 +132,16 @@ public enum SystemIcon: String, CaseIterable {
         
         return image
     }
+    
+    //    var uiImage: UIImage {
+    //        return self.createImage()
+    var uiImage: UIImage {
+        if let image = UIImage(systemName: self.rawValue) {
+            return image
+        } else {
+            Log.e("tried to create UIImage from StudiumIcon rawValue \(self.rawValue) but failed.", logToCrashlytics: true)
+            return .actions
+        }
+    }
+    //    }
 }
