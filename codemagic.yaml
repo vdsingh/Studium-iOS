@@ -11,9 +11,10 @@ workflows:
             - name: CICD Started
             - script: echo 'CI/CD Started'
             - name: Build ipa for distribution
-            - script: xcode-project build-ipa \
-            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME"
+            - script: | 
+                xcode-project build-ipa \
+                  --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
+                  --scheme "$XCODE_SCHEME"
         triggering:
           events:                       # List the events that trigger builds
             - pull_request
