@@ -9,9 +9,9 @@ workflows:
             XCODE_SCHEME: "Studium"
         scripts:
             - name: CICD Started
-            - script: echo 'CI/CD Started'
+              script: echo 'CI/CD Started'
             - name: Build ipa for distribution
-            - script: | 
+              script: | 
                 xcode-project build-ipa \
                   --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
                   --scheme "$XCODE_SCHEME"
