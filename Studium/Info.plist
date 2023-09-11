@@ -28,16 +28,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>FacebookAppID</key>
-	<string>$(FacebookAppID)</string>
-	<key>FacebookClientToken</key>
-	<string>$(FacebookClientToken)</string>
 	<key>FacebookDisplayName</key>
 	<string>Studium</string>
-	<key>GIDClientID</key>
-	<string>$(GIDClientID)</string>
-	<key>GIDServerClientID</key>
-	<string>$(GIDServerClientID)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -45,9 +37,9 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>MongoDBAppID</key>
-	<string>$(MONGODB_APP_ID)</string>
 	<key>NSCalendarsUsageDescription</key>
+	<string>Add Studium Events to Apple Calendar</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>Add Studium Events to Apple Calendar</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -87,7 +79,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>OpenAIAPIKey</key>
-    <string>$(OpenAIAPIKey)</string>
+	<key>OpenAIAPIKey</key>
+	<string>$(OpenAIAPIKey)</string>
+	<key>MongoDBAppID</key>
+	<string>$(MONGODB_APP_ID)</string>
+	<key>GIDClientID</key>
+	<string>$(GIDClientID)</string>
+	<key>GIDServerClientID</key>
+	<string>$(GIDServerClientID)</string>
+	<key>FacebookAppID</key>
+	<string>$(FacebookAppID)</string>
+	<key>FacebookClientToken</key>
+	<string>$(FacebookClientToken)</string>
 </dict>
 </plist>
