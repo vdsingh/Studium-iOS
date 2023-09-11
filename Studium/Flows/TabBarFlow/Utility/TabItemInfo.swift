@@ -39,11 +39,15 @@ enum TabItemInfo: Int {
         case .calendarFlow:
             return (SystemIcon.clock.createImage(), SystemIcon.clockFill.createImage())
         case .habitsFlow:
-            return (SystemIcon.dumbbell.createImage(), SystemIcon.dumbbellFill.createImage())
+            return (SystemIcon.heart.createImage(), SystemIcon.heartFill.createImage())
         case .coursesFlow:
             return (SystemIcon.book.createImage(), SystemIcon.bookFill.createImage())
         case .toDoFlow:
-            return (SystemIcon.listClipboard.createImage(), SystemIcon.listClipboardFill.createImage())
+            if #available(iOS 16.0, *) {
+                return (SystemIcon.listClipboard.createImage(), SystemIcon.listClipboardFill.createImage())
+            } else {
+                return (StudiumIcon.clipboardRegular.createTabBarIcon(), StudiumIcon.clipboardSolid.createTabBarIcon())
+            }
         case .treeFlow:
             return (SystemIcon.tree.createImage(), SystemIcon.treeFill.createImage())
         }
