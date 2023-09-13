@@ -4,6 +4,7 @@ workflows:
         instance_type: mac_mini_m1
         environment:
           xcode: 15.0
+          cocoapods: default
           ios_signing:
             distribution_type: development # or: ad_hoc | development | enterprise
             bundle_identifier: com.vikramsingh.Studium
@@ -20,7 +21,7 @@ workflows:
               script: xcode-project use-profiles
             - name: Build ipa for distribution
               script: | 
-                xcode-project build-ipa –export-options-plist=/Users/builder/export_options.plist \
+                xcode-project build-ipa \
                   --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
                   --scheme "$XCODE_SCHEME" \
         triggering:
