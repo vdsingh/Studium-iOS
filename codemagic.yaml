@@ -5,7 +5,7 @@ workflows:
           events:
             - pull_request
             - push
-          branch_paterns:
+          branch_patterns:
             - pattern: master
           cancel_previous_builds: true
         instance_type: mac_mini_m1
