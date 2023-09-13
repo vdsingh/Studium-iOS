@@ -12,6 +12,6 @@ import UIKit
 //TODO: Docstrings
 protocol TabItemCoordinator: NavigationCoordinator {
     
-    // TODO: Docstrings
-    var tabItemInfo: TabItemInfo { get set }
+    ///
+    var tabItemInfo: TabItemConfig { get set }
 }
