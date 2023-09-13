@@ -33,8 +33,4 @@ workflows:
         triggering:
           events:
             - pull_request
-          branch_patterns:
-            - pattern: 'main'
-              include: true
-              source: false 
           cancel_previous_builds: true
