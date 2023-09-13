@@ -24,6 +24,7 @@ workflows:
               xcode-project build-ipa \
                 --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
                 --scheme "$XCODE_SCHEME" \
+                --archive-flags="-destination 'generic/platform=iOS'" \
         artifacts:
           - build/ios/ipa/*.ipa
           - /tmp/xcodebuild_logs/*.log
