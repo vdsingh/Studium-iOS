@@ -6,7 +6,7 @@ workflows:
             - pull_request
             - push
           branch_patterns:
-            - pattern: master
+            - pattern: *
           cancel_previous_builds: true
         instance_type: mac_mini_m1
         environment:
