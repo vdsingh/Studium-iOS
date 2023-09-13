@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 //TODO: Docstrings
-protocol Coordinator: AnyObject, Debuggable {
+protocol Coordinator: AnyObject {
     
     //TODO: Docstrings
     var parentCoordinator: Coordinator? { get set }
@@ -19,7 +19,7 @@ protocol Coordinator: AnyObject, Debuggable {
     var childCoordinators: [Coordinator] { get set }
     
     //TODO: Docstrings
-    func start(replaceRoot: Bool)
+    func start()
     
     //TODO: Docstrings
     func finish()

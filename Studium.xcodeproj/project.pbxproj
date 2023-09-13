@@ -113,6 +113,7 @@
 		B97058F52A88BE62008F8636 /* celebration.wav in Resources */ = {isa = PBXBuildFile; fileRef = B97058F42A88BE62008F8636 /* celebration.wav */; };
 		B97058F82A88C1D0008F8636 /* TreeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058F72A88C1D0008F8636 /* TreeCoordinator.swift */; };
 		B97058FA2A88C38B008F8636 /* TreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058F92A88C38B008F8636 /* TreeViewController.swift */; };
+		B979889E2AB178E5002B8EE9 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B979889D2AB178E5002B8EE9 /* Coordinator.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
 		B97BB08429F74628008F1A5B /* Debuggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08329F74628008F1A5B /* Debuggable.swift */; };
 		B97BB0972A00CBF9008F1A5B /* AutoscheduleServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0962A00CBF9008F1A5B /* AutoscheduleServiceTests.swift */; };
@@ -180,7 +181,6 @@
 		B9A165512AAD9A79005A23F6 /* FormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165312AAD9A79005A23F6 /* FormCell.swift */; };
 		B9A165522AAD9A79005A23F6 /* TableViewForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165322AAD9A79005A23F6 /* TableViewForm.swift */; };
 		B9A165532AAD9A79005A23F6 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165342AAD9A79005A23F6 /* ColorManager.swift */; };
-		B9A165572AAD9CE6005A23F6 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165562AAD9CE6005A23F6 /* Coordinator.swift */; };
 		B9A165592AADA4A2005A23F6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9A165582AADA4A2005A23F6 /* GoogleService-Info.plist */; };
 		B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */; };
 		B9A98C2E29ECF9FA00D866A9 /* StudiumColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A98C2D29ECF9FA00D866A9 /* StudiumColor.swift */; };
@@ -349,6 +349,7 @@
 		B97058F42A88BE62008F8636 /* celebration.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = celebration.wav; sourceTree = "<group>"; };
 		B97058F72A88C1D0008F8636 /* TreeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeCoordinator.swift; sourceTree = "<group>"; };
 		B97058F92A88C38B008F8636 /* TreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeViewController.swift; sourceTree = "<group>"; };
+		B979889D2AB178E5002B8EE9 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B97BB08129F7006E008F1A5B /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B97BB08329F74628008F1A5B /* Debuggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debuggable.swift; sourceTree = "<group>"; };
 		B97BB0942A00CBF9008F1A5B /* StudiumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudiumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -419,7 +420,6 @@
 		B9A165312AAD9A79005A23F6 /* FormCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormCell.swift; sourceTree = "<group>"; };
 		B9A165322AAD9A79005A23F6 /* TableViewForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewForm.swift; sourceTree = "<group>"; };
 		B9A165342AAD9A79005A23F6 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
-		B9A165562AAD9CE6005A23F6 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = "../../../../iOS Engineering/Apps/Studium/Studium/ParentControllers+FlowUtility/Coordinators/Coordinator.swift"; sourceTree = "<group>"; };
 		B9A165582AADA4A2005A23F6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9A492332A493370006E6A32 /* Studium.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Studium.entitlements; sourceTree = "<group>"; };
 		B9A98C2B29ECB56C00D866A9 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
@@ -720,7 +720,7 @@
 		B94CA0DA2A32C0FF00047865 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				B9A165562AAD9CE6005A23F6 /* Coordinator.swift */,
+				B979889D2AB178E5002B8EE9 /* Coordinator.swift */,
 				B94CA0D22A2F10F800047865 /* Coordinated.swift */,
 				B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */,
 				B94CA0D82A32C0F000047865 /* NavigationCoordinator.swift */,
@@ -1507,7 +1507,6 @@
 				B94CA0D92A32C0F000047865 /* NavigationCoordinator.swift in Sources */,
 				B98693482A3D867700272B22 /* GoogleCalendarService.swift in Sources */,
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
-				B9A165572AAD9CE6005A23F6 /* Coordinator.swift in Sources */,
 				B9CDEF732A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift in Sources */,
 				B9B41CF52A26E3F500239DD4 /* DebugFlags.swift in Sources */,
 				B93CBC572A882C08005BDA5F /* AssignmentCellView.swift in Sources */,
@@ -1543,6 +1542,7 @@
 				B9A1654B2AAD9A79005A23F6 /* SwitchCell.swift in Sources */,
 				B98693602A3E8A3400272B22 /* EKParticipant.swift in Sources */,
 				B9B41CFA2A26E82E00239DD4 /* TabItemInfo.swift in Sources */,
+				B979889E2AB178E5002B8EE9 /* Coordinator.swift in Sources */,
 				B9A165102AAD9A6F005A23F6 /* DateFormat.swift in Sources */,
 				B96BEC742A806476005105B2 /* OtherEventViewController.swift in Sources */,
 				B9A165502AAD9A79005A23F6 /* FormError.swift in Sources */,
