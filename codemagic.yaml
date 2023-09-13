@@ -34,7 +34,7 @@ workflows:
           events:
             - pull_request
           branch_patterns:
-            - pattern: 'main'
+            - pattern: 'master'
               include: true
               source: false 
           cancel_previous_builds: true
