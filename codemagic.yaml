@@ -20,7 +20,7 @@ workflows:
               script: xcode-project use-profiles
             - name: Build ipa for distribution
               script: | 
-                xcode-project build-ipa \
+                xcode-project build-ipa –export-options-plist=/Users/builder/export_options.plist \
                   --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
                   --scheme "$XCODE_SCHEME" \
         triggering:
