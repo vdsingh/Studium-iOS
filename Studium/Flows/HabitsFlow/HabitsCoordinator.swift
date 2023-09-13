@@ -28,7 +28,7 @@ class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinat
     var formNavigationController: UINavigationController?
     
     // TODO: Docstrings
-    var tabItemInfo: TabItemInfo = .habitsFlow
+    var tabItemInfo: TabItemConfig = .habitsFlow
     
     //TODO: Docstrings
     required init(_ navigationController: UINavigationController) {

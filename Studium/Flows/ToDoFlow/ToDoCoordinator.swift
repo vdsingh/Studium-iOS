@@ -29,7 +29,7 @@ class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator
     var formNavigationController: UINavigationController?
     
     //TODO: Docstrings
-    var tabItemInfo: TabItemInfo = .toDoFlow
+    var tabItemInfo: TabItemConfig = .toDoFlow
     
     //TODO: Docstrings
     required init(_ navigationController: UINavigationController) {
