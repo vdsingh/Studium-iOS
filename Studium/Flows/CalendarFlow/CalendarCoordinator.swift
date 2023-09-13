@@ -24,7 +24,7 @@ class CalendarCoordinator: NSObject, TabItemCoordinator {
     var navigationController: UINavigationController
     
     //TODO: Docstrings
-    var tabItemInfo: TabItemInfo = .calendarFlow
+    var tabItemInfo: TabItemConfig = .calendarFlow
     
     //TODO: Docstrings
     required init(_ navigationController: UINavigationController) {

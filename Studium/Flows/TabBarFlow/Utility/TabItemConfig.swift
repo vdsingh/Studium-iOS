@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // TODO: Docstrings
-enum TabItemInfo: Int {
+enum TabItemConfig: Int {
     case calendarFlow = 0
     case habitsFlow = 1
     case coursesFlow = 2

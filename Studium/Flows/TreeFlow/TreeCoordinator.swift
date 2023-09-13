@@ -12,7 +12,7 @@ import UIKit
 class TreeCoordinator: NSObject, TabItemCoordinator {
     var debug = false
 
-    var tabItemInfo: TabItemInfo = .treeFlow
+    var tabItemInfo: TabItemConfig = .treeFlow
     
     var navigationController: UINavigationController
     
