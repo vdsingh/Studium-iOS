@@ -3,7 +3,7 @@ workflows:
         name: Studium Pipeline
         instance_type: mac_mini_m1
         environment:
-          xcode: 15.0.0
+          xcode: latest
           ios_signing:
             distribution_type: development # or: ad_hoc | development | enterprise
             bundle_identifier: com.vikramsingh.Studium
