@@ -37,9 +37,4 @@ enum StudiumEventColor: String, CaseIterable, Identifiable {
     static var allCasesUIColors: [UIColor] {
         return StudiumEventColor.allCases.map({ $0.uiColor })
     }
-    
-//    static var groupedColors: [[StudiumEventColor]] = [
-//        [.darkRed, .red, .orange, .lightOrange, .yellow],
-//        [.lightYellow, .lightGreen, .green, .blue, .purple]
-//    ]
 }

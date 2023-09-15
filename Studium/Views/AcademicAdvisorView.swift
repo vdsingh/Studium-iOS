@@ -33,7 +33,6 @@ class AcademicAdvisorViewModel: ObservableObject {
 }
 
 struct AcademicAdvisorView: View {
-    
     @ObservedObject var viewModel: AcademicAdvisorViewModel
     
     var body: some View {

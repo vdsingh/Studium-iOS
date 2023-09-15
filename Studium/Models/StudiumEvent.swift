@@ -6,17 +6,13 @@
 //  Copyright © 2021 Vikram Singh. All rights reserved.
 //
 
-
 import Foundation
 import EventKit
 import RealmSwift
 
-
 //TODO: Docstrings
 class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, GoogleCalendarEventLinking, Identifiable {
     
-//    @Persisted var shouldBeDeleted: Bool = false
-
     /// id of the StudiumEvent
     @Persisted var _id: ObjectId = ObjectId.generate()
     

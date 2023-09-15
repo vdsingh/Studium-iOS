@@ -8,6 +8,7 @@
 
 import Foundation
 
+// TODO: Docstrings
 protocol Autoscheduled: StudiumEvent {
     
     //TODO: Docstrings

@@ -11,12 +11,9 @@ import RealmSwift
 import SwipeCellKit
 import ChameleonFramework
 
-
 //TODO: Docstrings
 class RecurringEventCell: DeletableEventCell {
-    
-    let debug = false
-    
+
     static let id = "RecurringEventCell"
 
     //TODO: Docstrings

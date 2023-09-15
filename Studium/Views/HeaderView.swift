@@ -22,37 +22,33 @@ class HeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        primaryLabel.textAlignment = NSTextAlignment.left
-        primaryLabel.text = "Primary Label"
-        primaryLabel.textColor = .label
-        primaryLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
+        self.primaryLabel.textAlignment = NSTextAlignment.left
+        self.primaryLabel.text = "Primary Label"
+        self.primaryLabel.textColor = .label
+        self.primaryLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
 
-        secondaryLabel.textAlignment = NSTextAlignment.right
-        secondaryLabel.text = "Secondary Label"
-        secondaryLabel.textColor = .label
-        secondaryLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
+        self.secondaryLabel.textAlignment = NSTextAlignment.right
+        self.secondaryLabel.text = "Secondary Label"
+        self.secondaryLabel.textColor = .label
+        self.secondaryLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
         
-        contentView.addSubview(primaryLabel)
-        contentView.addSubview(secondaryLabel)
+        self.contentView.addSubview(primaryLabel)
+        self.contentView.addSubview(secondaryLabel)
 
-        primaryLabel.translatesAutoresizingMaskIntoConstraints = false
-        secondaryLabel.translatesAutoresizingMaskIntoConstraints = false
-
-
+        self.primaryLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.secondaryLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            primaryLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            primaryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-
-            secondaryLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            secondaryLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+            self.primaryLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            self.primaryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            self.secondaryLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            self.secondaryLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
-        
     }
     
     //TODO: Docstrings
     func setTexts(primaryText: String, secondaryText: String){
-        primaryLabel.text = primaryText
-        secondaryLabel.text = secondaryText
+        self.primaryLabel.text = primaryText
+        self.secondaryLabel.text = secondaryText
     }
     
     required init(coder aDecoder: NSCoder) {

@@ -38,7 +38,6 @@ class OtherEventCell: DeletableEventCell {
     @IBOutlet weak var iconBackground: UIImageView!
     
     var checkboxWasTappedCallback: (() -> Void)?
-
     
     //TODO: Docstrings
     func loadData(from otherEvent: OtherEvent, checkboxWasTappedCallback: @escaping () -> Void) {
@@ -81,8 +80,6 @@ class OtherEventCell: DeletableEventCell {
         self.startTimeLabel.textColor = textColor
         self.endTimeLabel.textColor = textColor
         self.primaryLabel.textColor = textColor
-
-
         
         self.iconImageView.isHidden = true
         self.subLabel.text = otherEvent.location
@@ -109,7 +106,6 @@ class OtherEventCell: DeletableEventCell {
 
         self.endTimeLabel.text = endDate.format(with: DateFormat.standardTime.formatString)
         self.endTimeLabel.textColor = contrastingColor
-
         
         self.backgroundColor = cellColor
         self.latenessIndicator.isHidden = true

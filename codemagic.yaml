@@ -5,8 +5,8 @@ workflows:
           events:
             - pull_request
             - push
-          branch_paterns:
-            - pattern: master
+          branch_patterns:
+            - pattern: *
           cancel_previous_builds: true
         instance_type: mac_mini_m1
         environment:
@@ -37,4 +37,3 @@ workflows:
           - /tmp/xcodebuild_logs/*.log
           - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
           - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-        

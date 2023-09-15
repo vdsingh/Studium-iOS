@@ -9,7 +9,6 @@
 import Foundation
 import RealmSwift
 
-
 //TODO: Docstring
 final class UserSettings: Object {
     
@@ -55,6 +54,7 @@ final class UserSettings: Object {
 
 // MARK: - Wake Up Time
 extension UserSettings {
+    
     //TODO: Docstrings
     func getWakeUpTime(for date: Date) -> Date? {
         let time = self.getWakeUpTime(for: date.weekdayValue)
