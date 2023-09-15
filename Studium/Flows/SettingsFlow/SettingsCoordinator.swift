@@ -13,9 +13,6 @@ import UIKit
 class SettingsCoordinator: NSObject, NavigationCoordinator, AlertTimesSelectionShowingCoordinator {
     
     //TODO: Docstrings
-//    var debug: Bool = false
-
-    //TODO: Docstrings
     var parentCoordinator: Coordinator?
     
     //TODO: Docstrings
@@ -25,10 +22,6 @@ class SettingsCoordinator: NSObject, NavigationCoordinator, AlertTimesSelectionS
     var navigationController: UINavigationController
     
     var formNavigationController: UINavigationController?
-    
-//    var formNavigationController: UINavigationController? {
-//        return self.navigationController
-//    }
     
     // TODO: Docstrings
     var rootViewController: UIViewController?
@@ -54,9 +47,7 @@ class SettingsCoordinator: NSObject, NavigationCoordinator, AlertTimesSelectionS
     
     // TODO: Docstrings
     func showSettingsListViewController() -> UIViewController {
-//        let settingsListVC = SettingsViewController.instantiate()
         let settingsVC = SettingsViewController(coordinator: self, databaseService: DatabaseService.shared)
-//        settingsVC.coordinator = self
         self.navigationController.pushViewController(settingsVC, animated: true)
         return settingsVC
     }
@@ -74,7 +65,6 @@ class SettingsCoordinator: NSObject, NavigationCoordinator, AlertTimesSelectionS
     // TODO: Docstrings
     func showUserSetupFlow() {
         var userSetupCoordinator = UserSetupCoordinator(self.navigationController)
-        
         if let rootViewController = self.rootViewController {
             userSetupCoordinator = UserSetupCoordinator(rootViewController)
         }
@@ -87,13 +77,8 @@ class SettingsCoordinator: NSObject, NavigationCoordinator, AlertTimesSelectionS
     //TODO: Docstrings
     func childDidFinish(_ child: Coordinator?) {
         if let child = child as? UserSetupCoordinator {
-//            self.showSettingsListViewController()
-//            self.setRootViewController(self.navigationController)
-            
             if let rootViewController = self.rootViewController {
                 rootViewController.dismiss(animated: true)
-//                self.navigationController.popToViewController(rootViewController, animated: true)
-                
             }
         }
     }

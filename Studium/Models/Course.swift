@@ -9,7 +9,6 @@
 import Foundation
 import RealmSwift
 
-
 // TODO: Docstrings
 class Course: RecurringStudiumEvent, StudiumEventContainer {
         

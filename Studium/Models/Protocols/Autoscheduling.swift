@@ -13,27 +13,12 @@ protocol Autoscheduling: StudiumEvent {
     
     associatedtype AutoscheduledEventType: Autoscheduled & Codable
     
-//    var autoschedulingConfig: AutoschedulingConfig<AutoscheduledEventType>? { get set }
-    
     var autoschedulingConfigData: Data? { get set }
-    
-//    var autoschedulingConfig: AutoschedulingConfig<AutoscheduledEventType>? { get }
-    
+        
     var autoscheduledEventsList: List<AutoscheduledEventType> { get set }
-    
-
-    
-    // TODO: Docstrings
-    
-    
-////    //TODO: Docstrings
-//    func appendAutoscheduledEvent(event: AutoscheduledEventType)
     
     //TODO: Docstrings
     func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> AutoscheduledEventType
-    
-    /// Flag for whether host is waiting on autoscheduled events to be scheduled (i.e., display a loading indicator)
-    
 }
 
 extension Autoscheduling {
@@ -48,6 +33,7 @@ extension Autoscheduling {
             }
             return nil
         }
+        
         set {
             self.autoschedulingConfigData = try? JSONEncoder().encode(newValue)
         }
@@ -68,7 +54,6 @@ extension Autoscheduling {
 }
 
 struct AutoschedulingConfig: Codable {
-//    var isGeneratingEvents: Bool { get set }
     
     /// The amount of time (in minutes) that autoscheduled events should be scheduled for
     var autoLengthMinutes: Int

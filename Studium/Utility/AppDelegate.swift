@@ -11,15 +11,11 @@ import ChameleonFramework
 import RealmSwift
 import GoogleSignIn
 import FBSDKLoginKit
-
 import FirebaseAnalytics
 import FirebaseCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-        
-    // TODO: Docstrings
-    let debug = false
     
     // TODO: Docstrings
     let databaseService = DatabaseService()
@@ -49,10 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ColorManager.placeholderTextColor = StudiumColor.placeholderLabel.uiColor
         ColorManager.primaryAccentColor = StudiumColor.primaryAccent.uiColor
         ColorManager.tableViewSeparatorColor = StudiumColor.tertiaryBackground.uiColor
-    
         return true
     }
-    
     
     // MARK: UISceneSession Lifecycle
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -61,9 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
     
-    
     // MARK: - Google Setup
-    //this is all google sign in delegate stuff.
+    
+    // this is all google sign in delegate stuff.
     @available(iOS 9.0, *)
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         

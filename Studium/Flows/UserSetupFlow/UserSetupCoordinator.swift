@@ -11,9 +11,7 @@ import UIKit
 
 // TODO: Docstrings
 class UserSetupCoordinator: NSObject, NavigationCoordinator {
-    
-    var debug = false
-    
+        
     // TODO: Docstrings
     var parentCoordinator: Coordinator?
     
@@ -50,22 +48,12 @@ class UserSetupCoordinator: NSObject, NavigationCoordinator {
     
     // TODO: Docstrings
     func showWakeUpIntroViewController() {
-        //        DispatchQueue.main.async {
         let startVC = WakeUpIntroController.instantiate()
         startVC.coordinator = self
-//        startVC.modalPresentationStyle = .formSheet
         if let presentingViewController = self.presentingViewController {
             startVC.modalPresentationStyle = .popover
             presentingViewController.present(startVC, animated: true)
         } else {
-//            if replaceRoot {
-//                let newNavigationController = UINavigationController()
-//                self.navigationController = newNavigationController
-//                newNavigationController.pushViewController(startVC, animated: false)
-//                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(newNavigationController)
-//            } else {
-//                self.navigationController.pushViewController(startVC, animated: true)
-//            }
             self.navigationController.pushViewController(startVC, animated: true)
         }
     }
@@ -80,14 +68,4 @@ class UserSetupCoordinator: NSObject, NavigationCoordinator {
     func childDidFinish(_ child: Coordinator?) {
         fatalError("UserSetupCoordinator should not have children")
     }
-    
-//    private func removeAllControllersExceptLast() {
-//        var newVCs = [UIViewController]()
-//
-//        if let lastVC = self.navigationController.viewControllers.last {
-//            newVCs.append(lastVC)
-//        }
-//
-//        self.navigationController.setViewControllers(newVCs, animated: true)
-//    }
 }

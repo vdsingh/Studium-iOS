@@ -9,7 +9,6 @@
 import Foundation
 import RealmSwift
 
-
 //TODO: Docstring
 final class UserSettings: Object {
     

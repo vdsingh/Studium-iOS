@@ -14,9 +14,7 @@ import RealmSwift
 
 // TODO: Docstrings
 class AuthenticationViewController: UIViewController, Storyboarded, ErrorShowing, Coordinated {
-    
-    let debug = true
-    
+        
     var codeLocationString: String = "FBAndGoogleAuthViewController"
     
     weak var coordinator: AuthenticationCoordinator?
@@ -71,12 +69,6 @@ class AuthenticationViewController: UIViewController, Storyboarded, ErrorShowing
 
 // MARK: - Handle Authentication Methods
 extension AuthenticationViewController {
-    
-//    private func testCoordinator() {
-//        if self.coordinator == nil {
-//            self.showError(.nilCoordinator)
-//        }
-//    }
     
     //TODO: Docstrings
     @objc func loginButtonClicked() {

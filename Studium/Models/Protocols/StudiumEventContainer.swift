@@ -8,7 +8,7 @@
 
 import Foundation
 
-
+// TODO: Docstrings
 protocol StudiumEventContainer {
     
     associatedtype ContainedEventType: StudiumEventContained
@@ -19,6 +19,7 @@ protocol StudiumEventContainer {
     func appendContainedEvent(containedEvent: ContainedEventType)
 }
 
+// TODO: Docstrings, Investigate
 protocol StudiumEventContained: StudiumEvent {
 //    var contained: Bool { get set }
     

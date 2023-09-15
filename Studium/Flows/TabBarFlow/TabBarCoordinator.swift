@@ -11,24 +11,20 @@ import Foundation
 
 //TODO: Docstrings
 class TabBarCoordinator: NSObject, Coordinator {
-    
-    var debug: Bool = false
-    
+        
     //TODO: Docstrings
     weak var parentCoordinator: Coordinator?
     
     //TODO: Docstrings
     var childCoordinators = [Coordinator]()
-    
-    //TODO: Docstrings
-//    var navigationController: UINavigationController
-    
+
     //TODO: Docstrings
     var tabBarController: TabBarController
     
     //TODO: Docstrings
     override init() {
         self.childCoordinators = [
+            // TODO: Tree coordinator
 //            TreeCoordinator(UINavigationController()),
             CalendarCoordinator(UINavigationController()),
             HabitsCoordinator(UINavigationController()),
@@ -50,11 +46,7 @@ class TabBarCoordinator: NSObject, Coordinator {
     
     //TODO: Docstrings
     func showTabBarController(replaceRoot: (Bool, animated: Bool)) {
-//        if replaceRoot.0 {
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(self.tabBarController)
-//        } else {
-//            self.navigationController.pushViewController(self.tabBarController, animated: replaceRoot.animated)
-//        }
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(self.tabBarController)
     }
     
     //TODO: Implement

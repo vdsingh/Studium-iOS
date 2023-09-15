@@ -91,11 +91,11 @@ class WakeUpIntroController: UIViewController, ErrorShowing, Storyboarded, Coord
             }
         }
 
-        nextButton.titleLabel?.text = "Next"
-        nextButton.titleLabel?.textColor = .orange
-        nextButton.layer.cornerRadius = 10
+        self.nextButton.titleLabel?.text = "Next"
+        self.nextButton.titleLabel?.textColor = .orange
+        self.nextButton.layer.cornerRadius = 10
         
-        secondaryBackground.layer.cornerRadius = 10
+        self.secondaryBackground.layer.cornerRadius = 10
         
         self.timePicker.backgroundColor = .clear
         self.timePickerContainer.backgroundColor = StudiumColor.secondaryBackground.uiColor
@@ -104,24 +104,24 @@ class WakeUpIntroController: UIViewController, ErrorShowing, Storyboarded, Coord
 //        self.timePicker.tintColor = StudiumColor.primaryLabel.uiColor
 //        self.timePicker.textInputContextIdentifier
         
-        timePicker.setValue(UIColor.white, forKeyPath: "textColor")
-        timePicker.setValue(1, forKeyPath: "alpha")
+        self.timePicker.setValue(UIColor.white, forKeyPath: "textColor")
+        self.timePicker.setValue(1, forKeyPath: "alpha")
 
         //selects sunday by default
         
         //selects the time 7:30AM by default
         let date = Calendar.current.date(bySettingHour: 7, minute: 30, second: 0, of: Date())!
-        timePicker.setDate(date, animated: true)
+        self.timePicker.setDate(date, animated: true)
         
         //initialize the dictionaries. The only one that will have data that changes (potentially) is the times dictionary
         self.times = ["Sun": date, "Mon": date, "Tue": date, "Wed": date, "Thu": date, "Fri": date, "Sat": date]
         self.labels = ["Sun": sunLabel, "Mon": monLabel, "Tue": tueLabel, "Wed": wedLabel, "Thu": thuLabel, "Fri": friLabel, "Sat": satLabel]
         
-        if weekdayLabels != nil{
-            dayLabels = ["Sun": weekdayLabels![0], "Mon": weekdayLabels![1], "Tue": weekdayLabels![2], "Wed": weekdayLabels![3], "Thu": weekdayLabels![4], "Fri": weekdayLabels![5], "Sat": weekdayLabels![6]]
+        if self.weekdayLabels != nil{
+            self.dayLabels = ["Sun": weekdayLabels![0], "Mon": weekdayLabels![1], "Tue": weekdayLabels![2], "Wed": weekdayLabels![3], "Thu": weekdayLabels![4], "Fri": weekdayLabels![5], "Sat": weekdayLabels![6]]
         }
         
-        selectSunday()
+        self.selectSunday()
     }
     
     // TODO: Docstrings
@@ -133,10 +133,11 @@ class WakeUpIntroController: UIViewController, ErrorShowing, Storyboarded, Coord
                 day.isSelected = false
                 day.isEnabled = true
             }
-            selectSunday()
+            
+            self.selectSunday()
             
         } else { //same time everyday
-            differentTimes = false
+            self.differentTimes = false
             for day in dayButtons!{
                 day.setTitleColor(.lightGray, for: .disabled)
                 day.isSelected = false
@@ -202,7 +203,6 @@ class WakeUpIntroController: UIViewController, ErrorShowing, Storyboarded, Coord
     //selects Sunday
     func selectSunday(){
         for day in dayButtons!{ //select sunday at start
-//            day.setTitleColor(.label, for: .selected)
             if day.titleLabel?.text == "Sun"{
                 labels["Sun"]!.textColor = tintColor
                 dayLabels["Sun"]!.textColor = tintColor

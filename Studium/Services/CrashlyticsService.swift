@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseCrashlytics
 
+// TODO: Docstrings
 struct CrashlyticsService {
     
     static let shared = CrashlyticsService()

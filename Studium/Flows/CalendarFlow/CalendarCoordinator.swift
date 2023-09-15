@@ -11,9 +11,7 @@ import UIKit
 
 //TODO: Docstrings
 class CalendarCoordinator: NSObject, TabItemCoordinator {
-    
-    var debug = false
-    
+        
     //TODO: Docstrings
     weak var parentCoordinator: Coordinator?
     

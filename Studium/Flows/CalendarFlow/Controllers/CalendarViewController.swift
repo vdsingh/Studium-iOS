@@ -155,9 +155,7 @@ class CalendarViewController: UIViewController, Storyboarded {
         self.addCourses()
         self.addHabits()
         self.allEventsInDay = self.allEventsInDay.sorted(by: { $0.startDate < $1.startDate })
-
         self.tableView.reloadData()
-        
         self.noEventsLabel.isHidden = !allEventsInDay.isEmpty
     }
 }
@@ -170,12 +168,9 @@ extension CalendarViewController: UITableViewDelegate {
         let event: StudiumEvent = allEventsInDay[indexPath.row]
         if let assignment = event as? Assignment {
             let cell = AssignmentTableViewCell(assignment: assignment, isExpanded: false, assignmentCollapseHandler: self, checkboxWasTapped: {
-                
+                // FIXME: check if this is needed
             })
-//            let cell = tableView.dequeueReusableCell(withIdentifier: AssignmentCell1.id, for: indexPath) as! AssignmentCell1
-//            cell.hideChevronButton = true
-//            cell.loadData(assignment: event, assignmentCollapseDelegate: nil, checkboxWasTappedCallback: {})
-//            cell.hideLatenessIndicator(hide: true)
+
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:  OtherEventCell.id, for: indexPath) as! OtherEventCell
@@ -201,19 +196,19 @@ extension CalendarViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-    
 }
 
 extension CalendarViewController: UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allEventsInDay.count
     }
-    
 }
 
+// TODO: Investigate and lint
 extension CalendarViewController: FSCalendarDataSource{
 //        func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
 //            let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position)
@@ -229,11 +224,10 @@ extension CalendarViewController: FSCalendarDelegate{
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         selectedDay = date
         updateInfo()
-        
-        
     }
 }
 
+// FIXME: Investigate and lint
 extension CalendarViewController: AssignmentCollapseDelegate {
     func collapseButtonClicked(assignment: Assignment) {
         

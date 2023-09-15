@@ -8,10 +8,8 @@
 
 import Foundation
 import UIKit
-
 import GoogleSignIn
 import RealmSwift
-
 import FBSDKLoginKit
 import FBSDKCoreKit
 
@@ -45,7 +43,7 @@ class StartViewController: AuthenticationViewController {
         self.googleSignInButton.style = GIDSignInButtonStyle.wide
         self.googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
 
-        navigationItem.hidesBackButton = false
+        self.navigationItem.hidesBackButton = false
         
         self.setSelectors()
     }

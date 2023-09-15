@@ -2,8 +2,6 @@ import Foundation
 import UIKit
 import FlexColorPicker
 
-
-
 // TODO: Docstrings
 class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingForm, Storyboarded {
     

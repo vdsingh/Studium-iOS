@@ -138,7 +138,7 @@ class LoginViewController: AuthenticationViewController, UIGestureRecognizerDele
         self.emailTextField.returnKeyType = .done
         self.emailTextField.delegate = self
         
-        //PASSWORD TEXT FIELD SETUP:
+        // PASSWORD TEXT FIELD SETUP:
         let passwordIconImageView = UIImageView(frame: CGRect(x: textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))
         passwordIconImageView.image = SystemIcon.lock.createImage()
         passwordIconImageView.contentMode = .scaleAspectFit
@@ -147,17 +147,7 @@ class LoginViewController: AuthenticationViewController, UIGestureRecognizerDele
         passwordIconView.addSubview(passwordIconImageView)
         self.passwordTextField.leftView = passwordIconView
         self.passwordTextField.leftViewMode = UITextField.ViewMode.always
-        
-        // TODO: password preview button
-//        let passwordEyeImageView = UIImageView(frame: CGRect(x: -textFieldIconSize/4, y: textFieldIconSize/3, width: textFieldIconSize, height: textFieldIconSize))
-//        passwordEyeImageView.image = SystemIcon.eye.createImage()
-//        passwordEyeImageView.contentMode = .scaleAspectFit
-
-//        let passwordEyeView = UIView(frame: CGRect(x: 0, y: 0, width: textFieldIconSize/3*4, height: textFieldIconSize/3*5))
-//        passwordEyeView.addSubview(passwordEyeImageView)
         self.passwordTextField.tintColor = .gray
-//        self.passwordTextField.rightViewMode = UITextField.ViewMode.always
-//        self.passwordTextField.rightView = passwordEyeView
         self.passwordTextField.layer.cornerRadius = 10
         self.passwordTextField.layer.masksToBounds = true
         self.passwordTextField.layer.borderColor = UIColor.gray.cgColor
@@ -174,7 +164,6 @@ class LoginViewController: AuthenticationViewController, UIGestureRecognizerDele
         self.signInButton.layer.cornerRadius = 10
         self.signInButton.setTitleColor(StudiumColor.primaryLabel.uiColor, for: .normal)
         self.signInButton.setTitleColor(StudiumColor.primaryLabel.uiColor, for: .disabled)
-
         self.guestSignInButton.tintColor = tintColor
     }
     

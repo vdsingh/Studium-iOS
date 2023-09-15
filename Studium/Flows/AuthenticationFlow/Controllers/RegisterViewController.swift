@@ -7,12 +7,9 @@
 //
 
 import UIKit
-
 import FBSDKLoginKit
 import RealmSwift
 import GoogleSignIn
-
-
 
 // TODO: Docstrings
 class RegisterViewController: AuthenticationViewController, UIGestureRecognizerDelegate {
@@ -91,9 +88,7 @@ class RegisterViewController: AuthenticationViewController, UIGestureRecognizerD
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldWasEdited), for: .editingChanged)
         self.textFieldWasEdited()
         
-
         setupUI()
-
     }
     
     //TODO: Docstrings
@@ -118,7 +113,6 @@ class RegisterViewController: AuthenticationViewController, UIGestureRecognizerD
     @IBAction func textFieldEditingDidEnd(_ sender: UITextField) {
         sender.tintColor = .gray
         sender.layer.borderColor = UIColor.gray.cgColor
-        
     }
     
     //TODO: Docstrings
@@ -188,7 +182,6 @@ class RegisterViewController: AuthenticationViewController, UIGestureRecognizerD
         signUpButton.layer.cornerRadius = 10
         signUpButton.setTitleColor(StudiumColor.primaryLabel.uiColor, for: .normal)
         signUpButton.setTitleColor(StudiumColor.primaryLabel.uiColor, for: .disabled)
-
         continueAsGuestButton.tintColor = tintColor
     }
 }

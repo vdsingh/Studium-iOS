@@ -8,16 +8,13 @@
 
 import Foundation
 
-
 //TODO: Docstrings
 enum StudiumFormError: FormError {
-    
     case nameNotSpecified
     case oneDayNotSpecified
     case endTimeOccursBeforeStartTime
     case totalTimeNotSpecified
     case totalTimeExceedsTimeFrame
-    
     case nameTooLong(charLimit: TextFieldCharLimit)
     case locationTooLong(charLimit: TextFieldCharLimit)
     case additionalDetailsTooLong(charLimit: TextFieldCharLimit)

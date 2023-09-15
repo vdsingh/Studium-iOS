@@ -9,19 +9,9 @@
 import UIKit
 import RealmSwift
 
-
-
-// TODO: Docstrings
-protocol ToDoListRefreshProtocol {
-    
-    // TODO: Docstrings
-    func reloadData()
-}
-
 /// Form to add a To-Do List Event
 class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyboarded {
     
-    // TODO: Docstrings
     weak var coordinator: OtherEventEditingCoordinator?
     
     /// tracks the event being edited, if one is being edited.
@@ -96,27 +86,24 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
             if let otherEvent = self.otherEvent {
                 // We are editing
                 self.studiumEventService.updateStudiumEvent(oldEvent: otherEvent, updatedEvent: newEvent)
-//                self.databaseService.updateEvent(oldEvent: otherEvent, updatedEvent: newEvent)
-//                self.databaseService.editStudiumEvent(oldEvent: otherEvent, newEvent: newEvent)
             
             } else {
                 // We are creating new
-//                self.databaseService.saveStudiumObject(newEvent)
                 self.studiumEventService.saveStudiumEvent(newEvent)
             }
             
             guard let delegate = delegate else {
-                print("$ERR (AddToDoListEventViewController): delegate is nil in AddToDoListEventViewController.")
+                Log.e("delegate is nil in AddToDoListEventViewController.")
                 return
             }
 
             delegate.reloadData()
-            dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         } else {
             // update the errors cell to show all of the errors with the form
             self.setCells()
             self.scrollToBottomOfTableView()
-            tableView.reloadData()
+            self.tableView.reloadData()
         }
     }
     
@@ -142,27 +129,6 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
         self.dismiss(animated: true)
     }
 }
-
-// TODO: Docstrings
-//extension AddToDoListEventViewController: UITextFieldDelegateExtension {
-//    
-//    // TODO: Docstrings
-//    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
-//        guard let text = sender.text else {
-//            Log.e("sender's text was nil. \nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
-//            return
-//        }
-//        
-//        switch textFieldID {
-//        case .nameTextField:
-//            self.name = text
-//        case .locationTextField:
-//            self.location = text
-//        case .additionalDetailsTextField:
-//            self.additionalDetails = text
-//        }
-//    }
-//}
 
 // TODO: Docstrings
 extension AddToDoListEventViewController {

@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 //TODO: Docstrings
 class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, AlertTimesSelectionShowingCoordinator, AssignmentEditingCoordinator, OtherEventEditingCoordinator {
     

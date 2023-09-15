@@ -12,9 +12,7 @@ import UIKit
 import SwiftUI
 
 struct OtherEventViewDetails: View {
-    
     @ObservedRealmObject var otherEvent: OtherEvent
-    
     let studiumEventService = StudiumEventService.shared
     
     var body: some View {
@@ -119,10 +117,6 @@ class OtherEventViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupSwiftUI()
@@ -172,6 +166,10 @@ class OtherEventViewController: UIViewController {
     
     @objc private func deleteAssignment() {
         self.deleteButtonPressed()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

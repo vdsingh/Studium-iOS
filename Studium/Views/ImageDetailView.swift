@@ -45,8 +45,6 @@ struct ImageDetailView: View {
                         .resizable()
                         .aspectRatio(image.size, contentMode: .fit)
                         .frame(width: UIScreen.main.bounds.width * 3/4)
-//                        .
-
                 }
                 
                 VStack(spacing: Increment.one) {
@@ -70,11 +68,9 @@ struct ImageDetailView: View {
                 }
                 .background(Color(uiColor: StudiumColor.secondaryAccent.uiColor))
                 .foregroundColor(Color(uiColor: StudiumColor.primaryLabel.uiColor))
-//                .clipShape(.rect(cornerRadius: 10))
                 .clipShape(.rect(cornerRadius: Increment.two))
                 
             }
-//            .scaledToFit()
             .padding(Increment.three)
         }
         .background(Color(uiColor: StudiumColor.secondaryBackground.uiColor))

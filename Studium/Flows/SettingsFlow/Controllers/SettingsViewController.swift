@@ -73,7 +73,7 @@ struct SettingsView: View {
     let databaseService: DatabaseService = .shared
     let studiumEventService: StudiumEventService = .shared
     let presentingViewController: UIViewController
-    let alertTimeDelegate: AlertTimeHandler
+    let alertTimeDelegate: AlertTimeHandler?
     weak var coordinator: SettingsCoordinator?
     
     var appleCalendarIsAuthorized: Bool {
@@ -243,10 +243,6 @@ class SettingsViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupSwiftUI()
@@ -264,39 +260,29 @@ class SettingsViewController: UIViewController {
         self.addChild(hostingController)
         self.view.addSubview(hostingController.view)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
             hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
 extension SettingsViewController: AlertTimeHandler {
+    
     // TODO: Docstrings
     func alertTimesWereUpdated(selectedAlertOptions: [AlertOption]) {
         self.databaseService.setDefaultAlertOptions(alertOptions: selectedAlertOptions)
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    
-//    static var weekdays: Set<Weekday> {
-//        var set = Set<Weekday>()
-//        set.insert(.wednesday)
-//        set.insert(.monday)
-//        return set
-//    }
-//    
-//    static let mockAssignment = Assignment(name: "Homework 4", additionalDetails: "Additional Details", complete: true, startDate: Date(), endDate: Date()+100000, notificationAlertTimes: [], autoschedulingConfig: nil, parentCourse: Course(name: "CS 320", location: "Building A", additionalDetails: "Hello World", startDate: Date(), endDate: Date(), color: .green, icon: .atom, alertTimes: []))
-//    
-//    static var previews: some View {
-//        AssignmentView(
-//            assignment: mockAssignment,
-//            pdfUrlWasPressed: { _ in }
-//        )
-//    }
-//}
+struct SettingsPreview: PreviewProvider {
+    static var previews: some View {
+        SettingsView(presentingViewController: UIViewController(), alertTimeDelegate: nil)
+    }
+}

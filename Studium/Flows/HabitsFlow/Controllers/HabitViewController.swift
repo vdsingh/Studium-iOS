@@ -25,9 +25,7 @@ struct HabitDetailsView: View {
 }
 
 struct HabitView: View {
-    
     @ObservedRealmObject var habit: Habit
-    
     var body: some View {
         if !self.habit.isInvalidated {
             ZStack {
@@ -94,7 +92,6 @@ struct HabitView: View {
 }
 
 class HabitViewController: UIViewController {
-    
     let habit: Habit
     let editButtonPressed: () -> Void
     let deleteButtonPressed: () -> Void
@@ -109,10 +106,6 @@ class HabitViewController: UIViewController {
         self.deleteButtonPressed = deleteButtonPressed
         
         super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -153,17 +146,16 @@ class HabitViewController: UIViewController {
         hostingController.didMove(toParent: self)
     }
     
-    //    func openPDFViewController(url: URL) {
-    //        let pdfViewController = PDFViewController(pdfURL: url)
-    //        self.navigationController?.pushViewController(pdfViewController, animated: true)
-    //    }
-    
     @objc private func editAssignment() {
         self.editButtonPressed()
     }
     
     @objc private func deleteAssignment() {
         self.deleteButtonPressed()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

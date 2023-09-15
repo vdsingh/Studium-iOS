@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 
+// TODO: Docstrings
 protocol FileStorer: Object, ObjectKeyIdentifiable {
     var attachedFileURLString: String? { get set }
 }

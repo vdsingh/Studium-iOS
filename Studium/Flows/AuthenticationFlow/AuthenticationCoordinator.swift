@@ -9,21 +9,19 @@
 import Foundation
 import UIKit
 
-//TODO: Docstrings
+// TODO: Docstrings
 class AuthenticationCoordinator: NSObject, NavigationCoordinator, UINavigationControllerDelegate {
-    
-    var debug = false
-    
-    //TODO: Docstrings
+        
+    // TODO: Docstrings
     weak var parentCoordinator: Coordinator?
     
-    //TODO: Docstrings
+    // TODO: Docstrings
     var childCoordinators = [Coordinator]()
     
-    //TODO: Docstrings
+    // TODO: Docstrings
     var navigationController: UINavigationController
     
-//    //TODO: Docstrings
+    // TODO: Docstrings
     required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -70,10 +68,6 @@ class AuthenticationCoordinator: NSObject, NavigationCoordinator, UINavigationCo
         }
     }
     
-//    func showUserSetupFlow() {
-//
-//    }
-    
     // TODO: Docstrings
     func showUserSetupFlow() {
         var userSetupCoordinator = UserSetupCoordinator()
@@ -81,13 +75,6 @@ class AuthenticationCoordinator: NSObject, NavigationCoordinator, UINavigationCo
         self.parentCoordinator?.childCoordinators.append(userSetupCoordinator)
         userSetupCoordinator.start()
         self.finish()
-//        if let rootViewController = self.rootViewController {
-//            userSetupCoordinator = UserSetupCoordinator(rootViewController)
-//        }
-//        
-//        userSetupCoordinator.parentCoordinator = self
-//        self.parentCoordinator?.childCoordinators.append(userSetupCoordinator)
-//        userSetupCoordinator.start()
     }
     
     //TODO: Docstrings

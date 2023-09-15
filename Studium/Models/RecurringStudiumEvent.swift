@@ -8,11 +8,8 @@
 
 import Foundation
 import EventKit
-
 import CalendarKit
 import RealmSwift
-
-
 
 /// Represents StudiumEvents that repeat
 class RecurringStudiumEvent: StudiumEvent, GoogleCalendarRecurringEventLinking {
@@ -27,7 +24,6 @@ class RecurringStudiumEvent: StudiumEvent, GoogleCalendarRecurringEventLinking {
         }
         
         set {
-//            let list = List<Int>()
             self.daysList.removeAll()
             self.daysList.append(objectsIn: newValue.compactMap({ $0.rawValue }))
         }
@@ -100,7 +96,6 @@ class RecurringStudiumEvent: StudiumEvent, GoogleCalendarRecurringEventLinking {
         
         let startDate = Calendar.current.date(bySettingHour: self.startDate.hour, minute: self.startDate.minute, second: 0, of: date)!
         let endDate = Calendar.current.date(bySettingHour: self.endDate.hour, minute: self.endDate.minute, second: 0, of: date)!
-        
         return TimeChunk(startDate: startDate, endDate: endDate)
     }
 }

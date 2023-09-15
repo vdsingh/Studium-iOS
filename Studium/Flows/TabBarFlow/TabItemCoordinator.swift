@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-//TODO: Docstrings
+/// Coordinator for tab bar tab coordinators
 protocol TabItemCoordinator: NavigationCoordinator {
     
-    ///
-    var tabItemInfo: TabItemConfig { get set }
+    /// Configuration for tab bar item
+    var tabItemConfig: TabItemConfig { get set }
 }

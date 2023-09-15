@@ -20,7 +20,6 @@ enum AuthenticationError: Error {
     case registeredSuccessfullyButUserWasNil
 }
 
-
 //TODO: Docstrings
 class AuthenticationService: NSObject {
     

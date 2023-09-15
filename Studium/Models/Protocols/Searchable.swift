@@ -8,6 +8,7 @@
 
 import Foundation
 
+// TODO: Docstrings
 protocol Searchable {
     func eventIsVisible(fromSearch searchText: String) -> Bool
 }

@@ -11,8 +11,6 @@ import UIKit
 import RealmSwift
 import FlexColorPicker
 
-
-
 enum TextFieldCharLimit: Int {
     case shortField = 100
     case longField = 300
@@ -52,25 +50,21 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
     // TODO: Docstrings
     var cellType: [[FormCell]] = [[]]
 
-        
     /// Whether or not this habit is being autoscheduled or not
     var autoschedule = false
     
     /// Whether the user wants this habit to be scheduled earlier or later
     var earlier = true
-    
 
     // TODO: Docstrings
     @IBOutlet weak var navButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         self.setCells()
-        
         super.viewDidLoad()
         
         //makes it so that the form doesn't have a bunch of empty cells at the bottom
         self.tableView.tableFooterView = UIView()
-        
         self.navButton.image = SystemIcon.plus.createImage()
         if let habit = self.habit {
             self.fillForm(with: habit)
@@ -97,7 +91,6 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
             ],
             [
                 .logoCell(logo: self.icon.uiImage, onClick: { self.showLogoSelectionViewController() }),
-//                .colorPickerCell(delegate: self),
                 .colorPickerCellV2(colors: StudiumEventColor.allCasesUIColors, colorWasSelected: { color in
                     self.color = UIColor(color)
                 }),
@@ -132,7 +125,6 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
             ],
             [
                 .logoCell(logo: self.icon.uiImage, onClick: { self.showLogoSelectionViewController() }),
-//                .colorPickerCell(delegate: self),
                 .colorPickerCellV2(colors: StudiumEventColor.allCasesUIColors, colorWasSelected: { color in
                     self.color = UIColor(color)
                 }),
@@ -150,8 +142,6 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
     
     //MARK: - UIElement IBActions
     
-    // TODO: Docstrings
-    //final step that occurs when the user finishes the form and adds the habit
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         self.errors = self.findErrors()
 
@@ -177,9 +167,6 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
                 startDate: startDate,
                 endDate: self.endDate,
                 autoschedulingConfig: autoschedulingConfig,
-//                autoscheduling: autoschedule,
-//                startEarlier: earlier,
-//                autoLengthMinutes: totalLengthMinutes,
                 alertTimes: self.alertTimes,
                 days: self.daysSelected,
                 icon: self.icon,
@@ -234,62 +221,19 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
         
         return errors
     }
-    
-    // TODO: Docstrings
-    // Handles whenever the user decides to cancel.
+
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true)
     }
     
     //MARK: - TableView helpers
     
-    // TODO: Docstrings
-    //reset data and reloads tableView
+    /// reset cell data and reloads tableView
     func reloadData(){
         self.setCells()
-//        self.cells = self.autoschedule ? self.cellsAuto : self.cellsNoAuto
         self.tableView.reloadData()
     }
 }
-
-//MARK: - Picker DataSource
-//extension AddHabitViewController: UIPickerViewDataSource {
-//
-//    //how many rows in the picker view, given the component
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        if component == 0 { //hours
-//            return 24
-//        }
-//        //minutes
-//        return 60
-//    }
-//
-//    //number of components in the pickerView
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 2
-//    }
-//}
-
-//MARK: - Picker Delegate
-//extension AddHabitViewController: UIPickerViewDelegate{
-//    
-//    //determines the text in each row, given the row and component
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        if component == 0{
-//            return "\(row) hours"
-//        }
-//        return "\(row) min"
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        let lengthIndex = cellText[1].lastIndex(of: "Length of Habit")
-//        let timeCell = tableView.cellForRow(at: IndexPath(row: lengthIndex!, section: 1)) as! TimeCell
-//        totalLengthHours = pickerView.selectedRow(inComponent: 0)
-//        totalLengthMinutes = pickerView.selectedRow(inComponent: 1)
-//        timeCell.timeLabel.text = "\(totalLengthHours) hours \(totalLengthMinutes) mins"
-//    }
-//}
-
 
 // TODO: Docstrings
 extension AddHabitViewController: DaySelectorDelegate {
@@ -299,27 +243,6 @@ extension AddHabitViewController: DaySelectorDelegate {
         self.daysSelected = weekdays
     }
 }
-
-// TODO: Docstrings
-//extension AddHabitViewController: UITextFieldDelegateExtension {
-//    
-//    // TODO: Docstrings
-//    func textEdited(sender: UITextField, textFieldID: FormCellID.TextFieldCellID) {
-//        guard let text = sender.text else {
-//            Log.e("sender's text is nil when editing text.")
-//            return
-//        }
-//        
-//        switch textFieldID {
-//        case .nameTextField:
-//            self.name = text
-//        case .locationTextField:
-//            self.location = text
-//        case .additionalDetailsTextField:
-//            self.additionalDetails = text
-//        }
-//    }
-//}
 
 // TODO: Docstrings
 extension AddHabitViewController: ColorDelegate {
