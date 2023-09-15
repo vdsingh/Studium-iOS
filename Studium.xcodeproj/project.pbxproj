@@ -1054,7 +1054,6 @@
 				B97988A42AB42BF6002B8EE9 /* TableViewForm */,
 				B97058F62A88C1C5008F8636 /* TreeFlow */,
 				B9B41CFB2A26E83600239DD4 /* TabBarFlow */,
-				B9AFCF832A19F06B0087A0FF /* GenericFormUtility */,
 				B9AFCF802A19EEFA0087A0FF /* UserSetupFlow */,
 			);
 			path = Modules;
@@ -1136,13 +1135,6 @@
 				B9AFCF842A19F0C50087A0FF /* Controllers */,
 			);
 			path = SettingsFlow;
-			sourceTree = "<group>";
-		};
-		B9AFCF832A19F06B0087A0FF /* GenericFormUtility */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = GenericFormUtility;
 			sourceTree = "<group>";
 		};
 		B9AFCF842A19F0C50087A0FF /* Controllers */ = {
