@@ -61,7 +61,7 @@ public enum Weekday: Int, CaseIterable {
         if Weekday.buttonTextMap.keys.contains(buttonText) {
             self.init(rawValue: Weekday.buttonTextMap[buttonText]!)!
         } else {
-            print("$ERR (Weekday): tried to construct a weekday from buttonText: \(buttonText), which doesn't correspond to a Weekday case.")
+            Log.e("tried to construct a weekday from buttonText: \(buttonText), which doesn't correspond to a Weekday case.")
             self = .unknown
         }
     }

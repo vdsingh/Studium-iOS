@@ -9,10 +9,12 @@
 import Foundation
 import WidgetKit
 
+// TODO: Docstrings, Investigate
 enum WidgetKind: String {
     case AssignmentsWidget
 }
 
+// TODO: Docstrings, Investigate
 class WidgetsService {
         
     static let shared = WidgetsService()

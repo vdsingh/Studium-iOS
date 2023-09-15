@@ -20,8 +20,6 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
         return [Assignment](self.assignmentsList)
     }
 
-    //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    
     // TODO: Docstrings
     convenience init (
         name: String,
@@ -57,20 +55,5 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
     // TODO: Docstrings
     func appendContainedEvent(containedEvent: Assignment) {
         self.assignmentsList.append(containedEvent)
-    }
-}
-
-extension Course: Updatable {
-    func updateFields(withNewEvent newEvent: Course) {
-        self.name = newEvent.name
-        self.color = newEvent.color
-        self.location = newEvent.location
-        self.additionalDetails = newEvent.additionalDetails
-        self.startDate = newEvent.startDate
-        self.endDate = newEvent.endDate
-        self.icon = newEvent.icon
-        self.alertTimes = newEvent.alertTimes
-        self.days = newEvent.days
-        self._partitionKey = newEvent._partitionKey
     }
 }

@@ -23,9 +23,6 @@ class MockDatabaseService: DatabaseServiceProtocol {
         
     }
     
-
-
-    
     
     //TODO: Implement
     func saveAutoscheduledEvent<T>(autoscheduledEvent: T.AutoscheduledEventType, autoschedulingEvent: T) where T : Autoscheduling {
@@ -40,10 +37,6 @@ class MockDatabaseService: DatabaseServiceProtocol {
     func getContainedEvents<T: StudiumEventContainer>(forContainer container: T) -> [T.ContainedEventType] {
         return []
     }
-    
-    
-    
-    
     
     var user: User? = nil
     

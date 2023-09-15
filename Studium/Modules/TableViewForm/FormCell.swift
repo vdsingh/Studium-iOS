@@ -18,9 +18,7 @@ public enum FormCell: Equatable {
         placeholderText: String,
         text: String?,
         charLimit: Int?,
-//        id: FormCellID.TextFieldCellID,
         textfieldWasEdited: (String) -> Void
-//        delegate: UITextFieldDelegateExtension
     )
     
     case switchCell(
@@ -97,13 +95,6 @@ public enum FormCell: Equatable {
 
 /// IDs for FormCells that we can use instead of hardcoded strings
 public enum FormCellID {
-    
-    // TextField Cells
-//    public enum TextFieldCellID {
-//        case nameTextField
-//        case locationTextField
-//        case additionalDetailsTextField
-//    }
     
     // TimePickerCells
     public enum TimePickerCellID {

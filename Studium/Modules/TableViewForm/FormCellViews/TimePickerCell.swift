@@ -47,12 +47,12 @@ public class TimePickerCell: BasicCell {
     //TODO: Docstrings
     @IBAction func pickerValueChanged(_ sender: UIDatePicker) {
         guard let indexPath = self.indexPath, let formCellID = self.formCellID else {
-            print("$ERR (TimePickerCell): indexPath or formCellID were nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            Log.e("indexPath or formCellID were nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
         
         guard let delegate = self.delegate else {
-            print("$ERR (TimePickerCell): delegate is nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
+            Log.e("delegate is nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
         
@@ -68,5 +68,3 @@ public class TimePickerCell: BasicCell {
 extension TimePickerCell: FormCellProtocol {
     public static var id: String = "TimePickerCell"
 }
-
-

@@ -76,7 +76,7 @@ public class DaySelectorCell: BasicCell {
             
             delegate?.updateDaysSelected(weekdays: self.daysSelected)
         } else {
-            print("$ERR: Couldn't find the button index or construct a Weekday type")
+            Log.e("Couldn't find the button index or construct a Weekday type")
         }
     }
     

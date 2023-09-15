@@ -234,7 +234,7 @@ class WakeUpIntroController: UIViewController, ErrorShowing, Storyboarded, Coord
               let thuTime = self.times["Thu"],
               let friTime = self.times["Fri"],
               let satTime = self.times["Sat"] else {
-            print("$ERR (WakeUpIntroController): couldn't retrieve wake up times from map. A value was nil: \(self.times)")
+            Log.e("couldn't retrieve wake up times from map. A value was nil: \(self.times)")
             return
         }
 

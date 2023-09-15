@@ -12,16 +12,12 @@ import RealmSwift
 // TODO: Docstrings
 class OtherEvent: StudiumEvent, CompletableStudiumEvent, Autoscheduled, Codable {
     
-    
-    //Specifies whether or not the OtherEvent object is marked as complete or not. This determines where it lies in a tableView and whether or not it's crossed out.
-    
     // TODO: Docstrings
     @Persisted var complete: Bool = false
     
+    // TODO: Docstrings
     @Persisted var autoscheduled: Bool = false
-        
-    //Basically an init that must be called manually because Realm doesn't allow init for some reason.
-    
+
     // TODO: Docstrings
     func initializeData (
         startDate: Date,
@@ -49,16 +45,5 @@ class OtherEvent: StudiumEvent, CompletableStudiumEvent, Autoscheduled, Codable 
         self.name = name
         self.location = location
         self.additionalDetails = additionalDetails
-    }
-}
-
-extension OtherEvent: Updatable {
-    func updateFields(withNewEvent newEvent: OtherEvent) {
-        self.startDate = newEvent.startDate
-        self.endDate = newEvent.endDate
-        self.location = newEvent.location
-        self.name = newEvent.name
-        self.additionalDetails = newEvent.additionalDetails
-        self.alertTimes = newEvent.alertTimes
     }
 }
