@@ -26,7 +26,8 @@ class OtherEvent: StudiumEvent, CompletableStudiumEvent, Autoscheduled, Codable 
         location: String,
         additionalDetails: String,
         notificationAlertTimes: [AlertOption],
-        partitionKey: String)
+        partitionKey: String // FIXME: Remove
+    )
     {
         self.startDate = startDate
         self.endDate = endDate
@@ -34,7 +35,6 @@ class OtherEvent: StudiumEvent, CompletableStudiumEvent, Autoscheduled, Codable 
         self.location = location
         self.additionalDetails = additionalDetails
         self._partitionKey = partitionKey
-        
         self.alertTimes = notificationAlertTimes
     }
     

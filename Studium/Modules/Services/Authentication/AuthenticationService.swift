@@ -23,8 +23,6 @@ enum AuthenticationError: Error {
 //TODO: Docstrings
 class AuthenticationService: NSObject {
     
-    let debug = true
-    
     //TODO: Docstrings
     static let shared = AuthenticationService()
     

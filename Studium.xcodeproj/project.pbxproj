@@ -529,7 +529,6 @@
 				B9AFCF822A19EF590087A0FF /* ParentControllers+FlowUtility */,
 				B9AFCF792A19EE4E0087A0FF /* Modules */,
 				B96E6A5D2983464900A25457 /* Utility */,
-				B96E6A5A298323CC00A25457 /* Services */,
 				1693E74C247A463D003D4702 /* Models */,
 				1693E74B247A4634003D4702 /* Views */,
 				1693E73E247A3DC6003D4702 /* Info.plist */,
@@ -709,18 +708,6 @@
 			path = LogoSelection;
 			sourceTree = "<group>";
 		};
-		B94CA0DA2A32C0FF00047865 /* Coordinators */ = {
-			isa = PBXGroup;
-			children = (
-				B979889D2AB178E5002B8EE9 /* Coordinator.swift */,
-				B94CA0D22A2F10F800047865 /* Coordinated.swift */,
-				B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */,
-				B94CA0D82A32C0F000047865 /* NavigationCoordinator.swift */,
-				B94CA0F32A39A9C600047865 /* OtherEventEditingCoordinator.swift */,
-			);
-			path = Coordinators;
-			sourceTree = "<group>";
-		};
 		B94CA0EB2A35639B00047865 /* PopUps */ = {
 			isa = PBXGroup;
 			children = (
@@ -733,14 +720,13 @@
 		B96E6A5A298323CC00A25457 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B97988BA2AB42EDA002B8EE9 /* Autoscheduling */,
 				B94CA0EB2A35639B00047865 /* PopUps */,
 				B97BB0A52A00E9DD008F1A5B /* Persistence */,
 				B97BB0A42A00E9D0008F1A5B /* Authentication */,
 				B986934B2A3DA7FB00272B22 /* Calendar */,
 				B986934C2A3DA80F00272B22 /* StudiumEventService.swift */,
 				B90D1448298C77B80093EB0C /* NotificationService.swift */,
-				B97BB09E2A00D19D008F1A5B /* MockAutoscheduleService.swift */,
-				B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */,
 				B94CA0E72A34615400047865 /* CrashlyticsService.swift */,
 				B95194112A5675A900E0869A /* WidgetsService.swift */,
 				B90F10632A72115200BAB23F /* ChatGPTService.swift */,
@@ -795,21 +781,22 @@
 		B97988A42AB42BF6002B8EE9 /* TableViewForm */ = {
 			isa = PBXGroup;
 			children = (
+				B97988BC2AB42F27002B8EE9 /* StudiumForm */,
 				B9A165342AAD9A79005A23F6 /* ColorManager.swift */,
 				B9A165302AAD9A79005A23F6 /* FormError.swift */,
 				B9A165312AAD9A79005A23F6 /* FormCell.swift */,
-				B9A165142AAD9A79005A23F6 /* FormCellViews */,
 				B9A165322AAD9A79005A23F6 /* TableViewForm.swift */,
+				B9A165142AAD9A79005A23F6 /* FormCellViews */,
 			);
 			path = TableViewForm;
 			sourceTree = "<group>";
 		};
-		B97988A52AB42C62002B8EE9 /* LogoSelectionFlow */ = {
+		B97988A52AB42C62002B8EE9 /* LogoSelection */ = {
 			isa = PBXGroup;
 			children = (
 				B94CA0D12A2F103E00047865 /* LogoSelection */,
 			);
-			path = LogoSelectionFlow;
+			path = LogoSelection;
 			sourceTree = "<group>";
 		};
 		B97988A82AB42CF0002B8EE9 /* AlertTimeSelection */ = {
@@ -859,15 +846,6 @@
 			path = OtherEvent;
 			sourceTree = "<group>";
 		};
-		B97988B72AB42E49002B8EE9 /* Autoscheduling */ = {
-			isa = PBXGroup;
-			children = (
-				B9EAD6A52A7E55AD002E1F40 /* Autoscheduling.swift */,
-				B97988B52AB42E44002B8EE9 /* AutoschedulingConfig.swift */,
-			);
-			path = Autoscheduling;
-			sourceTree = "<group>";
-		};
 		B97988B82AB42E68002B8EE9 /* AppleCalendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -884,6 +862,67 @@
 				B98693472A3D867700272B22 /* GoogleCalendarService.swift */,
 			);
 			path = GoogleCalendar;
+			sourceTree = "<group>";
+		};
+		B97988BA2AB42EDA002B8EE9 /* Autoscheduling */ = {
+			isa = PBXGroup;
+			children = (
+				B97BB09E2A00D19D008F1A5B /* MockAutoscheduleService.swift */,
+				B9A98C3129EECE5800D866A9 /* AutoscheduleService.swift */,
+				B9EAD6A52A7E55AD002E1F40 /* Autoscheduling.swift */,
+				B97988B52AB42E44002B8EE9 /* AutoschedulingConfig.swift */,
+			);
+			path = Autoscheduling;
+			sourceTree = "<group>";
+		};
+		B97988BB2AB42F18002B8EE9 /* StudiumEventList */ = {
+			isa = PBXGroup;
+			children = (
+				1693E751247A487C003D4702 /* SwipeTableViewController.swift */,
+				B995493E2992F0D400442968 /* StudiumEventListViewController.swift */,
+			);
+			path = StudiumEventList;
+			sourceTree = "<group>";
+		};
+		B97988BC2AB42F27002B8EE9 /* StudiumForm */ = {
+			isa = PBXGroup;
+			children = (
+				B97988A82AB42CF0002B8EE9 /* AlertTimeSelection */,
+				B97988A52AB42C62002B8EE9 /* LogoSelection */,
+				B90D13F529845FE80093EB0C /* MasterForm.swift */,
+			);
+			path = StudiumForm;
+			sourceTree = "<group>";
+		};
+		B97988BD2AB42F37002B8EE9 /* CoordinatorUtility */ = {
+			isa = PBXGroup;
+			children = (
+				B979889D2AB178E5002B8EE9 /* Coordinator.swift */,
+				B94CA0D22A2F10F800047865 /* Coordinated.swift */,
+				B94CA0D62A31432400047865 /* AssignmentEditingCoordinator.swift */,
+				B94CA0D82A32C0F000047865 /* NavigationCoordinator.swift */,
+				B9AFCF732A19E3160087A0FF /* AppCoordinator.swift */,
+			);
+			path = CoordinatorUtility;
+			sourceTree = "<group>";
+		};
+		B97988BE2AB42F9E002B8EE9 /* TabFlows */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TabFlows;
+			sourceTree = "<group>";
+		};
+		B97988BF2AB43007002B8EE9 /* SubFlows */ = {
+			isa = PBXGroup;
+			children = (
+				B97BB1662A0EF864008F1A5B /* AssignmentsOtherEventsViewController.swift */,
+				B9AFCF7C2A19EEA70087A0FF /* CalendarFlow */,
+				B9AFCF7D2A19EEAB0087A0FF /* HabitsFlow */,
+				B9AFCF7E2A19EEB40087A0FF /* CoursesFlow */,
+				B9AFCF7F2A19EEBA0087A0FF /* ToDoFlow */,
+			);
+			path = SubFlows;
 			sourceTree = "<group>";
 		};
 		B97BB0952A00CBF9008F1A5B /* StudiumTests */ = {
@@ -959,7 +998,6 @@
 			children = (
 				B995493B2992EDD000442968 /* Completable.swift */,
 				B90FFE362A8F150A000E6EA6 /* Searchable.swift */,
-				B97988B72AB42E49002B8EE9 /* Autoscheduling */,
 				B94CA0F12A3683F200047865 /* StudiumEventContainer.swift */,
 				B90F10372A6A098500BAB23F /* Autoscheduled.swift */,
 				B9EAD6A32A7E559C002E1F40 /* FileStorer.swift */,
@@ -1016,20 +1054,15 @@
 		B9AFCF792A19EE4E0087A0FF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				B97988A82AB42CF0002B8EE9 /* AlertTimeSelection */,
-				B97988A52AB42C62002B8EE9 /* LogoSelectionFlow */,
+				B96E6A5A298323CC00A25457 /* Services */,
+				B97988BE2AB42F9E002B8EE9 /* TabFlows */,
+				B97988BD2AB42F37002B8EE9 /* CoordinatorUtility */,
+				B97988BB2AB42F18002B8EE9 /* StudiumEventList */,
 				B97988A42AB42BF6002B8EE9 /* TableViewForm */,
-				B9AFCF732A19E3160087A0FF /* AppCoordinator.swift */,
 				B97058F62A88C1C5008F8636 /* TreeFlow */,
 				B9B41CFB2A26E83600239DD4 /* TabBarFlow */,
-				B9AFCF7E2A19EEB40087A0FF /* CoursesFlow */,
-				B9AFCF7D2A19EEAB0087A0FF /* HabitsFlow */,
-				B9AFCF7C2A19EEA70087A0FF /* CalendarFlow */,
-				B9AFCF812A19EF1F0087A0FF /* SettingsFlow */,
-				B9AFCF7F2A19EEBA0087A0FF /* ToDoFlow */,
 				B9AFCF832A19F06B0087A0FF /* GenericFormUtility */,
 				B9AFCF802A19EEFA0087A0FF /* UserSetupFlow */,
-				B9AFCF7A2A19EE540087A0FF /* AuthenticationFlow */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1057,6 +1090,7 @@
 		B9AFCF7C2A19EEA70087A0FF /* CalendarFlow */ = {
 			isa = PBXGroup;
 			children = (
+				B9AFCF812A19EF1F0087A0FF /* SettingsFlow */,
 				B9AFCF8A2A19F1CA0087A0FF /* CalendarCoordinator.swift */,
 				16429CFC247D200E0052E47C /* Controllers */,
 			);
@@ -1084,6 +1118,7 @@
 		B9AFCF7F2A19EEBA0087A0FF /* ToDoFlow */ = {
 			isa = PBXGroup;
 			children = (
+				B94CA0F32A39A9C600047865 /* OtherEventEditingCoordinator.swift */,
 				B979889F2AB42726002B8EE9 /* Protocols */,
 				B9AFCF902A19F1EA0087A0FF /* ToDoCoordinator.swift */,
 				B9AFCF872A19F0E10087A0FF /* Controllers */,
@@ -1094,6 +1129,7 @@
 		B9AFCF802A19EEFA0087A0FF /* UserSetupFlow */ = {
 			isa = PBXGroup;
 			children = (
+				B9AFCF7A2A19EE540087A0FF /* AuthenticationFlow */,
 				B9AFCF922A19F1F50087A0FF /* UserSetupCoordinator.swift */,
 				B9AFCF862A19F0D60087A0FF /* Controllers */,
 			);
@@ -1112,11 +1148,6 @@
 		B9AFCF822A19EF590087A0FF /* ParentControllers+FlowUtility */ = {
 			isa = PBXGroup;
 			children = (
-				1693E751247A487C003D4702 /* SwipeTableViewController.swift */,
-				B90D13F529845FE80093EB0C /* MasterForm.swift */,
-				B94CA0DA2A32C0FF00047865 /* Coordinators */,
-				B995493E2992F0D400442968 /* StudiumEventListViewController.swift */,
-				B97BB1662A0EF864008F1A5B /* AssignmentsOtherEventsViewController.swift */,
 			);
 			path = "ParentControllers+FlowUtility";
 			sourceTree = "<group>";
@@ -1191,6 +1222,7 @@
 		B9B41CFB2A26E83600239DD4 /* TabBarFlow */ = {
 			isa = PBXGroup;
 			children = (
+				B97988BF2AB43007002B8EE9 /* SubFlows */,
 				B94CA0CD2A2F0FFC00047865 /* Utility */,
 				B9B41CFC2A26E84400239DD4 /* Controllers */,
 				B9F1B2DC2A1DB96C006F1462 /* TabBarCoordinator.swift */,

@@ -12,10 +12,6 @@ import UIKit
 //TODO: Docstrings
 class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, LogoSelectionShowingCoordinator, AlertTimesSelectionShowingCoordinator, AssignmentEditingCoordinator, OtherEventEditingCoordinator {
     
-    
-    //TODO: Docstrings
-    var debug = false
-    
     //TODO: Docstrings
     weak var parentCoordinator: Coordinator?
     

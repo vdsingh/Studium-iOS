@@ -12,14 +12,8 @@ import UIKit
 //TODO: Docstrings
 class AssignmentsOtherEventsViewController: StudiumEventListViewController, AssignmentRefreshProtocol, ForegroundSubscriber {
     
-    
     //TODO: Docstrings
     var assignmentsExpandedIDSet = Set<String>()
-    
-    //    override func loadView() {
-    //        super.loadView()
-    //
-    //    }
     
     override func viewDidLoad() {
         if let sceneDelegate = self.sceneDelegate {
@@ -129,7 +123,6 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
             )
             
             cell.delegate = self
-            
             return cell
         }
         
@@ -145,7 +138,7 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
         self.displayedEvents[section].count
     }
     
-    //FIXME: Find a better way to handle this (generics)
+    // FIXME: Find a better way to handle this (generics)
     override func delete(at indexPath: IndexPath) {
         if let cell = self.tableView.cellForRow(at: indexPath) as? DeletableEventCell,
            let event = cell.event {

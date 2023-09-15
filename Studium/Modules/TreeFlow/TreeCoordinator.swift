@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class TreeCoordinator: NSObject, TabItemCoordinator {
-    var debug = false
 
     var tabItemInfo: TabItemConfig = .treeFlow
     

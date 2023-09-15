@@ -13,9 +13,6 @@ import UIKit
 class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, LogoSelectionShowingCoordinator, AlertTimesSelectionShowingCoordinator {
     
     // TODO: Docstrings
-    var debug = false
-    
-    // TODO: Docstrings
     weak var parentCoordinator: Coordinator?
     
     // TODO: Docstrings

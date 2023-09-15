@@ -12,8 +12,6 @@ import RAMAnimatedTabBarController
 // TODO: Docstrings
 class TabBarController: UITabBarController {
     
-    let debug = true
-    
     // TODO: Docstrings
     var tabItemCoordinators: [TabItemCoordinator]
     

@@ -11,9 +11,7 @@ import NotificationCenter
 
 /// Handles everything to do with scheduling notifications
 class NotificationService {
-    
-    let debug = false
-    
+
     /// The singleton
     static let shared = NotificationService()
     

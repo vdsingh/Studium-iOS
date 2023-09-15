@@ -11,9 +11,7 @@ import UIKit
 
 //TODO: Docstrings
 class AppCoordinator: NSObject, Coordinator {
-    
-    var debug = false
-    
+
     //TODO: Docstrings
     weak var parentCoordinator: Coordinator? = nil
     

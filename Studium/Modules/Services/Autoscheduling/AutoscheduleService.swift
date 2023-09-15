@@ -21,8 +21,6 @@ protocol AutoscheduleServiceProtocol {
 //TODO: Docstrings
 final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol {
     
-    var debug = true
-    
     //TODO: Docstrings
     let databaseService: DatabaseService
     

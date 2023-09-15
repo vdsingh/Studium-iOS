@@ -11,9 +11,6 @@ import UIKit
 
 //TODO: Docstrings
 class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator, AlertTimesSelectionShowingCoordinator, AssignmentEditingCoordinator, OtherEventEditingCoordinator {
-    
-    //TODO: Docstrings
-    var debug = false
 
     //TODO: Docstrings
     weak var parentCoordinator: Coordinator?
