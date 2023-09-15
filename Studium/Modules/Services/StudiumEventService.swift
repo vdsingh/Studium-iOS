@@ -9,7 +9,6 @@
 import Foundation
 import RealmSwift
 
-
 /// This service wraps all the services for manipulating StudiumEvents (ex: DatabaseService, NotificationService, etc.)
 class StudiumEventService {
     

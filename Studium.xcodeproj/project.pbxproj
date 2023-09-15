@@ -526,7 +526,6 @@
 			children = (
 				B97058F12A88BDA0008F8636 /* Sounds */,
 				B9A492332A493370006E6A32 /* Studium.entitlements */,
-				B9AFCF822A19EF590087A0FF /* ParentControllers+FlowUtility */,
 				B9AFCF792A19EE4E0087A0FF /* Modules */,
 				B96E6A5D2983464900A25457 /* Utility */,
 				1693E74C247A463D003D4702 /* Models */,
@@ -887,6 +886,8 @@
 		B97988BC2AB42F27002B8EE9 /* StudiumForm */ = {
 			isa = PBXGroup;
 			children = (
+				B94CA0C92A2DABA000047865 /* StudiumEventFormCoordinator.swift */,
+				B90D143F298999AB0093EB0C /* StudiumFormError.swift */,
 				B97988A82AB42CF0002B8EE9 /* AlertTimeSelection */,
 				B97988A52AB42C62002B8EE9 /* LogoSelection */,
 				B90D13F529845FE80093EB0C /* MasterForm.swift */,
@@ -904,13 +905,6 @@
 				B9AFCF732A19E3160087A0FF /* AppCoordinator.swift */,
 			);
 			path = CoordinatorUtility;
-			sourceTree = "<group>";
-		};
-		B97988BE2AB42F9E002B8EE9 /* TabFlows */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TabFlows;
 			sourceTree = "<group>";
 		};
 		B97988BF2AB43007002B8EE9 /* SubFlows */ = {
@@ -1055,7 +1049,6 @@
 			isa = PBXGroup;
 			children = (
 				B96E6A5A298323CC00A25457 /* Services */,
-				B97988BE2AB42F9E002B8EE9 /* TabFlows */,
 				B97988BD2AB42F37002B8EE9 /* CoordinatorUtility */,
 				B97988BB2AB42F18002B8EE9 /* StudiumEventList */,
 				B97988A42AB42BF6002B8EE9 /* TableViewForm */,
@@ -1145,18 +1138,9 @@
 			path = SettingsFlow;
 			sourceTree = "<group>";
 		};
-		B9AFCF822A19EF590087A0FF /* ParentControllers+FlowUtility */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "ParentControllers+FlowUtility";
-			sourceTree = "<group>";
-		};
 		B9AFCF832A19F06B0087A0FF /* GenericFormUtility */ = {
 			isa = PBXGroup;
 			children = (
-				B90D143F298999AB0093EB0C /* StudiumFormError.swift */,
-				B94CA0C92A2DABA000047865 /* StudiumEventFormCoordinator.swift */,
 			);
 			path = GenericFormUtility;
 			sourceTree = "<group>";
