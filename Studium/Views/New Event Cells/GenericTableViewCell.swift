@@ -25,10 +25,10 @@ class GenericTableViewCell: UITableViewCell {
     
     //TODO: Docstrings
     func loadData(event: StudiumEvent){
-        mainTextLabel.text = event.name
-        subTextLabel.text = event.location
+        self.mainTextLabel.text = event.name
+        self.subTextLabel.text = event.location
         
-        date1Label.text = event.startDate.format(with: "MMM d, h:mm a")
-        date2Label.text = event.endDate.format(with: "MMM d, h:mm a")
+        self.date1Label.text = event.startDate.format(with: "MMM d, h:mm a")
+        self.date2Label.text = event.endDate.format(with: "MMM d, h:mm a")
     }
 }
