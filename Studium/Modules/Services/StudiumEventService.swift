@@ -58,7 +58,7 @@ class StudiumEventService {
                         Log.g("successfully created apple calendar event \(appleCalendarEvent.calendarItemIdentifier) and linked it to StudiumEvent \(studiumEvent.name)")
                     case .failure(let error):
                         Log.e(error)
-                        PopUpService.shared.presentToast(title: "Error Adding Event to Apple Calendar", description: "We were unable this event to Apple Calendar", popUpType: .failure)
+                        PopUpService.presentToast(title: "Error Adding Event to Apple Calendar", description: "We were unable this event to Apple Calendar", popUpType: .failure)
                     }
                 }
             }
@@ -77,7 +77,7 @@ class StudiumEventService {
                         }
                     case .failure(let error):
                         Log.e(error, additionalDetails: "calendar access is authorized but couldn't add event")
-                        PopUpService.shared.presentToast(title: "Error Adding Event to Google Calendar", description: "We were unable this event to Google Calendar", popUpType: .failure)
+                        PopUpService.presentToast(title: "Error Adding Event to Google Calendar", description: "We were unable this event to Google Calendar", popUpType: .failure)
                     }
                 }
             } else {

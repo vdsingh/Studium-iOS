@@ -123,7 +123,7 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
             self.coordinator?.showEditCourseViewController(refreshDelegate: self, courseToEdit: eventForEdit)
         } else {
             Log.e("Couldn't unwrap event as Course")
-            PopUpService.shared.presentGenericError()
+            PopUpService.presentGenericError()
         }
     }
     

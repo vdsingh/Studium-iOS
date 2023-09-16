@@ -47,7 +47,7 @@ enum GoogleSignInErrorCode: Int {
     }
     
     func showPopUpToUser() {
-        PopUpService.shared.presentToast(title: self.popUpTitle, description: self.popUpDescription, popUpType: self.popUpType)
+        PopUpService.presentToast(title: self.popUpTitle, description: self.popUpDescription, popUpType: self.popUpType)
     }
     
     static func extractErrorCode(from errorString: String) -> GoogleSignInErrorCode {

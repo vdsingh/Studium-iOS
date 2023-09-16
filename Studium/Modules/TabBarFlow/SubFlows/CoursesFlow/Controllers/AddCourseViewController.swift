@@ -103,7 +103,7 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
                 self.dismiss(animated: true, completion: delegate.loadCourses)
             } else {
                 Log.e("courseRefreshDelegate was nil. Didn't refresh list.")
-                PopUpService.shared.presentGenericError()
+                PopUpService.presentGenericError()
                 self.dismiss(animated: true)
             }
         } else {

@@ -102,7 +102,7 @@ class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefr
             Log.d("Attempting to edit OtherEvent: \(otherEvent)")
         } else {
             Log.e("Couldn't cast event as Assignment or OtherEvent when attempting to edit")
-            PopUpService.shared.presentGenericError()
+            PopUpService.presentGenericError()
         }
     }
     

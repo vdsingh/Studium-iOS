@@ -163,7 +163,7 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
                     self.studiumEventService.deleteStudiumEvent(event)
                 } else {
                     Log.e("Failed to retrieve studiumEvent by ID to delete it.", additionalDetails: "Event type: \(eventType)")
-                    PopUpService.shared.presentGenericError()
+                    PopUpService.presentGenericError()
                 }
             }
         }

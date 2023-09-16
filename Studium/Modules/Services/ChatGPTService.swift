@@ -15,7 +15,14 @@ class ChatGPTService {
     
     private init() { }
         
-    let api = ChatGPTAPI(apiKey: SecretsService.getOpenAIAPIKey() ?? "")
+    lazy var api: ChatGPTAPI? = {
+        guard let apiKey = SecretsService.getOpenAIAPIKey() else {
+            Log.e("Unable to retrieve ChatGPT API Key")
+            return nil
+        }
+        
+        return ChatGPTAPI(apiKey: apiKey)
+    }()
     
     //TODO: Docstrings
     func generateResources(forAssignment assignment: Assignment, keywords: [String]) {
@@ -28,8 +35,16 @@ class ChatGPTService {
                     assignment.thaw()?.resourcesAreLoading = true
                 }
                 
+                guard let api = self.api else {
+                    PopUpService.presentChatGPTUnavailableError()
+                    return
+                }
+                
                 let response = try await api.sendMessage(text: message, temperature: 0)
-                let safeAssignment = DatabaseService.shared.getStudiumEvent(withID: assignmentKey, type: Assignment.self)!
+                guard let safeAssignment = DatabaseService.shared.getStudiumEvent(withID: assignmentKey, type: Assignment.self) else {
+                    PopUpService.presentGenericError()
+                    return
+                }
 
                 let linkConfigs = self.parseLinks(fromMessage: response)
                 DatabaseService.shared.realmWrite { _ in
@@ -41,9 +56,9 @@ class ChatGPTService {
             } catch {
                 // TODO: Error handle
                 Log.e(error)
-                PopUpService.shared.presentGenericError()
+                PopUpService.presentChatGPTUnavailableError()
                 DatabaseService.shared.realmWrite { _ in
-                    assignment.resourcesAreLoading = false
+                    assignment.thaw()?.resourcesAreLoading = false
                 }
             }
         }
@@ -65,5 +80,11 @@ class ChatGPTService {
         }
         
         return links
+    }
+}
+
+extension PopUpService {
+    static func presentChatGPTUnavailableError() {
+        self.presentError(title: "Error accessing ChatGPT", description: "Please try again later")
     }
 }
