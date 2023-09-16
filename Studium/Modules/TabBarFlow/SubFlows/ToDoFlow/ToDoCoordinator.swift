@@ -25,7 +25,7 @@ class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator
     var formNavigationController: UINavigationController?
     
     //TODO: Docstrings
-    var tabItemInfo: TabItemConfig = .toDoFlow
+    var tabItemConfig: TabItemConfig = .toDoFlow
     
     //TODO: Docstrings
     required init(_ navigationController: UINavigationController) {
@@ -48,8 +48,8 @@ class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator
     func showToDoListViewController() {
         let rootVC = ToDoListViewController.instantiate()
         rootVC.coordinator = self
-        rootVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.images.unselected, tag: self.tabItemInfo.orderNumber)
-        rootVC.tabBarItem.selectedImage = self.tabItemInfo.images.selected
+        rootVC.tabBarItem = UITabBarItem(title: self.tabItemConfig.title, image: self.tabItemConfig.images.unselected, tag: self.tabItemConfig.orderNumber)
+        rootVC.tabBarItem.selectedImage = self.tabItemConfig.images.selected
         self.navigationController.pushViewController(rootVC, animated: false)
     }
     

@@ -13,9 +13,4 @@ protocol NavigationCoordinator: Coordinator {
     
     //TODO: Docstrings
     var navigationController: UINavigationController { get set }
-    
-    //TODO: Docstrings
-//    init(_ navigationController: UINavigationController)
-    
-//    init()
 }

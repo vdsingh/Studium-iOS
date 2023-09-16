@@ -103,7 +103,7 @@ extension TableViewForm {
             cell.formCellID = formCellID
             cell.picker.datePickerMode = timePickerMode
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = dateFormat.rawValue
+            dateFormatter.dateFormat = dateFormat
             cell.picker.setDate(date, animated: true)
             return cell
         case .datePickerCell:

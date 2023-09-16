@@ -73,7 +73,7 @@ struct SettingsView: View {
     let databaseService: DatabaseService = .shared
     let studiumEventService: StudiumEventService = .shared
     let presentingViewController: UIViewController
-    let alertTimeDelegate: AlertTimeHandler?
+    let alertTimeDelegate: AlertTimeHandler
     weak var coordinator: SettingsCoordinator?
     
     var appleCalendarIsAuthorized: Bool {
@@ -281,8 +281,8 @@ extension SettingsViewController: AlertTimeHandler {
     }
 }
 
-struct SettingsPreview: PreviewProvider {
-    static var previews: some View {
-        SettingsView(presentingViewController: UIViewController(), alertTimeDelegate: nil)
-    }
-}
+//struct SettingsPreview: PreviewProvider {
+//    static var previews: some View {
+//        SettingsView(presentingViewController: UIViewController(), alertTimeDelegate: nil)
+//    }
+//}

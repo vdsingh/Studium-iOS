@@ -83,8 +83,8 @@ class OtherEventCell: DeletableEventCell {
         
         self.iconImageView.isHidden = true
         self.subLabel.text = otherEvent.location
-        self.startTimeLabel.text = otherEvent.startDate.format(with: DateFormat.fullDateWithTime.rawValue)
-        self.endTimeLabel.text = otherEvent.endDate.format(with: DateFormat.fullDateWithTime.rawValue)
+        self.startTimeLabel.text = otherEvent.startDate.format(with: DateFormat.fullDateWithTime)
+        self.endTimeLabel.text = otherEvent.endDate.format(with: DateFormat.fullDateWithTime)
     }
     
     //TODO: Docstrings
@@ -101,10 +101,10 @@ class OtherEventCell: DeletableEventCell {
         self.subLabel.text = secondaryText
         self.subLabel.textColor = contrastingColor
         
-        self.startTimeLabel.text = startDate.format(with: DateFormat.standardTime.formatString)
+        self.startTimeLabel.text = startDate.format(with: DateFormat.standardTime)
         self.startTimeLabel.textColor = contrastingColor
 
-        self.endTimeLabel.text = endDate.format(with: DateFormat.standardTime.formatString)
+        self.endTimeLabel.text = endDate.format(with: DateFormat.standardTime)
         self.endTimeLabel.textColor = contrastingColor
         
         self.backgroundColor = cellColor

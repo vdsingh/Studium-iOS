@@ -10,8 +10,6 @@ import Foundation
 import RealmSwift
 import GoogleSignIn
 
-// MARK: - Google Authentication
-
 extension AuthenticationService {
     
     func addScopes(

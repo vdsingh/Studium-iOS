@@ -11,7 +11,7 @@ import UIKit
 
 class TreeCoordinator: NSObject, TabItemCoordinator {
 
-    var tabItemInfo: TabItemConfig = .treeFlow
+    var tabItemConfig: TabItemConfig = .treeFlow
     
     var navigationController: UINavigationController
     
@@ -31,8 +31,8 @@ class TreeCoordinator: NSObject, TabItemCoordinator {
     }
     
     func start() {
-        self.navigationController.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.images.unselected, tag: self.tabItemInfo.orderNumber)
-        self.navigationController.tabBarItem.selectedImage = self.tabItemInfo.images.selected
+        self.navigationController.tabBarItem = UITabBarItem(title: self.tabItemConfig.title, image: self.tabItemConfig.images.unselected, tag: self.tabItemConfig.orderNumber)
+        self.navigationController.tabBarItem.selectedImage = self.tabItemConfig.images.selected
         let treeVC = TreeViewController()
         self.navigationController.pushViewController(treeVC, animated: true)
     }

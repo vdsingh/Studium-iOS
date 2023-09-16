@@ -73,7 +73,7 @@ class NotificationService {
                     title = "\(name) starts in \(alertTimeValue / 60) hours"
                 }
                 
-                let timeFormat = startDate.format(with: "h:mm a")
+                let timeFormat = startDate.format(with: DateFormat.standardTime)
                 
                 
                 let identifier = UUID().uuidString
@@ -103,7 +103,7 @@ class NotificationService {
             self.scheduleNotification (
                 components: components,
                 body: "",
-                titles: "\(name) due at \(dueDate.format(with: "h:mm a"))",
+                titles: "\(name) due at \(dueDate.format(with: DateFormat.standardTime))",
                 repeats: false,
                 identifier: identifier
             )

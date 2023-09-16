@@ -45,8 +45,7 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         Log.d("Selected row \(indexPath.row)")
-        if let assignment = self.displayedEvents[indexPath.section][indexPath.row] as? Assignment,
-           let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentTableViewCell {
+        if let assignment = self.displayedEvents[indexPath.section][indexPath.row] as? Assignment {
             
             let vc = AssignmentViewController(
                 assignment: assignment,

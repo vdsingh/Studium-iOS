@@ -73,11 +73,11 @@ struct OtherEventCellView: View {
                     
                     VStack(alignment: .trailing) {
                         Spacer()
-                        Text(self.otherEvent.startDate.format(with: DateFormat.fullDateWithTime.formatString))
+                        Text(self.otherEvent.startDate.format(with: DateFormat.fullDateWithTime))
                             .font(StudiumFont.body.font)
                             .foregroundStyle(self.textColor)
                         Spacer()
-                        Text(self.otherEvent.endDate.format(with: DateFormat.fullDateWithTime.formatString))
+                        Text(self.otherEvent.endDate.format(with: DateFormat.fullDateWithTime))
                             .font(StudiumFont.body.font)
                             .foregroundStyle(self.textColor)
                         Spacer()

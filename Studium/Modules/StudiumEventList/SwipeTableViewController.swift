@@ -1,9 +1,9 @@
 //
 //  SwipeTableViewController.swift
-//  Todoey
+//  Studium
 //
 //  Created by Vikram Singh on 5/23/20.
-//  Copyright © 2020 App Brewery. All rights reserved.
+//  Copyright © 2020 Vikram Singh. All rights reserved.
 //
 
 import UIKit

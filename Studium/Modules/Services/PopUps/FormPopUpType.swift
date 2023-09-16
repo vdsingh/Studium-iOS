@@ -10,7 +10,7 @@ import Foundation
 import SwiftEntryKit
 import UIKit
 
-
+// TODO: Docstrings, Investigate whole file and lint
 enum FormPopUpType {
     case reportAProblem
     

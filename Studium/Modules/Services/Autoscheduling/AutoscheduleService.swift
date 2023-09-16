@@ -18,7 +18,7 @@ protocol AutoscheduleServiceProtocol {
     //    func findAllApplicableDatesBetween(startDate: Date, endDate: Date, weekdays: Set<Weekday>) -> [Date]
 }
 
-//TODO: Docstrings
+/// Handles any autoscheduling logic
 final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol {
     
     //TODO: Docstrings
@@ -31,6 +31,7 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol {
         self.databaseService = databaseService
     }
     
+    //TODO: Docstrings
     func createAutoscheduledEvents<T: Autoscheduling>(
         forAutoschedulingEvent event: T,
         completion: @escaping ([T.AutoscheduledEventType]) -> Void

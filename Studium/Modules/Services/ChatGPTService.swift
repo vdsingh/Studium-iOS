@@ -9,7 +9,7 @@
 import Foundation
 import ChatGPTSwift
 
-// TODO: Docstrings 
+/// Service client to interact with Chat GPT endpoints
 class ChatGPTService {
     static let shared = ChatGPTService()
     
@@ -17,6 +17,7 @@ class ChatGPTService {
         
     let api = ChatGPTAPI(apiKey: SecretsService.getOpenAIAPIKey() ?? "")
     
+    //TODO: Docstrings
     func generateResources(forAssignment assignment: Assignment, keywords: [String]) {
         let message = "I need to complete a school assignment represented with these key phrases: [\(keywords.joined(separator: ","))]. Provide me with three links to resources in a list with the following format: <%>Title<$>URL<%>Title<$>URL<%>Title<$>URL<%>. Provide no extra words and strictly follow the format."
         let assignmentKey = assignment._id
@@ -35,9 +36,10 @@ class ChatGPTService {
                     safeAssignment.resourceLinks = linkConfigs
                     safeAssignment.resourcesAreLoading = false
                 }
+                
                 Log.d("ChatGPT Response: \(response)")
             } catch {
-                //TODO: Error handle
+                // TODO: Error handle
                 Log.e(error)
                 PopUpService.shared.presentGenericError()
                 DatabaseService.shared.realmWrite { _ in
@@ -50,7 +52,6 @@ class ChatGPTService {
     func parseLinks(fromMessage message: String) -> [LinkConfig] {
         let separator = "<%>"
         let components = message.components(separatedBy: separator)
-        
         var links: [LinkConfig] = []
         
         for component in components {

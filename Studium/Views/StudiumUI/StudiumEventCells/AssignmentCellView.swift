@@ -68,7 +68,7 @@ struct AssignmentCellView: View {
                             }
                             
                             Spacer()
-                            Text(self.assignment.endDate.format(with: DateFormat.fullDateWithTime.formatString))
+                            Text(self.assignment.endDate.format(with: DateFormat.fullDateWithTime))
                                 .font(StudiumFont.body.font)
                                 .foregroundStyle(self.textColor)
                         }

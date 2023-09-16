@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import RealmSwift
 
+// TODO: Docstrings
 struct AutoschedulingConfig: Codable {
     
     /// The amount of time (in minutes) that autoscheduled events should be scheduled for
@@ -16,7 +18,7 @@ struct AutoschedulingConfig: Codable {
     /// Whether we want to continuously autoschedule this event so long as it exists (otherwise, we'll use the event's endDate)
     var autoscheduleInfinitely: Bool
     
-    // TODO: Docstrings
+    /// Whether we use start date and end date as bounds for what time to autoschedule the event
     var useDatesAsBounds: Bool
     
     private var autoschedulingDaysList = List<Int>()
@@ -34,6 +36,7 @@ struct AutoschedulingConfig: Codable {
         }
     }
     
+    // TODO: Docstrings
     init(autoLengthMinutes: Int, autoscheduleInfinitely: Bool, useDatesAsBounds: Bool, autoschedulingDays: Set<Weekday>) {
         self.autoLengthMinutes = autoLengthMinutes
         self.autoscheduleInfinitely = autoscheduleInfinitely

@@ -44,7 +44,7 @@ public enum FormCell: Equatable {
     case timeCell(
         cellText: String,
         date: Date,
-        dateFormat: DateFormat,
+        dateFormat: String,
         timePickerMode: UIDatePicker.Mode,
         id: FormCellID.TimeCellID,
         onClick: ((IndexPath) -> Void)?
@@ -52,7 +52,7 @@ public enum FormCell: Equatable {
     
     case timePickerCell(
         date: Date,
-        dateFormat: DateFormat,
+        dateFormat: String,
         timePickerMode: UIDatePicker.Mode,
         id: FormCellID.TimePickerCellID,
         delegate: UITimePickerDelegate
@@ -86,13 +86,13 @@ public enum FormCell: Equatable {
         dataSource: UIPickerViewDataSource
     )
     
-    
     case logoCell(
         logo: UIImage,
         onClick: (() -> Void)? = nil
     )
 }
 
+// TODO: Remove and use callbacks instead
 /// IDs for FormCells that we can use instead of hardcoded strings
 public enum FormCellID {
     

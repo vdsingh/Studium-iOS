@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import SwiftEntryKit
-
 import SwiftUI
 
 enum ToastPopUpType {
@@ -41,7 +40,6 @@ class PopUpService {
     
     private init() { }
     
-    
     /// Presents a message at the top of the screen to display info to the user
     /// - Parameters:
     ///   - title: Title text displayed
@@ -68,6 +66,7 @@ class PopUpService {
         self.presentToast(title: "An Error Occurred", description: "Please try again later.", popUpType: .failure)
     }
     
+    // TODO: Investigate and lint
     func presentDeleteAlert(deleteWasPressed: @escaping () -> Void) {
         DispatchQueue.main.async {
             var attributes: EKAttributes = .centerFloat

@@ -34,12 +34,12 @@ class DayScheduleViewController: DayViewController, Storyboarded {
         style.header.daySelector.todayInactiveTextColor = StudiumColor.primaryAccent.uiColor
         
         style.header.daySelector.todayActiveBackgroundColor = StudiumColor.primaryAccent.uiColor
-
+        
         style.header.swipeLabel.textColor = StudiumColor.primaryLabel.uiColor
         
         style.header.daySymbols.weekDayColor = StudiumColor.primaryLabel.uiColor
         style.header.daySymbols.weekendColor = StudiumColor.secondaryLabel.uiColor
-
+        
         
         
         style.timeline.backgroundColor = StudiumColor.secondaryBackground.uiColor
@@ -105,22 +105,22 @@ class DayScheduleViewController: DayViewController, Storyboarded {
             
             // Is the event recurring?
             if let recurringEvent = studiumEvent as? RecurringStudiumEvent {
-            if let studiumEvent = studiumEvent as? CompletableStudiumEvent {
-                if studiumEvent.complete {
-                    attributedString.addAttributes([
-                        NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                        NSAttributedString.Key.strikethroughColor: UIColor.label,
-                    ], range: NSMakeRange(0, attributedString.length))
+                if let studiumEvent = studiumEvent as? CompletableStudiumEvent {
+                    if studiumEvent.complete {
+                        attributedString.addAttributes([
+                            NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
+                            NSAttributedString.Key.strikethroughColor: UIColor.label,
+                        ], range: NSMakeRange(0, attributedString.length))
+                    }
+                }
+                
+                if newEvent.dateInterval.start <= newEvent.dateInterval.end {
+                    events.append(newEvent)
+                } else {
+                    // FIXME: Investigate
                 }
             }
-
-            if newEvent.dateInterval.start <= newEvent.dateInterval.end {
-                events.append(newEvent)
-            } else {
-                // FIXME: Investigate
-            }
         }
-        
         return events
     }
     
@@ -133,18 +133,18 @@ class DayScheduleViewController: DayViewController, Storyboarded {
             Log.d("Wake up time for \(date.weekdayValue) was nil or mismatched the requested date. Wake Up Time: \(String(describing: self.databaseService.getUserSettings().getWakeUpTime(for: date))), Requested: \(date)")
             return nil
         }
-
+        
         let anHourAgo = wakeUpTime - (60 * 60)
         let newEvent = Event()
         newEvent.dateInterval.start = anHourAgo
         newEvent.dateInterval.end = wakeUpTime
         newEvent.color = UIColor.yellow
         
-        let string = "\(wakeUpTime.format(with: DateFormat.standardTime.rawValue)): Wake Up"
+        let string = "\(wakeUpTime.format(with: DateFormat.standardTime)): Wake Up"
         let attributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
         let attributedString = NSMutableAttributedString(string: string, attributes: attributes)
         newEvent.attributedText = attributedString
-
+        
         return newEvent
     }
     
@@ -168,10 +168,10 @@ class DayScheduleViewController: DayViewController, Storyboarded {
         if let event = self.createWakeTimeEvent(for: date) {
             events.append(event)
         }
-
+        
         return events
     }
-        
+    
     // MARK: DayViewDelegate
     
     // TODO: Docstrings
@@ -220,7 +220,7 @@ class DayScheduleViewController: DayViewController, Storyboarded {
         // Cancel editing current event and start creating a new one
         self.endEventEditing()
     }
-
+    
     func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
         Log.d("did finish editing lol \(event)")
         Log.d("new startDate: \(event.dateInterval.start) new endDate: \(event.dateInterval.end)")

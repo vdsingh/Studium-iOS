@@ -8,7 +8,7 @@
 
 import Foundation
 
-//TODO: Docstrings
+/// User-caused errors that can occur in a form
 enum StudiumFormError: FormError {
     case nameNotSpecified
     case oneDayNotSpecified

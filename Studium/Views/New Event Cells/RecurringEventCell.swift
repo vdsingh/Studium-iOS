@@ -68,8 +68,8 @@ class RecurringEventCell: DeletableEventCell {
         self.nameLabel.textColor = color
         self.locationLabel.text = recurringEvent.location
 
-        var timeText = startTime.format(with: DateFormat.standardTime.rawValue)
-        timeText.append(" - \(endTime.format(with: DateFormat.standardTime.rawValue))")
+        var timeText = startTime.format(with: DateFormat.standardTime)
+        timeText.append(" - \(endTime.format(with: DateFormat.standardTime))")
         self.timeLabel.text = timeText
         
         for dayBox in dayBoxes {
