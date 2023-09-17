@@ -74,7 +74,7 @@ extension AppleCalendarService {
         forStudiumEvent studiumEvent: StudiumEvent,
         completion: @escaping (Result<EKEvent, Error>) -> Void
     ) {
-        if self.authorizationStatus == .authorized {
+        if self.isAuthorized {
             guard let event = self.getEKEvent(forStudiumEvent: studiumEvent) else {
                 Log.e("Tried to retrieve EKEvent for studiumEvent \(studiumEvent) when updating but couldn't.")
                 completion(.failure(AppleCalendarServiceError.failedToRetrieveEventFromID))
@@ -89,7 +89,7 @@ extension AppleCalendarService {
             
             self.saveEKEvent(event, completion: completion)
         } else {
-            Log.w("event for StudiumEvent \(studiumEvent.name) was not updated in apple calendar due to authorization status \(self.authorizationStatus)")
+            Log.w("event for StudiumEvent \(studiumEvent.name) was not updated in apple calendar due to invalid authorization status")
             completion(.failure(AppleCalendarServiceError.invalidAuthorizationStatus))
         }
     }
@@ -122,8 +122,38 @@ extension AppleCalendarService {
         
         self.deleteEKEvent(event: event, completion: completion)
     }
+        
+    // MARK: - Sync/Unsync
     
-    // TODO: Docstring
+    /// Unsync from the apple calendar by deleting all apple calendar events and marking isSynced to false
+    /// - Parameter completion: Completion once unsync has finished
+    func unsyncCalendar(completion: @escaping () -> Void) {
+        let allStudiumEvents = DatabaseService.shared.getAllStudiumObjects()
+
+        if allStudiumEvents.isEmpty {
+            completion()
+        } else {
+            for i in 0..<allStudiumEvents.count {
+                let studiumEvent = allStudiumEvents[i]
+                self.deleteEvent(forStudiumEvent: studiumEvent) { error in
+                    if let error {
+                        Log.e(error, additionalDetails: "Error deleting apple calendar event when unsyncing.")
+                    }
+                    
+                    if i == allStudiumEvents.count - 1 {
+                        completion()
+                    }
+                }
+            }
+        }
+        
+        self.showPopUp(popUpOption: .successfullyUnsynced)
+        self.isSynced = false
+    }
+    
+    
+    /// Sync with the apple calendar by creating apple calendar events for all studium events and marking isSynced to true
+    /// - Parameter completion: Completion once sync has finished
     func syncCalendar(
         completion: @escaping (Result<[EKEvent], Error>) -> Void
     ) {
@@ -136,35 +166,38 @@ extension AppleCalendarService {
                 
                 // Retrieve all StudiumEvents within the thread they'll be used.
                 let allStudiumEvents = DatabaseService.shared.getAllStudiumObjects() 
-                
-                var events = [EKEvent]()
-                
-                // Iterate through all events
-                for i in 0..<allStudiumEvents.count {
-                    let studiumEvent = allStudiumEvents[i]
-                    
-                    // Create an Apple Calendar event for the StudiumEvent
-                    self.createEvent(forStudiumEvent: studiumEvent) { result in
-                        switch result {
-                        case .success(let event):
-                            events.append(event)
-                            Log.g("Created apple calendar event for event \(event)")
-                        case .failure(let error):
-                            Log.e(error, additionalDetails: "tried to add event \(studiumEvent) while syncing calendar but failed.")
-                            self.showPopUp(popUpOption: .failedToAddEvent)
-                        }
+                                
+                if allStudiumEvents.isEmpty {
+                    completion(.success([]))
+                } else {
+                    // Iterate through all events
+                    for i in 0..<allStudiumEvents.count {
+                        var events = [EKEvent]()
+                        let studiumEvent = allStudiumEvents[i]
                         
-                        // If this was the last event, call the completion handler
-                        if i == allStudiumEvents.count - 1 {
-                            completion(.success(events))
+                        // Create an Apple Calendar event for the StudiumEvent
+                        self.createEvent(forStudiumEvent: studiumEvent) { result in
+                            switch result {
+                            case .success(let event):
+                                events.append(event)
+                                Log.g("Created apple calendar event for event \(event)")
+                            case .failure(let error):
+                                Log.e(error, additionalDetails: "tried to add event \(studiumEvent) while syncing calendar but failed.")
+                                self.showPopUp(popUpOption: .failedToAddEvent)
+                            }
+                            
+                            // If this was the last event, call the completion handler
+                            if i == allStudiumEvents.count - 1 {
+                                completion(.success(events))
+                            }
                         }
                     }
                 }
                 
+                self.isSynced = true
                 self.showPopUp(popUpOption: .successfullySynced)
             } else {
                 self.showPopUp(popUpOption: .failedToAccessCalendar)
-                Log.d("Authorization Status: \(self.authorizationStatus)")
                 completion(.failure(AppleCalendarServiceError.invalidAuthorizationStatus))
             }
         }

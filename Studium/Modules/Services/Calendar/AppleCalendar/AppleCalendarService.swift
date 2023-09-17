@@ -8,30 +8,58 @@
 
 import Foundation
 import EventKit
+import SwiftUI
 
-
-protocol AppleCalendarEvent {
-    var ekEventID: String? { get set }
+extension UserDefaultsKeys {
+    /// Bool for whether the apple calendar is synced
+    static let appleCalendarIsSynced = "appleCalendarIsSynced"
+    
+    /// String for the associated apple calendar ID
+    static let appleCalendarID = "appleCalendarID"
 }
 
-
 /// Service to interact with Apple Calendar (through EventKit)
-class AppleCalendarService {
+class AppleCalendarService: ObservableObject {
     
-    /// Singleton
+    /// Singleton instance
     static let shared = AppleCalendarService()
+
+    /// Whether Studium is synced to apple calendar (stored in UserDefaults)
+    @AppStorage(UserDefaultsKeys.appleCalendarIsSynced) var isSynced = false
     
-    private init() {}
+    /// Apple Calendar ID
+    @AppStorage(UserDefaultsKeys.appleCalendarID) var appleCalendarID: String = ""
     
-    // TODO: Docstrings
-    let eventStore = EKEventStore()
+    /// Whether the app is authorized to access the apple calendar
+    var isAuthorized: Bool {
+        if #available(iOS 17.0, *) {
+            return self.authorizationStatus == .fullAccess
+        } else {
+            return self.authorizationStatus == .authorized
+        }
+    }
     
-    // TODO: Docstrings
+    /// The total number of events saved to apple calendar
+    var totalEventCount: Int {
+        let predicate = self.eventStore.predicateForEvents(withStart: .distantPast, end: .distantFuture, calendars: self.eventStore.calendars(for: .event))
+        let events = self.eventStore.events(matching: predicate)
+        Log.d("Apple calendar events: \(events)")
+        return events.count
+    }
+    
+    private let eventStore = EKEventStore()
     private let calendarName = "Studium Calendar"
+    private let defaults: UserDefaults = .standard
+    
+    /// Force singleton usage
+    private init() {}
     
     // MARK: - Create
     
-    // TODO: Docstrings
+    /// Saves an EKEvent to the EKEventStore
+    /// - Parameters:
+    ///   - event: The EKEvent to save to the store
+    ///   - completion: Called after event has been saved (or an error occurred)
     func saveEKEvent(
         _ event: EKEvent,
         completion: @escaping (Result<EKEvent, Error>) -> Void
@@ -46,7 +74,14 @@ class AppleCalendarService {
         }
     }
     
-    // TODO: Docstrings
+    /// Creates and returns an EKEvent with specified fields
+    /// - Parameters:
+    ///   - title: The title of the EKEvent
+    ///   - startDate: The start date of the EKEvent
+    ///   - endDate: The end date of the EKEvent
+    ///   - location: The location of the EKEvent
+    ///   - notes: Any additional notes or details associated with the EKEvent
+    /// - Returns: The EKEvent
     func createEKEvent(
         title: String,
         startDate: Date,
@@ -56,19 +91,19 @@ class AppleCalendarService {
     ) -> EKEvent {
         let newEvent = EKEvent(eventStore: self.eventStore)
         self.updateEKEvent(event: newEvent, title: title, startDate: startDate, endDate: endDate, location: location, notes: notes)
-        newEvent.calendar = self.getAppCalendar()
+        newEvent.calendar = self.getOrCreateAppCalendar()
         return newEvent
     }
     
     // MARK: - Read
     
-    /// Gets the Apple Calendar for the app
+    /// Gets the Apple Calendar for the app or creates one if there isn't one
     /// - Returns: The Apple Calendar for the app
-    func getAppCalendar() -> EKCalendar {
+    func getOrCreateAppCalendar() -> EKCalendar {
         
         // Attempt to retrieve the already existing calendar
-        if let calendarID = UserDefaultsService.shared.getAppleCalendarID(),
-           let calendar = self.eventStore.calendar(withIdentifier: calendarID) {
+        if !self.appleCalendarID.trimmed().isEmpty,
+           let calendar = self.eventStore.calendar(withIdentifier: self.appleCalendarID) {
             return calendar
         }
         
@@ -80,7 +115,7 @@ class AppleCalendarService {
         
         do {
             try self.eventStore.saveCalendar(newCalendar, commit: true)
-            UserDefaultsService.shared.setAppleCalendarID(newCalendar.calendarIdentifier)
+            self.appleCalendarID = newCalendar.calendarIdentifier
             return newCalendar
         } catch let error {
             Log.e(error)
@@ -88,7 +123,7 @@ class AppleCalendarService {
         }
     }
     
-    // TODO: Docstrings
+    /// Fetches an EKEvent by ID
     func getEKEvent(withID id: String) -> EKEvent? {
         return self.eventStore.event(withIdentifier: id)
     }
@@ -114,7 +149,10 @@ class AppleCalendarService {
     
     // MARK: - Delete
     
-    // TODO: Docstrings
+    /// Deletes an EKEvent from the apple calendar
+    /// - Parameters:
+    ///   - event: The event to delete
+    ///   - completion: Called once the event has been deleted (or an error has occurred)
     func deleteEKEvent(event: EKEvent, completion: @escaping (Error?) -> Void) {
         do {
             try self.eventStore.remove(event, span: .futureEvents, commit: true)
@@ -130,9 +168,12 @@ class AppleCalendarService {
 // MARK: - Utility
 
 extension AppleCalendarService {
-    
-    // TODO: Docstring
-    // Request access to the user's calendar
+    private var authorizationStatus: EKAuthorizationStatus {
+        return EKEventStore.authorizationStatus(for: .event)
+    }
+
+    /// Request access to the user's calendar
+    /// - Parameter completion: Called after access has been requested (where the bool is 'granted')
     func requestCalendarAccess(completion: @escaping (Bool) -> Void) {
         switch self.authorizationStatus {
         case .notDetermined:
@@ -145,6 +186,8 @@ extension AppleCalendarService {
                     completion(granted)
                 }
             }
+            
+        // FIXME: Show pop up for these cases
         case .restricted:
             completion(false)
         case .denied:
@@ -158,19 +201,17 @@ extension AppleCalendarService {
         }
     }
     
-    // TODO: Docstring
-//    func authorizationStatus() -> EKAuthorizationStatus {
-    var authorizationStatus: EKAuthorizationStatus {
-        return EKEventStore.authorizationStatus(for: .event)
-    }
-    
+    // TODO: Move to PopUpService extension
+
     enum AppleCalendarServicePopUpOption {
         case failedToAccessCalendar
         case failedToAddEvent
         case successfullySynced
+        case successfullyUnsynced
     }
     
-    // TODO: Docstring
+    /// Users PopUpService to present a pop up to the user
+    /// - Parameter popUpOption: The reason to show pop up
     func showPopUp(popUpOption: AppleCalendarServicePopUpOption) {
         switch popUpOption {
         case .failedToAccessCalendar:
@@ -178,7 +219,9 @@ extension AppleCalendarService {
         case .failedToAddEvent:
             PopUpService.presentToast(title: "Failed to add an event", description: "We've connected with your calendar, but couldn't add an event.", popUpType: .failure)
         case .successfullySynced:
-            PopUpService.presentToast(title: "Successfully Synced Calendar", description: "Events will now sync to your Apple Calendar.", popUpType: .success)
+            PopUpService.presentToast(title: "Successfully Synced Apple Calendar", description: "Studium is not synced with your Apple Calendar.", popUpType: .success)
+        case .successfullyUnsynced:
+            PopUpService.presentToast(title: "Successfully Unsynced Apple Calendar", description: "All Apple calendar events have been removed.", popUpType: .success)
         }
     }
 }

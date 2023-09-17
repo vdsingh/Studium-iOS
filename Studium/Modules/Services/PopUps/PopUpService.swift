@@ -27,7 +27,7 @@ enum ToastPopUpType {
     var image: UIImage {
         switch self {
         case .success:
-            return .strokedCheckmark
+            return SystemIcon.circleCheckmarkFill.uiImage
         case .failure:
             return .remove
         }
@@ -49,7 +49,7 @@ class PopUpService {
             
             let titleLabel = EKProperty.LabelContent(text: title, style: EKProperty.LabelStyle(font: .systemFont(ofSize: 18, weight: .semibold), color: EKColor(.white)))
             let descriptionLabel = EKProperty.LabelContent(text: description, style: EKProperty.LabelStyle(font: .systemFont(ofSize: 16, weight: .regular), color: EKColor(.white)))
-            let image = EKProperty.ImageContent(image: popUpType.image, size: CGSize(width: 32, height: 32), tint: popUpType.color, contentMode: .scaleAspectFill)
+            let image = EKProperty.ImageContent(image: popUpType.image, size: CGSize(width: 32, height: 32), tint: .white, contentMode: .scaleAspectFill)
             let simpleMessage = EKSimpleMessage(image: image, title: titleLabel, description: descriptionLabel)
             let notificationMessage = EKNotificationMessage(simpleMessage: simpleMessage)
             let entry = EKNotificationMessageView(with: notificationMessage)
