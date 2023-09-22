@@ -89,8 +89,7 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
                 endDate: self.endDate,
                 days: self.daysSelected,
                 icon: self.icon,
-                notificationAlertTimes: self.alertTimes,
-                partitionKey: AuthenticationService.shared.userID ?? ""
+                notificationAlertTimes: self.alertTimes
             )
             
             if let course = self.course {
