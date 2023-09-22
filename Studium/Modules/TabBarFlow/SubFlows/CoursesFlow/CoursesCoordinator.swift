@@ -55,10 +55,10 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
     
     //TODO: Docstrings
     func showAddCourseViewController(refreshDelegate: CourseRefreshProtocol) {
-        let addCourseVC = AddCourseViewController.instantiate()
+        let addCourseVC = AddCourseViewController2()
         let navController = UINavigationController(rootViewController: addCourseVC)
-        addCourseVC.delegate = refreshDelegate
-        addCourseVC.coordinator = self
+//        addCourseVC.delegate = refreshDelegate
+//        addCourseVC.coordinator = self
         self.navigationController.topViewController?.present(navController, animated: true)
         self.formNavigationController = navController
     }
