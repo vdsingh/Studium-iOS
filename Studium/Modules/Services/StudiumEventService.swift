@@ -49,7 +49,7 @@ class StudiumEventService {
         self.databaseService.saveStudiumObject(studiumEvent, realmWriteCompletion: {
             
             // Save to Apple Calendar if Authorized
-            if self.appleCalendarService.authorizationStatus == .authorized {
+            if self.appleCalendarService.isAuthorized {
                 
                 // Add an apple calendar event for the StudiumEvent
                 self.appleCalendarService.createEvent(forStudiumEvent: studiumEvent) { result in
@@ -110,7 +110,7 @@ class StudiumEventService {
             // Schedule Notifications
             self.notificationService.scheduleNotificationsFor(event: oldEvent)
 
-            if self.appleCalendarService.authorizationStatus == .authorized {
+            if self.appleCalendarService.isAuthorized {
 
                 // Update Apple Calendar Event
                 self.appleCalendarService.updateEvent(forStudiumEvent: oldEvent) { _ in }
@@ -156,7 +156,7 @@ class StudiumEventService {
             studiumEvent,
             eventWillDelete: {
                 NotificationService.shared.deleteAllPendingNotifications(for: studiumEvent)
-                if self.appleCalendarService.authorizationStatus == .authorized {
+                if self.appleCalendarService.isAuthorized {
                     self.appleCalendarService.deleteEvent(forStudiumEvent: studiumEvent) { _ in
                         
                         // Remove the Apple Calendar Event ID from the StudiumEvent

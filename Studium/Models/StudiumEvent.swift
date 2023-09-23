@@ -17,7 +17,7 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, GoogleCal
     @Persisted var _id: ObjectId = ObjectId.generate()
     
     /// partition key of the StudiumEvent
-    @Persisted var _partitionKey: String = ""
+    @Persisted var _partitionKey: String = AuthenticationService.shared.userID ?? UUID().uuidString
     
     /// The name of the StudiumEvent
     @Persisted var name: String = ""

@@ -20,7 +20,6 @@ struct StudiumLinkView: View {
             VStack(alignment: .leading) {
 
                 if let url = URL(string: self.linkConfig.link) {
-                    //TODO: Fix force unwrap
                     Link(destination: url) {
                         Text(self.linkConfig.label)
                             .multilineTextAlignment(.leading)

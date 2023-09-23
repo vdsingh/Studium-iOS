@@ -11,6 +11,7 @@ import UIKit
 
 /// Represents system icons.
 public enum SystemIcon: String, CaseIterable, CreatesUIImage {
+    case appleLogo = "apple.logo"
     case tree
     case treeFill = "tree.fill"
     case paragraphSign = "paragraphsign"

@@ -8,15 +8,14 @@
 
 import Foundation
 
+struct UserDefaultsKeys {
+    static let email = "email"
+    static let googleAccessTokenString = "googleAccessTokenString"
+    static let googleCalendarID = "googleCalendarID"
+}
+
 //TODO: Docstring
 final class UserDefaultsService {
-    
-    private enum Keys: String {
-        case appleCalendarID
-        case email
-        case googleAccessTokenString
-        case googleCalendarID
-    }
     
     //TODO: Docstrings
     static let shared = UserDefaultsService()
@@ -29,28 +28,28 @@ final class UserDefaultsService {
     
 //    private let widgetGroupDefaults = UserDefaults(suiteName: WidgetConstants.appGroupSuiteName)
     
-    func setAppleCalendarID(_ id: String) {
-        self.defaults.set(id, forKey: Keys.appleCalendarID.rawValue)
-    }
+//    func setAppleCalendarID(_ id: String) {
+//        self.defaults.set(id, forKey: UserDefaultsKeys.appleCalendarID)
+//    }
     
-    func getAppleCalendarID() -> String? {
-        return self.defaults.string(forKey: Keys.appleCalendarID.rawValue)
-    }
-    
+//    func getAppleCalendarID() -> String? {
+//        return self.defaults.string(forKey: UserDefaultsKeys.appleCalendarID)
+//    }
+//    
     func setGoogleCalendarID(_ id: String?) {
-        self.defaults.set(id, forKey: Keys.googleCalendarID.rawValue)
+        self.defaults.set(id, forKey: UserDefaultsKeys.googleCalendarID)
     }
     
     func getGoogleCalendarID() -> String? {
-        return self.defaults.string(forKey: Keys.googleCalendarID.rawValue)
+        return self.defaults.string(forKey: UserDefaultsKeys.googleCalendarID)
     }
     
     func setGoogleAccessTokenString(_ accessTokenString: String?) {
-        self.defaults.set(accessTokenString, forKey: Keys.googleAccessTokenString.rawValue)
+        self.defaults.set(accessTokenString, forKey: UserDefaultsKeys.googleAccessTokenString)
     }
     
     func getGoogleAccessTokenString() -> String? {
-        return self.defaults.string(forKey: Keys.googleAccessTokenString.rawValue)
+        return self.defaults.string(forKey: UserDefaultsKeys.googleAccessTokenString)
     }
     
     /// Stores data for the next ten assignments in UserDefaults to be used by Widgets

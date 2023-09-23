@@ -26,7 +26,7 @@ class ChatGPTService {
     
     //TODO: Docstrings
     func generateResources(forAssignment assignment: Assignment, keywords: [String]) {
-        let message = "I need to complete a school assignment represented with these key phrases: [\(keywords.joined(separator: ","))]. Provide me with three links to resources in a list with the following format: <%>Title<$>URL<%>Title<$>URL<%>Title<$>URL<%>. Provide no extra words and strictly follow the format."
+        let message = "I need to complete a school assignment represented with these key phrases: [\(keywords.joined(separator: ","))]. Provide me with three links to resources in a list with the following format: <%>Title<$>URL<%>Title<$>URL<%>Title<$>URL<%>. Strictly follow the format."
         let assignmentKey = assignment._id
         Task {
             do {
@@ -85,6 +85,6 @@ class ChatGPTService {
 
 extension PopUpService {
     static func presentChatGPTUnavailableError() {
-        self.presentError(title: "Error accessing ChatGPT", description: "Please try again later")
+        self.presentError(title: "Error accessing AI", description: "Please try again later")
     }
 }
