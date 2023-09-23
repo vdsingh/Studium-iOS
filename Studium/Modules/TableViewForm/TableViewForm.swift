@@ -118,7 +118,7 @@ extension TableViewForm {
             return cell
         case .colorPickerCellV2(let colors, let colorWasSelected):
             let cell = tableView.dequeueReusableCell(withIdentifier: ColorPickerCellV2.id, for: indexPath) as! ColorPickerCellV2
-            cell.host(parent: self, colors: colors, colorWasSelected: colorWasSelected)
+//            cell.host(parent: self, colors: colors, colorWasSelected: colorWasSelected)
             return cell
         case .pickerCell(_, let indices, let tag, let delegate, let dataSource):
             let cell = tableView.dequeueReusableCell(withIdentifier: PickerCell.id, for: indexPath) as! PickerCell

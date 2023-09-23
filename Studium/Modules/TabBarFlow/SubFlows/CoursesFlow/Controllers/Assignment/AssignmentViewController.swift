@@ -101,7 +101,7 @@ struct AssignmentViewStudyTime: View {
                     
                     HStack {
                         MiniIcon(image: SystemIcon.calendar.createImage())
-                        DaysView(selectedDays: autoschedulingConfig.autoschedulingDays)
+                        WeekdaysSelectedView(selectedDays: autoschedulingConfig.autoschedulingDays)
                     }
                 }
                 .padding(.leading, 30)
@@ -157,7 +157,7 @@ struct AssignmentViewAIResourceProvider: View {
                             .placeholder(when: self.keyword1.isEmpty, placeholder: {
                                 Text("Keyword 1").foregroundColor(StudiumFont.placeholder.color)
                             })
-                            .customTextFieldStyle()
+                            .withStudiumTextFieldStyle()
                         
                         TextField(
                             "",
@@ -166,13 +166,13 @@ struct AssignmentViewAIResourceProvider: View {
                         .placeholder(when: self.keyword2.isEmpty, placeholder: {
                             Text("Keyword 2").foregroundColor(StudiumFont.placeholder.color)
                         })
-                        .customTextFieldStyle()
+                        .withStudiumTextFieldStyle()
                         
                         TextField("", text: self.$keyword3)
                             .placeholder(when: self.keyword3.isEmpty, placeholder: {
                                 Text("Keyword 3").foregroundColor(StudiumFont.placeholder.color)
                             })
-                            .customTextFieldStyle()
+                            .withStudiumTextFieldStyle()
                         
                         Button {
                             ChatGPTService.shared.generateResources(forAssignment: self.assignment, keywords: self.keywords)

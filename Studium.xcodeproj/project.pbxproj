@@ -106,7 +106,7 @@
 		B96BEC742A806476005105B2 /* OtherEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96BEC732A806476005105B2 /* OtherEventViewController.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B97058EC2A88B493008F8636 /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058EB2A88B492008F8636 /* HabitViewController.swift */; };
-		B97058EE2A88B6F3008F8636 /* DaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058ED2A88B6F3008F8636 /* DaysView.swift */; };
+		B97058EE2A88B6F3008F8636 /* WeekdaysSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058ED2A88B6F3008F8636 /* WeekdaysSelectedView.swift */; };
 		B97058F02A88BD00008F8636 /* SoundEffectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058EF2A88BD00008F8636 /* SoundEffectService.swift */; };
 		B97058F32A88BDAE008F8636 /* celebration2.wav in Resources */ = {isa = PBXBuildFile; fileRef = B97058F22A88BDAE008F8636 /* celebration2.wav */; };
 		B97058F52A88BE62008F8636 /* celebration.wav in Resources */ = {isa = PBXBuildFile; fileRef = B97058F42A88BE62008F8636 /* celebration.wav */; };
@@ -122,6 +122,8 @@
 		B97988C12AB4366C002B8EE9 /* AuthenticationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97988C02AB4366C002B8EE9 /* AuthenticationError.swift */; };
 		B97988C32AB4385F002B8EE9 /* AlertTimeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97988C22AB4385F002B8EE9 /* AlertTimeHandler.swift */; };
 		B97988C52AB5694D002B8EE9 /* ToDoListRefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97988C42AB5694D002B8EE9 /* ToDoListRefreshProtocol.swift */; };
+		B97988C92AB5A207002B8EE9 /* AppleCalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97988C82AB5A206002B8EE9 /* AppleCalendarEvent.swift */; };
+		B97988CB2AB694C1002B8EE9 /* AddCourseViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97988CA2AB694C1002B8EE9 /* AddCourseViewController2.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
 		B97BB0972A00CBF9008F1A5B /* AutoscheduleServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0962A00CBF9008F1A5B /* AutoscheduleServiceTests.swift */; };
 		B97BB0A12A00D29A008F1A5B /* MockDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0A02A00D29A008F1A5B /* MockDatabaseService.swift */; };
@@ -145,6 +147,13 @@
 		B98693602A3E8A3400272B22 /* EKParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98693562A3E8A3300272B22 /* EKParticipant.swift */; };
 		B98693622A3E8A3400272B22 /* EKRecurrenceRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98693582A3E8A3300272B22 /* EKRecurrenceRule.swift */; };
 		B98693632A3E8A3400272B22 /* RFC5545.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98693592A3E8A3300272B22 /* RFC5545.swift */; };
+		B992193C2AB6CB1400E2FED3 /* StudiumTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B992193B2AB6CB1400E2FED3 /* StudiumTextField.swift */; };
+		B992193E2AB6E63600E2FED3 /* WeekdaysSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B992193D2AB6E63600E2FED3 /* WeekdaysSelectorView.swift */; };
+		B99219412ABD6E7200E2FED3 /* IconSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219402ABD6E7200E2FED3 /* IconSelectionButton.swift */; };
+		B99219432ABD6E9200E2FED3 /* NotificationSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219422ABD6E9200E2FED3 /* NotificationSelectionButton.swift */; };
+		B99219452ABD6ECD00E2FED3 /* EditCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219442ABD6ECD00E2FED3 /* EditCourseViewController.swift */; };
+		B99219472ABD6EF500E2FED3 /* CourseForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219462ABD6EF500E2FED3 /* CourseForm.swift */; };
+		B99219492ABD6F2300E2FED3 /* SwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219482ABD6F2300E2FED3 /* SwiftUIViewController.swift */; };
 		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
 		B9A165032AAD97FE005A23F6 /* ThirdPartyIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A164FF2AAD97FE005A23F6 /* ThirdPartyIcon.swift */; };
@@ -344,7 +353,7 @@
 		B96BEC732A806476005105B2 /* OtherEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventViewController.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B97058EB2A88B492008F8636 /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
-		B97058ED2A88B6F3008F8636 /* DaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysView.swift; sourceTree = "<group>"; };
+		B97058ED2A88B6F3008F8636 /* WeekdaysSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysSelectedView.swift; sourceTree = "<group>"; };
 		B97058EF2A88BD00008F8636 /* SoundEffectService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffectService.swift; sourceTree = "<group>"; };
 		B97058F22A88BDAE008F8636 /* celebration2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = celebration2.wav; sourceTree = "<group>"; };
 		B97058F42A88BE62008F8636 /* celebration.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = celebration.wav; sourceTree = "<group>"; };
@@ -360,6 +369,8 @@
 		B97988C02AB4366C002B8EE9 /* AuthenticationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationError.swift; sourceTree = "<group>"; };
 		B97988C22AB4385F002B8EE9 /* AlertTimeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTimeHandler.swift; sourceTree = "<group>"; };
 		B97988C42AB5694D002B8EE9 /* ToDoListRefreshProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListRefreshProtocol.swift; sourceTree = "<group>"; };
+		B97988C82AB5A206002B8EE9 /* AppleCalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleCalendarEvent.swift; sourceTree = "<group>"; };
+		B97988CA2AB694C1002B8EE9 /* AddCourseViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController2.swift; sourceTree = "<group>"; };
 		B97BB08129F7006E008F1A5B /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B97BB0942A00CBF9008F1A5B /* StudiumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudiumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B97BB0962A00CBF9008F1A5B /* AutoscheduleServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoscheduleServiceTests.swift; sourceTree = "<group>"; };
@@ -386,6 +397,13 @@
 		B98693582A3E8A3300272B22 /* EKRecurrenceRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EKRecurrenceRule.swift; sourceTree = "<group>"; };
 		B98693592A3E8A3300272B22 /* RFC5545.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFC5545.swift; sourceTree = "<group>"; };
 		B986935A2A3E8A3400272B22 /* RFC5545.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFC5545.h; sourceTree = "<group>"; };
+		B992193B2AB6CB1400E2FED3 /* StudiumTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumTextField.swift; sourceTree = "<group>"; };
+		B992193D2AB6E63600E2FED3 /* WeekdaysSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysSelectorView.swift; sourceTree = "<group>"; };
+		B99219402ABD6E7200E2FED3 /* IconSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectionButton.swift; sourceTree = "<group>"; };
+		B99219422ABD6E9200E2FED3 /* NotificationSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSelectionButton.swift; sourceTree = "<group>"; };
+		B99219442ABD6ECD00E2FED3 /* EditCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCourseViewController.swift; sourceTree = "<group>"; };
+		B99219462ABD6EF500E2FED3 /* CourseForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseForm.swift; sourceTree = "<group>"; };
+		B99219482ABD6F2300E2FED3 /* SwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewController.swift; sourceTree = "<group>"; };
 		B995493B2992EDD000442968 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
 		B995493E2992F0D400442968 /* StudiumEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventListViewController.swift; sourceTree = "<group>"; };
 		B9A164FF2AAD97FE005A23F6 /* ThirdPartyIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdPartyIcon.swift; sourceTree = "<group>"; };
@@ -542,15 +560,13 @@
 		1693E74B247A4634003D4702 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B99219482ABD6F2300E2FED3 /* SwiftUIViewController.swift */,
 				B90F10422A6F2FBB00BAB23F /* StudiumUI */,
 				16C05CF1264F36DC004C9629 /* New Event Cells */,
 				16B2837925C25BA50039043E /* Event Cells */,
 				1665FF1E250EA98300485F3D /* Fonts */,
 				1693E736247A3DC4003D4702 /* Main.storyboard */,
 				1693E73B247A3DC6003D4702 /* LaunchScreen.storyboard */,
-				1649A46827DEAD1900B75481 /* HeaderView.swift */,
-				B95194192A5E8A8300E0869A /* ImageDetailView.swift */,
-				B90F103B2A6A2E4200BAB23F /* AcademicAdvisorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -646,18 +662,19 @@
 		B90F10422A6F2FBB00BAB23F /* StudiumUI */ = {
 			isa = PBXGroup;
 			children = (
-				B93CBC582A882C0C005BDA5F /* StudiumEventCells */,
+				B992193F2ABD6E6500E2FED3 /* Interactive */,
+				B93CBC582A882C0C005BDA5F /* StudiumEventListCells */,
 				B90F104A2A6F30CA00BAB23F /* Icons */,
 				B90F10492A6F30C500BAB23F /* Texts */,
-				B90F10512A6F326000BAB23F /* StudiumLinkView.swift */,
 				B90F10552A6F406900BAB23F /* LatenessIndicatorView.swift */,
 				B90F10572A6F803400BAB23F /* Spinner.swift */,
-				B90F10672A748A1400BAB23F /* UploadFileButton.swift */,
 				B9EAD69B2A7E5527002E1F40 /* StudiumTextfieldStyle.swift */,
+				B95194192A5E8A8300E0869A /* ImageDetailView.swift */,
 				B9C2EB182A78C67900E14320 /* StudiumButtonStyle.swift */,
-				B9EAD6952A7B2639002E1F40 /* DocumentPicker.swift */,
 				B93CBC522A81AAE8005BDA5F /* StudiumEventViewHeader.swift */,
-				B97058ED2A88B6F3008F8636 /* DaysView.swift */,
+				1649A46827DEAD1900B75481 /* HeaderView.swift */,
+				B97058ED2A88B6F3008F8636 /* WeekdaysSelectedView.swift */,
+				B90F103B2A6A2E4200BAB23F /* AcademicAdvisorView.swift */,
 			);
 			path = StudiumUI;
 			sourceTree = "<group>";
@@ -682,13 +699,13 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
-		B93CBC582A882C0C005BDA5F /* StudiumEventCells */ = {
+		B93CBC582A882C0C005BDA5F /* StudiumEventListCells */ = {
 			isa = PBXGroup;
 			children = (
 				B93CBC562A882C08005BDA5F /* AssignmentCellView.swift */,
 				B93CBC5B2A885A8B005BDA5F /* OtherEventCellView.swift */,
 			);
-			path = StudiumEventCells;
+			path = StudiumEventListCells;
 			sourceTree = "<group>";
 		};
 		B94CA0CD2A2F0FFC00047865 /* Utility */ = {
@@ -853,6 +870,7 @@
 			children = (
 				B97BB0A62A00EA0D008F1A5B /* AppleCalendarService.swift */,
 				B9CDEF722A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift */,
+				B97988C82AB5A206002B8EE9 /* AppleCalendarEvent.swift */,
 			);
 			path = AppleCalendar;
 			sourceTree = "<group>";
@@ -988,6 +1006,20 @@
 				B98693592A3E8A3300272B22 /* RFC5545.swift */,
 			);
 			path = RFC5545;
+			sourceTree = "<group>";
+		};
+		B992193F2ABD6E6500E2FED3 /* Interactive */ = {
+			isa = PBXGroup;
+			children = (
+				B99219402ABD6E7200E2FED3 /* IconSelectionButton.swift */,
+				B9EAD6952A7B2639002E1F40 /* DocumentPicker.swift */,
+				B99219422ABD6E9200E2FED3 /* NotificationSelectionButton.swift */,
+				B992193B2AB6CB1400E2FED3 /* StudiumTextField.swift */,
+				B90F10672A748A1400BAB23F /* UploadFileButton.swift */,
+				B90F10512A6F326000BAB23F /* StudiumLinkView.swift */,
+				B992193D2AB6E63600E2FED3 /* WeekdaysSelectorView.swift */,
+			);
+			path = Interactive;
 			sourceTree = "<group>";
 		};
 		B995493D2992EEA300442968 /* Protocols */ = {
@@ -1175,6 +1207,9 @@
 				B90D13F429845FE80093EB0C /* AddCourseViewController.swift */,
 				B94CA0B62A2D435500047865 /* CourseRefreshProtocol.swift */,
 				B90F10392A6A1BBA00BAB23F /* GradesViewController.swift */,
+				B97988CA2AB694C1002B8EE9 /* AddCourseViewController2.swift */,
+				B99219442ABD6ECD00E2FED3 /* EditCourseViewController.swift */,
+				B99219462ABD6EF500E2FED3 /* CourseForm.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1474,6 +1509,7 @@
 				B97BB0AC2A022B30008F1A5B /* String_Extension.swift in Sources */,
 				B90D140029845FE80093EB0C /* AddAssignmentViewController.swift in Sources */,
 				B90F103C2A6A2E4200BAB23F /* AcademicAdvisorView.swift in Sources */,
+				B99219412ABD6E7200E2FED3 /* IconSelectionButton.swift in Sources */,
 				B9AFCF8D2A19F1D40087A0FF /* HabitsCoordinator.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
 				B9A165112AAD9A6F005A23F6 /* SystemIcon.swift in Sources */,
@@ -1487,6 +1523,7 @@
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
 				B90F10502A6F310100BAB23F /* StudiumText.swift in Sources */,
 				16827D1A27F58B9A0001D1EF /* AuthenticationViewController.swift in Sources */,
+				B99219432ABD6E9200E2FED3 /* NotificationSelectionButton.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				B9A165352AAD9A79005A23F6 /* ColorPickerCell.swift in Sources */,
 				B9AFCF8B2A19F1CA0087A0FF /* CalendarCoordinator.swift in Sources */,
@@ -1500,8 +1537,10 @@
 				B97BB0B22A0399FB008F1A5B /* UIViewController_Extension.swift in Sources */,
 				B9B41CF72A26E5E200239DD4 /* TimeChunk.swift in Sources */,
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
+				B992193E2AB6E63600E2FED3 /* WeekdaysSelectorView.swift in Sources */,
 				B9A1654D2AAD9A79005A23F6 /* TimePickerCellV2.swift in Sources */,
 				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
+				B97988C92AB5A207002B8EE9 /* AppleCalendarEvent.swift in Sources */,
 				B90F10522A6F326000BAB23F /* StudiumLinkView.swift in Sources */,
 				B97BB0A72A00EA0D008F1A5B /* AppleCalendarService.swift in Sources */,
 				B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */,
@@ -1542,8 +1581,10 @@
 				B9CDEF7D2A45972C0084AB24 /* GoogleAuthScope.swift in Sources */,
 				B9A1650F2AAD9A6F005A23F6 /* Weekday.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
-				B97058EE2A88B6F3008F8636 /* DaysView.swift in Sources */,
+				B97058EE2A88B6F3008F8636 /* WeekdaysSelectedView.swift in Sources */,
+				B97988CB2AB694C1002B8EE9 /* AddCourseViewController2.swift in Sources */,
 				B93CBC532A81AAE8005BDA5F /* StudiumEventViewHeader.swift in Sources */,
+				B992193C2AB6CB1400E2FED3 /* StudiumTextField.swift in Sources */,
 				B94CA0E62A34573200047865 /* Logger.swift in Sources */,
 				B9A165032AAD97FE005A23F6 /* ThirdPartyIcon.swift in Sources */,
 				B97058F02A88BD00008F8636 /* SoundEffectService.swift in Sources */,
@@ -1561,6 +1602,7 @@
 				B986934D2A3DA80F00272B22 /* StudiumEventService.swift in Sources */,
 				B9B41CF12A26D2E500239DD4 /* TabItemCoordinator.swift in Sources */,
 				B90F10682A748A1400BAB23F /* UploadFileButton.swift in Sources */,
+				B99219472ABD6EF500E2FED3 /* CourseForm.swift in Sources */,
 				B90D13FB29845FE80093EB0C /* AddCourseViewController.swift in Sources */,
 				B97BB0B02A022B5C008F1A5B /* UIColor_Extension.swift in Sources */,
 				B9C2EB1D2A78DD6500E14320 /* PDFViewController.swift in Sources */,
@@ -1574,6 +1616,7 @@
 				B9CDEF752A417D650084AB24 /* Realm_Extension.swift in Sources */,
 				B9A1653D2AAD9A79005A23F6 /* TimePickerCell.swift in Sources */,
 				B98693622A3E8A3400272B22 /* EKRecurrenceRule.swift in Sources */,
+				B99219492ABD6F2300E2FED3 /* SwiftUIViewController.swift in Sources */,
 				B98693632A3E8A3400272B22 /* RFC5545.swift in Sources */,
 				B9AFCF782A19E8260087A0FF /* AuthenticationCoordinator.swift in Sources */,
 				B9EAD6A42A7E559C002E1F40 /* FileStorer.swift in Sources */,
@@ -1598,6 +1641,7 @@
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,
 				B9A165512AAD9A79005A23F6 /* FormCell.swift in Sources */,
 				B94CA0CC2A2F0DB400047865 /* LogoSelectingForm.swift in Sources */,
+				B99219452ABD6ECD00E2FED3 /* EditCourseViewController.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				B9A1653B2AAD9A79005A23F6 /* ThemeCell.swift in Sources */,
 				B90F10642A72115200BAB23F /* ChatGPTService.swift in Sources */,
