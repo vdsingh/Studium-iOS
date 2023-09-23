@@ -19,7 +19,7 @@ struct StudiumTextFieldStyle: ViewModifier {
 }
 
 extension View {
-    func customTextFieldStyle() -> some View {
+    func withStudiumTextFieldStyle() -> some View {
         self.modifier(StudiumTextFieldStyle())
     }
 }

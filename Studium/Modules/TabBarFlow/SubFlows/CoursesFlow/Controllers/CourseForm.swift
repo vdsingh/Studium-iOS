@@ -55,7 +55,7 @@ struct CourseFormView: View {
                 StudiumTextField(text: self.$location,
                                  placeholderText: "Location",
                                  charLimit: .shortField)
-                InteractiveDaysView()
+                WeekdaysSelectorView()
             }
             
             Section(header: Text("Start / End Time")) {

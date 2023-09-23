@@ -19,8 +19,8 @@ public class LogoSelectionCell: BasicCell {
     
     override public func awakeFromNib() {
         super.awakeFromNib()
-        self.label.textColor = ColorManager.primaryTextColor
-        self.logoImageView.tintColor = ColorManager.primaryAccentColor
+        self.label.textColor = StudiumColor.primaryLabel.uiColor
+        self.logoImageView.tintColor = StudiumColor.primaryLabel.uiColor
         self.accessoryType = .disclosureIndicator
     }
     

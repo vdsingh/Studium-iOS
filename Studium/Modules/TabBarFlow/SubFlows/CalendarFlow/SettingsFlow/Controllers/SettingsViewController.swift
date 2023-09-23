@@ -16,6 +16,7 @@ struct SettingsCell: View {
     private var icon: UIImage?
     private var iconRenderingMode: Image.TemplateRenderingMode = .template
     private var text: String
+    private var subText: String?
     private var onClick: (SettingsCell) -> Void
     @State var loading: Bool = false
     
@@ -37,7 +38,12 @@ struct SettingsCell: View {
                         SmallIcon(image: icon, renderingMode: self.iconRenderingMode)
                     }
                     
-                    StudiumText(self.text)
+                    VStack(alignment: .leading) {
+                        StudiumText(self.text)
+                        if let subText = self.subText, !subText.trimmed().isEmpty {
+                            StudiumSubtext(subText)
+                        }
+                    }
                 }
             }
         }
@@ -45,8 +51,10 @@ struct SettingsCell: View {
     
     init(icon: UIImage,
          text: String,
+         subText: String? = nil,
          onClick: @escaping (SettingsCell) -> Void) {
         self.icon = icon
+        self.subText = subText
         self.text = text
         self.onClick = onClick
     }
@@ -70,36 +78,34 @@ struct SettingsCell: View {
 
 import EventKit
 struct SettingsView: View {
+    let authenticationService: AuthenticationService = .shared
     let databaseService: DatabaseService = .shared
     let studiumEventService: StudiumEventService = .shared
     let presentingViewController: UIViewController
     let alertTimeDelegate: AlertTimeHandler
-    weak var coordinator: SettingsCoordinator?
     
-    var appleCalendarIsAuthorized: Bool {
-        let authStatus = AppleCalendarService.shared.authorizationStatus
-        if authStatus == .authorized {
-            return true
-        } else if #available(iOS 17.0, *), authStatus == .fullAccess {
-            return true
-        }
-        
-        return false
-    }
+    @ObservedObject var appleCalendarService = AppleCalendarService.shared
+//    var appleCalendarIsAuthorized: Binding<Bool> {
+//        return self.appleCalendarService.isAuthorized
+//    }
+//    var appleCalendarIsAuthorized: Bool { self.appleCalendarService.isAuthorized }
+//    var appleCalendarIsSynced: Bool { self.appleCalendarService.isSynced }
+    
+    weak var coordinator: SettingsCoordinator?
     
     var body: some View {
         NavigationView {
             List {
                 Section("Calendar Sync") {
-                    if self.appleCalendarIsAuthorized {
-                        SettingsCell(icon: ThirdPartyIcon.appleCalendar, iconRenderingMode: .original, text: "Unsync Apple Calendar") { cell in
-//                            AppleCalendarService.shared.syncCalendar { _ in
+                    if self.appleCalendarService.isSynced {
+                        SettingsCell(icon: SystemIcon.appleLogo.uiImage, text: "Unsync Apple Calendar", subText: "\(self.appleCalendarService.totalEventCount) Apple Calendar Events") { cell in
+                            self.appleCalendarService.unsyncCalendar {
                                 cell.loading = false
-//                            }
+                            }
                         }
                     } else {
-                        SettingsCell(icon: ThirdPartyIcon.appleCalendar, iconRenderingMode: .original, text: "Sync Apple Calendar") { cell in
-                            AppleCalendarService.shared.syncCalendar { _ in
+                        SettingsCell(icon: SystemIcon.appleLogo, text: "Sync Apple Calendar") { cell in
+                            self.appleCalendarService.syncCalendar { _ in
                                 cell.loading = false
                             }
                         }
@@ -114,7 +120,7 @@ struct SettingsView: View {
                 }
                 
                 Section("Defaults") {
-                    SettingsCell(icon: StudiumIcon.bell, text: "Default Reminders Settings") { cell in
+                    SettingsCell(icon: StudiumIcon.bell, text: "Default Notification Settings") { cell in
                         cell.loading = false
                         guard let coordinator = self.coordinator else {
                             Log.e("Coordinator was nil")
@@ -129,7 +135,7 @@ struct SettingsView: View {
                         )
                     }
                     
-                    SettingsCell(icon: SystemIcon.sunMax.createImage(), text: "Reset Wake Up Times") { cell in
+                    SettingsCell(icon: SystemIcon.sunMax.createImage(), text: "Reset Wake-Up Times") { cell in
                         cell.loading = false
                         guard let coordinator = self.coordinator else {
                             Log.e("Coordinator was nil")
@@ -201,7 +207,7 @@ struct SettingsView: View {
                 }
                 
                 Section("Account") {
-                    SettingsCell(icon: StudiumIcon.user, text: "Email") { cell in
+                    SettingsCell(icon: StudiumIcon.user, text: self.authenticationService.userEmail ?? "Guest") { cell in
                         cell.loading = false
                     }
                     

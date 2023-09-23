@@ -25,7 +25,9 @@ struct HabitDetailsView: View {
 }
 
 struct HabitView: View {
+    
     @ObservedRealmObject var habit: Habit
+    
     var body: some View {
         if !self.habit.isInvalidated {
             ZStack {
@@ -48,12 +50,10 @@ struct HabitView: View {
 
                                 HStack {
                                     SmallIcon(image: SystemIcon.calendar.createImage())
-
                                     StudiumSubtitle(self.habit.autoscheduling ? "Autoschedule On: " : "Occurs On: ")
-
                                 }
                                 
-                                DaysView(selectedDays: self.habit.days)
+                                WeekdaysSelectedView(selectedDays: self.habit.days)
                                 
                                 HStack {
                                     MiniIcon(image: SystemIcon.clock.createImage())
@@ -161,6 +161,6 @@ class HabitViewController: UIViewController {
 
 struct HabitViewController_Previews: PreviewProvider {
     static var previews: some View {
-        HabitView(habit: MockStudiumEventService.shared.mockAutoschedulingHabit)
+        HabitView(habit: MockStudiumEventService.mockAutoschedulingHabit)
     }
 }

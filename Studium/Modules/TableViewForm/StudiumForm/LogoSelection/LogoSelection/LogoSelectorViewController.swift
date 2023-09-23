@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 // TODO: Docstrings
 protocol LogoSelectionHandler {
@@ -19,6 +20,8 @@ class LogoSelectorViewController: UIViewController, Storyboarded {
     
     // TODO: Docstrings
     var delegate: LogoSelectionHandler?
+    
+    var iconWasSelected: ((StudiumIcon) -> Void)? = nil
     
     // TODO: Docstrings
     var color: UIColor = StudiumColor.background.uiColor
@@ -60,12 +63,10 @@ extension LogoSelectorViewController: UICollectionViewDelegate {
     
     // TODO: Docstrings
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if self.searchController.isActive {
-            let icon = self.filteredIcons[indexPath.row]
-            self.delegate?.logoWasUpdated(icon: icon)
-        } else {
-            let icon = self.iconGroups[indexPath.section].icons[indexPath.row]
-            self.delegate?.logoWasUpdated(icon: icon)
+        let icon = self.searchController.isActive ? self.filteredIcons[indexPath.row] : self.iconGroups[indexPath.section].icons[indexPath.row]
+        self.delegate?.logoWasUpdated(icon: icon)
+        if let iconWasSelected = self.iconWasSelected {
+            iconWasSelected(icon)
         }
         
         self.navigationController?.popViewController(animated: true)
@@ -115,23 +116,20 @@ extension LogoSelectorViewController: UICollectionViewDataSource {
     
     // TODO: Docstrings
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if self.searchController.isActive {
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LogoCollectionViewCell.id, for: indexPath) as? LogoCollectionViewCell {
+        if self.searchController.isActive, let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LogoCollectionViewCell.id, for: indexPath) as? LogoCollectionViewCell {
                 cell.setup()
                 let image = self.filteredIcons[indexPath.row].uiImage
-                cell.setImage(image: image, tintColor: .white)
+                cell.setImage(image: image, tintColor: StudiumColor.primaryAccent.uiColor)
                 return cell
-            }
-        } else {
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LogoCollectionViewCell.id, for: indexPath) as? LogoCollectionViewCell {
-                cell.setup()
-                let image = self.iconGroups[indexPath.section].icons[indexPath.row].uiImage
-                cell.setImage(image: image, tintColor: .white)
-                return cell
-            }
+        } else if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LogoCollectionViewCell.id, for: indexPath) as? LogoCollectionViewCell {
+            cell.setup()
+            let image = self.iconGroups[indexPath.section].icons[indexPath.row].uiImage
+            cell.setImage(image: image, tintColor: StudiumColor.primaryAccent.uiColor)
+            return cell
         }
         
-        fatalError("$ERR: couldn't cast cell to LogoCollectionViewCell at \(indexPath)")
+        //FIXME: Log error
+        return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -162,3 +160,10 @@ extension LogoSelectorViewController: UISearchResultsUpdating {
         }
     }
 }
+
+//struct LogoSelectorViewPreview: PreviewProvider {
+//    static let logoSelectorViewController = LogoSelectorViewController.instantiate()
+//    static var previews: some View {
+//        logoSelectorViewController.view
+//    }
+//}
