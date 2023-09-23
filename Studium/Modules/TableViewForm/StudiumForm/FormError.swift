@@ -7,7 +7,5 @@
 
 import Foundation
 public protocol FormError {
-//    associatedtype ErrorType
     var stringRepresentation: String { get }
-//    static func constructErrorString(errors: [ErrorType]) -> String
 }

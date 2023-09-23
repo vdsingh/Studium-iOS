@@ -55,8 +55,8 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
                 )
             ],
             [
-                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCellID.startTimeCell, onClick: timeCellClicked),
-                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: FormCellID.TimeCellID.endTimeCell, onClick: timeCellClicked)
+                .timeCell(cellText: "Starts", date: self.startDate, dateFormat: DateFormat.standardTime, timePickerMode: .time, id: FormCellID.TimeCellID.startTimeCell, onClick: timeCellClicked),
+                .timeCell(cellText: "Ends", date: self.endDate, dateFormat: DateFormat.standardTime, timePickerMode: .time, id: FormCellID.TimeCellID.endTimeCell, onClick: timeCellClicked)
             ],
             [
                 .logoCell(logo: self.icon.uiImage, onClick: { self.showLogoSelectionViewController() }),
@@ -103,7 +103,7 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
                 self.dismiss(animated: true, completion: delegate.loadCourses)
             } else {
                 Log.e("courseRefreshDelegate was nil. Didn't refresh list.")
-                PopUpService.shared.presentGenericError()
+                PopUpService.presentGenericError()
                 self.dismiss(animated: true)
             }
         } else {

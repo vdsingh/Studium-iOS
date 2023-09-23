@@ -10,8 +10,7 @@ import Foundation
 import RealmSwift
 import FBSDKLoginKit
 
-// MARK: - Facebook Authentication
-
+/// Facebook Authentication
 extension AuthenticationService {
     
     // TODO: Docstrings

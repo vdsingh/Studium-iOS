@@ -9,14 +9,22 @@
 import Foundation
 import ChatGPTSwift
 
-// TODO: Docstrings 
+/// Service client to interact with Chat GPT endpoints
 class ChatGPTService {
     static let shared = ChatGPTService()
     
     private init() { }
         
-    let api = ChatGPTAPI(apiKey: SecretsService.getOpenAIAPIKey() ?? "")
+    lazy var api: ChatGPTAPI? = {
+        guard let apiKey = SecretsService.getOpenAIAPIKey() else {
+            Log.e("Unable to retrieve ChatGPT API Key")
+            return nil
+        }
+        
+        return ChatGPTAPI(apiKey: apiKey)
+    }()
     
+    //TODO: Docstrings
     func generateResources(forAssignment assignment: Assignment, keywords: [String]) {
         let message = "I need to complete a school assignment represented with these key phrases: [\(keywords.joined(separator: ","))]. Provide me with three links to resources in a list with the following format: <%>Title<$>URL<%>Title<$>URL<%>Title<$>URL<%>. Provide no extra words and strictly follow the format."
         let assignmentKey = assignment._id
@@ -27,21 +35,30 @@ class ChatGPTService {
                     assignment.thaw()?.resourcesAreLoading = true
                 }
                 
+                guard let api = self.api else {
+                    PopUpService.presentChatGPTUnavailableError()
+                    return
+                }
+                
                 let response = try await api.sendMessage(text: message, temperature: 0)
-                let safeAssignment = DatabaseService.shared.getStudiumEvent(withID: assignmentKey, type: Assignment.self)!
+                guard let safeAssignment = DatabaseService.shared.getStudiumEvent(withID: assignmentKey, type: Assignment.self) else {
+                    PopUpService.presentGenericError()
+                    return
+                }
 
                 let linkConfigs = self.parseLinks(fromMessage: response)
                 DatabaseService.shared.realmWrite { _ in
                     safeAssignment.resourceLinks = linkConfigs
                     safeAssignment.resourcesAreLoading = false
                 }
+                
                 Log.d("ChatGPT Response: \(response)")
             } catch {
-                //TODO: Error handle
+                // TODO: Error handle
                 Log.e(error)
-                PopUpService.shared.presentGenericError()
+                PopUpService.presentChatGPTUnavailableError()
                 DatabaseService.shared.realmWrite { _ in
-                    assignment.resourcesAreLoading = false
+                    assignment.thaw()?.resourcesAreLoading = false
                 }
             }
         }
@@ -50,7 +67,6 @@ class ChatGPTService {
     func parseLinks(fromMessage message: String) -> [LinkConfig] {
         let separator = "<%>"
         let components = message.components(separatedBy: separator)
-        
         var links: [LinkConfig] = []
         
         for component in components {
@@ -64,5 +80,11 @@ class ChatGPTService {
         }
         
         return links
+    }
+}
+
+extension PopUpService {
+    static func presentChatGPTUnavailableError() {
+        self.presentError(title: "Error accessing ChatGPT", description: "Please try again later")
     }
 }

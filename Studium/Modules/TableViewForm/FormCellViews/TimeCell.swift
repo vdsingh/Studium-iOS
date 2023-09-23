@@ -24,7 +24,7 @@ public class TimeCell: BasicCell {
     private var date: Date!
     
     /// The format that we want to use to display the date
-    private var dateFormat: DateFormat!
+    private var dateFormat: String!
     
     /// The mode of the date picker
     private var timePickerMode: UIDatePicker.Mode!
@@ -41,13 +41,13 @@ public class TimeCell: BasicCell {
         cellLabelText: String,
         formCellID: FormCellID.TimeCellID?,
         date: Date,
-        dateFormat: DateFormat,
+        dateFormat: String,
         timePickerMode: UIDatePicker.Mode
     ) {
         self.label.text = cellLabelText
         self.formCellID = formCellID
         self.date = date
-        self.timeLabel.text = date.format(with: dateFormat.rawValue)
+        self.timeLabel.text = date.format(with: dateFormat)
         self.dateFormat = dateFormat
         self.timePickerMode = timePickerMode
     }
@@ -60,7 +60,7 @@ public class TimeCell: BasicCell {
     }
     
     //TODO: Docstrings
-    public func getDateFormat() -> DateFormat{
+    public func getDateFormat() -> String {
         return self.dateFormat
     }
     
@@ -74,7 +74,7 @@ public class TimeCell: BasicCell {
     //TODO: Docstrings
     public func setDate(_ date: Date) {
         self.date = date
-        self.timeLabel.text = date.format(with: self.dateFormat.rawValue)
+        self.timeLabel.text = date.format(with: self.dateFormat)
     }
 }
 

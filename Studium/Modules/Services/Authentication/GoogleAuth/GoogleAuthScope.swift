@@ -8,6 +8,7 @@
 
 import Foundation
 
+//TODO: Docstrings
 enum GoogleAuthScope {
     case calendarAPI
     

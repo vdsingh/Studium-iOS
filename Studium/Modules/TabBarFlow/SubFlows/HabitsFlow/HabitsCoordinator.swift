@@ -25,7 +25,7 @@ class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinat
     var formNavigationController: UINavigationController?
     
     // TODO: Docstrings
-    var tabItemInfo: TabItemConfig = .habitsFlow
+    var tabItemConfig: TabItemConfig = .habitsFlow
     
     //TODO: Docstrings
     required init(_ navigationController: UINavigationController) {
@@ -48,8 +48,8 @@ class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinat
     func showHabitsListFlow() {
         let habitsVC = HabitsViewController.instantiate()
         habitsVC.coordinator = self
-        habitsVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.images.unselected, tag: self.tabItemInfo.orderNumber)
-        habitsVC.tabBarItem.selectedImage = self.tabItemInfo.images.selected
+        habitsVC.tabBarItem = UITabBarItem(title: self.tabItemConfig.title, image: self.tabItemConfig.images.unselected, tag: self.tabItemConfig.orderNumber)
+        habitsVC.tabBarItem.selectedImage = self.tabItemConfig.images.selected
         self.navigationController.pushViewController(habitsVC, animated: false)
     }
     

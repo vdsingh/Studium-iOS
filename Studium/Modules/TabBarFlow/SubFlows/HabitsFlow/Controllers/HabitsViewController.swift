@@ -105,7 +105,7 @@ class HabitsViewController: StudiumEventListViewController, HabitRefreshProtocol
                     self.edit(at: indexPath)
                 },
                 deleteButtonPressed: {
-                    PopUpService.shared.presentDeleteAlert {
+                    PopUpService.presentDeleteAlert {
                         self.delete(at: indexPath)
                     }
                 }

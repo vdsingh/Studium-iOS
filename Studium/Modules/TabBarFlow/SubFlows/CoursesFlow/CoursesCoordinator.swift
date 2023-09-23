@@ -25,7 +25,7 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
     var formNavigationController: UINavigationController?
     
     //TODO: Docstrings
-    var tabItemInfo: TabItemConfig = .coursesFlow
+    var tabItemConfig: TabItemConfig = .coursesFlow
     
     //TODO: Docstrings
     required init(_ navigationController: UINavigationController) {
@@ -48,8 +48,8 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
     func showCoursesListViewController() {
         let coursesListVC = CoursesViewController.instantiate()
         coursesListVC.coordinator = self
-        self.navigationController.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.images.unselected, tag: self.tabItemInfo.orderNumber)
-        self.navigationController.tabBarItem.selectedImage = self.tabItemInfo.images.selected
+        self.navigationController.tabBarItem = UITabBarItem(title: self.tabItemConfig.title, image: self.tabItemConfig.images.unselected, tag: self.tabItemConfig.orderNumber)
+        self.navigationController.tabBarItem.selectedImage = self.tabItemConfig.images.selected
         self.navigationController.pushViewController(coursesListVC, animated: false)
     }
     

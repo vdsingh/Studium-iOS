@@ -58,7 +58,7 @@ class GoogleCalendarService {
             case .success(_):
                 self.setAccessTokenHeader()
             case .failure(let error):
-                PopUpService.shared.presentToast(title: "Failed to Access Calendar", description: "We couldn't access your Google calendar. Try again later.", popUpType: .failure)
+                PopUpService.presentToast(title: "Failed to Access Calendar", description: "We couldn't access your Google calendar. Try again later.", popUpType: .failure)
                 Log.e(error, additionalDetails: "Tried to authenticate in GoogleCalendarService but failed.")
             }
         }

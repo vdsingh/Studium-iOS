@@ -18,7 +18,7 @@ protocol AutoscheduleServiceProtocol {
     //    func findAllApplicableDatesBetween(startDate: Date, endDate: Date, weekdays: Set<Weekday>) -> [Date]
 }
 
-//TODO: Docstrings
+/// Handles any autoscheduling logic
 final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol {
     
     //TODO: Docstrings
@@ -31,6 +31,7 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol {
         self.databaseService = databaseService
     }
     
+    //TODO: Docstrings
     func createAutoscheduledEvents<T: Autoscheduling>(
         forAutoschedulingEvent event: T,
         completion: @escaping ([T.AutoscheduledEventType]) -> Void
@@ -51,7 +52,7 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol {
         // if autoschedule infinitely, autoschedule to 3 months from startDate, otherwise, schedule to event endDate
         if autoschedulingConfig.autoscheduleInfinitely || !Date.datesWithinThreeMonths(date1: Date(), date2: event.endDate) {
             endDate = Calendar.current.date(byAdding: .month, value: 3, to: Date())!
-            PopUpService.shared.presentToast(title: "Autoscheduled \(event.name)", description: "We'll autoschedule events for \(event.name) for the next three months.", popUpType: .success)
+            PopUpService.presentToast(title: "Autoscheduled \(event.name)", description: "We'll autoschedule events for \(event.name) for the next three months.", popUpType: .success)
         }
         
         let eventID = event._id

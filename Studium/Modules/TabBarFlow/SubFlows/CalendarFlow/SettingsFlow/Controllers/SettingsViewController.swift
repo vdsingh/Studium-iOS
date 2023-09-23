@@ -73,7 +73,7 @@ struct SettingsView: View {
     let databaseService: DatabaseService = .shared
     let studiumEventService: StudiumEventService = .shared
     let presentingViewController: UIViewController
-    let alertTimeDelegate: AlertTimeHandler?
+    let alertTimeDelegate: AlertTimeHandler
     weak var coordinator: SettingsCoordinator?
     
     var appleCalendarIsAuthorized: Bool {
@@ -118,7 +118,7 @@ struct SettingsView: View {
                         cell.loading = false
                         guard let coordinator = self.coordinator else {
                             Log.e("Coordinator was nil")
-                            PopUpService.shared.presentGenericError()
+                            PopUpService.presentGenericError()
                             return
                         }
                         
@@ -133,7 +133,7 @@ struct SettingsView: View {
                         cell.loading = false
                         guard let coordinator = self.coordinator else {
                             Log.e("Coordinator was nil")
-                            PopUpService.shared.presentGenericError()
+                            PopUpService.presentGenericError()
                             return
                         }
                         
@@ -162,7 +162,7 @@ struct SettingsView: View {
                     
                     SettingsCell(icon: SystemIcon.trashCan.createImage(), text: "Delete all To-Do Events") { cell in
                         cell.loading = false
-                        PopUpService.shared.presentDeleteAlert {
+                        PopUpService.presentDeleteAlert {
                             let otherEvents = self.databaseService.getStudiumObjects(expecting: OtherEvent.self)
                             for event in otherEvents {
                                 self.studiumEventService.deleteStudiumEvent(event)
@@ -172,7 +172,7 @@ struct SettingsView: View {
                     
                     SettingsCell(icon: SystemIcon.trashCan.createImage(), text: "Delete all Completed To-Do Events") { cell in
                         cell.loading = false
-                        PopUpService.shared.presentDeleteAlert {
+                        PopUpService.presentDeleteAlert {
                             let otherEvents = self.databaseService.getStudiumObjects(expecting: OtherEvent.self)
                             for event in otherEvents {
                                 if event.complete {
@@ -186,13 +186,13 @@ struct SettingsView: View {
                 Section("Feedback") {
                     SettingsCell(icon: StudiumIcon.bug, text: "Report a Problem") { cell in
                         cell.loading = false
-                        PopUpService.shared.showForm(formType: .reportAProblem) { textContents in
+                        PopUpService.showForm(formType: .reportAProblem) { textContents in
                             if let email = textContents.first,
                                let problemDetails = textContents.last {
                                 if problemDetails.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                                    PopUpService.shared.presentToast(title: "Error Reporting Problem", description: "Please specify the problem details.", popUpType: .failure)
+                                    PopUpService.presentToast(title: "Error Reporting Problem", description: "Please specify the problem details.", popUpType: .failure)
                                 } else {
-                                    PopUpService.shared.presentToast(title: "Message Sent", description: "Thanks for the feedback!", popUpType: .success)
+                                    PopUpService.presentToast(title: "Message Sent", description: "Thanks for the feedback!", popUpType: .success)
                                     CrashlyticsService.shared.reportAProblem(email: email, message: problemDetails)
                                 }
                             }
@@ -210,7 +210,7 @@ struct SettingsView: View {
                             cell.loading = false
                             if let error {
                                 Log.e(error)
-                                PopUpService.shared.presentToast(title: "Error Logging Out",
+                                PopUpService.presentToast(title: "Error Logging Out",
                                                                  description: "Try restarting the app.",
                                                                  popUpType: .failure)
                                 return
@@ -218,7 +218,7 @@ struct SettingsView: View {
                             
                             guard let coordinator = self.coordinator else {
                                 Log.e("Coordinator was nil")
-                                PopUpService.shared.presentGenericError()
+                                PopUpService.presentGenericError()
                                 return
                             }
                             
@@ -281,8 +281,8 @@ extension SettingsViewController: AlertTimeHandler {
     }
 }
 
-struct SettingsPreview: PreviewProvider {
-    static var previews: some View {
-        SettingsView(presentingViewController: UIViewController(), alertTimeDelegate: nil)
-    }
-}
+//struct SettingsPreview: PreviewProvider {
+//    static var previews: some View {
+//        SettingsView(presentingViewController: UIViewController(), alertTimeDelegate: nil)
+//    }
+//}

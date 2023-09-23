@@ -165,7 +165,7 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, GoogleCal
     
     //TODO: Docstrings
     var scheduleDisplayString: String {
-        return "\(self.startDate.format(with: DateFormat.standardTime.formatString)) - \(self.endDate.format(with: DateFormat.standardTime.formatString)): \(self.name)"
+        return "\(self.startDate.format(with: DateFormat.standardTime)) - \(self.endDate.format(with: DateFormat.standardTime)): \(self.name)"
     }
     
     //TODO: Docstrings

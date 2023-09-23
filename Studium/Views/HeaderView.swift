@@ -32,8 +32,8 @@ class HeaderView: UITableViewHeaderFooterView {
         self.secondaryLabel.textColor = .label
         self.secondaryLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
         
-        self.contentView.addSubview(primaryLabel)
-        self.contentView.addSubview(secondaryLabel)
+        self.contentView.addSubview(self.primaryLabel)
+        self.contentView.addSubview(self.secondaryLabel)
 
         self.primaryLabel.translatesAutoresizingMaskIntoConstraints = false
         self.secondaryLabel.translatesAutoresizingMaskIntoConstraints = false

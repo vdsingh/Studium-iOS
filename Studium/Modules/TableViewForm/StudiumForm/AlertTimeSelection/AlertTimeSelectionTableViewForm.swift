@@ -8,15 +8,6 @@
 
 import UIKit
 
-
-
-// TODO: Docstrings
-protocol AlertTimeHandler {
-    
-    //TODO: Docstrings
-    func alertTimesWereUpdated(selectedAlertOptions: [AlertOption])
-}
-
 // TableView Form used to select alert times
 class AlertTimeSelectionTableViewForm: TableViewForm, Storyboarded {
     
@@ -80,7 +71,7 @@ extension AlertTimeSelectionTableViewForm {
         return cell
     }
     
-    // TODO: Docstrings
+    // TODO: Docstrings, implement using callback instead of delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedAlertOption = self.allAlertOptions[indexPath.row]
         let cell = tableView.cellForRow(at: indexPath)
@@ -93,7 +84,6 @@ extension AlertTimeSelectionTableViewForm {
             self.selectedAlertOptions.append(selectedAlertOption)
         }
         
-        
         if let delegate = self.delegate {
             delegate.alertTimesWereUpdated(selectedAlertOptions: self.selectedAlertOptions)
         }
@@ -103,6 +93,6 @@ extension AlertTimeSelectionTableViewForm {
     
     // TODO: Docstrings
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return Increment.eight
     }
 }

@@ -13,7 +13,6 @@ import FSCalendar
 class CalendarViewController: UIViewController, Storyboarded {
     
     weak var coordinator: CalendarCoordinator?
-    
     let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
     //TODO: Docstrings

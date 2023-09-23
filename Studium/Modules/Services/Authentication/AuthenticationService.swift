@@ -9,18 +9,7 @@
 import Foundation
 import RealmSwift
 
-//TODO: Docstrings
-enum AuthenticationError: Error {
-    case cancelled
-    case nilResult
-    case nilAuthCode
-    case nilUser
-    case nildeviceID
-    case nilAccessToken
-    case registeredSuccessfullyButUserWasNil
-}
-
-//TODO: Docstrings
+/// Responsible for handling everything related to authentication (e.g., login, register, etc.)
 class AuthenticationService: NSObject {
     
     //TODO: Docstrings

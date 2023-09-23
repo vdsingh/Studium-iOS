@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 
+// TODO: Docstrings
 protocol Autoscheduling: StudiumEvent {
     
     associatedtype AutoscheduledEventType: Autoscheduled & Codable

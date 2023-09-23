@@ -55,18 +55,8 @@ extension TableViewForm {
         switch cell {
         case .textFieldCell(let placeholderText, let text, let charLimit, let textfieldWasEdited):
             let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCellV2.id, for: indexPath) as! TextFieldCellV2
-//            cell.textField.placeholder = placeholderText
-//            cell.textFieldWasEdited = textfieldWasEdited
-//            cell.delegate = delegate
-//            cell.textFieldID = id
-//            cell.textField.text = text
-//            cell.setCharLimit(charLimit)
             cell.host(parent: self, initialText: text, charLimit: charLimit, placeholder: placeholderText,
                       textfieldWasEdited: textfieldWasEdited)
-            
-//            let cell = tableView.dequeueReusableCell(withIdentifier: ColorPickerCellV2.id, for: indexPath) as! ColorPickerCellV2
-//            cell.host(parent: self, colors: colors, colorWasSelected: colorWasSelected)
-//            return cell
             return cell
         case .switchCell(let cellText, let isOn, let switchDelegate, let infoDelegate):
             let cell = tableView.dequeueReusableCell(withIdentifier: SwitchCell.id, for: indexPath) as! SwitchCell
@@ -103,7 +93,7 @@ extension TableViewForm {
             cell.formCellID = formCellID
             cell.picker.datePickerMode = timePickerMode
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = dateFormat.rawValue
+            dateFormatter.dateFormat = dateFormat
             cell.picker.setDate(date, animated: true)
             return cell
         case .datePickerCell:

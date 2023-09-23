@@ -70,7 +70,7 @@ class AddAssignmentViewController: MasterForm, AlertTimeSelectingForm, Storyboar
                 .textFieldCell(placeholderText: "Name", text: self.name, charLimit: 100, textfieldWasEdited: { text in
                     self.name = text
                 }),
-                .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: .fullDateWithTime, timePickerMode: .dateAndTime, id: .endTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Due Date", date: self.endDate, dateFormat: DateFormat.fullDateWithTime, timePickerMode: .dateAndTime, id: .endTimeCell, onClick: self.timeCellClicked),
                 .labelCell(cellText: "Remind Me", icon: StudiumIcon.bell.uiImage, cellAccessoryType: .disclosureIndicator, onClick: { self.showAlertTimesSelectionViewController() })
             ],
             [

@@ -86,8 +86,8 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
             ],
             [
                 .switchCell(cellText: "Autoschedule", isOn: false, switchDelegate: self, infoDelegate: self),
-                .timeCell(cellText: "Start", date: self.startDate, dateFormat: .standardTime, timePickerMode: .time, id: .startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "Finish", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked)
+                .timeCell(cellText: "Start", date: self.startDate, dateFormat: DateFormat.standardTime, timePickerMode: .time, id: .startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Finish", date: self.endDate, dateFormat: DateFormat.standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked)
             ],
             [
                 .logoCell(logo: self.icon.uiImage, onClick: { self.showLogoSelectionViewController() }),
@@ -119,8 +119,8 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
             ],
             [
                 .switchCell(cellText: "Autoschedule", isOn: true, switchDelegate: self, infoDelegate: self),
-                .timeCell(cellText: "Between", date: self.startDate, dateFormat: .standardTime, timePickerMode: .time, id: .startTimeCell, onClick: self.timeCellClicked),
-                .timeCell(cellText: "And", date: self.endDate, dateFormat: .standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "Between", date: self.startDate, dateFormat: DateFormat.standardTime, timePickerMode: .time, id: .startTimeCell, onClick: self.timeCellClicked),
+                .timeCell(cellText: "And", date: self.endDate, dateFormat: DateFormat.standardTime, timePickerMode: .time, id: .endTimeCell, onClick: self.timeCellClicked),
                 .pickerCell(cellText: "Length of Habit", indices: self.lengthPickerIndices, tag: .lengthPickerCell, delegate: self, dataSource: self)
             ],
             [

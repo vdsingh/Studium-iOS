@@ -159,7 +159,7 @@ class Log {
         }
         
         // Show a toast stating that we ran into an error
-        PopUpService.shared.presentToast(title: "Whoops! We ran into an Error.", description: "Please restart the app to try again.", popUpType: .failure)
+        PopUpService.presentToast(title: "Whoops! We ran into an Error.", description: "Please restart the app to try again.", popUpType: .failure)
     }
     
      

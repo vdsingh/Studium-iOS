@@ -22,7 +22,7 @@ class CalendarCoordinator: NSObject, TabItemCoordinator {
     var navigationController: UINavigationController
     
     //TODO: Docstrings
-    var tabItemInfo: TabItemConfig = .calendarFlow
+    var tabItemConfig: TabItemConfig = .calendarFlow
     
     //TODO: Docstrings
     required init(_ navigationController: UINavigationController) {
@@ -45,8 +45,8 @@ class CalendarCoordinator: NSObject, TabItemCoordinator {
     func showDayScheduleViewController() {
         let dayScheduleVC = DayScheduleViewController.instantiate()
         dayScheduleVC.coordinator = self
-        dayScheduleVC.tabBarItem = UITabBarItem(title: self.tabItemInfo.title, image: self.tabItemInfo.images.unselected, tag: self.tabItemInfo.orderNumber)
-        dayScheduleVC.tabBarItem.selectedImage = self.tabItemInfo.images.selected
+        dayScheduleVC.tabBarItem = UITabBarItem(title: self.tabItemConfig.title, image: self.tabItemConfig.images.unselected, tag: self.tabItemConfig.orderNumber)
+        dayScheduleVC.tabBarItem.selectedImage = self.tabItemConfig.images.selected
         
         
         self.navigationController.pushViewController(dayScheduleVC, animated: false)

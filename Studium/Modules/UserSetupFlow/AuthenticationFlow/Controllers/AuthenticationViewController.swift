@@ -138,7 +138,7 @@ extension AuthenticationViewController {
                 self.coordinator!.showUserSetupFlow()
             case .failure(let error):
                 Log.e(error)
-                PopUpService.shared.presentToast(title: "Couldn't Sign In", description: error.localizedDescription, popUpType: .failure)
+                PopUpService.presentToast(title: "Couldn't Sign In", description: error.localizedDescription, popUpType: .failure)
             }
 
             self.spinner.stopAnimating()

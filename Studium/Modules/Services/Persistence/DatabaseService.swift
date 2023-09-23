@@ -107,7 +107,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol {
     public func getStudiumEvent<T: StudiumEvent>(withID id: ObjectId, type: T.Type) -> T? {
         guard let realm = self.realm else {
             Log.e("Realm is nil")
-            PopUpService.shared.presentGenericError()
+            PopUpService.presentGenericError()
             return nil
         }
         
@@ -124,7 +124,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol {
     public func getStudiumObjects <T: StudiumEvent> (expecting type: T.Type) -> [T] {
         guard let realm = self.realm else {
             Log.e("Realm is nil")
-            PopUpService.shared.presentGenericError()
+            PopUpService.presentGenericError()
             return []
         }
         
@@ -265,7 +265,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol {
                 realm.delete(studiumEvent)
             } else {
                 Log.e("Tried to delete StudiumEvent \(studiumEvent), but it was invalidated.")
-                PopUpService.shared.presentGenericError()
+                PopUpService.presentGenericError()
             }
         }
     }
@@ -275,7 +275,7 @@ final class DatabaseService: NSObject, DatabaseServiceProtocol {
     func realmWrite(_ writeBlock: (Realm) -> Void) {
         guard let realm = self.realm else{
             Log.e("Realm is nil.")
-            PopUpService.shared.presentGenericError()
+            PopUpService.presentGenericError()
             return
         }
         

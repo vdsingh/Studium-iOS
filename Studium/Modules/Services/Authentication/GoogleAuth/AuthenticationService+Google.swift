@@ -10,8 +10,6 @@ import Foundation
 import RealmSwift
 import GoogleSignIn
 
-// MARK: - Google Authentication
-
 extension AuthenticationService {
     
     func addScopes(
@@ -27,7 +25,7 @@ extension AuthenticationService {
             } else if let signInResult = signInResult {
                 Log.g("Successfully added google scopes to user. Result \(signInResult)")
             } else {
-                PopUpService.shared.presentToast(title: "Error adding scope to Google User", description: "signInResult was nil", popUpType: .failure)
+                PopUpService.presentToast(title: "Error adding scope to Google User", description: "signInResult was nil", popUpType: .failure)
                 Log.e(AuthenticationError.nilResult)
             }
         }

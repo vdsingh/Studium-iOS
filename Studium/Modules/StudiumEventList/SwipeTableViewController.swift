@@ -1,9 +1,9 @@
 //
 //  SwipeTableViewController.swift
-//  Todoey
+//  Studium
 //
 //  Created by Vikram Singh on 5/23/20.
-//  Copyright © 2020 App Brewery. All rights reserved.
+//  Copyright © 2020 Vikram Singh. All rights reserved.
 //
 
 import UIKit
@@ -14,7 +14,7 @@ protocol UITableViewControllerProtocol: UIViewController, UITableViewDataSource,
     var tableView: UITableView { get set }
 }
 
-//TODO: Docstrings
+// TODO: Docstrings
 class SwipeTableViewController: UIViewController, UITableViewControllerProtocol, SwipeTableViewCellDelegate, UITableViewDataSource, UITableViewDelegate {
     
     private var vStack: UIStackView = {
@@ -31,22 +31,19 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
         return tableView
     }()
     
-    
-    //TODO: Docstrings
+    // TODO: Docstrings
     var rightActions = [SwipeAction]()
     
-    //TODO: Docstrings
+    // TODO: Docstrings
     var leftActions = [SwipeAction]()
     
-    //TODO: Docstrings
+    // TODO: Docstrings
     var swipeCellId: String = "SwipeCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.tableView.delegate = self
         self.tableView.dataSource = self
-                
         self.vStack.addArrangedSubview(self.tableView)
         self.view.addSubview(self.vStack)
         NSLayoutConstraint.activate([
@@ -57,9 +54,9 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
         ])
     }
 
-    //MARK: - TableView Data Source
+    // MARK: - TableView Data Source
     
-    //TODO: Docstrings
+    // TODO: Docstrings
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         Log.d("will try to dequeue a SwipeTableViewCell with id: \(self.swipeCellId)")
         if let cell = tableView.dequeueReusableCell(withIdentifier:  self.swipeCellId, for: indexPath) as? SwipeTableViewCell {
@@ -80,9 +77,9 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
         return 0
     }
     
-    //MARK: - Swipe Cell Delegate
+    // MARK: - SwipeCell Delegate
     
-    //TODO: Docstrings
+    // TODO: Docstrings
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         if orientation == .right {
             return self.rightActions

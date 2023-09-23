@@ -20,6 +20,7 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
     // TODO: Docstrings
     let studiumEventService: StudiumEventService = StudiumEventService.shared
     
+    // TODO: Docstrings
     var searchController: UISearchController!
 
     //TODO: Docstrings
@@ -72,7 +73,6 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
             
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
         self.tableView.backgroundColor = StudiumColor.background.uiColor
         
         //Register all UI Elements used in the TableView
@@ -163,7 +163,7 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
                     self.studiumEventService.deleteStudiumEvent(event)
                 } else {
                     Log.e("Failed to retrieve studiumEvent by ID to delete it.", additionalDetails: "Event type: \(eventType)")
-                    PopUpService.shared.presentGenericError()
+                    PopUpService.presentGenericError()
                 }
             }
         }

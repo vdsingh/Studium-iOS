@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import SwiftEntryKit
-
 import SwiftUI
 
 enum ToastPopUpType {
@@ -37,17 +36,12 @@ enum ToastPopUpType {
 
 class PopUpService {
     
-    static let shared = PopUpService()
-    
-    private init() { }
-    
-    
     /// Presents a message at the top of the screen to display info to the user
     /// - Parameters:
     ///   - title: Title text displayed
     ///   - description: Description text displayed
     ///   - popUpType: The type of pop up
-    func presentToast(title: String, description: String, popUpType: ToastPopUpType) {
+    static func presentToast(title: String, description: String, popUpType: ToastPopUpType) {
         DispatchQueue.main.async {
             var attributes: EKAttributes = .topFloat
             
@@ -64,11 +58,16 @@ class PopUpService {
         }
     }
     
-    func presentGenericError() {
-        self.presentToast(title: "An Error Occurred", description: "Please try again later.", popUpType: .failure)
+    static func presentError(title: String, description: String) {
+        self.presentToast(title: title, description: description, popUpType: .failure)
     }
     
-    func presentDeleteAlert(deleteWasPressed: @escaping () -> Void) {
+    static func presentGenericError() {
+        self.presentError(title: "An Error Occurred", description: "Please try again later.")
+    }
+    
+    // TODO: Investigate and lint
+    static func presentDeleteAlert(deleteWasPressed: @escaping () -> Void) {
         DispatchQueue.main.async {
             var attributes: EKAttributes = .centerFloat
             attributes = .centerFloat
@@ -201,7 +200,7 @@ class PopUpService {
     }
     
     // Sign up form
-    func showForm(
+    static func showForm(
         formType: FormPopUpType,
         dismissCompletion: @escaping ([String]) -> Void
     ) {

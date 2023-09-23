@@ -57,7 +57,7 @@ struct HabitView: View {
                                 
                                 HStack {
                                     MiniIcon(image: SystemIcon.clock.createImage())
-                                    StudiumText("Between \(self.habit.startDate.format(with: DateFormat.standardTime.formatString)) - \(self.habit.endDate.format(with: DateFormat.standardTime.formatString))")
+                                    StudiumText("Between \(self.habit.startDate.format(with: DateFormat.standardTime)) - \(self.habit.endDate.format(with: DateFormat.standardTime))")
                                 }
 
                             }

@@ -26,7 +26,6 @@ protocol Coordinator: AnyObject {
     
     //TODO: Docstrings
     func childDidFinish(_ child: Coordinator?)
-    
 }
 
 //TODO: Docstrings
@@ -35,7 +34,6 @@ extension Coordinator {
     //TODO: Docstrings
     func finish() {
         self.childCoordinators.removeAll()
-        
         guard let parentCoordinator = self.parentCoordinator  else {
             return
         }
@@ -49,14 +47,6 @@ extension Coordinator {
         
         parentCoordinator.childDidFinish(self)
     }
-    
-    //TODO: Docstrings
-//    func setNewRootNavigationController() {
-//        DispatchQueue.main.async {
-//            let navController = UINavigationController()
-//            self.setRootViewController(navController)
-//        }
-//    }
     
     //TODO: Docstrings
     func setRootViewController(_ viewController: UIViewController) {

@@ -35,18 +35,17 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
     
     func editAssignment(_ assignment: Assignment) {
         Log.e("editAssignment called from superclass when it should be implemented in subclass.")
-        PopUpService.shared.presentGenericError()
+        PopUpService.presentGenericError()
     }
     
     func editOtherEvent(_ otherEvent: OtherEvent) {
         Log.e("editOtherEvent called from superclass when it should be implemented in subclass.")
-        PopUpService.shared.presentGenericError()
+        PopUpService.presentGenericError()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         Log.d("Selected row \(indexPath.row)")
-        if let assignment = self.displayedEvents[indexPath.section][indexPath.row] as? Assignment,
-           let assignmentCell = tableView.cellForRow(at: indexPath) as? AssignmentTableViewCell {
+        if let assignment = self.displayedEvents[indexPath.section][indexPath.row] as? Assignment {
             
             let vc = AssignmentViewController(
                 assignment: assignment,
@@ -54,7 +53,7 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
                     self.editAssignment(assignment)
                 },
                 deleteButtonPressed: {
-                    PopUpService.shared.presentDeleteAlert {
+                    PopUpService.presentDeleteAlert {
                         self.navigationController?.popViewController(animated: true)
                         self.studiumEventService.deleteStudiumEvent(assignment)
                         self.reloadData()
@@ -73,7 +72,7 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
                     self.editOtherEvent(otherEvent)
                 },
                 deleteButtonPressed: {
-                    PopUpService.shared.presentDeleteAlert {
+                    PopUpService.presentDeleteAlert {
                         self.navigationController?.popViewController(animated: true)
                         self.studiumEventService.deleteStudiumEvent(otherEvent)
                         self.reloadData()
@@ -149,7 +148,7 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
                         self.studiumEventService.deleteStudiumEvent(event)
                     } else {
                         Log.e("Failed to retrieve studiumEvent by ID to delete it.", additionalDetails: "Event type: Assignment")
-                        PopUpService.shared.presentGenericError()
+                        PopUpService.presentGenericError()
                     }
                 }
             } else if let otherEvent = event as? OtherEvent {
@@ -158,7 +157,7 @@ class AssignmentsOtherEventsViewController: StudiumEventListViewController, Assi
                         self.studiumEventService.deleteStudiumEvent(event)
                     } else {
                         Log.e("Failed to retrieve studiumEvent by ID to delete it.", additionalDetails: "Event type: OtherEvent")
-                        PopUpService.shared.presentGenericError()
+                        PopUpService.presentGenericError()
                     }
                 }
             }

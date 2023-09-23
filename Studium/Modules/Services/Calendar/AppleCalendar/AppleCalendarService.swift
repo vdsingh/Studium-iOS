@@ -174,11 +174,11 @@ extension AppleCalendarService {
     func showPopUp(popUpOption: AppleCalendarServicePopUpOption) {
         switch popUpOption {
         case .failedToAccessCalendar:
-            PopUpService.shared.presentToast(title: "Failed to Access Calendar", description: "Please allow Calendar Access: Settings > Studium > Calendars", popUpType: .failure)
+            PopUpService.presentToast(title: "Failed to Access Calendar", description: "Please allow Calendar Access: Settings > Studium > Calendars", popUpType: .failure)
         case .failedToAddEvent:
-            PopUpService.shared.presentToast(title: "Failed to add an event", description: "We've connected with your calendar, but couldn't add an event.", popUpType: .failure)
+            PopUpService.presentToast(title: "Failed to add an event", description: "We've connected with your calendar, but couldn't add an event.", popUpType: .failure)
         case .successfullySynced:
-            PopUpService.shared.presentToast(title: "Successfully Synced Calendar", description: "Events will now sync to your Apple Calendar.", popUpType: .success)
+            PopUpService.presentToast(title: "Successfully Synced Calendar", description: "Events will now sync to your Apple Calendar.", popUpType: .success)
         }
     }
 }
