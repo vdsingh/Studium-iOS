@@ -12,32 +12,17 @@ import SwipeCellKit
 import ChameleonFramework
 
 //TODO: Docstrings
-class RecurringEventCell: DeletableEventCell {
+class DEPRECATEDRecurringEventCell: DeletableEventCell {
 
-    static let id = "RecurringEventCell"
+    static let id = "DEPRECATEDRecurringEventCell"
 
-    //TODO: Docstrings
     @IBOutlet weak var background: UIImageView!
-    
-    //TODO: Docstrings
     @IBOutlet weak var nameLabel: UILabel!
-    
-    //TODO: Docstrings
     @IBOutlet weak var locationLabel: UILabel!
-    
-    //TODO: Docstrings
     @IBOutlet weak var timeLabel: UILabel!
-    
-    //TODO: Docstrings
     @IBOutlet weak var iconImage: UIImageView!
-    
-    //TODO: Docstrings
     @IBOutlet weak var iconCircle: UIImageView!
-
-    //TODO: Docstrings
     @IBOutlet var dayLabels: [UILabel]!
-    
-    //TODO: Docstrings
     @IBOutlet var dayBoxes: [UIImageView]!
     
     override func awakeFromNib() {
@@ -72,7 +57,7 @@ class RecurringEventCell: DeletableEventCell {
         timeText.append(" - \(endTime.format(with: DateFormat.standardTime))")
         self.timeLabel.text = timeText
         
-        for dayBox in dayBoxes {
+        for dayBox in self.dayBoxes {
             dayBox.layer.borderWidth = 2
             dayBox.layer.borderColor = color.cgColor
             dayBox.layer.cornerRadius = 5
@@ -80,15 +65,15 @@ class RecurringEventCell: DeletableEventCell {
         
         // Reset all of the day labels and day boxes
         for i in 0..<dayLabels.count {
-            dayLabels[i].textColor = StudiumColor.primaryLabel.uiColor
-            dayBoxes[i].backgroundColor = .none
+            self.dayLabels[i].textColor = StudiumColor.primaryLabel.uiColor
+            self.dayBoxes[i].backgroundColor = .none
         }
         
         // highlight the day labels and day boxes for the selected days.
         for dayVal in days {
             let index = dayVal.rawValue - 1
-            dayBoxes[index].backgroundColor = color
-            dayLabels[index].textColor = UIColor(contrastingBlackOrWhiteColorOn: color, isFlat: true)
+            self.dayBoxes[index].backgroundColor = color
+            self.dayLabels[index].textColor = UIColor(contrastingBlackOrWhiteColorOn: color, isFlat: true)
         }
     }
 }

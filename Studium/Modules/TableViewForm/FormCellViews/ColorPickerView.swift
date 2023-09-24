@@ -10,34 +10,26 @@ import SwiftUI
 
 struct ColorButton: View {
     let color: UIColor
-    
     private let strokeColor: Color = StudiumColor.primaryLabel.color
-    
-    @Binding var selectedColor: UIColor
-    
-//    let colorWasSelected: (UIColor) -> Void
+    @Binding var selectedColor: UIColor?
     
     var body: some View {
         Button {
-//            self.colorWasSelected(self.color)
             self.selectedColor = self.color
-            print("Set selected color to \(self.selectedColor). self color is \(self.color)")
         } label: {
             Circle()
-                .strokeBorder(self.selectedColor == self.color ? self.strokeColor : .clear, lineWidth: Increment.one)
-                .background(Circle().fill(Color(uiColor: self.color)))
+                .strokeBorder(self.selectedColor == self.color ? self.strokeColor : .clear, lineWidth: Increment.one / 2)
+                .background(Circle().fill(self.color.color))
         }
-        .frame(height: 50)
+        .frame(height: Increment.eight)
         .buttonStyle(BorderlessButtonStyle())
     }
 }
 
-struct ColorPickerCellV2View: View {
+struct ColorPickerView: View {
     
-    @Binding var selectedColor: UIColor
-    
+    @Binding var selectedColor: UIColor?
     let colors: [UIColor]
-//    let colorWasSelected: (Color) -> Void
     
     var groupedColors: [[UIColor]] {
         var res: [[UIColor]] = [[]]
@@ -74,16 +66,14 @@ struct ColorPickerCellV2View: View {
 
 class ColorPickerCellV2: UITableViewCell {
     static let id = "ColorPickerCellV2"
-    
-    private weak var controller: UIHostingController<ColorPickerCellV2View>?
-    
-    @State var selectedColor: UIColor = StudiumEventColor.allCasesUIColors.first ?? .white
+    private weak var controller: UIHostingController<ColorPickerView>?
+    @State var selectedColor: UIColor?
     
     func host(
         parent: UIViewController,
         colors: [UIColor]
     ) {
-        let view = ColorPickerCellV2View(
+        let view = ColorPickerView(
             selectedColor: self.$selectedColor,
             colors: colors
         )
@@ -108,18 +98,14 @@ class ColorPickerCellV2: UITableViewCell {
             swiftUICellViewController.view.layoutIfNeeded()
         }
     }
-    
-//    func colorWasSelected(_ color: Color) {
-//        self.colorWasSelected(color)
-//    }
 }
 
 struct ColorPickerPreview: PreviewProvider {
     
     @State static var colors = StudiumEventColor.allCasesUIColors
-    @State static var selectedColor = StudiumEventColor.allCasesUIColors.first!
+    @State static var selectedColor: UIColor? = StudiumEventColor.allCasesUIColors.first!
     static var previews: some View {
-        ColorPickerCellV2View(selectedColor: self.$selectedColor, colors: self.colors)
+        ColorPickerView(selectedColor: self.$selectedColor, colors: self.colors)
             .background(StudiumColor.background.color)
     }
 }

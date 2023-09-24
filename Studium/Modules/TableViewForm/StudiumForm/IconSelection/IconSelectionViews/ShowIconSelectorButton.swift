@@ -1,5 +1,5 @@
 //
-//  NotificationSelectionButton.swift
+//  IconSelectionButton.swift
 //  Studium
 //
 //  Created by Vikram Singh on 9/21/23.
@@ -9,17 +9,16 @@
 import Foundation
 import SwiftUI
 
-struct NotificationSelectionButton: View {
+struct ShowIconSelectorButton: View {
+    @Binding var icon: StudiumIcon
+
     var body: some View {
-        Button {
-            
-        } label: {
+        NavigationLink(destination: IconSelectorView(selectedIcon: self.$icon)) {
             HStack {
-                Text("Remind Me")
+                Text("Icon")
                     .foregroundStyle(StudiumColor.primaryLabel.color)
                 Spacer()
-                MiniIcon(color: StudiumColor.placeholderLabel.color,
-                         image: SystemIcon.chevronRight.uiImage)
+                SmallIcon(color: StudiumColor.primaryAccent.color, image: self.icon)
             }
         }
     }
