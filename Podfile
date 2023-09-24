@@ -34,7 +34,10 @@ pod 'SwiftEntryKit', '2.0.0' # Banners and Pop-Ups
 #ChatGPT API
 pod 'ChatGPTSwift', '~> 1.3.1'
 
+end
 
+target 'StudiumTests' do
+  pod 'SnapshotTesting', '~> 1.8.1'
 end
 
 post_install do |installer|

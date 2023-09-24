@@ -150,6 +150,7 @@ PODS:
   - Realm/Headers (10.38.0)
   - RealmSwift (10.38.0):
     - Realm (= 10.38.0)
+  - SnapshotTesting (1.8.2)
   - SwiftEntryKit (2.0.0)
   - SwipeCellKit (2.7.1)
 
@@ -169,6 +170,7 @@ DEPENDENCIES:
   - GTMSessionFetcher/Core
   - RAMAnimatedTabBarController
   - RealmSwift
+  - SnapshotTesting (~> 1.8.1)
   - SwiftEntryKit (= 2.0.0)
   - SwipeCellKit
 
@@ -208,6 +210,7 @@ SPEC REPOS:
     - RAMAnimatedTabBarController
     - Realm
     - RealmSwift
+    - SnapshotTesting
     - SwiftEntryKit
     - SwipeCellKit
 
@@ -257,9 +260,10 @@ SPEC CHECKSUMS:
   RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
   Realm: 5902885dd1d5e71b0b020830caab937ecdf5bf07
   RealmSwift: 0fc037d6c32c7c4fc9362892380f380114ecdcf0
+  SnapshotTesting: 38947050d13960d57a4a9c166fcf51bca7d56970
   SwiftEntryKit: 61b5fa36f34a97dd8013e48a7345bc4c4720be9a
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
-PODFILE CHECKSUM: e80393747eb57847e7d9f6cbb9e6523a4a77855a
+PODFILE CHECKSUM: 607ffed1901b0f294893266caef425141af0c05a
 
 COCOAPODS: 1.12.0
