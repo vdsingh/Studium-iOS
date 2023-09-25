@@ -62,7 +62,7 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.barTintColor = .green
+        self.navigationController?.navigationBar.barTintColor = StudiumColor.background.uiColor
         self.navigationController?.navigationBar.prefersLargeTitles = false
 //        self.navigationController?.navigationBar.backgroundColor = StudiumColor.background.uiColor
         

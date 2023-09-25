@@ -64,10 +64,10 @@ struct ImageDetailView: View {
                 } label: {
                     Text(self.viewModel.buttonText)
                         .font(StudiumFont.bodySemibold.font)
-                        .frame(width: 300, height: 50)
+                        .frame(width: 300, height: Increment.eight)
                 }
                 .background(Color(uiColor: StudiumColor.secondaryAccent.uiColor))
-                .foregroundColor(Color(uiColor: StudiumColor.primaryLabel.uiColor))
+                .foregroundColor(StudiumColor.primaryLabelColor(forBackgroundColor: StudiumColor.secondaryAccent.color))
                 .clipShape(.rect(cornerRadius: Increment.two))
                 
             }

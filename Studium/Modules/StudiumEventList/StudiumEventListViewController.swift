@@ -66,6 +66,11 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
         // Set the color of the navigation bar button text
         self.navigationController?.navigationBar.tintColor = StudiumColor.secondaryAccent.uiColor
         self.navigationController?.navigationBar.barTintColor = StudiumColor.background.uiColor
+        
+        self.navigationItem.title = self.eventTypeString
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.backgroundColor = StudiumColor.background.uiColor
+        UINavigationBar.appearance().backgroundColor = StudiumColor.background.uiColor
     }
         
     override func viewDidLoad() {
@@ -77,7 +82,7 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
         
         //Register all UI Elements used in the TableView
         self.tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderView.id)
-        self.tableView.register(UINib(nibName: RecurringEventCell.id, bundle: nil), forCellReuseIdentifier: RecurringEventCell.id)
+        self.tableView.register(UINib(nibName: DEPRECATEDRecurringEventCell.id, bundle: nil), forCellReuseIdentifier: DEPRECATEDRecurringEventCell.id)
         self.tableView.register(OtherEventTableViewCell.self, forCellReuseIdentifier: OtherEventTableViewCell.id)
 
         self.tableView.register(AssignmentTableViewCell.self, forCellReuseIdentifier: AssignmentTableViewCell.id)
@@ -87,10 +92,11 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
         // Set the color of the navigation bar title text
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
+//        self.navigationController?.navigationBar.backgroundColor = StudiumColor.primaryAccent.uiColor
 
 
-        self.navigationItem.title = self.eventTypeString
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+
 
         self.rightActions = [
             SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in

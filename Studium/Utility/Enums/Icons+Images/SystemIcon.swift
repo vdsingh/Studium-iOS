@@ -57,6 +57,7 @@ public enum SystemIcon: String, CaseIterable, CreatesUIImage {
     case cloud
     case mic
     case message
+    case magnifyingGlass = "magnifyingglass"
     case phone
     case paperplane
     case hammer

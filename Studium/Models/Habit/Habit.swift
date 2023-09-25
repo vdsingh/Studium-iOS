@@ -70,8 +70,8 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         alertTimes: [AlertOption],
         days: Set<Weekday>,
         icon: StudiumIcon,
-        color: UIColor,
-        partitionKey: String
+        color: UIColor
+//        partitionKey: String
     ) {
         self.init(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, color: color, icon: icon, alertTimes: alertTimes)
 //        self.startEarlier = startEarlier
@@ -79,7 +79,7 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
 //        self.autoscheduling = autoscheduling
 //        self.autoLengthMinutes = autoLengthMinutes
         self.days = days
-        self._partitionKey = partitionKey
+//        self._partitionKey = partitionKey
         
         let nextOccurringTimeChunk = self.nextOccuringTimeChunk
         self.startDate = nextOccurringTimeChunk?.startDate ?? startDate
