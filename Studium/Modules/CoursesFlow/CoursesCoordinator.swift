@@ -55,24 +55,30 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
     
     //TODO: Docstrings
     func showAddCourseViewController(refreshDelegate: CourseRefreshProtocol) {
-        let addCourseVC = AddCourseViewController2()
-        let navController = UINavigationController(rootViewController: addCourseVC)
+        let addCourseVC = AddCourseViewController(refreshCallback: {
+            refreshDelegate.loadCourses()
+        })
+//        let navController = UINavigationController(rootViewController: addCourseVC)
 //        addCourseVC.delegate = refreshDelegate
 //        addCourseVC.coordinator = self
-        self.navigationController.topViewController?.present(navController, animated: true)
-        self.formNavigationController = navController
+        self.navigationController.topViewController?.present(addCourseVC, animated: true)
+//        self.formNavigationController = navController
     }
     
     //TODO: Docstrings
     func showEditCourseViewController(refreshDelegate: CourseRefreshProtocol, courseToEdit: Course) {
-        let addCourseVC = AddCourseViewController.instantiate()
-        let navController = UINavigationController(rootViewController: addCourseVC)
-        addCourseVC.delegate = refreshDelegate
-        addCourseVC.course = courseToEdit
-        addCourseVC.title = "Edit Course"
-        addCourseVC.coordinator = self
-        self.navigationController.topViewController?.present(navController, animated: true)
-        self.formNavigationController = navController
+//        let addCourseVC = DEPRECATEDAddCourseViewController.instantiate()
+        let editCourseController = EditCourseViewController(
+            course: courseToEdit,
+            refreshCallback: refreshDelegate.loadCourses
+        )
+//        let navController = UINavigationController(rootViewController: editCourseController)
+//        addCourseVC.delegate = refreshDelegate
+//        addCourseVC.course = courseToEdit
+//        addCourseVC.title = "Edit Course"
+//        addCourseVC.coordinator = self
+        self.navigationController.topViewController?.present(editCourseController, animated: true)
+//        self.formNavigationController = navController
     }
     
     func showAddAssignmentViewController(refreshDelegate: AssignmentRefreshProtocol, selectedCourse: Course) {

@@ -94,7 +94,7 @@ struct SettingsView: View {
     weak var coordinator: SettingsCoordinator?
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             List {
                 Section("Calendar Sync") {
                     if self.appleCalendarService.isSynced {
@@ -236,43 +236,55 @@ struct SettingsView: View {
             .environment(\.defaultMinListRowHeight, Increment.ten)
             .navigationTitle("Settings")
         }
-    }
+//    }
 }
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: SwiftUIViewController<SettingsView> {
     weak var coordinator: SettingsCoordinator?
     let databaseService: DatabaseService
+    
+    lazy var settingsView = SettingsView(
+        presentingViewController: self,
+        alertTimeDelegate: self,
+        coordinator: self.coordinator
+    )
+            
 
     init(coordinator: SettingsCoordinator?, databaseService: DatabaseService) {
         self.coordinator = coordinator
         self.databaseService = databaseService
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupSwiftUI()
-        self.navigationController?.navigationBar.prefersLargeTitles = false
+    override func loadView() {
+        super.loadView()
+        self.setupSwiftUI(withView: self.settingsView)
+        self.title = "Settings"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+//        self.addToolBarButtons(
+//            left: UIBarButtonItem(image: <#T##UIImage?#>, style: <#T##UIBarButtonItem.Style#>, target: <#T##Any?#>, action: <#T##Selector?#>),
+//            right: UIBarButtonItem(image: <#T##UIImage?#>, style: <#T##UIBarButtonItem.Style#>, target: <#T##Any?#>, action: <#T##Selector?#>)
+//        )
     }
     
-    private func setupSwiftUI() {
-        let settingsView = SettingsView(
-            presentingViewController: self,
-            alertTimeDelegate: self,
-            coordinator: self.coordinator
-        )
-        
-        let hostingController = UIHostingController(rootView: settingsView)
-        self.addChild(hostingController)
-        self.view.addSubview(hostingController.view)
-        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        self.navigationController?.navigationBar.prefersLargeTitles = false
+//    }
+    
+//    private func setupSwiftUI() {
+//
+//        let hostingController = UIHostingController(rootView: settingsView)
+//        self.addChild(hostingController)
+//        self.view.addSubview(hostingController.view)
+//        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
+//            hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+//        ])
+//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

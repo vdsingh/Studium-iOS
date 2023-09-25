@@ -9,15 +9,19 @@
 import Foundation
 
 /// User-caused errors that can occur in a form
-enum StudiumFormError: FormError {
+enum StudiumFormError: FormError, Hashable {
     case nameNotSpecified
     case oneDayNotSpecified
+    case colorNotSpecfied
+    
     case endTimeOccursBeforeStartTime
     case totalTimeNotSpecified
     case totalTimeExceedsTimeFrame
     case nameTooLong(charLimit: TextFieldCharLimit)
     case locationTooLong(charLimit: TextFieldCharLimit)
     case additionalDetailsTooLong(charLimit: TextFieldCharLimit)
+    
+//    case requiredFieldNotSpecified(field: String)
     
     //TODO: Docstrings
     var stringRepresentation: String {
@@ -26,6 +30,8 @@ enum StudiumFormError: FormError {
             return "Please specify a name"
         case .oneDayNotSpecified:
             return "Please specify at least one day"
+        case .colorNotSpecfied:
+            return "Please choose a theme color"
         case .endTimeOccursBeforeStartTime:
             return "End time cannot occur before start time"
         case .totalTimeNotSpecified:
@@ -38,6 +44,8 @@ enum StudiumFormError: FormError {
             return "Please limit the location to \(charLimit.rawValue) characters"
         case .additionalDetailsTooLong(let charLimit):
             return "Please limit the additional details to \(charLimit.rawValue) characters"
+//        case .requiredFieldNotSpecified(let field):
+//            return "Please specify: \(field)"
         }
     }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 
 /// Interactive view to select and deselect weekdays
 struct WeekdaysSelectorView: View {
-    @State var selectedDays: Set<Weekday> = []
+    @Binding var selectedDays: Set<Weekday>
     
     var body: some View {
         HStack(alignment: .center) {
@@ -74,6 +74,6 @@ struct InteractiveDaysPreview: PreviewProvider {
     
     @State static var selectedDays = Set<Weekday>()
     static var previews: some View {
-        WeekdaysSelectorView()
+        WeekdaysSelectorView(selectedDays: self.$selectedDays)
     }
 }

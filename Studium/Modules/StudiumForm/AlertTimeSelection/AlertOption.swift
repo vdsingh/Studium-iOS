@@ -9,7 +9,7 @@
 import Foundation
 
 // TODO: Docstrings
-enum AlertOption: Int, CaseIterable {
+enum AlertOption: Int, CaseIterable, Codable {
     case atTime = 0
     case fiveMin = 5
     case tenMin = 10

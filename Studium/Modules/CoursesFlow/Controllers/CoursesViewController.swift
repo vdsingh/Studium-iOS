@@ -60,10 +60,10 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     //TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // build the cells
-        super.swipeCellId = RecurringEventCell.id
+        super.swipeCellId = DEPRECATEDRecurringEventCell.id
         Log.d("will try to dequeue cell in CoursesViewController with id: \(self.swipeCellId)")
         
-        if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? RecurringEventCell,
+        if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? DEPRECATEDRecurringEventCell,
            let course = eventsArray[indexPath.section][indexPath.row] as? Course {
             cell.event = course
             cell.loadData(

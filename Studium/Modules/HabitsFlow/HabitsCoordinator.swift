@@ -67,12 +67,14 @@ class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinat
     
     //TODO: Docstrings
     func showAddHabitViewController(refreshDelegate: HabitRefreshProtocol) {
-        let addHabitVC = AddHabitViewController.instantiate()
-        let navController = UINavigationController(rootViewController: addHabitVC)
-        addHabitVC.delegate = refreshDelegate
-        addHabitVC.coordinator = self
-        self.navigationController.topViewController?.present(navController, animated: true)
-        self.formNavigationController = navController
+        let addHabitController = AddHabitViewController2(refreshCallback: {})
+        self.navigationController.topViewController?.present(addHabitController, animated: true)
+//        let addHabitVC = AddHabitViewController.instantiate()
+//        let navController = UINavigationController(rootViewController: addHabitVC)
+//        addHabitVC.delegate = refreshDelegate
+//        addHabitVC.coordinator = self
+//        self.navigationController.topViewController?.present(navController, animated: true)
+//        self.formNavigationController = navController
     }
     
     func childDidFinish(_ child: Coordinator?) {

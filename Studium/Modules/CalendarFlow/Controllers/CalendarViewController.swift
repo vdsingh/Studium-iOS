@@ -45,7 +45,6 @@ class CalendarViewController: UIViewController, Storyboarded {
             self.noEventsLabel.centerYAnchor.constraint(equalTo: self.tableView.centerYAnchor),
 
         ])
-        
     }
     
     override func viewDidLoad() {
@@ -66,8 +65,6 @@ class CalendarViewController: UIViewController, Storyboarded {
         
         self.navigationController?.navigationBar.tintColor = StudiumColor.primaryAccent.uiColor
         self.navigationController?.navigationBar.backgroundColor = StudiumColor.background.uiColor
-        
-        
         
         //TableView Related Stuff:
         self.tableView.register(UINib(nibName: OtherEventCell.id, bundle: nil), forCellReuseIdentifier: OtherEventCell.id)

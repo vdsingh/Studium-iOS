@@ -19,28 +19,33 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     //TODO: Docstring
     let databaseService: DatabaseServiceProtocol! = DatabaseService.shared
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
         self.dayView.autoScrollToFirstEvent = true
         
         var style = CalendarStyle()
+        
+        let selectedBackgroundColor = StudiumColor.primaryAccent.uiColor
+        let selectedTextColor = StudiumColor.primaryLabelColor(forBackgroundColor: selectedBackgroundColor)
+        let unselectedTextColor = StudiumColor.primaryLabel.uiColor
+        
         style.header.backgroundColor = StudiumColor.secondaryBackground.uiColor
         
-        style.header.daySelector.activeTextColor = StudiumColor.primaryLabel.uiColor
-        style.header.daySelector.inactiveTextColor = StudiumColor.primaryLabel.uiColor
-        style.header.daySelector.selectedBackgroundColor = StudiumColor.primaryAccent.uiColor
+        style.header.daySelector.activeTextColor = selectedTextColor
+        style.header.daySelector.inactiveTextColor = unselectedTextColor
+        style.header.daySelector.selectedBackgroundColor = selectedBackgroundColor
         
-        style.header.daySelector.todayActiveTextColor = StudiumColor.primaryLabel.uiColor
+        // Color of circle behind today's number
+        style.header.daySelector.todayActiveBackgroundColor = selectedBackgroundColor
+        
+        // Today's number color
+        style.header.daySelector.todayActiveTextColor = selectedTextColor
+        
         style.header.daySelector.todayInactiveTextColor = StudiumColor.primaryAccent.uiColor
         
-        style.header.daySelector.todayActiveBackgroundColor = StudiumColor.primaryAccent.uiColor
-        
         style.header.swipeLabel.textColor = StudiumColor.primaryLabel.uiColor
-        
         style.header.daySymbols.weekDayColor = StudiumColor.primaryLabel.uiColor
         style.header.daySymbols.weekendColor = StudiumColor.secondaryLabel.uiColor
-        
-        
         
         style.timeline.backgroundColor = StudiumColor.secondaryBackground.uiColor
         style.timeline.separatorColor = StudiumColor.secondaryLabel.uiColor
@@ -49,14 +54,24 @@ class DayScheduleViewController: DayViewController, Storyboarded {
         
         self.dayView.updateStyle(style)
         
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
-        self.navigationController?.navigationBar.tintColor = StudiumColor.primaryAccent.uiColor
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumFormNavigationConstants.navBarForegroundColor.uiColor]
+//        self.navigationController?.navigationBar.tintColor = StudiumFormNavigationConstants.navBarForegroundColor.uiColor
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        reloadData()
+        
+        self.navigationController?.navigationBar.barTintColor = .green
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+//        self.navigationController?.navigationBar.backgroundColor = StudiumColor.background.uiColor
+        
+        self.navigationController?.navigationBar.tintColor = StudiumColor.primaryAccent.uiColor
+        self.navigationController?.navigationBar.backgroundColor = StudiumColor.background.uiColor
+        
+        self.view.backgroundColor = StudiumColor.background.uiColor
+        
+        self.reloadData()
         self.generatedEvents = []
         
         if let state = dayView.state {
@@ -64,8 +79,6 @@ class DayScheduleViewController: DayViewController, Storyboarded {
         } else {
             self.updateTitle(selectedDate: Date())
         }
-        
-        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     //TODO: Docstrings
@@ -209,6 +222,7 @@ class DayScheduleViewController: DayViewController, Storyboarded {
     
     // TODO: Investigate and lint
     override func dayView(dayView: DayView, willMoveTo date: Date) {
+        
     }
     
     override func dayView(dayView: DayView, didMoveTo date: Date) {

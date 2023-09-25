@@ -24,7 +24,7 @@ protocol HabitRefreshProtocol {
 }
 
 /// Class used to manage the form for adding a Habit. The form is a tableView form, similar to adding an event in
-class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingForm, Coordinated, Storyboarded {
+class DEPRECATEDAddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingForm, Coordinated, Storyboarded {
     
     // TODO: Docstrings
     weak var coordinator: HabitsCoordinator?
@@ -170,8 +170,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
                 alertTimes: self.alertTimes,
                 days: self.daysSelected,
                 icon: self.icon,
-                color: color,
-                partitionKey: AuthenticationService.shared.userID!
+                color: color
             )
             
             if let editingHabit = self.habit {
@@ -236,7 +235,7 @@ class AddHabitViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingF
 }
 
 // TODO: Docstrings
-extension AddHabitViewController: DaySelectorDelegate {
+extension DEPRECATEDAddHabitViewController: DaySelectorDelegate {
     
     // TODO: Docstrings
     func updateDaysSelected(weekdays: Set<Weekday>) {
@@ -245,7 +244,7 @@ extension AddHabitViewController: DaySelectorDelegate {
 }
 
 // TODO: Docstrings
-extension AddHabitViewController: ColorDelegate {
+extension DEPRECATEDAddHabitViewController: ColorDelegate {
     
     // TODO: Docstrings
     func colorPickerValueChanged(sender: RadialPaletteControl) {
@@ -255,7 +254,7 @@ extension AddHabitViewController: ColorDelegate {
 }
 
 // TODO: Docstrings
-extension AddHabitViewController: SegmentedControlDelegate {
+extension DEPRECATEDAddHabitViewController: SegmentedControlDelegate {
     
     // TODO: Docstrings
     func controlValueChanged(sender: UISegmentedControl) {
@@ -268,7 +267,7 @@ extension AddHabitViewController: SegmentedControlDelegate {
 }
 
 //MARK: - Switch Delegate
-extension AddHabitViewController: CanHandleSwitch {
+extension DEPRECATEDAddHabitViewController: CanHandleSwitch {
     
     /// Method triggered when the autoschedule switch is triggered
     /// - Parameter sender: The switch used
@@ -286,7 +285,7 @@ extension AddHabitViewController: CanHandleSwitch {
 }
 
 // TODO: Docstrings
-extension AddHabitViewController: CanHandleInfoDisplay {
+extension DEPRECATEDAddHabitViewController: CanHandleInfoDisplay {
     
     /// Displays information via an Alert
     func displayInformation() {
@@ -303,7 +302,7 @@ extension AddHabitViewController: CanHandleInfoDisplay {
 }
 
 // TODO: Docstrings
-extension AddHabitViewController {
+extension DEPRECATEDAddHabitViewController {
     
     /// Fills the FormCells with information from a provided habit
     /// - Parameter habit: The habit that we want to fill the Form with

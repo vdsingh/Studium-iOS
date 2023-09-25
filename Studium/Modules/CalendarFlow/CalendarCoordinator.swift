@@ -48,7 +48,6 @@ class CalendarCoordinator: NSObject, TabItemCoordinator {
         dayScheduleVC.tabBarItem = UITabBarItem(title: self.tabItemConfig.title, image: self.tabItemConfig.images.unselected, tag: self.tabItemConfig.orderNumber)
         dayScheduleVC.tabBarItem.selectedImage = self.tabItemConfig.images.selected
         
-        
         self.navigationController.pushViewController(dayScheduleVC, animated: false)
     }
     

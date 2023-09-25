@@ -8,6 +8,13 @@
 
 import Foundation
 import UIKit
+import SwiftUI
+
+extension Color {
+    var uiColor: UIColor {
+        return UIColor(self)
+    }
+}
 
 /// characteristics of all forms.
 let kLargeCellHeight: CGFloat = 150
@@ -68,19 +75,18 @@ class MasterForm: TableViewForm {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let navigationBarColor = StudiumColor.primaryAccent.uiColor
+        let navigationBarTextColor = StudiumColor.primaryLabelColor(forBackgroundColor: navigationBarColor)
+        
         // Set the color of the navigation bar title text
-        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: StudiumColor.primaryLabel.uiColor]
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: navigationBarTextColor]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: navigationBarTextColor]
+        
         
         // Set the color of the navigation bar button text
-        self.navigationController?.navigationBar.tintColor = StudiumColor.primaryLabel.uiColor
-        self.navigationController?.navigationBar.backgroundColor = StudiumColor.primaryAccent.uiColor
+        self.navigationController?.navigationBar.tintColor = navigationBarTextColor
+        self.navigationController?.navigationBar.backgroundColor = navigationBarColor
         self.navigationController?.navigationBar.barTintColor = StudiumColor.secondaryBackground.uiColor
-    }
-    
-    // TODO: Docstrings
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     // TODO: Docstrings
@@ -105,7 +111,6 @@ class MasterForm: TableViewForm {
     }
     
     func findErrors() -> [StudiumFormError] {
-        
         var errors = [StudiumFormError]()
         
         // Character Limit checking

@@ -49,6 +49,8 @@ class SettingsCoordinator: NSObject, NavigationCoordinator, AlertTimesSelectionS
     func showSettingsListViewController() -> UIViewController {
         let settingsVC = SettingsViewController(coordinator: self, databaseService: DatabaseService.shared)
         self.navigationController.pushViewController(settingsVC, animated: true)
+        
+//        self.navigationController.topViewController?.present
         return settingsVC
     }
     

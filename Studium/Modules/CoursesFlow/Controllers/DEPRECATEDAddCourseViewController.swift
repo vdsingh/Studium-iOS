@@ -3,7 +3,7 @@ import UIKit
 import FlexColorPicker
 
 // TODO: Docstrings
-class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingForm, Storyboarded {
+class DEPRECATEDAddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelectingForm, Storyboarded {
     
     // TODO: Docstrings
     weak var coordinator: CoursesCoordinator?
@@ -142,7 +142,7 @@ class AddCourseViewController: MasterForm, AlertTimeSelectingForm, LogoSelecting
 //MARK: - TableView DataSource
 
 // TODO: Docstrings
-extension AddCourseViewController {
+extension DEPRECATEDAddCourseViewController {
     
     /// The number of sections in the TableView
     /// - Parameter tableView: The TableView
@@ -162,7 +162,7 @@ extension AddCourseViewController {
 }
 
 // TODO: Docstrings
-extension AddCourseViewController: DaySelectorDelegate {
+extension DEPRECATEDAddCourseViewController: DaySelectorDelegate {
     
     // TODO: Docstrings
     func updateDaysSelected(weekdays: Set<Weekday>) {
@@ -172,7 +172,7 @@ extension AddCourseViewController: DaySelectorDelegate {
 }
 
 // TODO: Docstrings
-extension AddCourseViewController: ColorDelegate {
+extension DEPRECATEDAddCourseViewController: ColorDelegate {
     
     // TODO: Docstrings
     func colorPickerValueChanged(sender: RadialPaletteControl) {
@@ -181,7 +181,7 @@ extension AddCourseViewController: ColorDelegate {
 }
 
 // TODO: Docstrings
-extension AddCourseViewController {
+extension DEPRECATEDAddCourseViewController {
     
     // TODO: Docstrings
     func fillForm(with course: Course) {
