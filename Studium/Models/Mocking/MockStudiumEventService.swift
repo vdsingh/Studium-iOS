@@ -30,7 +30,7 @@ struct MockStudiumEventService {
         return self.habit_read
     }
     
-    static let calculusII = Course(name: "Calculus II", color: StudiumEventColor.blue.uiColor, location: "Math Center Room 123", additionalDetails: "", startDate: Date.someFriday.setTime(hour: 13, minute: 0, second: 0)!, endDate: Date.someFriday.setTime(hour: 14, minute: 30, second: 0)!, days: [.monday, .wednesday, .friday], icon: .function, notificationAlertTimes: [])
+    static let calculusII = Course(name: "Calculus II", color: StudiumEventColor.blue.uiColor, location: "Math Center Room 123", additionalDetails: "These are the additional details", startDate: Date.someFriday.setTime(hour: 13, minute: 0, second: 0)!, endDate: Date.someFriday.setTime(hour: 14, minute: 30, second: 0)!, days: [.monday, .wednesday, .friday], icon: .function, notificationAlertTimes: [.atTime, .fifteenMin, .oneHour])
     static let calculusIIAssignment1 = Assignment(name: "Homework 1", additionalDetails: "", complete: false, startDate: Date(), endDate: Date(), notificationAlertTimes: [], autoschedulingConfig: nil, parentCourse: MockStudiumEventService.calculusII)
 
     static let bioLab = Course(name: "Biology Lab", color: StudiumEventColor.green.uiColor, location: "Biology Lab Room 246", additionalDetails: "", startDate: Date(), endDate: Date(), days: [.tuesday, .thursday], icon: .function, notificationAlertTimes: [])
@@ -42,6 +42,6 @@ struct MockStudiumEventService {
     static let compsci = Course(name: "Computer Science 230", color: StudiumEventColor.purple.uiColor, location: "Computer Science Building Room 404", additionalDetails: "", startDate: Date(), endDate: Date(), days: [.wednesday, .friday], icon: .function, notificationAlertTimes: [])
     
     
-    static let habit_gym = Habit(name: "Go to the Gym", location: "123 Lightweight Road", additionalDetails: "", startDate: Date(), endDate: Date(), autoschedulingConfig: nil, alertTimes: [], days: [.monday, .tuesday, .thursday], icon: .dumbbell, color: StudiumEventColor.red.uiColor, partitionKey: "")
-    static let habit_read = Habit(name: "Read a book", location: "Bed", additionalDetails: "", startDate: Date(), endDate: Date(), autoschedulingConfig: AutoschedulingConfig(autoLengthMinutes: 60, autoscheduleInfinitely: true, useDatesAsBounds: true, autoschedulingDays: [.wednesday, .friday]), alertTimes: [], days: [.wednesday, .friday], icon: .book, color: StudiumEventColor.green.uiColor, partitionKey: "")
+    static let habit_gym = Habit(name: "Go to the Gym", location: "123 Lightweight Road", additionalDetails: "", startDate: Date(), endDate: Date(), autoschedulingConfig: nil, alertTimes: [], days: [.monday, .tuesday, .thursday], icon: .dumbbell, color: StudiumEventColor.red.uiColor)
+    static let habit_read = Habit(name: "Read a book", location: "Bed", additionalDetails: "", startDate: Date(), endDate: Date(), autoschedulingConfig: AutoschedulingConfig(autoLengthMinutes: 60, autoscheduleInfinitely: true, useDatesAsBounds: true, autoschedulingDays: [.wednesday, .friday]), alertTimes: [], days: [.wednesday, .friday], icon: .book, color: StudiumEventColor.green.uiColor)
 }

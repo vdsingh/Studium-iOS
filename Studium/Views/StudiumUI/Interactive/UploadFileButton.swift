@@ -74,7 +74,9 @@ struct UploadFileButton<Storer>: View where Storer: FileStorer {
             Button {
                 self.isImporting = true
             } label:  {
-                StudiumText("Attach a File")
+                Text("Attach a File")
+                    .font(StudiumFont.body.font)
+                    .foregroundStyle(StudiumColor.primaryLabelColor(forBackgroundColor: StudiumColor.primaryAccent.color))
             }
             .buttonStyle(StudiumButtonStyle(disabled: false))
             .sheet(isPresented: self.$isImporting) {

@@ -20,9 +20,7 @@ enum StudiumFormError: FormError, Hashable {
     case nameTooLong(charLimit: TextFieldCharLimit)
     case locationTooLong(charLimit: TextFieldCharLimit)
     case additionalDetailsTooLong(charLimit: TextFieldCharLimit)
-    
-//    case requiredFieldNotSpecified(field: String)
-    
+        
     //TODO: Docstrings
     var stringRepresentation: String {
         switch self {

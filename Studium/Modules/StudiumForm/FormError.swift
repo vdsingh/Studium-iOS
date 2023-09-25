@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 public protocol FormError {
     var stringRepresentation: String { get }
 }

@@ -55,19 +55,22 @@ class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinat
     
     //TODO: Docstrings
     func showEditHabitViewController(refreshDelegate: HabitRefreshProtocol, habitToEdit: Habit) {
-        let editHabitVC = AddHabitViewController.instantiate()
-        let navController = UINavigationController(rootViewController: editHabitVC)
-        editHabitVC.delegate = refreshDelegate
-        editHabitVC.habit = habitToEdit
-        editHabitVC.title = "Edit Habit"
-        editHabitVC.coordinator = self
-        self.navigationController.topViewController?.present(navController, animated: true)
-        self.formNavigationController = navController
+        let editHabitController = EditHabitViewController(habit: habitToEdit, refreshCallback: refreshDelegate.loadHabits)
+        self.navigationController.topViewController?.present(editHabitController, animated: true)
+
+//        let editHabitVC = DEPRECATEDAddHabitViewController.instantiate()
+//        let navController = UINavigationController(rootViewController: editHabitVC)
+//        editHabitVC.delegate = refreshDelegate
+//        editHabitVC.habit = habitToEdit
+//        editHabitVC.title = "Edit Habit"
+//        editHabitVC.coordinator = self
+//        self.navigationController.topViewController?.present(navController, animated: true)
+//        self.formNavigationController = navController
     }
     
     //TODO: Docstrings
     func showAddHabitViewController(refreshDelegate: HabitRefreshProtocol) {
-        let addHabitController = AddHabitViewController2(refreshCallback: {})
+        let addHabitController = AddHabitViewController(refreshCallback: {})
         self.navigationController.topViewController?.present(addHabitController, animated: true)
 //        let addHabitVC = AddHabitViewController.instantiate()
 //        let navController = UINavigationController(rootViewController: addHabitVC)

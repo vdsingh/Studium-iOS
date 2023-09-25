@@ -44,13 +44,14 @@ struct HabitView: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: Increment.three)  {
 
-                            HabitDetailsView(habit: self.habit)
-                            StudiumEventViewDivider()
+                            if !self.habit.location.trimmed().isEmpty {
+                                HabitDetailsView(habit: self.habit)
+                                StudiumEventViewDivider()
+                            }
                             VStack(alignment: .leading) {
-
                                 HStack {
                                     SmallIcon(image: SystemIcon.calendar.createImage())
-                                    StudiumSubtitle(self.habit.autoscheduling ? "Autoschedule On: " : "Occurs On: ")
+                                    StudiumSubtitle(self.habit.autoscheduling ? "Autoschedule On:" : "Occurs On:")
                                 }
                                 
                                 WeekdaysSelectedView(selectedDays: self.habit.days)
@@ -96,11 +97,9 @@ class HabitViewController: UIViewController {
     let editButtonPressed: () -> Void
     let deleteButtonPressed: () -> Void
     
-    init(
-        habit: Habit,
-        editButtonPressed: @escaping () -> Void,
-        deleteButtonPressed: @escaping () -> Void
-    ) {
+    init(habit: Habit,
+         editButtonPressed: @escaping () -> Void,
+         deleteButtonPressed: @escaping () -> Void) {
         self.habit = habit
         self.editButtonPressed = editButtonPressed
         self.deleteButtonPressed = deleteButtonPressed
@@ -108,11 +107,17 @@ class HabitViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.backgroundColor = self.habit.color
+        self.navigationController?.navigationBar.tintColor = StudiumColor.primaryLabelColor(forBackgroundColor: self.habit.color)
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupSwiftUI()
-        self.navigationController?.navigationBar.prefersLargeTitles = false
-        self.navigationController?.navigationBar.tintColor = StudiumColor.primaryLabelColor(forBackgroundColor: self.habit.color)
         
         let editImage = SystemIcon.pencilCircleFill.createImage()
         let editItem = UIBarButtonItem(image: editImage, style: .done, target: self, action: #selector(self.editAssignment))
@@ -126,9 +131,7 @@ class HabitViewController: UIViewController {
     }
     
     private func setupSwiftUI() {
-        let habitView = HabitView(
-            habit: self.habit
-        )
+        let habitView = HabitView(habit: self.habit)
         
         let hostingController = UIHostingController(rootView: habitView)
         self.addChild(hostingController)

@@ -11,16 +11,13 @@ import SwiftUI
 
 struct StudiumTextField: View {
     @Binding var text: String
-    @FocusState var focused: Bool
     let placeholderText: String
     let charLimit: TextFieldCharLimit
     
     var body: some View {
         HStack {
             TextField(self.placeholderText, text: self.$text)
-                .onChange(of: self.text) { _ in
-                    self.text = String(self.text.prefix(self.charLimit.rawValue))
-                }
+                .tint(StudiumColor.primaryAccent.color)
             
             HStack {
                 Divider()

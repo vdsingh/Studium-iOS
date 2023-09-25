@@ -51,7 +51,9 @@ class DEPRECATEDRecurringEventCell: DeletableEventCell {
         
         self.nameLabel.text = courseName
         self.nameLabel.textColor = color
+        
         self.locationLabel.text = recurringEvent.location
+        self.locationLabel.textColor = StudiumColor.placeholderLabel.uiColor
 
         var timeText = startTime.format(with: DateFormat.standardTime)
         timeText.append(" - \(endTime.format(with: DateFormat.standardTime))")

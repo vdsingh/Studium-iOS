@@ -11,6 +11,7 @@ import RealmSwift
 
 // TODO: Docstrings
 struct AutoschedulingConfig: Codable {
+    private var autoschedulingDaysList = List<Int>()
     
     /// The amount of time (in minutes) that autoscheduled events should be scheduled for
     var autoLengthMinutes: Int
@@ -20,8 +21,6 @@ struct AutoschedulingConfig: Codable {
     
     /// Whether we use start date and end date as bounds for what time to autoschedule the event
     var useDatesAsBounds: Bool
-    
-    private var autoschedulingDaysList = List<Int>()
     
     var autoschedulingDays: Set<Weekday> {
         get {

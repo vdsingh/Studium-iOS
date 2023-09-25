@@ -117,15 +117,19 @@ class OtherEventViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.navigationController?.navigationBar.tintColor = StudiumColor.primaryLabelColor(forBackgroundColor: self.otherEvent.color)
+        self.navigationController?.navigationBar.backgroundColor = self.otherEvent.color
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupSwiftUI()
-        self.navigationController?.navigationBar.prefersLargeTitles = false
-        self.navigationController?.navigationBar.tintColor = StudiumColor.primaryLabelColor(forBackgroundColor: self.otherEvent.color)
         
         let editImage = SystemIcon.pencilCircleFill.createImage()
         let editItem = UIBarButtonItem(image: editImage, style: .done, target: self, action: #selector(self.editAssignment))
-        
         
         let deleteItem = UIBarButtonItem(image: SystemIcon.trashCanCircleFill.createImage(), style: .done, target: self, action: #selector(self.deleteAssignment))
         self.navigationItem.rightBarButtonItems = [
