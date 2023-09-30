@@ -239,6 +239,7 @@
 		B9BE83BE2AC6566200923EE9 /* OtherEventFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83BD2AC6566200923EE9 /* OtherEventFormView.swift */; };
 		B9BE83C12AC6695600923EE9 /* TimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83C02AC6695600923EE9 /* TimeTests.swift */; };
 		B9BE83C42AC67C8500923EE9 /* OtherEventDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83C32AC67C8500923EE9 /* OtherEventDetailsView.swift */; };
+		B9BE83CB2AC80E1300923EE9 /* RemoteConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83CA2AC80E1300923EE9 /* RemoteConfigService.swift */; };
 		B9C2EB192A78C67900E14320 /* StudiumButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C2EB182A78C67900E14320 /* StudiumButtonStyle.swift */; };
 		B9C2EB1D2A78DD6500E14320 /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C2EB1C2A78DD6500E14320 /* PDFViewController.swift */; };
 		B9CDEF732A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF722A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift */; };
@@ -520,6 +521,7 @@
 		B9BE83C02AC6695600923EE9 /* TimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTests.swift; sourceTree = "<group>"; };
 		B9BE83C32AC67C8500923EE9 /* OtherEventDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventDetailsView.swift; sourceTree = "<group>"; };
 		B9BE83C92AC7D4C500923EE9 /* TestingBacklog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TestingBacklog.md; sourceTree = "<group>"; };
+		B9BE83CA2AC80E1300923EE9 /* RemoteConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigService.swift; sourceTree = "<group>"; };
 		B9C2EB182A78C67900E14320 /* StudiumButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumButtonStyle.swift; sourceTree = "<group>"; };
 		B9C2EB1C2A78DD6500E14320 /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
 		B9CDEF722A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppleCalendarService+StudiumEvent.swift"; sourceTree = "<group>"; };
@@ -802,6 +804,7 @@
 				B90F10632A72115200BAB23F /* ChatGPTService.swift */,
 				B90F10652A7301D000BAB23F /* SecretsService.swift */,
 				B97058EF2A88BD00008F8636 /* SoundEffectService.swift */,
+				B9BE83CC2AC814F800923EE9 /* RemoteConfig */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1503,6 +1506,14 @@
 			path = CourseForm;
 			sourceTree = "<group>";
 		};
+		B9BE83CC2AC814F800923EE9 /* RemoteConfig */ = {
+			isa = PBXGroup;
+			children = (
+				B9BE83CA2AC80E1300923EE9 /* RemoteConfigService.swift */,
+			);
+			path = RemoteConfig;
+			sourceTree = "<group>";
+		};
 		B9CDEF7E2A4597430084AB24 /* GoogleAuth */ = {
 			isa = PBXGroup;
 			children = (
@@ -1886,6 +1897,7 @@
 				B94CA0D32A2F10F800047865 /* Coordinated.swift in Sources */,
 				B9F1B2DD2A1DB96C006F1462 /* TabBarCoordinator.swift in Sources */,
 				16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */,
+				B9BE83CB2AC80E1300923EE9 /* RemoteConfigService.swift in Sources */,
 				B94CA0F22A3683F200047865 /* StudiumEventContainer.swift in Sources */,
 				B90D13FA29845FE80093EB0C /* DEPRECATEDAddHabitViewController.swift in Sources */,
 				B9C2EB192A78C67900E14320 /* StudiumButtonStyle.swift in Sources */,

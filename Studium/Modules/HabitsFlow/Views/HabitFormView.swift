@@ -165,17 +165,15 @@ struct HabitFormView: View {
                     })
                     .tint(StudiumColor.secondaryAccent.color)
                     
-                    if self.viewModel.isAutoscheduling {
+                    if Flags.allowHabitAutoscheduling.value || self.viewModel.isAutoscheduling {
                         TimePicker(label: "Between", time: self.$viewModel.startTime)
                         TimePicker(label: "And", time: self.$viewModel.endTime)
-
-//                        DatePicker("Between", selection: self., displayedComponents: [.hourAndMinute]).tint(StudiumColor.primaryAccent.color)
-//                        DatePicker("And", selection: self.$endDate, displayedComponents: [.hourAndMinute]).tint(StudiumColor.primaryAccent.color)
                         TimeLengthPickerView(totalMinutes: self.$viewModel.totalAutoscheduleLengthMinutes)
                     } else {
                         TimePicker(label: "Starts", time: self.$viewModel.startTime)
                         TimePicker(label: "Ends", time: self.$viewModel.endTime)
                     }
+                    
                     
                     ShowNotificationSelectionButton(selectedOptions: self.$viewModel.notificationSelections)
                 }

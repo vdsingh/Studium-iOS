@@ -50,6 +50,6 @@ class OtherEvent: StudiumEvent, CompletableStudiumEvent, Autoscheduled, Codable 
 
 extension OtherEvent {
     static func mock() -> OtherEvent {
-        return OtherEvent(name: "Other Event", location: "Location", additionalDetails: "Additional Details", startDate: Date.distantPast, endDate: Date.distantPast.add(hours: 2), color: StudiumEventColor.green, icon: .book, alertTimes: [.fifteenMin, .oneDay])
+        return OtherEvent(name: "Other Event", location: "Location", additionalDetails: "Additional Details", startDate: Date.distantPast, endDate: Date.distantPast.add(hours: 2), color: StudiumEventColor.green.uiColor, icon: .book, alertTimes: [.fifteenMin, .oneDay])
     }
 }

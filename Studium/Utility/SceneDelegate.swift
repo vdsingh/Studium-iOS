@@ -23,12 +23,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        let coordinator = AppCoordinator(authenticationService: AuthenticationService.shared)
-        self.coordinator = coordinator
-        coordinator.start()
-        
-        self.window?.makeKeyAndVisible()
-        currentScene = scene
+        // Fetch remote config values before doing anything
+        RemoteConfigService.shared.refresh {
+            let coordinator = AppCoordinator(authenticationService: AuthenticationService.shared)
+            self.coordinator = coordinator
+            coordinator.start()
+            
+            self.window?.makeKeyAndVisible()
+            currentScene = scene
+        }
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

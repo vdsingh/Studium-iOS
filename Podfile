@@ -9,6 +9,7 @@ target 'Studium' do
 pod 'FirebaseAnalytics'
 pod 'FirebaseCrashlytics'
 pod 'FirebaseStorage'
+pod 'FirebaseRemoteConfig'
 
 #Data Management
 pod 'RealmSwift'
