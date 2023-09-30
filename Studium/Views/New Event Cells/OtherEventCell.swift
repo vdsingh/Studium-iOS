@@ -9,7 +9,6 @@
 import UIKit
 import SwipeCellKit
 
-
 //TODO: Docstrings
 class OtherEventCell: DeletableEventCell {
     static let id = "OtherEventCell"

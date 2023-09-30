@@ -100,7 +100,7 @@ extension Date {
             currentDate = currentDate.add(days: 1)
         }
         
-        var randomDaysToAdd = Int.random(in: -20...20) * 7
+        let randomDaysToAdd = Int.random(in: -20...20) * 7
         currentDate = currentDate.add(days: randomDaysToAdd)
 
         return currentDate
@@ -136,13 +136,13 @@ extension Date {
     }
     
     //TODO: Docstrings
-    func setTime(hour: Int, minute: Int, second: Int) -> Date? {
+    func setTime(hour: Int, minute: Int, second: Int) -> Date {
         let calendar = Calendar(identifier: .gregorian)
         var dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self)
         dateComponents.hour = hour
         dateComponents.minute = minute
         dateComponents.second = second
-        return calendar.date(from: dateComponents)
+        return calendar.date(from: dateComponents)!
     }
     
     //TODO: Docstrings

@@ -54,7 +54,7 @@ struct HabitView: View {
                                     StudiumSubtitle(self.habit.autoscheduling ? "Autoschedule On:" : "Occurs On:")
                                 }
                                 
-                                WeekdaysSelectedView(selectedDays: self.habit.days)
+                                WeekdaysSelectedView(selectedDays: self.habit.days, tintColor: StudiumColor.primaryAccent.color)
                                 
                                 HStack {
                                     MiniIcon(image: SystemIcon.clock.createImage())

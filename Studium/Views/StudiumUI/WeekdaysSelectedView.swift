@@ -12,20 +12,22 @@ import SwiftUI
 /// View-only display of weekdays selected
 struct WeekdaysSelectedView: View {
     var selectedDays: Set<Weekday>
+    let tintColor: Color
     
     var body: some View {
         HStack(alignment: .center) {
             ForEach(Weekday.allKnownCases, id: \.self) { weekday in
-                WeekdaySelectedView(day: weekday, selectedDays: self.selectedDays)
+                WeekdaySelectedView(day: weekday, tintColor: self.tintColor, selectedDays: self.selectedDays)
                     .frame(maxWidth: .infinity)
             }
         }
     }
 }
 
-struct WeekdaySelectedView: View {
+private struct WeekdaySelectedView: View {
     
     let day: Weekday
+    let tintColor: Color
     @State var selectedDays: Set<Weekday>
     
     var isSelected: Bool {
@@ -37,23 +39,6 @@ struct WeekdaySelectedView: View {
     }
     
     var dayTextView: some View {
-        WeekdayView(isSelected: self.isSelected, tintColor: StudiumColor.primaryAccent.color, day: self.day)
-//        VStack {
-//            if self.isSelected {
-//                ZStack {
-//                    StudiumColor.primaryAccent.color
-//                        .clipShape(.rect(cornerRadius: Increment.one))
-//                        .frame(maxHeight: Increment.four)
-//                    Text(self.day.buttonText)
-//                        .font(StudiumFont.subText.font)
-//                        .foregroundStyle(StudiumFont.body.color)
-//                        .padding(2)
-//                }
-//            } else {
-//                Text(self.day.buttonText)
-//                    .font(StudiumFont.subText.font)
-//                    .foregroundStyle(StudiumColor.primaryAccent.color)
-//            }
-//        }
+        WeekdayView(isSelected: self.isSelected, tintColor: self.tintColor, day: self.day)
     }
 }

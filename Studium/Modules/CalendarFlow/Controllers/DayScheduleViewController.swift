@@ -6,10 +6,9 @@
 //  Copyright © 2020 Vikram Singh. All rights reserved.
 //
 //
+
 import UIKit
 import CalendarKit
-
-
 
 //TODO: Docstrings
 class DayScheduleViewController: DayViewController, Storyboarded {

@@ -55,3 +55,9 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
         self.assignmentsList.append(containedEvent)
     }
 }
+
+extension Course {
+    static func mock() -> Course {
+        return Course(name: "Course name", color: StudiumEventColor.blue.uiColor, location: "Course Location", additionalDetails: "Course Additional Details", startDate: Time.noon.arbitraryDateWithTime, endDate: Time.noon.adding(hours: 1, minutes: 0).arbitraryDateWithTime, days: [.tuesday, .thursday], icon: .basketball, notificationAlertTimes: [.fiveMin, .oneHour])
+    }
+}

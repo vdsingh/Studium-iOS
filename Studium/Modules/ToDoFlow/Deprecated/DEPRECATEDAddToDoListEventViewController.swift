@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 /// Form to add a To-Do List Event
-class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyboarded {
+class DEPRECATEDAddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyboarded {
     
     weak var coordinator: OtherEventEditingCoordinator?
     
@@ -131,7 +131,7 @@ class AddToDoListEventViewController: MasterForm, AlertTimeSelectingForm, Storyb
 }
 
 // TODO: Docstrings
-extension AddToDoListEventViewController {
+extension DEPRECATEDAddToDoListEventViewController {
     
     // TODO: Docstrings
     func fillForm(with otherEvent: OtherEvent) {

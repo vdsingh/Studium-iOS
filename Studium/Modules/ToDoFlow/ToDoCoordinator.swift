@@ -55,12 +55,10 @@ class ToDoCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinator
     
     //TODO: Docstrings
     func showAddToDoListEventViewController(refreshDelegate: ToDoListRefreshProtocol) {
-        let addToDoEventVC = AddToDoListEventViewController.instantiate()
-        let navController = UINavigationController(rootViewController: addToDoEventVC)
-        addToDoEventVC.delegate = refreshDelegate
-        addToDoEventVC.coordinator = self
-        self.navigationController.topViewController?.present(navController, animated: true)
-        self.formNavigationController = navController
+        let editOtherEventVC = OtherEventFormViewController(refreshCallback: {
+            refreshDelegate.reloadData()
+        })
+        self.navigationController.topViewController?.present(editOtherEventVC, animated: true)
     }
     
     func childDidFinish(_ child: Coordinator?) {

@@ -34,7 +34,7 @@ public enum StudiumColor {
     var colors: (dark: UIColor, light: UIColor) {
         switch self {
         case .background:
-            return (UIColor(hex: "#000000"), .secondarySystemBackground)
+            return (UIColor(hex: "#000000"), UIColor(hex: "#ebebeb"))
         case .secondaryBackground:
             return (UIColor(hex: "#1c1c1e"), .tertiarySystemBackground)
         case .tertiaryBackground:

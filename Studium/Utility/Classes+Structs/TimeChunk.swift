@@ -8,7 +8,7 @@
 
 import Foundation
 
-//TODO: Docstrings
+/// Represents a chunk of Time
 class TimeChunk {
     
     //TODO: Docstrings

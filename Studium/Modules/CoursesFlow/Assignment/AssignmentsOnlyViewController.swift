@@ -127,7 +127,7 @@ class AssignmentsOnlyViewController: AssignmentsOtherEventsViewController, UISea
         if let assignmentForEdit = deletableEventCell.event as? Assignment {
             self.editAssignment(assignmentForEdit)
         } else if let otherEventForEdit = deletableEventCell.event as? OtherEvent {
-            self.coordinator?.showEditOtherEventViewController(refreshDelegate: self, otherEventToEdit: otherEventForEdit)
+            self.coordinator?.showOtherEventFormViewController(refreshDelegate: self, otherEventToEdit: otherEventForEdit)
         }
     }
     

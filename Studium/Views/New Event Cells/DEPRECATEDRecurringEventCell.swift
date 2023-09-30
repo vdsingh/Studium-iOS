@@ -50,7 +50,7 @@ class DEPRECATEDRecurringEventCell: DeletableEventCell {
         self.background.layer.borderColor = color.cgColor
         
         self.nameLabel.text = courseName
-        self.nameLabel.textColor = color
+        self.nameLabel.textColor = StudiumColor.primaryLabel.uiColor
         
         self.locationLabel.text = recurringEvent.location
         self.locationLabel.textColor = StudiumColor.placeholderLabel.uiColor
@@ -58,6 +58,7 @@ class DEPRECATEDRecurringEventCell: DeletableEventCell {
         var timeText = startTime.format(with: DateFormat.standardTime)
         timeText.append(" - \(endTime.format(with: DateFormat.standardTime))")
         self.timeLabel.text = timeText
+        self.timeLabel.textColor = StudiumColor.primaryLabel.uiColor
         
         for dayBox in self.dayBoxes {
             dayBox.layer.borderWidth = 2
@@ -66,7 +67,7 @@ class DEPRECATEDRecurringEventCell: DeletableEventCell {
         }
         
         // Reset all of the day labels and day boxes
-        for i in 0..<dayLabels.count {
+        for i in 0..<self.dayLabels.count {
             self.dayLabels[i].textColor = StudiumColor.primaryLabel.uiColor
             self.dayBoxes[i].backgroundColor = .none
         }

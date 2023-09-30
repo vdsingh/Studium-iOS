@@ -30,7 +30,7 @@ struct MockStudiumEventService {
         return self.habit_read
     }
     
-    static let calculusII = Course(name: "Calculus II", color: StudiumEventColor.blue.uiColor, location: "Math Center Room 123", additionalDetails: "These are the additional details", startDate: Date.someFriday.setTime(hour: 13, minute: 0, second: 0)!, endDate: Date.someFriday.setTime(hour: 14, minute: 30, second: 0)!, days: [.monday, .wednesday, .friday], icon: .function, notificationAlertTimes: [.atTime, .fifteenMin, .oneHour])
+    static let calculusII = Course(name: "Calculus II", color: StudiumEventColor.blue.uiColor, location: "Math Center Room 123", additionalDetails: "These are the additional details", startDate: Time.noon.arbitraryDateWithTime, endDate: Time.noon.arbitraryDateWithTime, days: [.monday, .wednesday, .friday], icon: .function, notificationAlertTimes: [.atTime, .fifteenMin, .oneHour])
     static let calculusIIAssignment1 = Assignment(name: "Homework 1", additionalDetails: "", complete: false, startDate: Date(), endDate: Date(), notificationAlertTimes: [], autoschedulingConfig: nil, parentCourse: MockStudiumEventService.calculusII)
 
     static let bioLab = Course(name: "Biology Lab", color: StudiumEventColor.green.uiColor, location: "Biology Lab Room 246", additionalDetails: "", startDate: Date(), endDate: Date(), days: [.tuesday, .thursday], icon: .function, notificationAlertTimes: [])

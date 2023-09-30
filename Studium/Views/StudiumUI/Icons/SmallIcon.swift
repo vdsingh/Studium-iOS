@@ -76,7 +76,7 @@ struct TinyIcon: View {
             .renderingMode(.template)
             .foregroundStyle(self.color)
             .scaledToFit()
-            .frame(width: 12, height: 12)
+            .frame(width: 15, height: 15)
     }
     
     init(color: Color = StudiumColor.primaryLabel.color, image: UIImage) {

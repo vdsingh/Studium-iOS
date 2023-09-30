@@ -11,11 +11,6 @@ import Foundation
 // String extension for subscript access.
 extension String {
     
-    /// The length of the string
-    var length: Int {
-        return count
-    }
-    
     //TODO: Docstrings
     subscript (i: Int) -> String {
         return self[i ..< i + 1]
@@ -23,7 +18,7 @@ extension String {
     
     //TODO: Docstrings
     func substring(fromIndex: Int) -> String {
-        return self[min(fromIndex, length) ..< length]
+        return self[min(fromIndex, count) ..< count]
     }
     
     //TODO: Docstrings
@@ -33,8 +28,8 @@ extension String {
     
     //TODO: Docstrings
     subscript (r: Range<Int>) -> String {
-        let range = Range(uncheckedBounds: (lower: max(0, min(length, r.lowerBound)),
-                                            upper: min(length, max(0, r.upperBound))))
+        let range = Range(uncheckedBounds: (lower: max(0, min(count, r.lowerBound)),
+                                            upper: min(count, max(0, r.upperBound))))
         let start = index(startIndex, offsetBy: range.lowerBound)
         let end = index(start, offsetBy: range.upperBound - range.lowerBound)
         return String(self[start ..< end])

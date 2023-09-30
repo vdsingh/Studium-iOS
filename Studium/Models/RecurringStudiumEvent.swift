@@ -100,3 +100,10 @@ class RecurringStudiumEvent: StudiumEvent, GoogleCalendarRecurringEventLinking {
     }
 }
 
+extension RecurringStudiumEvent {
+    
+    var timeText: String {
+        return "\(self.startDate.format(with: DateFormat.standardTime)) - \(self.endDate.format(with: DateFormat.standardTime))"
+    }
+}
+

@@ -111,7 +111,7 @@ class ToDoListViewController: AssignmentsOtherEventsViewController, ToDoListRefr
     }
     
     override func editOtherEvent(_ otherEvent: OtherEvent) {
-        self.coordinator?.showEditOtherEventViewController(refreshDelegate: self, otherEventToEdit: otherEvent)
+        self.coordinator?.showOtherEventFormViewController(refreshDelegate: self, otherEventToEdit: otherEvent)
     }
     
     //TODO: Docstrings

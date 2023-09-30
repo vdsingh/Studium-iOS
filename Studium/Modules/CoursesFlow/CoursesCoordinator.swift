@@ -55,7 +55,7 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
     
     //TODO: Docstrings
     func showAddCourseViewController(refreshDelegate: CourseRefreshProtocol) {
-        let addCourseVC = AddCourseViewController(refreshCallback: {
+        let addCourseVC = CourseFormViewController(refreshCallback: {
             refreshDelegate.loadCourses()
         })
 //        let navController = UINavigationController(rootViewController: addCourseVC)
@@ -67,18 +67,11 @@ class CoursesCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordina
     
     //TODO: Docstrings
     func showEditCourseViewController(refreshDelegate: CourseRefreshProtocol, courseToEdit: Course) {
-//        let addCourseVC = DEPRECATEDAddCourseViewController.instantiate()
-        let editCourseController = EditCourseViewController(
+        let editCourseController = CourseFormViewController(
             course: courseToEdit,
             refreshCallback: refreshDelegate.loadCourses
         )
-//        let navController = UINavigationController(rootViewController: editCourseController)
-//        addCourseVC.delegate = refreshDelegate
-//        addCourseVC.course = courseToEdit
-//        addCourseVC.title = "Edit Course"
-//        addCourseVC.coordinator = self
         self.navigationController.topViewController?.present(editCourseController, animated: true)
-//        self.formNavigationController = navController
     }
     
     func showAddAssignmentViewController(refreshDelegate: AssignmentRefreshProtocol, selectedCourse: Course) {

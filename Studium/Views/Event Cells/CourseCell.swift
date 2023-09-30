@@ -7,10 +7,14 @@
 //
 
 import Foundation
-import SwiftUI
-
-struct CourseCell: View {
-    var body: some View {
-        Text("Course Cell")
-    }
-}
+//import SwiftUI
+//import RealmSwift
+//
+//struct CourseCell: View {
+//    
+//    @ObservedRealmObject var course: Course
+//    
+//    var body: some View {
+//        
+//    }
+//}

@@ -55,7 +55,10 @@ class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinat
     
     //TODO: Docstrings
     func showEditHabitViewController(refreshDelegate: HabitRefreshProtocol, habitToEdit: Habit) {
-        let editHabitController = EditHabitViewController(habit: habitToEdit, refreshCallback: refreshDelegate.loadHabits)
+        let editHabitController = HabitFormViewController(habit: habitToEdit) {
+            refreshDelegate.loadHabits()
+        }
+//        let editHabitController = EditHabitViewController(habit: habitToEdit, refreshCallback: refreshDelegate.loadHabits)
         self.navigationController.topViewController?.present(editHabitController, animated: true)
 
 //        let editHabitVC = DEPRECATEDAddHabitViewController.instantiate()
@@ -70,7 +73,10 @@ class HabitsCoordinator: NSObject, TabItemCoordinator, StudiumEventFormCoordinat
     
     //TODO: Docstrings
     func showAddHabitViewController(refreshDelegate: HabitRefreshProtocol) {
-        let addHabitController = AddHabitViewController(refreshCallback: {})
+        let addHabitController = HabitFormViewController {
+            refreshDelegate.loadHabits()
+        }
+        
         self.navigationController.topViewController?.present(addHabitController, animated: true)
 //        let addHabitVC = AddHabitViewController.instantiate()
 //        let navController = UINavigationController(rootViewController: addHabitVC)

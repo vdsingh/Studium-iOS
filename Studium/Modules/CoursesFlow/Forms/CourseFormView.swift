@@ -1,8 +1,8 @@
 //
-//  HabitFormView.swift
+//  CourseForm.swift
 //  Studium
 //
-//  Created by Vikram Singh on 9/24/23.
+//  Created by Vikram Singh on 9/21/23.
 //  Copyright © 2023 Vikram Singh. All rights reserved.
 //
 
@@ -10,17 +10,17 @@ import Foundation
 import SwiftUI
 
 /// ViewModel to enable CourseFormView
-class HabitFormViewModel: ObservableObject {
+class CourseFormViewModel: ObservableObject {
     
-    private var originalHabit: Habit?
+    private var originalCourse: Course?
     private var willComplete: () -> Void
     
     private var isEditing: Bool {
-        self.originalHabit != nil
+        self.originalCourse != nil
     }
     
     var titleText: String {
-        self.isEditing ? "Edit Habit" : "Add Habit"
+        self.isEditing ? "Edit Course" : "Add Course"
     }
     
     var positiveCTAButtonText: String {
@@ -33,9 +33,6 @@ class HabitFormViewModel: ObservableObject {
     @Published var location: String
     @Published var daysSelected: Set<Weekday>
     
-    @Published var isAutoscheduling: Bool
-    @Published var totalAutoscheduleLengthMinutes: Int
-
     @Published var startTime: Time
     @Published var endTime: Time
     @Published var notificationSelections: [AlertOption]
@@ -45,28 +42,22 @@ class HabitFormViewModel: ObservableObject {
     
     @Published var additionalDetails: String
     
-    var constructedAutoschedulingConfig: AutoschedulingConfig? {
-        return self.isAutoscheduling ?
-        AutoschedulingConfig(autoLengthMinutes: self.totalAutoscheduleLengthMinutes, autoscheduleInfinitely: true, useDatesAsBounds: false, autoschedulingDays: self.daysSelected) :
-        nil
-    }
-    
     /// Maintains any form errors that prevent postiive CTA from successfully completing
     @Published private(set) var formErrors: [StudiumFormError] = []
     
     /// Function called when the positive CTA button is tapped (i.e,. "done" or "add")
     /// - Returns: Whether the form completed successfully
     func positiveCTATapped() -> Bool {
-        if let constructedHabit = self.constructHabit() {
-            if let originalHabit = self.originalHabit {
+        if let constructedCourse = self.constructCourse() {
+            if let originalCourse = self.originalCourse {
                 // If editing, update old course
                 StudiumEventService.shared.updateStudiumEvent(
-                    oldEvent: originalHabit,
-                    updatedEvent: constructedHabit
+                    oldEvent: originalCourse,
+                    updatedEvent: constructedCourse
                 )
             } else {
                 // If adding, create new course
-                StudiumEventService.shared.saveStudiumEvent(constructedHabit)
+                StudiumEventService.shared.saveStudiumEvent(constructedCourse)
             }
             
             self.willComplete()
@@ -76,12 +67,15 @@ class HabitFormViewModel: ObservableObject {
         return false
     }
     
-    /// Creates a habit from the form fields
-    /// - Returns: A habit from the form fields
-    func constructHabit() -> Habit? {
+    /// Creates a course from the form fields
+    /// - Returns: A course from the form fields
+    func constructCourse() -> Course? {
         self.updateErrors()
         if self.formErrors.isEmpty, let color = self.color {
-            return Habit(name: self.name, location: self.location, additionalDetails: self.additionalDetails, startDate: self.startTime.arbitraryDateWithTime, endDate: self.endTime.arbitraryDateWithTime, autoschedulingConfig: self.constructedAutoschedulingConfig, alertTimes: self.notificationSelections, days: self.daysSelected, icon: self.icon, color: color)
+            return Course(name: self.name, color: color, location: self.location,
+                          additionalDetails: self.additionalDetails, startDate: self.startTime.arbitraryDateWithTime,
+                          endDate: self.endTime.arbitraryDateWithTime, days: self.daysSelected, icon: self.icon,
+                          notificationAlertTimes: self.notificationSelections)
         }
         
         return nil
@@ -89,21 +83,12 @@ class HabitFormViewModel: ObservableObject {
     
     /// Resets the form errors
     func updateErrors() {
+        Log.d("Update Errors called. self name: \(self.name)")
         self.formErrors = []
         if self.name.trimmed().isEmpty { self.formErrors.append(.nameNotSpecified) }
         if self.daysSelected.isEmpty { self.formErrors.append(.oneDayNotSpecified) }
         if self.startTime > self.endTime { self.formErrors.append(.endTimeOccursBeforeStartTime) }
         if self.color == nil { self.formErrors.append(.colorNotSpecfied) }
-        
-        if self.isAutoscheduling {
-            if TimeChunk(startDate: self.startTime.arbitraryDateWithTime, endDate: self.endTime.arbitraryDateWithTime).lengthInMinutes > self.totalAutoscheduleLengthMinutes {
-                self.formErrors.append(.totalTimeExceedsTimeFrame)
-            }
-            
-            if self.totalAutoscheduleLengthMinutes <= 0 {
-                self.formErrors.append(.totalTimeNotSpecified)
-            }
-        }
     }
     
     /// Initializer for adding a new course (default values represent "Empty Form")
@@ -117,12 +102,10 @@ class HabitFormViewModel: ObservableObject {
     ///   - icon:                   The custom icon for the course
     ///   - color:                  The color for the course
     ///   - additionalDetails:      Any additional details associated with the course
-    internal init(name: String = "", location: String = "", daysSelected: Set<Weekday> = [], isAutoscheduling: Bool = false, totalAutoLengthMinutes: Int = 60, startTime: Time = .now, endTime: Time = .now.adding(hours: 1, minutes: 0), notificationSelections: [AlertOption] = [], icon: StudiumIcon = .book, color: UIColor? = StudiumEventColor.darkRed.uiColor, additionalDetails: String = "", willComplete: @escaping () -> Void) {
+    internal init(name: String = "", location: String = "", daysSelected: Set<Weekday> = [], startTime: Time = .now, endTime: Time = .now.adding(hours: 1, minutes: 0), notificationSelections: [AlertOption] = [], icon: StudiumIcon = .book, color: UIColor? = StudiumEventColor.darkRed.uiColor, additionalDetails: String = "", willComplete: @escaping () -> Void) {
         self.name = name
         self.location = location
         self.daysSelected = daysSelected
-        self.isAutoscheduling = isAutoscheduling
-        self.totalAutoscheduleLengthMinutes = totalAutoLengthMinutes
         self.startTime = startTime
         self.endTime = endTime
         self.notificationSelections = notificationSelections
@@ -131,22 +114,50 @@ class HabitFormViewModel: ObservableObject {
         self.additionalDetails = additionalDetails
         self.willComplete = willComplete
     }
-
+    
     /// Initiailzer intended to be used for editing a course
     /// - Parameter course: The course to be edited
-    internal convenience init(habit: Habit, willComplete: @escaping () -> Void) {
-        self.init(name: habit.name, location: habit.location, daysSelected: habit.days, isAutoscheduling: habit.autoscheduling, totalAutoLengthMinutes: habit.autoschedulingConfig?.autoLengthMinutes ?? 60, startTime: habit.startDate.time, endTime: habit.endDate.time, notificationSelections: habit.alertTimes, icon: habit.icon, additionalDetails: habit.additionalDetails, willComplete: willComplete)
-        self.originalHabit = habit
+    internal convenience init(course: Course, willComplete: @escaping () -> Void) {
+        self.init(name: course.name, location: course.location, daysSelected: course.days, startTime: course.startDate.time, endTime: course.endDate.time, notificationSelections: course.alertTimes, icon: course.icon, additionalDetails: course.additionalDetails, willComplete: willComplete)
+        self.originalCourse = course
     }
 }
 
-struct HabitFormView: View {
-        
-    // MARK: - Course Properties
+struct CourseFormView: View {
     
-    @ObservedObject var viewModel: HabitFormViewModel
+    @ObservedObject var viewModel: CourseFormViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
+        NavigationView {
+            self.formView
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text(self.viewModel.titleText)
+                            .foregroundColor(StudiumFormNavigationConstants.navBarForegroundColor)
+                            .font(StudiumFont.bodySemibold.font)
+                    }
+                    
+                    ToolbarItemGroup(placement: .topBarLeading) {
+                        Button("Cancel") {
+                            self.dismiss()
+                        }.foregroundStyle(StudiumFormNavigationConstants.navBarForegroundColor)
+                    }
+                    
+                    ToolbarItemGroup(placement: .topBarTrailing) {
+                        Button(self.viewModel.positiveCTAButtonText) {
+                            if self.viewModel.positiveCTATapped() {
+                                self.dismiss()
+                            }
+                        }
+                    }
+                }
+        }
+        .accentColor(StudiumFormNavigationConstants.navBarForegroundColor)
+    }
+    
+    private var formView: some View {
         VStack(alignment: .leading) {
             Form {
                 Section(header: Text("Details")) {
@@ -160,23 +171,11 @@ struct HabitFormView: View {
                 }
                 
                 Section(header: Text("Start / End Time")) {
-                    Toggle(isOn: self.$viewModel.isAutoscheduling, label: {
-                        Text("Autoscheduling")
-                    })
-                    .tint(StudiumColor.secondaryAccent.color)
+                    TimePicker(label: "Starts", time: self.$viewModel.startTime)
+                    TimePicker(label: "Ends", time: self.$viewModel.endTime)
                     
-                    if self.viewModel.isAutoscheduling {
-                        TimePicker(label: "Between", time: self.$viewModel.startTime)
-                        TimePicker(label: "And", time: self.$viewModel.endTime)
-
-//                        DatePicker("Between", selection: self., displayedComponents: [.hourAndMinute]).tint(StudiumColor.primaryAccent.color)
-//                        DatePicker("And", selection: self.$endDate, displayedComponents: [.hourAndMinute]).tint(StudiumColor.primaryAccent.color)
-                        TimeLengthPickerView(totalMinutes: self.$viewModel.totalAutoscheduleLengthMinutes)
-                    } else {
-                        TimePicker(label: "Starts", time: self.$viewModel.startTime)
-                        TimePicker(label: "Ends", time: self.$viewModel.endTime)
-                    }
-                    
+                    //                    DatePicker("Starts", selection: self.$startTime, displayedComponents: [.hourAndMinute]).tint(StudiumColor.primaryAccent.color)
+                    //                    DatePicker("Ends", selection: self.$endDate, displayedComponents: [.hourAndMinute]).tint(StudiumColor.primaryAccent.color)
                     ShowNotificationSelectionButton(selectedOptions: self.$viewModel.notificationSelections)
                 }
                 
@@ -197,8 +196,7 @@ struct HabitFormView: View {
                     HStack(alignment: .top) {
                         TinyIcon(color: .red, image: SystemIcon.circleFill.uiImage)
                         Text(error.stringRepresentation)
-                    }
-                    .foregroundStyle(StudiumColor.failure.color)
+                    }.foregroundStyle(StudiumColor.failure.color)
                 }
             }
             .padding(.horizontal, Increment.three)

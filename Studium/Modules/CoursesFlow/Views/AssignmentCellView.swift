@@ -17,7 +17,7 @@ struct AssignmentCellView: View {
     var isExpanded: Bool
     var isLoading: Bool = false
     
-    let checkboxWasTapped: () -> Void
+//    let checkboxWasTapped: () -> Void
     let assignmentCollapseHandler: AssignmentCollapseDelegate?
     
     var backgroundColor: Color {
@@ -26,6 +26,10 @@ struct AssignmentCellView: View {
     
     var textColor: Color {
         Color(uiColor: StudiumColor.primaryLabelColor(forBackgroundColor: UIColor(self.backgroundColor)))
+    }
+    
+    var thawedAssignment: Assignment? {
+        self.assignment.thaw()
     }
     
     var body: some View {
@@ -39,7 +43,10 @@ struct AssignmentCellView: View {
                     )
                     
                     Button {
-                        self.checkboxWasTapped()
+//                        self.checkboxWasTapped()
+                        if let thawedAssignment = self.thawedAssignment {
+                            StudiumEventService.shared.markComplete(thawedAssignment, !thawedAssignment.complete)
+                        }
                     } label: {
                         Image(uiImage: self.assignment.complete ? SystemIcon.circleCheckmarkFill.createImage() : SystemIcon.circle.createImage())
                             .resizable()
@@ -118,7 +125,7 @@ struct AssignmentViewController_Previews: PreviewProvider {
     static let mockAssignment = Assignment(name: "Homework 4", additionalDetails: "Additional Details", complete: true, startDate: Date(), endDate: Date()+100000, notificationAlertTimes: [], autoschedulingConfig: nil, parentCourse: Course(name: "CS 320", location: "Building A", additionalDetails: "Hello World", startDate: Date(), endDate: Date(), color: .green, icon: .atom, alertTimes: []))
     
     static var previews: some View {
-        AssignmentCellView(assignment: mockAssignment, isExpanded: true, checkboxWasTapped: {}, assignmentCollapseHandler: nil)
+        AssignmentCellView(assignment: mockAssignment, isExpanded: true, assignmentCollapseHandler: nil)
     }
 }
 
@@ -130,7 +137,7 @@ class AssignmentTableViewCell: DeletableEventCell {
     
     init(assignment: Assignment, isExpanded: Bool, assignmentCollapseHandler: AssignmentCollapseDelegate, checkboxWasTapped: @escaping () -> Void) {
         
-        let assignmentCellView = AssignmentCellView(assignment: assignment, isExpanded: isExpanded, checkboxWasTapped: checkboxWasTapped, assignmentCollapseHandler: assignmentCollapseHandler)
+        let assignmentCellView = AssignmentCellView(assignment: assignment, isExpanded: isExpanded, assignmentCollapseHandler: assignmentCollapseHandler)
         self.assignmentCellView = assignmentCellView
         
         super.init(style: .default, reuseIdentifier: nil)

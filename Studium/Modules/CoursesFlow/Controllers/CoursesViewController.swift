@@ -60,25 +60,33 @@ class CoursesViewController: StudiumEventListViewController, CourseRefreshProtoc
     //TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // build the cells
-        super.swipeCellId = DEPRECATEDRecurringEventCell.id
+//        super.swipeCellId = DEPRECATEDRecurringEventCell.id
+        super.swipeCellId = RecurringEventTableViewCell.id
         Log.d("will try to dequeue cell in CoursesViewController with id: \(self.swipeCellId)")
         
-        if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? DEPRECATEDRecurringEventCell,
+//        if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? DEPRECATEDRecurringEventCell,
+//           let course = eventsArray[indexPath.section][indexPath.row] as? Course {
+//            cell.event = course
+//            cell.loadData(
+//                courseName: course.name,
+//                location: course.location,
+//                startTime: course.startDate,
+//                endTime: course.endDate,
+//                days: course.days,
+//                color: course.color,
+//                recurringEvent: course,
+//                icon: course.icon
+//            )
+//            return cell
+//        }
+        
+        if let cell = super.tableView(tableView, cellForRowAt: indexPath) as? RecurringEventTableViewCell,
            let course = eventsArray[indexPath.section][indexPath.row] as? Course {
-            cell.event = course
-            cell.loadData(
-                courseName: course.name,
-                location: course.location,
-                startTime: course.startDate,
-                endTime: course.endDate,
-                days: course.days,
-                color: course.color,
-                recurringEvent: course,
-                icon: course.icon
-            )
+//            cell.event = course
+//            cell.host
+            cell.host(parent: self, event: course)
             return cell
         }
-
         fatalError("$ERR: Couldn't dequeue cell for Course List")
     }
     

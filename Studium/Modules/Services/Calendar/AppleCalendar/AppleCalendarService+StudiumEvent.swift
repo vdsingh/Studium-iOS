@@ -41,7 +41,6 @@ extension AppleCalendarService {
         self.saveEKEvent(event) { result in
             switch result {
             case .success(let event):
-                
                 // Link the StudiumEvent to the Apple Calendar Event
                 DatabaseService.shared.updateAppleCalendarEventID(studiumEvent: studiumEvent, appleCalendarEventID: event.eventIdentifier)
                 completion(.success(event))

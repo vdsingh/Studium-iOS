@@ -17,40 +17,6 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
     
     // MARK: - Autoscheduleable Variables
     
-    /// Does this event autoschedule other events?
-//    @Persisted var autoscheduling: Bool = false
-    
-    ///If this event is autoscheduling, how long should scheduled events be?
-//    @Persisted var autoLengthMinutes: Int = 60
-    
-//    /// Was this event autoscheduled by another event?
-//    @Persisted var autoscheduled: Bool = false
-    
-    //TODO: Docstrings
-//    @Persisted var autoscheduledEventsList = List<OtherEvent>()
-    
-    //TODO: Docstrings
-//    @Persisted var startEarlier: Bool = true
-    
-    /// Autoscheduling Habits should autoschedule until they are deleted.
-//    var autoscheduleInfinitely: Bool = true
-        
-    /// The events that this event has scheduled. We use OtherEvents as autoscheduled Habit events.
-//    var autoscheduledEvents: [OtherEvent] {
-//        return [OtherEvent](self.autoscheduledEventsList)
-//    }
-    
-    // TODO: Docstring
-//    var autoschedulingDays: Set<Weekday> {
-//        get { return self.days }
-//        set { self.days = newValue}
-//    }
-    
-//    var useDatesAsBounds: Bool = true
-    
-//    @Persisted var isGeneratingEvents: Bool = false
-    
-    
     //TODO: Docstrings
     @Persisted var autoscheduledEventsList = List<OtherEvent>()
     
@@ -64,34 +30,19 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         startDate: Date,
         endDate: Date,
         autoschedulingConfig: AutoschedulingConfig?,
-//        autoscheduling: Bool,
-//        startEarlier: Bool,
-//        autoLengthMinutes: Int,
         alertTimes: [AlertOption],
         days: Set<Weekday>,
         icon: StudiumIcon,
         color: UIColor
-//        partitionKey: String
     ) {
         self.init(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, color: color, icon: icon, alertTimes: alertTimes)
-//        self.startEarlier = startEarlier
         self.autoschedulingConfig = autoschedulingConfig
-//        self.autoscheduling = autoscheduling
-//        self.autoLengthMinutes = autoLengthMinutes
         self.days = days
-//        self._partitionKey = partitionKey
-        
         let nextOccurringTimeChunk = self.nextOccuringTimeChunk
         self.startDate = nextOccurringTimeChunk?.startDate ?? startDate
         self.endDate = nextOccurringTimeChunk?.endDate ?? endDate
     }
 
-    /// Adds a scheduled event to this event's scheduled events
-    /// - Parameter event: The StudiumEvent to add
-//    func appendAutoscheduledEvent(event: OtherEvent) {
-//        self.autoscheduledEventsList.append(event)
-//    }
-        
     func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> OtherEvent {
         let otherEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: "This Event was Autoscheduled by your Habit: \(self.name)", startDate: timeChunk.startDate, endDate: timeChunk.endDate, color: self.color, icon: self.icon, alertTimes: self.alertTimes)
         otherEvent.autoscheduled = true
@@ -105,4 +56,31 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         
         return super.timeChunkForDate(date: date)
     }
+}
+
+extension Habit {
+    static func mock(autoscheduling: Bool) -> Habit {
+        let autoschedulingConfig: AutoschedulingConfig? = autoscheduling ? .mock() : nil
+        return Habit(name: "Mock Habit", location: "Mock Location", additionalDetails: "Mock Additional Details", startDate: Time.noon.arbitraryDateWithTime, endDate: Time.noon.adding(hours: 1, minutes: 0).arbitraryDateWithTime, autoschedulingConfig: autoschedulingConfig, alertTimes: [.fiveMin, .fifteenMin], days: [.monday, .wednesday], icon: .binoculars, color: StudiumEventColor.blue.uiColor)
+    }
+}
+
+extension Habit: ComparableWithoutId {
+    func isEqualWithoutId(to event: Habit) -> Bool {
+        return self.name == event.name &&
+        self.location == event.location &&
+        self.additionalDetails == event.additionalDetails &&
+        self.startDate.time == event.startDate.time &&
+        self.endDate.time == event.endDate.time &&
+        self.autoschedulingConfig == event.autoschedulingConfig &&
+        self.alertTimes == event.alertTimes &&
+        self.days == event.days &&
+        self.icon == event.icon &&
+        self.color == event.color
+    }
+}
+
+protocol ComparableWithoutId {
+    associatedtype EventType
+    func isEqualWithoutId(to event: EventType) -> Bool
 }

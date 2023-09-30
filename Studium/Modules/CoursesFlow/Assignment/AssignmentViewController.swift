@@ -101,7 +101,7 @@ struct AssignmentViewStudyTime: View {
                     
                     HStack {
                         MiniIcon(image: SystemIcon.calendar.createImage())
-                        WeekdaysSelectedView(selectedDays: autoschedulingConfig.autoschedulingDays)
+                        WeekdaysSelectedView(selectedDays: autoschedulingConfig.autoschedulingDays, tintColor: StudiumColor.primaryAccent.color)
                     }
                 }
                 .padding(.leading, 30)

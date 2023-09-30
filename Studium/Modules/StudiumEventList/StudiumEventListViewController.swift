@@ -83,6 +83,8 @@ class StudiumEventListViewController: SwipeTableViewController, ErrorShowing {
         //Register all UI Elements used in the TableView
         self.tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderView.id)
         self.tableView.register(UINib(nibName: DEPRECATEDRecurringEventCell.id, bundle: nil), forCellReuseIdentifier: DEPRECATEDRecurringEventCell.id)
+        self.tableView.register(RecurringEventTableViewCell.self, forCellReuseIdentifier: RecurringEventTableViewCell.id)
+
         self.tableView.register(OtherEventTableViewCell.self, forCellReuseIdentifier: OtherEventTableViewCell.id)
 
         self.tableView.register(AssignmentTableViewCell.self, forCellReuseIdentifier: AssignmentTableViewCell.id)
