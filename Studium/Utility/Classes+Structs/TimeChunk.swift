@@ -9,32 +9,47 @@
 import Foundation
 
 /// Represents a chunk of Time
-class TimeChunk {
+struct TimeChunk {
     
     //TODO: Docstrings
-    let startDate: Date
+    let startTime: Time
     
     //TODO: Docstrings
-    let endDate: Date
+    let endTime: Time
     
     //TODO: Docstrings
     let descriptor: String?
     
     //TODO: Docstrings
     var lengthInMinutes: Int {        
-        let diffComponents = Calendar.current.dateComponents([.minute], from: startDate, to: endDate)
-        return diffComponents.minute ?? 0
+//        let diffComponents = Calendar.current.dateComponents([.minute], from: startDate, to: endDate)
+//        return diffComponents.minute ?? 0
+        return self.endTime.timeInMinutes - self.startTime.timeInMinutes
     }
     
     //TODO: Docstrings
-    var midpoint: Date {
-        return startDate.addingTimeInterval(endDate.timeIntervalSince(startDate) / 2)
+    var midpoint: Time {
+//        return startDate.addingTimeInterval(endDate.timeIntervalSince(startDate) / 2)
+        let midpointMinutes = self.lengthInMinutes / 2
+        return Time(timeInMinutes: midpointMinutes)
     }
     
     //TODO: Docstrings
-    init(startDate: Date, endDate: Date, descriptor: String? = nil) {
-        self.startDate = startDate
-        self.endDate = endDate
+    init(startTime: Time, endTime: Time, descriptor: String? = nil) {
+        self.startTime = startTime
+        self.endTime = endTime
         self.descriptor = descriptor
+    }
+}
+
+extension TimeChunk: Equatable {
+    static func == (lhs: TimeChunk, rhs: TimeChunk) -> Bool {
+        lhs.startTime == rhs.startTime && lhs.endTime == rhs.endTime
+    }
+}
+
+extension TimeChunk: CustomStringConvertible {
+    var description: String {
+        return "\(self.startTime) - \(self.endTime)"
     }
 }

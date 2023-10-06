@@ -158,30 +158,24 @@ extension Date {
     
     //TODO: Docstrings
     func subtract(minutes: Int) -> Date {
-        return Calendar.current.date(byAdding: .minute, value: -minutes, to: self)!
+        return self.add(minutes: -minutes)
     }
-    
-    /// Returns a Date with a given number of minutes added to this Date
-    /// - Parameter minutes: The number of minutes to add to this Date
-    /// - Returns: A Date with a given number of minutes added to this Date
+
     func add(minutes: Int) -> Date {
         return Calendar.current.date(byAdding: .minute, value: minutes, to: self)!
     }
     
-    /// Returns a Date with a given number of hours added to this Date
-    /// - Parameter hours: The number of hours to add to this Date
-    /// - Returns: A Date with a given number of hours added to this Date
     func add(hours: Int) -> Date {
-        return Calendar.current.date(byAdding: .hour, value: hours, to: self)!
-    }
-    
-    /// Returns a Date with a given number of days added to this Date
-    /// - Parameter days: The number of days to add to this Date
-    /// - Returns: A Date with a given number of days added to this Date
-    func add(days: Int) -> Date {
-        return Calendar.current.date(byAdding: .day, value: days, to: self)!
+        return self.add(minutes: hours * 60)
     }
 
+    func add(days: Int) -> Date {
+        return self.add(hours: days * 24)
+    }
+
+    func add(weeks: Int) -> Date {
+        return self.add(days: weeks * 7)
+    }
     /**
      *  Convenient accessor of the date's `Calendar` components.
      *
