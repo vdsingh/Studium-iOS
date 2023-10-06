@@ -8,8 +8,8 @@
 
 import Foundation
 
-// TODO: Docstrings
-struct DebugFlags {
+/// Flags that are not retrieved from server
+struct LocalFlags {
     
     //TODO: Docstrings
     static let developerMode = true
@@ -19,4 +19,6 @@ struct DebugFlags {
     
     //TODO: Docstrings
     static let authentication = false
+    
+    static let wakeUpTimesIsEnabled = false
 }

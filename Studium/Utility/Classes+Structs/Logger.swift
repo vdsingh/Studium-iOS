@@ -151,7 +151,7 @@ class Log {
         }
         
         // If in developer mode, invoke a fatal error, otherwise, report to Crashlytics
-        if DebugFlags.developerMode {
+        if LocalFlags.developerMode {
             fatalError(String(describing: error))
         } else {
             // Severe Issues should be reported to crashlytics.
