@@ -18,210 +18,88 @@ protocol AutoscheduleServiceProtocol {
     //    func findAllApplicableDatesBetween(startDate: Date, endDate: Date, weekdays: Set<Weekday>) -> [Date]
 }
 
+extension Date {
+    var threeMonthsLater: Date {
+        return self.add(days: 90)
+    }
+}
+
 /// Handles any autoscheduling logic
-final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol {
+final class AutoscheduleService: NSObject {
     
-    //TODO: Docstrings
-    let databaseService: DatabaseService
+    static let shared = AutoscheduleService()
     
-    static let shared = AutoscheduleService(databaseService: DatabaseService.shared)
-    
-    //TODO: Docstrings
-    init(databaseService: DatabaseService) {
-        self.databaseService = databaseService
-    }
-    
-    //TODO: Docstrings
-    func createAutoscheduledEvents<T: Autoscheduling>(
-        forAutoschedulingEvent event: T,
-        completion: @escaping ([T.AutoscheduledEventType]) -> Void
-    ) {
-        Log.d("createAutoscheduledEvents called for event \(event.name)")
-        if !event.autoscheduling {
-            Log.s(AutoscheduleServiceError.triedToAutoscheduleForNonAutoschedulingEvent, additionalDetails: "autoscheduleEvent was called for event \(event) although the event is not autoscheduling.")
-            completion([])
-        }
-        
-        guard let autoschedulingConfig = event.autoschedulingConfig else {
-            return
-        }
-        
-        let startDate = Date()
-        var endDate = event.endDate
-        
-        // if autoschedule infinitely, autoschedule to 3 months from startDate, otherwise, schedule to event endDate
-        if autoschedulingConfig.autoscheduleInfinitely || !Date.datesWithinThreeMonths(date1: Date(), date2: event.endDate) {
-            endDate = Calendar.current.date(byAdding: .month, value: 3, to: Date())!
-            PopUpService.presentToast(title: "Autoscheduled \(event.name)", description: "We'll autoschedule events for \(event.name) for the next three months.", popUpType: .success)
-        }
-        
-        let eventID = event._id
-        
-        // Run the algorithm on background thread
-        DispatchQueue.global().async {
-            guard let event = self.databaseService.getStudiumEvent(withID: eventID, type: T.self) else {
-                return
-            }
-            
-            let applicableDates = self.findAllApplicableDatesBetween(
-                startDate: startDate,
-                endDate: endDate,
-                weekdays: autoschedulingConfig.autoschedulingDays
-            )
-            
-            Log.d("the applicable dates between \(startDate) and \(endDate) for event \(event.name) are \(applicableDates)")
-            var autoscheduledEvents = [T.AutoscheduledEventType]()
-            
-            for date in applicableDates {
-                // Start Bound of the day (usually wake up time)
-                var startBound = self.databaseService.getUserSettings().getWakeUpTime(for: date) ?? date.startOfDay
-                var endBound = date.endOfDay
-                
-                if autoschedulingConfig.useDatesAsBounds {
-                    startBound = event.startDate.setDate(year: date.year, month: date.month, day: date.day)!
-                    endBound = event.endDate.setDate(year: date.year, month: date.month, day: date.day)!
-                }
-                
-                // Array of TimeChunks representing commitments for the day
-                let commitments = [TimeChunk](self.getCommitments(for: date).values)
-                
-                // Open time slots for the day
-                let openTimeSlots = self.getOpenTimeSlots(
-                    startBound: startBound,
-                    endBound: endBound,
-                    commitments: commitments
-                )
-                
-                // find the best TimeChunk for the event, if one exists
-                if let bestTimeChunk = self.bestTime(
-                    openTimeSlots: openTimeSlots,
-                    totalMinutes: autoschedulingConfig.autoLengthMinutes
-                ) {
-                    Log.d("for date \(date) found best time chunk: \(bestTimeChunk)")
-                    let autoscheduledEvent = event.instantiateAutoscheduledEvent(forTimeChunk: bestTimeChunk)
-                    autoscheduledEvents.append(autoscheduledEvent)
-                    self.databaseService.saveAutoscheduledEvent(
-                        autoscheduledEvent: autoscheduledEvent,
-                        autoschedulingEvent: event
-                    )
-                } else {
-                    Log.d("tried to autoschedule for event \(event.name) on date \(date) but there were no available slots.")
-                }
-            }
-            
-            // Run the completion on main thread
-            DispatchQueue.main.async {
-                completion(autoscheduledEvents)
-            }
-        }
-    }
-    
-    /// Returns the Commitments  for StudiumEvents for a given day.
-    /// - Parameter date: The date that we are retrieving commitments for
-    /// - Returns: an array of Commitment objects
-    private func getCommitments(for date: Date) -> [StudiumEvent: TimeChunk] {
-        var commitments = [StudiumEvent: TimeChunk]()
-        
-        // Get all StudiumEvents
-        let studiumEvents = self.databaseService.getAllStudiumObjects()
-        for event in studiumEvents {
-            // If the event doesn't occur on the desired date, skip it
-            if !event.occursOn(date: date) {
-                continue
-            }
-            
-            let commitment = event.timeChunkForDate(date: date)
-            commitments[event] = commitment
-        }
-        
-        return commitments
-    }
-    
-    ///Returns TimeChunks that represent the available time slots for a given day
-    ///
+    /// Calculates time slots for autoscheduling events
     /// - Parameters:
-    ///     - startBound: the start bound for the open time slots for the day. Ex: If this is 7:00AM, we won't schedule anything before then
-    ///     - endBound: the end bound for the open time slots for the day
-    ///     - commitments: the commitments that we need to avoid when looking for open slots
-    /// - Returns: an Array of TimeChunk objects that represent all open time slots
-    private func getOpenTimeSlots(startBound: Date, endBound: Date, commitments: [TimeChunk]) -> [TimeChunk] {
+    ///   - config:     The configuration that specifies how events should be scheduled
+    ///   - completion: Completion handler with the TimeChunks for the time slots
+    func findAutoschedulingTimeSlots(forConfig config: AutoschedulingConfig,
+                                     completion: @escaping ([(Date, TimeChunk)]) -> Void) {
         
-        // The start bound can't occur after the end bound
-        if(startBound > endBound) {
-            Log.e("start bound cannot occur after end bound")
+        let startDateBound = config.startDateBound.endOfDay
+        let endDateBound = config.endDateBound?.endOfDay ?? startDateBound.threeMonthsLater.endOfDay
+        
+        let applicableDates = self.findAllApplicableDatesBetween(startDate: startDateBound,
+                                                                 endDate: endDateBound,
+                                                                 weekdays: config.autoschedulingDays)
+        var timeSlots = [(Date, TimeChunk)]()
+        for date in applicableDates {
+            let commitments = [TimeChunk]()
+            let openTimeSlots = self.findOpenTimeSlots(commitments: commitments,
+                                                       startTimeBound: config.startTimeBound,
+                                                       endTimeBound: config.endTimeBound,
+                                                       minLengthMinutes: config.autoLengthMinutes)
+            let bestTimeSlot = openTimeSlots[openTimeSlots.count / 2]
+            timeSlots.append((date, bestTimeSlot))
+        }
+        
+        completion(timeSlots)
+    }
+
+    /// Finds all open time slots that are greater than a specified length
+    /// - Parameters:
+    ///   - commitments:      The commitments to find slots around
+    ///   - startTimeBound:   The earliest that open time slots can occur
+    ///   - endTimeBound:     The latest that open time slots can occur
+    ///   - minLengthMinutes: The minimum length of time slots in minutes
+    /// - Returns: An array of applicable TimeChunks representing open slots
+    func findOpenTimeSlots(commitments: [TimeChunk],
+                           startTimeBound: Time,
+                           endTimeBound: Time,
+                           minLengthMinutes: Int) -> [TimeChunk] {
+        if startTimeBound > endTimeBound {
+            Log.e("startTimeBound is after endTimeBound.")
             return []
         }
         
-        // the available time slots
-        var openSlots: [TimeChunk] = [TimeChunk(startDate: startBound, endDate: endBound)]
+        // Turn start bound and end bound into commitments themselves to simplify
+        let startCommitment = TimeChunk(startTime: .init(hour: 0, minute: 0), endTime: startTimeBound)
+        let endCommitment = TimeChunk(startTime: endTimeBound, endTime: .init(hour: 23, minute: 59))
+
+        var commitmentsWithBounds: [TimeChunk] = [startCommitment, endCommitment]
+        commitmentsWithBounds.append(contentsOf: commitments)
         
-        // Iterate through each commitment to remove it from open slots.
-        for commitment in commitments {
-            let commitmentStartTime = commitment.startDate
-            let commitmentEndTime = commitment.endDate
-            
-            var i = 0
-            var totalIterations = 0
-            let iterationLimit = 1000
-            while(i < openSlots.count) {
-                if (totalIterations >= iterationLimit) {
-                    Log.e("getOpenTimeSlots exceeded the iterationLimit")
-                    break
-                }
-                
-                let slot = openSlots[i]
-                let slotStartTime = slot.startDate
-                let slotEndTime = slot.endDate
-                
-                // the commitment is completely within the slot, so we remove the chunk containing the commitment.
-                if commitmentStartTime > slotStartTime && commitmentEndTime < slotEndTime {
-                    
-                    Log.d("The commitment is completely within the slot")
-                    let newSlot1 = TimeChunk(startDate: slotStartTime, endDate: commitmentStartTime-1)
-                    let newSlot2 = TimeChunk(startDate: commitmentEndTime+1, endDate: slotEndTime)
-                    
-                    
-                    // remove the entire old open slot
-                    openSlots.remove(at: i)
-                    i-=1
-                    
-                    // append new open slots not including the commitment
-                    openSlots.append(newSlot1)
-                    openSlots.append(newSlot2)
-                    
-                    // the bottom portion of the commitment is within the slot.
-                } else if commitmentStartTime < slotStartTime && commitmentEndTime > slotStartTime && commitmentEndTime < slotEndTime {
-                    let newSlot = TimeChunk(startDate: commitmentEndTime+1, endDate: slotEndTime)
-                    
-                    // remove the entire old slot
-                    openSlots.remove(at: i)
-                    i-=1
-                    
-                    // add the new slot not containing the commitment
-                    openSlots.append(newSlot)
-                    
-                    // the top portion of the commitment is within the slot.
-                } else if commitmentStartTime < slotEndTime && commitmentStartTime > slotStartTime && commitmentEndTime > slotEndTime {
-                    
-                    // remove the entire old slot
-                    openSlots.remove(at: i)
-                    i-=1
-                    
-                    let newSlot = TimeChunk(startDate: slotStartTime, endDate: commitmentStartTime-1)
-                    openSlots.append(newSlot)
-                    
-                    // the slot is completely within the commitment
-                } else if slotStartTime >= commitmentStartTime && slotEndTime <= commitmentEndTime {
-                    openSlots.remove(at: i)
-                    i-=1
-                }
-                
-                i+=1
-                totalIterations += 1
+        let sortedCommitments = commitmentsWithBounds.sorted { $0.startTime < $1.startTime }
+        var openSlots = [TimeChunk]()
+        var currentBound = Time.startOfDay
+
+        for commitment in sortedCommitments {
+            // If there's an open slot between the currentBound and the next commitment's startTime
+            if commitment.startTime > currentBound {
+                openSlots.append(TimeChunk(startTime: currentBound, endTime: commitment.startTime))
+            }
+            // If the next commitment's endTime is later than the current bound
+            if commitment.endTime > currentBound {
+                currentBound = commitment.endTime
             }
         }
         
-        return openSlots
+        // If the last commitment doesn't end at endBound, then add the remaining time as an open slot.
+        if currentBound < endTimeBound {
+            openSlots.append(TimeChunk(startTime: currentBound, endTime: endTimeBound))
+        }
+
+        return openSlots.filter { $0.lengthInMinutes >= minLengthMinutes }
     }
     
     ///Finds the best time  event given the event's length in minutes and the open time slots. It does this by finding the longest open time slot and planning the event in the middle of it .
@@ -230,31 +108,34 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol {
     ///     - openTimeSlots: the time slots available in the day. This is usually calculated by the getOpenTimeSlots function
     ///     - totalMinutes: the total length in minutes of the event we are scheduling
     /// - Returns: an array containing the start time and the end time of the event.
-    private func bestTime(openTimeSlots: [TimeChunk], totalMinutes: Int) -> TimeChunk? {
-        var bestTimeSlot: TimeChunk? = nil
-        for openTimeSlot in openTimeSlots {
-            
-            // Our event can fit in the slot
-            if openTimeSlot.lengthInMinutes >= totalMinutes {
-                if let bestTimeSlotSafe = bestTimeSlot {
-                    // This is the biggest working slot we have seen so far
-                    if openTimeSlot.lengthInMinutes > bestTimeSlotSafe.lengthInMinutes {
-                        bestTimeSlot = openTimeSlot
-                    }
-                } else {
-                    bestTimeSlot = openTimeSlot
-                }
-            }
-        }
-        
-        // If there is a best time slot, take its midpoint and return a TimeChunk in the middle that is the events length
-        if let bestTimeSlot = bestTimeSlot {
-            let midpoint = bestTimeSlot.midpoint
-            return TimeChunk(startDate: midpoint.subtract(minutes: totalMinutes / 2), endDate: midpoint.add(minutes: totalMinutes / 2))
-        }
-        
-        return nil
-    }
+//    private func bestTime(openTimeSlots: [TimeChunk], totalMinutes: Int) -> TimeChunk? {
+//        var bestTimeSlot: TimeChunk? = nil
+//        for openTimeSlot in openTimeSlots {
+//            
+//            // Our event can fit in the slot
+//            if openTimeSlot.lengthInMinutes >= totalMinutes {
+//                if let bestTimeSlotSafe = bestTimeSlot {
+//                    // This is the biggest working slot we have seen so far
+//                    if openTimeSlot.lengthInMinutes > bestTimeSlotSafe.lengthInMinutes {
+//                        bestTimeSlot = openTimeSlot
+//                    }
+//                } else {
+//                    bestTimeSlot = openTimeSlot
+//                }
+//            }
+//        }
+//        
+//        // If there is a best time slot, take its midpoint and return a TimeChunk in the middle that is the events length
+//        if let bestTimeSlot = bestTimeSlot {
+//            let midpoint = bestTimeSlot.midpoint
+//            // FIXME: 
+//            return TimeChunk(startTime: Time(hour: 1, minute: 0), endTime: Time(hour: 2, minute: 0))
+////            return TimeChunk(startTime: midpoint.subtract(minutes: totalMinutes / 2),
+////                             endTime: midpoint.add(minutes: totalMinutes / 2))
+//        }
+//        
+//        return nil
+//    }
     
     /// Finds all of the dates for certain weekdays between two dates
     /// - Parameters:
@@ -262,12 +143,14 @@ final class AutoscheduleService: NSObject, AutoscheduleServiceProtocol {
     ///   - endDate: The end bound for the range
     ///   - weekdays: The days that we're looking for
     /// - Returns: An array of Date objects which represent applicable days
-    private func findAllApplicableDatesBetween(
+    func findAllApplicableDatesBetween(
         startDate: Date,
         endDate: Date,
         weekdays: Set<Weekday>
     ) -> [Date] {
-        Log.d("findAllApplicableDatesBetween")
+        let startDate = startDate.endOfDay
+        let endDate = endDate.endOfDay
+        
         var resultDates = [Date]()
         let calendar = Calendar.current
         
