@@ -66,7 +66,7 @@ class CourseFormTests: XCTestCase {
     }
     
     func testFormWithInvalidEndTime() {
-        self.viewModel.endTime = self.viewModel.startTime.adding(hours: -1, minutes: 0)
+        self.viewModel.endTime = self.viewModel.startTime-60
         
         let course = self.viewModel.constructCourse()
         XCTAssertNil(course)
@@ -89,6 +89,6 @@ extension CourseFormViewModel {
     /// Creates a CourseFormViewModel with all valid fields (no form errors)
     /// - Returns: a CourseFormViewModel with all valid fields (no form errors)
     static func mockValid() -> CourseFormViewModel {
-        return CourseFormViewModel(name: "Name", location: "Location", daysSelected: [.tuesday, .thursday], startTime: .noon, endTime: .noon.adding(hours: 1, minutes: 0), notificationSelections: [.atTime, .fifteenMin], icon: .baseball, color: StudiumEventColor.darkRed.uiColor, additionalDetails: "Additional Details", willComplete: {})
+        return CourseFormViewModel(name: "Name", location: "Location", daysSelected: [.tuesday, .thursday], startTime: .noon, endTime: .noon+60, notificationSelections: [.atTime, .fifteenMin], icon: .baseball, color: StudiumEventColor.darkRed.uiColor, additionalDetails: "Additional Details", willComplete: {})
     }
 }

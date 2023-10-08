@@ -67,6 +67,13 @@ class OtherEventFormTests: XCTestCase {
 
 extension OtherEventFormViewModel {
     static func mockValid() -> OtherEventFormViewModel {
-        return OtherEventFormViewModel(name: "Name", location: "Location", startDate: Time.noon.arbitraryDateWithTime, endDate: Time.noon.adding(hours: 1, minutes: 0).arbitraryDateWithTime, notificationSelections: [.atTime, .fifteenMin], icon: .baseball, color: StudiumEventColor.darkRed.uiColor, additionalDetails: "Additional Details", completion: {})
+        return OtherEventFormViewModel(name: "Name",
+                                       location: "Location",
+                                       startDate: Time.noon.arbitraryDateWithTime,
+                                       endDate: (Time.noon + 60).arbitraryDateWithTime,
+                                       notificationSelections: [.atTime, .fifteenMin],
+                                       icon: .baseball,
+                                       color: StudiumEventColor.darkRed.uiColor,
+                                       additionalDetails: "Additional Details", completion: {})
     }
 }
