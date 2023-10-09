@@ -8,7 +8,16 @@
 
 import Foundation
 import SwiftUI
-
+//private extension View {
+//    @ViewBuilder func changeTextColor(_ color: Color) -> some View {
+//        if UITraitCollection.current.userInterfaceStyle == .light {
+////        if AppDelegate.userInterfaceStyle == .light {
+//            self.colorInvert().colorMultiply(color)
+//        } else {
+//            self.colorMultiply(color)
+//        }
+//    }
+//}
 /// Like DatePicker but only for time (hour and minute)
 struct TimePicker: View {
     
@@ -18,10 +27,14 @@ struct TimePicker: View {
     /// The date selected by the DatePicker (this gets converted to Time on change)
     @State private var selectionDate: Date
     var body: some View {
-        DatePicker(self.label, selection: self.$selectionDate, displayedComponents: [.hourAndMinute]).tint(StudiumColor.primaryAccent.color)
-            .onChange(of: self.selectionDate) { newValue in
-                self.time = self.selectionDate.time
-            }
+        DatePicker(self.label, 
+                   selection: self.$selectionDate,
+                   displayedComponents: [.hourAndMinute])
+        .tint(StudiumColor.secondaryAccent.color)
+//        .changeTextColor(StudiumColor.primaryLabel.color)
+        .onChange(of: self.selectionDate) { newValue in
+            self.time = self.selectionDate.time
+        }
     }
     
     init(label: String, time: Binding<Time>) {
