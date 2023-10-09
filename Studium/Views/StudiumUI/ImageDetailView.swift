@@ -38,7 +38,7 @@ struct ImageDetailView: View {
     
     var body: some View {
         VStack {
-            Spacer()
+//            Spacer()
             VStack(spacing: Increment.two) {
                 if let image = self.viewModel.image {
                     Image(uiImage: image)
@@ -77,6 +77,6 @@ struct ImageDetailView: View {
         .clipShape(.rect(cornerRadius: Increment.three))
         .opacity(self.viewModel.isHidden ? 0 : 1)
         
-        Spacer()
+//        Spacer()
     }
 }
