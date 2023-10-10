@@ -8,7 +8,7 @@
 
 import Foundation
 import RealmSwift
-
+import SwiftUI
 
 //TODO: Docstrings
 class Habit: RecurringStudiumEvent, Autoscheduling {
@@ -17,9 +17,10 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
     
     // MARK: - Autoscheduleable Variables
     
-    //TODO: Docstrings
-    @Persisted var autoscheduledEventsList = List<OtherEvent>()
+    /// Contains the events that this habit has autoscheduled
+    @Persisted var autoscheduledEventsList = RealmSwift.List<OtherEvent>()
     
+    /// DO NOT USE: use `habit.autoschedulingConfig` instead, which decodes/encodes the data
     @Persisted var autoschedulingConfigData: Data?
     
     //TODO: Docstrings
@@ -27,26 +28,51 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         name: String,
         location: String,
         additionalDetails: String,
-        startDate: Date,
-        endDate: Date,
+        startTime: Time,
+        endTime: Time,
         autoschedulingConfig: AutoschedulingConfig?,
-        alertTimes: [AlertOption],
+        alertTimes: Set<AlertOption>,
         days: Set<Weekday>,
         icon: StudiumIcon,
         color: UIColor
     ) {
-        self.init(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, color: color, icon: icon, alertTimes: alertTimes)
+        self.init()
+        self.name = name
+        self.location = location
+        self.additionalDetails = additionalDetails
+        self.startTime = startTime
+        self.endTime = endTime
+        
+        
+//        self.init(name: name, location: location, additionalDetails: additionalDetails, startTime: startTime, endTime: endTime, color: color, icon: icon, alertTimes: alertTimes)
         self.autoschedulingConfig = autoschedulingConfig
+        self.alertTimes = alertTimes
         self.days = days
-        let nextOccurringTimeChunk = self.nextOccuringTimeChunk
-        self.startDate = nextOccurringTimeChunk?.startDate ?? startDate
-        self.endDate = nextOccurringTimeChunk?.endDate ?? endDate
+        self.icon = icon
+        self.color = color
     }
 
-    func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> OtherEvent {
-        let otherEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: "This Event was Autoscheduled by your Habit: \(self.name)", startDate: timeChunk.startDate, endDate: timeChunk.endDate, color: self.color, icon: self.icon, alertTimes: self.alertTimes)
-        otherEvent.autoscheduled = true
-        return otherEvent
+    func instantiateAutoscheduledEvents(datesAndTimeChunks: [(Date, TimeChunk)]) -> [OtherEvent] {
+        var otherEvents = [OtherEvent]()
+        for (date, timeChunk) in datesAndTimeChunks {
+            let startDate = date.setTime(hour: timeChunk.startTime.hour, minute: timeChunk.startTime.minute, second: 0)
+            let endDate = date.setTime(hour: timeChunk.endTime.hour, minute: timeChunk.endTime.minute, second: 0)
+            
+            let otherEvent = OtherEvent(
+                name: self.name,
+                location: self.location,
+                additionalDetails: "This Event was Autoscheduled by your Habit: \(self.name)",
+                startDate: startDate,
+                endDate: endDate,
+                alertTimes: self.alertTimes,
+                icon: self.icon,
+                color: self.color
+            )
+            otherEvent.autoscheduled = true
+            otherEvents.append(otherEvent)
+        }
+        
+        return otherEvents
     }
     
     override func timeChunkForDate(date: Date) -> TimeChunk? {
@@ -56,31 +82,72 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         
         return super.timeChunkForDate(date: date)
     }
+    
+    // MARK: - View Related
+    
+    // MARK: Class (Relevant to the Habit Type)
+    
+    override class var displayName: String {
+        return "Habit"
+    }
+    
+    override class var tabItemConfig: TabItemConfig {
+        return .habitsList
+    }
+    
+    override class func addFormView() -> AnyView {
+        return AnyView(
+            HabitFormView(viewModel: .init(willComplete: {}))
+        )
+    }
+    
+    override class var emptyListPositiveCTACardViewModel: ImageDetailViewModel {
+        return ImageDetailViewModel(
+            image: FlatImage.travelingAndSports.uiImage,
+            title: "No Habits here yet",
+            subtitle: nil,
+            buttonText: "Add a Habit"
+        )
+    }
+
+    // MARK: Instance (Relevant to a specific Habit)
+    
+    override func detailsView() -> AnyView {
+        return AnyView(
+            HabitView(habit: self)
+        )
+    }
+    
+    override func editFormView() -> AnyView {
+        return AnyView(
+            HabitFormView(
+                viewModel: HabitFormViewModel(habit: self, willComplete: {})
+            )
+        )
+    }
 }
+
+// MARK: - Mocking
 
 extension Habit {
     static func mock(autoscheduling: Bool) -> Habit {
         let autoschedulingConfig: AutoschedulingConfig? = autoscheduling ? .mock() : nil
-        return Habit(name: "Mock Habit", location: "Mock Location", additionalDetails: "Mock Additional Details", startDate: Time.noon.arbitraryDateWithTime, endDate: Time.noon.adding(hours: 1, minutes: 0).arbitraryDateWithTime, autoschedulingConfig: autoschedulingConfig, alertTimes: [.fiveMin, .fifteenMin], days: [.monday, .wednesday], icon: .binoculars, color: StudiumEventColor.blue.uiColor)
+        let habit = Habit(
+            name: "Mock Habit",
+            location: "Mock Location",
+            additionalDetails: "Mock Additional Details",
+            startTime: Time.noon,
+            endTime: (Time.noon+60),
+            autoschedulingConfig: autoschedulingConfig,
+            alertTimes: [.fiveMin, .fifteenMin],
+            days: [.monday, .wednesday],
+            icon: .binoculars,
+            color: StudiumEventColor.blue.uiColor
+        )
+        
+        habit.ekEventID = "EK Event ID"
+        habit.googleCalendarEventID = "Google Calendar Event ID"
+        
+        return habit
     }
-}
-
-extension Habit: ComparableWithoutId {
-    func isEqualWithoutId(to event: Habit) -> Bool {
-        return self.name == event.name &&
-        self.location == event.location &&
-        self.additionalDetails == event.additionalDetails &&
-        self.startDate.time == event.startDate.time &&
-        self.endDate.time == event.endDate.time &&
-        self.autoschedulingConfig == event.autoschedulingConfig &&
-        self.alertTimes == event.alertTimes &&
-        self.days == event.days &&
-        self.icon == event.icon &&
-        self.color == event.color
-    }
-}
-
-protocol ComparableWithoutId {
-    associatedtype EventType
-    func isEqualWithoutId(to event: EventType) -> Bool
 }

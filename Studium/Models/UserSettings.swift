@@ -35,12 +35,12 @@ final class UserSettings: Object {
     }
     
     //TODO: Docstrings
-    var defaultAlertOptions: [AlertOption] {
-        return self.defaultAlertOptionRawValues.compactMap({ AlertOption(rawValue: $0) })
+    var defaultAlertOptions: Set<AlertOption> {
+        return Set<AlertOption>(self.defaultAlertOptionRawValues.compactMap({ AlertOption(rawValue: $0) }))
     }
     
     //TODO: Docstrings
-    func setDefaultAlertOptions(alertOptions: [AlertOption]) {
+    func setDefaultAlertOptions(alertOptions: Set<AlertOption>) {
         self.defaultAlertOptionRawValues = List<Int>()
         for option in alertOptions {
             self.defaultAlertOptionRawValues.append(option.rawValue)

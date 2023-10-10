@@ -9,13 +9,13 @@
 import Foundation
 import RealmSwift
 
-// TODO: Docstrings
+/// Represents a school course or "class"
 class Course: RecurringStudiumEvent, StudiumEventContainer {
         
     /// List of the assignments for the course.
     private let assignmentsList = List<Assignment>()
     
-    // TODO: Docstrings
+    /// The assignments associated with this course
     var containedEvents: [Assignment] {
         return [Assignment](self.assignmentsList)
     }
@@ -26,26 +26,22 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
         color: UIColor,
         location: String,
         additionalDetails: String,
-        startDate: Date,
-        endDate: Date,
+        startTime: Time,
+        endTime: Time,
         days: Set<Weekday>,
         icon: StudiumIcon,
-        notificationAlertTimes: [AlertOption]
+        notificationAlertTimes: Set<AlertOption>
     ) {
         self.init()
         self.name = name
         self.color = color
         self.location = location
         self.additionalDetails = additionalDetails
-        self.startDate = startDate
-        self.endDate = endDate
+        self.startTime = startTime
+        self.endTime = endTime
         self.icon = icon
         self.alertTimes = notificationAlertTimes
         self.days = days
-        
-        let nextOccurringTimeChunk = self.nextOccuringTimeChunk
-        self.startDate = nextOccurringTimeChunk?.startDate ?? startDate
-        self.endDate = nextOccurringTimeChunk?.endDate ?? endDate
     }
     
     // MARK: - Public Functions
@@ -54,10 +50,40 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
     func appendContainedEvent(containedEvent: Assignment) {
         self.assignmentsList.append(containedEvent)
     }
+    
+    // MARK: - View Related
+    
+    override class var displayName: String {
+        return "Course"
+    }
+    
+    override class var tabItemConfig: TabItemConfig {
+        return .coursesFlow
+    }
+    
+    override class var emptyListPositiveCTACardViewModel: ImageDetailViewModel {
+        return ImageDetailViewModel(
+            image: FlatImage.girlSittingOnBooks.uiImage,
+            title: "No Courses here yet",
+            subtitle: nil,
+            buttonText: "Add a Course"
+        )
+    }
 }
 
+// MARK: - Mocking
 extension Course {
     static func mock() -> Course {
-        return Course(name: "Course name", color: StudiumEventColor.blue.uiColor, location: "Course Location", additionalDetails: "Course Additional Details", startDate: Time.noon.arbitraryDateWithTime, endDate: Time.noon.adding(hours: 1, minutes: 0).arbitraryDateWithTime, days: [.tuesday, .thursday], icon: .basketball, notificationAlertTimes: [.fiveMin, .oneHour])
+        return Course(
+            name: "Course name",
+            color: StudiumEventColor.blue.uiColor,
+            location: "Course Location",
+            additionalDetails: "Course Additional Details",
+            startTime: Time.noon,
+            endTime: (Time.noon+60),
+            days: [.tuesday, .thursday],
+            icon: .basketball,
+            notificationAlertTimes: [.fiveMin, .oneHour]
+        )
     }
 }

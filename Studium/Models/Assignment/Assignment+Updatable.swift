@@ -25,12 +25,19 @@ extension Assignment: Updatable {
         self.alertTimes = newEvent.alertTimes
         if let autoschedulingConfig = newEvent.autoschedulingConfig {
             Log.d("Updating autoschedulingConfig with new config: \(autoschedulingConfig)")
-            self.autoschedulingConfig = AutoschedulingConfig(
-                autoLengthMinutes: autoschedulingConfig.autoLengthMinutes,
-                autoscheduleInfinitely: autoschedulingConfig.autoscheduleInfinitely,
-                useDatesAsBounds: autoschedulingConfig.useDatesAsBounds,
-                autoschedulingDays: autoschedulingConfig.autoschedulingDays
-            )
+            self.autoschedulingConfig = AutoschedulingConfig(autoLengthMinutes: autoschedulingConfig.autoLengthMinutes,
+                                                             startDateBound: autoschedulingConfig.startDateBound,
+                                                             endDateBound: autoschedulingConfig.endDateBound,
+                                                             startTimeBound: autoschedulingConfig.startTimeBound,
+                                                             endTimeBound: autoschedulingConfig.endTimeBound,
+                                                             autoschedulingDays: autoschedulingConfig.autoschedulingDays)
+            
+//            AutoschedulingConfig(
+//                autoLengthMinutes: autoschedulingConfig.autoLengthMinutes,
+//                autoscheduleInfinitely: autoschedulingConfig.autoscheduleInfinitely,
+//                useDatesAsBounds: autoschedulingConfig.useDatesAsBounds,
+//                autoschedulingDays: autoschedulingConfig.autoschedulingDays
+//            )
             
             Log.d("Autoscheduling Days List: \(autoschedulingConfig.autoschedulingDays)")
         }
