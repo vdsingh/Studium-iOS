@@ -37,7 +37,7 @@ class OtherEventFormViewModel: ObservableObject {
     
     @Published var startDate: Date
     @Published var endDate: Date
-    @Published var notificationSelections: [AlertOption]
+    @Published var notificationSelections: Set<AlertOption>
     
     @Published var icon: StudiumIcon
     @Published var color: UIColor?
@@ -69,7 +69,14 @@ class OtherEventFormViewModel: ObservableObject {
     func constructOtherEvent() -> OtherEvent? {
         self.updateErrors()
         if self.formErrors.isEmpty, let color = self.color {
-            return OtherEvent(name: self.name, location: self.location, additionalDetails: self.additionalDetails, startDate: self.startDate, endDate: self.endDate, color: color, icon: self.icon, alertTimes: self.notificationSelections)
+            return OtherEvent(name: self.name, 
+                              location: self.location,
+                              additionalDetails: self.additionalDetails,
+                              startDate: self.startDate,
+                              endDate: self.endDate,
+                              alertTimes: self.notificationSelections,
+                              icon: self.icon,
+                              color: color)
         }
         
         return nil
@@ -95,7 +102,17 @@ class OtherEventFormViewModel: ObservableObject {
     
     // MARK: - Initializers
     
-    internal init(name: String = "", location: String = "", startDate: Date = Date(), endDate: Date = Date().add(hours: 1), notificationSelections: [AlertOption] = [], icon: StudiumIcon = .book, color: UIColor? = StudiumEventColor.darkRed.uiColor, additionalDetails: String = "", completion: @escaping () -> Void) {
+    internal init(
+        name: String = "",
+        location: String = "",
+        startDate: Date = Date(),
+        endDate: Date = Date().add(hours: 1),
+        notificationSelections: Set<AlertOption> = [],
+        icon: StudiumIcon = .book,
+        color: UIColor? = StudiumEventColor.darkRed.uiColor,
+        additionalDetails: String = "",
+        completion: @escaping () -> Void
+    ) {
         self.name = name
         self.location = location
         self.startDate = startDate

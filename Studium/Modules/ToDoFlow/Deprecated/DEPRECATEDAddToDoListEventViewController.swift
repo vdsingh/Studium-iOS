@@ -82,7 +82,14 @@ class DEPRECATEDAddToDoListEventViewController: MasterForm, AlertTimeSelectingFo
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         self.errors = self.findErrors()
         if self.errors.isEmpty {
-            let newEvent = OtherEvent(name: self.name.trimmed(), location: self.location.trimmed(), additionalDetails: self.additionalDetails.trimmed(), startDate: self.startDate, endDate: self.endDate, color: self.color, icon: self.icon, alertTimes: self.alertTimes)
+            let newEvent = OtherEvent(name: self.name.trimmed(), 
+                                      location: self.location.trimmed(),
+                                      additionalDetails: self.additionalDetails.trimmed(),
+                                      startDate: self.startDate,
+                                      endDate: self.endDate,
+                                      alertTimes: self.alertTimes, 
+                                      icon: self.icon,
+                                      color: self.color)
             if let otherEvent = self.otherEvent {
                 // We are editing
                 self.studiumEventService.updateStudiumEvent(oldEvent: otherEvent, updatedEvent: newEvent)
