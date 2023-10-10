@@ -63,7 +63,7 @@ struct WeekdayView: View {
             
             Text(self.day.buttonText)
                 .font(StudiumFont.subText.font)
-                .foregroundStyle(self.isSelected ? .white : StudiumColor.primaryLabel.color)
+                .foregroundStyle(self.isSelected ? StudiumColor.primaryLabelColor(forBackgroundColor: self.tintColor) : StudiumColor.primaryLabel.color)
         }
         .frame(height: Increment.four)
         .overlay(RoundedRectangle(cornerRadius: Increment.one).stroke(self.tintColor, lineWidth: 2))
