@@ -17,13 +17,21 @@ class ImageDetailViewModel: ObservableObject {
     let subtitle: String?
     var textAlignment: TextAlignment = .center
     let buttonText: String
-    let buttonAction: () -> Void
+    var buttonAction: () -> Void
     
-    init(image: UIImage?, title: String, subtitle: String?, buttonText: String, buttonAction: @escaping () -> Void) {
+    init(image: UIImage?, 
+         title: String,
+         subtitle: String?,
+         buttonText: String,
+         buttonAction: @escaping () -> Void = { }) {
         self.image = image
         self.title = title
         self.subtitle = subtitle
         self.buttonText = buttonText
+        self.buttonAction = buttonAction
+    }
+    
+    func setButtonAction(_ buttonAction: @escaping () -> Void) {
         self.buttonAction = buttonAction
     }
     
