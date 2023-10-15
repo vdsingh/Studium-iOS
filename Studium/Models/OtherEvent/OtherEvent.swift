@@ -11,19 +11,19 @@ import RealmSwift
 
 // TODO: Docstrings
 class OtherEvent: NonRecurringStudiumEvent, Autoscheduled, Codable {
-    
+
     // TODO: Docstrings
 //    @Persisted var complete: Bool = false
-    
+
     // TODO: Docstrings
     @Persisted var autoscheduled: Bool = false
-    
+
 //    init(complete: Bool, autoscheduled: Bool) {
 //        self.complete = complete
 //        self.autoscheduled = autoscheduled
 //    }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     convenience init(
         name: String,
         location: String,
@@ -93,7 +93,7 @@ extension OtherEvent {
 //                          endDate: Date.distantPast.add(hours: 2),
 //                          color: StudiumEventColor.green.uiColor, icon: .book,
 //                          alertTimes: [.fifteenMin, .oneDay])
-        
+
         return .init(name: "Other Event",
                      location: "Location",
                      additionalDetails: "Additional Details",

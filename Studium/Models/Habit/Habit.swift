@@ -10,20 +10,20 @@ import Foundation
 import RealmSwift
 import SwiftUI
 
-//TODO: Docstrings
+// TODO: Docstrings
 class Habit: RecurringStudiumEvent, Autoscheduling {
-    
+
     typealias AutoscheduledEventType = OtherEvent
-    
+
     // MARK: - Autoscheduleable Variables
-    
+
     /// Contains the events that this habit has autoscheduled
     @Persisted var autoscheduledEventsList = RealmSwift.List<OtherEvent>()
-    
+
     /// DO NOT USE: use `habit.autoschedulingConfig` instead, which decodes/encodes the data
     @Persisted var autoschedulingConfigData: Data?
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     convenience init(
         name: String,
         location: String,
@@ -42,8 +42,7 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         self.additionalDetails = additionalDetails
         self.startTime = startTime
         self.endTime = endTime
-        
-        
+
 //        self.init(name: name, location: location, additionalDetails: additionalDetails, startTime: startTime, endTime: endTime, color: color, icon: icon, alertTimes: alertTimes)
         self.autoschedulingConfig = autoschedulingConfig
         self.alertTimes = alertTimes
@@ -57,7 +56,7 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
         for (date, timeChunk) in datesAndTimeChunks {
             let startDate = date.setTime(hour: timeChunk.startTime.hour, minute: timeChunk.startTime.minute, second: 0)
             let endDate = date.setTime(hour: timeChunk.endTime.hour, minute: timeChunk.endTime.minute, second: 0)
-            
+
             let otherEvent = OtherEvent(
                 name: self.name,
                 location: self.location,
@@ -71,30 +70,30 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
             otherEvent.autoscheduled = true
             otherEvents.append(otherEvent)
         }
-        
+
         return otherEvents
     }
-    
+
     override func timeChunkForDate(date: Date) -> TimeChunk? {
         if self.autoscheduling {
             return nil
         }
-        
+
         return super.timeChunkForDate(date: date)
     }
-    
+
     // MARK: - View Related
-    
+
     // MARK: Class (Relevant to the Habit Type)
-    
+
     override class var displayName: String {
         return "Habit"
     }
-    
+
     override class var tabItemConfig: TabItemConfig {
         return .habitsList
     }
-    
+
     override class func addFormView() -> AnyView {
         return AnyView(
             HabitFormView(viewModel: .init(willComplete: {}))
@@ -111,13 +110,13 @@ class Habit: RecurringStudiumEvent, Autoscheduling {
     }
 
     // MARK: Instance (Relevant to a specific Habit)
-    
+
     override func detailsView() -> AnyView {
         return AnyView(
             HabitView(habit: self)
         )
     }
-    
+
     override func editFormView() -> AnyView {
         return AnyView(
             HabitFormView(
@@ -144,10 +143,10 @@ extension Habit {
             icon: .binoculars,
             color: StudiumEventColor.blue.uiColor
         )
-        
+
         habit.ekEventID = "EK Event ID"
         habit.googleCalendarEventID = "Google Calendar Event ID"
-        
+
         return habit
     }
 }

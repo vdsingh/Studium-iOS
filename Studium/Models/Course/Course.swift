@@ -11,10 +11,10 @@ import RealmSwift
 
 /// Represents a school course or "class"
 class Course: RecurringStudiumEvent, StudiumEventContainer {
-        
+
     /// List of the assignments for the course.
     private let assignmentsList = List<Assignment>()
-    
+
     /// The assignments associated with this course
     var containedEvents: [Assignment] {
         return [Assignment](self.assignmentsList)
@@ -43,20 +43,20 @@ class Course: RecurringStudiumEvent, StudiumEventContainer {
         self.alertTimes = notificationAlertTimes
         self.days = days
     }
-    
+
     // MARK: - Public Functions
-    
+
     // TODO: Docstrings
     func appendContainedEvent(containedEvent: Assignment) {
         self.assignmentsList.append(containedEvent)
     }
-    
+
     // MARK: - View Related
-    
+
     override class var displayName: String {
         return "Course"
     }
-    
+
     override class var tabItemConfig: TabItemConfig {
         return .coursesFlow
     }

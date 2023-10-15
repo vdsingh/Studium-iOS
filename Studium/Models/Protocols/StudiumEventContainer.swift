@@ -10,17 +10,17 @@ import Foundation
 
 // TODO: Docstrings
 protocol StudiumEventContainer {
-    
+
     associatedtype ContainedEventType: StudiumEventContained
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var containedEvents: [ContainedEventType] { get }
-    
+
     func appendContainedEvent(containedEvent: ContainedEventType)
 }
 
 // TODO: Docstrings, Investigate
 protocol StudiumEventContained: StudiumEvent {
 //    var contained: Bool { get set }
-    
+
 }

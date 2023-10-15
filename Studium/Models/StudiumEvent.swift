@@ -18,53 +18,54 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, Identifia
     
     /// id of the StudiumEvent
     @Persisted var _id: ObjectId = ObjectId.generate()
-    
+    // swiftlint:disable:previous identifier_name
+
     /// partition key of the StudiumEvent
     @Persisted var _partitionKey: String = AuthenticationService.shared.userID ?? UUID().uuidString
-    
+    // swiftlint:disable:previous identifier_name
+
     /// The name of the StudiumEvent
     @Persisted var name: String = ""
-    
+
     /// The location of the StudiumEvent
     @Persisted var location: String = ""
-    
+
     /// The associated additional details of the StudiumEvent
     @Persisted var additionalDetails: String = ""
-    
-    // TODO: Docstring
-    @Persisted var ekEventID: String? = nil
-    
-    @Persisted var googleCalendarEventID: String? = nil
 
-    
+    // TODO: Docstring
+    @Persisted var ekEventID: String?
+
+    @Persisted var googleCalendarEventID: String?
+
     // MARK: - Private Persisted Variables
-    
+
     /// The Hex value of the associated color
     @Persisted private var colorHex: String = "ffffff"
-    
+
     /// A String representing the raw value of the logo associated with the event
     @Persisted private var iconID: String = StudiumIcon.book.rawValue
-    
+
     /// Raw representation of the alert times for this event
     @Persisted private var alertTimesRaw = RealmSwift.List<AlertOption.RawValue>()
-    
+
     /// Raw representation of the notification IDs for this event
     @Persisted private var notificationIdentifiersList = RealmSwift.List<String>()
-        
+
     // MARK: - Computed Variables
-    
+
     /// The color for the event
     var color: UIColor {
         get { return UIColor(hexString: self.colorHex) ?? .black }
         set { self.colorHex = newValue.hexValue() }
     }
-    
+
     /// The icon for the event
     var icon: StudiumIcon {
         get { return StudiumIcon(rawValue: self.iconID) ?? .book }
         set { self.iconID = newValue.rawValue }
     }
-    
+
     /// The alert times for the event
     var alertTimes: Set<AlertOption> {
         get { return Set<AlertOption>(self.alertTimesRaw.compactMap { AlertOption(rawValue: $0) }) }
@@ -73,7 +74,7 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, Identifia
             self.alertTimesRaw.append(objectsIn: newValue.compactMap { $0.rawValue })
         }
     }
-    
+
     /// The notification IDs for the event
     var notificationIdentifiers: [String] {
         get { return [String](self.notificationIdentifiersList) }
@@ -82,7 +83,7 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, Identifia
             self.notificationIdentifiersList.append(objectsIn: newValue)
         }
     }
-    
+
     /// The total length of the event in minutes (calculated using the start and end date)
 //    var totalLengthMinutes: Int {
 //        let diffComponents = Calendar.current.dateComponents([.minute], from: self.startDate, to: self.endDate)
@@ -97,8 +98,8 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, Identifia
 //        Log.e("Couldn't get total length minutes from start and end date. returning 0")
 //        return 0
 //    }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
 //    convenience init(
 //        name: String,
 //        location: String,
@@ -115,13 +116,13 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, Identifia
 //        self.icon = icon
 //        self.alertTimes = alertTimes
 //    }
-    
+
     /// Sets the ID of the event
     /// - Parameter newID: The new ID of the event
 //    func setID(_ newID: ObjectId) {
 //        self._id = newID
 //    }
-    
+
     /// Whether or not the event occurs on a given date
     /// - Parameter date: The date that we're checking
     /// - Returns: Whether or not the event occurs on the date
@@ -135,7 +136,7 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, Identifia
 //        components.month == otherComponents.month &&
 //        components.year == otherComponents.year
     }
-    
+
     /// Returns a TimeChunk for this event on a given date
     /// - Parameter date: The date for which we want the TimeChunk
     /// - Returns: a TimeChunk for this event on a given date
@@ -148,19 +149,19 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, Identifia
 //
 //        return TimeChunk(startTime: self.startDate.time, endTime: self.endDate.time)
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var scheduleDisplayString: String {
         fatalError("Should be overriden")
 //        return "\(self.startDate.format(with: DateFormat.standardTime)) - \(self.endDate.format(with: DateFormat.standardTime)): \(self.name)"
     }
-    
-    //TODO: Docstrings
-    
+
+    // TODO: Docstrings
+
     override static func primaryKey() -> String? {
         return "_id"
     }
-    
+
     // MARK: - Searchable
 //    func eventIsVisible(fromSearch searchText: String) -> Bool {
 //        fatalError("Should be overriden")
@@ -169,24 +170,23 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, Identifia
 //        self.endDate.formatted().contains(searchText) ||
 //        self.location.contains(searchText)
 //    }
-    
-    
+
     // MARK: - View Related
-    
+
     // MARK: Class (relating to StudiumEvent as a type)
-    
+
     /// How to display the type to users
     class var displayName: String {
         return "Event"
     }
-    
+
     /// Creates a form to add a new event of this type
     /// - Returns: A view for a form to add a new event of this type
     class func addFormView() -> AnyView {
         Log.e("Function should be overriden by subclass")
         return AnyView(EmptyView())
     }
-    
+
     /// Config to specify how item in tab bar should look
     class var tabItemConfig: TabItemConfig {
         Log.e("Function should be overriden by subclass")
@@ -204,14 +204,14 @@ class StudiumEvent: Object, ObjectKeyIdentifiable, AppleCalendarEvent, Identifia
     }
 
     // MARK: Instance (relating to the specific StudiumEvent instance)
-    
+
     /// Creates a View to show the details of this event in a modal view
     /// - Returns: a View that shows the details of this event in a modal view
     func detailsView() -> AnyView {
         Log.e("Function should be overriden by subclass")
         return AnyView(Text("Error showing details."))
     }
-    
+
     /// Creates a form to edit this event
     /// - Returns: A view for a form to edit this event
     func editFormView() -> AnyView {

@@ -12,17 +12,16 @@ import CalendarKit
 import RealmSwift
 
 class NonRecurringStudiumEvent: StudiumEvent, GoogleCalendarEventLinking {
-    
+
     /// The start date of the event
     @Persisted var startDate: Date = Date()
-    
+
     /// The end date of the event
     @Persisted var endDate: Date = Date()
-    
+
     /// Whether the event is complete
     @Persisted var complete: Bool = false
 
-    
     /// Sets the start and end dates for the event
     /// - Parameters:
     ///   - startDate: The start date of the event
@@ -35,9 +34,9 @@ class NonRecurringStudiumEvent: StudiumEvent, GoogleCalendarEventLinking {
 
 /// Represents StudiumEvents that repeat
 class RecurringStudiumEvent: StudiumEvent {
-    
+
     @Persisted private var startTimeCoded: Int = 0
-    
+
     @Persisted private var endTimeCoded: Int = 0
 
     /// The start time of the event
@@ -45,59 +44,59 @@ class RecurringStudiumEvent: StudiumEvent {
         get { Time(timeInMinutes: self.startTimeCoded) }
         set { self.startTimeCoded = newValue.timeInMinutes }
     }
-    
+
     /// The end time of the event
     var endTime: Time {
         get { Time(timeInMinutes: self.endTimeCoded) }
         set { self.endTimeCoded = newValue.timeInMinutes }
     }
-    
+
     /// Represents the days as ints for which this event occurs on
     @Persisted private var daysList = RealmSwift.List<Int>()
-    
+
     /// Represents the days for which this event occurs on
     var days: Set<Weekday> {
         get {
             return Set<Weekday>( self.daysList.compactMap { Weekday(rawValue: $0) })
         }
-        
+
         set {
             self.daysList.removeAll()
             self.daysList.append(objectsIn: newValue.compactMap({ $0.rawValue }))
         }
     }
-    
+
     /// Whether or not the event occurs today
     var occursToday: Bool {
         return self.occursOn(date: Date())
     }
-    
+
     var nextOccuringTimeChunk: TimeChunk? {
         if self.days.isEmpty {
             return nil
         }
-        
+
         var currentDay = Date()
-        
+
         // 1000 iteration limit
         for _ in 0..<1000 {
             if self.occursOn(date: currentDay) {
                 return self.timeChunkForDate(date: currentDay)
             }
-            
+
             currentDay = currentDay.add(days: 1)
         }
-        
+
         return nil
     }
-    
+
     /// Whether or not the event occurs on a given date
     /// - Parameter date: The date that we're checking
     /// - Returns: Whether or not the event occurs on the date
     override func occursOn(date: Date) -> Bool {
         return self.days.contains(date.weekdayValue)
     }
-    
+
     /// Returns a TimeChunk for this event on a given date
     /// - Parameter date: The date for which we want the TimeChunk
     /// - Returns: a TimeChunk for this event on a given date
@@ -120,7 +119,7 @@ class RecurringStudiumEvent: StudiumEvent {
 extension RecurringStudiumEvent: GoogleCalendarRecurringEventLinking {
     var ekRecurrenceRule: EKRecurrenceRule {
         var daysOfTheWeek = [EKRecurrenceDayOfWeek]()
-        
+
         // Create an array of EKRecurrenceDayOfWeek based on recurring event days
         for day in self.days {
             if let ekWeekday = EKWeekday(rawValue: day.rawValue) {
@@ -129,7 +128,7 @@ extension RecurringStudiumEvent: GoogleCalendarRecurringEventLinking {
                 Log.s(AppleCalendarServiceError.failedToCreateWeekdayFromRawValue, additionalDetails: "Tried to create an EKWeekday from rawValue: \(day.rawValue) but failed.")
             }
         }
-        
+
         return EKRecurrenceRule(
             recurrenceWith: .weekly,
             interval: 1,
@@ -168,9 +167,8 @@ extension RecurringStudiumEvent {
 
 }
 
-
-//extension RecurringStudiumEvent {
+// extension RecurringStudiumEvent {
 ////    associatedtype T: View
 ////    var detailsView: T { get }
 //    func detailsView() -> T
-//}
+// }

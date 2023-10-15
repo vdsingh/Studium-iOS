@@ -11,7 +11,7 @@ import Foundation
 // TODO: Docstrings
 protocol Updatable {
     associatedtype EventType
-    
+
     // TODO: Docstrings
     func updateFields(withNewEvent event: EventType)
 }

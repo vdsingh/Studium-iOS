@@ -9,65 +9,65 @@
 import Foundation
 import UIKit
 
-//TODO: Docstrings
+// TODO: Docstrings
 class CalendarCoordinator: NSObject, TabItemCoordinator {
-        
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     weak var parentCoordinator: Coordinator?
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var childCoordinators = [Coordinator]()
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var navigationController: UINavigationController
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var tabItemConfig: TabItemConfig = .calendarFlow
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-    
+
     // TODO: Docstrings
     required override init() {
         self.navigationController = UINavigationController()
         super.init()
         self.setRootViewController(self.navigationController)
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func start() {
         self.showDayScheduleViewController()
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func showDayScheduleViewController() {
         let dayScheduleVC = DayScheduleViewController.instantiate()
         dayScheduleVC.coordinator = self
         dayScheduleVC.tabBarItem = UITabBarItem(title: self.tabItemConfig.title, image: self.tabItemConfig.images.unselected, tag: self.tabItemConfig.orderNumber)
         dayScheduleVC.tabBarItem.selectedImage = self.tabItemConfig.images.selected
-        
+
         self.navigationController.pushViewController(dayScheduleVC, animated: false)
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func showMonthScheduleViewController() {
         let monthScheduleVC = CalendarViewController.instantiate()
         monthScheduleVC.coordinator = self
         self.navigationController.pushViewController(monthScheduleVC, animated: true)
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func showSettingsFlow() {
         let settingsCoordinator = SettingsCoordinator(self.navigationController)
         self.childCoordinators.append(settingsCoordinator)
         settingsCoordinator.parentCoordinator = self
         settingsCoordinator.start()
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func childDidFinish(_ child: Coordinator?) {
-        
+
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 // TODO: Docstrings
 protocol Autoscheduled: StudiumEvent {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var autoscheduled: Bool { get set }
 }

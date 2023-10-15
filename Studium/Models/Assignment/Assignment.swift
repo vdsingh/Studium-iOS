@@ -11,31 +11,31 @@ import RealmSwift
 
 /// Represents Course Assignments
 class Assignment: NonRecurringStudiumEvent, Autoscheduling, StudiumEventContained, FileStorer {
-    
+
     typealias AutoscheduledEventType = OtherEvent
-    
-    @Persisted var attachedFileURLString: String? = nil
-    
+
+    @Persisted var attachedFileURLString: String?
+
     /// Specifies whether or not the Assignment object is marked as complete or not
 //    @Persisted var complete: Bool = false
 
     /// This is a link to the Course that the Assignment object is categorized under
     @Persisted var parentCourse: Course!
-    
+
     // MARK: - Variables that track information about scheduling work time.
-    
+
     /// Data for the configuration for autoscheduling
     @Persisted var autoschedulingConfigData: Data?
 
     /// The autoscheduled assignments that belong to this assignment
     @Persisted var autoscheduledEventsList: List<OtherEvent> = List<OtherEvent>()
-        
+
     @Persisted private var resourceLinksList: List<LinkConfig>
-    
+
     @Persisted var resourcesAreLoading: Bool = false
-    
+
     @Persisted var isGeneratingEvents: Bool = false
-    
+
     var resourceLinks: [LinkConfig] {
         get { return [LinkConfig](self.resourceLinksList) }
         set {
@@ -44,7 +44,7 @@ class Assignment: NonRecurringStudiumEvent, Autoscheduling, StudiumEventContaine
             self.resourceLinksList = list
         }
     }
-    
+
     var latenessStatus: LatenessStatus {
         if Date() > self.endDate {
             return .late
@@ -54,25 +54,25 @@ class Assignment: NonRecurringStudiumEvent, Autoscheduling, StudiumEventContaine
             return .onTime
         }
     }
-    
+
     // TODO: Docstrings
-    
+
     var dueDateString: String {
         return self.endDate.format(with: .full)
     }
-    
+
     /// Assignment Icon should be whatever the parent course's icon is
     override var icon: StudiumIcon {
         get { return self.parentCourse.icon }
         set { Log.e("Tried to set Assignment Icon") }
     }
-    
+
     override var color: UIColor {
         get { return self.parentCourse.color }
         set { Log.e("Tried to set Assignment Color") }
     }
 
-    //Basically an init that must be called manually because Realm doesn't allow init for some reason.
+    // Basically an init that must be called manually because Realm doesn't allow init for some reason.
     convenience init(
         name: String,
         additionalDetails: String,
@@ -94,28 +94,28 @@ class Assignment: NonRecurringStudiumEvent, Autoscheduling, StudiumEventContaine
         self.alertTimes = notificationAlertTimes
         self.parentCourse = parentCourse
     }
-    
+
     /// The String that is displayed on a schedule view
     override var scheduleDisplayString: String {
 //        if let course = self.parentCourse {
         return "\(self.endDate.format(with: "h:mm a")): \(self.name) due (\(self.parentCourse.name))"
 //        }
-        
+
 //        return "\(self.endDate.format(with: "h:mm a")): \(self.name) due"
     }
-    
-    //TODO: Docstring
+
+    // TODO: Docstring
     override func occursOn(date: Date) -> Bool {
         return self.endDate.occursOn(date: date)
     }
-    
+
     // TODO: Docstring
     func instantiateAutoscheduledEvents(datesAndTimeChunks: [(Date, TimeChunk)]) -> [OtherEvent] {
 //        guard let parentCourse = self.parentCourse else {
 //            Log.s(AssignmentError.nilParentCourse, additionalDetails: "tried to instantiate an autoscheduled event for assignment \(self), but the parent course for this assignment was nil.")
 //            return []
 //        }
-        
+
         var events = [OtherEvent]()
         for (date, timeChunk) in datesAndTimeChunks {
             let startDate = date.setTime(hour: timeChunk.startTime.hour, minute: timeChunk.startTime.minute, second: 0)
@@ -134,14 +134,14 @@ class Assignment: NonRecurringStudiumEvent, Autoscheduling, StudiumEventContaine
             autoscheduledToDoEvent.autoscheduled = true
             events.append(autoscheduledToDoEvent)
         }
-        
+
         return events
     }
-    
+
     // MARK: - Searchable
-    func eventIsVisible(fromSearch searchText: String) -> Bool {
+    override func showsOnSearch(searchText: String) -> Bool {
         return self.name.contains(searchText) ||
-        (self.parentCourse.name).contains(searchText) ||
+        self.parentCourse.name.contains(searchText) ||
         self.dueDateString.contains(searchText) ||
         self.location.contains(searchText)
     }
