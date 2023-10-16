@@ -20,7 +20,7 @@ enum AlertOption: Int, CaseIterable, Codable {
     case fourHour = 240
     case eightHour = 480
     case oneDay = 1440
-    
+
     var userString: String {
         switch self {
         case .atTime:

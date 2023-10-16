@@ -10,15 +10,15 @@ import Foundation
 
 /// Coordinators that control a flow in which a logo selection VC is used can use this protocol to gain the showLogoSelectionViewController showLogoSelectionViewController
 protocol LogoSelectionShowingCoordinator: StudiumEventFormCoordinator {
-    
+
     // TODO: Docstrings
     func showLogoSelectionViewController(updateDelegate: LogoSelectionHandler)
 }
 
-//TODO: Docstrings
+// TODO: Docstrings
 extension LogoSelectionShowingCoordinator {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func showLogoSelectionViewController(updateDelegate: LogoSelectionHandler) {
         let logoSelectionVC = LogoSelectorViewController.instantiate()
         logoSelectionVC.delegate = updateDelegate

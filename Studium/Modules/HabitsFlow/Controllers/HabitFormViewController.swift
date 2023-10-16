@@ -9,9 +9,7 @@
 import Foundation
 import SwiftUI
 
-
-
-//struct AddHabitForm: View {
+// struct AddHabitForm: View {
 //    
 //    let refreshCallback: () -> Void
 //    
@@ -78,9 +76,9 @@ import SwiftUI
 //    func saveHabit(_ habit: Habit) {
 //        StudiumEventService.shared.saveStudiumEvent(habit)
 //    }
-//}
+// }
 
-//class AddHabitViewController: SwiftUIViewController<HabitFormView> {
+// class AddHabitViewController: SwiftUIViewController<HabitFormView> {
 //    
 //    let refreshCallback: () -> Void
 //    lazy var habitFormView = HabitFormView(viewModel: HabitFormViewModel(willComplete: {
@@ -101,42 +99,41 @@ import SwiftUI
 //    required init?(coder: NSCoder) {
 //        fatalError("init(coder:) has not been implemented")
 //    }
-//}
+// }
 
 class HabitFormViewController: SwiftUIViewController<HabitFormView> {
-    
+
 //    var refreshCallback: () -> Void
-    
+
     let viewModel: HabitFormViewModel
     lazy var editHabitForm = HabitFormView(viewModel: self.viewModel)
-    
+
     override func loadView() {
         super.loadView()
         self.setupSwiftUI(withView: self.editHabitForm)
         self.setStudiumFormNavigationStyle()
     }
-    
+
     init(habit: Habit? = nil, refreshCallback: @escaping () -> Void) {
         if let habit {
             self.viewModel = HabitFormViewModel(habit: habit, willComplete: refreshCallback)
         } else {
             self.viewModel = HabitFormViewModel(willComplete: refreshCallback)
         }
-        
+
         super.init()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-
-//struct AddHabitPreview: PreviewProvider {
+// struct AddHabitPreview: PreviewProvider {
 //    static let addHabitViewController = AddHabitViewController(refreshCallback: {})
 //    static let mockCourse = MockStudiumEventService.getMockCourse()
 //    static var previews: some View {
 //        self.addCourseViewController.addCourseView
 //            .background(StudiumColor.background.color)
 //    }
-//}
+// }

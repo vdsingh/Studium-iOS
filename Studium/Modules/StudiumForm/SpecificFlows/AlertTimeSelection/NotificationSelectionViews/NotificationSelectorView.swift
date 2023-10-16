@@ -12,24 +12,30 @@ import SwiftUI
 /// Individual button to let user select a notification option
 struct NotificationSelectorButton: View {
     let option: AlertOption
-    @Binding var selectedOptions: [AlertOption]
-    
+    @Binding var selectedOptions: Set<AlertOption>
+
     var isSelected: Bool {
         return self.selectedOptions.contains(self.option)
     }
-    
+
     var body: some View {
         HStack {
             Button {
                 if self.isSelected {
-                    self.selectedOptions.removeAll(where: { $0.rawValue == self.option.rawValue })
+                    for option in self.selectedOptions {
+                        if option.rawValue == self.option.rawValue {
+                            self.selectedOptions.remove(option)
+                        }
+                    }
+//                    self.selectedOptions.remove(<#T##member: AlertOption##AlertOption#>)
+//                    self.selectedOptions.removeAll(where: { $0.rawValue == self.option.rawValue })
                 } else {
-                    self.selectedOptions.append(self.option)
+                    self.selectedOptions.insert(self.option)
                 }
             } label: {
                 StudiumText("\(self.option.userString)")
             }
-            
+
             Spacer()
             if self.isSelected {
                 MiniIcon(image: StudiumIcon.checkmark.uiImage)
@@ -61,17 +67,21 @@ extension Array: RawRepresentable where Element: Codable {
 
 /// The notification selection panel
 struct NotificationSelectorView: View {
-    @Binding var selectedOptions: [AlertOption]
+    @Binding var selectedOptions: Set<AlertOption>
     @State var isDefault = false
+    @Environment(\.dismiss) var dismiss
     var body: some View {
-        Form {
+//        let navBarAppearance = UINavigationBarAppearance().backButtonAppearance.normal = .
+//        navBarAppearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.white]
+
+        return Form {
             Section(header: Text("Notification Options")) {
                 ForEach(AlertOption.allCases, id: \.self) { alertOption in
                     NotificationSelectorButton(option: alertOption,
                                                selectedOptions: self.$selectedOptions)
                 }
             }
-            
+
             Section(header: Text("Default Preferences")) {
                 HStack {
                     Toggle(isOn: self.$isDefault) {
@@ -79,12 +89,12 @@ struct NotificationSelectorView: View {
                     }
                     .toggleStyle(CheckboxToggleStyle())
                     .foregroundStyle(StudiumColor.primaryLabel.color)
-                    .onChange(of: self.selectedOptions) { newValue in
+                    .onChange(of: self.selectedOptions) { _ in
                         if self.isDefault {
                             UserDefaultsService.defaultNotificationPreferences = self.selectedOptions
                         }
                     }
-                    .onChange(of: self.isDefault) { newValue in
+                    .onChange(of: self.isDefault) { _ in
                         if self.isDefault {
                             UserDefaultsService.defaultNotificationPreferences = self.selectedOptions
                         }
@@ -92,6 +102,21 @@ struct NotificationSelectorView: View {
                 }
             }
         }
+//        .accentColor(.green)
+//        .navigationBarBackButtonHidden()
+//        .toolbar {
+//            ToolbarItem(placement: .topBarLeading) { // Override back button with custom
+//                Button {
+//                    self.dismiss()
+//                } label: {
+//                    HStack {
+//                        TinyIcon(color: .white, image: SystemIcon.chevronLeft.uiImage)
+//                        StudiumText("Back")
+//                            .foregroundStyle(.white)
+//                    }
+//                }
+//            }
+//        }
     }
 }
 
@@ -113,8 +138,8 @@ struct CheckboxToggleStyle: ToggleStyle {
 }
 
 struct NotificationSelectorPreview: PreviewProvider {
-    
-    @State static var alertOptions = [AlertOption]()
+
+    @State static var alertOptions = Set<AlertOption>()
     static var previews: some View {
         NotificationSelectorView(selectedOptions: self.$alertOptions)
     }

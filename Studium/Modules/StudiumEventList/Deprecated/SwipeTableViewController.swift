@@ -16,7 +16,7 @@ protocol UITableViewControllerProtocol: UIViewController, UITableViewDataSource,
 
 // TODO: Docstrings
 class SwipeTableViewController: UIViewController, UITableViewControllerProtocol, SwipeTableViewCellDelegate, UITableViewDataSource, UITableViewDelegate {
-    
+
     private var vStack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -30,16 +30,16 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    
+
     // TODO: Docstrings
     var rightActions = [SwipeAction]()
-    
+
     // TODO: Docstrings
     var leftActions = [SwipeAction]()
-    
+
     // TODO: Docstrings
     var swipeCellId: String = "SwipeCell"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
@@ -50,35 +50,35 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
             self.vStack.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.vStack.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             self.vStack.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            self.vStack.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            self.vStack.rightAnchor.constraint(equalTo: self.view.rightAnchor)
         ])
     }
 
     // MARK: - TableView Data Source
-    
+
     // TODO: Docstrings
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         Log.d("will try to dequeue a SwipeTableViewCell with id: \(self.swipeCellId)")
-        if let cell = tableView.dequeueReusableCell(withIdentifier:  self.swipeCellId, for: indexPath) as? SwipeTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: self.swipeCellId, for: indexPath) as? SwipeTableViewCell {
             cell.delegate = self
             return cell
         }
-        
+
         Log.e("Couldn't dequeue cell as SwipeTableViewCell")
         return UITableViewCell()
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return Increment.five
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
-    
+
     // MARK: - SwipeCell Delegate
-    
+
     // TODO: Docstrings
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         if orientation == .right {
@@ -87,8 +87,8 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
             return self.leftActions
         }
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
         var options = SwipeTableOptions()
         if orientation == .right {
@@ -96,15 +96,15 @@ class SwipeTableViewController: UIViewController, UITableViewControllerProtocol,
         } else {
             options.expansionStyle = .selection
         }
-        
+
         options.transitionStyle = .border
         return options
     }
-    
+
     func addViewToStack(subView: UIView) {
         self.vStack.addArrangedSubview(subView)
     }
-    
+
     func insertViewIntoStack(subView: UIView, at index: Int) {
         self.vStack.insertArrangedSubview(subView, at: index)
     }

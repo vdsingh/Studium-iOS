@@ -10,16 +10,16 @@ import UIKit
 
 // TableView Form used to select alert times
 class AlertTimeSelectionTableViewForm: TableViewForm, Storyboarded {
-    
+
     // TODO: Docstrings
     var delegate: AlertTimeHandler?
-    
+
     // TODO: Docstrings
     let allAlertOptions = AlertOption.allCases
-    
+
     // TODO: Docstrings
-    private var selectedAlertOptions: [AlertOption] = []
-    
+    private var selectedAlertOptions: Set<AlertOption> = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.tableView.register(UINib(nibName: LabelCell.id, bundle: nil), forCellReuseIdentifier: LabelCell.id)
@@ -27,18 +27,18 @@ class AlertTimeSelectionTableViewForm: TableViewForm, Storyboarded {
         self.view.backgroundColor = StudiumColor.background.uiColor
 //        self.tableView.tintColor = StudiumColor.background.uiColor
     }
-    
+
     // MARK: - Private Functions
-    
+
     // TODO: Docstrings
     private func alertOptionIsSelected(alertOption: AlertOption) -> Bool {
         return self.selectedAlertOptions.contains(alertOption)
     }
-    
+
     // MARK: - Public Functions
-    
+
     // TODO: Docstrings
-    func setSelectedAlertOptions(alertOptions: [AlertOption]) {
+    func setSelectedAlertOptions(alertOptions: Set<AlertOption>) {
         self.selectedAlertOptions = alertOptions
         self.tableView.reloadData()
     }
@@ -46,31 +46,31 @@ class AlertTimeSelectionTableViewForm: TableViewForm, Storyboarded {
 
 // MARK: - TableView Setup
 extension AlertTimeSelectionTableViewForm {
-    
+
     // TODO: Docstrings
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     // TODO: Docstrings
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allAlertOptions.count
     }
-    
+
     // TODO: Docstrings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let alertOption = allAlertOptions[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: LabelCell.id, for: indexPath) as! LabelCell
         cell.label.text = allAlertOptions[indexPath.row].userString
         cell.accessoryType = .none
-        
+
         if self.selectedAlertOptions.contains(alertOption) {
             cell.accessoryType = .checkmark
         }
 
         return cell
     }
-    
+
     // TODO: Docstrings, implement using callback instead of delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedAlertOption = self.allAlertOptions[indexPath.row]
@@ -78,19 +78,24 @@ extension AlertTimeSelectionTableViewForm {
 
         if self.alertOptionIsSelected(alertOption: selectedAlertOption) {
             cell?.accessoryType = .none
-            self.selectedAlertOptions.removeAll(where: {$0.rawValue == selectedAlertOption.rawValue})
+            for alertOption in self.selectedAlertOptions {
+                if alertOption.rawValue == selectedAlertOption.rawValue {
+                    self.selectedAlertOptions.remove(alertOption)
+                }
+            }
+//            self.selectedAlertOptions.removeAll(where: {$0.rawValue == selectedAlertOption.rawValue})
         } else {
             cell?.accessoryType = .checkmark
-            self.selectedAlertOptions.append(selectedAlertOption)
+            self.selectedAlertOptions.insert(selectedAlertOption)
         }
-        
+
         if let delegate = self.delegate {
             delegate.alertTimesWereUpdated(selectedAlertOptions: self.selectedAlertOptions)
         }
-        
+
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+
     // TODO: Docstrings
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return Increment.eight

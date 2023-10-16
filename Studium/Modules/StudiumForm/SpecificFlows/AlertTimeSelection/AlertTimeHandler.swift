@@ -10,7 +10,7 @@ import Foundation
 
 // TODO: Docstrings
 protocol AlertTimeHandler {
-    
-    //TODO: Docstrings
-    func alertTimesWereUpdated(selectedAlertOptions: [AlertOption])
+
+    // TODO: Docstrings
+    func alertTimesWereUpdated(selectedAlertOptions: Set<AlertOption>)
 }

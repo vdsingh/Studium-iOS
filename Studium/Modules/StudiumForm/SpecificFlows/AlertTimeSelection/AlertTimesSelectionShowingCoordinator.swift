@@ -10,17 +10,18 @@ import Foundation
 
 /// Coordinators that control a flow in which an alert time selection VC is used can use this protocol to gain the showAlertTimesSelectionViewController function
 protocol AlertTimesSelectionShowingCoordinator: StudiumEventFormCoordinator {
-    
+
     // TODO: Docstrings
-    func showAlertTimesSelectionViewController(updateDelegate: AlertTimeHandler, selectedAlertOptions: [AlertOption], viewControllerTitle: String)
+    func showAlertTimesSelectionViewController(updateDelegate: AlertTimeHandler, selectedAlertOptions: Set<AlertOption>, viewControllerTitle: String)
 }
 
-
-//TODO: Docstrings
+// TODO: Docstrings
 extension AlertTimesSelectionShowingCoordinator {
-    
-    //TODO: Docstrings
-    func showAlertTimesSelectionViewController(updateDelegate: AlertTimeHandler, selectedAlertOptions: [AlertOption], viewControllerTitle: String = "Remind Me") {
+
+    // TODO: Docstrings
+    func showAlertTimesSelectionViewController(updateDelegate: AlertTimeHandler,
+                                               selectedAlertOptions: Set<AlertOption>,
+                                               viewControllerTitle: String = "Remind Me") {
         let alertTimesSelectionVC = AlertTimeSelectionTableViewForm.instantiate()
         alertTimesSelectionVC.delegate = updateDelegate
         alertTimesSelectionVC.setSelectedAlertOptions(alertOptions: selectedAlertOptions)

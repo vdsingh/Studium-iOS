@@ -11,13 +11,13 @@ import SwiftUI
 
 /// Button that a user taps to show the "notification selection panel"
 struct ShowNotificationSelectionButton: View {
-    @Binding var selectedOptions: [AlertOption]
-    
+    @Binding var selectedOptions: Set<AlertOption>
+
     var selectedOptionsString: String {
         self.selectedOptions.map { "\($0.rawValue)" }
             .joined(separator: " ")
     }
-    
+
     var body: some View {
         NavigationLink(destination: NotificationSelectorView(selectedOptions: self.$selectedOptions)) {
             HStack {
