@@ -9,14 +9,13 @@
 import Foundation
 import SwiftUI
 
-
 /// 25 x 25 Image
 struct SmallIcon: View {
-    
+
     let color: Color
     var image: UIImage
     var renderingMode: Image.TemplateRenderingMode
-    
+
     var body: some View {
         Image(uiImage: self.image)
             .resizable()
@@ -25,7 +24,7 @@ struct SmallIcon: View {
             .scaledToFit()
             .frame(width: 25, height: 25)
     }
-    
+
     init(color: Color = StudiumColor.primaryLabel.color,
          image: UIImage,
          renderingMode: Image.TemplateRenderingMode = .template) {
@@ -33,7 +32,7 @@ struct SmallIcon: View {
         self.image = image
         self.renderingMode = renderingMode
     }
-    
+
     init(color: Color = StudiumColor.primaryLabel.color,
          image: CreatesUIImage,
          renderingMode: Image.TemplateRenderingMode = .template) {
@@ -45,10 +44,10 @@ struct SmallIcon: View {
 
 /// 20 x 20 Image
 struct MiniIcon: View {
-    
+
     let color: Color
     var image: UIImage
-    
+
     var body: some View {
         Image(uiImage: self.image)
             .resizable()
@@ -57,7 +56,7 @@ struct MiniIcon: View {
             .scaledToFit()
             .frame(width: 20, height: 20)
     }
-    
+
     init(color: Color = StudiumColor.primaryLabel.color, image: UIImage) {
         self.color = color
         self.image = image
@@ -66,10 +65,10 @@ struct MiniIcon: View {
 
 /// 20 x 20 Image
 struct TinyIcon: View {
-    
+
     let color: Color
     var image: UIImage
-    
+
     var body: some View {
         Image(uiImage: self.image)
             .resizable()
@@ -78,7 +77,7 @@ struct TinyIcon: View {
             .scaledToFit()
             .frame(width: 15, height: 15)
     }
-    
+
     init(color: Color = StudiumColor.primaryLabel.color, image: UIImage) {
         self.color = color
         self.image = image

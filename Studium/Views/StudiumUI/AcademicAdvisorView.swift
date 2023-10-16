@@ -11,14 +11,14 @@ import SwiftUI
 
 class AcademicAdvisorViewModel: ObservableObject {
     @Published var isHidden: Bool = false
-    
+
     let image: UIImage?
     let title: String
     let subtitle: String?
     var textAlignment: TextAlignment = .center
     let buttonText: String
     let buttonAction: () -> Void
-    
+
     init(image: UIImage?, title: String, subtitle: String?, buttonText: String, buttonAction: @escaping () -> Void) {
         self.image = image
         self.title = title
@@ -26,7 +26,7 @@ class AcademicAdvisorViewModel: ObservableObject {
         self.buttonText = buttonText
         self.buttonAction = buttonAction
     }
-    
+
     func setTextAlignment(_ alignment: TextAlignment) {
         self.textAlignment = alignment
     }
@@ -34,7 +34,7 @@ class AcademicAdvisorViewModel: ObservableObject {
 
 struct AcademicAdvisorView: View {
     @ObservedObject var viewModel: AcademicAdvisorViewModel
-    
+
     var body: some View {
         VStack {
             Spacer()
@@ -44,17 +44,17 @@ struct AcademicAdvisorView: View {
                         .resizable()
                         .frame(width: 350, height: 275)
                 }
-                
+
                 Text(self.viewModel.title)
                     .font(StudiumFont.title.font)
                     .foregroundStyle(StudiumFont.title.color)
-                
+
                 if let subtitle = self.viewModel.subtitle {
                     Text(subtitle)
                         .font(StudiumFont.subTitle.font)
                         .foregroundStyle(StudiumFont.placeholder.color)
                 }
-                
+
                 Button {
                     self.viewModel.buttonAction()
                 } label: {
@@ -72,7 +72,7 @@ struct AcademicAdvisorView: View {
         .background(Color(uiColor: StudiumColor.secondaryBackground.uiColor))
 //        .clipShape(Rectangle().cornerRadius(Increment.two))
         .opacity(self.viewModel.isHidden ? 0 : 1)
-        
+
         Spacer()
     }
 }

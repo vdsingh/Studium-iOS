@@ -8,18 +8,18 @@
 
 import UIKit
 
-//TODO: Docstrings
+// TODO: Docstrings
 class PickerCell: BasicCell {
 
-    //TODO: Docstrings
+    // TODO: Docstrings
     @IBOutlet weak var picker: UIPickerView!
 
-    //TODO: Docstrings
+    // TODO: Docstrings
     var formCellID: FormCellID.PickerCell?
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var indexPath: IndexPath?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.picker.setValue(StudiumColor.primaryLabel.uiColor, forKeyPath: "textColor")

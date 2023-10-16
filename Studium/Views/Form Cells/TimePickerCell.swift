@@ -8,57 +8,57 @@
 
 import UIKit
 
-//TODO: Docstrings
+// TODO: Docstrings
 public protocol UITimePickerDelegate {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func timePickerValueChanged(sender: UIDatePicker, indexPath: IndexPath, pickerID: FormCellID.TimePickerCell)
 }
 
-//TODO: Docstrings
+// TODO: Docstrings
 class TimePickerCell: BasicCell {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     public var formCellID: FormCellID.TimePickerCell?
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     @IBOutlet weak var picker: UIDatePicker!
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var delegate: UITimePickerDelegate?
-    
-    //TODO: Docstrings
-    var indexPath : IndexPath?
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
+    var indexPath: IndexPath?
+
+    // TODO: Docstrings
     var pickerID: Int?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         self.picker.setValue(UIColor.white, forKeyPath: "textColor")
         self.picker.timeZone = NSTimeZone.local
         if #available(iOS 13.4, *) {
             picker.preferredDatePickerStyle = UIDatePickerStyle.wheels
         }
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     @IBAction func pickerValueChanged(_ sender: UIDatePicker) {
         guard let indexPath = self.indexPath, let formCellID = self.formCellID else {
             print("$ERR (TimePickerCell): indexPath or formCellID were nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
-        
+
         guard let delegate = self.delegate else {
             print("$ERR (TimePickerCell): delegate is nil.\nFile:\(#file)\nFunction:\(#function)\nLine:\(#line)")
             return
         }
-        
+
         delegate.timePickerValueChanged(sender: sender, indexPath: indexPath, pickerID: formCellID)
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func setPickerMode(datePickerMode: UIDatePicker.Mode) {
         self.picker.datePickerMode = datePickerMode
     }

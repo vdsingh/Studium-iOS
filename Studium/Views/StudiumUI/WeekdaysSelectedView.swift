@@ -13,7 +13,7 @@ import SwiftUI
 struct WeekdaysSelectedView: View {
     var selectedDays: Set<Weekday>
     let tintColor: Color
-    
+
     var body: some View {
         HStack(alignment: .center) {
             ForEach(Weekday.allKnownCases, id: \.self) { weekday in
@@ -25,19 +25,19 @@ struct WeekdaysSelectedView: View {
 }
 
 private struct WeekdaySelectedView: View {
-    
+
     let day: Weekday
     let tintColor: Color
     @State var selectedDays: Set<Weekday>
-    
+
     var isSelected: Bool {
         self.selectedDays.contains(self.day)
     }
-    
+
     var body: some View {
             self.dayTextView
     }
-    
+
     var dayTextView: some View {
         WeekdayView(isSelected: self.isSelected, tintColor: self.tintColor, day: self.day)
     }

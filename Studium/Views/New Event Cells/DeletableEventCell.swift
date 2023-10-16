@@ -11,7 +11,7 @@ import SwipeCellKit
 
 /// SwipeTableViewCells that contain a StudiumEvent which can be deleted
 class DeletableEventCell: SwipeTableViewCell {
-    
+
     /// The StudiumEvent that can be deleted
     var event: StudiumEvent!
 }

@@ -9,24 +9,24 @@
 import UIKit
 import TableViewForm
 
-//TODO: Docstrings
+// TODO: Docstrings
 class TimeCell: BasicCell {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     public var formCellID: FormCellID.TimeCell?
 
     /// Label usually used to display what the date represents (ex: "start time")
     @IBOutlet weak var label: UILabel!
-    
+
     /// Label that displays a date
     @IBOutlet weak var timeLabel: UILabel!
-    
+
     /// The date that we want to display
     private var date: Date!
-    
+
     /// The format that we want to use to display the date
     private var dateFormat: DateFormat!
-    
+
     /// The mode of the date picker
     private var timePickerMode: UIDatePicker.Mode!
 
@@ -36,8 +36,8 @@ class TimeCell: BasicCell {
         self.label.textColor = StudiumColor.primaryLabel.uiColor
         self.timeLabel.textColor = StudiumColor.primaryLabel.uiColor
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func configure(
         cellLabelText: String,
         formCellID: FormCellID.TimeCell?,
@@ -52,27 +52,27 @@ class TimeCell: BasicCell {
         self.dateFormat = dateFormat
         self.timePickerMode = timePickerMode
     }
-    
+
     // MARK: - Getters
 
-    //TODO: Docstrings
+    // TODO: Docstrings
     func getDate() -> Date {
         return self.date
     }
-    
-    //TODO: Docstrings
-    func getDateFormat() -> DateFormat{
+
+    // TODO: Docstrings
+    func getDateFormat() -> DateFormat {
         return self.dateFormat
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func getTimePickerMode() -> UIDatePicker.Mode {
         return self.timePickerMode
     }
-    
+
     // MARK: - Setters
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func setDate(_ date: Date) {
         self.date = date
         self.timeLabel.text = date.format(with: self.dateFormat.rawValue)

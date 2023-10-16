@@ -8,11 +8,10 @@
 
 import UIKit
 
-
-class PickerCell: BasicCell{
+class PickerCell: BasicCell {
 
     @IBOutlet weak var picker: UIPickerView!
-    
+
 //    var delegate: PickerDelegate?
     var indexPath: IndexPath?
     override func awakeFromNib() {
@@ -20,7 +19,6 @@ class PickerCell: BasicCell{
         super.awakeFromNib()
         self.backgroundColor = defaultBackgroundColor
 
-    
         // Initialization code
     }
 
@@ -29,9 +27,9 @@ class PickerCell: BasicCell{
 
         // Configure the view for the selected state
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+
     }
-    
+
 }

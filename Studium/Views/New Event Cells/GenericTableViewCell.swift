@@ -11,24 +11,24 @@ import UIKit
 /// This cell is meant to be used to display any StudiumEvent type. It is not meant to be deleted and is solely meant for the display of information.
 class GenericTableViewCell: UITableViewCell {
 
-    //TODO: Docstrings
+    // TODO: Docstrings
     @IBOutlet weak var subTextLabel: UILabel!
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     @IBOutlet weak var mainTextLabel: UILabel!
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     @IBOutlet weak var date1Label: UILabel!
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     @IBOutlet weak var date2Label: UILabel!
-    
-    //TODO: Docstrings
-    func loadData(event: StudiumEvent){
+
+    // TODO: Docstrings
+    func loadData(event: StudiumEvent) {
         self.mainTextLabel.text = event.name
         self.subTextLabel.text = event.location
-        
-        self.date1Label.text = event.startDate.format(with: "MMM d, h:mm a")
-        self.date2Label.text = event.endDate.format(with: "MMM d, h:mm a")
+
+//        self.date1Label.text = event.startDate.format(with: "MMM d, h:mm a")
+//        self.date2Label.text = event.endDate.format(with: "MMM d, h:mm a")
     }
 }

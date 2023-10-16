@@ -12,7 +12,7 @@ class TimeCell: BasicCell {
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    
+
     var date: Date?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,5 +26,5 @@ class TimeCell: BasicCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

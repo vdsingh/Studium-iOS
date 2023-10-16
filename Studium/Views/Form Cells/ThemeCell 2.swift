@@ -24,8 +24,8 @@ class ThemeCell: BasicCell {
 
         // Configure the view for the selected state
     }
-    
-    func setColorPreviewColor(colors: [CGColor]){
+
+    func setColorPreviewColor(colors: [CGColor]) {
         let view = UIView(frame: colorPreview.frame)
         view.layer.cornerRadius = 21
         view.clipsToBounds = true
@@ -36,7 +36,7 @@ class ThemeCell: BasicCell {
         view.layer.insertSublayer(gradient, at: 0)
         colorPreview.addSubview(view)
         colorPreview.bringSubviewToFront(view)
-        
+
     }
-    
+
 }

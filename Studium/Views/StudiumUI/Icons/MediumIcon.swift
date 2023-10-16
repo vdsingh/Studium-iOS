@@ -13,7 +13,7 @@ import SwiftUI
 struct MediumIcon: View {
     var image: UIImage
     let color: Color
-    
+
     var body: some View {
         Image(uiImage: self.image)
             .resizable()

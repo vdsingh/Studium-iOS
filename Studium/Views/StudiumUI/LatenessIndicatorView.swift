@@ -11,10 +11,10 @@ import SwiftUI
 
 struct LatenessIndicatorView: View {
     @State var indicatorColor: Color
-    
+
     let width: CGFloat
     let height: CGFloat
-    
+
     var body: some View {
         ZStack {
             Ellipse()
@@ -25,7 +25,7 @@ struct LatenessIndicatorView: View {
                 .foregroundStyle(self.indicatorColor)
         }
     }
-    
+
     init(_ latenessStatus: LatenessStatus, width: CGFloat = 25, height: CGFloat = 25) {
         self.indicatorColor = latenessStatus.color
         self.width = width
