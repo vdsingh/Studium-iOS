@@ -12,7 +12,7 @@ import XCTest
 @testable import Studium
 
 final class HabitFormSnapshotTests: XCTestCase {
-    
+
     /// Snapshots the "Edit Habit" form with a mock habit
     func snapshotEditHabitForm() {
         let mockHabit = MockStudiumEventService.mockHabit
@@ -21,7 +21,7 @@ final class HabitFormSnapshotTests: XCTestCase {
         assertSnapshot(matching: editHabitViewController, as: .image(on: .iPhoneXsMax))
         assertSnapshot(matching: editHabitViewController, as: .image(on: .iPhoneSe))
     }
-    
+
     /// Snapshots the "Add Habit" form with a mock habit
     func snapshotEmptyAddHabitForm() {
         let view = HabitFormViewController(refreshCallback: {})

@@ -15,7 +15,7 @@ struct StudiumSubtext: View {
             .font(StudiumFont.subText.font)
             .foregroundStyle(StudiumFont.subText.color)
     }
-    
+
     init(_ text: String) {
         self.text = text
     }

@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-//struct StudiumGraySubtitle: View {
+// struct StudiumGraySubtitle: View {
 //    let text: String
 //    var body: some View {
 //        Text(text)
@@ -20,4 +20,4 @@ import SwiftUI
 //    init(_ text: String) {
 //        self.text = text
 //    }
-//}
+// }

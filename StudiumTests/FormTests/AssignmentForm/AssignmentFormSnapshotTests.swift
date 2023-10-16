@@ -12,9 +12,9 @@ import XCTest
 import SnapshotTesting
 
 final class AssignmentFormSnapshotTests: XCTestCase {
-    
+
     let mockCourse = Course.mock()
-    
+
     /// Snapshots the "Edit Assignment" form with a mock non autoscheduling Assignment
     func snapshotFullAssignmentFormNonAuto() {
         let mockAssignment = Assignment.mock(parentCourse: self.mockCourse, autoscheduling: false)
@@ -26,7 +26,7 @@ final class AssignmentFormSnapshotTests: XCTestCase {
         assertSnapshot(matching: editAssignmentController, as: .image(on: .iPhoneXsMax))
         assertSnapshot(matching: editAssignmentController, as: .image(on: .iPhoneSe))
     }
-    
+
     /// Snapshots the "Edit Assignment" form with a mock autoscheduling Assignment
     func snapshotFullAssignmentFormAuto() {
         let mockAssignment = Assignment.mock(parentCourse: self.mockCourse, autoscheduling: true)
@@ -38,8 +38,7 @@ final class AssignmentFormSnapshotTests: XCTestCase {
         assertSnapshot(matching: editAssignmentController, as: .image(on: .iPhoneXsMax))
         assertSnapshot(matching: editAssignmentController, as: .image(on: .iPhoneSe))
     }
-    
-    
+
     /// Snapshots the "Add Assignment" form
     func snapshotEmptyAssignmentForm() {
         let addAssignmentController = AssignmentFormViewController(

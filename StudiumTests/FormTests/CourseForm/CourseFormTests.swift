@@ -12,18 +12,18 @@ import XCTest
 import SwiftUI
 
 class CourseFormTests: XCTestCase {
-    
+
     var viewModel: CourseFormViewModel = .mockValid()
-    
+
     // MARK: - Lifecycle
-    
+
     override func setUp() {
         super.setUp()
         self.viewModel = CourseFormViewModel.mockValid()
     }
-    
+
     // MARK: - Helpers
-    
+
     private func testCourseProperties(course: Course, viewModel: CourseFormViewModel) {
         XCTAssertEqual(course.name, viewModel.name)
         XCTAssertEqual(course.location, viewModel.location)
@@ -35,7 +35,7 @@ class CourseFormTests: XCTestCase {
         XCTAssertEqual(course.color.hexValue(), viewModel.color?.hexValue())
         XCTAssertEqual(course.additionalDetails, viewModel.additionalDetails)
     }
-    
+
     // MARK: - All Valid Fields
 
     func testFormWithAllValid() throws {
@@ -44,39 +44,39 @@ class CourseFormTests: XCTestCase {
         let unwrappedCourse = try XCTUnwrap(course)
         self.testCourseProperties(course: unwrappedCourse, viewModel: viewModel)
     }
-    
+
     // MARK: - Test Invalid Fields
-    
+
     func testFormWithInvalidName() {
         self.viewModel.name = ""
-        
+
         let course = self.viewModel.constructCourse()
         XCTAssertNil(course)
         XCTAssert(self.viewModel.formErrors.contains(StudiumFormError.nameNotSpecified))
         XCTAssert(self.viewModel.formErrors.count == 1)
     }
-    
+
     func testFormWithInvalidDaysSelected() {
         self.viewModel.daysSelected = []
-        
+
         let course = self.viewModel.constructCourse()
         XCTAssertNil(course)
         XCTAssert(self.viewModel.formErrors.contains(StudiumFormError.oneDayNotSpecified))
         XCTAssert(self.viewModel.formErrors.count == 1)
     }
-    
+
     func testFormWithInvalidEndTime() {
         self.viewModel.endTime = self.viewModel.startTime-60
-        
+
         let course = self.viewModel.constructCourse()
         XCTAssertNil(course)
         XCTAssert(self.viewModel.formErrors.contains(StudiumFormError.endTimeOccursBeforeStartTime))
         XCTAssert(self.viewModel.formErrors.count == 1)
     }
-    
+
     func testFormWithInvalidColors() {
         self.viewModel.color = nil
-        
+
         let course = self.viewModel.constructCourse()
         XCTAssertNil(course)
         XCTAssert(self.viewModel.formErrors.contains(StudiumFormError.colorNotSpecfied))
@@ -85,7 +85,7 @@ class CourseFormTests: XCTestCase {
 }
 
 extension CourseFormViewModel {
-    
+
     /// Creates a CourseFormViewModel with all valid fields (no form errors)
     /// - Returns: a CourseFormViewModel with all valid fields (no form errors)
     static func mockValid() -> CourseFormViewModel {

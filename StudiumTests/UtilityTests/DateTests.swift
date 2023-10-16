@@ -9,8 +9,8 @@
 import XCTest
 @testable import Studium
 
-//TODO: Docstrings
-//final class DateTests: XCTestCase {
+// TODO: Docstrings
+// final class DateTests: XCTestCase {
 //    
 //    //TODO: Docstrings
 //    var mockCourse: Course!
@@ -155,4 +155,4 @@ import XCTest
 //        }
 //    }
 //
-//}
+// }

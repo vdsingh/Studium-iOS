@@ -13,12 +13,18 @@ struct StudiumTextField: View {
     @Binding var text: String
     let placeholderText: String
     let charLimit: TextFieldCharLimit
-    
+
     var body: some View {
         HStack {
-            TextField(self.placeholderText, text: self.$text)
+//            TextField(self.placeholderText, text: self.$text)
+
+            TextField("", text: self.$text)
                 .tint(StudiumColor.primaryAccent.color)
-            
+                .foregroundStyle(StudiumColor.primaryLabel.color)
+                .placeholder(when: self.text.isEmpty) {
+                    Text(self.placeholderText).foregroundColor(StudiumColor.placeholderLabel.color)
+                }
+
             HStack {
                 Divider()
                     .background(StudiumColor.secondaryLabel.color)

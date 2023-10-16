@@ -10,16 +10,16 @@ import XCTest
 @testable import Studium
 
 final class AutoscheduleServiceTests: XCTestCase {
-    
+
     var autoscheduleService = AutoscheduleService.shared
-    
+
     // MARK: - findOpenTimeSlots Tests
-    
+
     /// Test  commitment 1 is completely within commitment 2
     func testFindOpenTimeSlots_completelyContainedCommitment() {
         let commitments: [TimeChunk] = [TimeChunk(startTime: .nineAM, endTime: .elevenAM),
                                         TimeChunk(startTime: .nineAM+30, endTime: .tenAM+30)]
-        
+
         // No time slots at all
         var timeSlots = self.testFindOpenTimeSlotsHelper(commitments: commitments, endTime: .elevenAM)
         XCTAssertEqual(timeSlots, [])
@@ -27,17 +27,17 @@ final class AutoscheduleServiceTests: XCTestCase {
         // No time slots long enough
         timeSlots = self.testFindOpenTimeSlotsHelper(commitments: commitments, endTime: .elevenAM+30)
         XCTAssertEqual(timeSlots, [])
-        
+
         // One time slot available
         timeSlots = self.testFindOpenTimeSlotsHelper(commitments: commitments, endTime: .noon)
         XCTAssertEqual(timeSlots, [TimeChunk(startTime: .elevenAM, endTime: .noon)])
     }
-    
+
     /// Test commitment 1 starts before commitment 2 but they both end at the same time
     func testFindOpenTimeSlots_differentStartSameEnd() {
         let commitments: [TimeChunk] = [TimeChunk(startTime: .nineAM, endTime: .elevenAM),
                                         TimeChunk(startTime: .nineAM+30, endTime: .elevenAM)]
-        
+
         // No time slots at all
         var timeSlots = self.testFindOpenTimeSlotsHelper(commitments: commitments, endTime: .elevenAM)
         XCTAssertEqual(timeSlots, [])
@@ -45,7 +45,7 @@ final class AutoscheduleServiceTests: XCTestCase {
         // No time slots long enough
         timeSlots = self.testFindOpenTimeSlotsHelper(commitments: commitments, endTime: .elevenAM+30)
         XCTAssertEqual(timeSlots, [])
-        
+
         // One time slot available
         timeSlots = self.testFindOpenTimeSlotsHelper(commitments: commitments, endTime: .noon)
         XCTAssertEqual(timeSlots, [TimeChunk(startTime: .elevenAM, endTime: .noon)])
@@ -62,22 +62,22 @@ final class AutoscheduleServiceTests: XCTestCase {
         // No time slots long enough
         timeSlots = self.testFindOpenTimeSlotsHelper(commitments: commitments, endTime: .elevenAM+30)
         XCTAssertEqual(timeSlots, [])
-        
+
         // One time slot available
         timeSlots = self.testFindOpenTimeSlotsHelper(commitments: commitments, endTime: .noon)
         XCTAssertEqual(timeSlots, [TimeChunk(startTime: .elevenAM, endTime: .noon)])
     }
-    
+
     func testFindOpenTimeSlotsHelper(commitments: [TimeChunk], endTime: Time) -> [TimeChunk] {
         self.autoscheduleService.findOpenTimeSlots(commitments: commitments, startTimeBound: .nineAM,
                                                    endTimeBound: endTime, minLengthMinutes: 60)
     }
-    
+
     /// No commitments, should return a single open time slot for the entire day.
     func testFindOpenTimeSlots_noCommitments() {
         let startTime = Time(hour: 8, minute: 0)
         let endTime = Time(hour: 17, minute: 0)
-        
+
         let commitments: [TimeChunk] = []
         let openTimeSlots = self.autoscheduleService.findOpenTimeSlots(commitments: commitments,
                                                                         startTimeBound: startTime,
@@ -87,25 +87,30 @@ final class AutoscheduleServiceTests: XCTestCase {
         XCTAssertEqual(openTimeSlots.first?.startTime, startTime)
         XCTAssertEqual(openTimeSlots.first?.endTime, endTime)
     }
-    
+
     /// One commitment completely overlaps the start and end bounds
     func testFindOpenTimeSlots_commitmentOverlapsBounds() {
         let startTime = Time(hour: 8, minute: 0)
         let endTime = Time(hour: 17, minute: 0)
-        
-        let commitments: [TimeChunk] = [TimeChunk(startTime: Time(hour: 7, minute: 0), endTime: Time(hour: 18, minute: 0))]
-        let openTimeSlots = self.autoscheduleService.findOpenTimeSlots(commitments: commitments,
-                                                                       startTimeBound: startTime,
-                                                                       endTimeBound: endTime,
-                                                                       minLengthMinutes: 60)
+
+        let commitments: [TimeChunk] = [
+            TimeChunk(startTime: Time(hour: 7, minute: 0), endTime: Time(hour: 18, minute: 0))
+        ]
+
+        let openTimeSlots = self.autoscheduleService.findOpenTimeSlots(
+            commitments: commitments,
+            startTimeBound: startTime,
+            endTimeBound: endTime,
+            minLengthMinutes: 60
+        )
         XCTAssertEqual(openTimeSlots, [])
     }
-    
+
     /// Realistic example of finding open time slots
     func testFindOpenTimeSlots_realisticScenario() {
         let startTime = Time(hour: 8, minute: 0) // 8 AM
         let endTime = Time(hour: 17, minute: 0) //  5 PM
-        
+
         let commitments = [
             TimeChunk(startTime: Time(hour: 7, minute: 0), endTime: Time(hour: 8, minute: 30)),   // 7 AM to 8:30 AM
             TimeChunk(startTime: Time(hour: 9, minute: 0), endTime: Time(hour: 10, minute: 30)),  // 9 AM to 10:30 AM
@@ -113,28 +118,28 @@ final class AutoscheduleServiceTests: XCTestCase {
             TimeChunk(startTime: Time(hour: 14, minute: 0), endTime: Time(hour: 15, minute: 30)), // 2 PM to 3:30 PM
             TimeChunk(startTime: Time(hour: 4, minute: 30), endTime: Time(hour: 6, minute: 0))    // 5:30 PM to 6:00 PM
         ]
-        
+
         // Gaps: 8:30AM to 9 AM, 10:30 AM to 12 PM, 1PM to 2PM, 3:30 PM to 5 PM
         let openTimeSlots = self.autoscheduleService.findOpenTimeSlots(commitments: commitments,
                                                                         startTimeBound: startTime,
                                                                         endTimeBound: endTime,
                                                                         minLengthMinutes: 30)
-        
+
         XCTAssertEqual(openTimeSlots, [
             TimeChunk(startTime: Time(hour: 8, minute: 30), endTime: Time(hour: 9, minute: 0)),
             TimeChunk(startTime: Time(hour: 10, minute: 30), endTime: Time(hour: 12, minute: 0)),
             TimeChunk(startTime: Time(hour: 13, minute: 0), endTime: Time(hour: 14, minute: 0)),
-            TimeChunk(startTime: Time(hour: 15, minute: 30), endTime: Time(hour: 17, minute: 0)),
+            TimeChunk(startTime: Time(hour: 15, minute: 30), endTime: Time(hour: 17, minute: 0))
         ])
     }
-    
+
     /// No open time slots, all day is booked.
     func testFindOpenTimeSlots_noTimeSlotsAvailable() {
         let startTime = Time(hour: 8, minute: 0)
         let endTime = Time(hour: 17, minute: 0)
-        
+
         let commitments3 = [
-            TimeChunk(startTime: Time(hour: 8, minute: 0), endTime: Time(hour: 17, minute: 0)), // 8AM - 5PM
+            TimeChunk(startTime: Time(hour: 8, minute: 0), endTime: Time(hour: 17, minute: 0)) // 8AM - 5PM
         ]
         let openTimeSlots3 = self.autoscheduleService.findOpenTimeSlots(commitments: commitments3,
                                                                         startTimeBound: startTime,
@@ -142,17 +147,17 @@ final class AutoscheduleServiceTests: XCTestCase {
                                                                         minLengthMinutes: 60)
         XCTAssertEqual(openTimeSlots3.count, 0)
     }
-    
+
     /// Commitments that exactly match start and end times.
     func testFindOpenTimeSlots_commitmentsMatchBounds() {
         let startTime = Time(hour: 8, minute: 0)
         let endTime = Time(hour: 17, minute: 0)
-        
+
         let commitments = [
             TimeChunk(startTime: startTime, endTime: Time(hour: 9, minute: 0)),
-            TimeChunk(startTime: Time(hour: 15, minute: 0), endTime: endTime),
+            TimeChunk(startTime: Time(hour: 15, minute: 0), endTime: endTime)
         ]
-        let openTimeSlots = self.autoscheduleService.findOpenTimeSlots(commitments: commitments, 
+        let openTimeSlots = self.autoscheduleService.findOpenTimeSlots(commitments: commitments,
                                                                        startTimeBound: startTime,
                                                                        endTimeBound: endTime,
                                                                        minLengthMinutes: 60)
@@ -160,54 +165,54 @@ final class AutoscheduleServiceTests: XCTestCase {
         XCTAssertEqual(openTimeSlots[0].startTime, Time(hour: 9, minute: 0))
         XCTAssertEqual(openTimeSlots[0].endTime, Time(hour: 15, minute: 0))
     }
-    
+
     // MARK: - findAllApplicableDatesBetween Tests
-    
+
     // TODO: test for start date after end date
     // TODO: tset for start date = end date with that day specified
-    
+
     func testFindAllApplicableDatesBetween_normalInputs() {
         let startDate = Date.someMonday
         let endDate = Date.someMonday.add(weeks: 1)
-        
+
         let weekdays: Set<Weekday> = [.monday]
         let resultDates = self.autoscheduleService.findAllApplicableDatesBetween(startDate: startDate,
                                                                                  endDate: endDate,
                                                                                  weekdays: weekdays)
         XCTAssertEqual(resultDates.count, 2)
     }
-    
+
     func testFindAllApplicableDatesBetween_startDateAfterEndDate() {
         let startDate = Date.someMonday
         let endDate = Date.someMonday.add(weeks: -1)
-        
+
         let weekdays: Set<Weekday> = [.monday]
         let resultDates1 = self.autoscheduleService.findAllApplicableDatesBetween(startDate: startDate,
                                                                                   endDate: endDate,
                                                                                   weekdays: weekdays)
         XCTAssertEqual(resultDates1.count, 0)
     }
-    
+
     func testFindAllApplicableDatesBetween_noDaysSpecified() {
         let startDate = Date.someMonday
         let endDate = Date.someMonday.add(weeks: 10)
-        
+
         let weekdays: Set<Weekday> = []
         let resultDates1 = self.autoscheduleService.findAllApplicableDatesBetween(startDate: startDate,
                                                                                   endDate: endDate,
                                                                                   weekdays: weekdays)
         XCTAssertEqual(resultDates1.count, 0)
     }
-    
+
     // MARK: - findAutoschedulingTimeSlots Tests
-    
+
     // TODO: start date bound occurring after end date bound
     // TODO: start time bound occurring after end time bound
     // TODO:
-    
+
     func testFindAutoschedulingTimeSlots() {
         let calendar = Calendar.current
-        
+
         // Define some test configuration
         let startDateBound = Date.someMonday.endOfDay
         let endDateBound = Date.someMonday.add(days: 7).endOfDay
@@ -215,14 +220,14 @@ final class AutoscheduleServiceTests: XCTestCase {
         let startTimeBound = Time(hour: 9, minute: 0)
         let endTimeBound = Time(hour: 17, minute: 0)
         let autoLengthMinutes = 60
-        
+
         let autoschedulingConfig = AutoschedulingConfig(autoLengthMinutes: autoLengthMinutes,
                                                         startDateBound: startDateBound,
                                                         endDateBound: endDateBound,
                                                         startTimeBound: startTimeBound,
                                                         endTimeBound: endTimeBound,
                                                         autoschedulingDays: autoschedulingDays)
-        
+
         // Test the function with the mock object.
         let expectation = self.expectation(description: "Time slots found")
         self.autoscheduleService.findAutoschedulingTimeSlots(forConfig: autoschedulingConfig) { timeSlots in
@@ -231,15 +236,15 @@ final class AutoscheduleServiceTests: XCTestCase {
             // You can perform additional assertions on the time slots if needed.
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 5, handler: nil) // Adjust the timeout as needed.
     }
-        
+
         // Add more test cases as needed to cover various scenarios.
 }
 
-//TODO: Docstrings
-//final class AutoscheduleServiceTests: XCTestCase {
+// TODO: Docstrings
+// final class AutoscheduleServiceTests: XCTestCase {
 //
 //    // Monday: autoscheduleAssignment, nonAutoscheduleAssignment, mockAutoscheduleHabit, mockNonAutoscheduleHabit
 //
@@ -448,4 +453,4 @@ final class AutoscheduleServiceTests: XCTestCase {
 //        }
 //    }
 //
-//}
+// }

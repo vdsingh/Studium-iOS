@@ -12,7 +12,7 @@ import XCTest
 @testable import Studium
 
 final class CourseFormSnapshotTests: XCTestCase {
-    
+
     /// Snapshots the "Edit Course" form with a mock course
     func snapshotEditCourseForm() {
         let mockCourse = MockStudiumEventService.getMockCourse()
@@ -20,7 +20,7 @@ final class CourseFormSnapshotTests: XCTestCase {
         assertSnapshot(matching: editCourseController, as: .image(on: .iPhoneXsMax))
         assertSnapshot(matching: editCourseController, as: .image(on: .iPhoneSe))
     }
-    
+
     /// Snapshots the "Add Course" form
     func snapshotAddCourseForm() {
         let addCourseController = CourseFormViewController(refreshCallback: { })

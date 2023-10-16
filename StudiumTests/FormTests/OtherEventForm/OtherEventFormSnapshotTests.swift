@@ -12,7 +12,7 @@ import XCTest
 @testable import Studium
 
 final class OtherEventFormSnapshotTests: XCTestCase {
-    
+
     /// Snapshots the "Edit Habit" form with a mock habit
     func snapshotEditOtherEventForm() {
         let mockOtherEvent = OtherEvent.mock()
@@ -20,7 +20,7 @@ final class OtherEventFormSnapshotTests: XCTestCase {
         assertSnapshot(matching: editOtherEventViewController, as: .image(on: .iPhoneXsMax))
         assertSnapshot(matching: editOtherEventViewController, as: .image(on: .iPhoneSe))
     }
-    
+
     /// Snapshots the "Add Habit" form with a mock habit
     func snapshotAddOtherEventForm() {
         let view = OtherEventFormViewController(refreshCallback: {})

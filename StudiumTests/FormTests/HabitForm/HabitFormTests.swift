@@ -12,16 +12,16 @@ import XCTest
 import SwiftUI
 
 class HabitFormTests: XCTestCase {
-    
+
     var addViewModel: HabitFormViewModel = .mockValid()
-    
+
     // MARK: - Lifecycle
-    
+
     override func setUp() {
         super.setUp()
         self.addViewModel = HabitFormViewModel.mockValid()
     }
-    
+
         // Helper to compare properties a habit to a fields of form view model
 //    private func testHabitProperties(habit: Habit, viewModel: HabitFormViewModel) {
 //        XCTAssertEqual(habit.name, viewModel.name)
@@ -40,17 +40,17 @@ class HabitFormTests: XCTestCase {
 // MARK: - Edit Habit Form Tests
 
 extension HabitFormTests {
-    
+
     /// Constructed Habit should be the same as original Habit if there are no changes
     func testEditHabitWithoutChanges() throws {
         // Autoscheduling
         var mockHabit = Habit.mock(autoscheduling: true)
         var editViewModel = HabitFormViewModel(habit: mockHabit, willComplete: {})
         var constructedHabit = try XCTUnwrap(editViewModel.constructHabit())
-        XCTAssertEqual(mockHabit.autoschedulingConfig, 
+        XCTAssertEqual(mockHabit.autoschedulingConfig,
                        editViewModel.constructedAutoschedulingConfig)
         XCTAssertEqual(mockHabit, constructedHabit)
-        
+
         // Non-Autoscheduling
         mockHabit = Habit.mock(autoscheduling: false)
         editViewModel = HabitFormViewModel(habit: mockHabit, willComplete: {})
@@ -62,7 +62,7 @@ extension HabitFormTests {
 // MARK: - Add Habit Form Tests
 
 extension HabitFormTests {
-    
+
     // MARK: - All Valid Fields
 
     func testFormWithAllValid() throws {
@@ -72,60 +72,60 @@ extension HabitFormTests {
 //        self.testHabitProperties(habit: unwrappedHabit, viewModel: self.addViewModel)
         XCTAssertNotNil(habit)
     }
-    
+
     // MARK: - Test Invalid Fields
-    
+
     func testFormWithInvalidAutoLength() {
         self.addViewModel.isAutoscheduling = true
         self.addViewModel.totalAutoscheduleLengthMinutes = 0
-        
+
         let habit = self.addViewModel.constructHabit()
         XCTAssertNil(habit)
         XCTAssertEqual(self.addViewModel.formErrors, [.totalTimeNotSpecified])
     }
-    
+
     func testTotalTimeExceedsTimeFrame() {
         self.addViewModel.isAutoscheduling = true
         self.addViewModel.totalAutoscheduleLengthMinutes = 120
         self.addViewModel.startTime = .noon
         self.addViewModel.endTime = .noon+60
-        
+
         let habit = self.addViewModel.constructHabit()
         XCTAssertNil(habit)
         XCTAssertEqual(self.addViewModel.formErrors, [StudiumFormError.totalTimeExceedsTimeFrame])
         XCTAssert(self.addViewModel.formErrors.count == 1)
     }
-    
+
     func testFormWithInvalidName() {
         self.addViewModel.name = ""
-        
+
         let habit = self.addViewModel.constructHabit()
         XCTAssertNil(habit)
         XCTAssert(self.addViewModel.formErrors.contains(StudiumFormError.nameNotSpecified))
         XCTAssert(self.addViewModel.formErrors.count == 1)
     }
-    
+
     func testFormWithInvalidDaysSelected() {
         self.addViewModel.daysSelected = []
-        
+
         let habit = self.addViewModel.constructHabit()
         XCTAssertNil(habit)
         XCTAssert(self.addViewModel.formErrors.contains(StudiumFormError.oneDayNotSpecified))
         XCTAssert(self.addViewModel.formErrors.count == 1)
     }
-    
+
     func testFormWithInvalidEndTime() {
         self.addViewModel.endTime = self.addViewModel.startTime-60
-        
+
         let habit = self.addViewModel.constructHabit()
         XCTAssertNil(habit)
         XCTAssert(self.addViewModel.formErrors.contains(StudiumFormError.endTimeOccursBeforeStartTime))
         XCTAssert(self.addViewModel.formErrors.count == 1)
     }
-    
+
     func testFormWithInvalidColors() {
         self.addViewModel.color = nil
-        
+
         let habit = self.addViewModel.constructHabit()
         XCTAssertNil(habit)
         XCTAssert(self.addViewModel.formErrors.contains(StudiumFormError.colorNotSpecfied))
@@ -134,7 +134,7 @@ extension HabitFormTests {
 }
 
 extension HabitFormViewModel {
-    
+
     /// Creates a HabitFormViewModel with all valid fields (no form errors)
     /// - Returns: a HabitFormViewModel with all valid fields (no form errors)
     static func mockValid() -> HabitFormViewModel {

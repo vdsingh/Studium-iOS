@@ -18,7 +18,7 @@ struct StudiumSubtitle: View {
             .font(StudiumFont.subTitle.font)
             .foregroundStyle(self.textColor)
     }
-    
+
     init(_ text: String, textColor: Color = StudiumFont.subTitle.color) {
         self.text = text
         self.textColor = textColor

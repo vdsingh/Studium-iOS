@@ -11,7 +11,7 @@ import XCTest
 @testable import Studium
 import SwiftUI
 
-//TODO: Add tests for length of textfields
+// TODO: Add tests for length of textfields
 class OtherEventFormTests: XCTestCase {
 
     func testOtherEventProperties(otherEvent: OtherEvent, viewModel: OtherEventFormViewModel) {
@@ -24,40 +24,40 @@ class OtherEventFormTests: XCTestCase {
         XCTAssertEqual(otherEvent.color.hexValue(), viewModel.color?.hexValue())
         XCTAssertEqual(otherEvent.additionalDetails, viewModel.additionalDetails)
     }
-    
+
     func testFormWithAllValid() throws {
         let viewModel = OtherEventFormViewModel.mockValid()
-        
+
         let otherEvent = viewModel.constructOtherEvent()
         XCTAssertEqual(viewModel.formErrors, [])
         let unwrappedOtherEvent = try XCTUnwrap(otherEvent)
         self.testOtherEventProperties(otherEvent: unwrappedOtherEvent, viewModel: viewModel)
     }
-    
+
     func testFormWithInvalidName() {
         let viewModel = OtherEventFormViewModel.mockValid()
         viewModel.name = ""
-        
+
         let otherEvent = viewModel.constructOtherEvent()
         XCTAssertNil(otherEvent)
         XCTAssert(viewModel.formErrors.contains(StudiumFormError.nameNotSpecified))
         XCTAssert(viewModel.formErrors.count == 1)
     }
-    
+
     func testFormWithInvalidEndTime() {
         let viewModel = OtherEventFormViewModel.mockValid()
         viewModel.endDate = viewModel.startDate.add(hours: -1)
-        
+
         let otherEvent = viewModel.constructOtherEvent()
         XCTAssertNil(otherEvent)
         XCTAssert(viewModel.formErrors.contains(StudiumFormError.endTimeOccursBeforeStartTime))
         XCTAssert(viewModel.formErrors.count == 1)
     }
-    
+
     func testFormWithInvalidColors() {
         let viewModel = OtherEventFormViewModel.mockValid()
         viewModel.color = nil
-        
+
         let otherEvent = viewModel.constructOtherEvent()
         XCTAssertNil(otherEvent)
         XCTAssert(viewModel.formErrors.contains(StudiumFormError.colorNotSpecfied))

@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 @testable import Studium
 
-//class TimeChunk {
+// class TimeChunk {
 //    
 //    //TODO: Docstrings
 //    let startTime: Time
@@ -41,21 +41,20 @@ import XCTest
 //        self.endTime = endTime
 //        self.descriptor = descriptor
 //    }
-//}
-
+// }
 
 class TimeChunkTests: XCTestCase {
-    
+
     func testLengthInMinutes() {
         let timeChunk1 = TimeChunk(startTime: .noon, endTime: .onePM)
         XCTAssertEqual(timeChunk1.lengthInMinutes, 60)
-        
+
         let timeChunk2 = TimeChunk(startTime: Time(hour: 12, minute: 59),
                                   endTime: Time(hour: 13, minute: 0))
         XCTAssertEqual(timeChunk2.lengthInMinutes, 1)
     }
-    
+
     func testMidpoint() {
-        
+
     }
 }
