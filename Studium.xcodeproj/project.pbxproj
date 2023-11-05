@@ -13,7 +13,7 @@
 		164905B727E18732002DE61D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164905B627E18732002DE61D /* LoginViewController.swift */; };
 		1649A46A27DEAD1900B75481 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1649A46827DEAD1900B75481 /* HeaderView.swift */; };
 		16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16547B6C24DA4AC000E68E4D /* ThemesViewController.swift */; };
-		165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C77248A6F5C004279B0 /* CourseCell.swift */; };
+		165A6C79248A6F5C004279B0 /* DEPRECATEDCourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165A6C77248A6F5C004279B0 /* DEPRECATEDCourseCell.swift */; };
 		165A6C7A248A6F5C004279B0 /* CourseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165A6C78248A6F5C004279B0 /* CourseCell.xib */; };
 		166F53D125BC93320065963D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166F53D025BC93320065963D /* TabBarController.swift */; };
 		16827D1A27F58B9A0001D1EF /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16827D1927F58B9A0001D1EF /* AuthenticationViewController.swift */; };
@@ -39,8 +39,8 @@
 		16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8224AA85A7003A30D3 /* OtherEventCell.swift */; };
 		16A63B8524AA85A7003A30D3 /* OtherEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A63B8324AA85A7003A30D3 /* OtherEventCell.xib */; };
 		16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */; };
-		16C05CF4264F37B8004C9629 /* RecurringEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C05CF2264F37B8004C9629 /* RecurringEventCell.swift */; };
-		16C05CF5264F37B8004C9629 /* RecurringEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C05CF3264F37B8004C9629 /* RecurringEventCell.xib */; };
+		16C05CF4264F37B8004C9629 /* DEPRECATEDRecurringEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C05CF2264F37B8004C9629 /* DEPRECATEDRecurringEventCell.swift */; };
+		16C05CF5264F37B8004C9629 /* DEPRECATEDRecurringEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C05CF3264F37B8004C9629 /* DEPRECATEDRecurringEventCell.xib */; };
 		16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C05CF8264F5ABC004C9629 /* AssignmentCell1.swift */; };
 		16C05CFB264F5ABC004C9629 /* AssignmentCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C05CF9264F5ABC004C9629 /* AssignmentCell1.xib */; };
 		16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */; };
@@ -51,11 +51,12 @@
 		16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E7B22E27D1EF8D00AAE756 /* GenericTableViewCell.swift */; };
 		16E7B23127D1EF8D00AAE756 /* GenericTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E7B22F27D1EF8D00AAE756 /* GenericTableViewCell.xib */; };
 		213DBA6FC4EC440BD2C6C133 /* Pods_Studium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF894A87F89725DF823072C4 /* Pods_Studium.framework */; };
-		B90D13FA29845FE80093EB0C /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F329845FE80093EB0C /* AddHabitViewController.swift */; };
-		B90D13FB29845FE80093EB0C /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F429845FE80093EB0C /* AddCourseViewController.swift */; };
+		3CA05F68665468486974B3E2 /* libPods-StudiumTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2506CB22DA74CBC436F29B14 /* libPods-StudiumTests.a */; };
+		B90D13FA29845FE80093EB0C /* DEPRECATEDAddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F329845FE80093EB0C /* DEPRECATEDAddHabitViewController.swift */; };
+		B90D13FB29845FE80093EB0C /* DEPRECATEDAddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F429845FE80093EB0C /* DEPRECATEDAddCourseViewController.swift */; };
 		B90D13FC29845FE80093EB0C /* MasterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F529845FE80093EB0C /* MasterForm.swift */; };
 		B90D13FD29845FE80093EB0C /* LogoSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F629845FE80093EB0C /* LogoSelectorViewController.swift */; };
-		B90D13FE29845FE80093EB0C /* AddToDoListEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F729845FE80093EB0C /* AddToDoListEventViewController.swift */; };
+		B90D13FE29845FE80093EB0C /* DEPRECATEDAddToDoListEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F729845FE80093EB0C /* DEPRECATEDAddToDoListEventViewController.swift */; };
 		B90D13FF29845FE80093EB0C /* AlertTimeSelectionTableViewForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F829845FE80093EB0C /* AlertTimeSelectionTableViewForm.swift */; };
 		B90D140029845FE80093EB0C /* AddAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D13F929845FE80093EB0C /* AddAssignmentViewController.swift */; };
 		B90D1440298999AB0093EB0C /* StudiumFormError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D143F298999AB0093EB0C /* StudiumFormError.swift */; };
@@ -103,6 +104,7 @@
 		B94CA0F42A39A9C600047865 /* OtherEventEditingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CA0F32A39A9C600047865 /* OtherEventEditingCoordinator.swift */; };
 		B95194122A5675A900E0869A /* WidgetsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95194112A5675A900E0869A /* WidgetsService.swift */; };
 		B951941A2A5E8A8300E0869A /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95194192A5E8A8300E0869A /* ImageDetailView.swift */; };
+		B95D71EB2AC12B70002038E6 /* HabitFormSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95D71EA2AC12B70002038E6 /* HabitFormSnapshotTests.swift */; };
 		B96BEC742A806476005105B2 /* OtherEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96BEC732A806476005105B2 /* OtherEventViewController.swift */; };
 		B96E6A5C298323DD00A25457 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96E6A5B298323DD00A25457 /* DatabaseService.swift */; };
 		B97058EC2A88B493008F8636 /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058EB2A88B492008F8636 /* HabitViewController.swift */; };
@@ -112,6 +114,12 @@
 		B97058F52A88BE62008F8636 /* celebration.wav in Resources */ = {isa = PBXBuildFile; fileRef = B97058F42A88BE62008F8636 /* celebration.wav */; };
 		B97058F82A88C1D0008F8636 /* TreeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058F72A88C1D0008F8636 /* TreeCoordinator.swift */; };
 		B97058FA2A88C38B008F8636 /* TreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97058F92A88C38B008F8636 /* TreeViewController.swift */; };
+		B9729EEA2AC1419300A20EB3 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9729EE92AC1419300A20EB3 /* SettingsCell.swift */; };
+		B9729EEC2AC141B100A20EB3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9729EEB2AC141B100A20EB3 /* SettingsView.swift */; };
+		B9729EEF2AC1501000A20EB3 /* RecurringEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9729EEE2AC1501000A20EB3 /* RecurringEventCell.swift */; };
+		B9729EF42AC1513100A20EB3 /* StudiumFormNavigationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9729EF32AC1513100A20EB3 /* StudiumFormNavigationConstants.swift */; };
+		B9729EF62AC151E100A20EB3 /* PlusNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9729EF52AC151E100A20EB3 /* PlusNavigationButton.swift */; };
+		B9729EFA2AC1526900A20EB3 /* UIViewController+NavigationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9729EF92AC1526900A20EB3 /* UIViewController+NavigationStyle.swift */; };
 		B979889E2AB178E5002B8EE9 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B979889D2AB178E5002B8EE9 /* Coordinator.swift */; };
 		B97988A32AB428B0002B8EE9 /* ForegroundSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97988A22AB428B0002B8EE9 /* ForegroundSubscriber.swift */; };
 		B97988AB2AB42D78002B8EE9 /* Assignment+Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97988AA2AB42D78002B8EE9 /* Assignment+Updatable.swift */; };
@@ -123,7 +131,6 @@
 		B97988C32AB4385F002B8EE9 /* AlertTimeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97988C22AB4385F002B8EE9 /* AlertTimeHandler.swift */; };
 		B97988C52AB5694D002B8EE9 /* ToDoListRefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97988C42AB5694D002B8EE9 /* ToDoListRefreshProtocol.swift */; };
 		B97988C92AB5A207002B8EE9 /* AppleCalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97988C82AB5A206002B8EE9 /* AppleCalendarEvent.swift */; };
-		B97988CB2AB694C1002B8EE9 /* AddCourseViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97988CA2AB694C1002B8EE9 /* AddCourseViewController2.swift */; };
 		B97BB08229F7006E008F1A5B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB08129F7006E008F1A5B /* UserSettings.swift */; };
 		B97BB0972A00CBF9008F1A5B /* AutoscheduleServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0962A00CBF9008F1A5B /* AutoscheduleServiceTests.swift */; };
 		B97BB0A12A00D29A008F1A5B /* MockDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0A02A00D29A008F1A5B /* MockDatabaseService.swift */; };
@@ -134,6 +141,16 @@
 		B97BB0B02A022B5C008F1A5B /* UIColor_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0AF2A022B5C008F1A5B /* UIColor_Extension.swift */; };
 		B97BB0B22A0399FB008F1A5B /* UIViewController_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB0B12A0399FB008F1A5B /* UIViewController_Extension.swift */; };
 		B97BB1672A0EF864008F1A5B /* AssignmentsOtherEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB1662A0EF864008F1A5B /* AssignmentsOtherEventsViewController.swift */; };
+		B97BD9E52ABF8BC800742A50 /* NotificationSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BD9E42ABF8BC800742A50 /* NotificationSelectorView.swift */; };
+		B97BD9E72ABF8C1000742A50 /* StudiumSubtext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BD9E62ABF8C1000742A50 /* StudiumSubtext.swift */; };
+		B97BD9EA2ABF8D9000742A50 /* IconSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BD9E92ABF8D9000742A50 /* IconSelectorView.swift */; };
+		B97BD9EC2AC004C700742A50 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BD9EB2AC004C700742A50 /* CourseCell.swift */; };
+		B97BD9F22AC0124400742A50 /* CourseFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BD9F02AC010C200742A50 /* CourseFormTests.swift */; };
+		B97BD9F62AC0208900742A50 /* CourseFormSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BD9F52AC0208900742A50 /* CourseFormSnapshotTests.swift */; };
+		B97BD9F82AC0E87E00742A50 /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BD9F72AC0E87E00742A50 /* AddHabitViewController.swift */; };
+		B97BD9FB2AC0FBD300742A50 /* HabitFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BD9FA2AC0FBD300742A50 /* HabitFormView.swift */; };
+		B97BD9FD2AC0FC2F00742A50 /* EditHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BD9FC2AC0FC2F00742A50 /* EditHabitViewController.swift */; };
+		B97BDA022AC0FD0800742A50 /* TimeLengthPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BDA012AC0FD0800742A50 /* TimeLengthPickerView.swift */; };
 		B98693222A3D702800272B22 /* AuthenticationService+Google.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98693212A3D702800272B22 /* AuthenticationService+Google.swift */; };
 		B98693242A3D703100272B22 /* AuthenticationService+Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98693232A3D703100272B22 /* AuthenticationService+Facebook.swift */; };
 		B98693482A3D867700272B22 /* GoogleCalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98693472A3D867700272B22 /* GoogleCalendarService.swift */; };
@@ -149,10 +166,10 @@
 		B98693632A3E8A3400272B22 /* RFC5545.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98693592A3E8A3300272B22 /* RFC5545.swift */; };
 		B992193C2AB6CB1400E2FED3 /* StudiumTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B992193B2AB6CB1400E2FED3 /* StudiumTextField.swift */; };
 		B992193E2AB6E63600E2FED3 /* WeekdaysSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B992193D2AB6E63600E2FED3 /* WeekdaysSelectorView.swift */; };
-		B99219412ABD6E7200E2FED3 /* IconSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219402ABD6E7200E2FED3 /* IconSelectionButton.swift */; };
-		B99219432ABD6E9200E2FED3 /* NotificationSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219422ABD6E9200E2FED3 /* NotificationSelectionButton.swift */; };
-		B99219452ABD6ECD00E2FED3 /* EditCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219442ABD6ECD00E2FED3 /* EditCourseViewController.swift */; };
-		B99219472ABD6EF500E2FED3 /* CourseForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219462ABD6EF500E2FED3 /* CourseForm.swift */; };
+		B99219412ABD6E7200E2FED3 /* ShowIconSelectorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219402ABD6E7200E2FED3 /* ShowIconSelectorButton.swift */; };
+		B99219432ABD6E9200E2FED3 /* ShowNotificationSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219422ABD6E9200E2FED3 /* ShowNotificationSelectionButton.swift */; };
+		B99219452ABD6ECD00E2FED3 /* CourseFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219442ABD6ECD00E2FED3 /* CourseFormViewController.swift */; };
+		B99219472ABD6EF500E2FED3 /* CourseFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219462ABD6EF500E2FED3 /* CourseFormView.swift */; };
 		B99219492ABD6F2300E2FED3 /* SwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99219482ABD6F2300E2FED3 /* SwiftUIViewController.swift */; };
 		B995493C2992EDD000442968 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493B2992EDD000442968 /* Completable.swift */; };
 		B995493F2992F0D400442968 /* StudiumEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B995493E2992F0D400442968 /* StudiumEventListViewController.swift */; };
@@ -168,7 +185,7 @@
 		B9A165372AAD9A79005A23F6 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A165172AAD9A79005A23F6 /* PickerCell.swift */; };
 		B9A165382AAD9A79005A23F6 /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A165182AAD9A79005A23F6 /* SegmentedControlCell.xib */; };
 		B9A165392AAD9A79005A23F6 /* DaySelectorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A165192AAD9A79005A23F6 /* DaySelectorCell.xib */; };
-		B9A1653A2AAD9A79005A23F6 /* ColorPickerCellV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1651A2AAD9A79005A23F6 /* ColorPickerCellV2.swift */; };
+		B9A1653A2AAD9A79005A23F6 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1651A2AAD9A79005A23F6 /* ColorPickerView.swift */; };
 		B9A1653B2AAD9A79005A23F6 /* ThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1651B2AAD9A79005A23F6 /* ThemeCell.swift */; };
 		B9A1653C2AAD9A79005A23F6 /* SwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A1651C2AAD9A79005A23F6 /* SwitchCell.xib */; };
 		B9A1653D2AAD9A79005A23F6 /* TimePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1651D2AAD9A79005A23F6 /* TimePickerCell.swift */; };
@@ -212,6 +229,17 @@
 		B9B41CF72A26E5E200239DD4 /* TimeChunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B41CF62A26E5E200239DD4 /* TimeChunk.swift */; };
 		B9B41CFA2A26E82E00239DD4 /* TabItemConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B41CF92A26E82E00239DD4 /* TabItemConfig.swift */; };
 		B9B41CFF2A26EE6900239DD4 /* ErrorShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B41CFE2A26EE6900239DD4 /* ErrorShowing.swift */; };
+		B9BE83AE2AC555D500923EE9 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83AD2AC555D500923EE9 /* Time.swift */; };
+		B9BE83B12AC5568200923EE9 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83B02AC5568200923EE9 /* TimePicker.swift */; };
+		B9BE83B32AC556C700923EE9 /* Date+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83B22AC556C700923EE9 /* Date+Time.swift */; };
+		B9BE83B62AC5749600923EE9 /* OtherEventFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83B52AC5749600923EE9 /* OtherEventFormTests.swift */; };
+		B9BE83B82AC6556400923EE9 /* HabitFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83B72AC6556400923EE9 /* HabitFormTests.swift */; };
+		B9BE83BA2AC6556D00923EE9 /* OtherEventFormSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83B92AC6556D00923EE9 /* OtherEventFormSnapshotTests.swift */; };
+		B9BE83BC2AC6564C00923EE9 /* OtherEventFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83BB2AC6564C00923EE9 /* OtherEventFormViewController.swift */; };
+		B9BE83BE2AC6566200923EE9 /* OtherEventFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83BD2AC6566200923EE9 /* OtherEventFormView.swift */; };
+		B9BE83C12AC6695600923EE9 /* TimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83C02AC6695600923EE9 /* TimeTests.swift */; };
+		B9BE83C42AC67C8500923EE9 /* OtherEventDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83C32AC67C8500923EE9 /* OtherEventDetailsView.swift */; };
+		B9BE83CB2AC80E1300923EE9 /* RemoteConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BE83CA2AC80E1300923EE9 /* RemoteConfigService.swift */; };
 		B9C2EB192A78C67900E14320 /* StudiumButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C2EB182A78C67900E14320 /* StudiumButtonStyle.swift */; };
 		B9C2EB1D2A78DD6500E14320 /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C2EB1C2A78DD6500E14320 /* PDFViewController.swift */; };
 		B9CDEF732A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDEF722A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift */; };
@@ -258,7 +286,7 @@
 		164905B627E18732002DE61D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1649A46827DEAD1900B75481 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		16547B6C24DA4AC000E68E4D /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
-		165A6C77248A6F5C004279B0 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
+		165A6C77248A6F5C004279B0 /* DEPRECATEDCourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEPRECATEDCourseCell.swift; sourceTree = "<group>"; };
 		165A6C78248A6F5C004279B0 /* CourseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCell.xib; sourceTree = "<group>"; };
 		166F53D025BC93320065963D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		16827D1927F58B9A0001D1EF /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
@@ -286,8 +314,8 @@
 		16A63B8224AA85A7003A30D3 /* OtherEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventCell.swift; sourceTree = "<group>"; };
 		16A63B8324AA85A7003A30D3 /* OtherEventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherEventCell.xib; sourceTree = "<group>"; };
 		16A63B8624AAD263003A30D3 /* DeletableEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletableEventCell.swift; sourceTree = "<group>"; };
-		16C05CF2264F37B8004C9629 /* RecurringEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringEventCell.swift; sourceTree = "<group>"; };
-		16C05CF3264F37B8004C9629 /* RecurringEventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecurringEventCell.xib; sourceTree = "<group>"; };
+		16C05CF2264F37B8004C9629 /* DEPRECATEDRecurringEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEPRECATEDRecurringEventCell.swift; sourceTree = "<group>"; };
+		16C05CF3264F37B8004C9629 /* DEPRECATEDRecurringEventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DEPRECATEDRecurringEventCell.xib; sourceTree = "<group>"; };
 		16C05CF8264F5ABC004C9629 /* AssignmentCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCell1.swift; sourceTree = "<group>"; };
 		16C05CF9264F5ABC004C9629 /* AssignmentCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentCell1.xib; sourceTree = "<group>"; };
 		16C607E8250E985000983C3D /* GlacialIndifference-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GlacialIndifference-Italic.otf"; sourceTree = "<group>"; };
@@ -297,12 +325,15 @@
 		16C60FEA25C76CE9006D0FFC /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		16E7B22E27D1EF8D00AAE756 /* GenericTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewCell.swift; sourceTree = "<group>"; };
 		16E7B22F27D1EF8D00AAE756 /* GenericTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenericTableViewCell.xib; sourceTree = "<group>"; };
+		24DA0356C368AD2AF813A8F7 /* Pods-StudiumTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudiumTests.debug.xcconfig"; path = "Target Support Files/Pods-StudiumTests/Pods-StudiumTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2506CB22DA74CBC436F29B14 /* libPods-StudiumTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StudiumTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		916237789911EFDDFB48EFE4 /* Pods-Studium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studium.release.xcconfig"; path = "Target Support Files/Pods-Studium/Pods-Studium.release.xcconfig"; sourceTree = "<group>"; };
-		B90D13F329845FE80093EB0C /* AddHabitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
-		B90D13F429845FE80093EB0C /* AddCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
+		AD83615FF2CC09269C06C1FE /* Pods-StudiumTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudiumTests.release.xcconfig"; path = "Target Support Files/Pods-StudiumTests/Pods-StudiumTests.release.xcconfig"; sourceTree = "<group>"; };
+		B90D13F329845FE80093EB0C /* DEPRECATEDAddHabitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DEPRECATEDAddHabitViewController.swift; sourceTree = "<group>"; };
+		B90D13F429845FE80093EB0C /* DEPRECATEDAddCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DEPRECATEDAddCourseViewController.swift; sourceTree = "<group>"; };
 		B90D13F529845FE80093EB0C /* MasterForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterForm.swift; sourceTree = "<group>"; };
 		B90D13F629845FE80093EB0C /* LogoSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoSelectorViewController.swift; sourceTree = "<group>"; };
-		B90D13F729845FE80093EB0C /* AddToDoListEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToDoListEventViewController.swift; sourceTree = "<group>"; };
+		B90D13F729845FE80093EB0C /* DEPRECATEDAddToDoListEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DEPRECATEDAddToDoListEventViewController.swift; sourceTree = "<group>"; };
 		B90D13F829845FE80093EB0C /* AlertTimeSelectionTableViewForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertTimeSelectionTableViewForm.swift; sourceTree = "<group>"; };
 		B90D13F929845FE80093EB0C /* AddAssignmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewController.swift; sourceTree = "<group>"; };
 		B90D143F298999AB0093EB0C /* StudiumFormError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumFormError.swift; sourceTree = "<group>"; };
@@ -350,6 +381,7 @@
 		B94CA0F32A39A9C600047865 /* OtherEventEditingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventEditingCoordinator.swift; sourceTree = "<group>"; };
 		B95194112A5675A900E0869A /* WidgetsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsService.swift; sourceTree = "<group>"; };
 		B95194192A5E8A8300E0869A /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
+		B95D71EA2AC12B70002038E6 /* HabitFormSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitFormSnapshotTests.swift; sourceTree = "<group>"; };
 		B96BEC732A806476005105B2 /* OtherEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventViewController.swift; sourceTree = "<group>"; };
 		B96E6A5B298323DD00A25457 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		B97058EB2A88B492008F8636 /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
@@ -359,6 +391,12 @@
 		B97058F42A88BE62008F8636 /* celebration.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = celebration.wav; sourceTree = "<group>"; };
 		B97058F72A88C1D0008F8636 /* TreeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeCoordinator.swift; sourceTree = "<group>"; };
 		B97058F92A88C38B008F8636 /* TreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeViewController.swift; sourceTree = "<group>"; };
+		B9729EE92AC1419300A20EB3 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		B9729EEB2AC141B100A20EB3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B9729EEE2AC1501000A20EB3 /* RecurringEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringEventCell.swift; sourceTree = "<group>"; };
+		B9729EF32AC1513100A20EB3 /* StudiumFormNavigationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumFormNavigationConstants.swift; sourceTree = "<group>"; };
+		B9729EF52AC151E100A20EB3 /* PlusNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusNavigationButton.swift; sourceTree = "<group>"; };
+		B9729EF92AC1526900A20EB3 /* UIViewController+NavigationStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavigationStyle.swift"; sourceTree = "<group>"; };
 		B979889D2AB178E5002B8EE9 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B97988A22AB428B0002B8EE9 /* ForegroundSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundSubscriber.swift; sourceTree = "<group>"; };
 		B97988AA2AB42D78002B8EE9 /* Assignment+Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assignment+Updatable.swift"; sourceTree = "<group>"; };
@@ -370,7 +408,6 @@
 		B97988C22AB4385F002B8EE9 /* AlertTimeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTimeHandler.swift; sourceTree = "<group>"; };
 		B97988C42AB5694D002B8EE9 /* ToDoListRefreshProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListRefreshProtocol.swift; sourceTree = "<group>"; };
 		B97988C82AB5A206002B8EE9 /* AppleCalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleCalendarEvent.swift; sourceTree = "<group>"; };
-		B97988CA2AB694C1002B8EE9 /* AddCourseViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController2.swift; sourceTree = "<group>"; };
 		B97BB08129F7006E008F1A5B /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B97BB0942A00CBF9008F1A5B /* StudiumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudiumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B97BB0962A00CBF9008F1A5B /* AutoscheduleServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoscheduleServiceTests.swift; sourceTree = "<group>"; };
@@ -383,6 +420,16 @@
 		B97BB0B12A0399FB008F1A5B /* UIViewController_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_Extension.swift; sourceTree = "<group>"; };
 		B97BB0B42A075964008F1A5B /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		B97BB1662A0EF864008F1A5B /* AssignmentsOtherEventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsOtherEventsViewController.swift; sourceTree = "<group>"; };
+		B97BD9E42ABF8BC800742A50 /* NotificationSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSelectorView.swift; sourceTree = "<group>"; };
+		B97BD9E62ABF8C1000742A50 /* StudiumSubtext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumSubtext.swift; sourceTree = "<group>"; };
+		B97BD9E92ABF8D9000742A50 /* IconSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectorView.swift; sourceTree = "<group>"; };
+		B97BD9EB2AC004C700742A50 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
+		B97BD9F02AC010C200742A50 /* CourseFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseFormTests.swift; sourceTree = "<group>"; };
+		B97BD9F52AC0208900742A50 /* CourseFormSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseFormSnapshotTests.swift; sourceTree = "<group>"; };
+		B97BD9F72AC0E87E00742A50 /* AddHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
+		B97BD9FA2AC0FBD300742A50 /* HabitFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitFormView.swift; sourceTree = "<group>"; };
+		B97BD9FC2AC0FC2F00742A50 /* EditHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHabitViewController.swift; sourceTree = "<group>"; };
+		B97BDA012AC0FD0800742A50 /* TimeLengthPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLengthPickerView.swift; sourceTree = "<group>"; };
 		B98693212A3D702800272B22 /* AuthenticationService+Google.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthenticationService+Google.swift"; sourceTree = "<group>"; };
 		B98693232A3D703100272B22 /* AuthenticationService+Facebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthenticationService+Facebook.swift"; sourceTree = "<group>"; };
 		B98693472A3D867700272B22 /* GoogleCalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarService.swift; sourceTree = "<group>"; };
@@ -399,10 +446,10 @@
 		B986935A2A3E8A3400272B22 /* RFC5545.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFC5545.h; sourceTree = "<group>"; };
 		B992193B2AB6CB1400E2FED3 /* StudiumTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumTextField.swift; sourceTree = "<group>"; };
 		B992193D2AB6E63600E2FED3 /* WeekdaysSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysSelectorView.swift; sourceTree = "<group>"; };
-		B99219402ABD6E7200E2FED3 /* IconSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectionButton.swift; sourceTree = "<group>"; };
-		B99219422ABD6E9200E2FED3 /* NotificationSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSelectionButton.swift; sourceTree = "<group>"; };
-		B99219442ABD6ECD00E2FED3 /* EditCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCourseViewController.swift; sourceTree = "<group>"; };
-		B99219462ABD6EF500E2FED3 /* CourseForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseForm.swift; sourceTree = "<group>"; };
+		B99219402ABD6E7200E2FED3 /* ShowIconSelectorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowIconSelectorButton.swift; sourceTree = "<group>"; };
+		B99219422ABD6E9200E2FED3 /* ShowNotificationSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNotificationSelectionButton.swift; sourceTree = "<group>"; };
+		B99219442ABD6ECD00E2FED3 /* CourseFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseFormViewController.swift; sourceTree = "<group>"; };
+		B99219462ABD6EF500E2FED3 /* CourseFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseFormView.swift; sourceTree = "<group>"; };
 		B99219482ABD6F2300E2FED3 /* SwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewController.swift; sourceTree = "<group>"; };
 		B995493B2992EDD000442968 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
 		B995493E2992F0D400442968 /* StudiumEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumEventListViewController.swift; sourceTree = "<group>"; };
@@ -418,7 +465,7 @@
 		B9A165172AAD9A79005A23F6 /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		B9A165182AAD9A79005A23F6 /* SegmentedControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
 		B9A165192AAD9A79005A23F6 /* DaySelectorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DaySelectorCell.xib; sourceTree = "<group>"; };
-		B9A1651A2AAD9A79005A23F6 /* ColorPickerCellV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerCellV2.swift; sourceTree = "<group>"; };
+		B9A1651A2AAD9A79005A23F6 /* ColorPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		B9A1651B2AAD9A79005A23F6 /* ThemeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeCell.swift; sourceTree = "<group>"; };
 		B9A1651C2AAD9A79005A23F6 /* SwitchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchCell.xib; sourceTree = "<group>"; };
 		B9A1651D2AAD9A79005A23F6 /* TimePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerCell.swift; sourceTree = "<group>"; };
@@ -463,6 +510,18 @@
 		B9B41CF62A26E5E200239DD4 /* TimeChunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeChunk.swift; sourceTree = "<group>"; };
 		B9B41CF92A26E82E00239DD4 /* TabItemConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemConfig.swift; sourceTree = "<group>"; };
 		B9B41CFE2A26EE6900239DD4 /* ErrorShowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorShowing.swift; sourceTree = "<group>"; };
+		B9BE83AD2AC555D500923EE9 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		B9BE83B02AC5568200923EE9 /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
+		B9BE83B22AC556C700923EE9 /* Date+Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Time.swift"; sourceTree = "<group>"; };
+		B9BE83B52AC5749600923EE9 /* OtherEventFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventFormTests.swift; sourceTree = "<group>"; };
+		B9BE83B72AC6556400923EE9 /* HabitFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitFormTests.swift; sourceTree = "<group>"; };
+		B9BE83B92AC6556D00923EE9 /* OtherEventFormSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventFormSnapshotTests.swift; sourceTree = "<group>"; };
+		B9BE83BB2AC6564C00923EE9 /* OtherEventFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventFormViewController.swift; sourceTree = "<group>"; };
+		B9BE83BD2AC6566200923EE9 /* OtherEventFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventFormView.swift; sourceTree = "<group>"; };
+		B9BE83C02AC6695600923EE9 /* TimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTests.swift; sourceTree = "<group>"; };
+		B9BE83C32AC67C8500923EE9 /* OtherEventDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEventDetailsView.swift; sourceTree = "<group>"; };
+		B9BE83C92AC7D4C500923EE9 /* TestingBacklog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TestingBacklog.md; sourceTree = "<group>"; };
+		B9BE83CA2AC80E1300923EE9 /* RemoteConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigService.swift; sourceTree = "<group>"; };
 		B9C2EB182A78C67900E14320 /* StudiumButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiumButtonStyle.swift; sourceTree = "<group>"; };
 		B9C2EB1C2A78DD6500E14320 /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
 		B9CDEF722A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppleCalendarService+StudiumEvent.swift"; sourceTree = "<group>"; };
@@ -496,6 +555,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CA05F68665468486974B3E2 /* libPods-StudiumTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,7 +654,8 @@
 				16A63B7B24A01289003A30D3 /* HabitCell.xib */,
 				165A6C78248A6F5C004279B0 /* CourseCell.xib */,
 				16A63B7A24A01289003A30D3 /* HabitCell.swift */,
-				165A6C77248A6F5C004279B0 /* CourseCell.swift */,
+				165A6C77248A6F5C004279B0 /* DEPRECATEDCourseCell.swift */,
+				B97BD9EB2AC004C700742A50 /* CourseCell.swift */,
 			);
 			path = "Event Cells";
 			sourceTree = "<group>";
@@ -602,8 +663,8 @@
 		16C05CF1264F36DC004C9629 /* New Event Cells */ = {
 			isa = PBXGroup;
 			children = (
-				16C05CF2264F37B8004C9629 /* RecurringEventCell.swift */,
-				16C05CF3264F37B8004C9629 /* RecurringEventCell.xib */,
+				16C05CF2264F37B8004C9629 /* DEPRECATEDRecurringEventCell.swift */,
+				16C05CF3264F37B8004C9629 /* DEPRECATEDRecurringEventCell.xib */,
 				16C05CF8264F5ABC004C9629 /* AssignmentCell1.swift */,
 				16C05CF9264F5ABC004C9629 /* AssignmentCell1.xib */,
 				16E7B22E27D1EF8D00AAE756 /* GenericTableViewCell.swift */,
@@ -621,6 +682,7 @@
 				DF894A87F89725DF823072C4 /* Pods_Studium.framework */,
 				B9CDEF842A45ADC90084AB24 /* WidgetKit.framework */,
 				B9CDEF862A45ADC90084AB24 /* SwiftUI.framework */,
+				2506CB22DA74CBC436F29B14 /* libPods-StudiumTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -630,6 +692,8 @@
 			children = (
 				FD108DE721EFFA5F65BC9E17 /* Pods-Studium.debug.xcconfig */,
 				916237789911EFDDFB48EFE4 /* Pods-Studium.release.xcconfig */,
+				24DA0356C368AD2AF813A8F7 /* Pods-StudiumTests.debug.xcconfig */,
+				AD83615FF2CC09269C06C1FE /* Pods-StudiumTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -662,15 +726,13 @@
 		B90F10422A6F2FBB00BAB23F /* StudiumUI */ = {
 			isa = PBXGroup;
 			children = (
+				B9BE83B42AC556E100923EE9 /* Styles */,
 				B992193F2ABD6E6500E2FED3 /* Interactive */,
-				B93CBC582A882C0C005BDA5F /* StudiumEventListCells */,
 				B90F104A2A6F30CA00BAB23F /* Icons */,
 				B90F10492A6F30C500BAB23F /* Texts */,
 				B90F10552A6F406900BAB23F /* LatenessIndicatorView.swift */,
 				B90F10572A6F803400BAB23F /* Spinner.swift */,
-				B9EAD69B2A7E5527002E1F40 /* StudiumTextfieldStyle.swift */,
 				B95194192A5E8A8300E0869A /* ImageDetailView.swift */,
-				B9C2EB182A78C67900E14320 /* StudiumButtonStyle.swift */,
 				B93CBC522A81AAE8005BDA5F /* StudiumEventViewHeader.swift */,
 				1649A46827DEAD1900B75481 /* HeaderView.swift */,
 				B97058ED2A88B6F3008F8636 /* WeekdaysSelectedView.swift */,
@@ -686,6 +748,7 @@
 				B90F10452A6F2FF800BAB23F /* StudiumGraySubtitle.swift */,
 				B90F10472A6F308900BAB23F /* StudiumTitle.swift */,
 				B90F104F2A6F310100BAB23F /* StudiumText.swift */,
+				B97BD9E62ABF8C1000742A50 /* StudiumSubtext.swift */,
 			);
 			path = Texts;
 			sourceTree = "<group>";
@@ -699,32 +762,12 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
-		B93CBC582A882C0C005BDA5F /* StudiumEventListCells */ = {
-			isa = PBXGroup;
-			children = (
-				B93CBC562A882C08005BDA5F /* AssignmentCellView.swift */,
-				B93CBC5B2A885A8B005BDA5F /* OtherEventCellView.swift */,
-			);
-			path = StudiumEventListCells;
-			sourceTree = "<group>";
-		};
 		B94CA0CD2A2F0FFC00047865 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				B9B41CF92A26E82E00239DD4 /* TabItemConfig.swift */,
 			);
 			path = Utility;
-			sourceTree = "<group>";
-		};
-		B94CA0D12A2F103E00047865 /* LogoSelection */ = {
-			isa = PBXGroup;
-			children = (
-				B90D13F629845FE80093EB0C /* LogoSelectorViewController.swift */,
-				B94CA0CB2A2F0DB400047865 /* LogoSelectingForm.swift */,
-				B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */,
-				B93CBC542A84BE8B005BDA5F /* SectionHeader.swift */,
-			);
-			path = LogoSelection;
 			sourceTree = "<group>";
 		};
 		B94CA0EB2A35639B00047865 /* PopUps */ = {
@@ -734,6 +777,16 @@
 				B94CA0EC2A3563BA00047865 /* FormPopUpType.swift */,
 			);
 			path = PopUps;
+			sourceTree = "<group>";
+		};
+		B95D71E72AC12B4B002038E6 /* FormTests */ = {
+			isa = PBXGroup;
+			children = (
+				B9BE83C72AC7D48600923EE9 /* HabitForm */,
+				B9BE83C82AC7D49600923EE9 /* CourseForm */,
+				B9BE83C62AC7D47A00923EE9 /* OtherEventForm */,
+			);
+			path = FormTests;
 			sourceTree = "<group>";
 		};
 		B96E6A5A298323CC00A25457 /* Services */ = {
@@ -751,6 +804,7 @@
 				B90F10632A72115200BAB23F /* ChatGPTService.swift */,
 				B90F10652A7301D000BAB23F /* SecretsService.swift */,
 				B97058EF2A88BD00008F8636 /* SoundEffectService.swift */,
+				B9BE83CC2AC814F800923EE9 /* RemoteConfig */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -759,7 +813,7 @@
 			isa = PBXGroup;
 			children = (
 				B9B41CFD2A26EE4F00239DD4 /* Protocols */,
-				B9B41CF82A26E5E500239DD4 /* Classes */,
+				B9B41CF82A26E5E500239DD4 /* Classes+Structs */,
 				1693E739247A3DC6003D4702 /* Assets.xcassets */,
 				1693E730247A3DC4003D4702 /* AppDelegate.swift */,
 				1693E732247A3DC4003D4702 /* SceneDelegate.swift */,
@@ -789,6 +843,31 @@
 			path = TreeFlow;
 			sourceTree = "<group>";
 		};
+		B9729EE82AC1418A00A20EB3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B9729EE92AC1419300A20EB3 /* SettingsCell.swift */,
+				B9729EEB2AC141B100A20EB3 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B9729EED2AC1500400A20EB3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B9729EEE2AC1501000A20EB3 /* RecurringEventCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B9729EF02AC1511100A20EB3 /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				B90D13F729845FE80093EB0C /* DEPRECATEDAddToDoListEventViewController.swift */,
+			);
+			path = Deprecated;
+			sourceTree = "<group>";
+		};
 		B979889F2AB42726002B8EE9 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -800,7 +879,6 @@
 		B97988A42AB42BF6002B8EE9 /* TableViewForm */ = {
 			isa = PBXGroup;
 			children = (
-				B97988BC2AB42F27002B8EE9 /* StudiumForm */,
 				B9A165342AAD9A79005A23F6 /* ColorManager.swift */,
 				B9A165312AAD9A79005A23F6 /* FormCell.swift */,
 				B9A165322AAD9A79005A23F6 /* TableViewForm.swift */,
@@ -809,17 +887,19 @@
 			path = TableViewForm;
 			sourceTree = "<group>";
 		};
-		B97988A52AB42C62002B8EE9 /* LogoSelection */ = {
+		B97988A52AB42C62002B8EE9 /* IconSelection */ = {
 			isa = PBXGroup;
 			children = (
-				B94CA0D12A2F103E00047865 /* LogoSelection */,
+				B94CA0CB2A2F0DB400047865 /* LogoSelectingForm.swift */,
+				B94CA0B82A2D5A1800047865 /* LogoSelectionShowingCoordinator.swift */,
 			);
-			path = LogoSelection;
+			path = IconSelection;
 			sourceTree = "<group>";
 		};
 		B97988A82AB42CF0002B8EE9 /* AlertTimeSelection */ = {
 			isa = PBXGroup;
 			children = (
+				B97BD9E32ABF8BAD00742A50 /* NotificationSelectionViews */,
 				B94CA0CE2A2F101E00047865 /* AlertOption.swift */,
 				B90D13F829845FE80093EB0C /* AlertTimeSelectionTableViewForm.swift */,
 				B94CA0BC2A2D5C5700047865 /* AlertTimeSelectingForm.swift */,
@@ -897,6 +977,7 @@
 		B97988BB2AB42F18002B8EE9 /* StudiumEventList */ = {
 			isa = PBXGroup;
 			children = (
+				B9729EED2AC1500400A20EB3 /* Views */,
 				1693E751247A487C003D4702 /* SwipeTableViewController.swift */,
 				B995493E2992F0D400442968 /* StudiumEventListViewController.swift */,
 			);
@@ -906,12 +987,15 @@
 		B97988BC2AB42F27002B8EE9 /* StudiumForm */ = {
 			isa = PBXGroup;
 			children = (
-				B94CA0C92A2DABA000047865 /* StudiumEventFormCoordinator.swift */,
 				B9A165302AAD9A79005A23F6 /* FormError.swift */,
 				B90D143F298999AB0093EB0C /* StudiumFormError.swift */,
+				B9729EF32AC1513100A20EB3 /* StudiumFormNavigationConstants.swift */,
+				B9729EF92AC1526900A20EB3 /* UIViewController+NavigationStyle.swift */,
+				B97BD9FF2AC0FC5A00742A50 /* Controllers */,
+				B97BD9FE2AC0FC4600742A50 /* Views */,
 				B97988A82AB42CF0002B8EE9 /* AlertTimeSelection */,
-				B97988A52AB42C62002B8EE9 /* LogoSelection */,
-				B90D13F529845FE80093EB0C /* MasterForm.swift */,
+				B97988A52AB42C62002B8EE9 /* IconSelection */,
+				B97BDA002AC0FCB900742A50 /* Deprecated */,
 			);
 			path = StudiumForm;
 			sourceTree = "<group>";
@@ -931,10 +1015,6 @@
 			isa = PBXGroup;
 			children = (
 				B97BB1662A0EF864008F1A5B /* AssignmentsOtherEventsViewController.swift */,
-				B9AFCF7C2A19EEA70087A0FF /* CalendarFlow */,
-				B9AFCF7D2A19EEAB0087A0FF /* HabitsFlow */,
-				B9AFCF7E2A19EEB40087A0FF /* CoursesFlow */,
-				B9AFCF7F2A19EEBA0087A0FF /* ToDoFlow */,
 			);
 			path = SubFlows;
 			sourceTree = "<group>";
@@ -942,8 +1022,11 @@
 		B97BB0952A00CBF9008F1A5B /* StudiumTests */ = {
 			isa = PBXGroup;
 			children = (
+				B9BE83C92AC7D4C500923EE9 /* TestingBacklog.md */,
+				B95D71E72AC12B4B002038E6 /* FormTests */,
 				B97BB0962A00CBF9008F1A5B /* AutoscheduleServiceTests.swift */,
 				B97BB0A22A00E248008F1A5B /* DateTests.swift */,
+				B9BE83C02AC6695600923EE9 /* TimeTests.swift */,
 			);
 			path = StudiumTests;
 			sourceTree = "<group>";
@@ -979,8 +1062,89 @@
 				B97BB0AF2A022B5C008F1A5B /* UIColor_Extension.swift */,
 				B97BB0B12A0399FB008F1A5B /* UIViewController_Extension.swift */,
 				B9CDEF742A417D650084AB24 /* Realm_Extension.swift */,
+				B9BE83B22AC556C700923EE9 /* Date+Time.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B97BD9E32ABF8BAD00742A50 /* NotificationSelectionViews */ = {
+			isa = PBXGroup;
+			children = (
+				B99219422ABD6E9200E2FED3 /* ShowNotificationSelectionButton.swift */,
+				B97BD9E42ABF8BC800742A50 /* NotificationSelectorView.swift */,
+			);
+			path = NotificationSelectionViews;
+			sourceTree = "<group>";
+		};
+		B97BD9E82ABF8D6B00742A50 /* IconSelectionViews */ = {
+			isa = PBXGroup;
+			children = (
+				B99219402ABD6E7200E2FED3 /* ShowIconSelectorButton.swift */,
+				B97BD9E92ABF8D9000742A50 /* IconSelectorView.swift */,
+			);
+			path = IconSelectionViews;
+			sourceTree = "<group>";
+		};
+		B97BD9ED2AC0071100742A50 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B93CBC562A882C08005BDA5F /* AssignmentCellView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B97BD9EE2AC0073200742A50 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B93CBC5B2A885A8B005BDA5F /* OtherEventCellView.swift */,
+				B9BE83BD2AC6566200923EE9 /* OtherEventFormView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B97BD9F92AC0FBC900742A50 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B97BD9FA2AC0FBD300742A50 /* HabitFormView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B97BD9FE2AC0FC4600742A50 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B9729EF52AC151E100A20EB3 /* PlusNavigationButton.swift */,
+				B992193D2AB6E63600E2FED3 /* WeekdaysSelectorView.swift */,
+				B97BDA012AC0FD0800742A50 /* TimeLengthPickerView.swift */,
+				B97BD9E82ABF8D6B00742A50 /* IconSelectionViews */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B97BD9FF2AC0FC5A00742A50 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B90D13F629845FE80093EB0C /* LogoSelectorViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B97BDA002AC0FCB900742A50 /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				B94CA0C92A2DABA000047865 /* StudiumEventFormCoordinator.swift */,
+				B93CBC542A84BE8B005BDA5F /* SectionHeader.swift */,
+				B90D13F529845FE80093EB0C /* MasterForm.swift */,
+			);
+			path = Deprecated;
+			sourceTree = "<group>";
+		};
+		B97BDA032AC0FDB600742A50 /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				B90D13F329845FE80093EB0C /* DEPRECATEDAddHabitViewController.swift */,
+			);
+			path = Deprecated;
 			sourceTree = "<group>";
 		};
 		B986934B2A3DA7FB00272B22 /* Calendar */ = {
@@ -1011,13 +1175,10 @@
 		B992193F2ABD6E6500E2FED3 /* Interactive */ = {
 			isa = PBXGroup;
 			children = (
-				B99219402ABD6E7200E2FED3 /* IconSelectionButton.swift */,
+				B9BE83AF2AC5566E00923EE9 /* UserInput */,
 				B9EAD6952A7B2639002E1F40 /* DocumentPicker.swift */,
-				B99219422ABD6E9200E2FED3 /* NotificationSelectionButton.swift */,
-				B992193B2AB6CB1400E2FED3 /* StudiumTextField.swift */,
 				B90F10672A748A1400BAB23F /* UploadFileButton.swift */,
 				B90F10512A6F326000BAB23F /* StudiumLinkView.swift */,
-				B992193D2AB6E63600E2FED3 /* WeekdaysSelectorView.swift */,
 			);
 			path = Interactive;
 			sourceTree = "<group>";
@@ -1055,7 +1216,7 @@
 				B9A165172AAD9A79005A23F6 /* PickerCell.swift */,
 				B9A165182AAD9A79005A23F6 /* SegmentedControlCell.xib */,
 				B9A165192AAD9A79005A23F6 /* DaySelectorCell.xib */,
-				B9A1651A2AAD9A79005A23F6 /* ColorPickerCellV2.swift */,
+				B9A1651A2AAD9A79005A23F6 /* ColorPickerView.swift */,
 				B9A1651B2AAD9A79005A23F6 /* ThemeCell.swift */,
 				B9A1651C2AAD9A79005A23F6 /* SwitchCell.xib */,
 				B9A1651D2AAD9A79005A23F6 /* TimePickerCell.swift */,
@@ -1086,8 +1247,13 @@
 				B96E6A5A298323CC00A25457 /* Services */,
 				B97988BD2AB42F37002B8EE9 /* CoordinatorUtility */,
 				B97988BB2AB42F18002B8EE9 /* StudiumEventList */,
+				B97988BC2AB42F27002B8EE9 /* StudiumForm */,
 				B97988A42AB42BF6002B8EE9 /* TableViewForm */,
 				B97058F62A88C1C5008F8636 /* TreeFlow */,
+				B9AFCF7C2A19EEA70087A0FF /* CalendarFlow */,
+				B9AFCF7E2A19EEB40087A0FF /* CoursesFlow */,
+				B9AFCF7F2A19EEBA0087A0FF /* ToDoFlow */,
+				B9AFCF7D2A19EEAB0087A0FF /* HabitsFlow */,
 				B9B41CFB2A26E83600239DD4 /* TabBarFlow */,
 				B9AFCF802A19EEFA0087A0FF /* UserSetupFlow */,
 			);
@@ -1127,6 +1293,8 @@
 		B9AFCF7D2A19EEAB0087A0FF /* HabitsFlow */ = {
 			isa = PBXGroup;
 			children = (
+				B97BDA032AC0FDB600742A50 /* Deprecated */,
+				B97BD9F92AC0FBC900742A50 /* Views */,
 				B9AFCF8C2A19F1D40087A0FF /* HabitsCoordinator.swift */,
 				B9AFCF892A19F0EF0087A0FF /* Controllers */,
 			);
@@ -1136,7 +1304,12 @@
 		B9AFCF7E2A19EEB40087A0FF /* CoursesFlow */ = {
 			isa = PBXGroup;
 			children = (
+				B9BE83C52AC67CAB00923EE9 /* DEPRECATED */,
+				B9BE83BF2AC656F800923EE9 /* Forms */,
 				B9AFCF8E2A19F1DE0087A0FF /* CoursesCoordinator.swift */,
+				B94CA0B62A2D435500047865 /* CourseRefreshProtocol.swift */,
+				B97BD9ED2AC0071100742A50 /* Views */,
+				B90F103F2A6EF9CE00BAB23F /* Assignment */,
 				B9AFCF882A19F0E80087A0FF /* Controllers */,
 			);
 			path = CoursesFlow;
@@ -1145,10 +1318,13 @@
 		B9AFCF7F2A19EEBA0087A0FF /* ToDoFlow */ = {
 			isa = PBXGroup;
 			children = (
-				B94CA0F32A39A9C600047865 /* OtherEventEditingCoordinator.swift */,
-				B979889F2AB42726002B8EE9 /* Protocols */,
-				B9AFCF902A19F1EA0087A0FF /* ToDoCoordinator.swift */,
+				B9BE83C22AC67C3A00923EE9 /* OtherEventDetails */,
+				B9729EF02AC1511100A20EB3 /* Deprecated */,
 				B9AFCF872A19F0E10087A0FF /* Controllers */,
+				B979889F2AB42726002B8EE9 /* Protocols */,
+				B97BD9EE2AC0073200742A50 /* Views */,
+				B94CA0F32A39A9C600047865 /* OtherEventEditingCoordinator.swift */,
+				B9AFCF902A19F1EA0087A0FF /* ToDoCoordinator.swift */,
 			);
 			path = ToDoFlow;
 			sourceTree = "<group>";
@@ -1166,6 +1342,7 @@
 		B9AFCF812A19EF1F0087A0FF /* SettingsFlow */ = {
 			isa = PBXGroup;
 			children = (
+				B9729EE82AC1418A00A20EB3 /* Views */,
 				B9AFCF942A19F1FE0087A0FF /* SettingsCoordinator.swift */,
 				B9AFCF842A19F0C50087A0FF /* Controllers */,
 			);
@@ -1192,9 +1369,8 @@
 		B9AFCF872A19F0E10087A0FF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B90D13F729845FE80093EB0C /* AddToDoListEventViewController.swift */,
+				B9BE83BB2AC6564C00923EE9 /* OtherEventFormViewController.swift */,
 				1693E758247A59B2003D4702 /* ToDoListViewController.swift */,
-				B96BEC732A806476005105B2 /* OtherEventViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1202,14 +1378,8 @@
 		B9AFCF882A19F0E80087A0FF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B90F103F2A6EF9CE00BAB23F /* Assignment */,
 				1693E745247A4152003D4702 /* CoursesViewController.swift */,
-				B90D13F429845FE80093EB0C /* AddCourseViewController.swift */,
-				B94CA0B62A2D435500047865 /* CourseRefreshProtocol.swift */,
 				B90F10392A6A1BBA00BAB23F /* GradesViewController.swift */,
-				B97988CA2AB694C1002B8EE9 /* AddCourseViewController2.swift */,
-				B99219442ABD6ECD00E2FED3 /* EditCourseViewController.swift */,
-				B99219462ABD6EF500E2FED3 /* CourseForm.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1217,20 +1387,22 @@
 		B9AFCF892A19F0EF0087A0FF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B90D13F329845FE80093EB0C /* AddHabitViewController.swift */,
 				1693E747247A417B003D4702 /* HabitsViewController.swift */,
 				B97058EB2A88B492008F8636 /* HabitViewController.swift */,
+				B97BD9F72AC0E87E00742A50 /* AddHabitViewController.swift */,
+				B97BD9FC2AC0FC2F00742A50 /* EditHabitViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		B9B41CF82A26E5E500239DD4 /* Classes */ = {
+		B9B41CF82A26E5E500239DD4 /* Classes+Structs */ = {
 			isa = PBXGroup;
 			children = (
 				B9B41CF62A26E5E200239DD4 /* TimeChunk.swift */,
 				B94CA0E52A34573200047865 /* Logger.swift */,
+				B9BE83AD2AC555D500923EE9 /* Time.swift */,
 			);
-			path = Classes;
+			path = "Classes+Structs";
 			sourceTree = "<group>";
 		};
 		B9B41CFB2A26E83600239DD4 /* TabBarFlow */ = {
@@ -1261,6 +1433,85 @@
 				B97988A22AB428B0002B8EE9 /* ForegroundSubscriber.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		B9BE83AF2AC5566E00923EE9 /* UserInput */ = {
+			isa = PBXGroup;
+			children = (
+				B992193B2AB6CB1400E2FED3 /* StudiumTextField.swift */,
+				B9BE83B02AC5568200923EE9 /* TimePicker.swift */,
+			);
+			path = UserInput;
+			sourceTree = "<group>";
+		};
+		B9BE83B42AC556E100923EE9 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				B9EAD69B2A7E5527002E1F40 /* StudiumTextfieldStyle.swift */,
+				B9C2EB182A78C67900E14320 /* StudiumButtonStyle.swift */,
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
+		B9BE83BF2AC656F800923EE9 /* Forms */ = {
+			isa = PBXGroup;
+			children = (
+				B99219462ABD6EF500E2FED3 /* CourseFormView.swift */,
+				B99219442ABD6ECD00E2FED3 /* CourseFormViewController.swift */,
+			);
+			path = Forms;
+			sourceTree = "<group>";
+		};
+		B9BE83C22AC67C3A00923EE9 /* OtherEventDetails */ = {
+			isa = PBXGroup;
+			children = (
+				B96BEC732A806476005105B2 /* OtherEventViewController.swift */,
+				B9BE83C32AC67C8500923EE9 /* OtherEventDetailsView.swift */,
+			);
+			path = OtherEventDetails;
+			sourceTree = "<group>";
+		};
+		B9BE83C52AC67CAB00923EE9 /* DEPRECATED */ = {
+			isa = PBXGroup;
+			children = (
+				B90D13F429845FE80093EB0C /* DEPRECATEDAddCourseViewController.swift */,
+			);
+			path = DEPRECATED;
+			sourceTree = "<group>";
+		};
+		B9BE83C62AC7D47A00923EE9 /* OtherEventForm */ = {
+			isa = PBXGroup;
+			children = (
+				B9BE83B52AC5749600923EE9 /* OtherEventFormTests.swift */,
+				B9BE83B92AC6556D00923EE9 /* OtherEventFormSnapshotTests.swift */,
+			);
+			path = OtherEventForm;
+			sourceTree = "<group>";
+		};
+		B9BE83C72AC7D48600923EE9 /* HabitForm */ = {
+			isa = PBXGroup;
+			children = (
+				B9BE83B72AC6556400923EE9 /* HabitFormTests.swift */,
+				B95D71EA2AC12B70002038E6 /* HabitFormSnapshotTests.swift */,
+			);
+			path = HabitForm;
+			sourceTree = "<group>";
+		};
+		B9BE83C82AC7D49600923EE9 /* CourseForm */ = {
+			isa = PBXGroup;
+			children = (
+				B97BD9F52AC0208900742A50 /* CourseFormSnapshotTests.swift */,
+				B97BD9F02AC010C200742A50 /* CourseFormTests.swift */,
+			);
+			path = CourseForm;
+			sourceTree = "<group>";
+		};
+		B9BE83CC2AC814F800923EE9 /* RemoteConfig */ = {
+			isa = PBXGroup;
+			children = (
+				B9BE83CA2AC80E1300923EE9 /* RemoteConfigService.swift */,
+			);
+			path = RemoteConfig;
 			sourceTree = "<group>";
 		};
 		B9CDEF7E2A4597430084AB24 /* GoogleAuth */ = {
@@ -1301,8 +1552,6 @@
 			dependencies = (
 			);
 			name = Studium;
-			packageProductDependencies = (
-			);
 			productName = Studium;
 			productReference = 1693E72D247A3DC4003D4702 /* Studium.app */;
 			productType = "com.apple.product-type.application";
@@ -1311,6 +1560,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B97BB09C2A00CBF9008F1A5B /* Build configuration list for PBXNativeTarget "StudiumTests" */;
 			buildPhases = (
+				87C36C21209B2BC20FF31604 /* [CP] Check Pods Manifest.lock */,
 				B97BB0902A00CBF9008F1A5B /* Sources */,
 				B97BB0912A00CBF9008F1A5B /* Frameworks */,
 				B97BB0922A00CBF9008F1A5B /* Resources */,
@@ -1374,7 +1624,7 @@
 				1693E73A247A3DC6003D4702 /* Assets.xcassets in Resources */,
 				16C607EB250E985000983C3D /* GlacialIndifference-Italic.otf in Resources */,
 				B9A165362AAD9A79005A23F6 /* LabelCell.xib in Resources */,
-				16C05CF5264F37B8004C9629 /* RecurringEventCell.xib in Resources */,
+				16C05CF5264F37B8004C9629 /* DEPRECATEDRecurringEventCell.xib in Resources */,
 				B9A1653C2AAD9A79005A23F6 /* SwitchCell.xib in Resources */,
 				16A63B7D24A01289003A30D3 /* HabitCell.xib in Resources */,
 				B9A165382AAD9A79005A23F6 /* SegmentedControlCell.xib in Resources */,
@@ -1423,6 +1673,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Studium-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		87C36C21209B2BC20FF31604 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StudiumTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1488,6 +1760,7 @@
 				B90F10462A6F2FF800BAB23F /* StudiumGraySubtitle.swift in Sources */,
 				B90FFE372A8F150A000E6EA6 /* Searchable.swift in Sources */,
 				B90D13FD29845FE80093EB0C /* LogoSelectorViewController.swift in Sources */,
+				B9BE83C42AC67C8500923EE9 /* OtherEventDetailsView.swift in Sources */,
 				B9A165042AAD97FE005A23F6 /* FlatImage.swift in Sources */,
 				B9A165412AAD9A79005A23F6 /* BasicCell.swift in Sources */,
 				B90F10542A6F337F00BAB23F /* Increment.swift in Sources */,
@@ -1502,18 +1775,23 @@
 				B90F10412A6EF9E400BAB23F /* AssignmentViewController.swift in Sources */,
 				B9EAD6A82A7E55CD002E1F40 /* LinkConfig.swift in Sources */,
 				1693E74E247A464F003D4702 /* Course.swift in Sources */,
-				B90D13FE29845FE80093EB0C /* AddToDoListEventViewController.swift in Sources */,
+				B90D13FE29845FE80093EB0C /* DEPRECATEDAddToDoListEventViewController.swift in Sources */,
 				1697F7F0266C6B6D0064AB28 /* StartViewController.swift in Sources */,
 				B94CA0D72A31432400047865 /* AssignmentEditingCoordinator.swift in Sources */,
+				B9BE83BC2AC6564C00923EE9 /* OtherEventFormViewController.swift in Sources */,
 				B9D71E6B2A8DE8BC00A17F7E /* MockStudiumEventService.swift in Sources */,
 				B97BB0AC2A022B30008F1A5B /* String_Extension.swift in Sources */,
 				B90D140029845FE80093EB0C /* AddAssignmentViewController.swift in Sources */,
 				B90F103C2A6A2E4200BAB23F /* AcademicAdvisorView.swift in Sources */,
-				B99219412ABD6E7200E2FED3 /* IconSelectionButton.swift in Sources */,
+				B9729EEA2AC1419300A20EB3 /* SettingsCell.swift in Sources */,
+				B99219412ABD6E7200E2FED3 /* ShowIconSelectorButton.swift in Sources */,
+				B97BD9EA2ABF8D9000742A50 /* IconSelectorView.swift in Sources */,
 				B9AFCF8D2A19F1D40087A0FF /* HabitsCoordinator.swift in Sources */,
 				161A69E524C7B84B00E5A5AE /* SettingsViewController.swift in Sources */,
 				B9A165112AAD9A6F005A23F6 /* SystemIcon.swift in Sources */,
 				B9A165482AAD9A79005A23F6 /* TimeCell.swift in Sources */,
+				B97BD9F82AC0E87E00742A50 /* AddHabitViewController.swift in Sources */,
+				B9BE83BE2AC6566200923EE9 /* OtherEventFormView.swift in Sources */,
 				B9A165432AAD9A79005A23F6 /* LogoSelectionCell.swift in Sources */,
 				B9B41CFF2A26EE6900239DD4 /* ErrorShowing.swift in Sources */,
 				B94CA0E42A344B7500047865 /* PopUpService.swift in Sources */,
@@ -1523,20 +1801,22 @@
 				16429D07247E81630052E47C /* WakeUpIntroController.swift in Sources */,
 				B90F10502A6F310100BAB23F /* StudiumText.swift in Sources */,
 				16827D1A27F58B9A0001D1EF /* AuthenticationViewController.swift in Sources */,
-				B99219432ABD6E9200E2FED3 /* NotificationSelectionButton.swift in Sources */,
+				B99219432ABD6E9200E2FED3 /* ShowNotificationSelectionButton.swift in Sources */,
 				1693E746247A4152003D4702 /* CoursesViewController.swift in Sources */,
 				B9A165352AAD9A79005A23F6 /* ColorPickerCell.swift in Sources */,
 				B9AFCF8B2A19F1CA0087A0FF /* CalendarCoordinator.swift in Sources */,
 				B9AFCF742A19E3160087A0FF /* AppCoordinator.swift in Sources */,
 				16429D04247E43720052E47C /* Habit.swift in Sources */,
-				B9A1653A2AAD9A79005A23F6 /* ColorPickerCellV2.swift in Sources */,
-				16C05CF4264F37B8004C9629 /* RecurringEventCell.swift in Sources */,
+				B9A1653A2AAD9A79005A23F6 /* ColorPickerView.swift in Sources */,
+				16C05CF4264F37B8004C9629 /* DEPRECATEDRecurringEventCell.swift in Sources */,
 				B90F10442A6F2FD700BAB23F /* StudiumSubtitle.swift in Sources */,
 				B97988C12AB4366C002B8EE9 /* AuthenticationError.swift in Sources */,
 				B90D13FF29845FE80093EB0C /* AlertTimeSelectionTableViewForm.swift in Sources */,
+				B9729EEC2AC141B100A20EB3 /* SettingsView.swift in Sources */,
 				B97BB0B22A0399FB008F1A5B /* UIViewController_Extension.swift in Sources */,
 				B9B41CF72A26E5E200239DD4 /* TimeChunk.swift in Sources */,
 				16C05CFA264F5ABC004C9629 /* AssignmentCell1.swift in Sources */,
+				B9BE83B32AC556C700923EE9 /* Date+Time.swift in Sources */,
 				B992193E2AB6E63600E2FED3 /* WeekdaysSelectorView.swift in Sources */,
 				B9A1654D2AAD9A79005A23F6 /* TimePickerCellV2.swift in Sources */,
 				168EE1C32655E2CF009A8001 /* RecurringStudiumEvent.swift in Sources */,
@@ -1545,10 +1825,12 @@
 				B97BB0A72A00EA0D008F1A5B /* AppleCalendarService.swift in Sources */,
 				B9A98C3229EECE5800D866A9 /* AutoscheduleService.swift in Sources */,
 				B94CA0F42A39A9C600047865 /* OtherEventEditingCoordinator.swift in Sources */,
+				B97BD9E72ABF8C1000742A50 /* StudiumSubtext.swift in Sources */,
 				B995493C2992EDD000442968 /* Completable.swift in Sources */,
 				B9A1654C2AAD9A79005A23F6 /* LogoCollectionViewCell.swift in Sources */,
 				16A63B8424AA85A7003A30D3 /* OtherEventCell.swift in Sources */,
 				B9B41CEF2A242A3D00239DD4 /* Storyboarded.swift in Sources */,
+				B9BE83AE2AC555D500923EE9 /* Time.swift in Sources */,
 				B90F103A2A6A1BBA00BAB23F /* GradesViewController.swift in Sources */,
 				B9AFCF8F2A19F1DE0087A0FF /* CoursesCoordinator.swift in Sources */,
 				B9A165522AAD9A79005A23F6 /* TableViewForm.swift in Sources */,
@@ -1560,6 +1842,8 @@
 				16547B6D24DA4AC000E68E4D /* ThemesViewController.swift in Sources */,
 				B9A165052AAD97FE005A23F6 /* StudiumIcon.swift in Sources */,
 				B90F10482A6F308900BAB23F /* StudiumTitle.swift in Sources */,
+				B97BD9E52ABF8BC800742A50 /* NotificationSelectorView.swift in Sources */,
+				B9BE83B12AC5568200923EE9 /* TimePicker.swift in Sources */,
 				B9A1654A2AAD9A79005A23F6 /* LabelCell.swift in Sources */,
 				B97BB0AE2A022B37008F1A5B /* Date_Extension.swift in Sources */,
 				B97988C52AB5694D002B8EE9 /* ToDoListRefreshProtocol.swift in Sources */,
@@ -1571,6 +1855,9 @@
 				B90F10382A6A098500BAB23F /* Autoscheduled.swift in Sources */,
 				B94CA0E82A34615400047865 /* CrashlyticsService.swift in Sources */,
 				B98693222A3D702800272B22 /* AuthenticationService+Google.swift in Sources */,
+				B97BDA022AC0FD0800742A50 /* TimeLengthPickerView.swift in Sources */,
+				B9729EEF2AC1501000A20EB3 /* RecurringEventCell.swift in Sources */,
+				B97BD9FD2AC0FC2F00742A50 /* EditHabitViewController.swift in Sources */,
 				16A63B8724AAD263003A30D3 /* DeletableEventCell.swift in Sources */,
 				B90FFE352A8F1427000E6EA6 /* Updatable.swift in Sources */,
 				B94CA0BB2A2D5A3B00047865 /* AlertTimesSelectionShowingCoordinator.swift in Sources */,
@@ -1582,7 +1869,7 @@
 				B9A1650F2AAD9A6F005A23F6 /* Weekday.swift in Sources */,
 				166F53D125BC93320065963D /* TabBarController.swift in Sources */,
 				B97058EE2A88B6F3008F8636 /* WeekdaysSelectedView.swift in Sources */,
-				B97988CB2AB694C1002B8EE9 /* AddCourseViewController2.swift in Sources */,
+				B9729EF42AC1513100A20EB3 /* StudiumFormNavigationConstants.swift in Sources */,
 				B93CBC532A81AAE8005BDA5F /* StudiumEventViewHeader.swift in Sources */,
 				B992193C2AB6CB1400E2FED3 /* StudiumTextField.swift in Sources */,
 				B94CA0E62A34573200047865 /* Logger.swift in Sources */,
@@ -1598,19 +1885,21 @@
 				16A63B7C24A01289003A30D3 /* HabitCell.swift in Sources */,
 				B9CDEF732A412DFA0084AB24 /* AppleCalendarService+StudiumEvent.swift in Sources */,
 				B9B41CF52A26E3F500239DD4 /* DebugFlags.swift in Sources */,
+				B97BD9EC2AC004C700742A50 /* CourseCell.swift in Sources */,
 				B93CBC572A882C08005BDA5F /* AssignmentCellView.swift in Sources */,
 				B986934D2A3DA80F00272B22 /* StudiumEventService.swift in Sources */,
 				B9B41CF12A26D2E500239DD4 /* TabItemCoordinator.swift in Sources */,
 				B90F10682A748A1400BAB23F /* UploadFileButton.swift in Sources */,
-				B99219472ABD6EF500E2FED3 /* CourseForm.swift in Sources */,
-				B90D13FB29845FE80093EB0C /* AddCourseViewController.swift in Sources */,
+				B99219472ABD6EF500E2FED3 /* CourseFormView.swift in Sources */,
+				B90D13FB29845FE80093EB0C /* DEPRECATEDAddCourseViewController.swift in Sources */,
 				B97BB0B02A022B5C008F1A5B /* UIColor_Extension.swift in Sources */,
 				B9C2EB1D2A78DD6500E14320 /* PDFViewController.swift in Sources */,
 				B94CA0D32A2F10F800047865 /* Coordinated.swift in Sources */,
 				B9F1B2DD2A1DB96C006F1462 /* TabBarCoordinator.swift in Sources */,
 				16C60FEB25C76CE9006D0FFC /* RegisterViewController.swift in Sources */,
+				B9BE83CB2AC80E1300923EE9 /* RemoteConfigService.swift in Sources */,
 				B94CA0F22A3683F200047865 /* StudiumEventContainer.swift in Sources */,
-				B90D13FA29845FE80093EB0C /* AddHabitViewController.swift in Sources */,
+				B90D13FA29845FE80093EB0C /* DEPRECATEDAddHabitViewController.swift in Sources */,
 				B9C2EB192A78C67900E14320 /* StudiumButtonStyle.swift in Sources */,
 				B9A98C2C29ECB56C00D866A9 /* UserDefaultsService.swift in Sources */,
 				B9CDEF752A417D650084AB24 /* Realm_Extension.swift in Sources */,
@@ -1630,8 +1919,10 @@
 				B97058EC2A88B493008F8636 /* HabitViewController.swift in Sources */,
 				B97058FA2A88C38B008F8636 /* TreeViewController.swift in Sources */,
 				B9A1654B2AAD9A79005A23F6 /* SwitchCell.swift in Sources */,
+				B9729EFA2AC1526900A20EB3 /* UIViewController+NavigationStyle.swift in Sources */,
 				B98693602A3E8A3400272B22 /* EKParticipant.swift in Sources */,
 				B9B41CFA2A26E82E00239DD4 /* TabItemConfig.swift in Sources */,
+				B97BD9FB2AC0FBD300742A50 /* HabitFormView.swift in Sources */,
 				B979889E2AB178E5002B8EE9 /* Coordinator.swift in Sources */,
 				B9A165102AAD9A6F005A23F6 /* DateFormat.swift in Sources */,
 				B96BEC742A806476005105B2 /* OtherEventViewController.swift in Sources */,
@@ -1641,9 +1932,10 @@
 				16E7B23027D1EF8D00AAE756 /* GenericTableViewCell.swift in Sources */,
 				B9A165512AAD9A79005A23F6 /* FormCell.swift in Sources */,
 				B94CA0CC2A2F0DB400047865 /* LogoSelectingForm.swift in Sources */,
-				B99219452ABD6ECD00E2FED3 /* EditCourseViewController.swift in Sources */,
+				B99219452ABD6ECD00E2FED3 /* CourseFormViewController.swift in Sources */,
 				1693E750247A4660003D4702 /* Assignment.swift in Sources */,
 				B9A1653B2AAD9A79005A23F6 /* ThemeCell.swift in Sources */,
+				B9729EF62AC151E100A20EB3 /* PlusNavigationButton.swift in Sources */,
 				B90F10642A72115200BAB23F /* ChatGPTService.swift in Sources */,
 				B97988A32AB428B0002B8EE9 /* ForegroundSubscriber.swift in Sources */,
 				B97BB1672A0EF864008F1A5B /* AssignmentsOtherEventsViewController.swift in Sources */,
@@ -1654,7 +1946,7 @@
 				B90F10562A6F406900BAB23F /* LatenessIndicatorView.swift in Sources */,
 				1693E731247A3DC4003D4702 /* AppDelegate.swift in Sources */,
 				B98693242A3D703100272B22 /* AuthenticationService+Facebook.swift in Sources */,
-				165A6C79248A6F5C004279B0 /* CourseCell.swift in Sources */,
+				165A6C79248A6F5C004279B0 /* DEPRECATEDCourseCell.swift in Sources */,
 				1693E759247A59B2003D4702 /* ToDoListViewController.swift in Sources */,
 				B94CA0ED2A3563BA00047865 /* FormPopUpType.swift in Sources */,
 				B97988AB2AB42D78002B8EE9 /* Assignment+Updatable.swift in Sources */,
@@ -1669,7 +1961,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B97BD9F22AC0124400742A50 /* CourseFormTests.swift in Sources */,
 				B97BB0972A00CBF9008F1A5B /* AutoscheduleServiceTests.swift in Sources */,
+				B95D71EB2AC12B70002038E6 /* HabitFormSnapshotTests.swift in Sources */,
+				B9BE83C12AC6695600923EE9 /* TimeTests.swift in Sources */,
+				B9BE83B62AC5749600923EE9 /* OtherEventFormTests.swift in Sources */,
+				B97BD9F62AC0208900742A50 /* CourseFormSnapshotTests.swift in Sources */,
+				B9BE83BA2AC6556D00923EE9 /* OtherEventFormSnapshotTests.swift in Sources */,
+				B9BE83B82AC6556400923EE9 /* HabitFormTests.swift in Sources */,
 				B97BB0A32A00E248008F1A5B /* DateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1903,6 +2202,7 @@
 		};
 		B97BB09A2A00CBF9008F1A5B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24DA0356C368AD2AF813A8F7 /* Pods-StudiumTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1923,6 +2223,7 @@
 		};
 		B97BB09B2A00CBF9008F1A5B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD83615FF2CC09269C06C1FE /* Pods-StudiumTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

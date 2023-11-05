@@ -8,58 +8,57 @@
 
 import UIKit
 
-//TODO: Docstrings
+// TODO: Docstrings
 public protocol CanHandleSwitch {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func switchValueChanged(sender: UISwitch)
 }
 
-//TODO: Docstrings
+// TODO: Docstrings
 public protocol CanHandleInfoDisplay: UIViewController {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func displayInformation()
 }
 
-//TODO: Docstrings
+// TODO: Docstrings
 class SwitchCell: BasicCell {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     @IBOutlet weak var tableSwitch: UISwitch!
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     @IBOutlet weak var label: UILabel!
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     @IBOutlet weak var infoButton: UIButton!
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var on: Bool = false
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var switchDelegate: CanHandleSwitch?
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var infoDelegate: CanHandleInfoDisplay?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = StudiumColor.secondaryBackground.uiColor
         self.label.textColor = StudiumColor.primaryLabel.uiColor
         self.infoButton.backgroundColor = StudiumColor.secondaryBackground.uiColor
     }
-    
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     @IBAction func switchValueChanged(_ sender: UISwitch) {
         self.on = sender.isOn
-        if let del = switchDelegate{
+        if let del = switchDelegate {
             del.switchValueChanged(sender: sender)
         }
     }
 
-    //TODO: Docstrings
+    // TODO: Docstrings
     @IBAction func infoButtonPressed(_ sender: UIButton) {
         if let del = infoDelegate {
             del.displayInformation()
@@ -67,7 +66,7 @@ class SwitchCell: BasicCell {
            print("error accessing infoDelegate")
         }
     }
-    
+
 }
 
 extension SwitchCell: FormCellProtocol {

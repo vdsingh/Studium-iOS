@@ -12,7 +12,6 @@ import RealmSwift
 import UniformTypeIdentifiers
 import PDFKit
 
-
 struct PDFViewer: View {
     let pdfURL: URL
     var body: some View {
@@ -22,18 +21,18 @@ struct PDFViewer: View {
 
 struct PDFKitView: UIViewRepresentable {
     let pdfURL: URL
-    
+
     func makeUIView(context: Context) -> PDFView {
         let pdfView = PDFView()
         if let pdfDocument = PDFDocument(url: self.pdfURL) {
             pdfView.document = pdfDocument
         }
-        
+
         return pdfView
     }
-    
+
     func updateUIView(_ uiView: PDFView, context: Context) {
-        
+
         // Update the view if needed (if your URL changes dynamically).
         if let pdfDocument = PDFDocument(url: self.pdfURL) {
             uiView.document = pdfDocument
@@ -44,12 +43,12 @@ struct PDFKitView: UIViewRepresentable {
 struct UploadFileButton<Storer>: View where Storer: FileStorer {
     @ObservedRealmObject var fileStorer: Storer
     @Binding var isImporting: Bool
-    
+
     let urlWasPressed: (URL) -> Void
-    
+
 //    let storageService = FirebaseStorageService.shared
     let studiumEventService = StudiumEventService.shared
-    
+
     @State var fileContent: Data = Data()
 
     var body: some View {
@@ -58,10 +57,10 @@ struct UploadFileButton<Storer>: View where Storer: FileStorer {
                 Button {
                     self.urlWasPressed(url)
                     Log.d("pdf URL was pressed: \(url)")
-                } label:  {
+                } label: {
                     Text(url.lastPathComponent)
                 }
-                
+
                 // Button to remove the file
                 Button {
                     self.studiumEventService.attachFile(to: self.fileStorer, fileURL: nil)
@@ -73,8 +72,10 @@ struct UploadFileButton<Storer>: View where Storer: FileStorer {
         } else {
             Button {
                 self.isImporting = true
-            } label:  {
-                StudiumText("Attach a File")
+            } label: {
+                Text("Attach a File")
+                    .font(StudiumFont.body.font)
+                    .foregroundStyle(StudiumColor.primaryLabelColor(forBackgroundColor: StudiumColor.primaryAccent.color))
             }
             .buttonStyle(StudiumButtonStyle(disabled: false))
             .sheet(isPresented: self.$isImporting) {

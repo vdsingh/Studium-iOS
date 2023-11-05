@@ -9,8 +9,13 @@
 import Foundation
 import RealmSwift
 
-// TODO: Docstrings
-struct AutoschedulingConfig: Codable {
+/// Specification for how to autoschedule
+struct AutoschedulingConfig: Codable, Equatable {
+    
+    // MARK: - Private Properties
+    private var autoschedulingDaysList = List<Int>()
+    
+    // MARK: - Internal Properties
     
     /// The amount of time (in minutes) that autoscheduled events should be scheduled for
     var autoLengthMinutes: Int
@@ -21,18 +26,15 @@ struct AutoschedulingConfig: Codable {
     /// Whether we use start date and end date as bounds for what time to autoschedule the event
     var useDatesAsBounds: Bool
     
-    private var autoschedulingDaysList = List<Int>()
-    
+    /// The days that events will be autoscheduled for
     var autoschedulingDays: Set<Weekday> {
         get {
             return Set<Weekday>( self.autoschedulingDaysList.compactMap { Weekday(rawValue: $0) })
         }
         set {
-            Log.d("newValue: \(newValue)")
             let list = List<Int>()
             list.append(objectsIn: newValue.compactMap({ $0.rawValue }))
             self.autoschedulingDaysList = list
-            Log.d("End Result \(self.autoschedulingDaysList)")
         }
     }
     
@@ -42,5 +44,11 @@ struct AutoschedulingConfig: Codable {
         self.autoscheduleInfinitely = autoscheduleInfinitely
         self.useDatesAsBounds = useDatesAsBounds
         self.autoschedulingDays = autoschedulingDays
+    }
+}
+
+extension AutoschedulingConfig {
+    static func mock() -> AutoschedulingConfig {
+        return AutoschedulingConfig(autoLengthMinutes: 60, autoscheduleInfinitely: false, useDatesAsBounds: false, autoschedulingDays: [.monday, .wednesday])
     }
 }

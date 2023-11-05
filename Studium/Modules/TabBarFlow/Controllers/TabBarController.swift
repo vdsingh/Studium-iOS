@@ -12,25 +12,13 @@ import RAMAnimatedTabBarController
 // TODO: Docstrings
 class TabBarController: UITabBarController {
     
-    // TODO: Docstrings
-    var tabItemCoordinators: [TabItemCoordinator]
-    
-    // TODO: Docstrings
-    init(tabItemCoordinators: [TabItemCoordinator]) {
-        self.tabItemCoordinators = tabItemCoordinators
-
-        super.init(nibName: nil, bundle: nil)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        var tabItemViewControllers = [UIViewController]()
-        for tabItemCoordinator in self.tabItemCoordinators {
-            tabItemCoordinator.start()
-            tabItemViewControllers.append(tabItemCoordinator.navigationController)
+        
+        let tabItemViewControllers = self.rootControllers().map {
+            UINavigationController(rootViewController: $0)
         }
-
+        
         let standardAppearance = UITabBarAppearance()
         standardAppearance.backgroundColor = StudiumColor.primaryAccent.uiColor
         self.tabBar.standardAppearance = standardAppearance
@@ -46,7 +34,44 @@ class TabBarController: UITabBarController {
         self.viewControllers = tabItemViewControllers
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func rootControllers() -> [UIViewController] {
+        return [
+            StudiumEventListViewController<Habit>(
+                tabItemConfig: .habitsList,
+                viewModel: .init(
+                    filter: { _ in return true },
+                    separator: { habitsArr in
+                        var sections: [[Habit]] = [[], []]
+                        for habit in habitsArr {
+                            if habit.occursToday {
+                                sections[0].append(habit)
+                            } else {
+                                sections[1].append(habit)
+                            }
+                        }
+                        
+                        return sections
+                    }
+                )
+            ),
+            StudiumEventListViewController<Course>(
+                tabItemConfig: .coursesFlow,
+                viewModel: .init(
+                    filter: { _ in return true },
+                    separator: { coursesArr in
+                        var sections: [[Course]] = [[], []]
+                        for course in coursesArr {
+                            if course.occursToday {
+                                sections[0].append(course)
+                            } else {
+                                sections[1].append(course)
+                            }
+                        }
+                        
+                        return sections
+                    }
+                )
+            ),
+        ]
     }
 }

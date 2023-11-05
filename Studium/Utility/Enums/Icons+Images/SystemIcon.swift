@@ -11,6 +11,8 @@ import UIKit
 
 /// Represents system icons.
 public enum SystemIcon: String, CaseIterable, CreatesUIImage {
+    case paintPalette = "paintpalette"
+    case paintPaletteFill = "paintpalette.fill"
     case appleLogo = "apple.logo"
     case tree
     case treeFill = "tree.fill"
@@ -50,6 +52,8 @@ public enum SystemIcon: String, CaseIterable, CreatesUIImage {
     case heartFill = "heart.fill"
     case envelope
     case lock
+    case infoCircle = "info.circle"
+    case infoCircleFill = "info.circle.fill"
     case sunMax = "sun.max"
     case moon
     case zzz
@@ -57,6 +61,7 @@ public enum SystemIcon: String, CaseIterable, CreatesUIImage {
     case cloud
     case mic
     case message
+    case magnifyingGlass = "magnifyingglass"
     case phone
     case paperplane
     case hammer
@@ -121,6 +126,7 @@ public enum SystemIcon: String, CaseIterable, CreatesUIImage {
     case chevronUp = "chevron.up"
     case chevronDown = "chevron.down"
     case chevronRight = "chevron.right"
+    case chevronLeft = "chevron.left"
     
     //TODO: Docstrings
     public func createImage(withConfiguration configuration: UIImage.Configuration = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .large)

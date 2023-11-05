@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct UserDefaultsKeys {
     static let email = "email"
@@ -25,6 +26,9 @@ final class UserDefaultsService {
     
     //TODO: Docstrings
     private let defaults = UserDefaults.standard
+    
+    @AppStorage(UserDefaultsKeys.defaultNotificationPrefs) static var defaultNotificationPreferences: [AlertOption] = []
+
     
 //    private let widgetGroupDefaults = UserDefaults(suiteName: WidgetConstants.appGroupSuiteName)
     

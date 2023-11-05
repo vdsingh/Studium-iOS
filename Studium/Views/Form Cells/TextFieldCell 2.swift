@@ -14,13 +14,12 @@ class TextFieldCell: BasicCell {
 
     @IBOutlet weak var textField: UITextField!
     var delegate: UITextFieldDelegateExt?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         textField.returnKeyType = UIReturnKeyType.done
-        
-        self.backgroundColor = defaultBackgroundColor
 
+        self.backgroundColor = defaultBackgroundColor
 
         // Initialization code
     }
@@ -31,9 +30,9 @@ class TextFieldCell: BasicCell {
         // Configure the view for the selected state
     }
     @IBAction func finishedEditingText(_ sender: UITextField) {
-        
+
     }
-    
+
     @IBAction func textEdited(_ sender: UITextField) {
         delegate!.textEdited(sender: sender)
     }

@@ -14,8 +14,8 @@ extension Course: Updatable {
         self.color = newEvent.color
         self.location = newEvent.location
         self.additionalDetails = newEvent.additionalDetails
-        self.startDate = newEvent.startDate
-        self.endDate = newEvent.endDate
+        self.startTime = newEvent.startTime
+        self.endTime = newEvent.endTime
         self.icon = newEvent.icon
         self.alertTimes = newEvent.alertTimes
         self.days = newEvent.days

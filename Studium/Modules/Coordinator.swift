@@ -9,67 +9,66 @@
 import Foundation
 import UIKit
 
-//TODO: Docstrings
+// TODO: Docstrings
 protocol Coordinator: AnyObject, Debuggable {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var parentCoordinator: Coordinator? { get set }
-        
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var childCoordinators: [Coordinator] { get set }
 
-    //TODO: Docstrings
+    // TODO: Docstrings
     func start(replaceRoot: Bool)
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func finish()
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func childDidFinish(_ child: Coordinator?)
-    
 
 }
 
 protocol NavigationCoordinator: Coordinator {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var navigationController: UINavigationController { get set }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     init(_ navigationController: UINavigationController)
 }
 
-//TODO: Docstrings
+// TODO: Docstrings
 extension Coordinator {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func finish() {
         self.printDebug("finish called")
         childCoordinators.removeAll()
-        
+
         guard let parentCoordinator = self.parentCoordinator  else {
             return
         }
-        
+
         for (index, coordinator) in parentCoordinator.childCoordinators.enumerated() {
             if coordinator === self {
                 parentCoordinator.childCoordinators.remove(at: index)
                 break
             }
         }
-        
+
         parentCoordinator.childDidFinish(self)
         self.printDebug("finish call ended")
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func setNewRootNavigationController() -> UINavigationController {
         let navController = UINavigationController()
         self.setRootViewController(navController)
         return navController
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func setRootViewController(_ viewController: UIViewController) {
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(viewController)
     }

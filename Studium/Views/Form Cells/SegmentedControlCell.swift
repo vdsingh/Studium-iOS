@@ -8,28 +8,28 @@
 
 import UIKit
 
-//TODO: Docstrings
+// TODO: Docstrings
 public protocol SegmentedControlDelegate {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func controlValueChanged(sender: UISegmentedControl)
 }
 
-//TODO: Docstrings
+// TODO: Docstrings
 class SegmentedControlCell: BasicCell {
 
-    //TODO: Docstrings
+    // TODO: Docstrings
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var delegate: SegmentedControlDelegate?
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         segmentedControl.isSelected = selected
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     @IBAction func controlValueChanged(_ sender: UISegmentedControl) {
         delegate?.controlValueChanged(sender: sender)
     }

@@ -12,17 +12,18 @@ import UIKit
 // TODO: Docstrings
 enum TabItemConfig: Int {
     case calendarFlow = 0
-    case habitsFlow = 1
+    case habitsList = 1
     case coursesFlow = 2
     case toDoFlow = 3
     case treeFlow = 4
+    case unknown
     
     // TODO: Docstrings
     var title: String {
         switch self {
         case .calendarFlow:
             return "Calendar"
-        case .habitsFlow:
+        case .habitsList:
             return "Habits"
         case .coursesFlow:
             return "Courses"
@@ -30,6 +31,8 @@ enum TabItemConfig: Int {
             return "To Do"
         case .treeFlow:
             return "Tree"
+        case .unknown:
+            return "Unknown"
         }
     }
     
@@ -38,7 +41,7 @@ enum TabItemConfig: Int {
         switch self {
         case .calendarFlow:
             return (SystemIcon.clock.createImage(), SystemIcon.clockFill.createImage())
-        case .habitsFlow:
+        case .habitsList:
             return (SystemIcon.heart.createImage(), SystemIcon.heartFill.createImage())
         case .coursesFlow:
             return (SystemIcon.book.createImage(), SystemIcon.bookFill.createImage())
@@ -50,6 +53,8 @@ enum TabItemConfig: Int {
             }
         case .treeFlow:
             return (SystemIcon.tree.createImage(), SystemIcon.treeFill.createImage())
+        case .unknown:
+            return (.actions, .actions)
         }
     }
     

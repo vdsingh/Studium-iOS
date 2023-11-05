@@ -34,6 +34,11 @@ class SwiftUIViewController<Content>: UIViewController where Content: View {
 //        self.title = "Add Course"
     }
     
+    func addToolBarButtons(left: UIBarButtonItem?, right: UIBarButtonItem?) {
+        self.navigationItem.rightBarButtonItem = right
+        self.navigationItem.leftBarButtonItem = left
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

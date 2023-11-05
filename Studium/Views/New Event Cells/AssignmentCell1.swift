@@ -10,15 +10,15 @@ import UIKit
 import SwipeCellKit
 
 //
-////TODO: Docstrings
+//// TODO: Docstrings
 protocol AssignmentCollapseDelegate {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     func collapseButtonClicked(assignment: Assignment)
 }
 //
-////TODO: Docstrings
-//class AssignmentCell1: DeletableEventCell {
+//// TODO: Docstrings
+// class AssignmentCell1: DeletableEventCell {
 //        
 //    static let id = "AssignmentCell1"
 //    
@@ -218,4 +218,4 @@ protocol AssignmentCollapseDelegate {
 //            self.loadingIndicator.stopAnimating()
 //        }
 //    }
-//}
+// }

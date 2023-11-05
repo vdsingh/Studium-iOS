@@ -17,13 +17,21 @@ class ImageDetailViewModel: ObservableObject {
     let subtitle: String?
     var textAlignment: TextAlignment = .center
     let buttonText: String
-    let buttonAction: () -> Void
+    var buttonAction: () -> Void
     
-    init(image: UIImage?, title: String, subtitle: String?, buttonText: String, buttonAction: @escaping () -> Void) {
+    init(image: UIImage?, 
+         title: String,
+         subtitle: String?,
+         buttonText: String,
+         buttonAction: @escaping () -> Void = { }) {
         self.image = image
         self.title = title
         self.subtitle = subtitle
         self.buttonText = buttonText
+        self.buttonAction = buttonAction
+    }
+    
+    func setButtonAction(_ buttonAction: @escaping () -> Void) {
         self.buttonAction = buttonAction
     }
     
@@ -38,7 +46,7 @@ struct ImageDetailView: View {
     
     var body: some View {
         VStack {
-            Spacer()
+//            Spacer()
             VStack(spacing: Increment.two) {
                 if let image = self.viewModel.image {
                     Image(uiImage: image)
@@ -64,10 +72,10 @@ struct ImageDetailView: View {
                 } label: {
                     Text(self.viewModel.buttonText)
                         .font(StudiumFont.bodySemibold.font)
-                        .frame(width: 300, height: 50)
+                        .frame(width: 300, height: Increment.eight)
                 }
                 .background(Color(uiColor: StudiumColor.secondaryAccent.uiColor))
-                .foregroundColor(Color(uiColor: StudiumColor.primaryLabel.uiColor))
+                .foregroundColor(StudiumColor.primaryLabelColor(forBackgroundColor: StudiumColor.secondaryAccent.color))
                 .clipShape(.rect(cornerRadius: Increment.two))
                 
             }
@@ -77,6 +85,6 @@ struct ImageDetailView: View {
         .clipShape(.rect(cornerRadius: Increment.three))
         .opacity(self.viewModel.isHidden ? 0 : 1)
         
-        Spacer()
+//        Spacer()
     }
 }

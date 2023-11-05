@@ -10,9 +10,9 @@ import Foundation
 import SwiftUI
 
 struct Spinner: View {
-    
+
     @State private var isAnimating: Bool = false
-    
+
     var body: some View {
         GeometryReader { (geometry: GeometryProxy) in
             ForEach(0..<5) { index in
@@ -34,11 +34,11 @@ struct Spinner: View {
             self.isAnimating = true
         }
     }
-    
+
     func calcScale(index: Int) -> CGFloat {
         return (!isAnimating ? 1 - CGFloat(Float(index)) / 5 : 0.2 + CGFloat(index) / 5)
     }
-    
+
     func calcYOffset(_ geometry: GeometryProxy) -> CGFloat {
         return geometry.size.width / 10 - geometry.size.height / 2
     }

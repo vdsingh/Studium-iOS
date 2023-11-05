@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SegmentedControlDelegate{
+protocol SegmentedControlDelegate {
     func controlValueChanged(sender: UISegmentedControl)
 }
 class SegmentedControlCell: BasicCell {
@@ -31,5 +31,5 @@ class SegmentedControlCell: BasicCell {
     @IBAction func controlValueChanged(_ sender: UISegmentedControl) {
         delegate?.controlValueChanged(sender: sender)
     }
-    
+
 }

@@ -8,37 +8,36 @@
 
 import UIKit
 
-
-//TODO: Docstrings
+// TODO: Docstrings
 class TextFieldCell: BasicCell {
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     public var textFieldID: FormCellID.TextFieldCell?
 
-    //TODO: Docstrings
+    // TODO: Docstrings
     @IBOutlet weak var textField: UITextField!
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     public var delegate: UITextFieldDelegateExtension!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.textField.returnKeyType = UIReturnKeyType.done
-        
+
         self.backgroundColor = StudiumColor.secondaryBackground.uiColor
         self.textField.textColor = StudiumColor.primaryLabel.uiColor
-        
+
 //        self.textField.placeholder
         self.textField.attributedPlaceholder = NSAttributedString(string: "Enter Text", attributes: [NSAttributedString.Key.foregroundColor: StudiumColor.secondaryLabel.uiColor])
 
     }
 
-    //TODO: Docstrings
+    // TODO: Docstrings
     @IBAction func finishedEditingText(_ sender: UITextField) {
-        
+
     }
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     @IBAction func textEdited(_ sender: UITextField) {
         if let textFieldID = self.textFieldID {
             delegate.textEdited(sender: sender, textFieldID: textFieldID)

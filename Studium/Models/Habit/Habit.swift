@@ -8,101 +8,145 @@
 
 import Foundation
 import RealmSwift
+import SwiftUI
 
-
-//TODO: Docstrings
+// TODO: Docstrings
 class Habit: RecurringStudiumEvent, Autoscheduling {
-    
+
     typealias AutoscheduledEventType = OtherEvent
-    
+
     // MARK: - Autoscheduleable Variables
-    
-    /// Does this event autoschedule other events?
-//    @Persisted var autoscheduling: Bool = false
-    
-    ///If this event is autoscheduling, how long should scheduled events be?
-//    @Persisted var autoLengthMinutes: Int = 60
-    
-//    /// Was this event autoscheduled by another event?
-//    @Persisted var autoscheduled: Bool = false
-    
-    //TODO: Docstrings
-//    @Persisted var autoscheduledEventsList = List<OtherEvent>()
-    
-    //TODO: Docstrings
-//    @Persisted var startEarlier: Bool = true
-    
-    /// Autoscheduling Habits should autoschedule until they are deleted.
-//    var autoscheduleInfinitely: Bool = true
-        
-    /// The events that this event has scheduled. We use OtherEvents as autoscheduled Habit events.
-//    var autoscheduledEvents: [OtherEvent] {
-//        return [OtherEvent](self.autoscheduledEventsList)
-//    }
-    
-    // TODO: Docstring
-//    var autoschedulingDays: Set<Weekday> {
-//        get { return self.days }
-//        set { self.days = newValue}
-//    }
-    
-//    var useDatesAsBounds: Bool = true
-    
-//    @Persisted var isGeneratingEvents: Bool = false
-    
-    
-    //TODO: Docstrings
-    @Persisted var autoscheduledEventsList = List<OtherEvent>()
-    
+
+    /// Contains the events that this habit has autoscheduled
+    @Persisted var autoscheduledEventsList = RealmSwift.List<OtherEvent>()
+
+    /// DO NOT USE: use `habit.autoschedulingConfig` instead, which decodes/encodes the data
     @Persisted var autoschedulingConfigData: Data?
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     convenience init(
         name: String,
         location: String,
         additionalDetails: String,
-        startDate: Date,
-        endDate: Date,
+        startTime: Time,
+        endTime: Time,
         autoschedulingConfig: AutoschedulingConfig?,
-//        autoscheduling: Bool,
-//        startEarlier: Bool,
-//        autoLengthMinutes: Int,
-        alertTimes: [AlertOption],
+        alertTimes: Set<AlertOption>,
         days: Set<Weekday>,
         icon: StudiumIcon,
-        color: UIColor,
-        partitionKey: String
+        color: UIColor
     ) {
-        self.init(name: name, location: location, additionalDetails: additionalDetails, startDate: startDate, endDate: endDate, color: color, icon: icon, alertTimes: alertTimes)
-//        self.startEarlier = startEarlier
+        self.init()
+        self.name = name
+        self.location = location
+        self.additionalDetails = additionalDetails
+        self.startTime = startTime
+        self.endTime = endTime
+
+//        self.init(name: name, location: location, additionalDetails: additionalDetails, startTime: startTime, endTime: endTime, color: color, icon: icon, alertTimes: alertTimes)
         self.autoschedulingConfig = autoschedulingConfig
-//        self.autoscheduling = autoscheduling
-//        self.autoLengthMinutes = autoLengthMinutes
+        self.alertTimes = alertTimes
         self.days = days
-        self._partitionKey = partitionKey
-        
-        let nextOccurringTimeChunk = self.nextOccuringTimeChunk
-        self.startDate = nextOccurringTimeChunk?.startDate ?? startDate
-        self.endDate = nextOccurringTimeChunk?.endDate ?? endDate
+        self.icon = icon
+        self.color = color
     }
 
-    /// Adds a scheduled event to this event's scheduled events
-    /// - Parameter event: The StudiumEvent to add
-//    func appendAutoscheduledEvent(event: OtherEvent) {
-//        self.autoscheduledEventsList.append(event)
-//    }
-        
-    func instantiateAutoscheduledEvent(forTimeChunk timeChunk: TimeChunk) -> OtherEvent {
-        let otherEvent = OtherEvent(name: self.name, location: self.location, additionalDetails: "This Event was Autoscheduled by your Habit: \(self.name)", startDate: timeChunk.startDate, endDate: timeChunk.endDate, color: self.color, icon: self.icon, alertTimes: self.alertTimes)
-        otherEvent.autoscheduled = true
-        return otherEvent
+    func instantiateAutoscheduledEvents(datesAndTimeChunks: [(Date, TimeChunk)]) -> [OtherEvent] {
+        var otherEvents = [OtherEvent]()
+        for (date, timeChunk) in datesAndTimeChunks {
+            let startDate = date.setTime(hour: timeChunk.startTime.hour, minute: timeChunk.startTime.minute, second: 0)
+            let endDate = date.setTime(hour: timeChunk.endTime.hour, minute: timeChunk.endTime.minute, second: 0)
+
+            let otherEvent = OtherEvent(
+                name: self.name,
+                location: self.location,
+                additionalDetails: "This Event was Autoscheduled by your Habit: \(self.name)",
+                startDate: startDate,
+                endDate: endDate,
+                alertTimes: self.alertTimes,
+                icon: self.icon,
+                color: self.color
+            )
+            otherEvent.autoscheduled = true
+            otherEvents.append(otherEvent)
+        }
+
+        return otherEvents
     }
-    
+
     override func timeChunkForDate(date: Date) -> TimeChunk? {
         if self.autoscheduling {
             return nil
         }
-        
+
         return super.timeChunkForDate(date: date)
+    }
+
+    // MARK: - View Related
+
+    // MARK: Class (Relevant to the Habit Type)
+
+    override class var displayName: String {
+        return "Habit"
+    }
+
+    override class var tabItemConfig: TabItemConfig {
+        return .habitsList
+    }
+
+    override class func addFormView() -> AnyView {
+        return AnyView(
+            HabitFormView(viewModel: .init(willComplete: {}))
+        )
+    }
+    
+    override class var emptyListPositiveCTACardViewModel: ImageDetailViewModel {
+        return ImageDetailViewModel(
+            image: FlatImage.travelingAndSports.uiImage,
+            title: "No Habits here yet",
+            subtitle: nil,
+            buttonText: "Add a Habit"
+        )
+    }
+
+    // MARK: Instance (Relevant to a specific Habit)
+
+    override func detailsView() -> AnyView {
+        return AnyView(
+            HabitView(habit: self)
+        )
+    }
+
+    override func editFormView() -> AnyView {
+        return AnyView(
+            HabitFormView(
+                viewModel: HabitFormViewModel(habit: self, willComplete: {})
+            )
+        )
+    }
+}
+
+// MARK: - Mocking
+
+extension Habit {
+    static func mock(autoscheduling: Bool) -> Habit {
+        let autoschedulingConfig: AutoschedulingConfig? = autoscheduling ? .mock() : nil
+        let habit = Habit(
+            name: "Mock Habit",
+            location: "Mock Location",
+            additionalDetails: "Mock Additional Details",
+            startTime: Time.noon,
+            endTime: (Time.noon+60),
+            autoschedulingConfig: autoschedulingConfig,
+            alertTimes: [.fiveMin, .fifteenMin],
+            days: [.monday, .wednesday],
+            icon: .binoculars,
+            color: StudiumEventColor.blue.uiColor
+        )
+
+        habit.ekEventID = "EK Event ID"
+        habit.googleCalendarEventID = "Google Calendar Event ID"
+
+        return habit
     }
 }

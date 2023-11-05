@@ -8,22 +8,22 @@
 
 import UIKit
 
-//TODO: Docstrings
+// TODO: Docstrings
 class ThemeCell: BasicCell {
 
-    //TODO: Docstrings
+    // TODO: Docstrings
     @IBOutlet weak var colorPreview: UIImageView!
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     @IBOutlet weak var label: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = StudiumColor.secondaryBackground.uiColor
     }
 
-    //TODO: Docstrings
-    func setColorPreviewColor(colors: [CGColor]){
+    // TODO: Docstrings
+    func setColorPreviewColor(colors: [CGColor]) {
         let view = UIView(frame: colorPreview.frame)
         view.layer.cornerRadius = 21
         view.clipsToBounds = true
@@ -34,7 +34,7 @@ class ThemeCell: BasicCell {
         view.layer.insertSublayer(gradient, at: 0)
         colorPreview.addSubview(view)
         colorPreview.bringSubviewToFront(view)
-        
+
     }
 }
 

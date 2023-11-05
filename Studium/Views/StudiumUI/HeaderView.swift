@@ -8,20 +8,20 @@
 
 import UIKit
 
-//TODO: Docstrings
+// TODO: Docstrings
 class HeaderView: UITableViewHeaderFooterView {
     static let id = "HeaderView"
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var primaryLabel: UILabel = UILabel()
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     var secondaryLabel: UILabel = UILabel()
-    
-    //TODO: Docstrings
+
+    // TODO: Docstrings
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        
+
         self.primaryLabel.textAlignment = NSTextAlignment.left
         self.primaryLabel.text = "Primary Label"
         self.primaryLabel.textColor = .label
@@ -31,7 +31,7 @@ class HeaderView: UITableViewHeaderFooterView {
         self.secondaryLabel.text = "Secondary Label"
         self.secondaryLabel.textColor = .label
         self.secondaryLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
-        
+
         self.contentView.addSubview(self.primaryLabel)
         self.contentView.addSubview(self.secondaryLabel)
 
@@ -44,13 +44,13 @@ class HeaderView: UITableViewHeaderFooterView {
             self.secondaryLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
     }
-    
-    //TODO: Docstrings
-    func setTexts(primaryText: String, secondaryText: String){
+
+    // TODO: Docstrings
+    func setTexts(primaryText: String, secondaryText: String) {
         self.primaryLabel.text = primaryText
         self.secondaryLabel.text = secondaryText
     }
-    
+
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

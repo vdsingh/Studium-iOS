@@ -14,11 +14,11 @@ protocol UITimePickerDelegate {
 
 class TimePickerCell: BasicCell {
     @IBOutlet weak var picker: UIDatePicker!
-    
+
     var delegate: UITimePickerDelegate?
-    var indexPath : IndexPath?
+    var indexPath: IndexPath?
     var pickerID: Int?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         picker.timeZone = NSTimeZone.local
@@ -30,8 +30,6 @@ class TimePickerCell: BasicCell {
 //        let date = Date(dateString: "5:30 PM", format: "h:mm a")
 //        picker.setDate(date, animated: true)
     }
-    
-    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -41,5 +39,5 @@ class TimePickerCell: BasicCell {
     @IBAction func pickerValueChanged(_ sender: UIDatePicker) {
        delegate?.pickerValueChanged(sender: sender, indexPath: indexPath!)
     }
-    
+
 }

@@ -9,11 +9,10 @@
 import Foundation
 import SwiftUI
 
-
 struct StudiumLinkView: View {
-    
+
     var linkConfig: LinkConfig
-    
+
     var body: some View {
         HStack(alignment: .top) {
             SmallIcon(image: SystemIcon.link)
@@ -29,7 +28,7 @@ struct StudiumLinkView: View {
             }
         }
     }
-    
+
     init(_ linkConfig: LinkConfig) {
         self.linkConfig = linkConfig
     }

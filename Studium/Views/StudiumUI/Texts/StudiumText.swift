@@ -16,20 +16,7 @@ struct StudiumText: View {
             .font(StudiumFont.body.font)
             .foregroundStyle(StudiumColor.primaryLabel.color)
     }
-    
-    init(_ text: String) {
-        self.text = text
-    }
-}
 
-struct StudiumSubtext: View {
-    let text: String
-    var body: some View {
-        Text(text)
-            .font(StudiumFont.subText.font)
-            .foregroundStyle(StudiumFont.subText.color)
-    }
-    
     init(_ text: String) {
         self.text = text
     }

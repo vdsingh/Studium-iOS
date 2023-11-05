@@ -98,7 +98,6 @@
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jxD-Hm-tFX"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="y3h-ko-qtv" firstAttribute="centerY" secondItem="tHq-qj-nrK" secondAttribute="centerY" id="KHj-qA-eGR"/>
                             <constraint firstItem="y3h-ko-qtv" firstAttribute="centerX" secondItem="tHq-qj-nrK" secondAttribute="centerX" id="z8c-lV-RX4"/>
@@ -117,7 +116,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Smx-9i-OC6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

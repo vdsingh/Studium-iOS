@@ -127,7 +127,7 @@ enum StudiumIcon: String, CaseIterable, CreatesUIImage {
         }
     }
     
-    var searchTerms: [String] {
+    private var searchTerms: [String] {
         var terms = [String]()
         terms.append(self.rawValue)
         
@@ -346,17 +346,24 @@ enum StudiumIcon: String, CaseIterable, CreatesUIImage {
     }
     
     public func createTabBarIcon() -> UIImage {
-        
-//        guard let image = UIImage(named: self.rawValue, withConfiguration: configuration) else {
-            
         guard let image = UIImage(named: self.rawValue) else {
             return .actions
-//            fatalError("$ERR: couldn't create image from systemName String: \(self.rawValue)")
         }
         
         return image.imageScaled(to: CGSize(width: 20, height: 25))
     }
     
+    
+    /// Whether or not this icon should appear in a given search
+    /// - Parameter search: The text that the user searched
+    /// - Returns: Whether the icon appears
+    func shouldAppearInSearch(_ search: String) -> Bool {
+        return self.searchTerms.contains { term in
+            term.lowercased().contains(search.lowercased())
+        }
+    }
+    
+    // MARK: - DEPRECATED
     static func icons(
         fromSearchText searchText: String,
         qos: DispatchQoS.QoSClass,
@@ -421,6 +428,11 @@ enum StudiumIconGroup: String, CaseIterable {
         case .other:
             return [.user, .monument, .landmark, .house, .folder, .building, .rightFromBracket]
         }
+    }
+    
+    func iconsForSearch(search: String) -> [StudiumIcon] {
+        // If the search is empty, we want to return all
+        return search.trimmed().isEmpty ? self.icons : self.icons.filter { $0.shouldAppearInSearch(search) }
     }
     
     var label: String {

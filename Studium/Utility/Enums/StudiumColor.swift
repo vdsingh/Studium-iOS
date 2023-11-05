@@ -10,6 +10,11 @@ import Foundation
 import UIKit
 import SwiftUI
 
+enum ThemeColorOverrideMode {
+    case dark
+    case light
+}
+
 /// Colors for this application
 public enum StudiumColor {
     
@@ -34,23 +39,23 @@ public enum StudiumColor {
     var colors: (dark: UIColor, light: UIColor) {
         switch self {
         case .background:
-            return (UIColor(hex: "#000000"), .secondarySystemBackground)
+            return (UIColor(hex: "#000000"), UIColor(hex: "#FFFFFF"))
         case .secondaryBackground:
-            return (UIColor(hex: "#1c1c1e"), .tertiarySystemBackground)
+            return (UIColor(hex: "#1c1c1e"), UIColor(hex: "F2F2F7"))
         case .tertiaryBackground:
-            return (UIColor(hex: "#3C3C3C"), .placeholderText)
+            return (UIColor(hex: "#2C2C2E"), UIColor(hex: "FFFFFF"))
         case .primaryAccent:
             return (UIColor(hex: "#4651EA"), UIColor(hex: "#4651EA"))
         case .secondaryAccent:
             return (UIColor(hex: "#EA7970"), UIColor(hex: "#EA7970"))
         case .primaryLabel:
-            return (UIColor(hex: "#FFFFFF"), .label)
+            return (StudiumColor.background.colors.light, StudiumColor.background.colors.dark)
         case .secondaryLabel:
             return (UIColor(hex: "#79787f"), .secondaryLabel)
         case .darkLabel:
             return (UIColor(hex: "#4a4a4a"), .label)
         case .placeholderLabel:
-            return (UIColor(hex: "#77777a"), .placeholderText)
+            return (UIColor(hex: "#77777a"), UIColor(hex: "#C5C5DC"))
         case .success:
             return (UIColor(hex: "#09b000"), UIColor(hex: "#09b000"))
         case .failure:
@@ -62,15 +67,24 @@ public enum StudiumColor {
     
     /// Provides the correct UIColor
     public var uiColor: UIColor {
-        switch UITraitCollection.current.userInterfaceStyle {
-        case .light, .unspecified:
-            // light mode detected
-            return self.colors.light
-        case .dark:
-            return self.colors.dark
-            // dark mode detected
-        @unknown default:
-            return self.colors.light
+        return UIColor { (UITraitCollection: UITraitCollection) -> UIColor in
+            if let sceneDelegate = SceneDelegate.main {
+                if sceneDelegate.window?.overrideUserInterfaceStyle == .dark {
+                    // Return the color for Dark Mode
+                    return self.colors.dark
+                } else {
+                    // Return the color for Light Mode
+                    return self.colors.light
+                }
+            }
+            
+            if UITraitCollection.userInterfaceStyle == .dark {
+                // Return the color for Dark Mode
+                return self.colors.dark
+            } else {
+                // Return the color for Light Mode
+                return self.colors.light
+            }
         }
     }
     
